@@ -1,0 +1,24 @@
+<section style="min-height:300px;">
+  <div class="page-header">
+    <h1>{{vm.gl._id ? 'Edit Gl' : 'New Gl'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.glForm" class="form-horizontal" ng-submit="vm.save(vm.form.glForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="batchno">Batch No</label>
+          <input name="batchno" type="text" ng-model="vm.gl.batchno" id="batchno" class="form-control" placeholder="batchno" ng-disabled="vm.gl._id" required>
+          <div ng-messages="vm.form.glForm.batchno.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Gl batch no is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.gl._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
