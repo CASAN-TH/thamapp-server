@@ -7,7 +7,7 @@
         .factory('ShopCartService', ShopCartService);
 
     function ShopCartService() {
-        var myCart = new CartService('myCart');
+        var myCart = new Cart('myCart');
         return {
             cart: myCart
         };
@@ -20,14 +20,16 @@
         this.amount = amount;
 
     }
-    function CartService(cartName) {
+    function Cart(cartName) {
         this.cartName = cartName;
         this.items = [];
-        this.loadItems();
+        this.load();
+
+        this.save();
 
     }
 
-    CartService.prototype.loadItems = function () {
+    Cart.prototype.load = function () {
         var items = localStorage !== null ? localStorage[this.cartName + '_items'] : null;
         if (items !== null && JSON !== null) {
             try {
@@ -44,7 +46,7 @@
             }
         }
     };
-    CartService.prototype.add = function (product) {
+    Cart.prototype.add = function (product) {
         var found = false;
         for (var i = 0; i < this.items.length; i++) {
             var item = this.items[i];
@@ -61,10 +63,37 @@
         }
         this.save();
     };
-    CartService.prototype.save = function (product) {
+    Cart.prototype.save = function (product) {
 
         if (localStorage !== null && JSON !== null) {
             localStorage[this.cartName + '_items'] = JSON.stringify(this.items);
         }
+    };
+    // get the total price for all items currently in the cart
+    Cart.prototype.getTotalPrice = function (code) {
+        var total = 0;
+        for (var i = 0; i < this.items.length; i++) {
+            var item = this.items[i];
+            if (code === null || item.code === code) {
+                total += item.price * item.qty;
+            }
+        }
+        return total;
+    };
+
+    // get the total price for all items currently in the cart
+    Cart.prototype.getTotalCount = function (code) {
+        var count = 0;
+        for (var i = 0; i < this.items.length; i++) {
+            var item = this.items[i];
+            if (code === null || item.code === code) {
+                count += item.qty;
+            }
+        }
+        return count;
+    };
+    Cart.prototype.clear = function () {
+        this.items = [];
+        this.save();
     };
 } ());

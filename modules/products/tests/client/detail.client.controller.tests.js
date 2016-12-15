@@ -51,19 +51,15 @@
 
       mockProduct = new ProductsService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Product Name'
+        name: 'Product Name',
+        price: 100
       });
       mockOtherProduct = new ProductsService({
         _id: '525a8422f6d0f87f0e407a30',
-        name: 'Product Name'
+        name: 'Product Name',
+        price: 200
       });
 
-      mockCart = {
-        product: mockProduct,
-        qty: 1,
-        price: 100,
-        amount: 100
-      };
 
       // Initialize the Detail controller.
       DetailController = $controller('DetailController as vm', {
@@ -94,7 +90,8 @@
         $scope.vm.cart.add(mockProduct);
         expect($scope.vm.cart.items.length).toEqual(1);
         expect($scope.vm.cart.items[0].product).toEqual(mockProduct);
-
+        expect($scope.vm.cart.getTotalCount()).toEqual(1);
+        expect($scope.vm.cart.getTotalPrice()).toEqual(100);
 
       }));
 
@@ -105,6 +102,8 @@
         //$scope.vm.cart.add(mockProduct);
         expect($scope.vm.cart.items.length).toEqual(1);
         expect($scope.vm.cart.items[0].qty).toEqual(2);
+        expect($scope.vm.cart.getTotalCount()).toEqual(2);
+        expect($scope.vm.cart.getTotalPrice()).toEqual(200);
 
 
       }));
@@ -115,7 +114,8 @@
         //$scope.vm.cart.add(mockProduct);
         expect($scope.vm.cart.items.length).toEqual(2);
         expect($scope.vm.cart.items[1].product).toEqual(mockOtherProduct);
-
+        expect($scope.vm.cart.getTotalCount()).toEqual(3);
+        expect($scope.vm.cart.getTotalPrice()).toEqual(400);
 
       }));
 
