@@ -10,7 +10,7 @@
   function LedgerController($scope, gl) {
     var vm = this;
     vm.gl = gl;
-    vm.date = "";
+    vm.date = '';
     vm.getByDate = getByDate;
     vm.moneyDebit = [];
     vm.moneyCredit = [];
