@@ -127,9 +127,8 @@ describe('Order CRUD tests', function () {
         done(orderSaveErr);
       });
   });
-it('should not be able to save an Order if no docno is duplicate', function (done) {
-    // Invalidate docno field
-   
+
+  it('should not be able to save an Order if docno is duplicated', function (done) {
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -143,19 +142,32 @@ it('should not be able to save an Order if no docno is duplicate', function (don
         // Get the userId
         var userId = user.id;
 
-        // Save a new Order
-        agent.post('/api/orders')    
+        // Save a new order
+        agent.post('/api/orders')
           .send(order)
-          .expect(400)
+          .expect(200)
           .end(function (orderSaveErr, orderSaveRes) {
-            // Set message assertion
-            (orderSaveRes.body.message).should.match('Please fill Order docno');
+            // Handle order save error
+            if (orderSaveErr) {
+              return done(orderSaveErr);
+            }
+            // Save a new order
+            agent.post('/api/orders')
+              .send(order)
+              .expect(400)
+              .end(function (orderSaveErr, orderSaveRes) {
+                // Set message assertion
+                (orderSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.orders index: docno already exists');
 
-            // Handle Order save error
-            done(orderSaveErr);
+                // Handle order save error
+                done(orderSaveErr);
+              });
+
           });
+
       });
   });
+
   it('should not be able to save an Order if no docno is provided', function (done) {
     // Invalidate docno field
     order.docno = '';
@@ -173,7 +185,7 @@ it('should not be able to save an Order if no docno is duplicate', function (don
         var userId = user.id;
 
         // Save a new Order
-        agent.post('/api/orders')    
+        agent.post('/api/orders')
           .send(order)
           .expect(400)
           .end(function (orderSaveErr, orderSaveRes) {
@@ -203,7 +215,7 @@ it('should not be able to save an Order if no docno is duplicate', function (don
         var userId = user.id;
 
         // Save a new Order
-        agent.post('/api/orders')    
+        agent.post('/api/orders')
           .send(order)
           .expect(400)
           .end(function (orderSaveErr, orderSaveRes) {
@@ -217,7 +229,7 @@ it('should not be able to save an Order if no docno is duplicate', function (don
   });
 
 
-  
+
   it('should be able to update an Order if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
