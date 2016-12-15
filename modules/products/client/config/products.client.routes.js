@@ -9,6 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('store', {
+        url: '/store',
+        templateUrl: 'modules/products/client/views/store.client.view.html',
+        controller: 'StoreController',
+        controllerAs: 'vm'
+      })
       .state('products', {
         abstract: true,
         url: '/products',
@@ -34,6 +40,15 @@
         data: {
           roles: ['user', 'admin'],
           pageTitle: 'Products Create'
+        }
+      })
+      .state('products.detail', {
+        url: '/:productId/detail',
+        templateUrl: 'modules/products/client/views/detail.client.view.html',
+        controller: 'DetailController',
+        controllerAs: 'vm',
+        resolve: {
+          productResolve: getProduct
         }
       })
       .state('products.edit', {
@@ -76,4 +91,4 @@
   function newProduct(ProductsService) {
     return new ProductsService();
   }
-}());
+} ());
