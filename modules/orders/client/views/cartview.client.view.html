@@ -1,4 +1,7 @@
 <section>
+  <div class="page-header">
+    <h1>Cart</h1>
+  </div>
   <div class="row">
     <div class="col-md-12"></div>
   </div>
@@ -7,28 +10,28 @@
       <div class="row">
       </div>
       <div class="row border-bottom">
-        <div class="col-md-7">สินค้า</div>
-        <div class="col-md-2">ราคาสินค้า</div>
-        <div class="col-md-3">จำนวน</div>
+        <div class="col-xs-7 col-sm-7 col-md-7">สินค้า</div>
+        <div class="col-xs-2 col-sm-2 col-md-2">ราคาสินค้า</div>
+        <div class="col-xs-3 col-sm-3 col-md-3">จำนวน</div>
       </div>
       <div class="row border-bottom" ng-repeat="itm in vm.cart.items">
-        <div class="col-md-7">
+        <div class="col-xs-7 col-sm-7 col-md-7">
           <div class="row">
-            <div class="col-md-6" style="padding:10px">
+            <div class="col-xs-6 col-sm-6 col-md-6 hidden-xs" style="padding:10px">
               <img src="{{itm.product.images}}" class="img img-thumbnail" style="max-width:100px;max-height:100px;min-height:100px;min-width:100px;" alt="">
             </div>
-            <div class="col-md-6" style="padding:10px">
+            <div class="col-xs-6 col-sm-6 col-md-6" style="padding:10px">
               <h4>{{itm.product.description}}</h4>
             </div>
           </div>
         </div>
-        <div class="col-md-2" style="padding:10px">
+        <div class="col-xs-2 col-sm-2 col-md-2" style="padding:10px">
           <h4>{{itm.price}} บาท</h4>
         </div>
-        <div class="col-md-2" style="padding:10px">
+        <div class="col-xs-2 col-sm-2 col-md-2" style="padding:10px">
           <h4>{{itm.qty}} ชิ้น</h4>
         </div>
-        <div class="col-md-1" style="padding:10px">
+        <div class="col-xs-1 col-sm-1 col-md-1" style="padding:10px">
           <span class="glyphicon glyphicon-remove" style="float: right;" aria-hidden="true"></span>
         </div>
       </div>
