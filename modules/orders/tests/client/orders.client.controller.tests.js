@@ -9,6 +9,9 @@
       $state,
       Authentication,
       OrdersService,
+      ProductsService,
+      ShopCartService,
+      mockProduct,
       mockOrder;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -36,7 +39,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_, _ProductsService_, _ShopCartService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -45,13 +48,34 @@
       $state = _$state_;
       Authentication = _Authentication_;
       OrdersService = _OrdersService_;
+      ProductsService = _ProductsService_;
+      ShopCartService = _ShopCartService_;
 
       // create mock Order
       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Order Name'
+        docno: '1234',
+        docdate: new Date(),
+        items: [],
+        shipping: {
+          postcode: 10220,
+          subdistrict: 'คลองถนน',
+          province: 'กรุงเทพฯ',
+          district: 'สายไหม',
+          tel: '0900077580',
+          email: 'destinationpainbm@gmail.com'
+        },
+        amount: 0
       });
 
+      mockProduct = new ProductsService({
+        _id: '525a8422f6d0f87f0e407a30',
+        name: 'Product Name',
+        price: 200
+      });
+
+
+      ShopCartService.cart.add(mockProduct);
       // Mock logged in user
       Authentication.user = {
         roles: ['user']
@@ -67,13 +91,63 @@
       spyOn($state, 'go');
     }));
 
+    describe('order as read all : vm.cart.load()', function () {
+
+      beforeEach(function () {
+        // Setup Orders
+        $scope.vm.order = mockOrder;
+      });
+
+      it('should load all cart to order', function () {
+        $scope.vm.order.items = $scope.vm.cart.load();
+        expect($scope.vm.order.items.length).toEqual(1);
+      });
+
+    });
+
+    describe('order as qty : vm.addQty()', function () {
+
+      it('should product add qty', function () {
+        $scope.vm.addQty($scope.vm.order.items[0]);
+
+        expect($scope.vm.order.items.length).toEqual(1);
+        expect($scope.vm.order.items[0].qty).toEqual(2);
+        expect($scope.vm.order.items[0].product.price).toEqual(mockProduct.price);
+        expect($scope.vm.order.items[0].amount).toEqual(mockProduct.price * $scope.vm.order.items[0].qty);
+      });
+
+    });
+
+    describe('order as qty : vm.delQty()', function () {
+
+      it('should product delete qty', function () {
+        $scope.vm.order.items[0].qty = 2;
+        $scope.vm.delQty($scope.vm.order.items[0]);
+
+        expect($scope.vm.order.items.length).toEqual(1);
+        expect($scope.vm.order.items[0].qty).toEqual(1);
+        expect($scope.vm.order.items[0].product.price).toEqual(mockProduct.price);
+        expect($scope.vm.order.items[0].amount).toEqual(mockProduct.price * $scope.vm.order.items[0].qty);
+      });
+
+    });
+
+    describe('order as sum total all product', function () {
+
+      it('should sum total all product', function () {
+        $scope.vm.sumTotal();
+        expect($scope.vm.order.amount).toEqual(200);
+      });
+
+    });
+
     describe('vm.save() as create', function () {
       var sampleOrderPostData;
 
       beforeEach(function () {
         // Create a sample Order object
         sampleOrderPostData = new OrdersService({
-          name: 'Order Name'
+          docno: '1234'
         });
 
         $scope.vm.order = sampleOrderPostData;
@@ -166,5 +240,13 @@
         expect($state.go).not.toHaveBeenCalled();
       });
     });
+
+    afterEach(inject(function (_ShopCartService_) {
+
+      ShopCartService = _ShopCartService_;
+      ShopCartService.cart.clear();
+
+    }));
+
   });
-}());
+} ());

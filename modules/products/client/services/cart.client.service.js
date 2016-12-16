@@ -44,6 +44,7 @@
             } catch (error) {
 
             }
+            return items;
         }
     };
     Cart.prototype.add = function (product) {

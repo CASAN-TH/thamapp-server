@@ -43,6 +43,25 @@ var OrderSchema = new Schema({
       email: String
     }
   },
+  delivery: {
+    deliveryid: String,
+    deliveryname: String,
+    deliverylog: [{
+      logdate: Date,
+      detail: String
+    }]
+  },
+  amount: Number,
+  weight: String,
+  deliveryamount: Number,
+  totalamount: Number,
+  cartdate: Date,
+  deliverystatus: String,
+  drilldate: Date,
+  deliverylog: [{
+    logdate: Date,
+    detail: String
+  }],
   created: {
     type: Date,
     default: Date.now
