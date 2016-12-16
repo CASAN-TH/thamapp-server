@@ -1,7 +1,18 @@
 <section>
-  <div class="row"> 
+
+  <div class="row">
     <div class="col-sm-12 col-md-4" ng-repeat="product in vm.products">
-      <h1>{{product._id}}</h1>
+      <div class="demo-card" ui-sref="products.detail({ productId: product._id })">
+        <div class="card">
+          <img class="card-img-top" src="/modules/products/client/img/products/no_product.png" style="width:75%"/>
+          <div class="card-block">
+            <h4 class="card-title">{{product.name}}</h4>
+            <h6 class="card-subtitle text-muted">{{product.price}} <strong>บาท</strong></h6>
+            <p class="card-text">{{product.description}}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
 </section>

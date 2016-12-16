@@ -12,15 +12,27 @@
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  <small>
-    <em class="text-muted">
-      Posted on
-      <span ng-bind="vm.product.created | date:'mediumDate'"></span>
-      by
-      <span ng-if="vm.product.user"
-            ng-bind="vm.product.user.displayName"></span>
-      <span ng-if="!vm.product.user">Deleted User</span>
-    </em>
-  </small>
+   <div class="row">
+    
+<div class="col-sm-4" style="">
+<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:100%"/>
+</div>
+<div class="col-sm-4" style="" >
+<p class="card-text">{{vm.product.description}}</p>
+
+<hr>
+<label>เลือกจากตัวที่เลือก</label><br>
+<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:25%"/>
+<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:25%"/>
+<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:25%"/>
+<hr>
+<h6 class="card-subtitle text-muted">{{vm.product.price}} <strong>บาท</strong></h6>
+<button type="button" class="btn btn-warning ">ใส่ตะกร้า</button>
+
+ 
+
+</div>
+
+</div>
   <p class="lead" ng-bind="vm.product.content"></p>
 </section>
