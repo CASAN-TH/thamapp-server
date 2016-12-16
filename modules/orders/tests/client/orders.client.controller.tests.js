@@ -100,7 +100,7 @@
 
       it('should load all cart to order', function () {
         $scope.vm.order.items = $scope.vm.cart.load();
-        expect($scope.vm.order.items.length).toEqual(1);
+        expect($scope.vm.order.items.length).toEqual(2);
       });
 
     });
