@@ -12,7 +12,12 @@
       .state('checkout-login', {
         url: '/checkout-login',
         templateUrl: 'modules/orders/client/views/checkout-login.client.view.html',
-        controller: 'CheckoutLoginController',
+        controller: 'CheckoutLoginController'
+      })
+      .state('cartview', {
+        url: '/cartview',
+        templateUrl: 'modules/orders/client/views/cartview.client.view.html',
+        controller: 'CartviewController',
         controllerAs: 'vm'
       })
       .state('orders', {
@@ -82,4 +87,4 @@
   function newOrder(OrdersService) {
     return new OrdersService();
   }
-}());
+} ());
