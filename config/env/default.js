@@ -33,7 +33,13 @@ module.exports = {
     profileUpload: {
       dest: './modules/users/client/img/profile/uploads/', // Profile upload destination path
       limits: {
-        fileSize: 1*1024*1024 // Max file size in bytes (1 MB)
+        fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
+      }
+    },
+    productUpload: {
+      dest: './modules/products/client/img/uploads/', // Profile upload destination path
+      limits: {
+        fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
       }
     }
   }
