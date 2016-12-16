@@ -7,8 +7,9 @@
 
   ProductsListController.$inject = ['ProductsService', 'Authentication'];
 
-  function ProductsListController(ProductsService, Authentication) {
+  function ProductsListController(ProductsService, Authentication, ShopCartService) {
     var vm = this;
+
     vm.authentication = Authentication;
     vm.products = ProductsService.query();
   }
