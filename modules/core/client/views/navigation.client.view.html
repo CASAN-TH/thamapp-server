@@ -35,7 +35,7 @@
       </li>
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
         ng-if="item.shouldRender(authentication.user);">
-        <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-dropbox' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{::item.title}}&nbsp;</span></a>
+        <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{::item.title}}&nbsp;</span></a>
       </li>
     </ul>
   </div>

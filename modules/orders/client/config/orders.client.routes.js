@@ -9,6 +9,17 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('checkout-login', {
+        url: '/checkout-login',
+        templateUrl: 'modules/orders/client/views/checkout-login.client.view.html',
+        controller: 'CheckoutLoginController'
+      })
+      .state('cartview', {
+        url: '/cartview',
+        templateUrl: 'modules/orders/client/views/cartview.client.view.html',
+        controller: 'CartviewController',
+        controllerAs: 'vm'
+      })
       .state('orders', {
         abstract: true,
         url: '/orders',
@@ -76,4 +87,4 @@
   function newOrder(OrdersService) {
     return new OrdersService();
   }
-}());
+} ());

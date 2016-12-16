@@ -82,7 +82,6 @@
 
     describe('vm.init() ', function () {
 
-
       it('should init', inject(function (ProductsService) {
         $scope.vm.init();
         expect($scope.vm.order.docdate).toEqual(new Date());
@@ -95,6 +94,10 @@
 
       beforeEach(function () {
         mockProductList = [mockProduct, mockProduct, mockProduct];
+
+      it('should load all cart to order', function () {
+        $scope.vm.order.items = $scope.vm.cart.load();
+        expect($scope.vm.order.items.length).toEqual(2);
       });
 
       it('should send a GET request and return all Product', inject(function (ProductsService) {
