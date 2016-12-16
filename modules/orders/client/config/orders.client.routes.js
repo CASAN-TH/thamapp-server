@@ -9,6 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('checkout-login', {
+        url: '/checkout-login',
+        templateUrl: 'modules/orders/client/views/checkout-login.client.view.html',
+        controller: 'CheckoutLoginController',
+        controllerAs: 'vm'
+      })
       .state('orders', {
         abstract: true,
         url: '/orders',
