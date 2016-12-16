@@ -1,19 +1,69 @@
-<section>
+<section style="min-height:1000px;">
   <div class="page-header">
-    <h1>{{vm.order._id ? 'Edit Order' : 'New Order'}}</h1>
+    <h2>ตะกร้าสินค้าของคุณ</h2>
   </div>
   <div class="col-md-12">
     <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group" show-errors>
+        <!--<div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
           <input name="name" type="text" ng-model="vm.order.name" id="name" class="form-control" placeholder="Name" required>
           <div ng-messages="vm.form.orderForm.name.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Order name is required.</p>
           </div>
+        </div>-->
+        <div class="row">
+          <label for="">รายการสินค้า</label>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.order._id ? 'Update' : 'Create'}}</button>
+        <!---->
+        <div class="row">
+          <div class="col-lg-8" style="padding:10px;background-color: rgba(211, 211, 211, 0.18);">
+            <div class="row" ng-repeat="itm in vm.order.items">
+              <div class="col-lg-2">
+                <img src="{{itm.product.images}}" style="width:120px">
+              </div>
+              <div class="col-lg-4">
+                <h3>{{itm.product.name}}</h3>
+                <span>{{itm.product.description}}</span>
+              </div>
+              <div class="col-lg-3">
+                <h3>{{itm.product.price}} บาท</h3>
+              </div>
+              <div class="col-lg-3">
+                <button type="" class="btn btn-default">-</button>
+                <input type="text" style="width:30px; text-align:center;">
+                <button type="" class="btn btn-default">+</button>
+                <span class="glyphicon glyphicon-remove" style="float: right;" aria-hidden="true"></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-7">
+                <span>มูลค่าสินค้า:</span>
+              </div>
+              <div class="col-lg-5" style="text-align: right;">
+                <h4>{{vm.order.amount}} บาท</h4>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-lg-7">
+                <label for="">ยอดสุทธิ</label>
+                <label for="">(รวมภาษีมูลค่าเพิ่ม)</label>
+
+              </div>
+              <div class="col-lg-5" style="text-align: right;"> 
+                <h3>{{vm.order.totalamount}} บาท</h3>
+              </div>
+            </div>
+            <hr>
+            <div class="row text-center">
+              <div class="form-group">
+                <button style="width:90%" type="submit" class="btn btn-warning">ดำเนินการชำระเงิน</button>
+              </div>
+            </div>
+          </div>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
