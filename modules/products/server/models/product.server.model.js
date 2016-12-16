@@ -18,7 +18,7 @@ var ProductSchema = new Schema({
     trim: true
   },
   description:String,
-  images:[String],
+  images:String,
   category: {
     type: String,
     required: 'Please fill Product category',
