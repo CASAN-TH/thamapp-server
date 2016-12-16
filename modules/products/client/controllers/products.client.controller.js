@@ -6,9 +6,9 @@
     .module('products')
     .controller('ProductsController', ProductsController);
 
-  ProductsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'productResolve', 'FileUploader', '$timeout'];
+  ProductsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'productResolve', 'FileUploader', '$timeout', 'ShopCartService'];
 
-  function ProductsController($scope, $state, $window, Authentication, product, FileUploader, $timeout) {
+  function ProductsController($scope, $state, $window, Authentication, product, FileUploader, $timeout, ShopCartService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,9 +17,11 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.cart = ShopCartService.cart;
+
 
     $scope.user = Authentication.user;
-    
+
 
     // Create file uploader instance
     $scope.uploader = new FileUploader({
