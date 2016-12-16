@@ -6,47 +6,90 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ShopCartService'];
+  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ProductsService'];
 
-  function OrdersController($scope, $state, $window, Authentication, order, ShopCartService) {
+  function OrdersController($scope, $state, $window, Authentication, order, ProductsService) {
     var vm = this;
 
     vm.authentication = Authentication;
-    vm.cart = ShopCartService.cart;
     vm.order = order;
-    vm.order.items = vm.cart.load();
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
-    vm.addQty = addQty;
-    vm.delQty = delQty;
-    vm.sumTotal = sumTotal;
+    vm.readProduct = readProduct;
+    vm.calculate = calculate;
+    vm.addItem = addItem;
+    vm.init = init;
+    vm.selectedProduct = selectedProduct;
+    vm.selectedProductss = null;
+    vm.removeItem = removeItem;
+    vm.productChanged = productChanged;
+    vm.init();
+    function readProduct() {
 
-    function sumTotal() {
+      vm.products = ProductsService.query();
+
+    }
+
+    function calculate(item) {
+
+
+      item.qty = item.qty || 1;
+      item.amount = item.product.price * item.qty;
+
+      sumary();
+
+    }
+    function sumary() {
       vm.order.amount = 0;
-      vm.order.items.forEach(function (item) {
-        vm.order.amount += item.amount;
+      vm.order.items.forEach(function (itm) {
+        vm.order.amount += itm.amount || 0;
+      });
+    }
+    function addItem() {
+      vm.order.items.push({
+        product: new ProductsService(),
+        qty: 1
+      });
+    }
+    function removeItem(item) {
+      //vm.order.items.splice(item);
+      vm.order.items.splice(vm.order.items.indexOf(item), 1);
+
+      sumary();
+    }
+    function productChanged(item) {
+
+      item.qty = item.qty || 1;
+      item.amount = item.product.price * item.qty;
+
+      sumary();
+    }
+    function init() {
+
+      vm.readProduct();
+      if (!vm.order._id) {
+        vm.order.docdate = new Date();
+        vm.order.items = [{
+          product: new ProductsService(),
+          qty: 1
+        }];
+      }else{
+        vm.order.docdate = new Date(vm.order.docdate);
+      }
+
+
+    }
+
+    function selectedProduct() {
+      console.log(vm.selectedProductss);
+      vm.order.items.push({
+        product: new ProductsService(),
+        qty: 1
       });
     }
 
-    function addQty(product) {
-      vm.order.items.forEach(function (item) {
-        if (item.product._id === product.product._id) {
-          item.qty += 1;
-          item.amount = item.product.price * item.qty;
-        }
-      });
-    }
-
-    function delQty(product) {
-      vm.order.items.forEach(function (item) {
-        if (item.product._id === product.product._id) {
-          item.qty -= 1;
-          item.amount = item.product.price * item.qty;
-        }
-      });
-    }
 
     // Remove existing Order
     function remove() {
