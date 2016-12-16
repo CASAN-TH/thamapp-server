@@ -7,16 +7,18 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Product = mongoose.model('Product'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
+  multer = require('multer'),
+  config = require(path.resolve('./config/config')),
   _ = require('lodash');
 
 /**
  * Create a Product
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var product = new Product(req.body);
   product.user = req.user;
 
-  product.save(function(err) {
+  product.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +32,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Product
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var product = req.product ? req.product.toJSON() : {};
 
@@ -44,12 +46,12 @@ exports.read = function(req, res) {
 /**
  * Update a Product
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var product = req.product;
 
   product = _.extend(product, req.body);
 
-  product.save(function(err) {
+  product.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +65,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Product
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var product = req.product;
 
-  product.remove(function(err) {
+  product.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +82,8 @@ exports.delete = function(req, res) {
 /**
  * List of Products
  */
-exports.list = function(req, res) {
-  Product.find().sort('-created').populate('user', 'displayName').exec(function(err, products) {
+exports.list = function (req, res) {
+  Product.find().sort('-created').populate('user', 'displayName').exec(function (err, products) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +97,7 @@ exports.list = function(req, res) {
 /**
  * Product middleware
  */
-exports.productByID = function(req, res, next, id) {
+exports.productByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -114,4 +116,49 @@ exports.productByID = function(req, res, next, id) {
     req.product = product;
     next();
   });
+};
+
+/** 
+ * Upload Images Product
+ */
+exports.changeProductPicture = function (req, res) {
+  var user = req.user;
+  var message = null;
+  var upload = multer(config.uploads.productUpload).single('newProfilePicture');
+  var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
+
+  // Filtering to upload only images
+  upload.fileFilter = profileUploadFileFilter;
+  if (user) {
+    upload(req, res, function (uploadError) {
+      if (uploadError) {
+        return res.status(400).send({
+          message: 'Error occurred while uploading profile picture'
+        });
+      } else {
+        var imageURL = config.uploads.productUpload.dest + req.file.filename;
+
+        // user.save(function (saveError) {
+        //   if (saveError) {
+        //     return res.status(400).send({
+        //       message: errorHandler.getErrorMessage(saveError)
+        //     });
+        //   } else {
+        //     req.login(user, function (err) {
+        //       if (err) {
+        //         res.status(400).send(err);
+        //       } else {
+        //         res.json(user);
+        //       }
+        //     });
+        //   }
+        // });
+        res.json({ status: '000', message: 'success', imageURL: imageURL });
+      }
+    });
+  } else {
+    res.status(400).send({
+      message: 'User is not signed in'
+    });
+  }
 };

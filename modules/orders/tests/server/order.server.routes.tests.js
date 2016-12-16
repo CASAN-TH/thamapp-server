@@ -157,7 +157,7 @@ describe('Order CRUD tests', function () {
               .expect(400)
               .end(function (orderSaveErr, orderSaveRes) {
                 // Set message assertion
-                (orderSaveRes.body.message).should.match('Docno already exists');
+                (orderSaveRes.body.message.toLowerCase()).should.containEql('docno already exists');
 
                 // Handle order save error
                 done(orderSaveErr);
