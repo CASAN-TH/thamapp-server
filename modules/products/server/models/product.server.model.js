@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 
 /**
  * Product Schema
- */
+ */     
 var ProductSchema = new Schema({
   name: {
     type: String,

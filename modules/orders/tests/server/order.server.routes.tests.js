@@ -158,6 +158,7 @@ describe('Order CRUD tests', function () {
               .end(function (orderSaveErr, orderSaveRes) {
                 // Set message assertion
                 (orderSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.orders index: docno already exists');
+                (orderSaveRes.body.message.toLowerCase()).should.containEql('docno already exists');
 
                 // Handle order save error
                 done(orderSaveErr);
