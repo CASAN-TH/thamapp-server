@@ -1,7 +1,14 @@
 <section>
   <div class="page-header">
-    <h1>Products</h1>
+    <h1>Products
+      <div class="pull-right" ng-hide="!vm.authentication.user">
+        <a class="btn btn-primary" ui-sref="products.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
   </div>
+  
   <!--<div class="list-group">
     <a ng-repeat="product in vm.products"
        ui-sref="products.view({ productId: product._id })"
@@ -17,10 +24,10 @@
     </a>
   </div>-->
    <div class="row">
-    <div class="col-sm-12 col-md-4" ng-repeat="product in vm.products">
+    <div class="col-sm-6 col-md-4" ng-repeat="product in vm.products">
       <div class="demo-card" ui-sref="products.view({ productId: product._id })">
         <div class="card">
-          <img class="card-img-top" src="/modules/products/client/img/products/no_product.png" style="width:75%"/>
+          <img ng-src="{{product.images}}" alt="{{product.name}}" class="img-thumbnail user-profile-picture">
           <div class="card-block">
             <h4 class="card-title">{{product.name}}</h4>
             <h6 class="card-subtitle text-muted">{{product.price}} <strong>บาท</strong></h6>

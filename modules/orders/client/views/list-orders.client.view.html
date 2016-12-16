@@ -1,6 +1,12 @@
 <section>
   <div class="page-header">
-    <h1>Orders</h1>
+    <h1>Orders
+      <div class="pull-right" ng-hide="!vm.authentication.user">
+        <a class="btn btn-primary" ui-sref="orders.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
   </div>
   <div class="list-group">
     <a ng-repeat="order in vm.orders"

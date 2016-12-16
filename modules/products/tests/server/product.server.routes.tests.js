@@ -55,7 +55,7 @@ describe('Product CRUD tests', function () {
         description: 'Product Description',
         category: 'Product Category',
         price: 100,
-        images: ['img1', 'img2'],
+        images: 'img1',
       };
 
       done();
@@ -102,8 +102,8 @@ describe('Product CRUD tests', function () {
                 (products[0].description).should.match('Product Description');
                 (products[0].category).should.match('Product Category');
                 (products[0].price).should.match(100);
-                (products[0].images[0]).should.match('img1');
-                (products[0].images[1]).should.match('img2');
+                (products[0].images).should.match('img1');
+                
 
                 // Call the assertion callback
                 done();

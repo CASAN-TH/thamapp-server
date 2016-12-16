@@ -15,19 +15,12 @@
    <div class="row">
     
 <div class="col-sm-4" style="">
-<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:100%"/>
+<img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-thumbnail user-profile-picture">
 </div>
 <div class="col-sm-4" style="" >
 <p class="card-text">{{vm.product.description}}</p>
-
-<hr>
-<label>เลือกจากตัวที่เลือก</label><br>
-<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:25%"/>
-<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:25%"/>
-<img class="card-img-top img-rounded " src="/modules/products/client/img/products/no_product.png" style="width:25%"/>
-<hr>
 <h6 class="card-subtitle text-muted">{{vm.product.price}} <strong>บาท</strong></h6>
-<button type="button" class="btn btn-warning ">ใส่ตะกร้า</button>
+<button type="button" class="btn btn-warning " ng-click="vm.cart.add(vm.product)">ใส่ตะกร้า</button>
 
  
 

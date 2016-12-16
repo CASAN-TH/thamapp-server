@@ -35,7 +35,7 @@ describe('Product Model Unit Tests:', function () {
         description: 'Product Description',
         category: 'Product Category',
         price: 100,
-        images: ['img1', 'img2'],
+        images:'img1',
         user: user
       });
 
@@ -45,7 +45,7 @@ describe('Product Model Unit Tests:', function () {
         description: 'Product Description',
         category: 'Product Category',
         price: 100,
-        images: ['img1', 'img2'],
+         images:'img1',
         user: user
       });
       done();
