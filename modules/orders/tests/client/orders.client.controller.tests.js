@@ -81,23 +81,22 @@
 
 
     describe('vm.init() ', function () {
-
       it('should init', inject(function (ProductsService) {
         $scope.vm.init();
         expect($scope.vm.order.docdate).toEqual(new Date());
         expect($scope.vm.order.items.length).toEqual(1);
       }));
     });
-    
+
     describe('vm.readProduct() as read', function () {
       var mockProductList;
 
       beforeEach(function () {
         mockProductList = [mockProduct, mockProduct, mockProduct];
-
-      it('should load all cart to order', function () {
-        $scope.vm.order.items = $scope.vm.cart.load();
-        expect($scope.vm.order.items.length).toEqual(2);
+        // it('should load all cart to order', function () {
+        //   $scope.vm.order.items = $scope.vm.cart.load();
+        //   expect($scope.vm.order.items.length).toEqual(2);
+        // });
       });
 
       it('should send a GET request and return all Product', inject(function (ProductsService) {
@@ -236,66 +235,7 @@
       });
     });
 
-    describe('vm.save() as update', function () {
-      beforeEach(function () {
-        // Mock Order in $scope
-        $scope.vm.order = mockOrder;
-      });
 
-      it('should update a valid Order', inject(function (OrdersService) {
-        // Set PUT response
-        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-
-        // Run controller functionality
-        $scope.vm.save(true);
-        $httpBackend.flush();
-
-        // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('orders.view', {
-          orderId: mockOrder._id
-        });
-      }));
-
-      it('should set $scope.vm.error if error', inject(function (OrdersService) {
-        var errorMessage = 'error';
-        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond(400, {
-          message: errorMessage
-        });
-
-        $scope.vm.save(true);
-        $httpBackend.flush();
-
-        expect($scope.vm.error).toBe(errorMessage);
-      }));
-    });
-
-    describe('vm.remove()', function () {
-      beforeEach(function () {
-        // Setup Orders
-        $scope.vm.order = mockOrder;
-      });
-
-      it('should delete the Order and redirect to Orders', function () {
-        // Return true on confirm message
-        spyOn(window, 'confirm').and.returnValue(true);
-
-        $httpBackend.expectDELETE(/api\/orders\/([0-9a-fA-F]{24})$/).respond(204);
-
-        $scope.vm.remove();
-        $httpBackend.flush();
-
-        expect($state.go).toHaveBeenCalledWith('orders.list');
-      });
-
-      it('should should not delete the Order and not redirect', function () {
-        // Return false on confirm message
-        spyOn(window, 'confirm').and.returnValue(false);
-
-        $scope.vm.remove();
-
-        expect($state.go).not.toHaveBeenCalled();
-      });
-    });
     afterEach(inject(function (_ShopCartService_) {
 
       ShopCartService = _ShopCartService_;
