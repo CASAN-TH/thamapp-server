@@ -42,14 +42,12 @@ describe('User CRUD tests', function () {
       password: credentials.password,
       provider: 'local',
       address: {
-        type: {
-          postcode: 'Post Code',
-          subdistrict: 'Sub District',
-          province: 'Province',
-          district: 'District',
-          tel: 'Tel',
-          email: 'E-mail'
-        }
+        postcode: 'Post Code',
+        subdistrict: 'Sub District',
+        province: 'Province',
+        district: 'District',
+        tel: 'Tel',
+        email: 'E-mail'
       }
     };
 
@@ -78,8 +76,8 @@ describe('User CRUD tests', function () {
 
         signupRes.body.username.should.equal(_user.username);
         signupRes.body.email.should.equal(_user.email);
-        signupRes.body.address.type.province.should.equal(_user.address.type.province);
-        signupRes.body.address.type.email.should.equal(_user.address.type.email);
+        signupRes.body.address.province.should.equal(_user.address.province);
+        signupRes.body.address.email.should.equal(_user.address.email);
         // Assert a proper profile image has been set, even if by default
         signupRes.body.profileImageURL.should.not.be.empty();
         // Assert we have just the default 'user' role
@@ -645,14 +643,12 @@ describe('User CRUD tests', function () {
             firstName: 'user_update_first',
             lastName: 'user_update_last',
             address: {
-              type: {
-                postcode: 'user_update_postcode',
-                subdistrict: 'user_update_subdistrict',
-                province: 'user_update_province',
-                district: 'user_update_district',
-                tel: 'user_update_tel',
-                email: 'user_update_email'
-              }
+              postcode: 'user_update_postcode',
+              subdistrict: 'user_update_subdistrict',
+              province: 'user_update_province',
+              district: 'user_update_district',
+              tel: 'user_update_tel',
+              email: 'user_update_email'
             }
           };
 
@@ -667,7 +663,7 @@ describe('User CRUD tests', function () {
               userInfoRes.body.should.be.instanceof(Object);
               userInfoRes.body.firstName.should.be.equal('user_update_first');
               userInfoRes.body.lastName.should.be.equal('user_update_last');
-              userInfoRes.body.address.type.province.should.be.equal('user_update_province');
+              userInfoRes.body.address.province.should.be.equal('user_update_province');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body.roles.indexOf('user').should.equal(0);
               userInfoRes.body._id.should.be.equal(String(user._id));
