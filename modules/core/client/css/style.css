@@ -8396,3 +8396,6 @@ body.md-skin {
     padding-top: 10px;
     background-color: aliceblue !important;
 }
+.min-height-50{
+  min-height: 50px;
+}

@@ -9,10 +9,17 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('checkout-create', {
+        url: '/checkout-create',
+        templateUrl: 'modules/orders/client/views/checkout-create.client.view.html',
+        controller: 'CheckoutCreateController',
+        controllerAs: 'vm'
+      })
       .state('checkout-login', {
         url: '/checkout-login',
         templateUrl: 'modules/orders/client/views/checkout-login.client.view.html',
-        controller: 'CheckoutLoginController'
+        controller: 'CheckoutLoginController',
+        controllerAs: 'vm'
       })
       .state('cartview', {
         url: '/cartview',
