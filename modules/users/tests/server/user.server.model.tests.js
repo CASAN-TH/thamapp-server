@@ -25,7 +25,15 @@ describe('User Model Unit Tests:', function () {
       email: 'test@test.com',
       username: 'username',
       password: 'M3@n.jsI$Aw3$0m3',
-      provider: 'local'
+      provider: 'local',
+      address: {
+        postcode: 'Post Code',
+        subdistrict: 'Sub District',
+        province: 'Province',
+        district: 'District',
+        tel: 'Tel',
+        email: 'E-mail'
+      }
     };
     // user2 is a clone of user1
     user2 = user1;
@@ -36,7 +44,15 @@ describe('User Model Unit Tests:', function () {
       email: 'test3@test.com',
       username: 'different_username',
       password: 'Different_Password1!',
-      provider: 'local'
+      provider: 'local',
+      address: {
+        postcode: 'Different Post Code',
+        subdistrict: 'Different Sub District',
+        province: 'Different Province',
+        district: 'Different District',
+        tel: 'Different Tel',
+        email: 'Different E-mail'
+      }
     };
   });
 
@@ -182,7 +198,7 @@ describe('User Model Unit Tests:', function () {
         _user3.email = _user1.email;
         _user3.save(function (err) {
           should.exist(err);
-          _user1.remove(function(err) {
+          _user1.remove(function (err) {
             should.not.exist(err);
             done();
           });
@@ -197,7 +213,7 @@ describe('User Model Unit Tests:', function () {
       _user1.save(function (err) {
         should.not.exist(err);
         _user1.password.should.not.equal(passwordBeforeSave);
-        _user1.remove(function(err) {
+        _user1.remove(function (err) {
           should.not.exist(err);
           done();
         });
@@ -211,7 +227,7 @@ describe('User Model Unit Tests:', function () {
       _user1.save(function (err) {
         should.not.exist(err);
         _user1.password.should.not.equal(passwordBeforeSave);
-        _user1.remove(function(err) {
+        _user1.remove(function (err) {
           should.not.exist(err);
           done();
         });
@@ -219,7 +235,7 @@ describe('User Model Unit Tests:', function () {
     });
   });
 
-  describe('User Password Validation Tests', function() {
+  describe('User Password Validation Tests', function () {
     it('should validate when the password strength passes - "P@$$w0rd!!"', function () {
       var _user1 = new User(user1);
       _user1.password = 'P@$$w0rd!!';
@@ -233,15 +249,15 @@ describe('User Model Unit Tests:', function () {
       var _user1 = new User(user1);
 
       User.generateRandomPassphrase()
-      .then(function (password) {
-        _user1.password = password;
-        _user1.validate(function (err) {
+        .then(function (password) {
+          _user1.password = password;
+          _user1.validate(function (err) {
+            should.not.exist(err);
+          });
+        })
+        .catch(function (err) {
           should.not.exist(err);
         });
-      })
-      .catch(function (err) {
-        should.not.exist(err);
-      });
 
     });
 
@@ -324,7 +340,7 @@ describe('User Model Unit Tests:', function () {
     });
   });
 
-  describe('User E-mail Validation Tests', function() {
+  describe('User E-mail Validation Tests', function () {
     it('should not allow invalid email address - "123"', function (done) {
       var _user1 = new User(user1);
 

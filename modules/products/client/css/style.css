@@ -1,0 +1,16 @@
+.word-break{
+   white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.margin-bottom-30{
+    margin-bottom: 30px;
+}
+.txt-area{
+    border-color:#e5e6e7;
+    
+}
+.front_price {
+    font-size: 20px;
+}

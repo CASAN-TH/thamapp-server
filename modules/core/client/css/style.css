@@ -8399,3 +8399,12 @@ body.md-skin {
 .min-height-50{
   min-height: 50px;
 }
+.min-height-20{
+  min-height: 20px;
+}
+.address-container{
+    background-color: aliceblue !important;
+}
+.rounded {
+  border-radius: 5px;
+}

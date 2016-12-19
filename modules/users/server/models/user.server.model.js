@@ -63,6 +63,15 @@ var UserSchema = new Schema({
     type: String,
     default: ''
   },
+  address: {
+    address: String,
+    postcode: String,
+    subdistrict: String,
+    province: String,
+    district: String,
+    tel: String,
+    email: String
+  },
   salt: {
     type: String
   },
@@ -79,7 +88,7 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin']
+      enum: ['user', 'admin', 'deliver']
     }],
     default: ['user'],
     required: 'Please provide at least one role'
