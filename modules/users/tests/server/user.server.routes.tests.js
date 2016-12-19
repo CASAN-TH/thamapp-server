@@ -40,7 +40,17 @@ describe('User CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      address: {
+        type: {
+          postcode: 'Post Code',
+          subdistrict: 'Sub District',
+          province: 'Province',
+          district: 'District',
+          tel: 'Tel',
+          email: 'E-mail'
+        }
+      }
     };
 
     user = new User(_user);
@@ -68,6 +78,8 @@ describe('User CRUD tests', function () {
 
         signupRes.body.username.should.equal(_user.username);
         signupRes.body.email.should.equal(_user.email);
+        signupRes.body.address.type.province.should.equal(_user.address.type.province);
+        signupRes.body.address.type.email.should.equal(_user.address.type.email);
         // Assert a proper profile image has been set, even if by default
         signupRes.body.profileImageURL.should.not.be.empty();
         // Assert we have just the default 'user' role
@@ -357,7 +369,7 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          User.findOne({ username: user.username.toLowerCase() }, function(err, userRes) {
+          User.findOne({ username: user.username.toLowerCase() }, function (err, userRes) {
             userRes.resetPasswordToken.should.not.be.empty();
             should.exist(userRes.resetPasswordExpires);
             res.body.message.should.be.equal('Failure sending email');
@@ -383,22 +395,22 @@ describe('User CRUD tests', function () {
             return done(err);
           }
 
-          User.findOne({ username: user.username.toLowerCase() }, function(err, userRes) {
+          User.findOne({ username: user.username.toLowerCase() }, function (err, userRes) {
             userRes.resetPasswordToken.should.not.be.empty();
             should.exist(userRes.resetPasswordExpires);
 
             agent.get('/api/auth/reset/' + userRes.resetPasswordToken)
-            .expect(302)
-            .end(function (err, res) {
-              // Handle error
-              if (err) {
-                return done(err);
-              }
+              .expect(302)
+              .end(function (err, res) {
+                // Handle error
+                if (err) {
+                  return done(err);
+                }
 
-              res.headers.location.should.be.equal('/password/reset/' + userRes.resetPasswordToken);
+                res.headers.location.should.be.equal('/password/reset/' + userRes.resetPasswordToken);
 
-              return done();
-            });
+                return done();
+              });
           });
         });
     });
@@ -422,17 +434,17 @@ describe('User CRUD tests', function () {
 
           var invalidToken = 'someTOKEN1234567890';
           agent.get('/api/auth/reset/' + invalidToken)
-          .expect(302)
-          .end(function (err, res) {
-            // Handle error
-            if (err) {
-              return done(err);
-            }
+            .expect(302)
+            .end(function (err, res) {
+              // Handle error
+              if (err) {
+                return done(err);
+              }
 
-            res.headers.location.should.be.equal('/password/reset/invalid');
+              res.headers.location.should.be.equal('/password/reset/invalid');
 
-            return done();
-          });
+              return done();
+            });
         });
     });
   });
@@ -632,6 +644,16 @@ describe('User CRUD tests', function () {
           var userUpdate = {
             firstName: 'user_update_first',
             lastName: 'user_update_last',
+            address: {
+              type: {
+                postcode: 'user_update_postcode',
+                subdistrict: 'user_update_subdistrict',
+                province: 'user_update_province',
+                district: 'user_update_district',
+                tel: 'user_update_tel',
+                email: 'user_update_email'
+              }
+            }
           };
 
           agent.put('/api/users')
@@ -645,6 +667,7 @@ describe('User CRUD tests', function () {
               userInfoRes.body.should.be.instanceof(Object);
               userInfoRes.body.firstName.should.be.equal('user_update_first');
               userInfoRes.body.lastName.should.be.equal('user_update_last');
+              userInfoRes.body.address.type.province.should.be.equal('user_update_province');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body.roles.indexOf('user').should.equal(0);
               userInfoRes.body._id.should.be.equal(String(user._id));

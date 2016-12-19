@@ -63,6 +63,16 @@ var UserSchema = new Schema({
     type: String,
     default: ''
   },
+  address: {
+    type: {
+      postcode: String,
+      subdistrict: String,
+      province: String,
+      district: String,
+      tel: String,
+      email: String
+    }
+  },
   salt: {
     type: String
   },
