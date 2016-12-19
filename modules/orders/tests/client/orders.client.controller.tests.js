@@ -10,8 +10,8 @@
       Authentication,
       OrdersService,
       ProductsService,
-      mockProduct,
       ShopCartService,
+      mockProduct,
       mockOrder;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -39,7 +39,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_, _ProductsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_, _ProductsService_, _ShopCartService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -49,6 +49,7 @@
       Authentication = _Authentication_;
       OrdersService = _OrdersService_;
       ProductsService = _ProductsService_;
+      ShopCartService = _ShopCartService_;
 
       // create mock Order
       mockOrder = new OrdersService({
@@ -62,8 +63,7 @@
         price: 100
       });
 
-
-
+      ShopCartService.cart.add(mockProduct);
       // Mock logged in user
       Authentication.user = {
         roles: ['user']
@@ -79,7 +79,6 @@
       spyOn($state, 'go');
     }));
 
-
     describe('vm.init() ', function () {
       it('should init', inject(function (ProductsService) {
         $scope.vm.init();
@@ -93,10 +92,6 @@
 
       beforeEach(function () {
         mockProductList = [mockProduct, mockProduct, mockProduct];
-        // it('should load all cart to order', function () {
-        //   $scope.vm.order.items = $scope.vm.cart.load();
-        //   expect($scope.vm.order.items.length).toEqual(2);
-        // });
       });
 
       it('should send a GET request and return all Product', inject(function (ProductsService) {
@@ -115,7 +110,6 @@
 
       }));
     });
-
 
     describe('vm.selectProduct', function () {
 
@@ -195,7 +189,6 @@
 
 
     });
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     describe('vm.save() as create', function () {
       var sampleOrderPostData;
 
@@ -235,6 +228,66 @@
       });
     });
 
+    describe('vm.save() as update', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+      });
+
+      it('should update a valid Order', inject(function (OrdersService) {
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.save(true);
+        $httpBackend.flush();
+
+        // Test URL location to new object
+        expect($state.go).toHaveBeenCalledWith('orders.view', {
+          orderId: mockOrder._id
+        });
+      }));
+
+      it('should set $scope.vm.error if error', inject(function (OrdersService) {
+        var errorMessage = 'error';
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond(400, {
+          message: errorMessage
+        });
+
+        $scope.vm.save(true);
+        $httpBackend.flush();
+
+        expect($scope.vm.error).toBe(errorMessage);
+      }));
+    });
+
+    describe('vm.remove()', function () {
+      beforeEach(function () {
+        // Setup Orders
+        $scope.vm.order = mockOrder;
+      });
+
+      it('should delete the Order and redirect to Orders', function () {
+        // Return true on confirm message
+        spyOn(window, 'confirm').and.returnValue(true);
+
+        $httpBackend.expectDELETE(/api\/orders\/([0-9a-fA-F]{24})$/).respond(204);
+
+        $scope.vm.remove();
+        $httpBackend.flush();
+
+        expect($state.go).toHaveBeenCalledWith('orders.list');
+      });
+
+      it('should should not delete the Order and not redirect', function () {
+        // Return false on confirm message
+        spyOn(window, 'confirm').and.returnValue(false);
+
+        $scope.vm.remove();
+
+        expect($state.go).not.toHaveBeenCalled();
+      });
+    });
 
     afterEach(inject(function (_ShopCartService_) {
 
@@ -242,5 +295,6 @@
       ShopCartService.cart.clear();
 
     }));
+
   });
 } ());

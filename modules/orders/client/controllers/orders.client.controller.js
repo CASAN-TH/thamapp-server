@@ -6,12 +6,13 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ProductsService'];
+  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ShopCartService', 'ProductsService'];
 
-  function OrdersController($scope, $state, $window, Authentication, order, ProductsService) {
+  function OrdersController($scope, $state, $window, Authentication, order, ShopCartService, ProductsService) {
     var vm = this;
 
     vm.authentication = Authentication;
+    vm.cart = ShopCartService.cart;
     vm.order = order;
     vm.error = null;
     vm.form = {};
@@ -25,13 +26,10 @@
     vm.selectedProductss = null;
     vm.removeItem = removeItem;
     vm.productChanged = productChanged;
-    vm.init();
+   
     function readProduct() {
-
       vm.products = ProductsService.query();
-
     }
-
     function calculate(item) {
 
 
@@ -75,7 +73,7 @@
           product: new ProductsService(),
           qty: 1
         }];
-      }else{
+      } else {
         vm.order.docdate = new Date(vm.order.docdate);
       }
 

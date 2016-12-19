@@ -1,0 +1,21 @@
+.header-height{
+    min-height:1000px !important;
+}
+.bg-div{
+    background-color:lightgray;
+}
+.dotpy {
+    white-space: nowrap; 
+    width: 7em; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.textRight{
+text-align : right;
+}
+.textCenter{
+text-align : center;
+}
+.noneBorder{
+    border:none;
+}
