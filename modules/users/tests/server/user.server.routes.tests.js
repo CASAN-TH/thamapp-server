@@ -644,6 +644,16 @@ describe('User CRUD tests', function () {
           var userUpdate = {
             firstName: 'user_update_first',
             lastName: 'user_update_last',
+            address: {
+              type: {
+                postcode: 'user_update_postcode',
+                subdistrict: 'user_update_subdistrict',
+                province: 'user_update_province',
+                district: 'user_update_district',
+                tel: 'user_update_tel',
+                email: 'user_update_email'
+              }
+            }
           };
 
           agent.put('/api/users')
@@ -657,6 +667,7 @@ describe('User CRUD tests', function () {
               userInfoRes.body.should.be.instanceof(Object);
               userInfoRes.body.firstName.should.be.equal('user_update_first');
               userInfoRes.body.lastName.should.be.equal('user_update_last');
+              userInfoRes.body.address.type.province.should.be.equal('user_update_province');
               userInfoRes.body.roles.should.be.instanceof(Array).and.have.lengthOf(1);
               userInfoRes.body.roles.indexOf('user').should.equal(0);
               userInfoRes.body._id.should.be.equal(String(user._id));
