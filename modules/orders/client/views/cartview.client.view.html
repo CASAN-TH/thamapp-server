@@ -32,7 +32,10 @@
           <h4>{{itm.qty}} ชิ้น</h4>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1" style="padding:10px">
-          <span class="glyphicon glyphicon-remove" style="float: right;" aria-hidden="true"></span>
+          <a ng-click="vm.cart.removeItem(itm.product)">
+            <span class="glyphicon glyphicon-remove" style="float: right;" aria-hidden="true"></span>
+          </a>
+          
         </div>
       </div>
 
@@ -60,9 +63,14 @@
           <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="row" ng-hide="authentication.user || vm.cart.getTotalCount() === 0">
         <div class="col-md-12">
           <button class="btn btn-warning btn-block" ui-sref="checkout-login">ดำเนินการชำระสินค้า</button>
+        </div>
+      </div>
+      <div class="row" ng-show="authentication.user && vm.cart.getTotalCount() !== 0">
+        <div class="col-md-12">
+          <button class="btn btn-warning btn-block" ui-sref="checkout-create">ดำเนินการชำระสินค้า</button>
         </div>
       </div>
     </div>

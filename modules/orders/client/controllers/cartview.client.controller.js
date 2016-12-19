@@ -14,9 +14,6 @@
     // Cartview controller logic
     // ...
 
-    init();
-
-    function init() {
-    }
+    
   }
 })();

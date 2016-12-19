@@ -12,7 +12,8 @@
       .state('checkout-login', {
         url: '/checkout-login',
         templateUrl: 'modules/orders/client/views/checkout-login.client.view.html',
-        controller: 'CheckoutLoginController'
+        controller: 'CheckoutLoginController',
+        controllerAs: 'vm'
       })
       .state('cartview', {
         url: '/cartview',
