@@ -132,9 +132,14 @@
         expect($scope.vm.cart.items[0].qty).toEqual(3);
 
 
+
+
       }));
 
-
+        afterEach(inject(function (_ShopCartService_){
+          var shopCartService = _ShopCartService_;
+          shopCartService.cart.clear();
+        }));
       
     });
   });
