@@ -27,14 +27,12 @@ describe('User Model Unit Tests:', function () {
       password: 'M3@n.jsI$Aw3$0m3',
       provider: 'local',
       address: {
-        type: {
-          postcode: 'Post Code',
-          subdistrict: 'Sub District',
-          province: 'Province',
-          district: 'District',
-          tel: 'Tel',
-          email: 'E-mail'
-        }
+        postcode: 'Post Code',
+        subdistrict: 'Sub District',
+        province: 'Province',
+        district: 'District',
+        tel: 'Tel',
+        email: 'E-mail'
       }
     };
     // user2 is a clone of user1
@@ -48,14 +46,12 @@ describe('User Model Unit Tests:', function () {
       password: 'Different_Password1!',
       provider: 'local',
       address: {
-        type: {
-          postcode: 'Different Post Code',
-          subdistrict: 'Different Sub District',
-          province: 'Different Province',
-          district: 'Different District',
-          tel: 'Different Tel',
-          email: 'Different E-mail'
-        }
+        postcode: 'Different Post Code',
+        subdistrict: 'Different Sub District',
+        province: 'Different Province',
+        district: 'Different District',
+        tel: 'Different Tel',
+        email: 'Different E-mail'
       }
     };
   });

@@ -35,6 +35,9 @@ var OrderSchema = new Schema({
   shipping: {
     required: '',
     type: {
+      firstname:String,
+      lastname:String,
+      address:String,
       postcode: String,
       subdistrict: String,
       province: String,

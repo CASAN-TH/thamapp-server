@@ -1,4 +1,4 @@
-<section ng-init="vm.init()" style="min-height:1200px;">
+<!--<section ng-init="vm.init()" class="header-height">
   <div class="page-header">
     <h1>{{vm.order._id ? 'Edit Order' : 'New Order'}}</h1>
   </div>
@@ -7,7 +7,7 @@
       <fieldset>
         <div class="row">
           <div class="col-lg-4">
-            
+
           </div>
           <div class="col-lg-4"></div>
           <div class="col-lg-4">
@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-         <div class="row">
+        <div class="row">
           <div class="col-md-4">
             <div class="row form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12">Shipping</label>
@@ -63,9 +63,6 @@
               <div class="col-md-12">
                 <label class="control-label">Doc Date</label>
               </div>
-              <!--<div class="col-md-4">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Credit</label>
-              </div>-->
             </div>
           </div>
 
@@ -74,15 +71,12 @@
               <div class="col-md-12">
                 <input name="docdate" type="date" ng-model="vm.order.docdate" id="docdate" class="form-control" placeholder="docdate" ng-change="vm.creditdayChanged('docdate')">
               </div>
-              <!--<div class="col-md-4">
-                <input name="creditday" type="number" ng-model="vm.order.creditday" id="creditday" class="form-control" placeholder="creditday">
-              </div>-->
             </div>
-          
+
           </div>
         </div>
 
-        
+
 
         <div class="form-group">
           <table class="table">
@@ -128,7 +122,7 @@
               <input name="amount" type="number" ng-model="vm.order.amount" id="amount" class="form-control" placeholder="amount">
             </div>
 
-            
+
 
             <div class="form-group">
               <button type="submit" class="btn btn-default">{{vm.order._id ? 'Update' : 'Create'}}</button>
@@ -139,5 +133,205 @@
           </div>
       </fieldset>
     </form>
+    </div>
+</section>-->
+<section ng-init="vm.init()" class="header-height">
+  <div class="page-header">
+    <h1>{{vm.order._id ? 'Edit Order' : 'New Order'}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
+        <fieldset>
+          <div class="row form-group">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="control-label" for="docno">Doc No.</label>
+                </div>
+              </div>
+              <div class="row" show-errors>
+                <div class="col-md-12 form-group">
+                  <input name="docno" type="text" ng-model="vm.order.docno" id="docno" class="form-control" placeholder="Doc No." required>
+                  <div ng-messages="vm.form.orderForm.docno.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Order docno is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-8">
+              <div class="row form-group">
+                <div class="col-md-8 form-group">
+                  <label class="control-label">Shipping</label>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.subdistrict" class="form-control" placeholder="Sub District">
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.district" class="form-control" placeholder="District">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.province" class="form-control" placeholder="Province">
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.postcode" class="form-control" placeholder="Post Code">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.tel" class="form-control" placeholder="Tel">
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.email" class="form-control" placeholder="Email">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row form-group">
+                <div class="col-md-8 form-group">
+                  <label class="control-label">Doc Date</label>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12 form-group">
+                  <input type="date" ng-model="vm.order.docdate" class="form-control" placeholder="Doc Date">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12 form-group">
+                  <input type="text" ng-model="vm.order.shipping.firstname" class="form-control" placeholder="First Name">
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-12 form-group">
+                  <input type="text" ng-model="vm.order.shipping.lastname" class="form-control" placeholder="Last Name">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">
+            <div class=" col-xs-3 col-sm-3 col-md-3">
+              <strong>Product</strong>
+            </div>
+            <div class=" col-xs-2 col-sm-2 col-md-2">
+              <strong>Qty</strong>
+            </div>
+            <div class=" col-xs-3 col-sm-3 col-md-3">
+              <strong>Price</strong>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <strong>Amount</strong>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+            </div>
+          </div>
+          <div class="row form-group hidden-xs show-sm show-md show-lg" ng-repeat="product in vm.order.items">
+            <div class=" col-xs-3 col-sm-3 col-md-3">
+              <select name="shipping" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="product.product"
+                ng-change="vm.productChanged(product)"></select>
+            </div>
+            <div class=" col-xs-2 col-sm-2 col-md-2">
+              <input name="qty" type="number" ng-model="product.qty" id="total" class="form-control" placeholder="QTY" ng-change="vm.calculate(product)">
+            </div>
+            <div class=" col-xs-3 col-sm-3 col-md-3">
+              <input name="price" type="number" ng-model="product.product.price" id="total" class="form-control" placeholder="price">
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 ">
+              {{product.amount}}
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </div>
+          <!---->
+          <div class="row alert alert-success show-xs hidden-sm hidden-md hidden-lg">
+            <div class=" col-xs-12">
+              <strong>Product</strong>
+            </div>
+          </div>
+          <div class="row form-group show-xs hidden-sm hidden-md hidden-lg" ng-repeat="product in vm.order.items">
+            <div class="row">
+              <div class="col-xs-12">
+                <select name="shipping" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="product.product"
+                  ng-change="vm.productChanged(product)"></select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <input name="qty" type="number" ng-model="product.qty" id="total" class="form-control textRight" placeholder="QTY" ng-change="vm.calculate(product)">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <input name="price" type="number" ng-model="product.product.price" id="total" class="form-control textRight" placeholder="price">
+              </div>
+            </div>
+
+            <div class="row ">
+              <div class="col-xs-8">
+                <span class="form-control noneBorder">Total: {{product.amount}} </span>
+              </div>
+              <div class="col-xs-4 textCenter">
+                <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
+            <div class="col-xs-12">
+              <button type="button" class="btn btn-primary btn-block" ng-click="vm.selectedProduct()">Add</button>
+            </div>
+          </div>
+
+           <div class="row form-group  hidden-xs show-sm show-md show-lg">
+            <div class="col-sm-12 col-md-12">
+              <button type="button" class="btn btn-primary" ng-click="vm.selectedProduct()">Add</button>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+              <div class="row form-group">
+                <div class="col-md-8 form-group">
+                  <label class="control-label">Amount</label>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-xs-12 form-group">
+                  <input type="text" ng-model="vm.order.amount" class="form-control" placeholder="Amount">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-default">{{vm.order._id ? 'Update' : 'Create'}}</button>
+                </div>
+                <div ng-show="vm.error" class="text-danger">
+                  <strong ng-bind="vm.error"></strong>
+                </div>
+             
+            </div>
+          </div>
+    </div>
+
+    </fieldset>
+    </form>
+  </div>
   </div>
 </section>

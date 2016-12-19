@@ -1,0 +1,19 @@
+.padding-10px {
+    padding:10px;
+}
+
+.img-max-min-width-height-100{
+    max-width:100px;
+    max-height:100px;
+    min-height:100px;
+    min-width:100px;
+}
+
+.float-rigth{
+    float: right;
+}
+
+.min-heigth-100{
+    min-height:100px;    
+}
+

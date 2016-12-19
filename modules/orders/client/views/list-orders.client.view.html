@@ -1,6 +1,12 @@
-<section>
+<!--<section>
   <div class="page-header">
-    <h1>Orders</h1>
+    <h1>Orders
+      <div class="pull-right" ng-hide="!vm.authentication.user">
+        <a class="btn btn-primary" ui-sref="orders.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
   </div>
   <div class="list-group">
     <div class="form-group">
@@ -17,13 +23,13 @@
         <tbody>
           <tr ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
             <td>{{$index+1}}</td>
-             <td>
+            <td>
               <p class="list-group-item-heading" ng-bind="order.docno"></p>
             </td>
             <td>
               <p class="list-group-item-heading" ng-bind="order.shipping.tel"></p>
             </td>
-           
+
             <td>
               <p class="list-group-item-heading" ng-bind="order.amount"></p>
             </td>
@@ -38,4 +44,79 @@
   <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
     No Orders yet, why don't you <a ui-sref="orders.create">create one</a>?
   </div>
+</section>-->
+<section class="header-height">
+  <div class="page-header">
+    <h1>Orders
+      <div class="pull-right" ng-hide="!vm.authentication.user">
+        <a class="btn btn-primary" ui-sref="orders.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>No.</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Doc No</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>Customer</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>Amount</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Date</strong>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p>{{$index+1}}</p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="order.docno"></p>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading" ng-bind="order.shipping.firstname +' '+ order.shipping.lastname"></p>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading" ng-bind="order.amount"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="order.docdate | date: 'dd/MM/yyyy'"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
+    <div class="col-md-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+          <h5 class="list-group-item-heading" ng-bind="order.docno"></h5>
+          <p class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></p>
+          <label class="list-group-item-text">Amount: </label> <label class="list-group-item-text" ng-bind="order.amount | number:2"></label>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
+        No Orders yet, why don't you <a ui-sref="orders.create">create one</a>?
+      </div>
+    </div>
+  </div>
+
 </section>

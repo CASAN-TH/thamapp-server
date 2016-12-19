@@ -10,8 +10,8 @@
       Authentication,
       OrdersService,
       ProductsService,
-      mockProduct,
       ShopCartService,
+      mockProduct,
       mockOrder;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -39,7 +39,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_, _ProductsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_, _ProductsService_, _ShopCartService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -49,6 +49,7 @@
       Authentication = _Authentication_;
       OrdersService = _OrdersService_;
       ProductsService = _ProductsService_;
+      ShopCartService = _ShopCartService_;
 
       // create mock Order
       mockOrder = new OrdersService({
@@ -62,8 +63,7 @@
         price: 100
       });
 
-
-
+      ShopCartService.cart.add(mockProduct);
       // Mock logged in user
       Authentication.user = {
         roles: ['user']
@@ -79,25 +79,19 @@
       spyOn($state, 'go');
     }));
 
-
     describe('vm.init() ', function () {
-
       it('should init', inject(function (ProductsService) {
         $scope.vm.init();
         expect($scope.vm.order.docdate).toEqual(new Date());
         expect($scope.vm.order.items.length).toEqual(1);
       }));
     });
-    
+
     describe('vm.readProduct() as read', function () {
       var mockProductList;
 
       beforeEach(function () {
         mockProductList = [mockProduct, mockProduct, mockProduct];
-
-      it('should load all cart to order', function () {
-        $scope.vm.order.items = $scope.vm.cart.load();
-        expect($scope.vm.order.items.length).toEqual(2);
       });
 
       it('should send a GET request and return all Product', inject(function (ProductsService) {
@@ -116,7 +110,6 @@
 
       }));
     });
-
 
     describe('vm.selectProduct', function () {
 
@@ -196,7 +189,6 @@
 
 
     });
-    ///////////////////////////////////////////////////////////////////////////////////////////////
     describe('vm.save() as create', function () {
       var sampleOrderPostData;
 
@@ -296,11 +288,13 @@
         expect($state.go).not.toHaveBeenCalled();
       });
     });
+
     afterEach(inject(function (_ShopCartService_) {
 
       ShopCartService = _ShopCartService_;
       ShopCartService.cart.clear();
 
     }));
+
   });
 } ());

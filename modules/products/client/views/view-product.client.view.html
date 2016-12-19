@@ -1,31 +1,41 @@
+  <div class="pull-right" ng-hide="!vm.authentication.user">
+        <a class="btn btn-primary" ui-sref="products.create">
+          <span>New</span>
+        </a>
+      </div>
 <section>
-  <div class="page-header">
+ 
+  <div class="page-header prd-header-wrapper">
+    
     <h1 ng-bind="vm.product.name"></h1>
   </div>
-  <div class="pull-right"
-       ng-show="vm.product.isCurrentUserOwner">
-    <a class="btn btn-primary"
-       ui-sref="products.edit({ productId: vm.product._id })">
+  <div class="pull-right" ng-show="vm.product.isCurrentUserOwner">
+    <a class="btn btn-primary" ui-sref="products.edit({ productId: vm.product._id })">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
     <a class="btn btn-primary" ng-click="vm.remove()">
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-   <div class="row">
-    
-<div class="col-sm-4" style="">
-<img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-thumbnail user-profile-picture">
-</div>
-<div class="col-sm-4" style="" >
-<p class="card-text">{{vm.product.description}}</p>
-<h6 class="card-subtitle text-muted">{{vm.product.price}} <strong>บาท</strong></h6>
-<button type="button" class="btn btn-warning " ng-click="vm.cart.add(vm.product)">ใส่ตะกร้า</button>
+  <div class="row ">
 
- 
+    <div class="col-sm-4 text-center">
+      <img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-rounded user-profile-picture">
+    </div>
+    <div class="col-sm-4">
 
-</div>
+<div class=" border-bottom">
+      <p class="card-text ">
+        <li> {{vm.product.description}}</i>
+      </p>
+      </div>
+      <h4 class="card-title text-warning front_price">{{vm.product.price}} บาท</h4>
+      <button type="button" class="btn btn-warning " ng-click="vm.cart.add(vm.product)">ใส่ตะกร้า</button>
 
-</div>
+
+
+    </div>
+
+  </div>
   <p class="lead" ng-bind="vm.product.content"></p>
 </section>
