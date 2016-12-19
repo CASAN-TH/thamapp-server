@@ -1,16 +1,21 @@
 <section class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <h3>เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก</h3>
-      </div>
+  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="vm.checkStep(vm.form.checkoutForm.$valid)" novalidate>
+    <div class="row">
+      <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
+      <div class="col-md-6" ng-show="vm.step === 1">
+        <div class="row">
+          <h3>เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก</h3>
+        </div>
 
-      <div class="row">
-        <div class="col-md-12">
-          <form name="" class="form-horizontal" ng-submit="" novalidate>
+        <div class="row">
+          <div class="col-md-12">
+
             <div class="form-group">
               <label class="control-label" for="pass">กรุณาใส่ อีเมล์ ของท่าน</label>
-              <input name="email" type="text" id="email" class="form-control" placeholder="E-mail">
+              <input name="email" type="text" id="email" class="form-control" placeholder="E-mail" required>
+              <div ng-messages="vm.form.checkoutForm.email.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">E-mail is required.</p>
+              </div>
             </div>
             <div class="form-group">
               <div class="radio">
@@ -31,45 +36,177 @@
             <div class="form-group">
               <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="col-md-1">
-
-    </div>
-    <div class="col-md-5">
-      <div class="row border-bottom">
-        <div class="col-md-12">
-          <h3>สรุปการสั่งซื้อ ({{vm.cart.getTotalCount()}} items)</h3>
-        </div>
-      </div>
-      <div class="row header-style border-bottom">
-        <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
-        <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
-        <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
-      </div>
-      <div class="row border-bottom min-height-50" ng-repeat="item in vm.cart.items">
-        <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
-        <div class="col-xs-3 col-sm-3 col-md-3 text-right">{{item.qty}}</div>
-        <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.qty * item.price}}</div>
       </div>
 
-      <div class="row border-bottom">
-        <div class="col-md-6">
-          <p>มูลค่าสินค้า:</p>
+
+      <div class="col-md-6" ng-show="vm.step === 2">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>ที่อยู่ที่จะจัดส่ง</h4>
+          </div>
         </div>
-        <div class="col-md-6">
-          <p>{{vm.cart.getTotalPrice()}} บาท</p>
+        <!--ที่อยู่ที่จะจัดส่ง กรณียังไม่ login-->
+        <div class="row" ng-hide="authentication.user">
+          <div class="col-xs-12">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">ชื่อ และ นามสกุล</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="" type="text" id="" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">ที่อยู่</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="" type="text" id="" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">รหัสไปรษณีย์</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="" type="text" id="" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">เขต</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="" type="text" id="" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">จังหวัด</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="" type="text" id="" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">โทรศัพท์มือถือ</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="" type="text" id="" class="form-control" placeholder="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
+        <div class="row container-fluid rounded address-container" ng-show="authentication.user">
+          <div class="col-xs-12">
+            <div class="row">
+              <label for="">Theerasak</label>
+            </div>
+            <div class="row">
+              <span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>
+            </div>
+          </div>
+        </div>
+        <div class="row min-height-20">
+
+        </div>
+        <div class="row header-style rounded">
+          <div class="col-xs-12 col-md-12">
+            <div class="form-group">
+              <input type="checkbox" name="bill-address" ng-model="true" ng-value="true"> <label for="">ที่อยู่สำหรับใบเสร็จ/ใบกำกับภาษี</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>ข้อมูลการส่งสินค้า</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            ส่งแบบธรรมดา: ฟรี
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            Get it 21 - 23 Dec 16
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+          </div>
+          <div class="col-md-6"></div>
         </div>
       </div>
-      <div class="row ">
-        <div class="col-md-6">
-          <h4>ยอดสุทธิ</h4>
+
+      <!--โปรดเลือกที่อยู่ที่จะจัดส่ง กรณี login แล้ว-->
+
+
+      <div class="col-md-1">
+
+      </div>
+      <div class="col-md-5">
+        <div class="row border-bottom">
+          <div class="col-md-12">
+            <h3>สรุปการสั่งซื้อ ({{vm.cart.getTotalCount()}} items)</h3>
+          </div>
         </div>
-        <div class="col-md-6">
-          <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+        <div class="row header-style border-bottom">
+          <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
+        </div>
+        <div class="row border-bottom min-height-50" ng-repeat="item in vm.cart.items">
+          <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-right">{{item.qty}}</div>
+          <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.qty * item.price}}</div>
+        </div>
+
+        <div class="row border-bottom">
+          <div class="col-md-6">
+            <p>มูลค่าสินค้า:</p>
+          </div>
+          <div class="col-md-6">
+            <p>{{vm.cart.getTotalPrice()}} บาท</p>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-6">
+            <h4>ยอดสุทธิ</h4>
+          </div>
+          <div class="col-md-6">
+            <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+          </div>
         </div>
       </div>
-    </div>
+  </form>
 </section>

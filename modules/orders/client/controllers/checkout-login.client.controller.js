@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -12,6 +12,14 @@
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
     vm.isMember = false;
+    vm.step = $scope.authentication.user ? 2 : 1;
+    vm.checkStep = function (isValid) {
+      if (!isValid) {
+        $scope.$broadcast('show-errors-check-validity', 'vm.form.productForm');
+        return false;
+      }
+      vm.step += 1;
+    };
     // Checkout login controller logic
     // ...
 
