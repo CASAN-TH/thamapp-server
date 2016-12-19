@@ -125,7 +125,6 @@
       //   detail: String
       // }],
 
-      console.log(vm.order);
       // TODO: move create/update logic to service
       if (vm.order._id) {
         vm.order.$update(successCallback, errorCallback);

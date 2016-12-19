@@ -49,11 +49,12 @@
 
       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Order Name'
+        docno: '1234'
       });
       // Initialize the Checkout login controller.
       CheckoutLoginController = $controller('CheckoutLoginController', {
-        $scope: $scope
+        $scope: $scope,
+        orderResolve: {}
       });
     }));
 
@@ -85,7 +86,7 @@
       //   expect($scope.step).toBe(3);
       // });
 
-      it('should register with correct data', function () {
+      it('should register with correct data', function (authentication) {
         // Test expected GET request
         $scope.step = 2;
         $scope.authentication.user = 'Fred';
@@ -111,19 +112,39 @@
         expect($scope.authentication.user).toEqual('Fred');
       });
 
-      describe('vm.save() as create', function () {
-        it('should send a POST request with the form input values and then locate to new object URL', inject(function (OrdersService) {
-          // Set POST response
-          var sampleOrderPaostData = {};
-          
-          sampleOrderPaostData.docno = '1234';
-          $httpBackend.expectPOST('api/orders', sampleOrderPaostData).respond(mockOrder);
+    });
 
-          // Run controller functionality
-          $scope.saveOrder(true);
-          $httpBackend.flush();
-        }));
-      });
+    describe('vm.save() as create', function () {
+      it('should send a POST request with the form input values and then locate to new object URL', inject(function (OrdersService) {
+        // Set POST response
+        $scope.authentication = {
+          user: {
+            firstName: 'Firstname',
+            lastName: 'lastName',
+            address: {
+              address: 'address',
+              postcode: 'postcode',
+              subdistrict: 'subdistrict',
+              province: 'province',
+              district: 'district',
+              tel: 'tel',
+              email: 'email'
+            }
+          }
+        };
+
+        var sampleOrderPostData = {};
+          // Create a sample Order object
+        sampleOrderPostData = {
+            docno: '1234'
+          };
+
+        $httpBackend.expectPOST('api/orders', sampleOrderPostData).respond(mockOrder);
+
+        // Run controller functionality
+        $scope.saveOrder(true);
+        $httpBackend.flush();
+      }));
     });
 
   });
