@@ -1,6 +1,11 @@
 <section style="min-height: 800px">
 <div class="page-header">
+
   <h1>{{vm.product._id ? 'Edit Product' : 'New Product'}} </h1>
+
+
+
+
 </div>
 <div class="row">
   <div class="col-md-6">
@@ -47,7 +52,7 @@
                 </div>
                 <div class="form-group margin-bottom-30" show-errors>
                   <label class="control-label" for="category">Category</label>
-                  <input name="category" type="text" ng-model="vm.product.category" id="category" class="form-control" placeholder="category"
+                  <input name="category" type="text" ng-model="vm.product.category" id="category" class="form-control" placeholder="Category"
                     required>
                   <div ng-messages="vm.form.productForm.category.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Product category is required.</p>
@@ -58,15 +63,15 @@
                       <input name="description" type="text" ng-model="vm.product.description" id="description" class="form-control" placeholder="description">
                     </div>-->
                 <div class="form-group ">
-                  <textarea rows="5" cols="60" class="card-text word-break txt-area" ng-model="vm.product.description" id="description" class="form-control"
-                    placeholder="description">
+                  <textarea   class="card-text word-break txt-area form-control" ng-model="vm.product.description" id="description" class="form-control"
+                    placeholder="Description" >
                          <li>{{vm.product.description}}</i>
                     </textarea>
                 </div>
 
                 <div class="form-group" show-errors>
                   <label class="control-label" for="price">Price</label>
-                  <input name="price" type="text" ng-model="vm.product.price" id="price" class="form-control" placeholder="price" required>
+                  <input name="price" type="text" ng-model="vm.product.price" id="price" class="form-control" placeholder="Price" required>
                   <div ng-messages="vm.form.productForm.price.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Product price is required.</p>
                   </div>

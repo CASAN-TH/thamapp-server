@@ -1,13 +1,14 @@
-<section>
   <div class="page-header">
     <h1>Products
       <div class="pull-right" ng-hide="!vm.authentication.user">
         <a class="btn btn-primary" ui-sref="products.create">
-          <span>Create</span>
+          <span>New </span>
         </a>
       </div>
     </h1>
   </div>
+<section>
+
   
   <!--<div class="list-group">
     <a ng-repeat="product in vm.products"
@@ -31,11 +32,11 @@
           <img ng-src="{{product.images}}" alt="{{product.name}}" class="img-rounded user-profile-picture">
           </div>
           <div class="card-block">
-            <h4 class="card-title">{{product.name}}</h4>
+            <h4 class="card-title word-break">{{product.name}}</h4>
             
 
             <p class="card-text word-break">{{product.description}}</p>
-            <h4 class="card-title text-warning">{{product.price}} บาท</h4>
+            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
           </div>
         </div>
       </div>
