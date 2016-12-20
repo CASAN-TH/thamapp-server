@@ -15,8 +15,8 @@
                   <label class="control-label" for="docno">Doc No.</label>
                 </div>
               </div>
-              <div class="row" show-errors>
-                <div class="col-md-12 form-group">
+              <div class="row">
+                <div class="col-md-12 form-group" show-errors>
                   <input name="docno" type="text" ng-model="vm.order.docno" id="docno" class="form-control" placeholder="Doc No." required>
                   <div ng-messages="vm.form.orderForm.docno.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Order docno is required.</p>
