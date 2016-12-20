@@ -1,8 +1,8 @@
 <section class="container-fluid">
-  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="vm.checkStep(vm.form.checkoutForm.$valid)" novalidate>
+  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)" novalidate>
     <div class="row">
       <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
-      <div class="col-md-6" ng-show="vm.step === 1">
+      <div class="col-md-6" ng-if="step === 1">
         <div class="row">
           <h3>เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก</h3>
         </div>
@@ -10,11 +10,19 @@
         <div class="row">
           <div class="col-md-12">
 
-            <div class="form-group">
+            <div class="form-group" show-errors ng-if="!vm.isMember">
               <label class="control-label" for="pass">กรุณาใส่ อีเมล์ ของท่าน</label>
-              <input name="email" type="text" id="email" class="form-control" placeholder="E-mail" required>
+              <input name="email" type="email" id="email" class="form-control" ng-model="authentication.email" placeholder="E-mail" required>
               <div ng-messages="vm.form.checkoutForm.email.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">E-mail is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors ng-if="vm.isMember">
+              <label class="control-label" for="pass">กรุณาใส่ Username</label>
+              <input name="username" type="text" id="username" class="form-control" ng-model="authentication.username" placeholder="Username"
+                required>
+              <div ng-messages="vm.form.checkoutForm.username.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Username is required.</p>
               </div>
             </div>
             <div class="form-group">
@@ -27,13 +35,14 @@
             </div>
             <div class="form-group" ng-show="vm.isMember">
               <label class="control-label" for="pass">กรุณากรอกรหัสผ่าน</label>
-              <input name="pass" type="password" id="pass" class="form-control" placeholder="password">
+              <input name="pass" type="password" id="pass" ng-model="authentication.password" class="form-control" placeholder="password">
               <div class="text-right">
                 <a href="">ลืมรหัสผ่าน?</a>
               </div>
             </div>
 
             <div class="form-group">
+              <!--<button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>-->
               <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
             </div>
           </div>
@@ -41,24 +50,39 @@
       </div>
 
 
-      <div class="col-md-6" ng-show="vm.step === 2">
+      <div class="col-md-6" ng-if="step === 2">
         <div class="row">
           <div class="col-xs-12">
             <h4>ที่อยู่ที่จะจัดส่ง</h4>
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณียังไม่ login-->
-        <div class="row" ng-hide="authentication.user">
+        <div class="row" ng-if="!authentication.user">
           <div class="col-xs-12">
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">ชื่อ และ นามสกุล</label>
+                  <label class="control-label" for="pass">ชื่อ</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <input name="" type="text" id="" class="form-control" placeholder="">
+                  <input name="name" type="text" id="name" ng-model="authentication.firstName" class="form-control" placeholder="Name" required>
+                  <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Name is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">นามสกุล</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="lastname" type="text" id="lastname" ng-model="authentication.lastName" class="form-control" placeholder="Last Name">
                 </div>
               </div>
             </div>
@@ -70,7 +94,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <input name="" type="text" id="" class="form-control" placeholder="">
+                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address">
                 </div>
               </div>
             </div>
@@ -82,7 +106,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <input name="" type="text" id="" class="form-control" placeholder="">
+                  <input name="postcode" type="text" id="postcode" ng-model="authentication.address.postcode" class="form-control" placeholder="Postcode">
                 </div>
               </div>
             </div>
@@ -94,7 +118,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <input name="" type="text" id="" class="form-control" placeholder="">
+                  <input name="district" type="text" id="district" ng-model="authentication.address.district" class="form-control" placeholder="">
                 </div>
               </div>
             </div>
@@ -106,7 +130,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <input name="" type="text" id="" class="form-control" placeholder="">
+                  <input name="province" type="text" id="province" ng-model="authentication.address.province" class="form-control" placeholder="">
                 </div>
               </div>
             </div>
@@ -118,20 +142,21 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <input name="" type="text" id="" class="form-control" placeholder="">
+                  <input name="tel" type="text" id="tel" ng-model="authentication.address.tel" class="form-control" placeholder="">
                 </div>
               </div>
             </div>
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
-        <div class="row container-fluid rounded address-container" ng-show="authentication.user">
+        <div class="row container-fluid rounded address-container" ng-if="authentication.user">
           <div class="col-xs-12">
             <div class="row">
-              <label for="">Theerasak</label>
+              <label for="">{{authentication.user.displayName}}</label>
             </div>
             <div class="row">
-              <span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>
+              <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
+              <span>{{authentication.user.address.address}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
             </div>
           </div>
         </div>
@@ -141,7 +166,7 @@
         <div class="row header-style rounded">
           <div class="col-xs-12 col-md-12">
             <div class="form-group">
-              <input type="checkbox" name="bill-address" ng-model="true" ng-value="true"> <label for="">ที่อยู่สำหรับใบเสร็จ/ใบกำกับภาษี</label>
+              <!--<input type="checkbox" name="bill-address" ng-model="true" ng-value="true"> <label for="">ที่อยู่สำหรับใบเสร็จ/ใบกำกับภาษี</label>-->
             </div>
           </div>
         </div>
@@ -161,8 +186,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
-            <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+          <!--<div class="col-md-6" ng-if="authentication.user">
+            <button type="submit" ng-click="saveOrder()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+          </div>
+          <div class="col-md-6" ng-if="!authentication.user">
+            <button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+          </div>-->
+          <div class="col-md-6" >
+            <button type="submit"  class="btn btn-warning btn-block">ดำเนินการต่อ</button>
           </div>
           <div class="col-md-6"></div>
         </div>
@@ -174,7 +205,7 @@
       <div class="col-md-1">
 
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5" ng-show="vm.cart.getTotalCount()">
         <div class="row border-bottom">
           <div class="col-md-12">
             <h3>สรุปการสั่งซื้อ ({{vm.cart.getTotalCount()}} items)</h3>
@@ -205,6 +236,41 @@
           </div>
           <div class="col-md-6">
             <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5" ng-show="vm.checkout.allQty">
+        <div class="row border-bottom">
+          <div class="col-md-12">
+            <h3>สรุปการสั่งซื้อ ({{vm.checkout.allQty}} items)</h3>
+          </div>
+        </div>
+        <div class="row header-style border-bottom">
+          <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
+        </div>
+        <div class="row border-bottom min-height-50" ng-repeat="item in vm.checkout.items">
+          <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-right">{{item.qty}}</div>
+          <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.amount}}</div>
+        </div>
+
+        <div class="row border-bottom">
+          <div class="col-md-6">
+            <p>มูลค่าสินค้า:</p>
+          </div>
+          <div class="col-md-6">
+            <p>{{vm.checkout.amount}} บาท</p>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-6">
+            <h4>ยอดสุทธิ</h4>
+          </div>
+          <div class="col-md-6">
+            <h4>{{vm.checkout.amount}} บาท</h4>
           </div>
         </div>
       </div>

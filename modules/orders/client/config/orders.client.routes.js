@@ -19,7 +19,10 @@
         url: '/checkout-login',
         templateUrl: 'modules/orders/client/views/checkout-login.client.view.html',
         controller: 'CheckoutLoginController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve: {
+          orderResolve: newOrder
+        }
       })
       .state('cartview', {
         url: '/cartview',

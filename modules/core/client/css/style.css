@@ -305,7 +305,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 }
 .logo-element {
   text-align: center;
-  font-size: 18px;
+  font-size: 27px;
   font-weight: 600;
   color: white;
   display: none;
@@ -3523,7 +3523,7 @@ video {
   padding: 20px 10px 40px;
 }
 #page-wrapper {
-  padding: 0 15px;
+  padding: 0 5px;
   min-height: 568px;
   position: relative !important;
 }
@@ -8407,4 +8407,15 @@ body.md-skin {
 }
 .rounded {
   border-radius: 5px;
+}
+
+.page-header {
+    padding-bottom: 9px;
+    margin: 10px 0 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.row {
+    margin-right: -5px;
+    margin-left: -5px;
 }
