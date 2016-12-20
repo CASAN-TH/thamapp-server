@@ -9,6 +9,15 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('complete', {
+        url: '/:orderId/complete',
+        templateUrl: 'modules/orders/client/views/complete.client.view.html',
+        controller: 'CompleteController',
+        controllerAs: 'vm',
+        resolve: {
+          orderResolve: getOrder
+        }
+      })
       .state('checkout-create', {
         url: '/checkout-create',
         templateUrl: 'modules/orders/client/views/checkout-create.client.view.html',
