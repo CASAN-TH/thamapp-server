@@ -42,7 +42,8 @@
             </div>
 
             <div class="form-group">
-              <button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+              <!--<button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>-->
+              <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
             </div>
           </div>
         </div>
@@ -56,7 +57,7 @@
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณียังไม่ login-->
-        <div class="row" ng-hide="authentication.user">
+        <div class="row" ng-if="!authentication.user">
           <div class="col-xs-12">
             <div class="row">
               <div class="col-xs-12 col-md-6">
@@ -148,13 +149,14 @@
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
-        <div class="row container-fluid rounded address-container" ng-show="authentication.user">
+        <div class="row container-fluid rounded address-container" ng-if="authentication.user">
           <div class="col-xs-12">
             <div class="row">
-              <label for="">Theerasak</label>
+              <label for="">{{authentication.user.displayName}}</label>
             </div>
             <div class="row">
-              <span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>
+              <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
+              <span>{{authentication.user.address.address}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
             </div>
           </div>
         </div>
@@ -184,11 +186,14 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6" ng-if="authentication.user">
+          <!--<div class="col-md-6" ng-if="authentication.user">
             <button type="submit" ng-click="saveOrder()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
           </div>
           <div class="col-md-6" ng-if="!authentication.user">
             <button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+          </div>-->
+          <div class="col-md-6" >
+            <button type="submit"  class="btn btn-warning btn-block">ดำเนินการต่อ</button>
           </div>
           <div class="col-md-6"></div>
         </div>

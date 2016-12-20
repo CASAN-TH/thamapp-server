@@ -54,6 +54,7 @@
             if (item.product._id === product._id) {
                 found = true;
                 item.qty += 1;
+                item.amount = item.price * item.qty;
             }
         }
 
@@ -72,6 +73,7 @@
             if (item.product._id === product._id) {
                 found = true;
                 item.qty -= 1;
+                item.amount = item.price * item.qty;
                 if (item.qty <= 0) {
                     this.items.splice(i, 1);
                 }

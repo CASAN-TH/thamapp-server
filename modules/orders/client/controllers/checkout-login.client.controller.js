@@ -38,7 +38,13 @@
           $scope.step += 1;
         }
       } else {
-        $scope.signup(isValid);
+        if ($scope.authentication.user) {
+          $scope.saveOrder();
+        }
+        else {
+          $scope.signup(isValid);
+        }
+
       }
     };
 
@@ -84,8 +90,9 @@
     $scope.saveOrder = function () {
       vm.order.items = [];
       vm.order.shipping = {};
-      var getAllOrder = OrdersService.query();
-      vm.order.docno = new Date().getFullYear() + '' + new Date().getMonth() + '' + (getAllOrder.length + 1);
+      //var getAllOrder = OrdersService.query();
+      //vm.order.docno = new Date().getFullYear() + '' + new Date().getMonth() + '' + (getAllOrder.length + 1);
+      vm.order.docno = (+ new Date());
       vm.order.docdate = new Date();
       // products
       var getItems = vm.cart.items;
