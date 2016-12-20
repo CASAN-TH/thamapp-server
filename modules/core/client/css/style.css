@@ -8419,3 +8419,7 @@ body.md-skin {
     margin-right: -5px;
     margin-left: -5px;
 }
+
+.text-red {
+  color: red;
+}

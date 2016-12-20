@@ -15,6 +15,7 @@
     vm.form = {};
     vm.checkout = {};
     vm.order = orderResolve;
+    vm.order.delivery = {deliveryid:'0'};
     vm.isMember = false;
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
@@ -142,7 +143,9 @@
       function successCallback(res) {
         // $scope.step += 1;
         vm.cart.clear();
-        $state.go('complete');
+        $state.go('complete',{
+           orderId: res._id
+        });
         // vm.checkout = res;
         // vm.checkout.allQty = 0;
         // res.items.forEach(function (item) {
