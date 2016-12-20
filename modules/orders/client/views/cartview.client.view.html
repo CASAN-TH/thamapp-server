@@ -5,7 +5,8 @@
   <div class="row">
     <div class="col-md-12"></div>
   </div>
-  <div class="row" ng-show="vm.cart.getTotalCount() !==  0">
+  <!--//////web////////-->
+  <div class="row hidden-xs show-sm show-md show-lg" ng-show="vm.cart.getTotalCount() !==  0">
     <div class="col-md-7">
       <div class="row">
       </div>
@@ -33,11 +34,11 @@
             <a ng-click="vm.cart.add(itm.product)">
               <span class="fa fa-plus" aria-hidden="true"></span>
             </a>
-            {{itm.qty}} 
+            {{itm.qty}}
             <a ng-click="vm.cart.remove(itm.product)">
               <span class="fa fa-minus" aria-hidden="true"></span>
             </a>
-            </h4>
+          </h4>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 padding-10px">
           <a ng-click="vm.cart.removeItem(itm.product)">
@@ -80,6 +81,119 @@
         </div>
       </div>
     </div>
+  </div>
+  <!--//////Mobile////////-->
+  <div class="row show-xs hidden-sm hidden-md hidden-lg">
+    <div class="col-md-7">
+      <div class="row">
+      </div>
+      <!---->
+      <!--<div class="row border-bottom">
+        <div class="col-xs-5 col-sm-7 col-md-7">สินค้า</div>
+        <div class="col-xs-2 col-sm-2 col-md-2">ราคาสินค้า</div>
+        <div class="col-xs-4 col-sm-3 col-md-3">จำนวน</div>
+      </div>-->
+      <!---->
+      <div class="row" ng-repeat="itm in vm.cart.items">
+        <div class="card">
+          <div class="row">
+            <div class="col-xs-4 padding-1px">
+              <div class="card-image">
+                <img src="{{itm.product.images}}" class="img img-thumbnail img-max-min-width-height-100" alt="">
+              </div>
+            </div>
+            <div class="col-xs-7">
+              <div class="card-content ">
+                <h4>{{itm.product.description}}</h4>
+                <h4>{{itm.price}} บาท</h4>
+                <h2>
+                  <a ng-click="vm.cart.add(itm.product)">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                  </a>
+                  {{itm.qty}}
+                  <a ng-click="vm.cart.remove(itm.product)">
+                    <span class="fa fa-minus" aria-hidden="true"></span>
+                  </a>
+                </h2>
+              </div>
+            </div>
+            <div class="col-xs-1 padding-1px">
+              <a ng-click="vm.cart.removeItem(itm.product)">
+                <span class="glyphicon glyphicon-remove float-rigth" aria-hidden="true"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <!--<div class="row border-bottom" ng-repeat="itm in vm.cart.items">
+        <div class="col-xs-5 col-sm-7 col-md-7">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 hidden-xs padding-10px">
+              <img src="{{itm.product.images}}" class="img img-thumbnail img-max-min-width-height-100" alt="">
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 padding-10px">
+              <h4>{{itm.product.description}}</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2 padding-10px">
+          <h4>{{itm.price}} บาท</h4>
+        </div>
+        <div class="col-xs-4 col-sm-2 col-md-2 padding-10px">
+          <h4>
+            <a ng-click="vm.cart.add(itm.product)">
+              <span class="fa fa-plus" aria-hidden="true"></span>
+            </a>
+            {{itm.qty}}
+            <a ng-click="vm.cart.remove(itm.product)">
+              <span class="fa fa-minus" aria-hidden="true"></span>
+            </a>
+          </h4>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 padding-10px">
+          <a ng-click="vm.cart.removeItem(itm.product)">
+            <span class="glyphicon glyphicon-remove float-rigth" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>-->
+      <!---->
+    </div>
+    <div class="col-md-1"> </div>
+    <div class="col-md-4">
+      <div class="row border-bottom">
+        <div class="col-md-12">
+          <h4>สรุปการสั่งซื้อ</h4>
+        </div>
+      </div>
+      <div class="row border-bottom min-heigth-100">
+        <div class="col-md-6">
+          <p>มูลค่าสินค้า:</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.cart.getTotalPrice()}} บาท</p>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-6">
+          <h4>ยอดสุทธิ</h4>
+        </div>
+        <div class="col-md-6">
+          <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+        </div>
+      </div>
+      <div class="row" ng-hide="authentication.user || vm.cart.getTotalCount() === 0">
+        <div class="col-md-12">
+          <button class="btn btn-warning btn-block" ui-sref="checkout-login">ดำเนินการชำระสินค้า</button>
+        </div>
+      </div>
+      <div class="row" ng-show="authentication.user && vm.cart.getTotalCount() !== 0">
+        <div class="col-md-12">
+          <button class="btn btn-warning btn-block" ui-sref="checkout-login">ดำเนินการชำระสินค้า</button>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
   <div ng-show="vm.cart.getTotalCount() ===  0">
     <div class="text-center margin-bottom-30 "> <label><h3> ไม่มีสินค้าในรถเข็น </h3></label>
