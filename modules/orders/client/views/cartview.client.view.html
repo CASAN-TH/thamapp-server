@@ -29,7 +29,8 @@
           <h4>{{itm.price}} บาท</h4>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2 padding-10px">
-          <h4>{{itm.qty}} ชิ้น</h4>
+          <!--<h4>{{itm.qty}} ชิ้น</h4>-->
+          <input type="number" ng-model="itm.qty" class="form-control" ng-change="vm.cart.save()"/>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 padding-10px">
           <a ng-click="vm.cart.removeItem(itm.product)">
