@@ -1,0 +1,53 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.postcode._id ? 'Edit Postcode' : 'New Postcode'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.postcodeForm" class="form-horizontal" ng-submit="vm.save(vm.form.postcodeForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Location Code</label>
+          <input name="locationcode" type="text" ng-model="vm.postcode.locationcode" id="locationcode" class="form-control" placeholder="Location Code" required>
+          <div ng-messages="vm.form.postcodeForm.locationcode.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Postcode locationcode is required.</p>
+          </div>
+        </div>
+         <div class="form-group">
+          <label class="control-label" for="name">Sub-District</label>
+          <input name="subdistrict" type="text" ng-model="vm.postcode.subdistrict" id="subdistrict" class="form-control" placeholder="Sub-District" >
+          
+        </div>
+         <div class="form-group" show-errors>
+          <label class="control-label" for="name">District</label>
+          <input name="district" type="text" ng-model="vm.postcode.district" id="district" class="form-control" placeholder="District" required>
+          <div ng-messages="vm.form.postcodeForm.district.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Postcode district is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Province</label>
+          <input name="province" type="text" ng-model="vm.postcode.province" id="province" class="form-control" placeholder="Province" required>
+          <div ng-messages="vm.form.postcodeForm.province.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Postcode province is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">PostCode</label>
+          <input name="postcode" type="text" ng-model="vm.postcode.postcode" id="postcode" class="form-control" placeholder="PostCode" required>
+          <div ng-messages="vm.form.postcodeForm.postcode.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Postcode postcode is required.</p>
+          </div>
+        </div>
+
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.postcode._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
