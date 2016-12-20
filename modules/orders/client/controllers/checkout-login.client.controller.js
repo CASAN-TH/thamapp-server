@@ -65,7 +65,15 @@
         // $scope.step += 1;
         // And redirect to the previous or home page
       }).error(function (response) {
-        $scope.error = response.message;
+        //$scope.error = response.message;
+        //if(response.message === 'Username already exists') then signin()
+        $http.post('/api/auth/signin', $scope.authentication).success(function (response) {
+          // If successful we assign the response to the global user model
+          $scope.authentication.user = response;
+          //$scope.step += 1;
+        }).error(function (response) {
+          $scope.error = response.message;
+        });
       });
     };
 
