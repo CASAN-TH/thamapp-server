@@ -1,0 +1,88 @@
+<section>
+  <div class="page-header">
+    <h1>Postcodes
+      <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="postcodes.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Location Code</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Sub District</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>District</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Province</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Postcode</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Update</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Delete</strong>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="postcode in vm.postcodes ">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="postcode.locationcode"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="postcode.subdistrict"></p>
+        </div>
+       <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="postcode.district"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="postcode.province"></p>
+        </div>
+         <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="postcode.postcode"></p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-primary"ng-click="vm.update(postcode)"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-danger" ng-click="vm.remove(postcode)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="postcode in vm.postcodes ">
+    <div class="col-md-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+          <label>Location Code : </label> <label class="list-group-item-heading" ng-bind="postcode.locationcode"></label><br>
+          <label>Sub District : </label> <label class="list-group-item-heading" ng-bind="postcode.subdistrict"></label><br>
+          <label>District : </label> <label class="list-group-item-heading" ng-bind="postcode.district"></label><br>
+          <label>Province : </label> <label class="list-group-item-heading" ng-bind="postcode.province"></label><br>
+          <label>Postcode : </label> <label class="list-group-item-heading" ng-bind="postcode.postcode"></label>
+          </a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-warning text-center" ng-if="vm.postcodes.$resolved && !vm.postcodes.length">
+        No Orders yet, why don't you <a ui-sref="postcodes.create">create one</a>?
+      </div>
+    </div>
+  </div>
+</section>
