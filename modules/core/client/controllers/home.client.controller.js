@@ -6,8 +6,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.authentication = Authentication;
 
     // Some example string
-    $scope.helloText = 'Welcome in INSPINIA MEAN.JS Boilerplate';
-    $scope.descriptionText = 'It is an application skeleton for a typical MEAN web app. You can use it to quickly bootstrap your project.';
+    $scope.helloText = 'ร้านค้า ธรรมธุรกิจ';
+    $scope.descriptionText = 'แหล่งรวมสินค้า อาหาร ธรรมชาติ';
 
   }
 ]);

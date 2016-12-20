@@ -8419,3 +8419,14 @@ body.md-skin {
     margin-right: -5px;
     margin-left: -5px;
 }
+
+.text-red {
+  color: red;
+}
+
+.img-product {
+  max-width: 200px;
+  max-height: 300px;
+  min-width: 200px;
+  min-height: 300px;
+}
