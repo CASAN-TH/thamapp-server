@@ -103,16 +103,16 @@
               </div>
             </div>
             <div class="col-xs-8">
-              <div class="card-content ">
+              <div class="card-content">
                 <h4>{{itm.product.name}}</h4>
                 <h5>{{itm.price}} บาท</h5>
-                <h2>
+                <h2 class="pum-text-center">
                   <a ng-click="vm.cart.add(itm.product)">
-                    <span class="fa fa-plus" aria-hidden="true"></span>
+                    <span class="fa fa-plus-circle text-info" aria-hidden="true"></span>
                   </a>
                   {{itm.qty}}
                   <a ng-click="vm.cart.remove(itm.product)">
-                    <span class="fa fa-minus" aria-hidden="true"></span>
+                    <span class="fa fa-minus-circle text-danger" aria-hidden="true"></span>
                   </a>
                 </h2>
               </div>
