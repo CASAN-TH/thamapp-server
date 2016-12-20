@@ -75,7 +75,8 @@
                 item.qty -= 1;
                 item.amount = item.price * item.qty;
                 if (item.qty <= 0) {
-                    this.items.splice(i, 1);
+                    item.qty = 1;
+                    //this.items.splice(i, 1);
                 }
             }
         }
