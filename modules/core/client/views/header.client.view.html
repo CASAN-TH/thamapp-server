@@ -7,7 +7,6 @@
           <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
         </div>
       </form>
-
     </div>
     <ul class="nav navbar-top-links navbar-right hidden-xs" ng-hide="authentication.user">
       <li>
@@ -18,10 +17,7 @@
         <a ui-sref="authentication.signin">Sign In</a>
       </li>
     </ul>
-
-
     <ul class="nav navbar-top-links navbar-nav navbar-right hidden-xs" ng-show="authentication.user">
-
       <li uib-dropdown="">
         <a uib-dropdown-toggle="" class="user-header-dropdown-toggle" role="button">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image"
@@ -47,18 +43,14 @@
           </li>
         </ul>
       </li>
-
     </ul>
-
     <ul class="nav navbar-top-links navbar-nav navbar-right ">
       <li>
         <a style="margin-top: -10px" ui-sref="cartview" >
-          <i class="fa fa-shopping-cart" style="font-size:26px;margin-top:3px"></i>
-          <p class="badge badge-danger" style="margin-left: -8px; margin-top: -20px">{{ cart.getTotalCount() }}</p>
+          <i class="fa fa-shopping-cart font-size26-margin-top3"></i>
+          <p class="badge badge-danger margin-left-8-margin-top-20px">{{ cart.getTotalCount() }}</p>
         </a>
       </li>
-
-
     </ul>
   </nav>
 </div>

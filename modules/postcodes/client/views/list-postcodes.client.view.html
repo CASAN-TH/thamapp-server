@@ -46,17 +46,17 @@
         <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="postcode.subdistrict"></p>
         </div>
-       <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="postcode.district"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="postcode.province"></p>
         </div>
-         <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="postcode.postcode"></p>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
-          <button type="button" class="btn btn-primary"ng-click="vm.update(postcode)"><span class="glyphicon glyphicon-edit"></span></button>
+          <button type="button" class="btn btn-primary" ng-click="vm.update(postcode)"><span class="glyphicon glyphicon-edit"></span></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
           <button type="button" class="btn btn-danger" ng-click="vm.remove(postcode)"><span class="glyphicon glyphicon-trash"></span></button>
@@ -74,7 +74,26 @@
           <label>District : </label> <label class="list-group-item-heading" ng-bind="postcode.district"></label><br>
           <label>Province : </label> <label class="list-group-item-heading" ng-bind="postcode.province"></label><br>
           <label>Postcode : </label> <label class="list-group-item-heading" ng-bind="postcode.postcode"></label>
-          </a>
+        <div class="row fadePortrait">
+          <div class="col-xs-10 text-right">
+            <button type="button" class="btn btn-primary" ng-click="vm.update(postcode)"><span class="glyphicon glyphicon-edit"></span></button>
+
+          </div>
+          <div class="col-xs-1 text-right marLeft">
+            <button type="button" class="btn btn-danger" ng-click="vm.remove(postcode)"><span class="glyphicon glyphicon-trash"></span></button>
+          </div>
+        </div>
+        <div class="row fadeLandscape">
+          <div class="col-xs-11 text-right">
+            <button type="button" class="btn btn-primary" ng-click="vm.update(postcode)"><span class="glyphicon glyphicon-edit"></span></button>
+
+          </div>
+          <div class="col-xs-1 text-right marLeft">
+            <button type="button" class="btn btn-danger" ng-click="vm.remove(postcode)"><span class="glyphicon glyphicon-trash"></span></button>
+          </div>
+        </div>
+        </a>
+        
       </div>
     </div>
   </div>
