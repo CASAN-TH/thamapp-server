@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve'];
+  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve) {
+  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -140,13 +140,14 @@
       }
 
       function successCallback(res) {
-        $scope.step += 1;
+        // $scope.step += 1;
         vm.cart.clear();
-        vm.checkout = res;
-        vm.checkout.allQty = 0;
-        res.items.forEach(function (item) {
-          vm.checkout.allQty += item.qty;
-        });
+        $state.go('complete');
+        // vm.checkout = res;
+        // vm.checkout.allQty = 0;
+        // res.items.forEach(function (item) {
+        //   vm.checkout.allQty += item.qty;
+        // });
       }
 
       function errorCallback(res) {

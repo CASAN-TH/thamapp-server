@@ -163,10 +163,10 @@
         <div class="row min-height-20">
 
         </div>
-        <div class="row header-style rounded">
+        <div class="row header-style rounded container-fluid">
           <div class="col-xs-12 col-md-12">
             <div class="form-group">
-              <!--<input type="checkbox" name="bill-address" ng-model="true" ng-value="true"> <label for="">ที่อยู่สำหรับใบเสร็จ/ใบกำกับภาษี</label>-->
+              <input type="checkbox" name="bill-address" ng-model="true" ng-value="true"> <label for="">ที่อยู่สำหรับใบเสร็จ/ใบกำกับภาษี</label>
             </div>
           </div>
         </div>
@@ -193,7 +193,7 @@
             <button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
           </div>-->
           <div class="col-md-6" >
-            <button type="submit"  class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+            <button type="submit"  class="btn btn-warning btn-block" ng-show="vm.cart.getTotalCount()">ดำเนินการต่อ</button>
           </div>
           <div class="col-md-6"></div>
         </div>
