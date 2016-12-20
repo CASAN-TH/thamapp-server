@@ -18,7 +18,10 @@
     vm.remove = remove;
     vm.save = save;
     vm.cart = ShopCartService.cart;
-
+    vm.buynow = function (product) {
+      vm.cart.add(product);
+      $state.go('cartview');
+    };
 
     $scope.user = Authentication.user;
 

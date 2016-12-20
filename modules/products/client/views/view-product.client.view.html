@@ -1,12 +1,12 @@
-  <div class="pull-right" ng-hide="!vm.authentication.user">
-        <a class="btn btn-primary" ui-sref="products.create">
-          <span>New</span>
-        </a>
-      </div>
+<div class="pull-right" ng-hide="!vm.authentication.user">
+  <a class="btn btn-primary" ui-sref="products.create">
+    <span>New</span>
+  </a>
+</div>
 <section>
- 
+
   <div class="page-header prd-header-wrapper">
-    
+
     <h1 ng-bind="vm.product.name"></h1>
   </div>
   <div class="pull-right" ng-show="vm.product.isCurrentUserOwner">
@@ -24,16 +24,14 @@
     </div>
     <div class="col-sm-4">
 
-<div class=" border-bottom">
-      <p class="card-text ">
-        <li> {{vm.product.description}}</i>
-      </p>
+      <div class=" border-bottom">
+        <p class="card-text ">
+          <li> {{vm.product.description}}</i>
+        </p>
       </div>
       <h4 class="card-title text-warning front_price">{{vm.product.price}} บาท</h4>
       <button type="button" class="btn btn-warning " ng-click="vm.cart.add(vm.product)">ใส่ตะกร้า</button>
-
-
-
+      <button type="button" class="btn btn-primary " ng-click="vm.buynow(vm.product)">สั่งซื้อทันที</button>
     </div>
 
   </div>
