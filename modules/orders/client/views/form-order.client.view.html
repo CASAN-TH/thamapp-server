@@ -61,6 +61,9 @@
                 <div class="col-md-6 form-group">
                   <input type="text" ng-model="vm.order.shipping.email" class="form-control" placeholder="Email">
                 </div>
+                <div class="col-md-6 form-group">
+                  <select name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id " ng-model="vm.order.namedeliver"></select>
+                </div>
               </div>
             </div>
             <div class="col-md-4">

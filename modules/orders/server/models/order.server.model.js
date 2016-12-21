@@ -21,6 +21,10 @@ var OrderSchema = new Schema({
     type: Date,
     required: 'Please fill Order docdate'
   },
+  namedeliver: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  },
   items: {
     required: 'Please fill Order items',
     type: [{
