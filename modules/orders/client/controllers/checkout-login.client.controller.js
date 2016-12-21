@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state'];
+  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state) {
+  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -19,6 +19,7 @@
     vm.isMember = false;
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
+    $scope.postcodeQuery = PostcodesService.query();
 
     $scope.products = product;
     function product() {
@@ -50,8 +51,8 @@
     };
 
     $scope.signup = function (isValid) {
-      $scope.authentication.username = $scope.authentication.email.split('@')[0].toString();
       $scope.authentication.password = 'Usr#Pass1234';
+      $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
       $scope.error = null;
 
       if (!isValid) {
@@ -157,7 +158,7 @@
         vm.error = res.data.message;
       }
     };
-
+    $scope.postcode = [{ name: '11111', p: 'dsaf' }];
     init();
 
     function init() {
