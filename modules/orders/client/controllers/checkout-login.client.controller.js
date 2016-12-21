@@ -20,7 +20,6 @@
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
     $scope.postcodeQuery = PostcodesService.query();
-
     $scope.products = product;
     function product() {
 
@@ -158,7 +157,24 @@
         vm.error = res.data.message;
       }
     };
-    $scope.postcode = [{ name: '11111', p: 'dsaf' }];
+    $scope.postcode = $scope.postcodeQuery;
+    // $scope.postcode = [{ name: 'test' }];
+
+    $scope.callback = function (postcode) {
+      $scope.checkAutocomplete(postcode);
+    };
+
+    $scope.checkAutocomplete = function (postcode) {
+      if ($scope.authentication.address.postcode) {
+        $scope.authentication.address.district = postcode.district;
+        $scope.authentication.address.subdistrict = postcode.subdistrict;        
+        $scope.authentication.address.province = postcode.province;
+      }else{
+        $scope.authentication.address.district = '';
+        $scope.authentication.address.province = '';
+        $scope.authentication.address.subdistrict = '';                
+      }
+    };
     init();
 
     function init() {
