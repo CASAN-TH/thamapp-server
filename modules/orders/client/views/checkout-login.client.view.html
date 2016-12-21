@@ -99,22 +99,6 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">ที่อยู่</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Address is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
                   <label class="control-label" for="pass">รหัสไปรษณีย์</label>
                 </div>
               </div>
@@ -139,8 +123,8 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control" placeholder="Subdistrict"
-                    required>
+                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control"
+                    placeholder="Subdistrict" required>
                   <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
                   </div>
@@ -182,6 +166,22 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
+                  <label class="control-label" for="pass">ที่อยู่</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Address is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
                   <label class="control-label" for="pass">โทรศัพท์มือถือ</label>
                 </div>
               </div>
@@ -194,7 +194,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
