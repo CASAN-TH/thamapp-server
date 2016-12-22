@@ -8,6 +8,19 @@
         <fieldset>
           <div class="row form-group">
             <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12 form-group">
+                  <label class="control-label">To.</label>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.firstname" class="form-control" placeholder="First Name">
+                </div>
+                <div class="col-md-6 form-group">
+                  <input type="text" ng-model="vm.order.shipping.lastname" class="form-control" placeholder="Last Name">
+                </div>
+              </div>
             </div>
             <div class="col-md-4">
               <div class="row">
@@ -28,7 +41,7 @@
 
           <div class="row form-group">
             <div class="col-md-8">
-              <div class="row form-group">
+              <div class="row">
                 <div class="col-md-8 form-group">
                   <label class="control-label">Shipping</label>
                 </div>
@@ -61,13 +74,10 @@
                 <div class="col-md-6 form-group">
                   <input type="text" ng-model="vm.order.shipping.email" class="form-control" placeholder="Email">
                 </div>
-                <div class="col-md-6 form-group">
-                  <select name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id " ng-model="vm.order.namedeliver"></select>
-                </div>
               </div>
             </div>
             <div class="col-md-4">
-              <div class="row form-group">
+              <div class="row">
                 <div class="col-md-8 form-group">
                   <label class="control-label">Doc Date</label>
                 </div>
@@ -77,14 +87,14 @@
                   <input type="date" ng-model="vm.order.docdate" class="form-control" placeholder="Doc Date">
                 </div>
               </div>
-              <div class="row ">
-                <div class="col-md-12 form-group">
-                  <input type="text" ng-model="vm.order.shipping.firstname" class="form-control" placeholder="First Name">
+              <div class="row">
+                <div class="col-md-8 form-group">
+                  <label class="control-label">Deliver</label>
                 </div>
               </div>
               <div class="row ">
                 <div class="col-md-12 form-group">
-                  <input type="text" ng-model="vm.order.shipping.lastname" class="form-control" placeholder="Last Name">
+                  <select name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id " ng-model="vm.order.namedeliver"></select>
                 </div>
               </div>
             </div>

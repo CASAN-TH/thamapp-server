@@ -65,8 +65,12 @@
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
           <h5 class="list-group-item-heading" ng-bind="order.docno"></h5>
-          <p class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></p>
-          <label class="list-group-item-text">Amount: </label> <label class="list-group-item-text" ng-bind="order.amount | number:2"></label>
+          <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
+          <label class="list-group-item-text">Amount: </label> <label class="list-group-item-text" ng-bind="order.amount | number:2"></label><br>
+          <strong class="list-group-item-text">Deliver :
+            <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName"></i>
+            <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName"></i>
+          </strong>
         </a>
       </div>
     </div>
