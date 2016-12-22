@@ -136,7 +136,7 @@
       });
       // address contact
       vm.order.shipping.tel = $scope.authentication.user.address.tel;
-      vm.order.shipping.email = $scope.authentication.user.address.email;
+      vm.order.shipping.email = $scope.authentication.user.email;
 
       if ($scope.newAddress.status === false) {
         vm.order.shipping.firstname = $scope.authentication.user.firstName;
