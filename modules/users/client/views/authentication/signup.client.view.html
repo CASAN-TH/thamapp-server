@@ -25,6 +25,52 @@
               </div>
             </div>
             <div class="form-group" show-errors>
+              <label for="postcode">Post Code</label>
+              <input type="text" id="postcode" name="postcode" class="form-control" autocomplete="false" typeahead="postcode" ng-model="credentials.address.postcode"
+                typeahead-callback="callback" ng-change="checkAutocomplete(credentials.address.postcode)" placeholder="Post Code"
+                required>
+
+              <div ng-messages="userForm.postcode.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Post Code is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label for="subdistrict">Sub District</label>
+              <input type="text" id="subdistrict" name="subdistrict" class="form-control" ng-model="credentials.address.subdistrict" placeholder="Sub District"
+                required>
+
+              <div ng-messages="userForm.subdistrict.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Sub District is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label for="district">District</label>
+              <input type="text" id="district" name="district" class="form-control" ng-model="credentials.address.district" placeholder="District"
+                required>
+
+              <div ng-messages="userForm.district.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">District is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label for="province">Province</label>
+              <input type="text" id="province" name="province" class="form-control" ng-model="credentials.address.province" placeholder="Province"
+                required>
+
+              <div ng-messages="userForm.province.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Province is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label for="address">Address</label>
+              <input type="text" id="address" name="address" class="form-control" ng-model="credentials.address.address" placeholder="Address"
+                required>
+
+              <div ng-messages="userForm.address.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Address is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
               <label for="email">Email</label>
               <input type="email" id="email" name="email" class="form-control" ng-model="credentials.email" placeholder="Email" lowercase
                 required>
@@ -35,17 +81,15 @@
                 <p class="help-block error-text" ng-message="email">Email address is invalid.</p>
               </div>
             </div>
-
             <div class="form-group" show-errors>
-              <label for="username">Address</label>
-              <input type="text" id="address" name="address" class="form-control" ng-model="credentials.address.address" placeholder="Address"
-                lowercase required>
+              <label for="tel">Tel</label>
+              <input type="text" id="tel" name="tel" class="form-control" ng-model="credentials.address.tel" placeholder="Tel"
+                required>
 
-              <div ng-messages="userForm.address.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Address is required.</p>
+              <div ng-messages="userForm.tel.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Tel address is required.</p>
               </div>
             </div>
-
             <div class="form-group" show-errors>
               <label for="username">Username</label>
               <input type="text" id="username" name="username" class="form-control" ng-model="credentials.username" placeholder="Username"

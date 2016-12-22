@@ -1,9 +1,11 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'PostcodesService',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, PostcodesService) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
+    $scope.postcodeQuery = PostcodesService.query();
+    $scope.postcode = $scope.postcodeQuery;
 
     // Get an eventual error defined in the URL query string:
     $scope.error = $location.search().err;
@@ -13,6 +15,21 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       $location.path('/');
     }
 
+    $scope.callback = function (postcode) {
+      $scope.checkAutocomplete(postcode);
+    };
+
+    $scope.checkAutocomplete = function (postcode) {
+        if (postcode) {
+          $scope.credentials.address.district = postcode.district;
+          $scope.credentials.address.subdistrict = postcode.subdistrict;
+          $scope.credentials.address.province = postcode.province;
+        } else {
+          $scope.credentials.address.district = '';
+          $scope.credentials.address.province = '';
+          $scope.credentials.address.subdistrict = '';
+        }
+    };
     $scope.signup = function (isValid) {
       $scope.error = null;
 
