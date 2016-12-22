@@ -24,7 +24,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      Order.findOne(order).populate('user', 'displayName').populate('items.product').exec(function (err2, orders) {
+      Order.findOne(order).populate('user', 'displayName').populate('items.product').populate('namedeliver').exec(function (err2, orders) {
         if (err2) {
           console.log('err');
           return res.status(400).send({
@@ -93,7 +93,7 @@ exports.delete = function (req, res) {
  * List of Orders
  */
 exports.list = function (req, res) {
-  Order.find().sort('-created').populate('user', 'displayName').populate('items.product').exec(function (err, orders) {
+  Order.find().sort('-created').populate('user', 'displayName').populate('items.product').populate('namedeliver').exec(function (err, orders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -115,7 +115,7 @@ exports.orderByID = function (req, res, next, id) {
     });
   }
 
-  Order.findById(id).populate('user').populate('items.product').exec(function (err, order) {
+  Order.findById(id).populate('user').populate('items.product').populate('namedeliver').exec(function (err, order) {
     if (err) {
       return next(err);
     } else if (!order) {

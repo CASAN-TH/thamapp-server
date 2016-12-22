@@ -101,3 +101,21 @@ exports.changeProfilePicture = function (req, res) {
 exports.me = function (req, res) {
   res.json(req.user || null);
 };
+
+// exports.list = function (req, res) {
+//   var delivers = [];
+//   User.find().sort('-created').exec(function (err, users) {
+//     if (err) {
+//       return res.status(400).send({
+//         message: errorHandler.getErrorMessage(err)
+//       });
+//     } else {
+//       res.jsonp(delivers = users.filter(function (user) {
+//         if (user.roles[0] === 'deliver') {
+
+//           return true;
+//         }
+//       }));
+//     }
+//   });
+// };

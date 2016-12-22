@@ -11,7 +11,7 @@
   <div class="row hidden-xs show-sm show-md show-lg">
     <div class="col-md-12">
       <div class="row form-group alert alert-success">
-        <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class="col-xs-1 col-sm-1 col-md-1">
           <strong>No.</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -20,11 +20,14 @@
         <div class="col-xs-3 col-sm-3 col-md-3">
           <strong>Customer</strong>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <strong>Amount</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <strong>Date</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>Deliver</strong>
         </div>
       </div>
 
@@ -34,7 +37,7 @@
   <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
     <div class="col-md-12">
       <div class="row form-group">
-        <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class="col-xs-1 col-sm-1 col-md-1">
           <p>{{$index+1}}</p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -43,11 +46,15 @@
         <div class="col-xs-3 col-sm-3 col-md-3">
           <p class="list-group-item-heading" ng-bind="order.shipping.firstname +' '+ order.shipping.lastname"></p>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="order.amount"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="order.docdate | date: 'dd/MM/yyyy'"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName"></i>
+          <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName"></i>
         </div>
       </div>
     </div>
@@ -58,8 +65,12 @@
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
           <h5 class="list-group-item-heading" ng-bind="order.docno"></h5>
-          <p class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></p>
-          <label class="list-group-item-text">Amount: </label> <label class="list-group-item-text" ng-bind="order.amount | number:2"></label>
+          <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
+          <label class="list-group-item-text">Amount: </label> <label class="list-group-item-text" ng-bind="order.amount | number:2"></label><br>
+          <strong class="list-group-item-text">Deliver :
+            <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName"></i>
+            <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName"></i>
+          </strong>
         </a>
       </div>
     </div>
