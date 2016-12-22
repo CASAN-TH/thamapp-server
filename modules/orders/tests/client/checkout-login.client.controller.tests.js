@@ -10,6 +10,7 @@
       $stateParams,
       $location,
       mockOrder,
+      PostcodesService,
       OrdersService;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -37,7 +38,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _OrdersService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _OrdersService_, _PostcodesService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -46,6 +47,7 @@
       $httpBackend = _$httpBackend_;
       $location = _$location_;
       OrdersService = _OrdersService_;
+      PostcodesService = _PostcodesService_;
 
       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
@@ -54,12 +56,13 @@
       // Initialize the Checkout login controller.
       CheckoutLoginController = $controller('CheckoutLoginController', {
         $scope: $scope,
-        orderResolve: {}
+        orderResolve: {},
+        postcodeResolve: {}
       });
     }));
 
 
-    describe('Signup', function () {
+    describe('Signup', function (PostcodesService) {
       it('Should be Step first', function () {
         expect($scope.step).toBe(1);
       });

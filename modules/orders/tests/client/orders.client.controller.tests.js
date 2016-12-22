@@ -7,11 +7,13 @@
       $scope,
       $httpBackend,
       $state,
+      Users,
       Authentication,
       OrdersService,
       ProductsService,
       ShopCartService,
       mockProduct,
+      mockDeliver,
       mockOrder;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -39,13 +41,14 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _OrdersService_, _ProductsService_, _ShopCartService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Users_, _Authentication_, _OrdersService_, _ProductsService_, _ShopCartService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
       // Point global variables to injected services
       $httpBackend = _$httpBackend_;
       $state = _$state_;
+      Users = _Users_;
       Authentication = _Authentication_;
       OrdersService = _OrdersService_;
       ProductsService = _ProductsService_;
@@ -62,6 +65,20 @@
         name: 'Product Name',
         price: 100
       });
+
+      mockDeliver = new Users({
+        _id: '585a0a624b1d9cd80e439b3e',
+        salt: 'g2K5zNV8Jgx+/AxyZcbiUw==',
+        displayName: 'deliver2 deliver2',
+        provider: 'local',
+        username: 'deliver2',
+        __v: 0,
+        created: '2016-12-21T04:51:46.142Z',
+        roles: [
+          'deliver'
+        ]
+      });
+
 
       ShopCartService.cart.add(mockProduct);
       // Mock logged in user
@@ -107,6 +124,30 @@
         expect($scope.vm.products[0]).toEqual(mockProduct);
         expect($scope.vm.products[1]).toEqual(mockProduct);
         expect($scope.vm.products[2]).toEqual(mockProduct);
+
+      }));
+    });
+
+    describe('vm.readDeliver() as read', function () {
+      var mockDeliverList;
+
+      beforeEach(function () {
+        mockDeliverList = [mockDeliver, mockDeliver, mockDeliver];
+      });
+
+      it('should send a GET request and return all User deliver', inject(function (Users) {
+        // Set POST response
+        $httpBackend.expectGET('api/users').respond(mockDeliverList);
+
+        $scope.vm.readDeliver();
+
+        $httpBackend.flush();
+
+        // Test form inputs are reset
+        expect($scope.vm.delivers.length).toEqual(3);
+        expect($scope.vm.delivers[0]).toEqual(mockDeliver);
+        expect($scope.vm.delivers[1]).toEqual(mockDeliver);
+        expect($scope.vm.delivers[2]).toEqual(mockDeliver);
 
       }));
     });

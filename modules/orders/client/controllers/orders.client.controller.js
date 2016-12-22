@@ -6,11 +6,11 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ShopCartService', 'ProductsService'];
+  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ShopCartService', 'ProductsService', 'Users'];
 
-  function OrdersController($scope, $state, $window, Authentication, order, ShopCartService, ProductsService) {
+  function OrdersController($scope, $state, $window, Authentication, order, ShopCartService, ProductsService, Users) {
     var vm = this;
-
+    vm.users = Users;
     vm.authentication = Authentication;
     vm.cart = ShopCartService.cart;
     vm.order = order;
@@ -26,9 +26,20 @@
     vm.selectedProductss = null;
     vm.removeItem = removeItem;
     vm.productChanged = productChanged;
-   
+    vm.readDeliver = readDeliver;
+    vm.delivers = [];
+
     function readProduct() {
       vm.products = ProductsService.query();
+    }
+    function readDeliver() {
+
+      vm.deliver = Users.query(function () {
+        angular.forEach(vm.deliver, function (user) {
+          if (user.roles[0] === 'deliver')
+            vm.delivers.push(user);
+        });
+      });
     }
     function calculate(item) {
 
@@ -67,6 +78,7 @@
     function init() {
 
       vm.readProduct();
+      vm.readDeliver();
       if (!vm.order._id) {
         vm.order.docdate = new Date();
         vm.order.items = [{

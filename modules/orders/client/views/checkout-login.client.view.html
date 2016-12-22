@@ -1,5 +1,6 @@
 <section class="container-fluid">
-  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)" novalidate>
+  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)"
+    novalidate>
     <div class="row">
       <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
       <div class="col-md-6" ng-if="step === 1">
@@ -10,10 +11,11 @@
         <div class="row">
           <div class="col-md-12">
             <div class="form-group" show-errors ng-if="!vm.isMember">
-              <label class="control-label" for="pass">กรุณาใส่ อีเมล์ ของท่าน</label>
-              <input name="email" type="email" id="email" class="form-control" ng-model="authentication.email" placeholder="E-mail" required>
-              <div ng-messages="vm.form.checkoutForm.email.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">E-mail is required.</p>
+              <label class="control-label" for="pass">กรุณาใส่ เบอร์โทรศัพท์ ของท่าน</label>
+              <input name="username" type="text" id="username" class="form-control" ng-model="authentication.username" placeholder="0999999999"
+                required>
+              <div ng-messages="vm.form.checkoutForm.username.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">Tel is required.</p>
               </div>
             </div>
             <div class="form-group" show-errors ng-if="vm.isMember">
@@ -98,28 +100,15 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">ที่อยู่</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Address is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
                   <label class="control-label" for="pass">รหัสไปรษณีย์</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
+                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
+                  typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
                 <div class="form-group" show-errors>
-                  <input name="postcode" type="text" id="postcode" ng-model="authentication.address.postcode" class="form-control" placeholder="Postcode"
+                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode"
+                    class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
                     required>
                   <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Postcode is required.</p>
@@ -130,7 +119,23 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">เขต</label>
+                  <label class="control-label" for="pass">แขวง/ตำบล</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control"
+                    placeholder="Subdistrict" required>
+                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">เขต/อำเภอ</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
@@ -162,6 +167,24 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
+                  <label class="control-label" for="pass">ที่อยู่</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Address is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!--<div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
                   <label class="control-label" for="pass">โทรศัพท์มือถือ</label>
                 </div>
               </div>
@@ -174,7 +197,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
@@ -190,9 +213,139 @@
           </div>
         </div>
         <div class="row min-height-20">
+        </div>
+        <div class="row container-fluid" ng-if="authentication.user">
+          <div class="col-xs-12 col-md-12 ">
+            <div class="form-group">
+              <input type="radio" name="home" ng-model="newAddress.status" ng-value="false"> <label for="">ที่อยู่เดิม</label>
+            </div>
+            <div class="form-group">
+              <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true"> <label for="">ที่อยู่ใหม่</label>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-12" ng-if="newAddress.status == true">
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">ชื่อ</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="name" type="text" id="name" ng-model="vm.order.shipping.firstName" class="form-control" placeholder="First Name"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">First Name is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">นามสกุล</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="lastname" type="text" id="lastname" ng-model="vm.order.shipping.lastName" class="form-control" placeholder="Last Name"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Last Name is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">รหัสไปรษณีย์</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
+                  typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
+                <div class="form-group" show-errors>
+                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="vm.order.shipping.postcode"
+                    class="form-control" placeholder="Postcode" typeahead-callback="callbackOrder" ng-change="checkAutocomplete(vm.order.shipping.postcode,true)"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Postcode is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">แขวง/ตำบล</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="subdistrict" type="text" id="subdistrict" ng-model="vm.order.shipping.subdistrict" class="form-control" placeholder="Subdistrict"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">เขต/อำเภอ</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="district" type="text" id="district" ng-model="vm.order.shipping.district" class="form-control" placeholder="District"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">District is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">จังหวัด</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="province" type="text" id="province" ng-model="vm.order.shipping.province" class="form-control" placeholder="Province"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Province is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">ที่อยู่</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="address" type="text" id="address" ng-model="vm.order.shipping.address" class="form-control" placeholder="Address"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Address is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row min-height-20">
 
         </div>
-        <div class="row address-container rounded container-fluid">
+        <div class="row address-container rounded container-fluid" ng-if="authentication.user">
           <div class="col-xs-12 col-md-12">
             <div class="form-group">
               <input type="radio" name="humen" ng-model="vm.order.delivery.deliveryid" ng-value="'0'"> <label for="">ส่งโดยคนส่งข้าว</label>
@@ -205,6 +358,7 @@
         <div class="row min-height-20">
 
         </div>
+
         <!--<div class="row">
           <div class="col-xs-12">
             <h4>ข้อมูลการส่งสินค้า</h4>
