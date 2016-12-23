@@ -53,8 +53,8 @@
           <p class="list-group-item-heading" ng-bind="order.docdate | date: 'dd/MM/yyyy'"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName"></i>
-          <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName"></i>
+          <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName && order.delivery.deliveryid === '0'"></i>
+          <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName || order.delivery.deliveryid === '1'"></i>
         </div>
       </div>
     </div>
@@ -68,8 +68,8 @@
           <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
           <label class="list-group-item-text">Amount: </label> <label class="list-group-item-text" ng-bind="order.amount | number:2"></label><br>
           <strong class="list-group-item-text">Deliver :
-            <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName"></i>
-            <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName"></i>
+            <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName && order.delivery.deliveryid === '0'"></i>
+            <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName || order.delivery.deliveryid === '1'"></i>
           </strong>
         </a>
       </div>

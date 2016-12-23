@@ -27,6 +27,8 @@
     vm.removeItem = removeItem;
     vm.productChanged = productChanged;
     vm.readDeliver = readDeliver;
+    vm.readDeliverid = readDeliverid;
+    vm.show = true;
     vm.delivers = [];
 
     function readProduct() {
@@ -75,6 +77,15 @@
 
       sumary();
     }
+    function readDeliverid() {
+      if (vm.order._id) {
+        if (vm.order.delivery.deliveryid === '1') {
+          vm.show = false;
+        } else if (vm.order.namedeliver.displayName) {
+          vm.show = true;
+        }
+      }
+    }
     function init() {
 
       vm.readProduct();
@@ -88,6 +99,7 @@
       } else {
         vm.order.docdate = new Date(vm.order.docdate);
       }
+      readDeliverid();
 
 
     }
