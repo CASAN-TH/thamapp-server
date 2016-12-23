@@ -626,7 +626,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   min-width: 120px;
 }
 .btn-primary.btn-outline {
-  color: #1ab394;
+  color: #1ab394 !important;
 }
 .btn-success.btn-outline {
   color: #1c84c6;
@@ -648,9 +648,9 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   color: #fff;
 }
 .btn-primary {
-  background-color: #1ab394;
-  border-color: #1ab394;
-  color: #FFFFFF;
+  background-color: #1ab394 !important ;
+  border-color: #1ab394 !important;
+  color: #FFFFFF !important;
 }
 .btn-primary:hover,
 .btn-primary:focus,

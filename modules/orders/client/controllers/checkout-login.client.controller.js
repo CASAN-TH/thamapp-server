@@ -23,6 +23,7 @@
     $scope.postcodeQuery = PostcodesService.query();
     $scope.products = product;
     $scope.newAddress = { status: false };
+
     function product() {
 
     }
