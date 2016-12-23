@@ -87,12 +87,12 @@
                   <input type="date" ng-model="vm.order.docdate" class="form-control" placeholder="Doc Date">
                 </div>
               </div>
-              <div class="row">
+              <div class="row" ng-show="vm.show">
                 <div class="col-md-8 form-group">
                   <label class="control-label">Deliver</label>
                 </div>
               </div>
-              <div class="row ">
+              <div class="row" ng-show="vm.show">
                 <div class="col-md-12 form-group">
                   <select name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id " ng-model="vm.order.namedeliver"></select>
                 </div>
