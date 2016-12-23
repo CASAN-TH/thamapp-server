@@ -1,6 +1,5 @@
 <section class="container-fluid">
-  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)"
-    novalidate>
+  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)" novalidate>
     <div class="row">
       <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
       <div class="col-md-6" ng-if="step === 1">
@@ -119,15 +118,15 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">แขวง/ตำบล</label>
+                  <label class="control-label" for="pass">จังหวัด</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control"
-                    placeholder="Subdistrict" required>
-                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                  <input name="province" type="text" id="province" ng-model="authentication.address.province" class="form-control" placeholder="Province"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Province is required.</p>
                   </div>
                 </div>
               </div>
@@ -151,15 +150,15 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">จังหวัด</label>
+                  <label class="control-label" for="pass">แขวง/ตำบล</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="province" type="text" id="province" ng-model="authentication.address.province" class="form-control" placeholder="Province"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Province is required.</p>
+                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control"
+                    placeholder="Subdistrict" required>
+                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
                   </div>
                 </div>
               </div>
@@ -180,24 +179,6 @@
                 </div>
               </div>
             </div>
-
-
-            <!--<div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">โทรศัพท์มือถือ</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="tel" type="text" id="tel" ng-model="authentication.address.tel" class="form-control" placeholder="Telephone No."
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.tel.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Telephone No. is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>-->
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
@@ -214,13 +195,17 @@
         </div>
         <div class="row min-height-20">
         </div>
+
+        <!--กรณี user ต้องการระบุที่อยู่จัดส่งใหม่-->
         <div class="row container-fluid" ng-if="authentication.user">
           <div class="col-xs-12 col-md-12 ">
-            <div class="form-group">
-              <input type="radio" name="home" ng-model="newAddress.status" ng-value="false"> <label for="">ที่อยู่เดิม</label>
-            </div>
-            <div class="form-group">
-              <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true"> <label for="">ที่อยู่ใหม่</label>
+            <div class="row">
+              <div class="form-group">
+                <input type="radio" name="home" ng-model="newAddress.status" ng-value="false"> <label for="">ที่อยู่เดิม</label>
+              </div>
+              <div class="form-group">
+                <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true"> <label for="">ที่อยู่ใหม่</label>
+              </div>
             </div>
           </div>
           <div class="col-xs-12 col-md-12" ng-if="newAddress.status == true">
@@ -278,15 +263,15 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">แขวง/ตำบล</label>
+                  <label class="control-label" for="pass">จังหวัด</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="vm.order.shipping.subdistrict" class="form-control" placeholder="Subdistrict"
+                  <input name="province" type="text" id="province" ng-model="vm.order.shipping.province" class="form-control" placeholder="Province"
                     required>
-                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Province is required.</p>
                   </div>
                 </div>
               </div>
@@ -310,19 +295,21 @@
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label class="control-label" for="pass">จังหวัด</label>
+                  <label class="control-label" for="pass">แขวง/ตำบล</label>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="province" type="text" id="province" ng-model="vm.order.shipping.province" class="form-control" placeholder="Province"
+                  <input name="subdistrict" type="text" id="subdistrict" ng-model="vm.order.shipping.subdistrict" class="form-control" placeholder="Subdistrict"
                     required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Province is required.</p>
+                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
                   </div>
                 </div>
               </div>
             </div>
+            
+            
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
