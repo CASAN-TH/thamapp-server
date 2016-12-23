@@ -4,9 +4,174 @@ overflow: hidden;
 text-overflow: ellipsis;
 }
 
+.margin-bottom-20{
+    margin-bottom: 20px;
+}
 .margin-bottom-30{
     margin-bottom: 30px;
 }
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+.txt-area{
+    border-color:#e5e6e7;
+    
+}
+.front_price {
+    font-size: 20px;
+}
+.head-table{
+   
+   
+    padding-right: 10px;
+   
+    padding-left: 10px;
+}
+.front_profile-color {
+    color: gray;
+}
+
+
+ .front_profile-color1 {
+      font-size: 12px;
+    color: gray;
+}
+
+ .front_profile-color2 {
+      font-size: 12px;
+      
+   
+ }
+
+ .front_profile-color0 {
+      font-size: 12px;
+       color: gray;
+      
+   
+ }
+
+ .front_profile-color3 {
+      font-size: 12px;
+      margin-top: 10px;
+    color: gray;
+}
+
+.front_profile-color4 {
+      font-size: 14px;
+      margin-top: 10px;
+    color:#81a662;
+}
+
+.front_profile-color5 {
+      font-size: 20px;
+      margin-top: 10px;
+    color:#81a662;
+}
+
+.front_profile-color9 {
+      font-size: 20px;
+    color:#81a662;
+}
+
+.front_profile-color6 {
+      font-size: 14px;
+      margin-top: 10px;
+    background:#ebf5f7;
+     color: #8c9290;
+         margin-top: -15px;
+          margin-left: -35px;
+           margin-right: -35px;
+}
+
+.front_profile-color-id-buy {
+      font-size: 14px;
+     color:#5899a6;
+        
+}
+
+.border-bottom1 {
+       margin-top: 10px;
+     
+        
+}
+
+.slide-left{
+    margin-left: 20px;
+    
+}
+.slide-left-top{
+    margin-top: 10px;
+     margin-left: 20px;
+    
+}
+.slide-left-top1{
+    margin-top: 10px;
+    
+    
+}
+.slide-left-top-bottom{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+    
+}
+.logo {
+    width: 100%;
+    height: 100%;
+}
+.price-txt-color {
+    color:red ;
+}
+
+
+.txt-area{
+    border-color:#e5e6e7;
+    
+}
+.front_price {
+    font-size: 20px;
+}
+
+/*line-gly-status-transport*/
+.line {
+  text-align: center;
+}
+.line span {
+  display: inline-block;
+  vertical-align: baseline;
+  zoom: 1;
+  *display: inline;
+  *vertical-align: auto;
+  position: relative;
+  padding: 0 15px;
+}
+.line span:before,
+.line span:after {
+  content: '';
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 0.73em;
+  border-top: 1px solid red;
+}
+.line span:before {
+  right: 100%;
+}
+.line span:after {
+  left: 100%;
+}
+
+.text-position{
+    position: relative;
+}
+.glypush1 {
+   padding-left:10px; 
+}
+.glypush2 {
+   padding-right:10px; 
+}
+
+
 .txt-area{
     border-color:#e5e6e7;
     
