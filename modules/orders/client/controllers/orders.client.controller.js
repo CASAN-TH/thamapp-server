@@ -78,8 +78,11 @@
       sumary();
     }
     function readDeliverid() {
+      console.log(vm.authentication.user.roles[0]);
       if (vm.order._id) {
         if (vm.order.delivery.deliveryid === '1') {
+          vm.show = false;
+        } else if (vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver') {
           vm.show = false;
         } else if (vm.order.namedeliver.displayName) {
           vm.show = true;
