@@ -37,39 +37,58 @@
     </div>
     <div class="col-xs-12">
       <div class="row">
-        <p>{{vm.complete.user.displayName}}</p>
+        <div class="col-xs-12">
+          <h4>ที่อยู่จัดส่ง</h4>
+        </div>
       </div>
-      <div class="row">
-        <p>{{vm.complete.shipping.address}} {{vm.complete.shipping.district}} {{vm.complete.shipping.subdistrict}} {{vm.complete.shipping.province}}
-          {{vm.complete.shipping.postcode}}</p>
-      </div>
-      <!--<div class="row">
-        <p>อีเมล์ยืนยันการสั่งซื้อถูกส่งแล้ว ไปที่ {{vm.complete.user.email}}</p>
-      </div>-->
-    </div>
-    <div class="col-xs-12" ng-repeat="product in vm.complete.items">
-      <div class="row">
-        <div class="col-xs-12 col-md-2">
-          <img ng-src="{{product.product.images}}" class="img img-thumbnail" style="max-width:100px;max-height:100px;min-height:100px;min-width:100px;"
-            alt="">
-        </div>
-        <div class="col-xs-12 col-md-2">
-          <p>{{product.product.name}}</p>
-        </div>
-        <div class="col-xs-12 col-md-4">
-          <p>{{product.qty}} ชิ้น </p>
-        </div>
-        <div class="col-xs-12 col-md-4 text-right">
-          <p>{{product.amount}} บาท</p>
+      <div class="row border-top border-bottom">
+        <div class="col-xs-12">
+          <div class="row">
+            <p>{{vm.complete.shipping.firstName}} {{vm.complete.shipping.lastName}}</p>
+          </div>
+          <div class="row">
+            <p>{{vm.complete.shipping.address}} {{vm.complete.shipping.district}} {{vm.complete.shipping.subdistrict}} {{vm.complete.shipping.province}}
+              {{vm.complete.shipping.postcode}}
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-xs-12">
-      <div class="row">
-        <div class="col-xs-12 col-md-12 text-right">
-          <p>ราคาสุทธิ {{vm.complete.amount}} บาท</p>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="row">
+
         </div>
+        <div class="row" ng-repeat="product in vm.complete.items">
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <img ng-src="{{product.product.images}}" class="img img-thumbnail">
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <p>{{product.product.name}}</p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <p>{{product.qty}} ชิ้น </p>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 text-right">
+            <p>{{product.amount}} บาท</p>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-12 col-md-12 text-right">
+        <p>ราคาสุทธิ {{vm.complete.amount}} บาท</p>
       </div>
     </div>
   </div>
+
 </section>
+
+
+
+    
