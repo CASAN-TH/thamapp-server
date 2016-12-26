@@ -35,13 +35,15 @@
       vm.products = ProductsService.query();
     }
     function readDeliver() {
-
-      vm.deliver = Users.query(function () {
-        angular.forEach(vm.deliver, function (user) {
-          if (user.roles[0] === 'deliver')
-            vm.delivers.push(user);
+      if (vm.authentication.user.roles[0] === 'admin'){
+        vm.deliver = Users.query(function () {
+          angular.forEach(vm.deliver, function (user) {
+            if (user.roles[0] === 'deliver')
+              vm.delivers.push(user);
+          });
         });
-      });
+      }
+
     }
     function calculate(item) {
 
@@ -80,7 +82,13 @@
     function readDeliverid() {
       console.log(vm.authentication.user.roles[0]);
       if (vm.order._id) {
-        if (vm.order.delivery.deliveryid === '1' && (vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver')) {
+        if (vm.order.delivery.deliveryid === '1' && (vm.authentication.user.roles[0] === 'admin' || vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver')) {
+          vm.show = false;
+        } else if (vm.order.delivery.deliveryid === '0' && (vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver')) {
+          vm.show = false;
+        }
+      } else if(!vm.order._id){
+        if (vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver') {
           vm.show = false;
         }
       }
@@ -95,6 +103,9 @@
           product: new ProductsService(),
           qty: 1
         }];
+        vm.order.delivery = {
+          deliveryid: '0'
+        };
       } else {
         vm.order.docdate = new Date(vm.order.docdate);
       }
