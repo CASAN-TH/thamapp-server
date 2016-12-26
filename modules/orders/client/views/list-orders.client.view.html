@@ -53,6 +53,7 @@
           <p class="list-group-item-heading" ng-bind="order.docdate | date: 'dd/MM/yyyy'"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
+          <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName && !order.delivery.deliveryid"></i>
           <i class="fa fa-circle text-danger" aria-hidden="true" ng-show="!order.namedeliver.displayName && order.delivery.deliveryid === '0'"></i>
           <i class="fa fa-circle text-info" aria-hidden="true" ng-show="order.namedeliver.displayName || order.delivery.deliveryid === '1'"></i>
         </div>
