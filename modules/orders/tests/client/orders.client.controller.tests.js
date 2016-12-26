@@ -139,6 +139,9 @@
             expect($scope.vm.show).toEqual(false);
           } else if ($scope.vm.order.delivery.deliveryid === '0' && ($scope.vm.authentication.user.roles[0] === 'user' || $scope.vm.authentication.user.roles[0] === 'deliver')) {
             expect($scope.vm.show).toEqual(false);
+          } else if ($scope.vm.order.deliverystatus === 'accept' && $scope.vm.authentication.user.roles[0] === 'admin') {
+            expect($scope.vm.show).toEqual(false);
+            expect($scope.vm.showdetail).toEqual(false);
           }
         } else if (!$scope.vm.order._id) {
           if ($scope.vm.authentication.user.roles[0] === 'user' || $scope.vm.authentication.user.roles[0] === 'deliver') {
