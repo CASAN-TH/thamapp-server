@@ -37,7 +37,7 @@
         ng-if="item.shouldRender(authentication.user);">
         <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{::item.title}}&nbsp;</span></a>
       </li>
-       <li ng-class="{active: $uiRoute}" ui-route="/" class="dropdown">
+       <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown">
         <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">Me</span></a>
       </li>
     </ul>
