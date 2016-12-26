@@ -179,6 +179,22 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="email">E-mail</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group" show-errors>
+                  <input name="email" type="email" id="email" ng-model="authentication.email" class="form-control" placeholder="member@thumapp.com"
+                    required>
+                  <div ng-messages="vm.form.checkoutForm.email.$error" role="alert">
+                    <p class="help-block error-text" ng-message="required">E-mail is required.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
@@ -308,8 +324,8 @@
                 </div>
               </div>
             </div>
-            
-            
+
+
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
