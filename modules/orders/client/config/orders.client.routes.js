@@ -15,6 +15,22 @@
         controller: 'MeController',
         controllerAs: 'vm'
       })
+      .state('me.profile', {
+        url: '/profile',
+        templateUrl: 'modules/users/client/views/settings/edit-profile.client.view.html'
+      })
+      .state('me.picture', {
+        url: '/picture',
+        templateUrl: 'modules/users/client/views/settings/change-profile-picture.client.view.html'
+      })
+       .state('me.password', {
+        url: '/password',
+        templateUrl: 'modules/users/client/views/settings/change-password.client.view.html'
+      })
+       .state('me.accounts', {
+        url: '/accounts',
+        templateUrl: 'modules/users/client/views/settings/manage-social-accounts.client.view.html'
+      })
       .state('complete', {
         url: '/:orderId/complete',
         templateUrl: 'modules/orders/client/views/complete.client.view.html',

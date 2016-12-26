@@ -54,7 +54,7 @@
 
     $scope.signup = function (isValid) {
       $scope.authentication.password = 'Usr#Pass1234';
-      $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
+      // $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
       $scope.authentication.address.tel = $scope.authentication.username;
       $scope.error = null;
 
