@@ -23,12 +23,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--test web-->
-    <div class="page-header hidden-xs show-sm show-md show-lg" ng-show="vm.tabname === '1'">
+    <div class="page-header hidden-xs show-sm show-md show-lg" ng-show="vm.tabname === '1'" ng-if="vm.history.user._id === authentication.user._id">
       <div class="pull-right">
       </div>
       <div class="panel panel-default">
         <div id="collapse1" class="panel-collapse collapse in">
-          <div class="panel-body" ng-repeat="his in vm.history" ng-if="his.user._id === authentication.user._id">
+          <div class="panel-body" ng-repeat="his in vm.history">
             <div class="tab-pane active">
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
