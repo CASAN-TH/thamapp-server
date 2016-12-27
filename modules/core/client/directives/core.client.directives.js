@@ -60,7 +60,7 @@ angular.module('core')
           if ($event.keyCode === 38 && scope.active > 0) { // arrow up
             scope.active--;
             scope.$digest();
-          } else if ($event.keyCode === 40 && scope.active < scope.filitered.length - 1) { // arrow down
+          } else if (scope.filitered && ($event.keyCode === 40 && scope.active < scope.filitered.length - 1)) { // arrow down
             scope.active++;
             scope.$digest();
           } else if ($event.keyCode === 13) { // enter
