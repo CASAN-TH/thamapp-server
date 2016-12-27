@@ -20,10 +20,10 @@
     vm.isMember = false;
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
+    $scope.postcodedata = {};
     $scope.postcodeQuery = PostcodesService.query();
     $scope.products = product;
     $scope.newAddress = { status: false };
-
     function product() {
 
     }
@@ -203,12 +203,20 @@
         vm.error = res.data.message;
       }
     };
-    $scope.postcode = $scope.postcodeQuery;
     // $scope.postcode = [{ name: 'test' }];
-
+    $scope.postcode =  $scope.postcodeQuery;
     init();
 
     function init() {
+      // $http({
+      //   method: 'GET',
+      //   url: './modules/orders/client/postcode.json'
+      // }).then(function successCallback(response) {
+      //   $scope.postcode = response.data.postcodeData;
+      // }, function errorCallback(response) {
+      //   // called asynchronously if an error occurs
+      //   // or server returns response with an error status.
+      // });
     }
   }
 })();
