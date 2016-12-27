@@ -1,6 +1,6 @@
 <section class="header-height">
   <div class="page-header hidden-xs show-sm show-md show-lg">
-    <div class="pull-right" ng-show="vm.order.isCurrentUserOwner || vm.authentication.user.roles[0] == 'admin'">
+    <div class="pull-right" ng-show="(vm.authentication.user.roles[0] == 'admin') || (vm.order.isCurrentUserOwner && !vm.order.namedeliver.displayName && (!vm.order.deliverystatus || !vm.order.deliverystatus === 'accept' || !vm.order.deliverystatus === 'reject'))">
       <a class="btn btn-primary" ui-sref="orders.edit({ orderId: vm.order._id })">
         <i class="glyphicon glyphicon-edit"></i>
       </a>
