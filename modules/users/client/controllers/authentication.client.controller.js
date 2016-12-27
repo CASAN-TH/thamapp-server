@@ -20,15 +20,15 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
     };
 
     $scope.checkAutocomplete = function (postcode) {
-        if (postcode) {
-          $scope.credentials.address.district = postcode.district;
-          $scope.credentials.address.subdistrict = postcode.subdistrict;
-          $scope.credentials.address.province = postcode.province;
-        } else {
-          $scope.credentials.address.district = '';
-          $scope.credentials.address.province = '';
-          $scope.credentials.address.subdistrict = '';
-        }
+      if (postcode) {
+        $scope.credentials.address.district = postcode.district;
+        $scope.credentials.address.subdistrict = postcode.subdistrict;
+        $scope.credentials.address.province = postcode.province;
+      } else {
+        $scope.credentials.address.district = '';
+        $scope.credentials.address.province = '';
+        $scope.credentials.address.subdistrict = '';
+      }
     };
     $scope.signup = function (isValid) {
       $scope.error = null;
@@ -79,5 +79,19 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
       // Effectively call OAuth authentication route:
       $window.location.href = url;
     };
+
+    init();
+
+    function init() {
+      // $http({
+      //   method: 'GET',
+      //   url: './modules/orders/client/postcode.json'
+      // }).then(function successCallback(response) {
+      //   $scope.postcode = response.data.postcodeData;
+      // }, function errorCallback(response) {
+      //   // called asynchronously if an error occurs
+      //   // or server returns response with an error status.
+      // });
+    }
   }
 ]);
