@@ -13,7 +13,7 @@
       title: 'Orders',
       state: 'orders',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'orders', {
       title: 'Create Order',
       state: 'orders.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());

@@ -13,7 +13,7 @@
       title: 'Postcodes',
       state: 'postcodes',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'postcodes', {
       title: 'Create Postcode',
       state: 'postcodes.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());
