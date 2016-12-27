@@ -65,23 +65,10 @@ angular.module('core')
             scope.$digest();
           } else if ($event.keyCode === 13) { // enter
             filterCustom = [];
-            // scope.typeahead.forEach(function (e) {
-            //   if (e.postcode === scope.ngModel) {
-            //     filterCustom.push(e);
-            //   }
-            // });.substr(1, 2)
+
             if (scope.active === 0) {
               scope.typeahead.forEach(function (e) {
-                if (scope.ngModel.length === 3) {
-                  var item = e.postcode.substr(0, 2);
-                } else if (scope.ngModel.length === 4) {
-                  var item = e.postcode.substr(0, 3);
-                } else {
-                  if (e.postcode === scope.ngModel) {
-                    filterCustom.push(e);
-                  }
-                }
-                if (item === scope.ngModel) {
+                if (e.postcode === scope.ngModel) {
                   filterCustom.push(e);
                 }
               });
