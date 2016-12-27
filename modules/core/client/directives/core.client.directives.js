@@ -65,7 +65,9 @@ angular.module('core')
             scope.$digest();
           } else if ($event.keyCode === 13) { // enter
             scope.$apply(function () {
-              scope.click(scope.filitered[scope.active]);
+              if (scope.active) {
+                scope.click(scope.filitered[scope.active]);
+              }
             });
           }
         });
@@ -92,11 +94,11 @@ angular.module('core')
           scope.selected = false;
 
           // if we have an exact match and there is only one item in the list, automatically select it
-          if (scope.filitered) {
-            if (input && scope.filitered.length === 1 && scope.filitered[0].name === input) {
-              scope.click(scope.filitered[0]);
-            }
+          // if (scope.filitered) {
+          if (input && scope.filitered.length === 1 && scope.filitered[0].name === input) {
+            scope.click(scope.filitered[0]);
           }
+          // }
         });
 
         elem.after($compile(template)(scope));
