@@ -48,7 +48,8 @@ angular.module('core')
         typeaheadCallback: "="
       },
       link: function (scope, elem, attrs) {
-        var template = '<div class="dropdown"><ul class="dropdown-menu" style="display:block; float: left; height: auto; max-height: 200px;	width: auto; overflow-y: scroll;" ng-hide="!ngModel.length || !filitered.length || selected"><li ng-repeat="item in filitered = (typeahead | filter:ngModel:true) track by $index" ng-click="click(item)" style="cursor:pointer" ng-class="{active:$index==active}" ng-mouseenter="mouseenter($index)"><a>{{item.subdistrict}} {{item.district}} {{item.province}} {{item.postcode}}</a></li></ul></div>';
+        var test = JSON.stringify(scope.filitered);
+        var template = '<div class="dropdown"><ul class="dropdown-menu" ng-if="ngModel.length >= 3" style="display:block; float: left; height: auto; max-height: 200px;	width: auto; overflow-y: scroll;" ng-hide="!ngModel.length || !filitered.length || selected"><li ng-repeat="item in filitered = (typeahead | filter:ngModel:true) track by $index" ng-click="click(item)" style="cursor:pointer" ng-class="{active:$index==active}" ng-mouseenter="mouseenter($index)"><a>{{item.subdistrict}} {{item.district}} {{item.province}} {{item.postcode}}</a></li></ul></div>';
 
         elem.bind('blur', function () {
           $timeout(function () {

@@ -107,8 +107,8 @@
                   typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
                 <div class="form-group" show-errors>
                   <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
-                 <input autofocus name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">
-                  <input name="postcode" ng-if="authentication.address.postcode.length >= 3" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode"
+                 <!--<input name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">-->
+                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode"
                     class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
                     required autofocus>
                   <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
