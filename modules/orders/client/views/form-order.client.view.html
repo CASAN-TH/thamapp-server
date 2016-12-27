@@ -107,6 +107,16 @@
                   <p>{{vm.order.namedeliver.displayName}}</p>
                 </div>
               </div>
+              <div class="row" ng-hide="vm.showstatus">
+                <div class="col-md-8 form-group">
+                  <label class="control-label">Status</label>
+                </div>
+              </div>
+              <div class="row" ng-hide="vm.showstatus">
+                <div class="col-md-12 form-group">
+                  <button type="button" class="btn btn-info btn-block" ng-click="vm.acceptPost(vm.order)" ng-disabled="vm.order.deliverystatus === 'accept'">Accept</button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">

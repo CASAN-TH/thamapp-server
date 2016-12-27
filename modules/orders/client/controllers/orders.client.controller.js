@@ -28,8 +28,11 @@
     vm.productChanged = productChanged;
     vm.readDeliver = readDeliver;
     vm.readDeliverid = readDeliverid;
+    vm.showstatuspost = showstatuspost;
+    vm.acceptPost = acceptPost;
     vm.show = true;
     vm.showdetail = true;
+    vm.showstatus = true;
     vm.delivers = [];
 
     function readProduct() {
@@ -80,6 +83,22 @@
 
       sumary();
     }
+
+    function acceptPost(itm) {
+      vm.status = itm.deliverystatus;
+      vm.status ='accept';
+      console.log(vm.status);
+      vm.order.deliverystatus = vm.status;
+    }
+
+    function showstatuspost() {
+      if (vm.order._id) {
+        if (vm.order.delivery.deliveryid === '1' && vm.authentication.user.roles[0] === 'admin') {
+          vm.showstatus = false;
+        }
+      }
+    }
+
     function readDeliverid() {
       console.log(vm.authentication.user.roles[0]);
       if (vm.order._id) {
@@ -114,7 +133,8 @@
         vm.order.docdate = new Date(vm.order.docdate);
       }
       readDeliverid();
-
+      showstatuspost();
+      
 
     }
 
