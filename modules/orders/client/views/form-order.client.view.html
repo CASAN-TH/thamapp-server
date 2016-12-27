@@ -97,6 +97,16 @@
                   <select name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id " ng-model="vm.order.namedeliver"></select>
                 </div>
               </div>
+              <div class="row" ng-hide="vm.showdetail">
+                <div class="col-md-8 form-group">
+                  <label class="control-label">Deliver</label>
+                </div>
+              </div>
+              <div class="row" ng-hide="vm.showdetail">
+                <div class="col-md-12 form-group">
+                  <p>{{vm.order.namedeliver.displayName}}</p>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">

@@ -79,7 +79,6 @@
         ]
       });
 
-
       ShopCartService.cart.add(mockProduct);
       // Mock logged in user
       Authentication.user = {
@@ -128,6 +127,30 @@
       }));
     });
 
+    describe('vm.readDeliverid() as read', function () {
+
+      it('should send a GET request and return all User deliver', inject(function () {
+
+        $scope.vm.readDeliverid();
+
+        // Test form inputs are reset
+        if ($scope.vm.order._id) {
+          if ($scope.vm.order.delivery.deliveryid === '1' && ($scope.vm.authentication.user.roles[0] === 'admin' || $scope.vm.authentication.user.roles[0] === 'user' || $scope.vm.authentication.user.roles[0] === 'deliver')) {
+            expect($scope.vm.show).toEqual(false);
+          } else if ($scope.vm.order.delivery.deliveryid === '0' && ($scope.vm.authentication.user.roles[0] === 'user' || $scope.vm.authentication.user.roles[0] === 'deliver')) {
+            expect($scope.vm.show).toEqual(false);
+          } else if ($scope.vm.order.deliverystatus === 'accept' && $scope.vm.authentication.user.roles[0] === 'admin') {
+            expect($scope.vm.show).toEqual(false);
+            expect($scope.vm.showdetail).toEqual(false);
+          }
+        } else if (!$scope.vm.order._id) {
+          if ($scope.vm.authentication.user.roles[0] === 'user' || $scope.vm.authentication.user.roles[0] === 'deliver') {
+            expect($scope.vm.show).toEqual(false);
+          }
+        }
+      }));
+    });
+
     describe('vm.readDeliver() as read', function () {
       var mockDeliverList;
 
@@ -136,18 +159,14 @@
       });
 
       it('should send a GET request and return all User deliver', inject(function (Users) {
-        // Set POST response
-        $httpBackend.expectGET('api/users').respond(mockDeliverList);
 
         $scope.vm.readDeliver();
-
-        $httpBackend.flush();
-
-        // Test form inputs are reset
-        expect($scope.vm.delivers.length).toEqual(3);
-        expect($scope.vm.delivers[0]).toEqual(mockDeliver);
-        expect($scope.vm.delivers[1]).toEqual(mockDeliver);
-        expect($scope.vm.delivers[2]).toEqual(mockDeliver);
+        if ($scope.vm.authentication.user.roles[0] === 'admin') {
+          expect($scope.vm.delivers.length).toEqual(3);
+          expect($scope.vm.delivers[0]).toEqual(mockDeliver);
+          expect($scope.vm.delivers[1]).toEqual(mockDeliver);
+          expect($scope.vm.delivers[2]).toEqual(mockDeliver);
+        }
 
       }));
     });
