@@ -204,7 +204,7 @@
       }
     };
     // $scope.postcode = [{ name: 'test' }];
-    $scope.postcode =  $scope.postcodeQuery;
+    $scope.postcode = $scope.postcodeQuery;
     init();
 
     function init() {
