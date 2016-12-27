@@ -95,7 +95,7 @@ angular.module('core')
 
           // if we have an exact match and there is only one item in the list, automatically select it
           // if (scope.filitered) {
-          if (input && scope.filitered.length && scope.filitered.length === 1 && scope.filitered[0].name === input) {
+          if (input && scope.filitered && scope.filitered.length === 1 && scope.filitered[0].name === input) {
             scope.click(scope.filitered[0]);
           }
           // }
