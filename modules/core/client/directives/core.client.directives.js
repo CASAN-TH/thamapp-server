@@ -64,7 +64,7 @@ angular.module('core')
             scope.active++;
             scope.$digest();
           } else if ($event.keyCode === 13) { // enter
-            
+            filterCustom = [];
             scope.typeahead.forEach(function (e) {
               if (e.postcode === scope.ngModel) {
                 filterCustom.push(e);
@@ -99,8 +99,10 @@ angular.module('core')
           scope.selected = false;
 
           // if we have an exact match and there is only one item in the list, automatically select it
-          if (input && scope.filitered.length === 1 && scope.filitered[0].name === input) {
-            scope.click(scope.filitered[0]);
+          if (scope.filitered) {
+            if (input && scope.filitered.length === 1 && scope.filitered[0].name === input) {
+              scope.click(scope.filitered[0]);
+            }
           }
         });
 
