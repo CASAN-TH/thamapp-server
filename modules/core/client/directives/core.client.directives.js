@@ -48,7 +48,7 @@ angular.module('core')
         typeaheadCallback: "="
       },
       link: function (scope, elem, attrs) {
-        var template = '<div class="dropdown"></div>';
+        var template = '';
 
         elem.bind('blur', function () {
           $timeout(function () {
@@ -85,7 +85,7 @@ angular.module('core')
 
         scope.$watch('ngModel', function (input) {
           if (scope.ngModel.length >= 3) {
-            var template = '<div class="dropdown"><ul class="dropdown-menu" style="display:block; float: left; height: auto; max-height: 200px;	width: auto; overflow-y: scroll;" ng-hide="!ngModel.length || !filitered.length || selected"><li ng-repeat="item in filitered = (typeahead | filter:{postcode:ngModel}) track by $index" ng-click="click(item)" style="cursor:pointer" ng-class="{active:$index==active}" ng-mouseenter="mouseenter($index)"><a>{{item.subdistrict}} {{item.district}} {{item.province}} {{item.postcode}}</a></li></ul></div>';
+            template = '<div class="dropdown"><ul class="dropdown-menu" style="display:block; float: left; height: auto; max-height: 200px;	width: auto; overflow-y: scroll;" ng-hide="!ngModel.length || !filitered.length || selected"><li ng-repeat="item in filitered = (typeahead | filter:{postcode:ngModel}) track by $index" ng-click="click(item)" style="cursor:pointer" ng-class="{active:$index==active}" ng-mouseenter="mouseenter($index)"><a>{{item.subdistrict}} {{item.district}} {{item.province}} {{item.postcode}}</a></li></ul></div>';
           }
 
           if (scope.selected && scope.selected.postcode === input) {
