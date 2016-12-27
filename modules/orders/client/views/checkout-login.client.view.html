@@ -73,7 +73,7 @@
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
                   <input name="name" type="text" id="name" ng-model="authentication.firstName" class="form-control" placeholder="First Name"
-                    required>
+                    required autofocus>
                   <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">First Name is required.</p>
                   </div>
@@ -89,7 +89,7 @@
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
                   <input name="lastname" type="text" id="lastname" ng-model="authentication.lastName" class="form-control" placeholder="Last Name"
-                    required>
+                    required autofocus>
                   <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Last Name is required.</p>
                   </div>
@@ -107,7 +107,7 @@
                   typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
                 <div class="form-group" show-errors>
                   <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
-                 <input class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">
+                 <input autofocus name="postcode" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">
                   <input name="postcode" ng-if="authentication.address.postcode.length >= 3" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode"
                     class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
                     required autofocus>
