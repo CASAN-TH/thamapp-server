@@ -136,7 +136,8 @@ exports.changeProductPicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        var imageURL = config.uploads.productUpload.dest + req.file.filename;
+        // var imageURL = config.uploads.productUpload.dest + req.file.filename;
+        var imageURL = req.file.filename; //path public      
 
         // user.save(function (saveError) {
         //   if (saveError) {
