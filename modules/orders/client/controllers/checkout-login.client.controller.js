@@ -148,8 +148,8 @@
       vm.order.shipping.email = $scope.authentication.user.email;
 
       if ($scope.newAddress.status === false) {
-        vm.order.shipping.firstname = $scope.authentication.user.firstName;
-        vm.order.shipping.lastname = $scope.authentication.user.lastName;
+        vm.order.shipping.firstName = $scope.authentication.user.firstName;
+        vm.order.shipping.lastName = $scope.authentication.user.lastName;
         vm.order.shipping.address = $scope.authentication.user.address.address;
         vm.order.shipping.postcode = $scope.authentication.user.address.postcode;
         vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
