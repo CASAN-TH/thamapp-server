@@ -8430,3 +8430,8 @@ body.md-skin {
   min-width: 200px;
   min-height: 300px;
 }
+
+.color-gray-profile{
+  font-size: 20px;
+  color: gray;
+}

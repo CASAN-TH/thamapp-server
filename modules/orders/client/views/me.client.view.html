@@ -61,7 +61,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3 front_profile-color4 ">
                           <div><strong>
-                            ส่งแล้ว <span><i class="fa fa-check-circle"></i></span>
+                            {{!his.deliverystatus?'ได้รับ Order แล้ว':his.deliverystatus === 'accept'?'กำลังจัดส่ง':his.deliverystatus === 'complete'?'จัดส่งแล้ว':false}} <span><i class="fa fa-check-circle"></i></span>
                             </strong>
                           </div>
                         </div>
@@ -91,12 +91,12 @@
                             </div>
                             <div class="col-md-8">
                               <div class="slide-left front_profile-color4">
-                                <strong>ส่งแล้ว</strong>
+                                <strong>{{!his.deliverystatus?'ได้รับ Order แล้ว':his.deliverystatus === 'accept'?'กำลังจัดส่ง':his.deliverystatus === 'complete'?'จัดส่งแล้ว':false}}</strong>
                               </div>
                               <div class="row">
                                 <div class="col-xs-4 text-center text-position front_profile-color9"><span><i class="fa fa-inbox"></i></span></div>
-                                <div class="col-xs-4 line front_profile-color9"><span><i class="fa fa-truck"></i></span></div>
-                                <div class="col-xs-4 text-center text-position front_profile-color9"><span><i class="fa fa-check-circle"></i></span></div>
+                                <div class="col-xs-4 line {{his.deliverystatus === 'accept'?'front_profile-color9':his.deliverystatus === 'complete'?'front_profile-color9':'color-gray-profile'}}"><span><i class="fa fa-truck"></i></span></div>
+                                <div class="col-xs-4 text-center text-position {{his.deliverystatus === 'complete'?'front_profile-color9':'color-gray-profile'}}"><span><i class="fa fa-check-circle"></i></span></div>
                               </div>
                             </div>
                           </div>
