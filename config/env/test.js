@@ -33,7 +33,7 @@ module.exports = {
   },
   port: process.env.PORT || 3001,
   app: {
-    title: defaultEnvConfig.app.title + ' - Test Environment'
+    title: 'ธรรมธุรกิจ'
   },
   facebook: {
     clientID: process.env.FACEBOOK_ID || 'APP_ID',

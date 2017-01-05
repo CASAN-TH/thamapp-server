@@ -8405,6 +8405,9 @@ body.md-skin {
 .address-container{
     background-color: aliceblue !important;
 }
+.address-container-bg{
+    background-color: #fbfdff !important;
+}
 .rounded {
   border-radius: 5px;
 }
@@ -8434,4 +8437,32 @@ body.md-skin {
 .color-gray-profile{
   font-size: 20px;
   color: gray;
+}
+
+.img-promotion{
+  width:100% !important;
+  box-shadow: 3px 3px 3px lightgray;
+  margin-top: 32px;
+}
+
+.img-promotion-xs{
+  width:100% !important; 
+  box-shadow: 3px 3px 3px lightgray;
+  margin-top: 32px;
+}
+
+.font-h1{
+  color: #1ab394;
+}
+
+.font-h3{
+  color: #5cbda9;
+}
+
+.margin-top-32{
+  margin-top: 32px;
+}
+
+.padding-0{
+  padding: 0px;
 }
