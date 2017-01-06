@@ -1,5 +1,5 @@
 <section>
-  <div class="page-header">
+  <div class="page-header headerBorder">
     <h1>Orders
       <div class="pull-right" ng-hide="!vm.authentication.user">
         <a class="btn btn-primary" ui-sref="orders.create">
@@ -8,61 +8,190 @@
       </div>
     </h1>
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg">
-    <div class="col-md-12">
-      <div class="row form-group alert alert-success">
-        <div class="col-xs-1 col-sm-1 col-md-1">
-          <strong>No.</strong>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Doc No</strong>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <strong>Customer</strong>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Amount</strong>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Date</strong>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Deliver</strong>
+  <!---->
+
+  <!---->
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li><a data-toggle="tab" ng-click="allActive=true;deliverActive=true" ng-show="allActive">ทั้งหมด</a></li>
+      <li class="active"><a data-toggle="tab" ng-hide="allActive">ทั้งหมด</a></li>
+      <li><a data-toggle="tab" ng-click="deliverActive=true;allActive=true" ng-hide="deliverActive">คนส่งข้าว</a></li>
+      <li class="active"><a data-toggle="tab" ng-show="deliverActive">คนส่งข้าว</a></li>
+      <li><a data-toggle="tab" ng-click="postcodeActive=true" ng-hide="postcodeDis">ไปรษณีย์</a></li>
+      <li class="active"><a data-toggle="tab" ng-show="postcodeActive">ไปรษณีย์</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <div class="row hidden-xs show-sm show-md show-lg">
+          <div class="row">
+            <div class="col-md-1">
+              <button class="thumbnail button buttonBlack" type="text">
+          <span>ทั้งหมด</span>
+          <h3>{{vm.orders.length}}</h3>
+        </button>
+              <!--<div class="text-center"><span>การเงิน</span></div>
+        <button class="thumbnail button buttonGreen" type="text">
+          <span>สั่งจอง</span>
+          <h3>1</h3>
+        </button>-->
+            </div>
+            <div class="col-md-11">
+              <div class="col-md-12">
+                <div class="row form-group alert alert-success">
+                  <div class="col-xs-2 col-sm-2 col-md-2">
+                    <strong>บิลสั่งซื้อลูกค้า</strong>
+                  </div>
+                  <div class="col-xs-1 col-sm-1 col-md-1">
+                    <strong>ยอดสุทธิ</strong>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3">
+                    <strong>รายละเอียดการโอน</strong>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2">
+                    <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+                  </div>
+                  <div class="col-xs-1 col-sm-1 col-md-1">
+                    <strong>ตัดสต๊อก</strong>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2">
+                    <strong>การจัดส่ง</strong>
+                  </div>
+                  <div class="col-xs-1 col-sm-1 col-md-1">
+                    <strong>พิมพ์</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
+                <div class="col-md-12">
+                  <div class="row form-group">
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                      <p class="list-group-item-heading" ng-bind="order.user.displayName"></p>
+                      <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                      <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
+                      <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
+                      <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
+                      <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')"></i>
+                      <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
+                      <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1">
+                      <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                      <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                      <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1">
+                      <p class="list-group-item-heading">-</p>
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                      <span ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'">คนส่งข้าว</span>
+                      <span ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')">คนส่งข้าว</span>
+                      <span ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')">คนส่งข้าว</span>
+                      <span ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')">คนส่งข้าว</span>
+                      <span ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'">ไปรษณีย์</span>
+                      <span ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')">ไปรษณีย์</span>
+                    </div>
+                    <div class="col-xs-1 col-sm-1 col-md-1">
+                      <p class="list-group-item-heading">-</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-    </div>
-
-  </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
-    <div class="col-md-12">
-      <div class="row form-group">
-        <div class="col-xs-1 col-sm-1 col-md-1">
-          <p>{{$index+1}}</p>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="order.docno"></p>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <p class="list-group-item-heading" ng-bind="order.shipping.firstname +' '+ order.shipping.lastname"></p>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="order.amount"></p>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="order.docdate | date: 'dd/MM/yyyy'"></p>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
-          <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
-          <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
-          <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')"></i>
-          <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
-          <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
-        </div>
+      <div class="tab-pane" id="tab2">
+        <p>Howdy, I'm in Section 2.</p>
+      </div>
+      <div class="tab-pane" id="tab3">
+        <p>Howdy, I'm in Section 3.</p>
       </div>
     </div>
   </div>
+  <!---->
+  <!--<div class="row hidden-xs show-sm show-md show-lg">
+    <div class="row">
+      <div class="col-md-1">
+        <button class="thumbnail button buttonBlack" type="text">
+          <span>ทั้งหมด</span>
+          <h3>{{vm.orders.length}}</h3>
+        </button>
+        <div class="text-center"><span>การเงิน</span></div>
+        <button class="thumbnail button buttonGreen" type="text">
+          <span>สั่งจอง</span>
+          <h3>1</h3>
+        </button>
+      </div>
+      <div class="col-md-11">
+        <div class="col-md-12">
+          <div class="row form-group alert alert-success">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <strong>บิลสั่งซื้อลูกค้า</strong>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <strong>ยอดสุทธิ</strong>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <strong>รายละเอียดการโอน</strong>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <strong>ตัดสต๊อก</strong>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <strong>การจัดส่ง</strong>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <strong>พิมพ์</strong>
+            </div>
+          </div>
+        </div>
+       
+          <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
+        <div class="col-md-12">
+          <div class="row form-group">
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <p class="list-group-item-heading" ng-bind="order.user.displayName"></p>
+              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
+              <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
+              <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
+              <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')"></i>
+              <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
+              <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <p class="list-group-item-heading">-</p>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <span ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'">คนส่งข้าว</span>
+              <span ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')">คนส่งข้าว</span>
+              <span ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')">คนส่งข้าว</span>
+              <span ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')">คนส่งข้าว</span>
+              <span ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'">ไปรษณีย์</span>
+              <span ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')">ไปรษณีย์</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <p class="list-group-item-heading">-</p>
+            </div>
+          </div>
+        </div>
+  </div>-->
 
   <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.orders " ui-sref="orders.view({ orderId: order._id })">
     <div class="col-md-12">
@@ -83,6 +212,10 @@
       </div>
     </div>
   </div>
+  </div>
+  </div>
+  </div>
+
   <div class="row">
     <div class="col-md-12">
       <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
