@@ -46,6 +46,12 @@ describe('Order Model Unit Tests:', function () {
           tel: '0900077580',
           email: 'destinationpainbm@gmail.com'
         },
+        accounting: 'bank',
+        imgslip: 'picture',
+        postcost: 10,
+        discount: 10,
+        comment: 'comment',
+        trackingnumber: 'tracking Number',
         user: user
       });
 
@@ -66,6 +72,10 @@ describe('Order Model Unit Tests:', function () {
           tel: '0900077580',
           email: 'destinationpainbm@gmail.com'
         }],
+        accounting: 'cash',
+        postcost: 10,
+        discount: 10,
+        comment: 'comment',
         user: user
       });
 
@@ -127,6 +137,15 @@ describe('Order Model Unit Tests:', function () {
         amount: 100
       }];
       order.shipping = null;
+      return order.save(function (err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    it('should be able to show an error when try to save without accounting ', function (done) {
+      order.accounting = '';
+
       return order.save(function (err) {
         should.exist(err);
         done();

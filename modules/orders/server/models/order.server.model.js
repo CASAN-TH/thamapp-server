@@ -39,9 +39,9 @@ var OrderSchema = new Schema({
   shipping: {
     required: '',
     type: {
-      firstname:String,
-      lastname:String,
-      address:String,
+      firstname: String,
+      lastname: String,
+      address: String,
       postcode: String,
       subdistrict: String,
       province: String,
@@ -50,6 +50,16 @@ var OrderSchema = new Schema({
       email: String
     }
   },
+  accounting: {
+    type: String,
+    required: 'Please fill Order accounting',
+    default: 'bank'
+  },
+  imgslip: String,
+  postcost: Number,
+  discount: Number,
+  comment: String,
+  trackingnumber: String,
   delivery: {
     deliveryid: String,
     deliveryname: String,
@@ -63,7 +73,10 @@ var OrderSchema = new Schema({
   deliveryamount: Number,
   totalamount: Number,
   cartdate: Date,
-  deliverystatus: String,
+  deliverystatus: {
+    type: String,
+    default: 'confirmed'
+  },
   drilldate: Date,
   deliverylog: [{
     logdate: Date,
