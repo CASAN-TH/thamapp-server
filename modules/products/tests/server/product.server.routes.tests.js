@@ -534,7 +534,7 @@ describe('Product CRUD tests', function () {
             //productInfoRes.body.should.be.instanceof(Object);
             // productInfoRes.body.status.should.be.a.String();
             productInfoRes.body.status.should.be.equal('000');
-            productInfoRes.body.imageURL.should.startWith('./modules/products/client/img/uploads/');
+            productInfoRes.body.imageURL.should.startWith('');
 
             return done();
           });

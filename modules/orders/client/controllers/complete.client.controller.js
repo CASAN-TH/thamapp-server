@@ -13,9 +13,12 @@
     // Complete controller logic
     // ...
     vm.allQty = 0;
-    vm.complete.items.forEach(function(i){
-      vm.allQty += i.qty;
-    });
+    if (vm.complete.items) {
+      vm.complete.items.forEach(function (i) {
+        vm.allQty += i.qty;
+      });
+    }
+
     // console.log(vm.complete);
     init();
 
