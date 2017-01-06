@@ -133,6 +133,7 @@
                 <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">Change Profile Picture</a>
                 <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">Change Password</a>
                 <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">Manage Social Accounts</a>
+                <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">Signout</a>
               </div>
             </div>
           </div>
@@ -184,8 +185,8 @@
           </div>
           <div class="row">
             <div class="col-xs-4 text-right front_profile-color9"><span><i class="fa fa-inbox "></i></span></div>
-            <div class="col-xs-4  line front_profile-color9"><span><i class="fa fa-truck"></i></span></div>
-            <div class="col-xs-4 glypush1 front_profile-color9"><span><i class="fa fa-check-circle"></i></span></div>
+            <div class="col-xs-4  line {{his.deliverystatus === 'accept'?'front_profile-color9':his.deliverystatus === 'complete'?'front_profile-color9':'color-gray-profile'}}"><span><i class="fa fa-truck"></i></span></div>
+            <div class="col-xs-4 glypush1 {{his.deliverystatus === 'complete'?'front_profile-color9':'color-gray-profile'}}"><span><i class="fa fa-check-circle"></i></span></div>
           </div>
           <div class="border-bottom"></div>
           <div class="row-xs-12 border-bottom front_profile-color0 text-center slide-left-top1">
