@@ -65,7 +65,12 @@ describe('Order CRUD tests', function () {
           district: 'สายไหม',
           tel: '0900077580',
           email: 'destinationpainbm@gmail.com'
-        }
+        },
+        accounting: 'bank',
+        imgslip: 'picture',
+        postcost: 10,
+        discount: 10,
+        comment: 'comment'
       };
 
       done();
@@ -110,6 +115,7 @@ describe('Order CRUD tests', function () {
                 (orders[0].user._id).should.equal(userId);
                 (orders[0].docno).should.match('1234');
                 (orders[0].docdate).should.match(new Date());
+                (orders[0].accounting).should.match('bank');
 
                 // Call the assertion callback
                 done();
@@ -192,6 +198,36 @@ describe('Order CRUD tests', function () {
           .end(function (orderSaveErr, orderSaveRes) {
             // Set message assertion
             (orderSaveRes.body.message).should.match('Please fill Order docno');
+
+            // Handle Order save error
+            done(orderSaveErr);
+          });
+      });
+  });
+
+  it('should not be able to save an Order if no accounting is provided', function (done) {
+    // Invalidate docno field
+    order.accounting = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Order
+        agent.post('/api/orders')
+          .send(order)
+          .expect(400)
+          .end(function (orderSaveErr, orderSaveRes) {
+            // Set message assertion
+            (orderSaveRes.body.message).should.match('Please fill Order accounting');
 
             // Handle Order save error
             done(orderSaveErr);
