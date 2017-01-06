@@ -25,13 +25,19 @@
         <div class="row hidden-xs show-sm show-md show-lg">
           <div class="row">
             <div class="col-md-1">
-              <div ng-show="allActive">
+              <!--<div ng-show="allActive">
                 <button class="thumbnail button buttonBlack" type="text">
           <span>ทั้งหมด</span>
           <h3>{{vm.orders.length}}</h3>
         </button>
-              </div>
+              </div>-->
               <div ng-hide="allActive">
+                <button class="thumbnail button buttonBlackActive" type="text">
+          <span>ทั้งหมด</span>
+          <h3>{{vm.orders.length}}</h3>
+        </button>
+              </div>
+              <div ng-show="deliverActive">
                 <button class="thumbnail button buttonBlackActive" type="text">
           <span>ทั้งหมด</span>
           <h3>{{vm.orders.length}}</h3>
