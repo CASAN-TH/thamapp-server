@@ -14,6 +14,7 @@
       ShopCartService,
       mockProduct,
       mockDeliver,
+      mockStatusOrder,
       mockOrder;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -58,6 +59,31 @@
       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name'
+      });
+
+      mockStatusOrder = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        docno: '1234',
+        docdate: '24/05/2535',
+        shipping: {
+          tel: '0788654123',
+          email: 'toonelicious@gmail.com',
+          firstName: 'shipping firstName',
+          lastName: 'shipping lastName',
+          address: '51/356',
+          postcode: '12150',
+          subdistrict: 'คลองถนน',
+          province: 'ปทุมธานี',
+          district: 'สายไหม'
+        },
+        item: [{
+          product: mockProduct
+        }],
+        amount: 54,
+        postcost: 10,
+        discount: 10,
+        comment: 'comment',
+        deliverystatus: 'confirmed'
       });
 
       mockProduct = new ProductsService({
@@ -171,6 +197,97 @@
       }));
     });
 
+    describe('update status pending', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+      });
+      it('vm.status pending()', inject(function (Users) {
+        
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+        
+        // Run controller functionality
+        $scope.vm.pending(true);
+        expect($scope.vm.order.deliverystatus).toEqual('pending');
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('update status paid', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+      });
+      it('vm.status paid()', inject(function (Users) {
+        
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+        
+        // Run controller functionality
+        $scope.vm.paid(true);
+        expect($scope.vm.order.deliverystatus).toEqual('paid');
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('update status sent', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+      });
+      it('vm.status sent()', inject(function (Users) {
+        
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+        
+        // Run controller functionality
+        $scope.vm.sent(true);
+        expect($scope.vm.order.deliverystatus).toEqual('sent');
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('update status complete', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+      });
+      it('vm.status complete()', inject(function (Users) {
+        
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+        
+        // Run controller functionality
+        $scope.vm.complete(true);
+        expect($scope.vm.order.deliverystatus).toEqual('complete');
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('update status closeOrder', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+      });
+      it('vm.status closeOrder()', inject(function (Users) {
+        
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+        
+        // Run controller functionality
+        $scope.vm.closeOrder(true);
+        expect($scope.vm.order.deliverystatus).toEqual('closeOrder');
+        $httpBackend.flush();
+
+      }));
+    });
+
+
     describe('vm.selectProduct', function () {
 
       beforeEach(function () {
@@ -178,11 +295,11 @@
           product: mockProduct,
           qty: 1
         },
-          {
-            product: mockProduct,
-            qty: 1,
-            amount: 100
-          }];
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
       });
 
       it('should select product item', function () {
@@ -210,11 +327,11 @@
           product: mockProduct,
           qty: 1
         },
-          {
-            product: mockProduct,
-            qty: 1,
-            amount: 100
-          }];
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
       });
 
       it('should addItem', function () {
@@ -233,11 +350,11 @@
           product: mockProduct,
           qty: 1
         },
-          {
-            product: mockProduct,
-            qty: 1,
-            amount: 100
-          }];
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
       });
 
       it('should removeItem', function () {
