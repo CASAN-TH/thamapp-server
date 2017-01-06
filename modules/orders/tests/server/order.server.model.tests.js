@@ -51,6 +51,7 @@ describe('Order Model Unit Tests:', function () {
         postcost: 10,
         discount: 10,
         comment: 'comment',
+        trackingnumber: 'tracking Number',
         user: user
       });
 

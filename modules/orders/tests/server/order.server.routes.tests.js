@@ -70,7 +70,8 @@ describe('Order CRUD tests', function () {
         imgslip: 'picture',
         postcost: 10,
         discount: 10,
-        comment: 'comment'
+        comment: 'comment',
+        trackingnumber: 'tracking Number'
       };
 
       done();

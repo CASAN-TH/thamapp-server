@@ -58,6 +58,7 @@ var OrderSchema = new Schema({
   postcost: Number,
   discount: Number,
   comment: String,
+  trackingnumber : String,
   delivery: {
     deliveryid: String,
     deliveryname: String,
