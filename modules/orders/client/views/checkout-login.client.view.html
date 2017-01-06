@@ -1,4 +1,4 @@
-<section class="container-fluid">
+<section class="container-fluid" ng-init="init()">
   <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)" novalidate>
     <div class="row">
       <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
@@ -207,7 +207,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <!--<div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                   <label class="control-label" for="email">E-mail</label>
@@ -222,7 +222,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
 

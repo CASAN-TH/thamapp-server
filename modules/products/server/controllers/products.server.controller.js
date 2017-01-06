@@ -122,6 +122,7 @@ exports.productByID = function (req, res, next, id) {
  * Upload Images Product
  */
 exports.changeProductPicture = function (req, res) {
+
   var user = req.user;
   var message = null;
   var upload = multer(config.uploads.productUpload).single('newProfilePicture');
@@ -137,7 +138,8 @@ exports.changeProductPicture = function (req, res) {
         });
       } else {
         // var imageURL = config.uploads.productUpload.dest + req.file.filename;
-        var imageURL = req.file.filename; //path public      
+        var imageURL = req.file.filename; //path public  
+
 
         // user.save(function (saveError) {
         //   if (saveError) {

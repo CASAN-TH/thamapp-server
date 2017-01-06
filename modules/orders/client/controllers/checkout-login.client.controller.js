@@ -21,7 +21,6 @@
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
     $scope.postcodedata = {};
-    $scope.postcodeQuery = PostcodesService.query();
     $scope.products = product;
     $scope.newAddress = { status: false };
     function product() {
@@ -36,11 +35,13 @@
       if ($scope.step === 1) {
         if (vm.isMember) {
           $scope.signin(isValid);
-        } else if ($scope.authentication.use && $scope.step === 2) {
+        } else if ($scope.authentication.user && $scope.step === 2) {
           $scope.step += 1;
         } else {
-          $scope.step += 1;
+          $scope.signin(isValid);
         }
+
+
       } else {
         if ($scope.authentication.user) {
           $scope.saveOrder();
@@ -53,8 +54,9 @@
     };
 
     $scope.signup = function (isValid) {
+      $scope.authentication.address = {};
       $scope.authentication.password = 'Usr#Pass1234';
-      // $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
+      $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
       $scope.authentication.address.tel = $scope.authentication.username;
       $scope.error = null;
 
@@ -71,20 +73,15 @@
         // And redirect to the previous or home page
       }).error(function (response) {
         //$scope.error = response.message;
-        //if(response.message === 'Username already exists') then signin()
-        $http.post('/api/auth/signin', $scope.authentication).success(function (response) {
-          // If successful we assign the response to the global user model
-          $scope.authentication.user = response;
-          //$scope.step += 1;
-        }).error(function (response) {
-          $scope.error = response.message;
-        });
+
       });
     };
 
     $scope.signin = function (isValid) {
       $scope.error = null;
-
+      if (!vm.isMember) {
+        $scope.authentication.password = 'Usr#Pass1234';
+      }
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'userForm');
 
@@ -97,6 +94,9 @@
         $scope.step += 1;
       }).error(function (response) {
         $scope.error = response.message;
+        if (!vm.isMember) {
+          $scope.step += 1;
+        }
       });
     };
 
@@ -204,19 +204,11 @@
       }
     };
     // $scope.postcode = [{ name: 'test' }];
-    $scope.postcode = $scope.postcodeQuery;
-    init();
+    
 
-    function init() {
-      // $http({
-      //   method: 'GET',
-      //   url: './modules/orders/client/postcode.json'
-      // }).then(function successCallback(response) {
-      //   $scope.postcode = response.data.postcodeData;
-      // }, function errorCallback(response) {
-      //   // called asynchronously if an error occurs
-      //   // or server returns response with an error status.
-      // });
-    }
+    $scope.init = function() {
+      $scope.postcodeQuery = PostcodesService.query();
+      $scope.postcode = $scope.postcodeQuery;
+    };
   }
 })();
