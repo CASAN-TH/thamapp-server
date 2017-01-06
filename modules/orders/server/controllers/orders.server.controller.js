@@ -31,7 +31,6 @@ exports.create = function (req, res) {
             message: errorHandler.getErrorMessage(err2)
           });
         } else {
-          console.log('success');
           res.jsonp(orders);
         }
       });
