@@ -59,7 +59,7 @@ var OrderSchema = new Schema({
   postcost: Number,
   discount: Number,
   comment: String,
-  trackingnumber : String,
+  trackingnumber: String,
   delivery: {
     deliveryid: String,
     deliveryname: String,
@@ -73,7 +73,10 @@ var OrderSchema = new Schema({
   deliveryamount: Number,
   totalamount: Number,
   cartdate: Date,
-  deliverystatus: String,
+  deliverystatus: {
+    type: String,
+    default: 'confirmed'
+  },
   drilldate: Date,
   deliverylog: [{
     logdate: Date,

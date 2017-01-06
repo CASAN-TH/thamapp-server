@@ -71,7 +71,8 @@ describe('Order CRUD tests', function () {
         postcost: 10,
         discount: 10,
         comment: 'comment',
-        trackingnumber: 'tracking Number'
+        trackingnumber: 'tracking Number',
+        deliverystatus: 'confirmed'
       };
 
       done();
@@ -117,6 +118,7 @@ describe('Order CRUD tests', function () {
                 (orders[0].docno).should.match('1234');
                 (orders[0].docdate).should.match(new Date());
                 (orders[0].accounting).should.match('bank');
+                (orders[0].deliverystatus).should.match('confirmed');
 
                 // Call the assertion callback
                 done();
