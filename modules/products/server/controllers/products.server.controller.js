@@ -138,12 +138,11 @@ exports.changeProductPicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        var imageURL = '';
         var cloudImageURL = config.uploads.productUpload.dest + req.file.filename;
         cloudinary.uploader.upload(cloudImageURL, function (result) {
-          imageURL = result.url;
+          var imageURL = result.url;
+          res.json({ status: '000', message: 'success', imageURL: imageURL });
         });
-        res.json({ status: '000', message: 'success', imageURL: imageURL });
       }
     });
   } else {
