@@ -107,6 +107,23 @@ angular.module('core')
               scope.click(scope.filitered[0]);
             }
           }
+          if (scope.ngModel) {
+            if (scope.ngModel.length === 5) {
+              filterCustom = [];
+
+              if (scope.active === 0) {
+                scope.typeahead.forEach(function (e) {
+                  if (e.postcode === scope.ngModel) {
+                    filterCustom.push(e);
+                  }
+                });
+                scope.filitered = filterCustom;
+              }
+              if (scope.typeaheadCallback) {
+                scope.typeaheadCallback(scope.filitered[0]);
+              }
+            }
+          }
         });
 
         elem.after($compile(template)(scope));
