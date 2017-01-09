@@ -138,7 +138,10 @@ exports.changeProductPicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
+        console.log("=======================");
+
         var cloudImageURL = config.uploads.productUpload.dest + req.file.filename;
+         console.log(cloudImageURL);
         cloudinary.uploader.upload(cloudImageURL, function (result) {
           var imageURL = result.url;
           res.json({ status: '000', message: 'success', imageURL: imageURL });
