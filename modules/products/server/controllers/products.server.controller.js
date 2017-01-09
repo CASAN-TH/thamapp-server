@@ -138,30 +138,10 @@ exports.changeProductPicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        var imageURL = config.uploads.productUpload.dest + req.file.filename;
-        var pathImgSplit = imageURL.split('./')[1];
-        var pathImg = 'http://localhost:3000/' + pathImgSplit;
-        console.log(pathImg);        
-        // var imageURL = req.file.filename; //path public  
-        cloudinary.uploader.upload(pathImg, function (result) {
-          console.log(result);
+        var cloudImageURL = config.uploads.productUpload.dest + req.file.filename;
+        cloudinary.uploader.upload(cloudImageURL, function (result) {
+          var imageURL = result.url;
         });
-
-        // user.save(function (saveError) {
-        //   if (saveError) {
-        //     return res.status(400).send({
-        //       message: errorHandler.getErrorMessage(saveError)
-        //     });
-        //   } else {
-        //     req.login(user, function (err) {
-        //       if (err) {
-        //         res.status(400).send(err);
-        //       } else {
-        //         res.json(user);
-        //       }
-        //     });
-        //   }
-        // });
         res.json({ status: '000', message: 'success', imageURL: imageURL });
       }
     });
