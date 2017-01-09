@@ -33,7 +33,7 @@ module.exports = {
   uploads: {
     profileUpload: {
       // dest: './public/', // Profile upload to public folder   
-      dest: './modules/users/client/img/profile/uploads/', // Profile upload destination path
+      // dest: './modules/users/client/img/profile/uploads/', // Profile upload destination path
       storage: multer.diskStorage({
         destination: function (req, file, cb) {
           cb(null, './modules/users/client/img/profile/uploads/');
@@ -49,7 +49,7 @@ module.exports = {
     },
     productUpload: {
       // dest: './public/', // Profile upload to public folder         
-      dest: './modules/products/client/img/uploads/', // Profile upload destination path
+      // dest: './modules/products/client/img/uploads/', // Profile upload destination path
       storage: multer.diskStorage({
         destination: function (req, file, cb) {
           cb(null, './modules/products/client/img/uploads/');
