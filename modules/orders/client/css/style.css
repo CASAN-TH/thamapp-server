@@ -38,7 +38,7 @@ text-align : center;
 }
 
 .button {
-    width: 80px;
+    width: 85px;
     height: 68px;
 }
 
@@ -51,6 +51,10 @@ text-align : center;
 }
 
 .buttonBlack:hover {
+    background-color: #555555;
+    color: white;
+}
+.buttonBlackActive {
     background-color: #555555;
     color: white;
 }
