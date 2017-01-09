@@ -34,6 +34,81 @@
     vm.showdetail = true;
     vm.showstatus = true;
     vm.delivers = [];
+    vm.pending = pending;
+    vm.paid = paid;
+    vm.sent = sent;
+    vm.complete = complete;
+    vm.closeOrder = closeOrder;
+
+    function pending(isValid) {
+      vm.order.deliverystatus = 'pending';
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('orders.view', {
+          orderId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function paid(isValid) {
+      vm.order.deliverystatus = 'paid';
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('orders.view', {
+          orderId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function sent(isValid) {
+      vm.order.deliverystatus = 'sent';
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('orders.view', {
+          orderId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function complete(isValid) {
+      vm.order.deliverystatus = 'complete';
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('orders.view', {
+          orderId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function closeOrder(isValid) {
+      vm.order.deliverystatus = 'closeOrder';
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('orders.view', {
+          orderId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
 
     function readProduct() {
       vm.products = ProductsService.query();
@@ -86,7 +161,7 @@
 
     function acceptPost(itm) {
       vm.status = itm.deliverystatus;
-      vm.status ='accept';
+      vm.status = 'accept';
       console.log(vm.status);
       vm.order.deliverystatus = vm.status;
     }
@@ -116,6 +191,7 @@
         }
       }
     }
+
     function init() {
 
       vm.readProduct();
@@ -134,7 +210,7 @@
       }
       readDeliverid();
       showstatuspost();
-      
+
 
     }
 
