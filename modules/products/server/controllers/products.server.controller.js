@@ -9,6 +9,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
+  cloudinary = require(path.resolve('./config/lib/cloudinary')).cloudinary,
   _ = require('lodash');
 
 /**
@@ -137,9 +138,14 @@ exports.changeProductPicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        // var imageURL = config.uploads.productUpload.dest + req.file.filename;
-        var imageURL = req.file.filename; //path public  
-
+        var imageURL = config.uploads.productUpload.dest + req.file.filename;
+        var pathImgSplit = imageURL.split('./')[1];
+        var pathImg = 'http://localhost:3000/' + pathImgSplit;
+        console.log(pathImg);        
+        // var imageURL = req.file.filename; //path public  
+        cloudinary.uploader.upload(pathImg, function (result) {
+          console.log(result);
+        });
 
         // user.save(function (saveError) {
         //   if (saveError) {
