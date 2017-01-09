@@ -140,7 +140,7 @@ exports.changeProductPicture = function (req, res) {
       } else {
         console.log("=======================");
 
-        var cloudImageURL = './public/' + req.file.filename;
+        var cloudImageURL = './modules/products/client/img/uploads/' + req.file.filename;
          console.log(cloudImageURL);
         cloudinary.uploader.upload(cloudImageURL, function (result) {
           var imageURL = result.url;
