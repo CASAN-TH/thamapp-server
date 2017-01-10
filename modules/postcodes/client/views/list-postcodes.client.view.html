@@ -64,7 +64,6 @@
       </div>
     </div>
   </div>
-
   <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="postcode in vm.postcodes ">
     <div class="col-md-12">
       <div class="list-group">
@@ -94,13 +93,6 @@
         </div>
         </a>
         
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="alert alert-warning text-center" ng-if="vm.postcodes.$resolved && !vm.postcodes.length">
-        No Orders yet, why don't you <a ui-sref="postcodes.create">create one</a>?
       </div>
     </div>
   </div>
