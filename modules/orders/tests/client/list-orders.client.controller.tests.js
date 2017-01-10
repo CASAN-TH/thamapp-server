@@ -10,12 +10,18 @@
       Authentication,
       OrdersService,
       mockOrder,
-      mockPendingOrder,
-      mockPaidOrder,
-      mockSentOrder,
-      mockCompleteOrder,
-      mockCloseOrder,
-      mockConfirmedOrder;
+      mockPendingOrderPost,
+      mockPendingOrderDeli,
+      mockPaidOrderPost,
+      mockPaidOrderDeli,
+      mockSentOrderPost,
+      mockSentOrderDeli,
+      mockCompleteOrderPost,
+      mockCompleteOrderDeli,
+      mockCloseOrderPost,
+      mockCloseOrderDeli,
+      mockConfirmedOrderPost,
+      mockConfirmedOrderDeli;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -58,52 +64,136 @@
         name: 'Order Name'
       });
 
-      mockConfirmedOrder = new OrdersService({
+      mockConfirmedOrderPost = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         docno: '1234',
         docdate: '24/05/2535',
-        deliverystatus: 'confirmed'
+        deliverystatus: 'confirmed',
+        delivery: {
+          deliveryid: '1'
+        }
       });
 
-      mockPendingOrder = new OrdersService({
+      mockConfirmedOrderDeli = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         docno: '1234',
         docdate: '24/05/2535',
-        deliverystatus: 'pending'
+        deliverystatus: 'confirmed',
+        delivery: {
+          deliveryid: '0'
+        }
       });
 
-      mockPaidOrder = new OrdersService({
+      mockPendingOrderPost = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         docno: '1234',
         docdate: '24/05/2535',
-        deliverystatus: 'paid'
+        deliverystatus: 'pending',
+        delivery: {
+          deliveryid: '1'
+        }
       });
 
-      mockSentOrder = new OrdersService({
+      mockPendingOrderDeli = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         docno: '1234',
         docdate: '24/05/2535',
-        deliverystatus: 'sent'
+        deliverystatus: 'pending',
+        delivery: {
+          deliveryid: '0'
+        }
       });
 
-      mockCompleteOrder = new OrdersService({
+      mockPaidOrderPost = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         docno: '1234',
         docdate: '24/05/2535',
-        deliverystatus: 'complete'
+        deliverystatus: 'paid',
+        delivery: {
+          deliveryid: '1'
+        }
       });
-      
-      mockCloseOrder = new OrdersService({
+
+      mockPaidOrderDeli = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         docno: '1234',
         docdate: '24/05/2535',
-        deliverystatus: 'close'
+        deliverystatus: 'paid',
+        delivery: {
+          deliveryid: '0'
+        }
+      });
+
+      mockSentOrderPost = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'sent',
+        delivery: {
+          deliveryid: '1'
+        }
+      });
+
+      mockSentOrderDeli = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'sent',
+        delivery: {
+          deliveryid: '0'
+        }
+      });
+
+      mockCompleteOrderPost = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'complete',
+        delivery: {
+          deliveryid: '1'
+        }
+      });
+
+      mockCompleteOrderDeli = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'complete',
+        delivery: {
+          deliveryid: '0'
+        }
+      });
+
+      mockCloseOrderPost = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'close',
+        delivery: {
+          deliveryid: '1'
+        }
+      });
+
+      mockCloseOrderDeli = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'close',
+        delivery: {
+          deliveryid: '0'
+        }
       });
       // Mock logged in user
       Authentication.user = {
@@ -142,28 +232,46 @@
     describe('order status confirmed', function () {
 
       beforeEach(function () {
-        $scope.vm.confirmedOrders = [mockConfirmedOrder];
+        $scope.vm.confirmedOrders = [mockConfirmedOrderPost, mockConfirmedOrderDeli];
+        $scope.vm.confirmedPost = [mockConfirmedOrderPost];
+        $scope.vm.confirmedDeli = [mockConfirmedOrderDeli];
       });
 
       it('should send a GET request and return all Orders Confirmed status', inject(function () {
         $scope.vm.statusConfirmed();
         // Test form inputs are reset
-        expect($scope.vm.confirmedOrders.length).toEqual(1);
+        expect($scope.vm.confirmedOrders.length).toEqual(2);
         expect($scope.vm.confirmedOrders[0].deliverystatus).toEqual('confirmed');
+        expect($scope.vm.confirmedOrders[1].deliverystatus).toEqual('confirmed');
+        expect($scope.vm.confirmedPost.length).toEqual(1);
+        expect($scope.vm.confirmedPost[0].deliverystatus).toEqual('confirmed');
+        expect($scope.vm.confirmedPost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.confirmedDeli.length).toEqual(1);
+        expect($scope.vm.confirmedDeli[0].deliverystatus).toEqual('confirmed');
+        expect($scope.vm.confirmedDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
 
     describe('order status pending', function () {
       beforeEach(function () {
-        $scope.vm.pendingOrders = [mockPendingOrder];
+        $scope.vm.pendingOrders = [mockPendingOrderPost, mockPendingOrderDeli];
+        $scope.vm.pendingPost = [mockPendingOrderPost];
+        $scope.vm.pendingDeli = [mockPendingOrderDeli];
       });
 
       it('should send a GET request and return all Orders pending status', inject(function () {
         $scope.vm.statusPending();
         // Test form inputs are reset
-        expect($scope.vm.pendingOrders.length).toEqual(1);
+        expect($scope.vm.pendingOrders.length).toEqual(2);
         expect($scope.vm.pendingOrders[0].deliverystatus).toEqual('pending');
+        expect($scope.vm.pendingOrders[1].deliverystatus).toEqual('pending');
+        expect($scope.vm.pendingPost.length).toEqual(1);
+        expect($scope.vm.pendingPost[0].deliverystatus).toEqual('pending');
+        expect($scope.vm.pendingPost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.pendingDeli.length).toEqual(1);
+        expect($scope.vm.pendingDeli[0].deliverystatus).toEqual('pending');
+        expect($scope.vm.pendingDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
@@ -171,14 +279,23 @@
     describe('order status paid', function () {
 
       beforeEach(function () {
-        $scope.vm.paidOrders = [mockPaidOrder];
+        $scope.vm.paidOrders = [mockPaidOrderPost, mockPaidOrderDeli];
+        $scope.vm.paidPost = [mockPaidOrderPost];
+        $scope.vm.paidDeli = [mockPaidOrderDeli];
       });
 
       it('should send a GET request and return all Orders paid status', inject(function () {
         $scope.vm.statusPaid();
         // Test form inputs are reset
-        expect($scope.vm.paidOrders.length).toEqual(1);
+        expect($scope.vm.paidOrders.length).toEqual(2);
         expect($scope.vm.paidOrders[0].deliverystatus).toEqual('paid');
+        expect($scope.vm.paidOrders[1].deliverystatus).toEqual('paid');
+        expect($scope.vm.paidPost.length).toEqual(1);
+        expect($scope.vm.paidPost[0].deliverystatus).toEqual('paid');
+        expect($scope.vm.paidPost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.paidDeli.length).toEqual(1);
+        expect($scope.vm.paidDeli[0].deliverystatus).toEqual('paid');
+        expect($scope.vm.paidDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
@@ -186,14 +303,24 @@
     describe('order status sent', function () {
 
       beforeEach(function () {
-        $scope.vm.sentOrders = [mockSentOrder];
+        $scope.vm.sentOrders = [mockSentOrderPost, mockSentOrderDeli];
+        $scope.vm.sentPost = [mockSentOrderPost];
+        $scope.vm.sentDeli = [mockSentOrderDeli];
+
       });
 
       it('should send a GET request and return all Orders sent status', inject(function () {
         $scope.vm.statusSent();
         // Test form inputs are reset
-        expect($scope.vm.sentOrders.length).toEqual(1);
+        expect($scope.vm.sentOrders.length).toEqual(2);
         expect($scope.vm.sentOrders[0].deliverystatus).toEqual('sent');
+        expect($scope.vm.sentOrders[1].deliverystatus).toEqual('sent');
+        expect($scope.vm.sentPost.length).toEqual(1);
+        expect($scope.vm.sentPost[0].deliverystatus).toEqual('sent');
+        expect($scope.vm.sentPost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.sentDeli.length).toEqual(1);
+        expect($scope.vm.sentDeli[0].deliverystatus).toEqual('sent');
+        expect($scope.vm.sentDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
@@ -201,14 +328,24 @@
     describe('order status complete', function () {
 
       beforeEach(function () {
-        $scope.vm.completeOrders = [mockCompleteOrder];
+        $scope.vm.completeOrders = [mockCompleteOrderPost, mockCompleteOrderDeli];
+        $scope.vm.completePost = [mockCompleteOrderPost];
+        $scope.vm.completeDeli = [mockCompleteOrderDeli];
+
       });
 
       it('should send a GET request and return all Orders complete status', inject(function () {
         $scope.vm.statusComplete();
         // Test form inputs are reset
-        expect($scope.vm.completeOrders.length).toEqual(1);
+        expect($scope.vm.completeOrders.length).toEqual(2);
         expect($scope.vm.completeOrders[0].deliverystatus).toEqual('complete');
+        expect($scope.vm.completeOrders[1].deliverystatus).toEqual('complete');
+        expect($scope.vm.completePost.length).toEqual(1);
+        expect($scope.vm.completePost[0].deliverystatus).toEqual('complete');
+        expect($scope.vm.completePost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.completeDeli.length).toEqual(1);
+        expect($scope.vm.completeDeli[0].deliverystatus).toEqual('complete');
+        expect($scope.vm.completeDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
@@ -216,14 +353,23 @@
     describe('order status closeOrder', function () {
 
       beforeEach(function () {
-        $scope.vm.closeOrders = [mockCloseOrder];
+        $scope.vm.closeOrders = [mockCloseOrderPost, mockCloseOrderDeli];
+        $scope.vm.closePost = [mockCloseOrderPost];
+        $scope.vm.closeDeli = [mockCloseOrderDeli];
       });
 
       it('should send a GET request and return all Orders close status', inject(function () {
         $scope.vm.statusClose();
         // Test form inputs are reset
-        expect($scope.vm.closeOrders.length).toEqual(1);
+        expect($scope.vm.closeOrders.length).toEqual(2);
         expect($scope.vm.closeOrders[0].deliverystatus).toEqual('close');
+        expect($scope.vm.closeOrders[1].deliverystatus).toEqual('close');
+        expect($scope.vm.closePost.length).toEqual(1);
+        expect($scope.vm.closePost[0].deliverystatus).toEqual('close');
+        expect($scope.vm.closePost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.closeDeli.length).toEqual(1);
+        expect($scope.vm.closeDeli[0].deliverystatus).toEqual('close');
+        expect($scope.vm.closeDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
