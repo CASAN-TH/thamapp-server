@@ -49,7 +49,7 @@
       // create mock Promotion
       mockPromotion = new PromotionsService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Promotion Name'
+        productid: 'Promotion Name'
       });
 
       // Mock logged in user
@@ -73,7 +73,7 @@
       beforeEach(function () {
         // Create a sample Promotion object
         samplePromotionPostData = new PromotionsService({
-          name: 'Promotion Name'
+          productid: 'Promotion Name'
         });
 
         $scope.vm.promotion = samplePromotionPostData;
@@ -88,9 +88,7 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Promotion was created
-        expect($state.go).toHaveBeenCalledWith('promotions.view', {
-          promotionId: mockPromotion._id
-        });
+        expect($state.go).toHaveBeenCalledWith('promotions.list');
       }));
 
       it('should set $scope.vm.error if error', function () {
@@ -121,9 +119,7 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('promotions.view', {
-          promotionId: mockPromotion._id
-        });
+        expect($state.go).toHaveBeenCalledWith('promotions.list');
       }));
 
       it('should set $scope.vm.error if error', inject(function (PromotionsService) {

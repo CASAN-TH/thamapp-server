@@ -40,9 +40,7 @@
       }
 
       function successCallback(res) {
-        $state.go('promotions.list', {
-          promotionId: res._id
-        });
+        $state.go('promotions.list');
       }
 
       function errorCallback(res) {
