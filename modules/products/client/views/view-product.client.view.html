@@ -33,7 +33,30 @@
       <button type="button" class="btn btn-warning " ng-click="vm.cart.add(vm.product)">ใส่ตะกร้า</button>
       <button type="button" class="btn btn-primary " ng-click="vm.buynow(vm.product)">สั่งซื้อทันที</button>
     </div>
+  </div>
+  <div class="min-height-50">
 
+  </div>
+  <!--asasas-->
+
+  <div class="row border-top" ng-init="vm.readProduct()">
+    <div class="margin-top-20 margin-bottom-20">
+      <h3>สินค้าที่เกี่ยวข้อง</h3>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4 margin-bottom-30 " ng-repeat="product in vm.products" ng-if="vm.product.category===product.category && vm.product._id != product._id ">
+      <div class="demo-card" ui-sref="products.view({ productId: product._id })">
+        <div class="card ">
+          <div class="text-center ">
+            <img ng-src="{{product.images}}" alt="{{product.name}}" class=" img-thumbnail user-profile-picture ">
+          </div>
+          <div class="card-block text-center">
+            <h4 class="card-title word-break">{{product.name}}</h4>
+            <p class="card-text word-break">{{product.description}}</p>
+            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <p class="lead" ng-bind="vm.product.content"></p>
 </section>

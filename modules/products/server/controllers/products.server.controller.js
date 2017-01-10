@@ -9,6 +9,7 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
+  cloudinary = require(path.resolve('./config/lib/cloudinary')).cloudinary,
   _ = require('lodash');
 
 /**
@@ -122,7 +123,6 @@ exports.productByID = function (req, res, next, id) {
  * Upload Images Product
  */
 exports.changeProductPicture = function (req, res) {
-
   var user = req.user;
   var message = null;
   var upload = multer(config.uploads.productUpload).single('newProfilePicture');
@@ -137,26 +137,11 @@ exports.changeProductPicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        // var imageURL = config.uploads.productUpload.dest + req.file.filename;
-        var imageURL = req.file.filename; //path public  
-
-
-        // user.save(function (saveError) {
-        //   if (saveError) {
-        //     return res.status(400).send({
-        //       message: errorHandler.getErrorMessage(saveError)
-        //     });
-        //   } else {
-        //     req.login(user, function (err) {
-        //       if (err) {
-        //         res.status(400).send(err);
-        //       } else {
-        //         res.json(user);
-        //       }
-        //     });
-        //   }
-        // });
-        res.json({ status: '000', message: 'success', imageURL: imageURL });
+        var cloudImageURL = './public/' + req.file.filename;
+        cloudinary.uploader.upload(cloudImageURL, function (result) {
+          var imageURL = result.url;
+          res.json({ status: '000', message: 'success', imageURL: imageURL });
+        });
       }
     });
   } else {

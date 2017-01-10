@@ -1,0 +1,58 @@
+<section class="header-height-1000px">
+  <div class="page-header">
+    <h1>{{vm.promotion._id ? 'Edit Promotion' : 'New Promotion'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.promotionForm" class="form-horizontal" ng-submit="vm.save(vm.form.promotionForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="productid">Productid</label>
+          <input name="productid" type="text" ng-model="vm.promotion.productid" id="productid" class="form-control" placeholder="Productid"
+            required>
+          <div ng-messages="vm.form.promotionForm.productid.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Promotion productid is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description">Description</label>
+          <input name="description" type="text" ng-model="vm.promotion.description" id="description" class="form-control" placeholder="Description"
+            required>
+          <div ng-messages="vm.form.promotionForm.description.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Promotion Description is required.</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="discount">Discount FixBath</label>
+          <input name="fixBath" type="text" ng-model="vm.promotion.discount.fixBath" id="fixBath" class="form-control" placeholder="Discount">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="percen">Discount Percen</label>
+          <input name="percen" type="text" ng-model="vm.promotion.discount.percen" id="percen" class="form-control" placeholder="Percen">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="percen">Free Item</label>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="product">Product</label>
+          <input name="product" type="text" ng-model="vm.promotion.freeitem.product" id="product" class="form-control" placeholder="product">
+
+          <label class="control-label" for="qty">Qty</label>
+          <input name="qty" type="text" ng-model="vm.promotion.freeitem.qty" id="qty" class="form-control" placeholder="qty">
+
+          <label class="control-label" for="price">Price</label>
+          <input name="price" type="text" ng-model="vm.promotion.freeitem.price" id="price" class="form-control" placeholder="price">
+
+          <label class="control-label" for="qty">Amount</label>
+          <input name="amount" type="text" ng-model="vm.promotion.freeitem.amount" id="amount" class="form-control" placeholder="amount">
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.promotion._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
