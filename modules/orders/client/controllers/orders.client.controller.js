@@ -44,9 +44,7 @@
       vm.order.deliverystatus = 'pending';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        $state.go('orders.view', {
-          orderId: res._id
-        });
+        alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -58,9 +56,7 @@
       vm.order.deliverystatus = 'paid';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        $state.go('orders.view', {
-          orderId: res._id
-        });
+         alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -72,9 +68,7 @@
       vm.order.deliverystatus = 'sent';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        $state.go('orders.view', {
-          orderId: res._id
-        });
+        alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -86,9 +80,7 @@
       vm.order.deliverystatus = 'complete';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        $state.go('orders.view', {
-          orderId: res._id
-        });
+         alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -100,9 +92,7 @@
       vm.order.deliverystatus = 'closeOrder';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        $state.go('orders.view', {
-          orderId: res._id
-        });
+         alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
