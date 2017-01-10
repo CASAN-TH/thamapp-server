@@ -10,6 +10,7 @@ var _ = require('lodash'),
   mongoose = require('mongoose'),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
+  cloudinary = require(path.resolve('./config/lib/cloudinary')).cloudinary,
   User = mongoose.model('User');
 
 /**
@@ -58,35 +59,41 @@ exports.changeProfilePicture = function (req, res) {
   var message = null;
   var upload = multer(config.uploads.profileUpload).single('newProfilePicture');
   var profileUploadFileFilter = require(path.resolve('./config/lib/multer')).profileUploadFileFilter;
-  
+
   // Filtering to upload only images
   upload.fileFilter = profileUploadFileFilter;
 
   if (user) {
     upload(req, res, function (uploadError) {
-      if(uploadError) {
+      if (uploadError) {
         return res.status(400).send({
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-        user.profileImageURL = req.file.filename;        
-        // user.profileImageURL = config.uploads.profileUpload.dest + req.file.filename;
 
-        user.save(function (saveError) {
-          if (saveError) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(saveError)
-            });
-          } else {
-            req.login(user, function (err) {
-              if (err) {
-                res.status(400).send(err);
-              } else {
-                res.json(user);
-              }
-            });
-          }
+
+        var cloudImageURL = './public/' + req.file.filename;
+        cloudinary.uploader.upload(cloudImageURL, function (result) {
+          user.profileImageURL = result.url;
+
+          user.save(function (saveError) {
+            if (saveError) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(saveError)
+              });
+            } else {
+              req.login(user, function (err) {
+                if (err) {
+                  res.status(400).send(err);
+                } else {
+                  res.json(user);
+                }
+              });
+            }
+          });
+          //res.json({ status: '000', message: 'success', imageURL: user.profileImageURL});
         });
+
       }
     });
   } else {

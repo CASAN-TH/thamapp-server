@@ -123,7 +123,6 @@ exports.productByID = function (req, res, next, id) {
  * Upload Images Product
  */
 exports.changeProductPicture = function (req, res) {
-
   var user = req.user;
   var message = null;
   var upload = multer(config.uploads.productUpload).single('newProfilePicture');
