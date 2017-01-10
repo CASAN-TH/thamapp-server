@@ -166,5 +166,28 @@
         expect($state.go).not.toHaveBeenCalled();
       });
     });
+    describe('vm.readProduct() as read', function () {
+      var mockProductList;
+
+      beforeEach(function () {
+        mockProductList = [mockProduct, mockProduct, mockProduct];
+      });
+
+      it('should send a GET request and return all Product', inject(function (ProductsService) {
+        // Set POST response
+        $httpBackend.expectGET('api/products').respond(mockProductList);
+
+        $scope.vm.readProduct();
+
+        $httpBackend.flush();
+
+        // Test form inputs are reset
+        expect($scope.vm.products.length).toEqual(3);
+        expect($scope.vm.products[0]).toEqual(mockProduct);
+        expect($scope.vm.products[1]).toEqual(mockProduct);
+        expect($scope.vm.products[2]).toEqual(mockProduct);
+
+      }));
+    });
   });
-}());
+} ());
