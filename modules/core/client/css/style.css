@@ -8428,9 +8428,9 @@ body.md-skin {
 }
 
 .img-product {
-  max-width: 200px;
+  max-width: 100% !important;
   max-height: 300px;
-  min-width: 200px;
+  min-width: 100% !important;
   min-height: 300px;
 }
 
