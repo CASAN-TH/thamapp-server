@@ -89,7 +89,7 @@
     }
 
     function closeOrder(isValid) {
-      vm.order.deliverystatus = 'closeOrder';
+      vm.order.deliverystatus = 'close';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
          alert(vm.order.deliverystatus);

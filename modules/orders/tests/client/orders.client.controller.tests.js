@@ -281,7 +281,7 @@
         
         // Run controller functionality
         $scope.vm.closeOrder(true);
-        expect($scope.vm.order.deliverystatus).toEqual('closeOrder');
+        expect($scope.vm.order.deliverystatus).toEqual('close');
         $httpBackend.flush();
 
       }));
