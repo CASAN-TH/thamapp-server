@@ -70,8 +70,6 @@ exports.changeProfilePicture = function (req, res) {
           message: 'Error occurred while uploading profile picture'
         });
       } else {
-
-
         var cloudImageURL = './public/' + req.file.filename;
         cloudinary.uploader.upload(cloudImageURL, function (result) {
           user.profileImageURL = result.url;

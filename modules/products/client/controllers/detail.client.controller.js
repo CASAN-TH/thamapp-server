@@ -5,15 +5,16 @@
     .module('products')
     .controller('DetailController', DetailController);
 
-  DetailController.$inject = ['productResolve', 'ShopCartService'];
+  DetailController.$inject = ['productResolve', 'ShopCartService', 'ProductsService'];
 
-  function DetailController(productResolve, ShopCartService) {
+  function DetailController(productResolve, ShopCartService, ProductsService) {
     var vm = this;
-
     vm.product = productResolve;
     vm.cart = ShopCartService.cart;
-    vm.checkOut = function(product){
+    vm.checkOut = function (product) {
       vm.cart.add(product);
+
     };
+   
   }
 })();
