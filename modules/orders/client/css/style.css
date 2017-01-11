@@ -261,3 +261,6 @@ text-align : center;
     color: white;
     outline : none;
 }
+.btnborder{
+    border: dashed 2px #dddddd;
+}

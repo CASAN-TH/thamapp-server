@@ -15,7 +15,9 @@
       mockProduct,
       mockDeliver,
       mockStatusOrder,
+      mockCustomer,
       mockOrder;
+
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -102,6 +104,19 @@
         created: '2016-12-21T04:51:46.142Z',
         roles: [
           'deliver'
+        ]
+      });
+
+      mockCustomer = new Users({
+        _id: '585a0a624b1d9cd80e439b3e',
+        salt: 'g2K5zNV8Jgx+/AxyZcbiUw==',
+        displayName: 'deliver2 deliver2',
+        provider: 'local',
+        username: 'deliver2',
+        __v: 0,
+        created: '2016-12-21T04:51:46.142Z',
+        roles: [
+          'user'
         ]
       });
 
@@ -197,16 +212,37 @@
       }));
     });
 
+    describe('vm.readCustomer() as read', function () {
+
+
+      beforeEach(function () {
+        $scope.vm.customers = [mockCustomer, mockCustomer, mockCustomer];
+      });
+
+      it('should send a GET request and return all User', inject(function (Users) {
+
+        $scope.vm.readCustomer();
+        if ($scope.vm.authentication.user.roles[0] === 'user') {
+          expect($scope.vm.customers.length).toEqual(3);
+          expect($scope.vm.customers[0]).toEqual(mockCustomer);
+          expect($scope.vm.customers[1]).toEqual(mockCustomer);
+          expect($scope.vm.customers[2]).toEqual(mockCustomer);
+        }
+
+      }));
+    });
+
+
     describe('update status pending', function () {
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
       });
       it('vm.status pending()', inject(function (Users) {
-        
+
         // Set PUT response
         $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-        
+
         // Run controller functionality
         $scope.vm.pending(true);
         expect($scope.vm.order.deliverystatus).toEqual('pending');
@@ -221,10 +257,10 @@
         $scope.vm.order = mockOrder;
       });
       it('vm.status paid()', inject(function (Users) {
-        
+
         // Set PUT response
         $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-        
+
         // Run controller functionality
         $scope.vm.paid(true);
         expect($scope.vm.order.deliverystatus).toEqual('paid');
@@ -239,10 +275,10 @@
         $scope.vm.order = mockOrder;
       });
       it('vm.status sent()', inject(function (Users) {
-        
+
         // Set PUT response
         $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-        
+
         // Run controller functionality
         $scope.vm.sent(true);
         expect($scope.vm.order.deliverystatus).toEqual('sent');
@@ -257,10 +293,10 @@
         $scope.vm.order = mockOrder;
       });
       it('vm.status complete()', inject(function (Users) {
-        
+
         // Set PUT response
         $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-        
+
         // Run controller functionality
         $scope.vm.complete(true);
         expect($scope.vm.order.deliverystatus).toEqual('complete');
@@ -275,10 +311,10 @@
         $scope.vm.order = mockOrder;
       });
       it('vm.status closeOrder()', inject(function (Users) {
-        
+
         // Set PUT response
         $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-        
+
         // Run controller functionality
         $scope.vm.closeOrder(true);
         expect($scope.vm.order.deliverystatus).toEqual('close');
@@ -295,11 +331,11 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should select product item', function () {
@@ -327,11 +363,11 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should addItem', function () {
@@ -350,11 +386,11 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should removeItem', function () {

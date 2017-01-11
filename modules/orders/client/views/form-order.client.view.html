@@ -2,6 +2,7 @@
     <!--<div class="page-header">
     <h1>{{vm.order._id ? 'Edit Order' : 'New Order'}}</h1>
   </div>-->
+
     <div class="row">
         <div class="col-md-7 round1">
             <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
@@ -9,13 +10,57 @@
                     <div class="row" style="margin-top:10px; margin-bottom:10px;">
                         <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-2">
-                                    <img src="{{vm.order.user.profileImageURL}}" class="img-circle" width="120%">
+                                <div class="col-md-2" ng-show="vm.order._id">
+                                    <img src="{{vm.order.user.profileImageURL}}" class="img-circle" width="50px;">
+                                </div>
+                                <div class="col-md-2" ng-show="!vm.order._id">
+                                    <img src="{{vm.cust.profileImageURL}}" class="img-circle" width="50px;" ng-show="vm.cust">
+                                    <i class="fa fa-plus-circle fa-4x" aria-hidden="true" data-toggle="modal" data-target="#myCustomer" ng-click="vm.readCustomer()" ng-hide="vm.cust"> </i>
                                 </div>
                                 <div class="col-md-10">
-                                    <label>{{vm.authentication.user.displayName}}</label><br>
-                                    <abbr>{{vm.order.docno}}</abbr><br>
+                                    <div ng-show="!vm.order._id">
+                                        <label>{{vm.cust.displayName}}</label><br>
+                                    </div>
+                                    <div ng-show="vm.order._id">
+                                        <label>{{vm.authentication.user.displayName}}</label><br>
+                                    </div>
+                                    
+                                    
+                                    <div class="row" ng-show="!vm.order._id">
+                                        <div class="col-xs-12 input-group input-group-sm">
+                                            <input type="text" ng-model="vm.order.docno" class="form-control" placeholder="Doc No" aria-describedby="sizing-addon3">
+                                        </div>
+                                    </div>
+                                    <div class="row" ng-show="vm.order._id">
+                                        <div class="col-xs-12 input-group input-group-sm">
+                                            <abbr>{{vm.order.docno}}</abbr>
+                                        </div>
+                                    </div>
                                     <abbr>Link:https://bill.sellsuki.com/th/b/gmoUqPz</abbr>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="modal fade" id="myCustomer" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                                <h4 class="modal-title">เลือกผู้ซื้อ</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <ul class="list-group">
+                                                    <div ng-repeat="cust in vm.customers">
+                                                        <li class="list-group-item" ><img src="{{cust.profileImageURL}}" class="img-circle" width="50px">
+                                                            <img width="5%"> {{cust.displayName}}
+                                                            <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectCustomer(cust)">เลือก</button></li>
+                                                    </div>
+                                                </ul>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -100,59 +145,70 @@
 
                     <div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
                         <div class="col-xs-12">
-                            <button type="button" class="btn btn-default btn-block" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
+                            <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
                     </div>
 
                     <div class="row form-group  hidden-xs show-sm show-md show-lg">
                         <div class="col-sm-12 col-md-12">
-                            <button type="button" class="btn btn-default btn-block" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
+                            <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
                     </div>
 
-                    <div class="row ">
-                        <div class="col-md-9">
-                            <div class="col-md-12 ">
+                    <div class="row form-group alert  hidden-xs show-sm show-md show-lg">
+                        <div class="row ">
+                            <div class="col-md-9">
+                                <div class="col-md-12 ">
                                     <label class="control-label">ค่าส่งไปรษณีย์</label>
                                 </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="row ">
-                                <div class="col-xs-12 form-group">
-                                    <input type="text" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row ">
+                                    <div class="col-xs-12 input-group input-group-sm">
+                                        <input type="text" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost" aria-describedby="sizing-addon3">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-md-9">
-                            <div class="col-md-12 ">
+                        <div class="row ">
+                            <div class="col-md-9">
+                                <div class="col-md-12 ">
                                     <label class="control-label">ส่วนลด</label>
                                 </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="row ">
-                                <div class="col-xs-12 form-group">
-                                    <input type="text" ng-model="vm.order.discount" class="form-control" placeholder="Discount">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row ">
+                                    <div class="col-xs-12 input-group input-group-sm">
+                                        <input type="text" ng-model="vm.order.discount" class="form-control" placeholder="Discount" aria-describedby="sizing-addon3">
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-md-9">
-                            <div class="col-md-12 ">
+                        <div class="row ">
+                            <div class="col-md-9">
+                                <div class="col-md-12 ">
                                     <label class="control-label">รวมสุทธิ</label>
                                 </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="row ">
-                                <div class="col-xs-12 form-group">
-                                    <input type="text" ng-model="vm.order.amount" class="form-control" placeholder="Amount">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row ">
+                                    <div class="col-xs-12 input-group input-group-sm">
+                                        <input type="text" ng-model="vm.order.amount" class="form-control" placeholder="Amount" aria-describedby="sizing-addon3">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row ">
+                            <div class="col-md-12 form-group">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-4 form-group">
+                                <button type="submit" class="btn btn-default btn-block">{{vm.order._id ? 'ฺBack To Order' : 'Save Order'}}</button>
+                            </div>
+                        </div>
                     </div>
-                    
 
                     <div class="row form-group">
                         <div class="col-md-9">
@@ -160,10 +216,9 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="col-md-12 ">
-                                    <button type="submit" class="btn btn-default">{{vm.order._id ? 'Update' : 'Create'}}</button>
+
                                     <div ng-show="vm.order.deliverystatus=='paid'">
                                         <div class="container">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">แจ้งจัดส่ง</button>
                                             <div class="modal fade" id="myModal" role="dialog">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -196,12 +251,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div ng-show="vm.order.deliverystatus=='sent'">
-                                        <button type="button" ng-click="vm.complete($valid)" class="btn btn-primary">ออเดอร์สำเร็จ</button>
-                                    </div>
-                                    <div ng-show="vm.order.deliverystatus=='complete'">
-                                        <button type="button" ng-click="vm.closeOrder($valid)" class="btn btn-primary">ปิดออเดอร์</button>
-                                    </div>
                                 </div>
                             </div>
                             <div ng-show="vm.error" class="text-danger">
@@ -213,99 +262,132 @@
             </form>
         </div>
         <div class="col-md-3 round1">
-            <p><button type="text" class="btn btn-primary btn-block">สถานะ : {{vm.order.deliverystatus}}</button></p>
-            <div class="tabbable">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab">ข้อมูลการชำระ</a></li>
-                    <li><a href="#tab2" data-toggle="tab">ที่อยู่จัดส่ง</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane active" id="tab1">
-                        <div class="row form-group" ng-show="vm.confirmed && vm.order.deliverystatus=='confirmed'">
-                            <div class="col-md-12 alert alert-warning">
-                                <div class="row">
-                                    <h4>ชำระแบบเต็มจำนวน</h4>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <p>จำนวนเงิน : {{vm.order.amount}}</p>
-                                        <p>สถานะ : {{vm.order.deliverystatus}}</p>
-                                        <p>วันที่ : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
+            <div class="row" style="margin-bottom:7px;">
+                <div class="col-md-12">
+                    <button type="text" class="btn btn-primary btn-block">สถานะ : {{vm.order.deliverystatus}}</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabbable">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">ข้อมูลการชำระ</a></li>
+                            <li><a href="#tab2" data-toggle="tab">ที่อยู่จัดส่ง</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <div class="row form-group" ng-show="vm.confirmed && vm.order.deliverystatus=='confirmed'">
+                                    <div class="col-md-12 alert alert-warning">
+                                        <div class="row">
+                                            <h4>ชำระแบบเต็มจำนวน</h4>
+                                            <div class="col-md-3" style="margin-top:20px;">
+                                                <i class="fa fa-credit-card fa-3x" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>จำนวนเงิน : {{vm.order.amount}}</p>
+                                                <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
+                                                <p>{{vm.order.accounting}}</p>
+                                            </div>
+                                            <button ng-click="pending=true;vm.confirmed=false" type="button" class="btn btn-primary btn-block">บันทึกเอง</button>
+                                        </div>
                                     </div>
-                                    <button ng-click="pending=true;vm.confirmed=false" type="button" class="btn btn-primary btn-block">บันทึกเอง</button>
                                 </div>
-                            </div>
-                        </div>
 
-                        <div class="row form-group" ng-show="pending">
-                            <div class="col-md-12 alert alert-warning">
-                                <div class="row">
-                                    <h4>บันทึกการแจ้งชำระ</h4>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <select name="singleSelect" ng-model="vm.order.accounting">
+                                <div class="row form-group" ng-show="pending">
+                                    <div class="col-md-12 alert alert-warning">
+                                        <div class="row">
+                                            <h4>บันทึกการแจ้งชำระ</h4>
+                                            <div class="col-md-12">
+                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.firstName + ' ' + vm.order.shipping.lastName}}"></p>
+                                                <select name="singleSelect" ng-model="vm.order.accounting" class="form-control">
                                             <option value="bank">Bank</option>
                                             <option value="cash">Cash</option>
                                         </select>
-                                        <p><input type="text" name="" value="{{vm.order.amount}}"></p>
-                                        <p><input type="date"> เวลา <input type="time"></p>
-                                        <p><input type="file" name="" value="เลือกรูป"></p>
-                                        <p><input type="text" name="" value="{{vm.order.shipping.firstName}}"></p>
-                                        <p><input type="text" name="" value="{{vm.order.shipping.tel}}"></p>
-                                        <p><textarea rows="3" cols="20">{{vm.order.shipping.address}}</textarea></p>
-                                        <p><input type="text" name="" value="{{vm.order.shipping.postcode}}"></p>
-                                        <p><input type="text" name="" value="{{vm.order.shipping.email}}"></p>
-                                        <button ng-click="vm.confirmed=true;pending=false" type="button" class="btn btn-primary">ยกเลิก</button>
-                                        <button ng-click="paid=true;pending=false;vm.pending($valid)" type="button" class="btn btn-primary">แจ้งชำระ</button>
+                                                <p><input type="text" name="" class="form-control" value="{{vm.order.amount}}"></p>
+                                                <p><input type="text" value="{{vm.order.created | date:'dd/MM/yyyy'}}" class="form-control"></p>
+                                                <p><input type="file" name="" value="เลือกรูป" class="form-control"></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.firstName}}" class="form-control"></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.tel}}" class="form-control"></p>
+                                                <p><textarea rows="3" cols="20" class="form-control">{{vm.order.shipping.address}}</textarea></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.postcode}}" class="form-control"></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.email}}" class="form-control"></p>
+                                                <div class="row ">
+                                                    <div class="col-md-6">
+                                                        <button ng-click="vm.confirmed=true;pending=false" type="button" class="btn btn-primary btn-block">ยกเลิก</button>
+
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button ng-click="paid=true;pending=false;vm.pending($valid)" type="button" class="btn btn-primary btn-block">แจ้งชำระ</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group" ng-show="paid || vm.order.deliverystatus=='pending'">
+                                    <div class="col-md-12 alert alert-warning">
+                                        <div class="row">
+                                            <h4>ชำระแบบเต็มจำนวน</h4>
+                                            <div class="col-md-3" style="margin-top:20px;">
+                                                <i class="fa fa-credit-card fa-3x" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>จำนวนเงิน : {{vm.order.amount}}</p>
+                                                <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
+                                                <p>{{vm.order.accounting}}</p>
+                                            </div>
+                                            <button ng-click="paid=false;vm.paid($valid)" type="button" class="btn btn-primary btn-block">ยืนยันการชำระเงิน</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group" ng-show="vm.order.deliverystatus=='paid' || vm.order.deliverystatus=='sent' || vm.order.deliverystatus=='complete' || vm.order.deliverystatus=='close'">
+                                    <div class="col-md-12 alert alert-info">
+                                        <div class="row">
+                                            <h4>ชำระแบบเต็มจำนวน</h4>
+                                            <div class="col-md-3" style="margin-top:20px;">
+                                                <i class="fa fa-credit-card fa-3x" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <p>จำนวนเงิน : {{vm.order.amount}}</p>
+                                                <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
+                                                <p>{{vm.order.accounting}}</p>
+                                                <p>เลขที่บัญชี : 99999999</p>
+                                                <p>ชื่อ : SARAWUT TANA</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div ng-show="vm.order.deliverystatus=='sent'">
+                                        <button type="button" ng-click="vm.complete($valid)" class="btn btn-primary btn-block">ออเดอร์สำเร็จ</button>
+                                    </div>
+                                    <div ng-show="vm.order.deliverystatus=='complete'">
+                                        <button type="button" ng-click="vm.closeOrder($valid)" class="btn btn-primary btn-block">ปิดออเดอร์</button>
+                                    </div>
+                                    <div ng-show="vm.order.deliverystatus=='paid'">
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">แจ้งจัดส่ง</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="row form-group" ng-show="paid || vm.order.deliverystatus=='pending'">
-                            <div class="col-md-12 alert alert-warning">
-                                <div class="row">
-                                    <h4>ชำระแบบเต็มจำนวน</h4>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <p>จำนวนเงิน : {{vm.order.amount}}</p>
-                                        <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
-                                        <p>{{vm.order.accounting}}</p>
-                                    </div>
-                                    <button ng-click="paid=false;vm.paid($valid)" type="button" class="btn btn-primary btn-block">ยืนยันการชำระเงิน</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row form-group" ng-show="vm.order.deliverystatus=='paid' || vm.order.deliverystatus=='sent' || vm.order.deliverystatus=='complete' || vm.order.deliverystatus=='close'">
-                            <div class="col-md-12 alert alert-info">
-                                <div class="row">
-                                    <h4>ชำระแบบเต็มจำนวน</h4>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-10">
-                                        <p>จำนวนเงิน : {{vm.order.amount}}</p>
-                                        <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
-                                        <p>{{vm.order.accounting}}</p>
-                                        <p>เลขที่บัญชี : 99999999</p>
-                                        <p>ชื่อ : SARAWUT TANA</p>
+                            <div class="tab-pane" id="tab2">
+                                <div class="card card-outline-primary mb-5">
+                                    <strong>ที่อยู่จัดส่ง</strong>
+                                    <div class="card-block">
+                                        <blockquote class="card-blockquote">
+                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.firstName + ' ' + vm.order.shipping.lastName}}"></p>
+                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.tel}}"></p>
+                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.address}}"></p>
+                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.postcode}}"></p>
+                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.email}}"></p>
+                                            <h5>หมายเลขพัสดุ</h5>
+                                            <p><input type="text" class="form-control" value="{{vm.order.trackingnumber}}"></p>
+                                        </blockquote>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="tab2">
-                        <div class="card card-outline-primary mb-5">
-                            <strong>ที่อยู่จัดส่ง</strong>
-                            <div class="card-block">
-                                <blockquote class="card-blockquote">
-                                    <p><input type="text" class="form-control" value="{{vm.order.shipping.firstName + ' ' + vm.order.shipping.lastName}}"></p>
-                                    <p><input type="text" class="form-control" value="{{vm.order.shipping.tel}}"></p>
-                                    <p><input type="text" class="form-control" value="{{vm.order.shipping.address}}"></p>
-                                    <p><input type="text" class="form-control" value="{{vm.order.shipping.postcode}}"></p>
-                                    <p><input type="text" class="form-control" value="{{vm.order.shipping.email}}"></p>
-                                    <h5>หมายเลขพัสดุ</h5>
-                                    <p><input type="text" class="form-control" value="{{vm.order.trackingnumber}}"></p>
-                                </blockquote>
                             </div>
                         </div>
                     </div>

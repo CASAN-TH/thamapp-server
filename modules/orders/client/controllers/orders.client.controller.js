@@ -40,6 +40,9 @@
     vm.complete = complete;
     vm.closeOrder = closeOrder;
     vm.confirmed = true;
+    vm.readCustomer = readCustomer;
+    vm.customers = [];
+    vm.selectCustomer = selectCustomer;
 
     function pending(isValid) {
       vm.order.deliverystatus = 'pending';
@@ -57,7 +60,7 @@
       vm.order.deliverystatus = 'paid';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-         alert(vm.order.deliverystatus);
+        alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -81,7 +84,7 @@
       vm.order.deliverystatus = 'complete';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-         alert(vm.order.deliverystatus);
+        alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -93,7 +96,7 @@
       vm.order.deliverystatus = 'close';
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-         alert(vm.order.deliverystatus);
+        alert(vm.order.deliverystatus);
       }
 
       function errorCallback(res) {
@@ -103,6 +106,21 @@
 
     function readProduct() {
       vm.products = ProductsService.query();
+    }
+    function readCustomer() {
+      if (vm.authentication.user.roles[0] === 'admin') {
+        vm.customer = Users.query(function () {
+          angular.forEach(vm.customer, function (usr) {
+            if (usr.roles[0] === 'user')
+              vm.customers.push(usr);
+          });
+          console.log(vm.customers);
+        });
+      }
+    }
+    function selectCustomer(cust) {
+      vm.cust = cust;
+      vm.order.shipping = vm.cust.address;
     }
     function readDeliver() {
       if (vm.authentication.user.roles[0] === 'admin') {
@@ -194,7 +212,7 @@
           qty: 1
         }];
         vm.order.delivery = {
-          deliveryid: '0'
+          deliveryid: '1'
         };
       } else {
         vm.order.docdate = new Date(vm.order.docdate);
