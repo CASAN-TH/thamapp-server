@@ -1,4 +1,3 @@
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <section ng-init="vm.init()" class="header-height">
     <!--<div class="page-header">
     <h1>{{vm.order._id ? 'Edit Order' : 'New Order'}}</h1>
@@ -161,7 +160,7 @@
             </form>
         </div>
         <div class="col-md-3 round1">
-            <form>
+            <form class="form-horizontal">
                 <fieldset>
                     <button type="text" class="btn btn-primary btn-block">สถานะ : {{vm.order.deliverystatus}}</button>
                     <div class="container">
@@ -171,15 +170,16 @@
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active">
-                                <div ng-hide="confirmed">
+                                <div class="row form-group" ng-hide="confirmed">
+                                    <div class="col-sm-12 col-md-12">
                                     <p>จำนวนเงิน : {{vm.order.amount}}</p>
                                     <p>สถานะ : {{vm.order.deliverystatus}}</p>
-                                    <div>
-                                        <button ng-click="pending=true;confirmed=true" type="button">บันทึกเอง</button>
+                                    <button ng-click="pending=true;confirmed=true" type="button">บันทึกเอง</button>
                                     </div>
                                 </div>
-                                      <div ng-show="pending">
-                                    <div>
+
+                                <div class="row form-group" ng-show="pending">
+                                    <div class="col-sm-12 col-md-12">
                                         <select name="singleSelect" ng-model="vm.order.accounting">
                                             <option value="bank">Bank</option>
                                             <option value="cash">Cash</option>
@@ -213,12 +213,14 @@
                                         <input type="text" name="" value="{{vm.order.shipping.postcode}}">
                                     </div>
                                     <div>
-                                        <button ng-click="confirmed=false;pending=false" type="button">ยกเลิก</button> <button ng-click="paid=true;pending=false;vm.pending($valid)" type="button">แจ้ง</button>
+                                        <button ng-click="confirmed=false;pending=false" type="button">ยกเลิก</button>
+                                        <button
+                                            ng-click="paid=true;pending=false;vm.pending($valid)" type="button">แจ้ง</button>
                                     </div>
                                 </div>
-                              
 
-                                <div ng-show="paid">
+
+                                <div class="form-group" ng-show="paid">
                                     <div>
                                         <p>จำนวนเงิน : {{vm.order.amount}}</p>
                                         <p>วันที่โอน : {{vm.order.created}}</p>
