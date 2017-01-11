@@ -245,3 +245,19 @@ text-align : center;
   border-color: #ddd #ddd #ddd transparent;
   *border-left-color: #ffffff;
 }
+
+.borderRidge {
+    border: 1px solid #dddddd;
+    border-radius: 5px 5px 0px 0px
+}
+
+.buttonCreate {
+    background-color: #3a4354;
+    color: white;
+    outline : none;
+}
+.buttonCreate:hover {
+    background-color: #3a4354;
+    color: white;
+    outline : none;
+}
