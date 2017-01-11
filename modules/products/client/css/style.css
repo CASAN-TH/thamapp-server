@@ -100,6 +100,14 @@ text-overflow: ellipsis;
 
 .slide-left{
     margin-left: 20px;
+
+    
+    
+}
+.slide-right{
+    margin-left: 30px;
+
+    
     
 }
 .slide-left-top{
@@ -182,3 +190,66 @@ text-overflow: ellipsis;
 .front_price {
     font-size: 20px;
 }
+/*modal*/
+.center {
+    margin-top:50px;   
+}
+
+.modal-header {
+	padding-bottom: 5px;
+}
+
+.modal-footer {
+    	padding: 0;
+	}
+    
+.modal-footer .btn-group button {
+	height:40px;
+	border-top-left-radius : 0;
+	border-top-right-radius : 0;
+	border: none;
+	border-right: 1px solid #ddd;
+}
+	
+.modal-footer .btn-group:last-child > button {
+	border-right: 0;
+}
+/*modal*/
+.font-price-modal {
+	 font-size: 14px;
+}
+
+
+.font-price-modal-head {
+	 color:#72b656 ;
+     
+}
+
+.font-close-modal {
+	 font-size: 28px;
+     color:red;
+}
+.font-name-top-modal{
+    color:darkorange;
+}
+
+/*scroll-cate*/
+.modal-scroll {
+    white-space: nowrap;
+    width: auto;
+    overflow-x: auto;
+}
+.modal-scroll > div {
+    width: auto;
+    display: inline-block;
+    
+    /* for IE6/7, remove if you don't need to support those browsers */
+    *display: inline;
+    zoom: 1
+}
+.margin-left-cart{
+    margin-left: 20px;
+}
+
+
+
