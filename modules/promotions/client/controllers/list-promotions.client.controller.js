@@ -17,7 +17,7 @@
     };
 
     vm.update = function (itm) {
-      console.log(itm._id);
+      // console.log(itm._id);
       if (itm._id) {
         $state.go('promotions.edit', {
           promotionId: itm._id

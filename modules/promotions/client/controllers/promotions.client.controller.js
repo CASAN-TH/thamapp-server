@@ -6,18 +6,26 @@
     .module('promotions')
     .controller('PromotionsController', PromotionsController);
 
-  PromotionsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'promotionResolve'];
+  PromotionsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'promotionResolve', 'ProductsService'];
 
-  function PromotionsController ($scope, $state, $window, Authentication, promotion) {
+  function PromotionsController($scope, $state, $window, Authentication, promotion, ProductsService) {
     var vm = this;
 
     vm.authentication = Authentication;
     vm.promotion = promotion;
     vm.error = null;
     vm.form = {};
+    vm.selectedProduct = {};
     vm.remove = remove;
     vm.save = save;
+    vm.readProduct = readProduct;
+    vm.productChanged = productChanged;
 
+    function productChanged(selectedProduct) {
+      vm.promotion.products = [{
+        product: selectedProduct
+      }];
+    }
     // Remove existing Promotion
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -47,5 +55,16 @@
         vm.error = res.data.message;
       }
     }
+
+    function readProduct() {
+      if(!vm.promotion._id){
+        vm.promotion.products = [{
+          product: {}
+        }];
+      }else{
+        vm.selectedProduct = vm.promotion.products[0].product;
+      }
+      vm.products = ProductsService.query();
+    }
   }
-}());
+} ());
