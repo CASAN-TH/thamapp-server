@@ -126,6 +126,17 @@
         vm.error = res.data.message;
       }
 
+
     }
+    
+    $scope.moreCart = function (product) {
+      vm.product = product;
+      // $('#squarespaceModal').modal('hide');
+      // var m = document.getElementById('squarespaceModal');
+      // m.setAttribute('data-dismiss', 'modal');
+      // m.attributeName = 'data-dismiss';
+
+
+    };
   }
 } ());
