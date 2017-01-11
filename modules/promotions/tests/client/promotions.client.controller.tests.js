@@ -9,7 +9,9 @@
       $state,
       Authentication,
       PromotionsService,
-      mockPromotion;
+      mockPromotion,
+      ProductsService,
+      product;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -36,7 +38,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _PromotionsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _PromotionsService_, _ProductsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -45,11 +47,22 @@
       $state = _$state_;
       Authentication = _Authentication_;
       PromotionsService = _PromotionsService_;
+      ProductsService = _ProductsService_;
+
+      product = new ProductsService({
+        name: 'Product Name',
+        description: 'Product Description',
+        category: 'Product Category',
+        price: 100,
+        images: 'img1',
+      });
 
       // create mock Promotion
       mockPromotion = new PromotionsService({
         _id: '525a8422f6d0f87f0e407a33',
-        productid: 'Promotion Name'
+        products: [{
+          product: product
+        }]
       });
 
       // Mock logged in user
@@ -60,7 +73,8 @@
       // Initialize the Promotions controller.
       PromotionsController = $controller('PromotionsController as vm', {
         $scope: $scope,
-        promotionResolve: {}
+        promotionResolve: {},
+        productResolve: {}
       });
 
       // Spy on state go
@@ -71,9 +85,18 @@
       var samplePromotionPostData;
 
       beforeEach(function () {
+        product = new ProductsService({
+          name: 'Product Name',
+          description: 'Product Description',
+          category: 'Product Category',
+          price: 100,
+          images: 'img1',
+        });
         // Create a sample Promotion object
         samplePromotionPostData = new PromotionsService({
-          productid: 'Promotion Name'
+          products: [{
+            product: product
+          }]
         });
 
         $scope.vm.promotion = samplePromotionPostData;
@@ -162,5 +185,39 @@
         expect($state.go).not.toHaveBeenCalled();
       });
     });
+
+    describe('vm.readProduct() as read', function () {
+      var mockProductList;
+
+      beforeEach(function () {
+        mockProductList = [product, product, product];
+      });
+
+      it('should send a GET request and return all Product', inject(function (ProductsService) {
+        // Set POST response
+        $httpBackend.expectGET('api/products').respond(mockProductList);
+
+        $scope.vm.readProduct();
+
+        $httpBackend.flush();
+
+        // Test form inputs are reset
+        expect($scope.vm.products.length).toEqual(3);
+        expect($scope.vm.products[0]).toEqual(product);
+        expect($scope.vm.products[1]).toEqual(product);
+        expect($scope.vm.products[2]).toEqual(product);
+
+      }));
+
+      it('should select product item', function () {
+        $scope.vm.productChanged(product);
+        expect($scope.vm.promotion.products.length).toEqual(1);
+      });
+
+    });
+
+
+
+
   });
-}());
+} ());

@@ -6,7 +6,8 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Promotion = mongoose.model('Promotion'),
-  express = require(path.resolve('./config/lib/express'));
+  express = require(path.resolve('./config/lib/express')),
+  Product = mongoose.model('Product');
 
 /**
  * Globals
@@ -15,7 +16,8 @@ var app,
   agent,
   credentials,
   user,
-  promotion;
+  promotion,
+  product;
 
 /**
  * Promotion routes tests
@@ -48,10 +50,20 @@ describe('Promotion CRUD tests', function () {
       provider: 'local'
     });
 
+    product = new Product({
+        name: 'Product Name',
+        description: 'Product Description',
+        category: 'Product Category',
+        price: 100,
+        images:'img1',
+      });
+
     // Save a user to the test db and create new Promotion
     user.save(function () {
       promotion = {
-        productid: 'productid',
+        products:[{
+          product : product
+        }],
         description: '11111',
         discount: {
           fixBath: 50,
@@ -106,7 +118,7 @@ describe('Promotion CRUD tests', function () {
 
                 // Set assertions
                 (promotions[0].user._id).should.equal(userId);
-                (promotions[0].productid).should.match('productid');
+                (promotions[0].description).should.equal('11111');
 
                 // Call the assertion callback
                 done();
@@ -127,7 +139,7 @@ describe('Promotion CRUD tests', function () {
 
   it('should not be able to save an Promotion if no name is provided', function (done) {
     // Invalidate name field
-    promotion.productid = '';
+    promotion.products[0].product = null;
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -147,7 +159,7 @@ describe('Promotion CRUD tests', function () {
           .expect(400)
           .end(function (promotionSaveErr, promotionSaveRes) {
             // Set message assertion
-            (promotionSaveRes.body.message).should.match('Please fill Promotion productid');
+            (promotionSaveRes.body.message).should.match('Please fill Promotion product');
 
             // Handle Promotion save error
             done(promotionSaveErr);
@@ -179,7 +191,7 @@ describe('Promotion CRUD tests', function () {
             }
 
             // Update Promotion name
-            promotion.productid = 'WHY YOU GOTTA BE SO MEAN?';
+            promotion.products[0].product.name = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing Promotion
             agent.put('/api/promotions/' + promotionSaveRes.body._id)
@@ -193,7 +205,7 @@ describe('Promotion CRUD tests', function () {
 
                 // Set assertions
                 (promotionUpdateRes.body._id).should.equal(promotionSaveRes.body._id);
-                (promotionUpdateRes.body.productid).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (promotionUpdateRes.body.products[0].product.name).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -230,8 +242,7 @@ describe('Promotion CRUD tests', function () {
       request(app).get('/api/promotions/' + promotionObj._id)
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('productid', promotion.productid);
-
+          res.body.should.be.instanceof(Object).and.have.property('description', promotion.description);
           // Call the assertion callback
           done();
         });
@@ -375,7 +386,7 @@ describe('Promotion CRUD tests', function () {
               }
 
               // Set assertions on new Promotion
-              (promotionSaveRes.body.productid).should.equal(promotion.productid);
+              (promotionSaveRes.body.description).should.equal(promotion.description);
               should.exist(promotionSaveRes.body.user);
               should.equal(promotionSaveRes.body.user._id, orphanId);
 
@@ -402,7 +413,7 @@ describe('Promotion CRUD tests', function () {
 
                         // Set assertions
                         (promotionInfoRes.body._id).should.equal(promotionSaveRes.body._id);
-                        (promotionInfoRes.body.productid).should.equal(promotion.productid);
+                        (promotionInfoRes.body.description).should.equal(promotion.description);
                         should.equal(promotionInfoRes.body.user, undefined);
 
                         // Call the assertion callback
