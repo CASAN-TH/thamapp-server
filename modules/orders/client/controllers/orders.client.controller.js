@@ -39,6 +39,7 @@
     vm.sent = sent;
     vm.complete = complete;
     vm.closeOrder = closeOrder;
+    vm.confirmed = true;
 
     function pending(isValid) {
       vm.order.deliverystatus = 'pending';
