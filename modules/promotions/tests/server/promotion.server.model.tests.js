@@ -6,20 +6,34 @@
 var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
-  Promotion = mongoose.model('Promotion');
+  Promotion = mongoose.model('Promotion'),
+  Product = mongoose.model('Product');
 
 /**
  * Globals
  */
 var user,
   promotion,
-  promotion2;
+  promotion2,
+  product;
 
 /**
  * Unit tests
  */
 describe('Promotion Model Unit Tests:', function () {
   beforeEach(function (done) {
+
+     product = new Product({
+        name: 'Product Name',
+        description: 'Product Description',
+        category: 'Product Category',
+        price: 100,
+        images:'img1',
+      });
+    
+    // product.save(function () {
+    //   done();
+    // });
     user = new User({
       firstName: 'Full',
       lastName: 'Name',
@@ -28,10 +42,11 @@ describe('Promotion Model Unit Tests:', function () {
       username: 'username',
       password: 'password'
     });
-
     user.save(function () {
       promotion = new Promotion({
-        productid: '11111',
+        products:[{
+          product : product
+        }],
         description: '11111',
         discount: {
           fixBath: 50,
@@ -49,7 +64,9 @@ describe('Promotion Model Unit Tests:', function () {
       });
 
       promotion2 = new Promotion({
-        productid: '11111',
+        products:[{
+          product : product
+        }],
         description: '11111',
         discount: {
           fixBath: 50,
@@ -79,8 +96,8 @@ describe('Promotion Model Unit Tests:', function () {
       });
     });
 
-    it('should be able to show an error when try to save without productid', function (done) {
-      promotion.productid = '';
+    it('should be able to show an error when try to save without products', function (done) {
+      promotion.products[0].product = null;
 
       return promotion.save(function (err) {
         should.exist(err);

@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Promotions
  */
 exports.list = function(req, res) {
-  Promotion.find().sort('-created').populate('user', 'displayName').exec(function(err, promotions) {
+  Promotion.find().sort('-created').populate('user', 'displayName').populate('products.product').exec(function(err, promotions) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.promotionByID = function(req, res, next, id) {
     });
   }
 
-  Promotion.findById(id).populate('user', 'displayName').exec(function (err, promotion) {
+  Promotion.findById(id).populate('user', 'displayName').populate('products.product').exec(function (err, promotion) {
     if (err) {
       return next(err);
     } else if (!promotion) {

@@ -10,10 +10,13 @@ var mongoose = require('mongoose'),
  * Promotion Schema
  */
 var PromotionSchema = new Schema({
-  productid: {
-    type: String,
-    required: 'Please fill Promotion productid'
-  },
+  products: [{
+    product:{
+      type: Schema.ObjectId,
+      ref: 'Product',
+      required: 'Please fill Promotion product'
+    }
+  }],
   description: {
     type: String,
     required: 'Please fill Promotion productid',

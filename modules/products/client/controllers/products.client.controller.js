@@ -23,6 +23,7 @@
       vm.cart.add(product);
       $state.go('cartview');
     };
+    vm.moreCart = moreCart;
 
     $scope.user = Authentication.user;
     function readProduct() {
@@ -126,6 +127,13 @@
         vm.error = res.data.message;
       }
 
+
+    }
+
+    function moreCart(product) {
+      $timeout(function () {
+        vm.product = product;
+      }, 100);
     }
   }
 } ());
