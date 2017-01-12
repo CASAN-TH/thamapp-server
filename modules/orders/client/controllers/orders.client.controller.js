@@ -49,6 +49,7 @@
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
         alert(vm.order.deliverystatus);
+
       }
 
       function errorCallback(res) {
@@ -120,7 +121,15 @@
     }
     function selectCustomer(cust) {
       vm.cust = cust;
-      vm.order.shipping = vm.cust.address;
+      vm.order.shipping.firstname = vm.cust.firstName;
+      vm.order.shipping.lastname = vm.cust.lastName;
+      vm.order.shipping.tel = vm.cust.address.tel;
+      vm.order.shipping.address = vm.cust.address.address;
+      vm.order.shipping.subdistrict = vm.cust.address.subdistrict;
+      vm.order.shipping.district = vm.cust.address.district;
+      vm.order.shipping.province = vm.cust.address.province;
+      vm.order.shipping.postcode = vm.cust.address.postcode;
+      vm.order.shipping.email = vm.cust.email;
     }
     function readDeliver() {
       if (vm.authentication.user.roles[0] === 'admin') {
@@ -147,6 +156,7 @@
       vm.order.items.forEach(function (itm) {
         vm.order.amount += itm.amount || 0;
       });
+
     }
     function addItem() {
       vm.order.items.push({
@@ -211,15 +221,22 @@
           product: new ProductsService(),
           qty: 1
         }];
-        vm.order.delivery = {
-          deliveryid: '1'
+        vm.order.shipping = {
+          firstname: '',
+          lastname: '',
+          address: '',
+          postcode: '',
+          subdistrict: '',
+          province: '',
+          district: '',
+          tel: '',
+          email: ''
         };
       } else {
         vm.order.docdate = new Date(vm.order.docdate);
       }
       readDeliverid();
       showstatuspost();
-
 
     }
 
