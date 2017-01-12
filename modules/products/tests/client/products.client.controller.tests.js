@@ -9,7 +9,9 @@
       $state,
       Authentication,
       ProductsService,
-      mockProduct;
+      mockProduct,
+      PromotionsService,
+      mockPromotion;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -36,7 +38,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ProductsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ProductsService_, _PromotionsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -45,11 +47,17 @@
       $state = _$state_;
       Authentication = _Authentication_;
       ProductsService = _ProductsService_;
+      PromotionsService = _PromotionsService_;
 
       // create mock Product
       mockProduct = new ProductsService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Product Name'
+      });
+
+      mockPromotion = new PromotionsService({
+        _id: '525a8422f6d0f87f0e407a55',
+        description: 'description'
       });
 
       // Mock logged in user
@@ -186,6 +194,26 @@
         expect($scope.vm.products[0]).toEqual(mockProduct);
         expect($scope.vm.products[1]).toEqual(mockProduct);
         expect($scope.vm.products[2]).toEqual(mockProduct);
+
+      }));
+    });
+
+    describe('vm.readPromotion()', function () {
+      var mockPromotionList;
+      beforeEach(function () {
+        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
+      });
+
+      it('should send a GET request and return all Promotion', inject(function (PromotionsService) {
+        // Set POST response
+        $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
+
+        $scope.vm.readPromotion();
+
+        $httpBackend.flush();
+
+        // Test form inputs are reset
+        expect($scope.vm.promotion[0].description).toEqual(mockPromotion.description);
 
       }));
     });

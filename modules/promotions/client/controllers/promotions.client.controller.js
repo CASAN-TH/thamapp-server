@@ -16,16 +16,24 @@
     vm.error = null;
     vm.form = {};
     vm.selectedProduct = {};
+    vm.selectedFreeProduct = {};
     vm.remove = remove;
     vm.save = save;
     vm.readProduct = readProduct;
     vm.productChanged = productChanged;
+    vm.freeProductChanged = freeProductChanged;
+    $scope.state = '0';
 
     function productChanged(selectedProduct) {
       vm.promotion.products = [{
         product: selectedProduct
       }];
     }
+
+    function freeProductChanged(selectedFreeProduct) {
+      vm.promotion.freeitem.product = selectedFreeProduct;
+    }
+
     // Remove existing Promotion
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -57,12 +65,25 @@
     }
 
     function readProduct() {
-      if(!vm.promotion._id){
+      if (!vm.promotion._id) {
         vm.promotion.products = [{
           product: {}
         }];
-      }else{
+      } else {
         vm.selectedProduct = vm.promotion.products[0].product;
+      }
+      if (!vm.promotion.freeitem) {
+        vm.promotion.freeitem = {
+          product: {}
+        };
+      } else {
+        vm.selectedFreeProduct = vm.promotion.freeitem.product;
+        $scope.state = '2';
+      }
+      if (vm.promotion.discount) {
+        if (vm.promotion.discount.percen) {
+          $scope.state = '1';
+        }
       }
       vm.products = ProductsService.query();
     }

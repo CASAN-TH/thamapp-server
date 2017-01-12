@@ -17,7 +17,7 @@
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  <div class="row ">
+  <div class="row" ng-init="vm.readPromotion()">
 
     <div class="col-sm-4 text-center">
       <img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-rounded img-product">
@@ -32,6 +32,14 @@
       <h4 class="card-title text-warning front_price">{{vm.product.price}} บาท</h4>
       <button type="button" class="btn btn-warning " ng-click="vm.cart.add(vm.product)" data-toggle="modal" data-target="#squarespaceModal">ใส่ตะกร้า</button>
       <button type="button" class="btn btn-primary " ng-click="vm.buynow(vm.product)">สั่งซื้อทันที</button>
+      <div class="min-height-50">
+
+      </div>
+      <div class="row" ng-repeat="promotion in vm.promotion">
+        <div class="col-xs-12" ng-repeat="item in promotion.products" ng-if="vm.product._id === item.product._id">
+          <p>Promotion : {{promotion.description}}</p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="min-height-50">
@@ -43,16 +51,18 @@
     <div class="margin-top-20 margin-bottom-20">
       <h3>สินค้าที่เกี่ยวข้อง</h3>
     </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 margin-bottom-30 " ng-repeat="product in vm.products" ng-if="vm.product.category===product.category && vm.product._id != product._id ">
-      <div class="demo-card" ui-sref="products.view({ productId: product._id })">
-        <div class="card ">
-          <div class="text-center ">
-            <img ng-src="{{product.images}}" alt="{{product.name}}" class=" img-rounded user-profile-picture ">
-          </div>
-          <div class="card-block text-center">
-            <h4 class="card-title word-break">{{product.name}}</h4>
-            <p class="card-text word-break">{{product.description}}</p>
-            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+    <div class="modal-scroll">
+      <div class="margin-left-cart" ng-repeat="product in vm.products" ng-if="vm.product.category===product.category && vm.product._id != product._id ">
+        <div class="demo-card" ui-sref="products.view({ productId: product._id })">
+          <div class="card ">
+            <div class="text-center ">
+              <img ng-src="{{product.images}}" alt="{{product.name}}" class=" img-rounded user-profile-picture ">
+            </div>
+            <div class="card-block text-center">
+              <h4 class="card-title word-break">{{product.name}}</h4>
+              <p class="card-text word-break">{{product.description}}</p>
+              <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+            </div>
           </div>
         </div>
       </div>
