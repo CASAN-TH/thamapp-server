@@ -4,7 +4,7 @@
   </div>-->
 
     <div class="row">
-        <div class="col-md-7 round1">
+        <div class="col-md-6 round1">
             <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
                 <fieldset>
                     <div class="row" style="margin-top:10px; margin-bottom:10px;">
@@ -15,7 +15,8 @@
                                 </div>
                                 <div class="col-md-2" ng-show="!vm.order._id">
                                     <img src="{{vm.cust.profileImageURL}}" class="img-circle" width="50px;" ng-show="vm.cust">
-                                    <i class="fa fa-plus-circle fa-4x" aria-hidden="true" data-toggle="modal" data-target="#myCustomer" ng-click="vm.readCustomer()" ng-hide="vm.cust"> </i>
+                                    <i class="fa fa-plus-circle fa-4x" aria-hidden="true" data-toggle="modal" data-target="#myCustomer" ng-click="vm.readCustomer()"
+                                        ng-hide="vm.cust"> </i>
                                 </div>
                                 <div class="col-md-10">
                                     <div ng-show="!vm.order._id">
@@ -24,8 +25,8 @@
                                     <div ng-show="vm.order._id">
                                         <label>{{vm.authentication.user.displayName}}</label><br>
                                     </div>
-                                    
-                                    
+
+
                                     <div class="row" ng-show="!vm.order._id">
                                         <div class="col-xs-12 input-group input-group-sm">
                                             <input type="text" ng-model="vm.order.docno" class="form-control" placeholder="Doc No" aria-describedby="sizing-addon3">
@@ -36,9 +37,10 @@
                                             <abbr>{{vm.order.docno}}</abbr>
                                         </div>
                                     </div>
-                                    <abbr>Link:https://bill.sellsuki.com/th/b/gmoUqPz</abbr>
                                 </div>
                             </div>
+
+                            <!--เลือก user-->
                             <div class="container">
                                 <div class="modal fade" id="myCustomer" role="dialog">
                                     <div class="modal-dialog">
@@ -50,7 +52,7 @@
                                             <div class="modal-body">
                                                 <ul class="list-group">
                                                     <div ng-repeat="cust in vm.customers">
-                                                        <li class="list-group-item" ><img src="{{cust.profileImageURL}}" class="img-circle" width="50px">
+                                                        <li class="list-group-item"><img src="{{cust.profileImageURL}}" class="img-circle" width="50px">
                                                             <img width="5%"> {{cust.displayName}}
                                                             <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectCustomer(cust)">เลือก</button></li>
                                                     </div>
@@ -63,6 +65,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--เลือก user-->
                         </div>
                         <div class="col-md-4">
                             <p class="textRight" for="">วันที่สั่งจอง {{vm.order.docdate | date:'dd/MM/yyyy'}}</p>
@@ -155,45 +158,88 @@
                         </div>
                     </div>
 
+
+
                     <div class="row form-group alert  hidden-xs show-sm show-md show-lg">
-                        <div class="row ">
-                            <div class="col-md-9">
+
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                               
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="col-md-12 ">
+                                    <label class="control-label">ประเภทการส่ง</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row ">
+                                    <div class="col-xs-12 input-group input-group-sm">
+                                       <select name="singleSelect" ng-model="vm.order.delivery.deliveryid" class="form-control" aria-describedby="sizing-addon3">
+                                            <option value="1">ไปรษณีย์</option>
+                                            <option value="0">คนส่งข้าว</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row" ng-show="vm.order.delivery.deliveryid === '1'">
+                            <div class="col-md-8">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ค่าส่งไปรษณีย์</label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <input type="text" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost" aria-describedby="sizing-addon3">
+                                        <input type="number" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost" aria-describedby="sizing-addon3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" ng-show="vm.order.delivery.deliveryid === '0'">
+                            <div class="col-md-8">
+                                <div class="col-md-12 ">
+                                    <label class="control-label">คนส่งข้าว</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row ">
+                                    <div class="col-xs-12 input-group input-group-sm">
+
+                                        <select name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id "
+                                            ng-model="vm.order.namedeliver"></select>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ส่วนลด</label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <input type="text" ng-model="vm.order.discount" class="form-control" placeholder="Discount" aria-describedby="sizing-addon3">
+                                        <input type="number" ng-model="vm.order.discount" class="form-control" placeholder="Discount" aria-describedby="sizing-addon3">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-md-9">
+                            <div class="col-md-8">
                                 <div class="col-md-12 ">
                                     <label class="control-label">รวมสุทธิ</label>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <input type="text" ng-model="vm.order.amount" class="form-control" placeholder="Amount" aria-describedby="sizing-addon3">
+                                        <input type="number" ng-model="vm.order.amount" class="form-control" placeholder="Amount" aria-describedby="sizing-addon3">
                                     </div>
                                 </div>
                             </div>
@@ -216,7 +262,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="col-md-12 ">
-
+                                    <!--add trackingnumber-->
                                     <div ng-show="vm.order.deliverystatus=='paid'">
                                         <div class="container">
                                             <div class="modal fade" id="myModal" role="dialog">
@@ -251,6 +297,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!---->
                                 </div>
                             </div>
                             <div ng-show="vm.error" class="text-danger">
@@ -261,7 +308,7 @@
                 </fieldset>
             </form>
         </div>
-        <div class="col-md-3 round1">
+        <div class="col-md-4 round1">
             <div class="row" style="margin-bottom:7px;">
                 <div class="col-md-12">
                     <button type="text" class="btn btn-primary btn-block">สถานะ : {{vm.order.deliverystatus}}</button>
@@ -275,6 +322,7 @@
                             <li><a href="#tab2" data-toggle="tab">ที่อยู่จัดส่ง</a></li>
                         </ul>
                         <div class="tab-content">
+                            <!--tab1 status-->
                             <div class="tab-pane active" id="tab1">
                                 <div class="row form-group" ng-show="vm.confirmed && vm.order.deliverystatus=='confirmed'">
                                     <div class="col-md-12 alert alert-warning">
@@ -372,13 +420,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--tab1-->
 
+                            <!--tab2 ที่อยู่จัดส่ง-->
                             <div class="tab-pane" id="tab2">
                                 <div class="card card-outline-primary mb-5">
                                     <strong>ที่อยู่จัดส่ง</strong>
                                     <div class="card-block">
                                         <blockquote class="card-blockquote">
-                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.firstName + ' ' + vm.order.shipping.lastName}}"></p>
+                                            <p><input type="text" class="form-control" value="{{vm.order.shipping.firstname + ' ' + vm.order.shipping.lastname}}"></p>
                                             <p><input type="text" class="form-control" value="{{vm.order.shipping.tel}}"></p>
                                             <p><input type="text" class="form-control" value="{{vm.order.shipping.address}}"></p>
                                             <p><input type="text" class="form-control" value="{{vm.order.shipping.postcode}}"></p>
@@ -389,15 +439,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--tab2-->
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
         <div class="col-md-2 round1">
             <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
                 <fieldset>
-                    <div class="well well-sm">ประวัติการทำรายการล่าสุด</div>
+                    <div class="well well-sm">ประวัติการทำรายการล่าสุด
+                    </div>
+                    
                 </fieldset>
             </form>
         </div>
