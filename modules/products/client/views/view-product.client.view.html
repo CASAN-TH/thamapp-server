@@ -116,7 +116,7 @@
             </div>
             <div class="modal-scroll ">
               <div ng-repeat="product in vm.products" ng-if="vm.product.category===product.category && vm.product._id != product._id ">
-                <div class="demo-card margin-left-cart" ng-click="moreCart(product)">
+                <div class="demo-card margin-left-cart" data-dismiss="modal" ng-click="vm.moreCart(product)">
                   <div class="card ">
                     <div class="text-center ">
                       <img ng-src="{{product.images}}" alt="{{product.name}}" class="img-rounded user-profile-picture ">

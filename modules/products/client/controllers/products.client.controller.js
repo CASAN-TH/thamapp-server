@@ -23,6 +23,7 @@
       vm.cart.add(product);
       $state.go('cartview');
     };
+    vm.moreCart = moreCart;
 
     $scope.user = Authentication.user;
     function readProduct() {
@@ -128,15 +129,11 @@
 
 
     }
-    
-    $scope.moreCart = function (product) {
-      vm.product = product;
-      // $('#squarespaceModal').modal('hide');
-      // var m = document.getElementById('squarespaceModal');
-      // m.setAttribute('data-dismiss', 'modal');
-      // m.attributeName = 'data-dismiss';
 
-
-    };
+    function moreCart(product) {
+      $timeout(function () {
+        vm.product = product;
+      }, 100);
+    }
   }
 } ());
