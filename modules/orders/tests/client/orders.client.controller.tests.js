@@ -81,8 +81,8 @@
         shipping: {
           tel: '0788654123',
           email: 'toonelicious@gmail.com',
-          firstName: 'shipping firstName',
-          lastName: 'shipping lastName',
+          firstname: 'shipping firstName',
+          lastname: 'shipping lastName',
           address: '51/356',
           postcode: '12150',
           subdistrict: 'คลองถนน',
