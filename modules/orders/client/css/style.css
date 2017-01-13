@@ -95,9 +95,28 @@ text-align : center;
     background-color: #bccc2b;
     color: white;
     outline : none;
-}.buttonGreenForm:hover {
+}
+.buttonGreenForm:hover {
     background-color: #bccc2b;
     color: white;
+}
+.fontGreen  {
+    color: #bccc2b;
+}
+.fontOrange  {
+    color: #faa01e;
+}
+.fontPurple  {
+    color: #a3618d;
+}
+.fontDrakblue  {
+    color: #3a4354;
+}
+.fontBlue  {
+    color: #1480e2;
+}
+.fontPink  {
+    color: deeppink;
 }
 
 .buttonBlueForm  {
