@@ -16,6 +16,7 @@
       mockDeliver,
       mockStatusOrder,
       mockCustomer,
+      mockHisStatus,
       mockOrder;
 
 
@@ -72,6 +73,13 @@
           email: 'email',
           lastname: 'lastname'
         }
+      });
+
+      mockHisStatus = new OrdersService({
+        historystatus: [{
+          status: 'pending',
+          datestatus: '10/11/2015'
+        }]
       });
 
       mockStatusOrder = new OrdersService({
@@ -279,11 +287,32 @@
       }));
     });
 
+     describe('vm.addHis', function () {
+
+      beforeEach(function () {
+        $scope.vm.order.historystatus = [{
+          status: 'pending',
+          datestatus: '10/11/2015'
+        }];
+      });
+
+      it('should addHis', function () {
+        $scope.vm.addHis();
+
+        expect($scope.vm.order.historystatus[0].status).toEqual('pending');
+      });
+
+
+    });
 
     describe('update status pending', function () {
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'pending',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status pending()', inject(function (Users) {
 
@@ -293,6 +322,7 @@
         // Run controller functionality
         $scope.vm.pending(true);
         expect($scope.vm.order.deliverystatus).toEqual('pending');
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
@@ -302,6 +332,10 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
+         $scope.vm.order.historystatus = [{
+          status: 'paid',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status paid()', inject(function (Users) {
 
@@ -311,6 +345,7 @@
         // Run controller functionality
         $scope.vm.paid(true);
         expect($scope.vm.order.deliverystatus).toEqual('paid');
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
@@ -320,6 +355,10 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
+         $scope.vm.order.historystatus = [{
+          status: 'sent',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status sent()', inject(function (Users) {
 
@@ -329,6 +368,7 @@
         // Run controller functionality
         $scope.vm.sent(true);
         expect($scope.vm.order.deliverystatus).toEqual('sent');
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
@@ -338,6 +378,10 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
+         $scope.vm.order.historystatus = [{
+          status: 'complete',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status complete()', inject(function (Users) {
 
@@ -347,6 +391,7 @@
         // Run controller functionality
         $scope.vm.complete(true);
         expect($scope.vm.order.deliverystatus).toEqual('complete');
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
@@ -356,6 +401,10 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
+         $scope.vm.order.historystatus = [{
+          status: 'close',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status closeOrder()', inject(function (Users) {
 
@@ -365,6 +414,7 @@
         // Run controller functionality
         $scope.vm.closeOrder(true);
         expect($scope.vm.order.deliverystatus).toEqual('close');
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
@@ -378,11 +428,11 @@
           product: mockProduct,
           qty: 1
         },
-          {
-            product: mockProduct,
-            qty: 1,
-            amount: 100
-          }];
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
       });
 
       it('should select product item', function () {
@@ -410,15 +460,37 @@
           product: mockProduct,
           qty: 1
         },
-          {
-            product: mockProduct,
-            qty: 1,
-            amount: 100
-          }];
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
       });
 
       it('should addItem', function () {
         $scope.vm.addItem();
+
+        expect($scope.vm.order.items.length).toEqual(3);
+      });
+
+
+    });
+    describe('vm.selectedProduct', function () {
+
+      beforeEach(function () {
+        $scope.vm.order.items = [{
+          product: mockProduct,
+          qty: 1
+        },
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
+      });
+
+      it('should selectedProduct', function () {
+        $scope.vm.selectedProduct();
 
         expect($scope.vm.order.items.length).toEqual(3);
       });
@@ -433,11 +505,11 @@
           product: mockProduct,
           qty: 1
         },
-          {
-            product: mockProduct,
-            qty: 1,
-            amount: 100
-          }];
+        {
+          product: mockProduct,
+          qty: 1,
+          amount: 100
+        }];
       });
 
       it('should removeItem', function () {

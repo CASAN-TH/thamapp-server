@@ -82,6 +82,12 @@ var OrderSchema = new Schema({
     logdate: Date,
     detail: String
   }],
+  historystatus: {
+    type: [{
+      status: String,
+      datestatus: Date
+    }]
+  },
   created: {
     type: Date,
     default: Date.now

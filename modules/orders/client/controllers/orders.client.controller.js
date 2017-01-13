@@ -43,12 +43,21 @@
     vm.readCustomer = readCustomer;
     vm.customers = [];
     vm.selectCustomer = selectCustomer;
+    vm.addHis = addHis;
+
+    function addHis() {
+      vm.order.historystatus.push({
+        status: vm.order.deliverystatus,
+        datestatus: new Date()
+      });
+    }
+
 
     function pending(isValid) {
       vm.order.deliverystatus = 'pending';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        alert(vm.order.deliverystatus);
 
       }
 
@@ -59,9 +68,10 @@
 
     function paid(isValid) {
       vm.order.deliverystatus = 'paid';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        alert(vm.order.deliverystatus);
+
       }
 
       function errorCallback(res) {
@@ -71,9 +81,10 @@
 
     function sent(isValid) {
       vm.order.deliverystatus = 'sent';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        alert(vm.order.deliverystatus);
+
       }
 
       function errorCallback(res) {
@@ -83,9 +94,10 @@
 
     function complete(isValid) {
       vm.order.deliverystatus = 'complete';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        alert(vm.order.deliverystatus);
+
       }
 
       function errorCallback(res) {
@@ -95,9 +107,10 @@
 
     function closeOrder(isValid) {
       vm.order.deliverystatus = 'close';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-        alert(vm.order.deliverystatus);
+
       }
 
       function errorCallback(res) {
@@ -220,6 +233,10 @@
         vm.order.items = [{
           product: new ProductsService(),
           qty: 1
+        }];
+        vm.order.historystatus = [{
+          status: 'confirmed',
+          datestatus: new Date()
         }];
         vm.order.shipping = {
           firstname: '',
