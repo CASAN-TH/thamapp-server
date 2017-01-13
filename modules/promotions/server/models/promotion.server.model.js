@@ -24,8 +24,14 @@ var PromotionSchema = new Schema({
   },
   condition: Number,
   discount: {
-    fixBath: Number,
-    percen: Number
+    fixBath: { 
+      type: Number, 
+      default: 0 
+    },
+    percen: { 
+      type: Number, 
+      default: 0 
+    }
   },
   freeitem: {
     product: {

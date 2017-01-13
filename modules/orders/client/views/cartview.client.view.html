@@ -1,4 +1,4 @@
-<section>
+<section ng-init="vm.Promotion()">
   <div class="page-header">
     <h1>Cart</h1>
   </div>
@@ -62,6 +62,18 @@
           <p>{{vm.cart.getTotalPrice()}} บาท</p>
         </div>
       </div>
+      <!--โปรโมชั่น-->
+      <div>
+        <p>ส่วนลดเงินสด {{discountBathTotal}} บาท</p>
+      </div>
+      <div>
+        <p>ส่วนลด % {{discountPercenTotal}} บาท</p>
+      </div>
+      <div>
+        <p>สินค้าที่แถม {{freeItem}}</p>
+        <p>จำนวน {{discountFreeItemTotal}} ชิ้น</p>
+      </div>
+      <!--สิ้นสุดโปรโมชั่น-->
       <div class="row ">
         <div class="col-md-6">
           <h4>ยอดสุทธิ</h4>
