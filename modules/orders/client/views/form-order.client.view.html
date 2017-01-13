@@ -7,7 +7,7 @@
         <div class="col-md-6 round1">
             <form name="vm.form.orderForm" class="form-horizontal" ng-submit="vm.save(vm.form.orderForm.$valid)" novalidate>
                 <fieldset>
-                    <div class="row" style="margin-top:10px; margin-bottom:10px;">
+                    <div class="row" style="margin-top:10px; margin-bottom:18px;">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-2" ng-show="vm.order._id">
@@ -164,7 +164,7 @@
 
                         <div class="row">
                             <div class="col-md-12 form-group">
-                               
+
                             </div>
 
                             <div class="col-md-8">
@@ -175,7 +175,7 @@
                             <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                       <select name="singleSelect" ng-model="vm.order.delivery.deliveryid" class="form-control" aria-describedby="sizing-addon3">
+                                        <select name="singleSelect" ng-model="vm.order.delivery.deliveryid" class="form-control" aria-describedby="sizing-addon3">
                                             <option value="1">ไปรษณีย์</option>
                                             <option value="0">คนส่งข้าว</option>
                                         </select>
@@ -309,14 +309,29 @@
             </form>
         </div>
         <div class="col-md-4 round1">
-            <div class="row" style="margin-bottom:7px;">
-                <div class="col-md-12">
-                    <button type="text" class="btn btn-primary btn-block">สถานะ : {{vm.order.deliverystatus}}</button>
+            <div class="row" style="margin-bottom:5px;">
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'confirmed'">
+                    <button type="text" class="btn buttonGreenForm btn-block">สถานะ : สั่งจอง</button>
+                </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'pending'">
+                    <button type="text" class="btn buttonOrangeForm btn-block">สถานะ : รอตรวจสอบ</button>
+                </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'paid'">
+                    <button type="text" class="btn buttonPurpleForm btn-block">สถานะ : จ่ายแล้ว</button>
+                </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'sent'">
+                    <button type="text" class="btn buttonBlackForm btn-block">สถานะ : จัดส่ง</button>
+                </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'complete'">
+                    <button type="text" class="btn buttonBlackForm btn-block">สถานะ : สำเร็จ</button>
+                </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'close'">
+                    <button type="text" class="btn buttonBlackForm btn-block">สถานะ : ปิดออเดอร์</button>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="tabbable">
+                    <div class="tabbable ">
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#tab1" data-toggle="tab">ข้อมูลการชำระ</a></li>
                             <li><a href="#tab2" data-toggle="tab">ที่อยู่จัดส่ง</a></li>
@@ -325,7 +340,7 @@
                             <!--tab1 status-->
                             <div class="tab-pane active" id="tab1">
                                 <div class="row form-group" ng-show="vm.confirmed && vm.order.deliverystatus=='confirmed'">
-                                    <div class="col-md-12 alert alert-warning">
+                                    <div class="col-md-12 alert btnborder2">
                                         <div class="row">
                                             <h4>ชำระแบบเต็มจำนวน</h4>
                                             <div class="col-md-3" style="margin-top:20px;">
@@ -336,46 +351,54 @@
                                                 <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
                                                 <p>{{vm.order.accounting}}</p>
                                             </div>
-                                            <button ng-click="pending=true;vm.confirmed=false" type="button" class="btn btn-primary btn-block">บันทึกเอง</button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row form-group" ng-show="pending">
-                                    <div class="col-md-12 alert alert-warning">
-                                        <div class="row">
-                                            <h4>บันทึกการแจ้งชำระ</h4>
-                                            <div class="col-md-12">
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.firstName + ' ' + vm.order.shipping.lastName}}"></p>
-                                                <select name="singleSelect" ng-model="vm.order.accounting" class="form-control">
-                                            <option value="bank">Bank</option>
-                                            <option value="cash">Cash</option>
-                                        </select>
-                                                <p><input type="text" name="" class="form-control" value="{{vm.order.amount}}"></p>
-                                                <p><input type="text" value="{{vm.order.created | date:'dd/MM/yyyy'}}" class="form-control"></p>
-                                                <p><input type="file" name="" value="เลือกรูป" class="form-control"></p>
-                                                <p><input type="text" name="" value="{{vm.order.shipping.firstName}}" class="form-control"></p>
-                                                <p><input type="text" name="" value="{{vm.order.shipping.tel}}" class="form-control"></p>
-                                                <p><textarea rows="3" cols="20" class="form-control">{{vm.order.shipping.address}}</textarea></p>
-                                                <p><input type="text" name="" value="{{vm.order.shipping.postcode}}" class="form-control"></p>
-                                                <p><input type="text" name="" value="{{vm.order.shipping.email}}" class="form-control"></p>
-                                                <div class="row ">
-                                                    <div class="col-md-6">
-                                                        <button ng-click="vm.confirmed=true;pending=false" type="button" class="btn btn-primary btn-block">ยกเลิก</button>
-
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <button ng-click="paid=true;pending=false;vm.pending($valid)" type="button" class="btn btn-primary btn-block">แจ้งชำระ</button>
-
-                                                    </div>
+                                            <div class="row form-group">
+                                                <div class="col-md-6">
+                                                    <button type="button" class="btn buttonBlueForm btn-block">ทวงเงิน</button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button ng-click="pending=true;vm.confirmed=false" type="button" class="btn buttonGreenForm btn-block">บันทึกเอง</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
+                                <div class="row form-group" ng-show="pending">
+                                    <div class="col-md-12 alert btnborder2">
+                                        <div class="row">
+                                            <h4>บันทึกการแจ้งชำระ</h4>
+                                            <div class="col-md-12">
+                                                <select name="singleSelect" ng-model="vm.order.accounting" class="form-control">
+                                                    <option value="bank">Bank</option>
+                                                    <option value="cash">Cash</option>
+                                                </select>
+                                                <p><input type="text" name="" class="form-control" value="{{vm.order.amount}}"></p>
+                                                <p><input type="text" value="{{vm.order.created | date:'dd/MM/yyyy'}}" class="form-control"></p>
+                                                <p><input type="file" name="" value="เลือกรูป" class="form-control"></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.firstname+' '+vm.order.shipping.lastname}}" class="form-control"></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.tel}}" class="form-control"></p>
+                                                <p><textarea rows="3" cols="20" class="form-control">{{vm.order.shipping.address + ' ' +
+                                                    vm.order.shipping.subdistrict+ ' ' +
+                                                    vm.order.shipping.district+ ' ' +
+                                                    vm.order.shipping.province}}</textarea></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.postcode}}" class="form-control"></p>
+                                                <p><input type="text" name="" value="{{vm.order.shipping.email}}" class="form-control"></p>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="row ">
+                                                    <div class="col-md-5">
+                                                        <button ng-click="vm.confirmed=true;pending=false" type="button" class="btn btn-default btn-block">ยกเลิก</button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button ng-click="paid=true;pending=false;vm.pending($valid)" type="button" class="btn buttonOrangeForm btn-block">แจ้งชำระ</button>
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+
                                 <div class="row form-group" ng-show="paid || vm.order.deliverystatus=='pending'">
-                                    <div class="col-md-12 alert alert-warning">
+                                    <div class="col-md-12 alert btnborder2">
                                         <div class="row">
                                             <h4>ชำระแบบเต็มจำนวน</h4>
                                             <div class="col-md-3" style="margin-top:20px;">
@@ -386,13 +409,13 @@
                                                 <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
                                                 <p>{{vm.order.accounting}}</p>
                                             </div>
-                                            <button ng-click="paid=false;vm.paid($valid)" type="button" class="btn btn-primary btn-block">ยืนยันการชำระเงิน</button>
+                                            <button ng-click="paid=false;vm.paid($valid)" type="button" class="btn buttonOrangeForm btn-block">ยืนยันการชำระเงิน</button>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row form-group" ng-show="vm.order.deliverystatus=='paid' || vm.order.deliverystatus=='sent' || vm.order.deliverystatus=='complete' || vm.order.deliverystatus=='close'">
-                                    <div class="col-md-12 alert alert-info">
+                                    <div class="col-md-12 alert btnborder2">
                                         <div class="row">
                                             <h4>ชำระแบบเต็มจำนวน</h4>
                                             <div class="col-md-3" style="margin-top:20px;">
@@ -413,10 +436,10 @@
                                         <button type="button" ng-click="vm.complete($valid)" class="btn btn-primary btn-block">ออเดอร์สำเร็จ</button>
                                     </div>
                                     <div ng-show="vm.order.deliverystatus=='complete'">
-                                        <button type="button" ng-click="vm.closeOrder($valid)" class="btn btn-primary btn-block">ปิดออเดอร์</button>
+                                        <button type="button" ng-click="vm.closeOrder($valid)" class="btn buttonBlackForm btn-block">ปิดออเดอร์</button>
                                     </div>
                                     <div ng-show="vm.order.deliverystatus=='paid'">
-                                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#myModal">แจ้งจัดส่ง</button>
+                                        <button type="button" class="btn buttonBlueForm btn-block" data-toggle="modal" data-target="#myModal">แจ้งจัดส่ง</button>
                                     </div>
                                 </div>
                             </div>
@@ -451,7 +474,7 @@
                 <fieldset>
                     <div class="well well-sm">ประวัติการทำรายการล่าสุด
                     </div>
-                    
+
                 </fieldset>
             </form>
         </div>
