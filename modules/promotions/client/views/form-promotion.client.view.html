@@ -5,16 +5,54 @@
   <div class="col-md-12">
     <form name="vm.form.promotionForm" class="form-horizontal" ng-submit="vm.save(vm.form.promotionForm.$valid)" novalidate>
       <fieldset>
+        <div class="row rounded container-fluid address-container-bg padding-0">
+          <div class="col-xs-4 col-md-4 text-center {{state === '0'?'address-container':'address-container-bg'}}">
+            <div class="margin-top-32">
+              <!--<span><i class="fa fa-truck front_profile-color9"></i></span>-->
+            </div>
+            <div>
+              <label for="">ลดเงินสด</label>
+            </div>
+            <div class="form-group">
+              <input type="radio" name="humen" ng-model="state" ng-value="'0'">
+            </div>
+          </div>
+          <!--{{vm.order.delivery.deliveryid === '1'?'address-container':'address-container-bg'}}-->
+          <div class="col-xs-4 col-md-4 border-left text-center {{state === '1'?'address-container':'address-container-bg'}}">
+            <div class="margin-top-32">
+              <!--<span><i class="fa fa-envelope front_profile-color9"></i></span>-->
+            </div>
+            <div>
+              <label for="">ลดเป็น %</label>
+            </div>
+            <div class="form-group">
+              <input type="radio" name="post" ng-model="state" ng-value="'1'">
+            </div>
+          </div>
+          <div class="col-xs-4 col-md-4 border-left text-center {{state === '2'?'address-container':'address-container-bg'}}">
+            <div class="margin-top-32">
+              <!--<span><i class="fa fa-envelope front_profile-color9"></i></span>-->
+            </div>
+            <div>
+              <label for="">แถมสินค้า</label>
+            </div>
+            <div class="form-group">
+              <input type="radio" name="post" ng-model="state" ng-value="'2'">
+            </div>
+          </div>
+        </div>
+        <!--product-->
         <div class="form-group" show-errors ng-repeat="items in vm.promotion.products">
           <label class="control-label" for="productid">Productid</label>
           <!--<input name="productid" type="text" ng-model="vm.promotion.productid" id="productid" class="form-control" placeholder="Productid"
             required>-->
-            <select name="productid" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="items.product"
-                                    ng-change="vm.productChanged(items.product)"></select>
+          <select name="productid" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="items.product"
+            ng-change="vm.productChanged(items.product)"></select>
           <div ng-messages="vm.form.promotionForm.productid.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Promotion productid is required.</p>
           </div>
         </div>
+        <!--description-->
         <div class="form-group" show-errors>
           <label class="control-label" for="description">Description</label>
           <input name="description" type="text" ng-model="vm.promotion.description" id="description" class="form-control" placeholder="Description"
@@ -23,20 +61,24 @@
             <p class="help-block error-text" ng-message="required">Promotion Description is required.</p>
           </div>
         </div>
-        <div class="form-group">
+        <!--discount bath-->
+        <div class="form-group" ng-if="state === '0'">
           <label class="control-label" for="discount">Discount FixBath</label>
           <input name="fixBath" type="number" ng-model="vm.promotion.discount.fixBath" id="fixBath" class="form-control" placeholder="Discount">
         </div>
-        <div class="form-group">
+        <!--discount percen-->
+        <div class="form-group" ng-if="state === '1'">
           <label class="control-label" for="percen">Discount Percen</label>
           <input name="percen" type="number" ng-model="vm.promotion.discount.percen" id="percen" class="form-control" placeholder="Percen">
         </div>
-        <div class="form-group">
+        <!--free item-->
+        <div class="form-group" ng-if="state === '2'">
           <label class="control-label" for="percen">Free Item</label>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="state === '2'">
           <label class="control-label" for="product">Product</label>
-          <input name="product" type="text" ng-model="vm.promotion.freeitem.product" id="product" class="form-control" placeholder="product">
+          <select name="productid" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="vm.promotion.freeitem.product"
+            ng-change="vm.freeProductChanged(vm.promotion.freeitem.product)"></select>
 
           <label class="control-label" for="qty">Qty</label>
           <input name="qty" type="number" ng-model="vm.promotion.freeitem.qty" id="qty" class="form-control" placeholder="qty">

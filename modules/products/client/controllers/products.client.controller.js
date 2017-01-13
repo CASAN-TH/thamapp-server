@@ -6,9 +6,9 @@
     .module('products')
     .controller('ProductsController', ProductsController);
 
-  ProductsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'productResolve', 'FileUploader', '$timeout', 'ShopCartService', 'ProductsService'];
+  ProductsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'productResolve', 'FileUploader', '$timeout', 'ShopCartService', 'ProductsService', 'PromotionsService'];
 
-  function ProductsController($scope, $state, $window, Authentication, product, FileUploader, $timeout, ShopCartService, ProductsService) {
+  function ProductsController($scope, $state, $window, Authentication, product, FileUploader, $timeout, ShopCartService, ProductsService, PromotionsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -24,12 +24,15 @@
       $state.go('cartview');
     };
     vm.moreCart = moreCart;
+    vm.readPromotion = readPromotion;
 
     $scope.user = Authentication.user;
     function readProduct() {
       vm.products = ProductsService.query();
     }
-
+    function readPromotion(){
+      vm.promotion = PromotionsService.query();
+    }
     // Create file uploader instance
     $scope.uploader = new FileUploader({
       url: 'api/products_picture',

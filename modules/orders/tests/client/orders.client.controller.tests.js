@@ -60,7 +60,18 @@
       // create mock Order
       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
-        name: 'Order Name'
+        name: 'Order Name',
+        shipping: {
+          firstname: 'firstname',
+          postcode: 'postcode',
+          district: 'district',
+          subdistrict: 'subdistrict',
+          province: 'province',
+          address: 'address',
+          tel: 'tel',
+          email: 'email',
+          lastname: 'lastname'
+        }
       });
 
       mockStatusOrder = new OrdersService({
@@ -70,8 +81,8 @@
         shipping: {
           tel: '0788654123',
           email: 'toonelicious@gmail.com',
-          firstName: 'shipping firstName',
-          lastName: 'shipping lastName',
+          firstname: 'shipping firstName',
+          lastname: 'shipping lastName',
           address: '51/356',
           postcode: '12150',
           subdistrict: 'คลองถนน',
@@ -117,7 +128,18 @@
         created: '2016-12-21T04:51:46.142Z',
         roles: [
           'user'
-        ]
+        ],
+        address: {
+          postcode: 'postcode',
+          district: 'district',
+          subdistrict: 'subdistrict',
+          province: 'province',
+          address: 'address',
+          tel: 'tel'
+        },
+        email: 'email',
+        lastName: 'lastName',
+        firstName: 'firstName'
       });
 
       ShopCartService.cart.add(mockProduct);
@@ -228,6 +250,31 @@
           expect($scope.vm.customers[1]).toEqual(mockCustomer);
           expect($scope.vm.customers[2]).toEqual(mockCustomer);
         }
+
+      }));
+    });
+
+    describe('vm.selectCustomer() as read', function () {
+
+
+      beforeEach(function () {
+        $scope.vm.cust = mockCustomer;
+        $scope.vm.order = mockOrder;
+      });
+
+      it('should send a GET request and return all User', inject(function () {
+
+        $scope.vm.selectCustomer($scope.vm.cust);
+
+        expect($scope.vm.order.shipping.firstname).toEqual($scope.vm.cust.firstName);
+        expect($scope.vm.order.shipping.lastname).toEqual($scope.vm.cust.lastName);
+        expect($scope.vm.order.shipping.tel).toEqual($scope.vm.cust.address.tel);
+        expect($scope.vm.order.shipping.address).toEqual($scope.vm.cust.address.address);
+        expect($scope.vm.order.shipping.subdistrict).toEqual($scope.vm.cust.address.subdistrict);
+        expect($scope.vm.order.shipping.district).toEqual($scope.vm.cust.address.district);
+        expect($scope.vm.order.shipping.province).toEqual($scope.vm.cust.address.province);
+        expect($scope.vm.order.shipping.postcode).toEqual($scope.vm.cust.address.postcode);
+        expect($scope.vm.order.shipping.email).toEqual($scope.vm.cust.email);
 
       }));
     });

@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
  */
 var PromotionSchema = new Schema({
   products: [{
-    product:{
+    product: {
       type: Schema.ObjectId,
       ref: 'Product',
       required: 'Please fill Promotion product'
@@ -22,12 +22,21 @@ var PromotionSchema = new Schema({
     required: 'Please fill Promotion productid',
     unique: true
   },
+  condition: Number,
   discount: {
     fixBath: Number,
     percen: Number
   },
   freeitem: {
-    product: String,
+    product: {
+      _id: String,
+      created: String,
+      name: String,
+      description: String,
+      images: String,
+      category: String,
+      price: Number
+    },
     qty: Number,
     price: Number,
     amount: Number
