@@ -62,6 +62,16 @@ text-align : center;
     color: white;
     outline : none;
 }
+.buttonBlackForm {
+    background-color: #3a4354;
+    color: white;
+    outline : none;
+}
+.buttonBlackForm:hover {
+    background-color: #3a4354;
+    color: white;
+}
+
 
 .buttonGreen {
     background-color: white; 
@@ -81,6 +91,25 @@ text-align : center;
     color: white;
     outline : none;
 }
+.buttonGreenForm  {
+    background-color: #bccc2b;
+    color: white;
+    outline : none;
+}.buttonGreenForm:hover {
+    background-color: #bccc2b;
+    color: white;
+}
+
+.buttonBlueForm  {
+    background-color: #1480e2;
+    color: white;
+    outline : none;
+}.buttonBlueForm:hover {
+    background-color: #1480e2;
+    color: white;
+}
+
+
 
 .buttonOrange {
     background-color: white; 
@@ -100,6 +129,15 @@ text-align : center;
     color: white;
     outline : none;
 }
+.buttonOrangeForm  {
+    background-color: #faa01e;
+    color: white;
+    outline : none;
+}
+.buttonOrangeForm:hover {
+    background-color: #faa01e;
+    color: white;
+}
 
 .buttonPurple {
     background-color: white; 
@@ -118,6 +156,15 @@ text-align : center;
     background-color: #a3618d;
     color: white;
     outline : none;
+}
+.buttonPurpleForm  {
+    background-color: #a3618d;
+    color: white;
+    outline : none;
+}
+.buttonPurpleForm:hover {
+    background-color: #a3618d;
+    color: white;
 }
 
 .buttonDarkblue {
@@ -264,6 +311,7 @@ text-align : center;
 .btnborder{
     border: dashed 2px #dddddd;
 }
+
 /*test*/
 
 .status-track {
@@ -302,6 +350,7 @@ text-align : center;
   font-weight: bold;
   font-size: 0.9em;
   letter-spacing: 0.2em;
+
 }
 .status-track > * i.fa {
   font-size: 1.3em;
