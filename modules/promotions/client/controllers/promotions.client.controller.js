@@ -24,6 +24,16 @@
     vm.freeProductChanged = freeProductChanged;
     $scope.state = '0';
     vm.sumbath = sumbath;
+    if (!vm.promotion.freeitem) {
+      vm.promotion.freeitem = {
+        product: {}
+      };
+    } else {
+      $scope.state = '2';
+    }
+    if(vm.promotion.expdate){
+      vm.promotion.expdate = new Date(vm.promotion.expdate);
+    }
     function sumbath(qty) {
       if (qty >= 1) {
         vm.promotion.freeitem.amount = qty * vm.promotion.freeitem.price;
@@ -37,7 +47,7 @@
 
     function freeProductChanged(selectedFreeProduct) {
       vm.promotion.freeitem.price = selectedFreeProduct.price;
-      if(!vm.promotion.freeitem.amount){
+      if (!vm.promotion.freeitem.amount) {
         vm.promotion.freeitem.qty = 1;
         vm.promotion.freeitem.amount = vm.promotion.freeitem.qty * vm.promotion.freeitem.price;
       }
@@ -88,7 +98,6 @@
         };
       } else {
         vm.selectedFreeProduct = vm.promotion.freeitem.product;
-        $scope.state = '2';
       }
       if (vm.promotion.discount) {
         if (vm.promotion.discount.percen) {

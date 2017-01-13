@@ -214,6 +214,17 @@
         expect($scope.vm.promotion.products.length).toEqual(1);
       });
 
+      it('should select free product item', function () {
+        $scope.vm.freeProductChanged(product);
+        expect($scope.vm.promotion.freeitem.product).toEqual(product);
+      });
+
+      it('check number qty', function () {
+        var qty = 1;
+        $scope.vm.sumbath(qty);
+        expect($scope.vm.promotion.freeitem.amount).toEqual(qty * $scope.vm.promotion.freeitem.price);
+      });
+
     });
 
 

@@ -61,6 +61,22 @@
             <p class="help-block error-text" ng-message="required">Promotion Description is required.</p>
           </div>
         </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="description">Qty Product of Condition</label>
+          <input name="condition" type="number" ng-model="vm.promotion.condition" id="condition" class="form-control" placeholder="Condition"
+            required>
+          <div ng-messages="vm.form.promotionForm.condition.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Promotion Condition is required.</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="expdate">Qty Product of Condition</label>
+          <input name="expdate" type="date" ng-model="vm.promotion.expdate" id="expdate" class="form-control" placeholder="Expdate"
+            required>
+          <div ng-messages="vm.form.promotionForm.expdate.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Promotion Expdate is required.</p>
+          </div>
+        </div>
         <!--discount bath-->
         <div class="form-group" ng-if="state === '0'">
           <label class="control-label" for="discount">Discount FixBath</label>
