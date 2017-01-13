@@ -242,13 +242,12 @@ text-overflow: ellipsis;
 .modal-scroll > div {
     width: auto;
     display: inline-block;
-    
-    /* for IE6/7, remove if you don't need to support those browsers */
-    *display: inline;
-    zoom: 1
 }
 .margin-left-cart{
     margin-left: 20px;
+}
+.margin-left-cart1{
+    margin-left: 50px;
 }
 
 
