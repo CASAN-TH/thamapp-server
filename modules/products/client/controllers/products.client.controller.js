@@ -133,7 +133,7 @@
     function moreCart(product) {
       $timeout(function () {
         vm.product = product;
-      }, 100);
+      }, 500);
     }
   }
 } ());
