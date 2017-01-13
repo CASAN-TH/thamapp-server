@@ -23,7 +23,12 @@
     vm.productChanged = productChanged;
     vm.freeProductChanged = freeProductChanged;
     $scope.state = '0';
-
+    vm.sumbath = sumbath;
+    function sumbath(qty) {
+      if (qty >= 1) {
+        vm.promotion.freeitem.amount = qty * vm.promotion.freeitem.price;
+      }
+    }
     function productChanged(selectedProduct) {
       vm.promotion.products = [{
         product: selectedProduct
@@ -31,6 +36,11 @@
     }
 
     function freeProductChanged(selectedFreeProduct) {
+      vm.promotion.freeitem.price = selectedFreeProduct.price;
+      if(!vm.promotion.freeitem.amount){
+        vm.promotion.freeitem.qty = 1;
+        vm.promotion.freeitem.amount = vm.promotion.freeitem.qty * vm.promotion.freeitem.price;
+      }
       vm.promotion.freeitem.product = selectedFreeProduct;
     }
 

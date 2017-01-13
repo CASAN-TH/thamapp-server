@@ -18,13 +18,13 @@
           <strong>Description</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Discount FixBath</strong>
+          <strong>Discount ($)</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Discount Percen</strong>
+          <strong>Discount (%)</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>Free Item Product</strong>
+          <strong>Free Product</strong>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
           <strong>Update</strong>
@@ -37,56 +37,49 @@
     </div>
 
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="promotions in vm.promotions">
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="promotion in vm.promotions">
     <div class="col-md-12">
-      <div class="row form-group" ng-repeat="item in promotions.products">
-        <div ng-click="vm.cliketoview(promotions)" class="col-xs-2 col-sm-2 col-md-2">
+      <div class="row form-group" ng-repeat="item in promotion.products">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="item.product.name"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="promotions.description"></p>
+          <p class="list-group-item-heading" ng-bind="promotion.description"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="promotions.discount.fixBath"></p>
+          <p class="list-group-item-heading" ng-bind="promotion.discount.fixBath"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="promotions.discount.percen"></p>
+          <p class="list-group-item-heading" ng-bind="promotion.discount.percen"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="promotions.freeitem.product"></p>
+          <p class="list-group-item-heading" ng-bind="promotion.freeitem.product.name"></p>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
-          <button type="button" class="btn btn-primary" ng-click="vm.update(promotions)"><span class="glyphicon glyphicon-edit"></span></button>
+          <button type="button" class="btn btn-primary" ng-click="vm.update(promotion)"><span class="glyphicon glyphicon-edit"></span></button>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
-          <button type="button" class="btn btn-danger" ng-click="vm.remove(promotions)"><span class="glyphicon glyphicon-trash"></span></button>
+          <button type="button" class="btn btn-danger" ng-click="vm.remove(promotion)"><span class="glyphicon glyphicon-trash"></span></button>
         </div>
       </div>
     </div>
   </div>
-  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="promotions in vm.promotions ">
+  <!--ng-click="vm.cliketoview(promotion)"-->
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="promotion in vm.promotions">
     <div class="col-md-12">
-      <div class="list-group" ng-repeat="item in promotions.products">
+      <div class="list-group" ng-repeat="item in promotion.products">
         <a href="#" class="list-group-item list-group-item-action">
           <label>Product Id : </label> <label class="list-group-item-heading" ng-bind="item.product.name"></label><br>
-          <label>Description : </label> <label class="list-group-item-heading" ng-bind="promotions.description"></label><br>
-          <label>Discount FixBath : </label> <label class="list-group-item-heading" ng-bind="promotions.discount.fixbath"></label><br>
-          <label>Discount Percen : </label> <label class="list-group-item-heading" ng-bind="promotions.discount.percen"></label><br>
-          <label>Free Item Product : </label> <label class="list-group-item-heading" ng-bind="promotions.freeitem.product"></label>
-          <div class="row fadePortrait">
+          <label>Description : </label> <label class="list-group-item-heading" ng-bind="promotion.description"></label><br>
+          <label>Discount ($) : </label> <label class="list-group-item-heading" ng-bind="promotion.discount.fixbath"></label><br>
+          <label>Discount (%) : </label> <label class="list-group-item-heading" ng-bind="promotion.discount.percen"></label><br>
+          <label>Free Product : </label> <label class="list-group-item-heading" ng-bind="promotion.freeitem.product.name"></label>
+          <div class="row">
             <div class="col-xs-10 text-right">
-              <button type="button" class="btn btn-primary" ng-click="vm.update(promotions)"><span class="glyphicon glyphicon-edit"></span></button>
+              <button type="button" class="btn btn-primary" ng-click="vm.update(promotion)"><span class="glyphicon glyphicon-edit"></span></button>
             </div>
             <div class="col-xs-1 text-right marLeft">
-              <button type="button" class="btn btn-danger" ng-click="vm.remove(promotions)"><span class="glyphicon glyphicon-trash"></span></button>
-            </div>
-          </div>
-          <div class="row fadeLandscape">
-            <div class="col-xs-11 text-right">
-              <button type="button" class="btn btn-primary" ng-click="vm.update(promotions)"><span class="glyphicon glyphicon-edit"></span></button>
-            </div>
-            <div class="col-xs-1 text-right marLeft">
-              <button type="button" class="btn btn-danger" ng-click="vm.remove(promotions)"><span class="glyphicon glyphicon-trash"></span></button>
+              <button type="button" class="btn btn-danger" ng-click="vm.remove(promotion)"><span class="glyphicon glyphicon-trash"></span></button>
             </div>
           </div>
         </a>

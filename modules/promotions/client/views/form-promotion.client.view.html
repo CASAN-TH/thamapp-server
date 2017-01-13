@@ -80,11 +80,11 @@
           <select name="productid" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="vm.promotion.freeitem.product"
             ng-change="vm.freeProductChanged(vm.promotion.freeitem.product)"></select>
 
-          <label class="control-label" for="qty">Qty</label>
-          <input name="qty" type="number" ng-model="vm.promotion.freeitem.qty" id="qty" class="form-control" placeholder="qty">
-
-          <label class="control-label" for="price">Price</label>
+          <label class="control-label" for="price">Unit Price</label>
           <input name="price" type="number" ng-model="vm.promotion.freeitem.price" id="price" class="form-control" placeholder="price">
+
+          <label class="control-label" for="qty">Qty of Free Product</label>
+          <input name="qty" type="number" ng-model="vm.promotion.freeitem.qty" id="qty" class="form-control" placeholder="qty" ng-change="vm.sumbath(vm.promotion.freeitem.qty)">
 
           <label class="control-label" for="qty">Amount</label>
           <input name="amount" type="number" ng-model="vm.promotion.freeitem.amount" id="amount" class="form-control" placeholder="amount">

@@ -5,15 +5,26 @@
     .module('promotions')
     .controller('PromotionsListController', PromotionsListController);
 
-  PromotionsListController.$inject = ['$state', 'PromotionsService', 'Authentication'];
+  PromotionsListController.$inject = ['$state', 'PromotionsService', 'Authentication', '$window'];
 
-  function PromotionsListController($state, PromotionsService, Authentication) {
+  function PromotionsListController($state, PromotionsService, Authentication, $window) {
     var vm = this;
     vm.authentication = Authentication;
     vm.promotions = PromotionsService.query();
     vm.remove = function (itm) {
-      itm.$remove();
-      vm.promotions = PromotionsService.query();
+      if ($window.confirm('Are you sure you want to delete?')) {
+        itm.$remove(successCallback, errorCallback);
+      }
+
+      function successCallback(res) {
+        $state.go('promotions.list');
+        vm.promotions = PromotionsService.query();        
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+      // itm.$remove();
     };
 
     vm.update = function (itm) {
