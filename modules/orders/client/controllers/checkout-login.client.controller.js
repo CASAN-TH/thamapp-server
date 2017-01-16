@@ -147,6 +147,12 @@
       vm.order.shipping.tel = $scope.authentication.user.address.tel;
       vm.order.shipping.email = $scope.authentication.user.email;
 
+      //////status/////
+       vm.order.historystatus = [{
+          status: 'confirmed',
+          datestatus: new Date()
+        }];
+
       if ($scope.newAddress.status === false) {
         vm.order.shipping.firstname = $scope.authentication.user.firstName;
         vm.order.shipping.lastname = $scope.authentication.user.lastName;
