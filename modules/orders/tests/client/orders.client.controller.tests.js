@@ -17,6 +17,7 @@
       mockStatusOrder,
       mockCustomer,
       mockHisStatus,
+      mockRejectOrder,
       mockOrder;
 
 
@@ -59,7 +60,24 @@
       ShopCartService = _ShopCartService_;
 
       // create mock Order
-      mockOrder = new OrdersService({
+      mockRejectOrder = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        shipping: {
+          firstname: 'firstname',
+          postcode: 'postcode',
+          district: 'district',
+          subdistrict: 'subdistrict',
+          province: 'province',
+          address: 'address',
+          tel: 'tel',
+          email: 'email',
+          lastname: 'lastname'
+        },
+        deliverystatus:'reject'
+      });
+
+       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         shipping: {
@@ -283,6 +301,24 @@
         expect($scope.vm.order.shipping.province).toEqual($scope.vm.cust.address.province);
         expect($scope.vm.order.shipping.postcode).toEqual($scope.vm.cust.address.postcode);
         expect($scope.vm.order.shipping.email).toEqual($scope.vm.cust.email);
+
+      }));
+    });
+
+     describe('vm.updateDeliver', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockRejectOrder;
+      });
+      it('vm.status updateDeliver()', inject(function (Users) {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.updateDeliver();
+        expect($scope.vm.order.deliverystatus).toEqual('confirmed');
+        $httpBackend.flush();
 
       }));
     });

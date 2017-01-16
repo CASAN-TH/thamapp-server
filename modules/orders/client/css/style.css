@@ -72,6 +72,26 @@ text-align : center;
     color: white;
 }
 
+.buttonRedForm {
+    background-color: #ff5151;
+    color: white;
+    outline : none;
+}
+.buttonRedForm:hover {
+    background-color: #ff5151;
+    color: white;
+}
+
+.buttonSkyForm {
+    background-color: #6fbaff;
+    color: white;
+    outline : none;
+}
+.buttonSkyForm:hover {
+    background-color: #6fbaff;
+    color: white;
+}
+
 
 .buttonGreen {
     background-color: white; 
@@ -117,6 +137,12 @@ text-align : center;
 }
 .fontPink  {
     color: deeppink;
+}
+.fontRed  {
+    color: #ff5151;
+}
+.fontSky{
+    color: #6fbaff;
 }
 
 .buttonBlueForm  {
@@ -201,6 +227,44 @@ text-align : center;
 
 .buttonDarkblue:focus  {
     background-color: #3a4354;
+    color: white;
+    outline : none;
+}
+
+.buttonBlueSky {
+    background-color: white; 
+    color: black; 
+    border-color: #6fbaff;
+    border-style: solid;
+    border-width: 0px 0px 0px 2px;
+}
+
+.buttonBlueSky:hover {
+    background-color: #6fbaff;
+    color: white;
+}
+
+.buttonBlueSky:focus  {
+    background-color: #6fbaff;
+    color: white;
+    outline : none;
+}
+
+.buttonRed {
+    background-color: white; 
+    color: black; 
+    border-color: #ff5151;
+    border-style: solid;
+    border-width: 0px 0px 0px 2px;
+}
+
+.buttonRed:hover {
+    background-color: #ff5151;
+    color: white;
+}
+
+.buttonRed:focus  {
+    background-color: #ff5151;
     color: white;
     outline : none;
 }
@@ -330,8 +394,15 @@ text-align : center;
 .btnborder{
     border: dashed 2px #dddddd;
 }
+.btnborderRed{
+    border: dashed 2px #ff5151;
+}
+.btnborderRed:hover {
+    border: dashed 2px #ff5151;
+}
 .btnborder2{
-    border: solid 1.5px #dddddd;}
+    border: solid 1.5px #dddddd;
+}
 
 @media (min-width: screen-xs-min) {
     .col-xs-auto { width: auto; }
@@ -429,6 +500,23 @@ body1 {
 
 /*test*/
 .size-status{
-      font-size: 16px;
+    font-size: 16px;
     color:#81a662;
+}
+
+.marginTB{
+    margin-top:10px; 
+    margin-bottom:18px;
+}
+
+.marginB{
+    margin-bottom:5px;
+}
+
+.marginT{
+    margin-top:20px;
+}
+
+.marginT25{
+    margin-top:25px
 }

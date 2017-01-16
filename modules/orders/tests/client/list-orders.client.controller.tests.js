@@ -21,7 +21,10 @@
       mockCloseOrderPost,
       mockCloseOrderDeli,
       mockConfirmedOrderPost,
-      mockConfirmedOrderDeli;
+      mockConfirmedOrderDeli,
+      mockAcceptDeli,
+      mockRejectDeli;
+
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -191,6 +194,28 @@
         docno: '1234',
         docdate: '24/05/2535',
         deliverystatus: 'close',
+        delivery: {
+          deliveryid: '0'
+        }
+      });
+
+      mockAcceptDeli = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'accept',
+        delivery: {
+          deliveryid: '0'
+        }
+      });
+
+      mockRejectDeli = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'reject',
         delivery: {
           deliveryid: '0'
         }
@@ -370,6 +395,38 @@
         expect($scope.vm.closeDeli.length).toEqual(1);
         expect($scope.vm.closeDeli[0].deliverystatus).toEqual('close');
         expect($scope.vm.closeDeli[0].delivery.deliveryid).toEqual('0');
+
+      }));
+    });
+
+    describe('order status AcceptOrder', function () {
+
+      beforeEach(function () {
+        $scope.vm.acceptDeli = [mockAcceptDeli, mockAcceptDeli];
+      });
+
+      it('should send a GET request and return all Orders accept status', inject(function () {
+        $scope.vm.readAccept();
+        // Test form inputs are reset
+        expect($scope.vm.acceptDeli.length).toEqual(2);
+        expect($scope.vm.acceptDeli[0].deliverystatus).toEqual('accept');
+        expect($scope.vm.acceptDeli[1].deliverystatus).toEqual('accept');
+
+      }));
+    });
+
+    describe('order status RejectOrder', function () {
+
+      beforeEach(function () {
+        $scope.vm.rejectDeli = [mockRejectDeli, mockRejectDeli];
+      });
+
+      it('should send a GET request and return all Orders reject status', inject(function () {
+        $scope.vm.readReject();
+        // Test form inputs are reset
+        expect($scope.vm.rejectDeli.length).toEqual(2);
+        expect($scope.vm.rejectDeli[0].deliverystatus).toEqual('reject');
+        expect($scope.vm.rejectDeli[1].deliverystatus).toEqual('reject');
 
       }));
     });

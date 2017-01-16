@@ -10,8 +10,8 @@
         <div class="row">
           <div class="col-md-5">
             <ul class="nav nav-tabs">
-              <li ng-click="allbuttonBlackActive=true" class="active"><a href="#allActive" data-target="#allActive, #showAllActive" data-toggle="tab">ทั้งหมด</a></li>
-              <li><a href="#deliActive" data-target="#deliActive, #showAllDeli" data-toggle="tab">คนส่งข้าว</a></li>
+              <!--<li ng-click="allbuttonBlackActive=true" class="active"><a href="#allActive" data-target="#allActive, #showAllActive" data-toggle="tab">ทั้งหมด</a></li>-->
+              <li class="active"><a href="#deliActive" data-target="#deliActive, #showAllDeli" data-toggle="tab" class="active">คนส่งข้าว</a></li>
               <li><a href="#postActive" data-target="#postActive, #showAllPost" data-toggle="tab">ไปรษณีย์</a></li>
             </ul>
           </div>
@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="tab-content">
-          <div class="tab-pane active" id="allActive">
+          <!--<div class="tab-pane active" id="allActive">
             <div class="tabbable tabs-left">
               <div class="row">
                 <div class="col-md-1">
@@ -303,20 +303,22 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="tab-pane" id="deliActive">
+          </div>-->
+          <div class="tab-pane active" id="deliActive">
             <div class="tabbable tabs-left">
               <div class="row">
                 <div class="col-md-1">
                   <div class="nav">
-                    <a href="#showAllDeli" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedDeli.length + vm.pendingDeli.length + vm.paidDeli.length + vm.sentDeli.length}}</h3></button></a>
-                    <div class="text-center"><span>การเงิน</span></div>
+                    <a href="#showAllDeli" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedDeli.length + vm.pendingDeli.length + vm.paidDeli.length + vm.sentDeli.length + vm.acceptDeli.length + vm.rejectDeli.length + vm.completeDeli.length + vm.closeDeli.length}}</h3></button></a>
                     <a href="#showConfirmedDeli" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>สั่งจอง</span><h3>{{vm.confirmedDeli.length}}</h3></button></a>
-                    <a href="#showPendingDeli" data-toggle="tab"><button class="thumbnail button buttonOrange" type="text"><span>รอตรวจสอบ</span><h3>{{vm.pendingDeli.length}}</h3></button></a>
-                    <div class="text-center"><span>รอจัดส่ง</span></div>
-                    <a href="#showPaidDeli" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>จ่ายแล้ว</span><h3>{{vm.paidDeli.length}}</h3></button></a>
+                    <div class="text-center"><span>คนส่งข้าว</span></div>
+                    <a href="#showAcceptDeli" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ยอมรับ</span><h3>{{vm.acceptDeli.length}}</h3></button></a>
+                    <a href="#showRejectDeli" data-toggle="tab"><button class="thumbnail button buttonRed" type="text"><span>ยกเลิก</span><h3>{{vm.rejectDeli.length}}</h3></button></a>
                     <div class="text-center"><span>จัดส่ง</span></div>
                     <a href="#showSentDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ส่งแล้ว</span><h3>{{vm.sentDeli.length}}</h3></button></a>
+                    <div class="text-center"><span>การเงิน</span></div>
+                    <a href="#showPendingDeli" data-toggle="tab"><button class="thumbnail button buttonOrange" type="text"><span>รอตรวจสอบ</span><h3>{{vm.pendingDeli.length}}</h3></button></a>
+                    <a href="#showPaidDeli" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>จ่ายแล้ว</span><h3>{{vm.paidDeli.length}}</h3></button></a>
                     <div class="text-center"><span>ปิด</span></div>
                     <a href="#showCompleteDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{vm.completeDeli.length}}</h3></button></a>
                     <a href="#showCloseDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ปิดแล้ว</span><h3>{{vm.closeDeli.length}}</h3></button></a>
@@ -374,7 +376,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -387,7 +389,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[1].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -401,7 +404,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -414,7 +417,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[1].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -441,7 +445,120 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[2].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>คนส่งข้าว</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[3].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>คนส่งข้าว</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[4].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>คนส่งข้าว</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>คนส่งข้าว</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[6].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -485,8 +602,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="showPendingDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    <div class="tab-pane" id="showAcceptDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -499,7 +616,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[1].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -514,8 +632,8 @@
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="showPaidDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    <div class="tab-pane" id="showRejectDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -528,7 +646,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[1].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -557,7 +676,68 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[2].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>คนส่งข้าว</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="showPendingDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[3].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>คนส่งข้าว</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="showPaidDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[4].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -586,7 +766,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -615,7 +796,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[6].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -640,7 +822,7 @@
               <div class="row">
                 <div class="col-md-1">
                   <div class="nav">
-                    <a href="#showAllPost" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedPost.length + vm.pendingPost.length + vm.paidPost.length + vm.sentPost.length}}</h3></button></a>
+                    <a href="#showAllPost" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedPost.length + vm.pendingPost.length + vm.paidPost.length + vm.sentPost.length + vm.completePost.length + vm.closePost.length}}</h3></button></a>
                     <div class="text-center"><span>การเงิน</span></div>
                     <a href="#showConfirmedPost" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>สั่งจอง</span><h3>{{vm.confirmedPost.length}}</h3></button></a>
                     <a href="#showPendingPost" data-toggle="tab"><button class="thumbnail button buttonOrange" type="text"><span>รอตรวจสอบ</span><h3>{{vm.pendingPost.length}}</h3></button></a>
@@ -718,7 +900,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[1].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -745,7 +928,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[2].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -772,7 +956,64 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[3].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>ไปรษณีย์</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completePost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[4].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <span>ไปรษณีย์</span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closePost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -830,7 +1071,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[1].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -859,7 +1101,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[2].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -888,7 +1131,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[3].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -917,7 +1161,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[4].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
@@ -946,7 +1191,8 @@
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading">ไม่มีการแจ้งโอนชำระเงิน</p>
+                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
