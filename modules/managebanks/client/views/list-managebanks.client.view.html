@@ -1,0 +1,73 @@
+<section>
+   <div class="page-header">
+    <h1>Manage Banks
+      <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="managebanks.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>No.</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>ชื่อธนาคาร</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>ชื่อบัญชี</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>เลขบัญชี</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>สาขา</strong>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg"ng-repeat="bank in vm.managebanks">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <p class="list-group-item-heading">{{$index+1}}</p>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading" ng-bind="bank.bankname"></p>
+        </div>
+         <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading" ng-bind="bank.accountname"></p>
+        </div>
+         <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading" ng-bind="bank.accountnumber"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="bank.branch"></p>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!--<div class="list-group">
+    <a ng-repeat="managebank in vm.managebanks"
+       ui-sref="managebanks.view({ managebankId: managebank._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="managebank.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="managebank.user" ng-bind="managebank.user.displayName"></span>
+        <span ng-if="!managebank.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="managebank.name"></h4>
+    </a>
+  </div>-->
+  <div class="alert alert-warning text-center" ng-if="vm.managebanks.$resolved && !vm.managebanks.length">
+    No Managebanks yet, why don't you <a ui-sref="managebanks.create">create one</a>?
+  </div>
+</section>

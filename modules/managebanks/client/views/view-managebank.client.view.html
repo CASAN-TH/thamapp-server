@@ -1,0 +1,47 @@
+<section>
+  <div class="page-header">
+    <h1>ธนาคาร</h1>
+
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-md-12"> 
+        <label >ชื่อธนาคาร : </label> <label ng-bind="vm.managebank.bankname"></label>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-md-12"> 
+          <label >ชื่อบัญชี : </label> <label ng-bind="vm.managebank.accountname"></label>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-md-12"> 
+          <label >เลขบัญชี : </label> <label ng-bind="vm.managebank.accountnumber"></label>
+      </div>
+    </div>
+     <div class="row">
+      <div class="col-md-12"> 
+          <label >สาขา : </label> <label ng-bind="vm.managebank.branch"></label>
+      </div>
+    </div>
+  </div>
+  <div class="pull-right" ng-show="vm.managebank.isCurrentUserOwner">
+    <a class="btn btn-primary" ui-sref="managebanks.edit({ managebankId: vm.managebank._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.managebank.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.managebank.user"
+            ng-bind="vm.managebank.user.displayName"></span>
+      <span ng-if="!vm.managebank.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.managebank.content"></p>
+</section>
