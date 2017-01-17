@@ -51,18 +51,18 @@ describe('Promotion CRUD tests', function () {
     });
 
     product = new Product({
-        name: 'Product Name',
-        description: 'Product Description',
-        category: 'Product Category',
-        price: 100,
-        images:'img1',
-      });
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
 
     // Save a user to the test db and create new Promotion
     user.save(function () {
       promotion = {
-        products:[{
-          product : product
+        products: [{
+          product: product
         }],
         description: '11111',
         discount: {
@@ -236,16 +236,26 @@ describe('Promotion CRUD tests', function () {
   it('should be able to get a single Promotion if not signed in', function (done) {
     // Create new Promotion model instance
     var promotionObj = new Promotion(promotion);
-
-    // Save the Promotion
-    promotionObj.save(function () {
-      request(app).get('/api/promotions/' + promotionObj._id)
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('description', promotion.description);
-          // Call the assertion callback
-          done();
-        });
+    var productObj = new Product({
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
+    productObj.save(function (err, product) {
+      // Save the Promotion
+      promotionObj.products[0].product = product;
+      // Save the Promotion
+      promotionObj.save(function () {
+        request(app).get('/api/promotions/' + promotionObj._id)
+          .end(function (req, res) {
+            // Set assertion
+            res.body.should.be.instanceof(Object).and.have.property('description', promotion.description);
+            // Call the assertion callback
+            done();
+          });
+      });
     });
   });
 
@@ -426,9 +436,36 @@ describe('Promotion CRUD tests', function () {
     });
   });
 
+  // it('should be able to save a Promotion and get response', function (done) {
+  //   var promotionObj = new Promotion(promotion);
+  //   var productObj = new Product({
+  //     name: 'Product Name',
+  //     description: 'Product Description',
+  //     category: 'Product Category',
+  //     price: 100,
+  //     images: 'img1',
+  //   });
+  //   productObj.save(function (err, product) {
+  //     // Save the Promotion
+  //     promotionObj.products[0].product = product;
+  //     promotionObj.save(function () {
+  //       request(app).get('/api/promotions/productid/' + product._id)
+  //         .end(function (req, res) {
+  //           // Set assertion
+  //           res.body[0].should.be.instanceof(Object).and.have.property('status', '11111');
+  //           // Call the assertion callback
+  //           done();
+  //         });
+  //     });
+  //   });
+
+  // });
+
   afterEach(function (done) {
     User.remove().exec(function () {
-      Promotion.remove().exec(done);
+      Product.remove().exec(function () {
+        Promotion.remove().exec(done);
+      });
     });
   });
 });

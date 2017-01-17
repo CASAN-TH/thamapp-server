@@ -94,14 +94,6 @@
 
       }));
 
-      it('check promotion discount money', inject(function (PromotionsService) {
-        // Set POST response
-        $scope.discountFreeItemTotal = mockPromotion.condition * mockPromotion.freeitem.qty;
-        $scope.vm.Promotion();
-        expect($scope.discountFreeItemTotal).toEqual(mockPromotion.freeitem.qty);
-
-      }));
-
     });
 
 
