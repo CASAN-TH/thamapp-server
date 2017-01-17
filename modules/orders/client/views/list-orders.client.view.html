@@ -2,25 +2,40 @@
   <div class="page-header headerBorder">
     <h1>Orders</h1>
   </div>
-
+  <div class="row show-xs show-sm hidden-md hidden-lg">
+    <div class="col-md-12">
+      <div class="textRight height5" ng-hide="!vm.authentication.user">
+        <a class="btn buttonCreate" ui-sref="orders.create">
+          <i class="fa fa-file-o" aria-hidden="true"></i>
+          <span>Create</span>
+        </a>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable">
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
             <ul class="nav nav-tabs">
               <!--<li ng-click="allbuttonBlackActive=true" class="active"><a href="#allActive" data-target="#allActive, #showAllActive" data-toggle="tab">ทั้งหมด</a></li>-->
               <li class="active"><a href="#deliActive" data-target="#deliActive, #showAllDeli" data-toggle="tab" class="active">คนส่งข้าว</a></li>
               <li><a href="#postActive" data-target="#postActive, #showAllPost" data-toggle="tab">ไปรษณีย์</a></li>
             </ul>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
             <div class="input-group input-group-sm">
               <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
               <input type="text" class="form-control" placeholder="Search for something..." ng-model="topsearch" aria-describedby="sizing-addon3">
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-5 show-xs show-sm hidden-md hidden-lg height5">
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Search for something..." ng-model="topsearch" aria-describedby="sizing-addon3">
+            </div>
+          </div>
+          <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
             <div class="textCenter" ng-hide="!vm.authentication.user">
               <a class="btn buttonCreate" ui-sref="orders.create">
                 <i class="fa fa-file-o" aria-hidden="true"></i>
@@ -306,7 +321,7 @@
           <div class="tab-pane active" id="deliActive">
             <div class="tabbable tabs-left">
               <div class="row">
-                <div class="col-md-1">
+                <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
                   <div class="nav">
                     <a href="#showAllDeli" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedDeli.length + vm.pendingDeli.length + vm.paidDeli.length + vm.sentDeli.length + vm.acceptDeli.length + vm.rejectDeli.length + vm.completeDeli.length + vm.closeDeli.length}}</h3></button></a>
                     <a href="#showConfirmedDeli" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>สั่งจอง</span><h3>{{vm.confirmedDeli.length}}</h3></button></a>
@@ -325,7 +340,7 @@
                 </div>
                 <div class="col-md-11">
                   <div class="col-md-12">
-                    <div class="row form-group alert alert-info">
+                    <div class="row hidden-xs hidden-sm show-md show-lg form-group alert alert-info">
                       <div class="col-xs-3 col-sm-3 col-md-3">
                         <strong>บิลสั่งซื้อลูกค้า</strong>
                       </div>
@@ -1224,14 +1239,13 @@
           <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
           <label class="list-group-item-text">Amount: </label>
           <label class="list-group-item-text" ng-bind="order.amount | number:2"></label><br>
-          <strong class="list-group-item-text">Deliver :
-          <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
+          <!--<i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
           <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
           <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
           <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')"></i>
           <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
-          <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
-        </strong>
+          <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>-->
+          </strong>
         </a>
       </div>
     </div>
