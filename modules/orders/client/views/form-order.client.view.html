@@ -190,9 +190,7 @@
                             <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
-                                            type="number" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost"
-                                            aria-describedby="sizing-addon3">
+                                        <input readonly type="number" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost" aria-describedby="sizing-addon3">
                                     </div>
                                 </div>
                             </div>
@@ -216,15 +214,13 @@
                         <div class="row ">
                             <div class="col-md-8">
                                 <div class="col-md-12 ">
-                                    <label class="control-label">ส่วนลด</label>
+                                    <label class="control-label">ส่วนลดเพิ่มเติม</label>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
-                                            type="number" ng-model="vm.order.discount" class="form-control" placeholder="Discount"
-                                            aria-describedby="sizing-addon3">
+                                        <input readonly type="number" ng-model="vm.order.discount" class="form-control" placeholder="Discount" aria-describedby="sizing-addon3">
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +234,7 @@
                             <div class="col-md-4">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                        <input readonly ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
                                             type="number" ng-model="vm.order.amount" class="form-control" placeholder="Amount"
                                             aria-describedby="sizing-addon3">
                                     </div>
@@ -252,7 +248,7 @@
                             <div class="col-md-12 form-group">
                             </div>
                         </div>
-                        <div class="row form-group" ng-show="vm.order.deliverystatus != 'reject'">
+                        <div ng-hide="vm.order._id" class="row form-group" ng-show="vm.order.deliverystatus != 'reject'">
                             <div class="col-md-4 form-group">
                                 <button type="submit" class="btn btn-default btn-block">{{vm.order._id ? 'ฺBack To Order' : 'Save Order'}}</button>
                             </div>
@@ -265,7 +261,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="col-md-12 ">
-                                    <div ng-show="vm.order.deliverystatus=='paid'">
+                                    <div ng-show="vm.order.deliverystatus=='confirmed' && updateToPaid">
                                         <div class="container">
                                             <div class="modal fade" id="myModal" role="dialog">
                                                 <div class="modal-dialog">
@@ -527,15 +523,55 @@
                                                 </div>
                                                 <div class="col-md-10">
                                                     <p>จำนวนเงิน : {{vm.order.amount}}</p>
-                                                    <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
+                                                    <p>วันที่ : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
                                                     <p>{{vm.order.accounting}}</p>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <p>ค่าส่งไปรษณีย์ : </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input ng-disabled="updateToPaid ||vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                                            type="number" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost"
+                                                            aria-describedby="sizing-addon3">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <p>ส่วนลด : </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input ng-disabled="updateToPaid || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                                            type="number" ng-model="vm.order.discount" class="form-control" placeholder="Discount"
+                                                            aria-describedby="sizing-addon3">
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <button ng-hide="updateToPaid" ng-click="updateToPaid=true;vm.updateInform()" type="button" class="btn buttonGreenForm btn-block">บันทึกข้อมูล</button>
+                                                    </div>
                                                 </div>
                                                 <div class="row form-group">
                                                     <div class="col-md-6">
-                                                        <button type="button" class="btn buttonBlueForm btn-block">ทวงเงิน</button>
+                                                        <button ng-show="updateToPaid" ng-click="updateToPaid=false" type="button" class="btn buttonBlueForm btn-block">ยกเลิก</button>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button ng-click="pending=true;vm.confirmed=false" type="button" class="btn buttonGreenForm btn-block">บันทึกเอง</button>
+                                                        <button ng-show="" type="button" class="btn buttonGreenForm btn-block">บันทึกเอง</button>
+                                                    </div>
+                                                    <div class="col-md-6" ng-show="vm.order.deliverystatus=='confirmed' && updateToPaid">
+                                                        <button type="button" class="btn buttonBlueForm btn-block" data-toggle="modal" data-target="#myModal">แจ้งจัดส่ง</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -558,23 +594,6 @@
                                                     </p>
                                                     <p>
                                                         <input type="file" name="" value="เลือกรูป" class="form-control">
-                                                    </p>
-                                                    <p>
-                                                        <input type="text" name="" value="{{vm.order.shipping.firstname+' '+vm.order.shipping.lastname}}" class="form-control">
-                                                    </p>
-                                                    <p>
-                                                        <input type="text" name="" value="{{vm.order.shipping.tel}}" class="form-control">
-                                                    </p>
-                                                    <p>
-                                                        <textarea class="form-control" cols="20" rows="3">
-                                                                        {{vm.order.shipping.address + ' ' + vm.order.shipping.subdistrict+ ' ' + vm.order.shipping.district+ ' ' + vm.order.shipping.province}}
-                                                                    </textarea>
-                                                    </p>
-                                                    <p>
-                                                        <input type="text" name="" value="{{vm.order.shipping.postcode}}" class="form-control">
-                                                    </p>
-                                                    <p>
-                                                        <input type="text" name="" value="{{vm.order.shipping.email}}" class="form-control">
                                                     </p>
                                                 </div>
                                             </div>
@@ -604,7 +623,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row form-group" ng-show="vm.order.deliverystatus=='paid' || vm.order.deliverystatus=='sent' || vm.order.deliverystatus=='complete' || vm.order.deliverystatus=='close'">
+                                    <div class="row form-group" ng-hide="hideSent || vm.order.deliverystatus=='confirmed'" ng-show="vm.order.deliverystatus=='paid' || vm.order.deliverystatus=='sent' || vm.order.deliverystatus=='complete' || vm.order.deliverystatus=='close'">
                                         <div class="col-md-12 alert btnborder2">
                                             <div class="row">
                                                 <h4>ชำระแบบเต็มจำนวน</h4>
@@ -614,20 +633,56 @@
                                                 <div class="col-md-10">
                                                     <p>จำนวนเงิน : {{vm.order.amount}}</p>
                                                     <p>วันที่โอน : {{vm.order.created | date: 'dd/MM/yyyy'}}</p>
-                                                    <p>{{vm.order.accounting}}</p>
+                                                    <!--<p>{{vm.order.accounting}}</p>
                                                     <p>เลขที่บัญชี : 99999999</p>
-                                                    <p>ชื่อ : SARAWUT TANA</p>
+                                                    <p>ชื่อ : SARAWUT TANA</p>-->
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <p>ค่าส่งไปรษณีย์ : </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input readonly type="number" ng-model="vm.order.postcost" class="form-control" placeholder="Postcost" aria-describedby="sizing-addon3">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <p>ส่วนลด : </p>
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group">
+                                                    <div class="col-md-2">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <input readonly type="number" ng-model="vm.order.discount" class="form-control" placeholder="Discount" aria-describedby="sizing-addon3">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div ng-show="vm.order.deliverystatus=='sent'">
+                                            <div class="row form-group">
+                                                <div class="col-md-6">
+                                                    <button ng-show="vm.order.deliverystatus=='sent'" type="button" class="btn buttonBlueForm btn-block">ยกเลิก</button>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button ng-click="pending=true;hideSent=true" ng-show="vm.order.deliverystatus=='sent'" type="button" class="btn buttonGreenForm btn-block">บันทึกเอง</button>
+                                                </div>
+                                            </div>
+                                            <div ng-show="vm.order.deliverystatus=='paid'">
                                                 <button type="button" ng-click="vm.complete($valid)" class="btn btn-primary btn-block">ออเดอร์สำเร็จ</button>
                                             </div>
                                             <div ng-show="vm.order.deliverystatus=='complete'">
                                                 <button type="button" ng-click="vm.closeOrder($valid)" class="btn buttonBlackForm btn-block">ปิดออเดอร์</button>
                                             </div>
-                                            <div ng-show="vm.order.deliverystatus=='paid'">
+                                            <!--<div ng-show="vm.order.deliverystatus=='paid'">
                                                 <button type="button" class="btn buttonBlueForm btn-block" data-toggle="modal" data-target="#myModal">แจ้งจัดส่ง</button>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                 </div>

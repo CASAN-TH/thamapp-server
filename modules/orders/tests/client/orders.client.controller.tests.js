@@ -18,6 +18,7 @@
       mockCustomer,
       mockHisStatus,
       mockRejectOrder,
+      mockAmount,
       mockOrder;
 
 
@@ -60,6 +61,12 @@
       ShopCartService = _ShopCartService_;
 
       // create mock Order
+      mockAmount = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        amount: 30
+      });
+
       mockRejectOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
@@ -74,10 +81,10 @@
           email: 'email',
           lastname: 'lastname'
         },
-        deliverystatus:'reject'
+        deliverystatus: 'reject'
       });
 
-       mockOrder = new OrdersService({
+      mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
         shipping: {
@@ -305,7 +312,7 @@
       }));
     });
 
-     describe('vm.updateDeliver', function () {
+    describe('vm.updateDeliver', function () {
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockRejectOrder;
@@ -323,7 +330,25 @@
       }));
     });
 
-     describe('vm.addHis', function () {
+    describe('vm.updateInform', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockAmount;
+      });
+      it('vm.status updateInform()', inject(function (Users) {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.updateInform();
+        expect($scope.vm.order.amount).toEqual(30);
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('vm.addHis', function () {
 
       beforeEach(function () {
         $scope.vm.order.historystatus = [{
@@ -368,7 +393,7 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
-         $scope.vm.order.historystatus = [{
+        $scope.vm.order.historystatus = [{
           status: 'paid',
           datestatus: '10/11/2015'
         }];
@@ -391,7 +416,7 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
-         $scope.vm.order.historystatus = [{
+        $scope.vm.order.historystatus = [{
           status: 'sent',
           datestatus: '10/11/2015'
         }];
@@ -414,7 +439,7 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
-         $scope.vm.order.historystatus = [{
+        $scope.vm.order.historystatus = [{
           status: 'complete',
           datestatus: '10/11/2015'
         }];
@@ -437,7 +462,7 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
-         $scope.vm.order.historystatus = [{
+        $scope.vm.order.historystatus = [{
           status: 'close',
           datestatus: '10/11/2015'
         }];
