@@ -44,6 +44,21 @@
     vm.customers = [];
     vm.selectCustomer = selectCustomer;
     vm.addHis = addHis;
+    vm.updateDeliver = updateDeliver;
+
+    function updateDeliver() {
+      vm.order.deliverystatus = 'confirmed';
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+
+    }
+
 
     function addHis() {
       vm.order.historystatus.push({
@@ -248,6 +263,9 @@
           district: '',
           tel: '',
           email: ''
+        };
+        vm.order.delivery = {
+          deliveryid: '0'
         };
       } else {
         vm.order.docdate = new Date(vm.order.docdate);

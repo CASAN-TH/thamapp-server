@@ -18,6 +18,8 @@
     vm.statusSent = statusSent;
     vm.statusComplete = statusComplete;
     vm.statusClose = statusClose;
+    vm.readReject = readReject;
+    vm.readAccept = readAccept;
     vm.confirmedOrders = [];
     vm.confirmedPost = [];
     vm.confirmedDeli = [];
@@ -36,6 +38,8 @@
     vm.closeOrders = [];
     vm.closePost = [];
     vm.closeDeli = [];
+    vm.acceptDeli = [];
+    vm.rejectDeli = [];
 
     function init() {
       vm.statusConfirmed();
@@ -44,6 +48,8 @@
       vm.statusSent();
       vm.statusComplete();
       vm.statusClose();
+      vm.readReject();
+      vm.readAccept();
     }
 
     function statusConfirmed() {
@@ -131,6 +137,26 @@
             vm.closePost.push(order);
           } else if (order.delivery.deliveryid === '0' && order.deliverystatus === 'close') {
             vm.closeDeli.push(order);
+          }
+        });
+      });
+    }
+
+    function readAccept() {
+      vm.listAccept = OrdersService.query(function () {
+        angular.forEach(vm.listAccept, function (order) {
+           if (order.delivery.deliveryid === '0' && order.deliverystatus === 'accept') {
+            vm.acceptDeli.push(order);
+          }
+        });
+      });
+    }
+
+    function readReject() {
+       vm.listReject = OrdersService.query(function () {
+        angular.forEach(vm.listReject, function (order) {
+           if (order.delivery.deliveryid === '0' && order.deliverystatus === 'reject') {
+            vm.rejectDeli.push(order);
           }
         });
       });
