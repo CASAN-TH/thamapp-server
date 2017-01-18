@@ -37,6 +37,9 @@
        <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user">
         <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">Me</span></a>
       </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+        <a href="/#/assignlist"><i class="fa fa-file-o"></i> <span class="nav-label">Assign List</span></a>
+      </li>
     </ul>
   </div>
 </nav>

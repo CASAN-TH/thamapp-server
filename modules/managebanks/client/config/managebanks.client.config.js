@@ -13,7 +13,7 @@
       title: 'Managebanks',
       state: 'managebanks',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
