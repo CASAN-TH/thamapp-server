@@ -45,20 +45,10 @@
     vm.selectCustomer = selectCustomer;
     vm.addHis = addHis;
     vm.updateDeliver = updateDeliver;
-    vm.updateInform = updateInform;
-
-    function updateInform(){
-      vm.order.$update(successCallback, errorCallback);
-      function successCallback(res) {
-      }
-
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
-    }
 
     function updateDeliver() {
       vm.order.deliverystatus = 'confirmed';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
 

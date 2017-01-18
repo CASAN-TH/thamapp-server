@@ -18,7 +18,6 @@
       mockCustomer,
       mockHisStatus,
       mockRejectOrder,
-      mockAmount,
       mockOrder;
 
 
@@ -61,12 +60,6 @@
       ShopCartService = _ShopCartService_;
 
       // create mock Order
-      mockAmount = new OrdersService({
-        _id: '525a8422f6d0f87f0e407a33',
-        name: 'Order Name',
-        amount: 30
-      });
-
       mockRejectOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
@@ -316,6 +309,10 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockRejectOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'confirmed',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status updateDeliver()', inject(function (Users) {
 
@@ -325,24 +322,7 @@
         // Run controller functionality
         $scope.vm.updateDeliver();
         expect($scope.vm.order.deliverystatus).toEqual('confirmed');
-        $httpBackend.flush();
-
-      }));
-    });
-
-    describe('vm.updateInform', function () {
-      beforeEach(function () {
-        // Mock Order in $scope
-        $scope.vm.order = mockAmount;
-      });
-      it('vm.status updateInform()', inject(function (Users) {
-
-        // Set PUT response
-        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-
-        // Run controller functionality
-        $scope.vm.updateInform();
-        expect($scope.vm.order.amount).toEqual(30);
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
