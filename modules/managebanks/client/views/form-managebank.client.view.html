@@ -1,0 +1,53 @@
+<section style="min-height:500px; ">
+  <div class="page-header">
+    <h1>{{vm.managebank._id ? 'Edit Managebank' : 'New Managebank'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.managebankForm" class="form-horizontal" ng-submit="vm.save(vm.form.managebankForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Bank Name</label>
+          <input name="bankname" type="text" ng-model="vm.managebank.bankname" id="bankname" class="form-control" placeholder="Bank Name"
+            required>
+          <div ng-messages="vm.form.managebankForm.bankname.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">bankname is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Account Name</label>
+          <input name="accountname" type="text" ng-model="vm.managebank.accountname" id="accountname" class="form-control" placeholder="Account Name"
+            required>
+          <div ng-messages="vm.form.managebankForm.accountname.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">accountname is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Account Number</label>
+          <input name="accountnumber" type="text" ng-model="vm.managebank.accountnumber" id="accountnumber" class="form-control" placeholder="Account Number"
+            required>
+          <div ng-messages="vm.form.managebankForm.accountnumber.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">accountnumber is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="name">Branch</label>
+          <input name="branch" type="text" ng-model="vm.managebank.branch" id="branch" class="form-control" placeholder="Branch"
+            required>
+          <div ng-messages="vm.form.managebankForm.branch.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">branch is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.managebank._id ? 'Update' : 'Create'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>
