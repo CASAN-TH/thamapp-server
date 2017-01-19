@@ -18,7 +18,6 @@
       mockCustomer,
       mockHisStatus,
       mockRejectOrder,
-      mockAmount,
       mockOrder;
 
 
@@ -61,12 +60,6 @@
       ShopCartService = _ShopCartService_;
 
       // create mock Order
-      mockAmount = new OrdersService({
-        _id: '525a8422f6d0f87f0e407a33',
-        name: 'Order Name',
-        amount: 30
-      });
-
       mockRejectOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
@@ -316,6 +309,10 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockRejectOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'confirmed',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status updateDeliver()', inject(function (Users) {
 
@@ -325,24 +322,7 @@
         // Run controller functionality
         $scope.vm.updateDeliver();
         expect($scope.vm.order.deliverystatus).toEqual('confirmed');
-        $httpBackend.flush();
-
-      }));
-    });
-
-    describe('vm.updateInform', function () {
-      beforeEach(function () {
-        // Mock Order in $scope
-        $scope.vm.order = mockAmount;
-      });
-      it('vm.status updateInform()', inject(function (Users) {
-
-        // Set PUT response
-        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
-
-        // Run controller functionality
-        $scope.vm.updateInform();
-        expect($scope.vm.order.amount).toEqual(30);
+        $scope.vm.addHis();
         $httpBackend.flush();
 
       }));
@@ -361,6 +341,24 @@
         $scope.vm.addHis();
 
         expect($scope.vm.order.historystatus[0].status).toEqual('pending');
+      });
+
+
+    });
+
+    describe('vm.addWait', function () {
+
+      beforeEach(function () {
+        $scope.vm.order.historystatus = [{
+          status: 'wait deliver',
+          datestatus: '10/11/2015'
+        }];
+      });
+
+      it('should addWait', function () {
+        $scope.vm.addWait();
+
+        expect($scope.vm.order.historystatus[0].status).toEqual('wait deliver');
       });
 
 
@@ -481,6 +479,51 @@
       }));
     });
 
+    describe('update status acceptOrder', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'accept',
+          datestatus: '10/11/2015'
+        }];
+      });
+      it('vm.status acceptOrder()', inject(function (Users) {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.acceptOrder(true);
+        expect($scope.vm.order.deliverystatus).toEqual('accept');
+        $scope.vm.addHis();
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('update status rejectOrder', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'reject',
+          datestatus: '10/11/2015'
+        }];
+      });
+      it('vm.status rejectOrder()', inject(function (Users) {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.rejectOrder(true);
+        expect($scope.vm.order.deliverystatus).toEqual('reject');
+        expect($scope.vm.order.namedeliver).toEqual(null);
+        $scope.vm.addHis();
+        $httpBackend.flush();
+      }));
+    });
 
     describe('vm.selectProduct', function () {
 
