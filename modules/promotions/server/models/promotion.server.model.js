@@ -10,13 +10,11 @@ var mongoose = require('mongoose'),
  * Promotion Schema
  */
 var PromotionSchema = new Schema({
-  products: [{
-    product: {
-      type: Schema.ObjectId,
-      ref: 'Product',
-      required: 'Please fill Promotion product'
-    }
-  }],
+  product: {
+    type: Schema.ObjectId,
+    ref: 'Product',
+    required: 'Please fill Promotion product'
+  },
   description: {
     type: String,
     required: 'Please fill Promotion productid',
@@ -24,13 +22,13 @@ var PromotionSchema = new Schema({
   },
   condition: Number,
   discount: {
-    fixBath: { 
-      type: Number, 
-      default: 0 
+    fixBath: {
+      type: Number,
+      default: 0
     },
-    percen: { 
-      type: Number, 
-      default: 0 
+    percen: {
+      type: Number,
+      default: 0
     }
   },
   freeitem: {

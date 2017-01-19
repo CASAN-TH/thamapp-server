@@ -54,10 +54,8 @@
       });
       mockPromotion = new PromotionsService({
         _id: '525a8422f6d0f87f0e407a66',
-        products: [{
-          product: mockProduct
-        }],
-        condition : 1,
+        product: mockProduct,
+        condition: 1,
         description: 'test',
         discount: {
           fixBath: 0,
@@ -91,6 +89,24 @@
 
         // Test form inputs are reset
         expect($scope.vm.promotions.length).toEqual(3);
+
+      }));
+
+    });
+
+    describe('get response', function () {
+      var mockPromotionList;
+
+      beforeEach(function () {
+        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
+      });
+
+      it('should send a GET response Promotions', inject(function (PromotionsService) {
+        $httpBackend.expectGET('api/promotions/productid/' + mockProduct._id + '/3').respond(mockPromotionList);
+        $scope.vm.loopCheck();
+        $scope.vm.checkPromotion();
+        $httpBackend.flush();
+        expect($scope.vm.result.promotion.product._id).toEqual(mockPromotionList[0].product._id);
 
       }));
 

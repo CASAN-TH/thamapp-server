@@ -6,6 +6,7 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Promotion = mongoose.model('Promotion'),
+  Order = mongoose.model('Order'),
   express = require(path.resolve('./config/lib/express')),
   Product = mongoose.model('Product');
 
@@ -17,7 +18,9 @@ var app,
   credentials,
   user,
   promotion,
-  product;
+  promotion2,
+  product,
+  order;
 
 /**
  * Promotion routes tests
@@ -57,28 +60,52 @@ describe('Promotion CRUD tests', function () {
       price: 100,
       images: 'img1',
     });
+    order = new Order({
+      items: [{
+        product: product,
+        qty: 2
+      }]
+    });
 
     // Save a user to the test db and create new Promotion
     user.save(function () {
-      promotion = {
-        products: [{
-          product: product
-        }],
-        description: '11111',
-        discount: {
-          fixBath: 50,
-          percen: 10,
-        },
-        freeitem: {
-          product: '',
-          qty: 1,
-          price: 1,
-          amount: 1
-        },
-        expdate: '',
-        status: '11111'
-      };
-      done();
+      order.save(function () {
+        promotion = {
+          product: product,
+          description: '11111',
+          condition: 3,
+          discount: {
+            fixBath: 50,
+            percen: 0,
+          },
+          freeitem: {
+            // product: '',
+            // qty: 1,
+            // price: 1,
+            // amount: 1
+          },
+          expdate: '',
+          status: '11111'
+        };
+        promotion2 = {
+          product: product,
+          description: '11112',
+          condition: 1,
+          discount: {
+            fixBath: 20,
+            percen: 0,
+          },
+          freeitem: {
+            // product: '',
+            // qty: 1,
+            // price: 1,
+            // amount: 1
+          },
+          expdate: '',
+          status: '11112'
+        };
+        done();
+      });
     });
   });
 
@@ -139,7 +166,7 @@ describe('Promotion CRUD tests', function () {
 
   it('should not be able to save an Promotion if no name is provided', function (done) {
     // Invalidate name field
-    promotion.products[0].product = null;
+    promotion.product = null;
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -191,7 +218,7 @@ describe('Promotion CRUD tests', function () {
             }
 
             // Update Promotion name
-            promotion.products[0].product.name = 'WHY YOU GOTTA BE SO MEAN?';
+            promotion.description = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update an existing Promotion
             agent.put('/api/promotions/' + promotionSaveRes.body._id)
@@ -205,7 +232,7 @@ describe('Promotion CRUD tests', function () {
 
                 // Set assertions
                 (promotionUpdateRes.body._id).should.equal(promotionSaveRes.body._id);
-                (promotionUpdateRes.body.products[0].product.name).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (promotionUpdateRes.body.description).should.match('WHY YOU GOTTA BE SO MEAN?');
 
                 // Call the assertion callback
                 done();
@@ -245,7 +272,7 @@ describe('Promotion CRUD tests', function () {
     });
     productObj.save(function (err, product) {
       // Save the Promotion
-      promotionObj.products[0].product = product;
+      promotionObj.product = product;
       // Save the Promotion
       promotionObj.save(function () {
         request(app).get('/api/promotions/' + promotionObj._id)
@@ -447,12 +474,12 @@ describe('Promotion CRUD tests', function () {
   //   });
   //   productObj.save(function (err, product) {
   //     // Save the Promotion
-  //     promotionObj.products[0].product = product;
+  //     promotionObj.product = product;
   //     promotionObj.save(function () {
-  //       request(app).get('/api/promotions/productid/' + product._id)
+  //       request(app).get('/api/promotions/productid/' + product._id + '/3')
   //         .end(function (req, res) {
   //           // Set assertion
-  //           res.body[0].should.be.instanceof(Object).and.have.property('status', '11111');
+  //           res.body.promotion.should.be.instanceof(Object).and.have.property('description', promotion.description);
   //           // Call the assertion callback
   //           done();
   //         });
@@ -460,6 +487,204 @@ describe('Promotion CRUD tests', function () {
   //   });
 
   // });
+
+  // it('should be able to save a Promotion and qty is 2', function (done) {
+  //   var promotionObj = new Promotion(promotion);
+  //   var productObj = new Product({
+  //     name: 'Product Name',
+  //     description: 'Product Description',
+  //     category: 'Product Category',
+  //     price: 100,
+  //     images: 'img1',
+  //   });
+  //   productObj.save(function (err, product) {
+  //     // Save the Promotion
+  //     promotionObj.product = product;
+  //     promotionObj.save(function () {
+  //       request(app).get('/api/promotions/productid/' + product._id + '/2')
+  //         .end(function (req, res) {
+  //           // Set assertion
+  //           (res.body).should.match({});
+  //           // Call the assertion callback
+  //           done();
+  //         });
+  //     });
+  //   });
+
+  // });
+
+  // it('should be able to save a Promotion and qty is 5', function (done) {
+  //   var promotionObj = new Promotion(promotion);
+  //   var productObj = new Product({
+  //     name: 'Product Name',
+  //     description: 'Product Description',
+  //     category: 'Product Category',
+  //     price: 100,
+  //     images: 'img1',
+  //   });
+  //   productObj.save(function (err, product) {
+  //     // Save the Promotion
+  //     promotionObj.product = product;
+  //     promotionObj.save(function () {
+  //       request(app).get('/api/promotions/productid/' + product._id + '/5')
+  //         .end(function (req, res) {
+  //           // Set assertion
+  //           (res.body.freeitemunit).should.match(1);
+  //           (res.body.total).should.match(50);
+  //           // Call the assertion callback
+  //           done();
+  //         });
+  //     });
+  //   });
+
+  // });
+
+  // it('should be able to save a Promotion and qty is 7', function (done) {
+  //   var promotionObj = new Promotion(promotion);
+  //   var productObj = new Product({
+  //     name: 'Product Name',
+  //     description: 'Product Description',
+  //     category: 'Product Category',
+  //     price: 100,
+  //     images: 'img1',
+  //   });
+  //   productObj.save(function (err, product) {
+  //     // Save the Promotion
+  //     promotionObj.product = product;
+  //     promotionObj.save(function () {
+  //       request(app).get('/api/promotions/productid/' + product._id + '/7')
+  //         .end(function (req, res) {
+  //           // Set assertion
+  //           (res.body.freeitemunit).should.match(2);
+  //           (res.body.total).should.match(100);
+  //           // Call the assertion callback
+  //           done();
+  //         });
+  //     });
+  //   });
+
+  // });
+
+  it('should be able to have 3 a Promotion and get response', function (done) {
+    var promotionObj = new Promotion(promotion);
+    var promotionObj2 = new Promotion(promotion2);
+    var productObj = new Product({
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
+    productObj.save(function (err, product) {
+      // Save the Promotion
+      promotionObj.product = product;
+      promotionObj2.product = product;
+      promotionObj2.save();
+      promotionObj.save(function () {
+        request(app).get('/api/promotions/productid/' + product._id + '/3')
+          .end(function (req, res) {
+            // Set assertion
+            // (res.body.freeitemunit).should.match(1);
+
+            (res.body.total).should.match(110);
+            // Call the assertion callback
+            done();
+          });
+      });
+    });
+
+  });
+
+  it('should be able to have 2 a Promotion and get response', function (done) {
+    var promotionObj = new Promotion(promotion);
+    var promotionObj2 = new Promotion(promotion2);
+    var productObj = new Product({
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
+    productObj.save(function (err, product) {
+      // Save the Promotion
+      promotionObj.product = product;
+      promotionObj2.product = product;
+      promotionObj2.save();
+      promotionObj.save(function () {
+        request(app).get('/api/promotions/productid/' + product._id + '/2')
+          .end(function (req, res) {
+            // Set assertion
+            // (res.body.freeitemunit).should.match(1);
+
+            (res.body.total).should.match(40);
+            // Call the assertion callback
+            done();
+          });
+      });
+    });
+
+  });
+
+  it('should be able to have 5 a Promotion and get response', function (done) {
+    var promotionObj = new Promotion(promotion);
+    var promotionObj2 = new Promotion(promotion2);
+    var productObj = new Product({
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
+    productObj.save(function (err, product) {
+      // Save the Promotion
+      promotionObj.product = product;
+      promotionObj2.product = product;
+      promotionObj2.save();
+      promotionObj.save(function () {
+        request(app).get('/api/promotions/productid/' + product._id + '/5')
+          .end(function (req, res) {
+            // Set assertion
+            // (res.body.freeitemunit).should.match(1);
+
+            (res.body.total).should.match(150);
+            // Call the assertion callback
+            done();
+          });
+      });
+    });
+
+  });
+
+  it('should be able to have 6 a Promotion and get response', function (done) {
+    var promotionObj = new Promotion(promotion);
+    var promotionObj2 = new Promotion(promotion2);
+    var productObj = new Product({
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
+    productObj.save(function (err, product) {
+      // Save the Promotion
+      promotionObj.product = product;
+      promotionObj2.product = product;
+      promotionObj2.save();
+      promotionObj.save(function () {
+        request(app).get('/api/promotions/productid/' + product._id + '/6')
+          .end(function (req, res) {
+            // Set assertion
+            // (res.body.freeitemunit).should.match(1);
+
+            (res.body.total).should.match(220);
+            // Call the assertion callback
+            done();
+          });
+      });
+    });
+
+  });
+
 
   afterEach(function (done) {
     User.remove().exec(function () {

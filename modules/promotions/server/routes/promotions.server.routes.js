@@ -17,10 +17,14 @@ module.exports = function (app) {
     .put(promotions.update)
     .delete(promotions.delete);
 
-  // app.route('/api/promotions/productid/:_id')
-  //   .get(promotions.readProductById);
+  app.route('/api/promotions/productid/:_id/:qty')
+    .get(promotions.readProductById);
 
   // Finish by binding the Promotion middleware
   app.param('promotionId', promotions.promotionByID);
-  // app.param('_id', promotions.promotionByProductID);
+  app.param('_id', promotions.promotionByProductID);
+  app.param('qty', function (req, res, next, qty) {
+    req.qty = qty;
+    next();
+  });
 };

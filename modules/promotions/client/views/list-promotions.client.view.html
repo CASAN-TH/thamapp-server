@@ -39,9 +39,9 @@
   </div>
   <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="promotion in vm.promotions">
     <div class="col-md-12">
-      <div class="row form-group" ng-repeat="item in promotion.products">
+      <div class="row form-group">
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="item.product.name"></p>
+          <p class="list-group-item-heading" ng-bind="promotion.product.name"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="promotion.description"></p>
@@ -67,9 +67,9 @@
   <!--ng-click="vm.cliketoview(promotion)"-->
   <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="promotion in vm.promotions">
     <div class="col-md-12">
-      <div class="list-group" ng-repeat="item in promotion.products">
+      <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
-          <label>Product Id : </label> <label class="list-group-item-heading" ng-bind="item.product.name"></label><br>
+          <label>Product Id : </label> <label class="list-group-item-heading" ng-bind="promotion.product.name"></label><br>
           <label>Description : </label> <label class="list-group-item-heading" ng-bind="promotion.description"></label><br>
           <label>Discount ($) : </label> <label class="list-group-item-heading" ng-bind="promotion.discount.fixbath"></label><br>
           <label>Discount (%) : </label> <label class="list-group-item-heading" ng-bind="promotion.discount.percen"></label><br>
