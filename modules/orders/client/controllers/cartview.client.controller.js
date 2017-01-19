@@ -18,7 +18,6 @@
     vm.cart = ShopCartService.cart;
     vm.Promotion = Promotion;
     vm.promotions = [];
-    vm.loopCheck = loopCheck;
     vm.checkPromotion = checkPromotion;
     function Promotion() {
       PromotionsService.query(function (data) {
@@ -27,21 +26,14 @@
         });
       });
       // vm.promotions = vm.promotion.resolve();
-
-
     }
-    function checkPromotion(_id, qty) {
-      $http.get('api/promotions/productid/' + _id + '/' + qty).success(function (response) {
+    
+    function checkPromotion(product, qty) {
+      $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
         vm.result = response;
       }).error(function (err) {
         console.log(err);
       });
-    }
-
-    function loopCheck() {
-      for (var i = 0; i > vm.cart.items.length; i++) {
-        vm.checkPromotion(vm.cart.items[i].product._id, vm.cart.items[i].qty);
-      }
     }
 
 
