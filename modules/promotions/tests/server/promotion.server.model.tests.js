@@ -23,14 +23,14 @@ var user,
 describe('Promotion Model Unit Tests:', function () {
   beforeEach(function (done) {
 
-     product = new Product({
-        name: 'Product Name',
-        description: 'Product Description',
-        category: 'Product Category',
-        price: 100,
-        images:'img1',
-      });
-    
+    product = new Product({
+      name: 'Product Name',
+      description: 'Product Description',
+      category: 'Product Category',
+      price: 100,
+      images: 'img1',
+    });
+
     // product.save(function () {
     //   done();
     // });
@@ -44,9 +44,7 @@ describe('Promotion Model Unit Tests:', function () {
     });
     user.save(function () {
       promotion = new Promotion({
-        products:[{
-          product : product
-        }],
+        product: product,
         description: '11111',
         discount: {
           fixBath: 50,
@@ -64,9 +62,7 @@ describe('Promotion Model Unit Tests:', function () {
       });
 
       promotion2 = new Promotion({
-        products:[{
-          product : product
-        }],
+        product: product,
         description: '11111',
         discount: {
           fixBath: 50,
@@ -97,7 +93,7 @@ describe('Promotion Model Unit Tests:', function () {
     });
 
     it('should be able to show an error when try to save without products', function (done) {
-      promotion.products[0].product = null;
+      promotion.product = null;
 
       return promotion.save(function (err) {
         should.exist(err);

@@ -23,6 +23,7 @@
     $scope.postcodedata = {};
     $scope.products = product;
     $scope.newAddress = { status: false };
+    $scope.authentication.address = {};
     function product() {
 
     }
@@ -54,7 +55,6 @@
     };
 
     $scope.signup = function (isValid) {
-      $scope.authentication.address = {};
       $scope.authentication.password = 'Usr#Pass1234';
       $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
       $scope.authentication.address.tel = $scope.authentication.username;
@@ -148,10 +148,10 @@
       vm.order.shipping.email = $scope.authentication.user.email;
 
       //////status/////
-       vm.order.historystatus = [{
-          status: 'confirmed',
-          datestatus: new Date()
-        }];
+      vm.order.historystatus = [{
+        status: 'confirmed',
+        datestatus: new Date()
+      }];
 
       if ($scope.newAddress.status === false) {
         vm.order.shipping.firstname = $scope.authentication.user.firstName;
@@ -210,9 +210,9 @@
       }
     };
     // $scope.postcode = [{ name: 'test' }];
-    
 
-    $scope.init = function() {
+
+    $scope.init = function () {
       $scope.postcodeQuery = PostcodesService.query();
       $scope.postcode = $scope.postcodeQuery;
     };
