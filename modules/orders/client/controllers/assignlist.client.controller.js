@@ -76,7 +76,7 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-
+        location.reload();
       }
 
       function errorCallback(res) {
@@ -95,7 +95,7 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-
+        location.reload();
       }
 
       function errorCallback(res) {
@@ -109,7 +109,7 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-
+        location.reload();
       }
 
       function errorCallback(res) {
