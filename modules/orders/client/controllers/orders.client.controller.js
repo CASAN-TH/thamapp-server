@@ -50,7 +50,7 @@
     vm.addWait = addWait;
 
     function updateDeliver() {
-      vm.order.deliverystatus = 'confirmed';
+      vm.order.deliverystatus = 'wait deliver';
       vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
