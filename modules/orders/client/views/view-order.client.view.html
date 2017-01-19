@@ -79,6 +79,12 @@
             </div>
             <div class="row">
               <div class="col-xs-10 textRight" ng-show="vm.order.amount > 0">
+                <strong>Discount</strong>
+              </div>
+              <div class="col-xs-2">
+                {{vm.order.discount | number:2}}
+              </div>
+              <div class="col-xs-10 textRight" ng-show="vm.order.amount > 0">
                 <strong>Amount</strong>
               </div>
               <div class="col-xs-2">
