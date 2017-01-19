@@ -1,4 +1,4 @@
-<section ng-init="vm.Promotion();">
+<section ng-init="vm.initPromotion()">
   <div class="page-header">
     <h1>Cart</h1>
   </div>
@@ -23,6 +23,9 @@
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 padding-10px">
               <h4>{{itm.product.description}}</h4>
+              <div ng-repeat="promotion in vm.promotions">
+                <h5 ng-if="itm.product._id === promotion.product._id">{{promotion.description}}</h5>
+              </div>
             </div>
           </div>
         </div>
@@ -63,6 +66,7 @@
         </div>
       </div>
       <!--โปรโมชั่น-->
+      {{vm.result}}
       <!--<div>
         <p>ส่วนลดเงินสด {{discountBathTotal}} บาท</p>
       </div>

@@ -116,6 +116,7 @@
 
       it('should send a GET response Promotions', inject(function (PromotionsService) {
         $httpBackend.expectGET('api/promotions/productid/' + mockProduct._id + '/3').respond(mockResDiscount);
+        $scope.vm.initPromotion();
         $scope.vm.checkPromotion(mockProduct, 3);
         $httpBackend.flush();
         expect($scope.vm.result.total).toEqual(110);
