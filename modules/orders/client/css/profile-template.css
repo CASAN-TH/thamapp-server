@@ -12,6 +12,13 @@ body
 .fb-profile img.fb-image-lg{
     z-index: 0;
     width: 100%;
+    height: 315px;  
+    margin-bottom: 10px;
+}
+
+.fb-profile1 img.fb-image-lg{
+    z-index: 0;
+    width: 100%;
     height: 100%;  
     margin-bottom: 10px;
 }
@@ -20,8 +27,18 @@ body
 {
     margin:-160px 10px 0px 50px;
     z-index: 9;
-    width: 20%; 
+      width: 180px;
+    height: 180px;  
 }
+.fb-image-profile1
+{
+    margin:-45px 10px 0px 25px;
+    z-index: 9;
+      width: 80px;
+    height: 80px;  
+}
+
+
 
 @media (max-width:768px)
 {
@@ -31,12 +48,19 @@ body
     font-size:16px;
 }
 
+.fb-profile-text1>h1{
+    font-weight: 500;
+    font-size:14px;
+}
+
 .fb-image-profile
 {
     margin: -45px 10px 0px 25px;
     z-index: 9;
     width: 20%; 
 }
+
+
 
 
 .color-tab-active{
@@ -127,6 +151,8 @@ ul.nav-tabs>li.active>a:after {
   
   
 }
+
+
 
 
 
