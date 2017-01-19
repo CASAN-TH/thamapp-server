@@ -16,9 +16,9 @@ body
     margin-bottom: 10px;
 }
 
-.fb-profile1 img.fb-image-lg{
+.fb-profile1 img.fb-image-lg1{
     z-index: 0;
-    width: 100%;
+   width: 100%;
     height: 100%;  
     margin-bottom: 10px;
 }
@@ -50,7 +50,7 @@ body
 
 .fb-profile-text1>h1{
     font-weight: 500;
-    font-size:14px;
+    font-size:12px;
 }
 
 .fb-image-profile

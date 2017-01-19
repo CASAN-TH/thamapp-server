@@ -1,9 +1,16 @@
 <section>
   <div ng-show="authentication.user">
-    <div class="fb-profile">
+    <div class="fb-profile hidden-xs show-sm show-md show-lg">
       <img align="left" class="fb-image-lg" src="modules/users/client/img/profile/spals23.jpg" alt="Profile image example" />
       <img align="left" class="fb-image-profile thumbnail" src="{{authentication.user.profileImageURL}}" alt="Profile image example"/>
       <div class="fb-profile-text">
+        <h1> {{authentication.user.displayName}}</h1>
+      </div>
+    </div>
+     <div class="fb-profile1 show-xs hidden-sm hidden-md hidden-lg">
+      <img align="left" class="fb-image-lg1" src="modules/users/client/img/profile/spals23.jpg" alt="Profile image example" />
+      <img align="left" class="fb-image-profile1 thumbnail" src="{{authentication.user.profileImageURL}}" alt="Profile image example"/>
+      <div class="fb-profile-text1">
         <h1> {{authentication.user.displayName}}</h1>
       </div>
     </div>
