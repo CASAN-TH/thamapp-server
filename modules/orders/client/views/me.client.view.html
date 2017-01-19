@@ -1,9 +1,16 @@
 <section>
   <div ng-show="authentication.user">
-    <div class="fb-profile">
+    <div class="fb-profile page-header hidden-xs show-sm show-md show-lg">
       <img align="left" class="fb-image-lg" src="modules/users/client/img/profile/spals23.jpg" alt="Profile image example" />
       <img align="left" class="fb-image-profile thumbnail" src="{{authentication.user.profileImageURL}}" alt="Profile image example"/>
       <div class="fb-profile-text">
+        <h1> {{authentication.user.displayName}}</h1>
+      </div>
+    </div>
+      <div class="fb-profile1 page-header show-xs hidden-sm hidden-md hidden-lg">
+      <img align="left" class="fb-image-lg" src="modules/users/client/img/profile/spals23.jpg" alt="Profile image example" />
+      <img align="left" class="fb-image-profile1 thumbnail" src="{{authentication.user.profileImageURL}}" alt="Profile image example"/>
+      <div class="fb-profile-text1">
         <h1> {{authentication.user.displayName}}</h1>
       </div>
     </div>
@@ -26,7 +33,7 @@
       <div class="panel panel-default">
         <div class="panel-heading" ng-click="checked = !checked">
           <h4 class="panel-title">
-            <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his.docno}}" aria-expanded="true">
+            <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his.docno}}" aria-expanded="false">
               <div class="col-sm-4 col-md-4">
                 <div role="button" aria-controls="collapseOne">
                   <div class="front_profile-color2 margin-bottom-10">
@@ -35,13 +42,13 @@
 
                   <div class="row" ng-show="his.delivery.deliveryid === '0'">
                     <div class="col-sm-12 col-md-12 ">
-                      <strong> การจัดส่ง :</strong> ส่งไปรษณีย์
+                      <strong> การจัดส่ง :</strong> <label class="front_profile-color">ส่งไปรษณีย์</label>
                     </div>
                   </div>
 
                   <div class="row" ng-show="his.delivery.deliveryid === '1'">
                     <div class="col-sm-12 col-md-12 ">
-                      <strong>การจัดส่ง :</strong> คนส่งข้าว
+                      <strong>การจัดส่ง :</strong> <label class="front_profile-color">คนส่งข้าว</label>
                     </div>
                   </div>
                 </div>
@@ -49,14 +56,14 @@
               <div class="col-sm-3 col-md-3">
               </div>
               <div class="col-sm-4 col-md-4 ">
-                <div class="front_profile-color1 margin-bottom-10">
+                <div class="front_profile-color1 margin-bottom-10 ">
                   <strong> สั่งเมื่อวันที่ </strong> {{his.docdate | date}}
                 </div>
                 <div class="front_profile-color1">
                   <p><strong>ราคาสุทธิ</strong> {{his.amount}} บาท </p>
                 </div>
               </div>
-              <div class="col-sm-2 col-md-1">
+              <div class="col-sm-1 col-md-1">
                 <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
                 <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
               </div>
@@ -218,7 +225,7 @@
         <div id="{{his._id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
           <div class="row ">
             <div class="col-xs-12 text-center front_profile-color2 slide-left-top1">
-              <p>คุณจะได้รับสินค้าภายใน7วันนับจากวันที่สั่งซื้อ</p>
+              <p>คุณจะได้รับสินค้าภายใน7วันนับจากวันที่สั่งซื้อ </p>
             </div>
           </div>
           <!--status-->

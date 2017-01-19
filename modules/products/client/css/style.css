@@ -250,5 +250,28 @@ text-overflow: ellipsis;
     margin-left: 50px;
 }
 
+/*me detail data*/
+.margin-text-me-right-10{
+margin-right: 10px;
+
+}
+
+.margin-text-me-right-20{
+  margin-right: 20px;
+}
+
+.margin-text-me-right-30{
+  margin-right: 30px;
+}
+
+.margin-text-me-left-10{
+  margin-left: 10px;
+}
+.margin-text-me-left-20{
+    margin-left: 10px;
+}
+.margin-text-me-left-30{
+    margin-left: 10px;
+}
 
 
