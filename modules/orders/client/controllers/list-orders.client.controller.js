@@ -60,7 +60,7 @@
           }
           if (order.delivery.deliveryid === '1' && order.deliverystatus === 'confirmed') {
             vm.confirmedPost.push(order);
-          } else if (order.delivery.deliveryid === '0' && order.deliverystatus === 'confirmed') {
+          } else if (order.delivery.deliveryid === '0' && order.deliverystatus === 'confirmed' || order.deliverystatus === 'wait deliver') {
             vm.confirmedDeli.push(order);
           }
         });

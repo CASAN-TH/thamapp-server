@@ -149,12 +149,12 @@
                         </div>
                     </div>
                     <div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
-                        <div class="col-xs-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject'">
+                        <div class="col-xs-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'reject'">
                             <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
                     </div>
                     <div class="row form-group  hidden-xs show-sm show-md show-lg">
-                        <div class="col-sm-12 col-md-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject'">
+                        <div class="col-sm-12 col-md-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'reject'">
                             <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                     <button type="text" class="btn buttonGreenForm btn-block">สถานะ : สั่งจอง</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'wait deliver'">
-                    <button type="text" class="btn btn-default btn-block">สถานะ : รอคนส่งข้าว</button>
+                    <button type="text" class="btn buttonGrayForm btn-block">สถานะ : รอคนส่งข้าว</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'sent'">
                     <button type="text" class="btn buttonBlackForm btn-block">สถานะ : จัดส่ง</button>

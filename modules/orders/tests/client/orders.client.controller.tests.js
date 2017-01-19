@@ -377,6 +377,38 @@
 
     });
 
+    describe('status updateWaitStatus', function () {
+
+      it('vm.status updateWaitStatus()', inject(function () {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.updateWaitStatus(true);
+
+        if ($scope.vm.order._id) {
+          if ($scope.vm.order.namedeliver && ($scope.vm.order.deliverystatus === 'confirmed')) {
+            if ($scope.vm.order.deliverystatus === 'wait deliver') {
+
+            } else {
+              $scope.vm.order.deliverystatus = 'wait deliver';
+              $scope.vm.addHis();
+            }
+          }
+        } else if (!$scope.vm.order._id) {
+          if ($scope.vm.order.namedeliver) {
+            if ($scope.vm.order.deliverystatus === 'wait deliver') {
+
+            } else {
+              $scope.vm.order.deliverystatus = 'wait deliver';
+              $scope.vm.addHis();
+            }
+          }
+        }
+      }));
+    });
+
     describe('update status pending', function () {
       beforeEach(function () {
         // Mock Order in $scope
