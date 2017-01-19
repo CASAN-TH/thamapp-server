@@ -346,6 +346,24 @@
 
     });
 
+    describe('vm.addWait', function () {
+
+      beforeEach(function () {
+        $scope.vm.order.historystatus = [{
+          status: 'wait deliver',
+          datestatus: '10/11/2015'
+        }];
+      });
+
+      it('should addWait', function () {
+        $scope.vm.addWait();
+
+        expect($scope.vm.order.historystatus[0].status).toEqual('wait deliver');
+      });
+
+
+    });
+
     describe('update status pending', function () {
       beforeEach(function () {
         // Mock Order in $scope
@@ -461,6 +479,51 @@
       }));
     });
 
+    describe('update status acceptOrder', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'accept',
+          datestatus: '10/11/2015'
+        }];
+      });
+      it('vm.status acceptOrder()', inject(function (Users) {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.acceptOrder(true);
+        expect($scope.vm.order.deliverystatus).toEqual('accept');
+        $scope.vm.addHis();
+        $httpBackend.flush();
+
+      }));
+    });
+
+    describe('update status rejectOrder', function () {
+      beforeEach(function () {
+        // Mock Order in $scope
+        $scope.vm.order = mockOrder;
+        $scope.vm.order.historystatus = [{
+          status: 'reject',
+          datestatus: '10/11/2015'
+        }];
+      });
+      it('vm.status rejectOrder()', inject(function (Users) {
+
+        // Set PUT response
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+
+        // Run controller functionality
+        $scope.vm.rejectOrder(true);
+        expect($scope.vm.order.deliverystatus).toEqual('reject');
+        expect($scope.vm.order.namedeliver).toEqual(null);
+        $scope.vm.addHis();
+        $httpBackend.flush();
+      }));
+    });
 
     describe('vm.selectProduct', function () {
 

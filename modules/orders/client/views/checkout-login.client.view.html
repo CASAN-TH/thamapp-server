@@ -233,6 +233,7 @@
               <label for="">{{authentication.user.displayName}}</label>
             </div>
             <div class="row">
+              <!--{{authentication}}-->
               <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
               <span>{{authentication.user.address.address}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
             </div>
@@ -429,7 +430,7 @@
         </div>
         <div class="row border-bottom min-height-50" ng-repeat="item in vm.cart.items">
           <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-right">{{item.qty}}</div>
+          <div class="col-xs-3 col-sm-3 col-md-3 text-center">{{item.qty}}</div>
           <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.qty * item.price}}</div>
         </div>
 

@@ -40,9 +40,7 @@
       }
     }
     function productChanged(selectedProduct) {
-      vm.promotion.products = [{
-        product: selectedProduct
-      }];
+      vm.promotion.product = selectedProduct;
     }
 
     function freeProductChanged(selectedFreeProduct) {

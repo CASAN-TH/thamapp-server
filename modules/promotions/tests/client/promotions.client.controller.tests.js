@@ -60,9 +60,7 @@
       // create mock Promotion
       mockPromotion = new PromotionsService({
         _id: '525a8422f6d0f87f0e407a33',
-        products: [{
-          product: product
-        }]
+        product: product
       });
 
       // Mock logged in user
@@ -94,9 +92,7 @@
         });
         // Create a sample Promotion object
         samplePromotionPostData = new PromotionsService({
-          products: [{
-            product: product
-          }]
+          product: product
         });
 
         $scope.vm.promotion = samplePromotionPostData;
@@ -211,7 +207,7 @@
 
       it('should select product item', function () {
         $scope.vm.productChanged(product);
-        expect($scope.vm.promotion.products.length).toEqual(1);
+        expect($scope.vm.promotion.product).toEqual(product);
       });
 
       it('should select free product item', function () {
