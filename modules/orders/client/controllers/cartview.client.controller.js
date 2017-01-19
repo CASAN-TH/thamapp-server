@@ -33,21 +33,18 @@
       var product = {};
       var qty = 0;
       vm.cart.items.forEach(function (item) {
-        for (var i = 0; i < vm.promotions.length; i++) {
-          if (vm.promotions[i].product._id.toString() === item.product._id.toString()) {
-            product = item.product;
-            qty = item.qty;
-            vm.checkPromotion(product, qty);
-          }
-        }
+        product = item.product;
+        qty = item.qty;
+        vm.checkPromotion(product, qty);
       });
     }
 
 
 
     function checkPromotion(product, qty) {
+      vm.result = 0;
       $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
-        vm.result = response;
+        vm.result += response.total;
       }).error(function (err) {
         console.log(err);
       });

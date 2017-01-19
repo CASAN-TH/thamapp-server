@@ -166,6 +166,7 @@ exports.readProductById = function (req, res) {
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   var sum = 0;
   var resultQty = 0;
+  var total = 0;
   promotions.forEach(function (promotion) {
     // console.log(promotion);
     // promotion.isCurrentUserOwner = req.user && promotion.user && promotion.user._id.toString() === req.user._id.toString();
@@ -179,7 +180,7 @@ exports.readProductById = function (req, res) {
       if (promotion.discount.fixBath > 0) {
         sum += (promotion.discount.fixBath || 0) * resultQty;
         //res.jsonp({ promotion: promotion, freeitemunit: resultQty, total: sum });
-      } 
+      }
       if (promotion.discount.percen > 0) {
         var checkQty = promotion.condition * resultQty;
         var checkAmount = (promotion.product.price || 0) * checkQty;
@@ -190,7 +191,7 @@ exports.readProductById = function (req, res) {
     } else {
       //res.jsonp({});
     }
-
+    
   });
 
   res.jsonp({ promotions: promotions, freeitemunit: resultQty, total: sum });

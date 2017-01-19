@@ -119,7 +119,7 @@
         $scope.vm.initPromotion();
         $scope.vm.checkPromotion(mockProduct, 3);
         $httpBackend.flush();
-        expect($scope.vm.result.total).toEqual(110);
+        expect($scope.vm.result).toEqual(110);
       }));
 
     });

@@ -1,4 +1,4 @@
-<section ng-init="vm.initPromotion()">
+<section ng-init="vm.Promotion(); vm.initPromotion();">
   <div class="page-header">
     <h1>Cart</h1>
   </div>
@@ -34,11 +34,11 @@
         </div>
         <div class="col-xs-4 col-sm-2 col-md-2 padding-10px">
           <h4>
-            <a ng-click="vm.cart.add(itm.product)">
+            <a ng-click="vm.cart.add(itm.product); vm.initPromotion();">
               <span class="fa fa-plus" aria-hidden="true"></span>
             </a>
             {{itm.qty}}
-            <a ng-click="vm.cart.remove(itm.product)">
+            <a ng-click="vm.cart.remove(itm.product); vm.initPromotion();">
               <span class="fa fa-minus" aria-hidden="true"></span>
             </a>
           </h4>
@@ -66,7 +66,9 @@
         </div>
       </div>
       <!--โปรโมชั่น-->
-      {{vm.result}}
+      <div>
+        <p>ส่วนลด: {{vm.result}} บาท</p>
+      </div>
       <!--<div>
         <p>ส่วนลดเงินสด {{discountBathTotal}} บาท</p>
       </div>
