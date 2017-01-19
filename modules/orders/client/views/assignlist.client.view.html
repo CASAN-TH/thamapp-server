@@ -65,10 +65,10 @@
                         <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonGreenForm"><span class="glyphicon glyphicon-check"></span></button>
+                        <button type="button" class="btn buttonGreenForm"  ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonRedForm"><span class="glyphicon glyphicon-trash"></span></button>
+                        <button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>
                       </div>
                     </div>
                   </div>
@@ -123,8 +123,8 @@
                         <span ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'confirmed'">ไปรษณีย์</span>
                         <span ng-show="order.delivery.deliveryid === '0' && order.deliverystatus === 'confirmed'">คนส่งข้าว</span>
                       </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <p class="list-group-item-heading">-</p>
+                     <div class="col-xs-1 col-sm-1 col-md-1">
+                        <button type="button" class="btn btn-info"  ng-click="vm.complete(order)"><span class="glyphicon glyphicon-check"></span></button>
                       </div>
                     </div>
                   </div>
