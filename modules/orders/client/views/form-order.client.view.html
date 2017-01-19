@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="vm.order.delivery.deliveryid === '0' && (vm.order.deliverystatus =='confirmed' || vm.order.deliverystatus =='accept' || vm.order.deliverystatus =='reject')">
+                        <!--<div class="row" ng-show="vm.order.delivery.deliveryid === '0' && (vm.order.deliverystatus =='confirmed' || vm.order.deliverystatus =='accept' || vm.order.deliverystatus =='reject')">
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">สถานะ</label>
@@ -236,7 +236,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row ">
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
@@ -278,7 +278,7 @@
                         </div>
                         <div class="row form-group" ng-show="vm.order.deliverystatus != 'reject'">
                             <div class="col-md-4 form-group">
-                                <button type="submit" class="btn btn-default btn-block">{{vm.order._id ? 'ฺBack To Order' : 'Save Order'}}</button>
+                                <button type="submit" class="btn btn-default btn-block">{{vm.order._id ? 'ฺUpdate' : 'Save Order'}}</button>
                             </div>
                         </div>
                     </div>

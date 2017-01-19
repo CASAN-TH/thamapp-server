@@ -310,7 +310,7 @@
         // Mock Order in $scope
         $scope.vm.order = mockRejectOrder;
         $scope.vm.order.historystatus = [{
-          status: 'confirmed',
+          status: 'wait deliver',
           datestatus: '10/11/2015'
         }];
       });
@@ -321,7 +321,7 @@
 
         // Run controller functionality
         $scope.vm.updateDeliver();
-        expect($scope.vm.order.deliverystatus).toEqual('confirmed');
+        expect($scope.vm.order.deliverystatus).toEqual('wait deliver');
         $scope.vm.addHis();
         $httpBackend.flush();
 
