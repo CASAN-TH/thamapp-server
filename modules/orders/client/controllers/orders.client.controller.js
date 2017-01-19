@@ -45,9 +45,13 @@
     vm.selectCustomer = selectCustomer;
     vm.addHis = addHis;
     vm.updateDeliver = updateDeliver;
+    vm.acceptOrder = acceptOrder;
+    vm.rejectOrder = rejectOrder;
+    vm.addWait = addWait;
 
     function updateDeliver() {
       vm.order.deliverystatus = 'confirmed';
+      vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
 
@@ -63,6 +67,13 @@
     function addHis() {
       vm.order.historystatus.push({
         status: vm.order.deliverystatus,
+        datestatus: new Date()
+      });
+    }
+
+    function addWait() {
+      vm.order.historystatus.push({
+        status: 'wait deliver',
         datestatus: new Date()
       });
     }
@@ -123,6 +134,34 @@
     function closeOrder(isValid) {
       vm.order.deliverystatus = 'close';
       vm.addHis();
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function acceptOrder(isValid) {
+      vm.order.deliverystatus = 'accept';
+      vm.addHis();
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function rejectOrder(isValid) {
+      vm.order.deliverystatus = 'reject';
+      vm.order.namedeliver = null;
+      vm.addHis();
+      vm.addWait();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
 

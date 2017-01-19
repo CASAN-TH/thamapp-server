@@ -149,12 +149,12 @@
                         </div>
                     </div>
                     <div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
-                        <div class="col-xs-12" ng-show="vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject'">
+                        <div class="col-xs-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject'">
                             <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
                     </div>
                     <div class="row form-group  hidden-xs show-sm show-md show-lg">
-                        <div class="col-sm-12 col-md-12" ng-show="vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject'">
+                        <div class="col-sm-12 col-md-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject'">
                             <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
                     </div>
@@ -162,12 +162,12 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ประเภทการส่ง</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
                                         <select ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
@@ -182,12 +182,12 @@
                         </div>
 
                         <div class="row" ng-show="vm.order.delivery.deliveryid === '1'">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ค่าส่งไปรษณีย์</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
                                         <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
@@ -198,12 +198,12 @@
                             </div>
                         </div>
                         <div class="row" ng-show="vm.order.delivery.deliveryid === '0'">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">คนส่งข้าว</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
                                         <select ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
@@ -213,13 +213,37 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" ng-show="vm.order.delivery.deliveryid === '0' && (vm.order.deliverystatus =='confirmed' || vm.order.deliverystatus =='accept' || vm.order.deliverystatus =='reject')">
+                            <div class="col-md-7">
+                                <div class="col-md-12 ">
+                                    <label class="control-label">สถานะ</label>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="row ">
+
+                                    <div class="col-xs-12 input-group input-group-sm">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <span><input ng-disabled="!vm.order.namedeliver" type="radio" name="statusorder" value="accept" ng-model="vm.order.deliverystatus"
+                                                        ng-change="vm.acceptOrder($valid)"> Accept</span>
+                                            </div>
+                                            <div class="col-md-6" ng-hide="vm.order.deliverystatus =='accept'">
+                                                <span><input ng-disabled="!vm.order.namedeliver" type="radio" name="statusorder" value="reject"
+                                                        ng-model="vm.order.deliverystatus" ng-change="vm.rejectOrder($valid)"> Reject</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row ">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ส่วนลด</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
                                         <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
@@ -230,12 +254,12 @@
                             </div>
                         </div>
                         <div class="row ">
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">รวมสุทธิ</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
                                         <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
@@ -319,6 +343,9 @@
 
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'confirmed'">
                     <button type="text" class="btn buttonGreenForm btn-block">สถานะ : สั่งจอง</button>
+                </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'wait deliver'">
+                    <button type="text" class="btn btn-default btn-block">สถานะ : รอคนส่งข้าว</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'sent'">
                     <button type="text" class="btn buttonBlackForm btn-block">สถานะ : จัดส่ง</button>
@@ -675,6 +702,7 @@
                                 <i ng-show="status.status === 'accept'" class="fa fa-check-circle-o fa-2x fontSky" aria-hidden="true"></i>
                                 <i ng-show="status.status === 'reject'" class="fa fa-ban fa-2x fontRed" aria-hidden="true"></i>
                                 <i ng-show="status.status === 'close'" class="fa fa-smile-o fa-2x fontPink" aria-hidden="true"></i>
+                                <i ng-show="status.status === 'wait deliver'" class="fa fa-clock-o fa-2x fontBrown" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="col-md-9">

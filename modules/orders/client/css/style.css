@@ -120,6 +120,9 @@ text-align : center;
     background-color: #bccc2b;
     color: white;
 }
+.fontBrown {
+    color: brown;
+}
 .fontGreen  {
     color: #bccc2b;
 }

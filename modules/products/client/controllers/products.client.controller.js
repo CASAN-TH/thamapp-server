@@ -20,8 +20,11 @@
     vm.readProduct = readProduct;
     vm.cart = ShopCartService.cart;
     vm.buynow = function (product) {
-      vm.cart.add(product);
-      $state.go('cartview');
+      $timeout(function () {
+        vm.cart.add(product);
+        $state.go('cartview');
+      }, 400);
+
     };
     vm.moreCart = moreCart;
     vm.readPromotion = readPromotion;
@@ -30,7 +33,7 @@
     function readProduct() {
       vm.products = ProductsService.query();
     }
-    function readPromotion(){
+    function readPromotion() {
       vm.promotion = PromotionsService.query();
     }
     // Create file uploader instance
@@ -136,6 +139,7 @@
     function moreCart(product) {
       $timeout(function () {
         vm.product = product;
+        $state.go('products.list');
       }, 400);
     }
   }
