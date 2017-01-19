@@ -48,6 +48,13 @@
     vm.acceptOrder = acceptOrder;
     vm.rejectOrder = rejectOrder;
     vm.addWait = addWait;
+    vm.changeDis = changeDis;
+
+    function changeDis() {
+      if (vm.order.discount){
+        vm.order.amount = vm.order.amount - vm.order.discount;
+      }
+    }
 
     function updateDeliver() {
       vm.order.deliverystatus = 'wait deliver';
@@ -63,7 +70,6 @@
 
     }
 
-
     function addHis() {
       vm.order.historystatus.push({
         status: vm.order.deliverystatus,
@@ -77,7 +83,6 @@
         datestatus: new Date()
       });
     }
-
 
     function pending(isValid) {
       vm.order.deliverystatus = 'pending';
@@ -339,8 +344,10 @@
 
       // TODO: move create/update logic to service
       if (vm.order._id) {
+        vm.changeDis();
         vm.order.$update(successCallback, errorCallback);
       } else {
+        vm.changeDis();
         vm.order.$save(successCallback, errorCallback);
       }
 

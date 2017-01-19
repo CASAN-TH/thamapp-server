@@ -53,7 +53,7 @@ var OrderSchema = new Schema({
   accounting: {
     type: String,
     required: 'Please fill Order accounting',
-    default: 'bank'
+    default: 'cash'
   },
   imgslip: String,
   postcost: Number,

@@ -76,7 +76,10 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-        location.reload();
+        vm.listOrder = [];
+        vm.listOrderAccept = [];
+        vm.listOrderComplete = [];
+        vm.init();
       }
 
       function errorCallback(res) {
@@ -95,7 +98,10 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-        location.reload();
+        vm.listOrder = [];
+        vm.listOrderAccept = [];
+        vm.listOrderComplete = [];
+        vm.init();
       }
 
       function errorCallback(res) {
@@ -109,7 +115,10 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-        location.reload();
+        vm.listOrder = [];
+        vm.listOrderAccept = [];
+        vm.listOrderComplete = [];
+        vm.init();
       }
 
       function errorCallback(res) {
