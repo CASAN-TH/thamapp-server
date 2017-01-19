@@ -90,7 +90,9 @@
           tel: 'tel',
           email: 'email',
           lastname: 'lastname'
-        }
+        },
+        amount: 30,
+        discount: 20
       });
 
       mockHisStatus = new OrdersService({
@@ -277,6 +279,17 @@
           expect($scope.vm.customers[2]).toEqual(mockCustomer);
         }
 
+      }));
+    });
+
+    describe('vm.changeDis() as read', function () {
+
+      it('should send a GET request and return Calculate Discount', inject(function () {
+
+        $scope.vm.changeDis();
+        if ($scope.vm.order.discount) {
+          expect($scope.vm.order.amount).toEqual($scope.vm.order.amount - $scope.vm.order.discount);
+        }
       }));
     });
 
