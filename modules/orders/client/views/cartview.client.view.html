@@ -1,4 +1,4 @@
-<section ng-init="vm.Promotion()">
+<section ng-init="vm.Promotion(); vm.loopCheck();">
   <div class="page-header">
     <h1>Cart</h1>
   </div>
@@ -63,7 +63,7 @@
         </div>
       </div>
       <!--โปรโมชั่น-->
-      <div>
+      <!--<div>
         <p>ส่วนลดเงินสด {{discountBathTotal}} บาท</p>
       </div>
       <div>
@@ -72,7 +72,7 @@
       <div>
         <p>สินค้าที่แถม {{freeItem}}</p>
         <p>จำนวน {{discountFreeItemTotal}} ชิ้น</p>
-      </div>
+      </div>-->
       <!--สิ้นสุดโปรโมชั่น-->
       <div class="row ">
         <div class="col-md-6">
