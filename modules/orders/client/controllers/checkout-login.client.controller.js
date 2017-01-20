@@ -28,6 +28,7 @@
     vm.promotions = [];
     vm.checkPromotion = checkPromotion;
     vm.initPromotion = initPromotion;
+    vm.order.discountpromotion = 0;
     function Promotion() {
       PromotionsService.query(function (data) {
         angular.forEach(data, function (res) {
@@ -50,9 +51,9 @@
 
 
     function checkPromotion(product, qty, item) {
-      vm.order.discountpromotion = 0;
+      // vm.order.discountpromotion = 0;
       $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
-        vm.order.discountpromotion += response.total;
+        vm.order.discountpromotion += response.total - (vm.order.discountpromotion || 0);
       }).error(function (err) {
         console.log(err);
       });
