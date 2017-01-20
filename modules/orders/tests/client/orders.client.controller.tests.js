@@ -691,9 +691,7 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Order was created
-        expect($state.go).toHaveBeenCalledWith('orders.view', {
-          orderId: mockOrder._id
-        });
+        expect($state.go).toHaveBeenCalledWith('orders.list');
       }));
 
       it('should set $scope.vm.error if error', function () {
@@ -724,9 +722,7 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('orders.view', {
-          orderId: mockOrder._id
-        });
+        expect($state.go).toHaveBeenCalledWith('orders.list');
       }));
 
       it('should set $scope.vm.error if error', inject(function (OrdersService) {

@@ -378,9 +378,7 @@
       }
 
       function successCallback(res) {
-        $state.go('orders.view', {
-          orderId: res._id
-        });
+        $state.go('orders.list');
       }
 
       function errorCallback(res) {

@@ -2,7 +2,7 @@
   <div class="page-header headerBorder">
     <h1>Orders</h1>
   </div>
-  <div class="row show-xs show-sm hidden-md hidden-lg">
+  <!--<div class="row show-xs show-sm hidden-md hidden-lg">
     <div class="col-md-12">
       <div class="textRight height5" ng-hide="!vm.authentication.user">
         <a class="btn buttonCreate" ui-sref="orders.create">
@@ -11,7 +11,7 @@
         </a>
       </div>
     </div>
-  </div>
+  </div>-->
   <div class="row">
     <div class="col-md-12">
       <div class="tabbable">
@@ -23,26 +23,26 @@
               <!--<li><a href="#postActive" data-target="#postActive, #showAllPost" data-toggle="tab">ไปรษณีย์</a></li>-->
             </ul>
           </div>
-          <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
+          <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
             <div class="input-group input-group-sm">
               <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
               <input type="text" class="form-control" placeholder="Search for something..." ng-model="topsearch" aria-describedby="sizing-addon3">
             </div>
           </div>
-          <div class="col-md-5 show-xs show-sm hidden-md hidden-lg height5">
+          <div class="col-md-7 show-xs show-sm hidden-md hidden-lg height5">
             <div class="input-group input-group-sm">
               <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
               <input type="text" class="form-control" placeholder="Search for something..." ng-model="topsearch" aria-describedby="sizing-addon3">
             </div>
           </div>
-          <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+          <!--<div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
             <div class="textCenter" ng-hide="!vm.authentication.user">
               <a class="btn buttonCreate" ui-sref="orders.create">
                 <i class="fa fa-file-o" aria-hidden="true"></i>
                 <span>Create</span>
               </a>
             </div>
-          </div>
+          </div>-->
         </div>
         <div class="tab-content">
           <!--<div class="tab-pane active" id="allActive">
@@ -88,7 +88,7 @@
                   </div>
                   <div class="tab-content">
                     <div class="tab-pane active" id="showAllActive">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -134,7 +134,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showAllConfirmed">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedOrders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedOrders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -164,7 +164,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showAllPending">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingOrders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingOrders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -194,7 +194,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showAllPaid">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidOrders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidOrders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -224,7 +224,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showAllSent">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentOrders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentOrders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -254,7 +254,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showAllComplete">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeOrders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeOrders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -284,7 +284,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showAllClose">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeOrders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeOrders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -323,19 +323,33 @@
               <div class="row">
                 <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
                   <div class="nav">
-                    <a href="#showAllDeli" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedDeli.length + vm.pendingDeli.length + vm.paidDeli.length + vm.sentDeli.length + vm.acceptDeli.length + vm.rejectDeli.length + vm.completeDeli.length + vm.closeDeli.length}}</h3></button></a>
-                    <a href="#showConfirmedDeli" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>สั่งจอง</span><h3>{{vm.confirmedDeli.length}}</h3></button></a>
+                    <div ng-click="unactive = true">
+                      <a href="#showAllDeli" data-toggle="tab"><button class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.confirmedDeli.length + vm.acceptDeli.length + vm.rejectDeli.length + vm.completeDeli.length}}</h3></button></a>
+                    </div>
+                    <div class="text-center"><span>สั่งจอง</span></div>
+                    <div ng-hide="unactive">
+                      <a href="#showConfirmedDeli" data-toggle="tab"><button class="thumbnail button buttonGreenForm" type="text"><span>รอคนส่ง</span><h3>{{vm.confirmedDeli.length}}</h3></button></a>
+                    </div>
+                    <div ng-show="unactive">
+                      <a href="#showConfirmedDeli" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>รอคนส่ง</span><h3>{{vm.confirmedDeli.length}}</h3></button></a>
+                    </div>
                     <div class="text-center"><span>คนส่งข้าว</span></div>
-                    <a href="#showAcceptDeli" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ยอมรับ</span><h3>{{vm.acceptDeli.length}}</h3></button></a>
-                    <a href="#showRejectDeli" data-toggle="tab"><button class="thumbnail button buttonRed" type="text"><span>ยกเลิก</span><h3>{{vm.rejectDeli.length}}</h3></button></a>
+                    <div ng-click="unactive = true">
+                      <a href="#showAcceptDeli" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ยอมรับ</span><h3>{{vm.acceptDeli.length}}</h3></button></a>
+                    </div>
+                    <div ng-click="unactive = true">
+                      <a href="#showRejectDeli" data-toggle="tab"><button class="thumbnail button buttonRed" type="text"><span>ยกเลิก</span><h3>{{vm.rejectDeli.length}}</h3></button></a>
+                    </div>
                     <div class="text-center"><span>จัดส่ง</span></div>
-                    <a href="#showSentDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ส่งแล้ว</span><h3>{{vm.sentDeli.length}}</h3></button></a>
+                    <div ng-click="unactive = true">
+                      <a href="#showCompleteDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{vm.completeDeli.length}}</h3></button></a>
+                    </div>
+                    <!--<a href="#showSentDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ส่งแล้ว</span><h3>{{vm.sentDeli.length}}</h3></button></a>
                     <div class="text-center"><span>การเงิน</span></div>
                     <a href="#showPendingDeli" data-toggle="tab"><button class="thumbnail button buttonOrange" type="text"><span>รอตรวจสอบ</span><h3>{{vm.pendingDeli.length}}</h3></button></a>
                     <a href="#showPaidDeli" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>จ่ายแล้ว</span><h3>{{vm.paidDeli.length}}</h3></button></a>
-                    <div class="text-center"><span>ปิด</span></div>
-                    <a href="#showCompleteDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{vm.completeDeli.length}}</h3></button></a>
-                    <a href="#showCloseDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ปิดแล้ว</span><h3>{{vm.closeDeli.length}}</h3></button></a>
+                    <div class="text-center"><span>ปิด</span></div>-->
+                    <!--<a href="#showCloseDeli" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ปิดแล้ว</span><h3>{{vm.closeDeli.length}}</h3></button></a>-->
                   </div>
                 </div>
                 <div class="col-md-11">
@@ -353,17 +367,17 @@
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
                       </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
+                      <div class="col-xs-3 col-sm-3 col-md-3">
                         <strong>การจัดส่ง</strong>
                       </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
+                      <!--<div class="col-xs-1 col-sm-1 col-md-1">
                         <strong>พิมพ์</strong>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                   <div class="tab-content">
-                    <div class="tab-pane active" id="showAllDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    <div class="tab-pane" id="showAllDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -373,7 +387,7 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading">-</p>
@@ -381,18 +395,19 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
                               <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
+                              <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
-                            </div>
+                            </div>-->
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -402,7 +417,7 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                               <p class="list-group-item-heading">-</p>
@@ -410,17 +425,18 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                              <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
-                            </div>
+                            </div>-->
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -430,7 +446,7 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                               <p class="list-group-item-heading">-</p>
@@ -438,17 +454,17 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
-                            </div>
+                            </div>-->
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <!--<div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -467,7 +483,6 @@
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -475,8 +490,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      </div>-->
+                      <!--<div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -490,13 +505,11 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[3].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -504,8 +517,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      </div>-->
+                      <!--<div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -519,13 +532,11 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[4].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -533,8 +544,8 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      </div>-->
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -544,26 +555,25 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                               <!--<p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                              <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
+
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <!--<div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -577,13 +587,11 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3">
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[6].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -591,10 +599,10 @@
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div>-->
                     </div>
-                    <div class="tab-pane" id="showConfirmedDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    <div class="tab-pane active" id="showConfirmedDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -604,7 +612,7 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading">-</p>
@@ -612,20 +620,21 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
                               <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
+                              <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
-                            </div>
+                            </div>-->
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane" id="showAcceptDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -635,7 +644,7 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading">-</p>
@@ -643,19 +652,20 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                              <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
-                            </div>
+                            </div>-->
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="tab-pane" id="showRejectDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -665,7 +675,7 @@
                               <span class="list-group-item-heading" ng-bind="order.docno"></span>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading">-</p>
@@ -673,19 +683,19 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
                             </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
-                            </div>
+                            </div>-->
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="showSentDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    <!--<div class="tab-pane" id="showSentDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -704,7 +714,6 @@
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -713,9 +722,9 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="tab-pane" id="showPendingDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    </div>-->
+                    <!--<div class="tab-pane" id="showPendingDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -729,13 +738,11 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[3].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -744,9 +751,9 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="tab-pane" id="showPaidDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                    </div>-->
+                    <!--<div class="tab-pane" id="showPaidDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -760,13 +767,11 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[4].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -775,9 +780,39 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div>-->
                     <div class="tab-pane" id="showCompleteDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
+                        <div class="col-md-12">
+                          <div class="row form-group">
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                              <img width="25%">
+                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                              <label ng-bind="order.namedeliver.displayName"></label>
+                            </div>
+                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
+                              <p class="list-group-item-heading">-</p>
+                            </div>-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<div class="tab-pane" id="showCloseDeli">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeDeli | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -791,13 +826,11 @@
                             </div>
                             <div class="col-xs-3 col-sm-3 col-md-3 text-center">
                               <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                             </div>
                             <div class="col-xs-1 col-sm-1 col-md-1">
@@ -806,38 +839,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="tab-pane" id="showCloseDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closeDeli | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
-                              <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
-                              <!--<p class="list-group-item-heading" ng-bind="order.historystatus[6].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <!--<span>คนส่งข้าว</span>-->
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
               </div>
@@ -886,7 +888,7 @@
                   </div>
                   <div class="tab-content">
                     <div class="tab-pane active" id="showAllPost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -913,7 +915,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -941,7 +943,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -969,7 +971,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-">
@@ -997,7 +999,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completePost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completePost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-">
@@ -1025,7 +1027,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closePost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closePost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-">
@@ -1055,7 +1057,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showConfirmedPost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.confirmedPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -1084,7 +1086,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showPendingPost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.pendingPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -1114,7 +1116,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showPaidPost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.paidPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -1144,7 +1146,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showSentPost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentPost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.sentPost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -1174,7 +1176,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showCompletePost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completePost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completePost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -1204,7 +1206,7 @@
                       </div>
                     </div>
                     <div class="tab-pane" id="showClosePost">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closePost | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.closePost | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
                         <div class="col-md-12">
                           <div class="row form-group">
                             <div class="col-xs-3 col-sm-3 col-md-3">
@@ -1243,14 +1245,14 @@
     </div>
   </div>
 
-  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.orders | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.orders | filter:topsearch" ui-sref="orders.edit({ orderId: order._id })">
     <div class="col-md-12">
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
           <h5 class="list-group-item-heading" ng-bind="order.docno"></h5>
           <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
           <label class="list-group-item-text">Amount: </label>
-          <label class="list-group-item-text" ng-bind="order.amount | number:2"></label><br>
+          <label class="list-group-item-text" ng-bind="order.totalamount | number:2"></label><br>
           <!--<i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
           <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
           <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
