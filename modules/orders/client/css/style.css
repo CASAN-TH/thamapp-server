@@ -111,6 +111,15 @@ text-align : center;
     color: white;
     outline : none;
 }
+.buttonGrayForm  {
+    background-color: gray;
+    color: white;
+    outline : none;
+}
+.buttonGrayForm:hover {
+    background-color: gray;
+    color: white;
+}
 .buttonGreenForm  {
     background-color: #bccc2b;
     color: white;

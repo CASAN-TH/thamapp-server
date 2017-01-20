@@ -49,9 +49,10 @@
     vm.rejectOrder = rejectOrder;
     vm.addWait = addWait;
     vm.changeDis = changeDis;
+    vm.updateWaitStatus = updateWaitStatus;
 
     function changeDis() {
-      if (vm.order.discount){
+      if (vm.order.discount) {
         vm.order.amount = vm.order.amount - vm.order.discount;
       }
     }
@@ -82,6 +83,30 @@
         status: 'wait deliver',
         datestatus: new Date()
       });
+    }
+
+    function updateWaitStatus(isValid) {
+      if (vm.order._id) {
+        if (vm.order.namedeliver && (vm.order.deliverystatus === 'confirmed')) {
+          if (vm.order.deliverystatus === 'wait deliver') {
+
+          } else {
+            vm.order.deliverystatus = 'wait deliver';
+            vm.addHis();
+          }
+        }
+      } else if (!vm.order._id) {
+        if (vm.order.namedeliver) {
+          if (vm.order.deliverystatus === 'wait deliver') {
+
+          } else {
+            vm.order.deliverystatus = 'wait deliver';
+            vm.addHis();
+          }
+        }
+      }
+
+
     }
 
     function pending(isValid) {
@@ -284,7 +309,6 @@
     }
 
     function init() {
-
       vm.readProduct();
       vm.readDeliver();
       if (!vm.order._id) {
@@ -345,9 +369,11 @@
       // TODO: move create/update logic to service
       if (vm.order._id) {
         vm.changeDis();
+        vm.updateWaitStatus();
         vm.order.$update(successCallback, errorCallback);
       } else {
         vm.changeDis();
+        vm.updateWaitStatus();
         vm.order.$save(successCallback, errorCallback);
       }
 

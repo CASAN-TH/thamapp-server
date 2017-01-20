@@ -34,7 +34,7 @@
         angular.forEach(vm.list, function (order) {
           console.log(order);
           if (order.namedeliver) {
-            if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'confirmed') {
+            if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'confirmed' || order.deliverystatus === 'wait deliver') {
               vm.listOrder.push(order);
             }
 
