@@ -68,7 +68,7 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
-
+      $state.go('orders.list');
     }
 
     function addHis() {
