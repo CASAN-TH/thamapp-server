@@ -22,9 +22,14 @@
           <img src="./modules/users/client/img/promotion.jpg" class="img-rounded img-promotion" alt="">
         </div>
       </div>
-      <div class="col-xs-12 col-md-3 col-sm-6" ng-repeat="product in products">
-        <div class="row" ui-sref="products.view({ productId: product._id })">
-          <img ng-src="{{product.images}}" class="img-rounded img-promotion img-product border-bottom" title="สั่งซื้อเลย!">
+      <div class="col-xs-12 col-md-3 col-sm-6" ng-repeat="product in products" >
+        <div class="row img-rounded img-promotion border-bottom" ui-sref="products.view({ productId: product._id })">
+          <img ng-src="{{product.images}}" class="img-product" title="สั่งซื้อเลย!">
+          <div class="card-block">
+            <h4 class="card-title word-break">{{product.name}}</h4>
+            <p class="card-text word-break">{{product.description}}</p>
+            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+          </div>
         </div>
       </div>
     </div>

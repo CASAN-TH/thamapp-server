@@ -58,6 +58,7 @@ var OrderSchema = new Schema({
   imgslip: String,
   postcost: Number,
   discount: Number,
+  discountpromotion: Number,
   comment: String,
   trackingnumber: String,
   delivery: {

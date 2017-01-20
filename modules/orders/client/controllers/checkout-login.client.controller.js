@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService'];
+  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'PromotionsService'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService) {
+  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, PromotionsService) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -24,6 +24,40 @@
     $scope.products = product;
     $scope.newAddress = { status: false };
     $scope.authentication.address = {};
+    vm.Promotion = Promotion;
+    vm.promotions = [];
+    vm.checkPromotion = checkPromotion;
+    vm.initPromotion = initPromotion;
+    function Promotion() {
+      PromotionsService.query(function (data) {
+        angular.forEach(data, function (res) {
+          vm.promotions.push(res);
+        });
+      });
+      // vm.promotions = vm.promotion.resolve();
+    }
+
+    function initPromotion() {
+      var product = {};
+      var qty = 0;
+      vm.cart.items.forEach(function (item) {
+        product = item.product;
+        qty = item.qty;
+        vm.checkPromotion(product, qty, item);
+      });
+    }
+
+
+
+    function checkPromotion(product, qty, item) {
+      item.product.promotion = [];
+      vm.order.discountpromotion = 0;
+      $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
+        vm.order.discountpromotion += response.total;
+      }).error(function (err) {
+        console.log(err);
+      });
+    }
     function product() {
 
     }
@@ -138,6 +172,7 @@
       //vm.order.docno = new Date().getFullYear() + '' + new Date().getMonth() + '' + (getAllOrder.length + 1);
       vm.order.docno = (+ new Date());
       vm.order.docdate = new Date();
+      // vm.order.discountpromotion = vm.result || 0;
       // products
       var getItems = vm.cart.items;
       getItems.forEach(function (item) {
