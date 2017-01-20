@@ -217,7 +217,7 @@
         $scope.vm.initPromotion();
         $scope.vm.checkPromotion(mockProduct, 3);
         $httpBackend.flush();
-        expect($scope.vm.result).toEqual(110);
+        expect($scope.vm.order.discountpromotion).toEqual(110);
       }));
 
     });
