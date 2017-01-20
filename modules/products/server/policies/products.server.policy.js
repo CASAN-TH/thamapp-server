@@ -53,7 +53,7 @@ exports.invokeRolesPolicies = function () {
 };
 
 /**
- * Check If Products Policy Allows
+ * Check If Products Policy Allows k
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
