@@ -39,11 +39,21 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/products/:productId',
       permissions: ['get']
     }]
+  },
+  {
+    roles: ['deliver'],
+    allows: [{
+      resources: '/api/products',
+      permissions: ['get']
+    }, {
+      resources: '/api/products/:productId',
+      permissions: ['get']
+    }]
   }]);
 };
 
 /**
- * Check If Products Policy Allows
+ * Check If Products Policy Allows k
  */
 exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
