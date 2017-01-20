@@ -58,7 +58,7 @@
       <div class="col-md-6" ng-if="step === 2">
         <!--เลือกวิธีจัดส่ง-->
         <div class="row rounded container-fluid address-container-bg padding-0" ng-if="authentication.user">
-          <div class="col-xs-6 col-md-6 text-center {{vm.order.delivery.deliveryid === '0'?'address-container':'address-container-bg'}}">
+          <div class="col-xs-12 col-md-12 text-center {{vm.order.delivery.deliveryid === '0'?'address-container':'address-container-bg'}}">
             <div class="margin-top-32">
               <span><i class="fa fa-truck front_profile-color9"></i></span>
             </div>
@@ -69,7 +69,7 @@
               <input type="radio" name="humen" ng-model="vm.order.delivery.deliveryid" ng-value="'0'">
             </div>
           </div>
-          <div class="col-xs-6 col-md-6 border-left text-center {{vm.order.delivery.deliveryid === '1'?'address-container':'address-container-bg'}}">
+          <!--<div class="col-xs-6 col-md-6 border-left text-center {{vm.order.delivery.deliveryid === '1'?'address-container':'address-container-bg'}}">
             <div class="margin-top-32">
               <span><i class="fa fa-envelope front_profile-color9"></i></span>
             </div>
@@ -79,7 +79,7 @@
             <div class="form-group">
               <input type="radio" name="post" ng-model="vm.order.delivery.deliveryid" ng-value="'1'">
             </div>
-          </div>
+          </div>-->
         </div>
 
         <div class="row">
