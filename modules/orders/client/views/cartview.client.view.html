@@ -65,27 +65,30 @@
           <p>{{vm.cart.getTotalPrice()}} บาท</p>
         </div>
       </div>
+      <div class="row ">
+        <div class="col-md-6">
+          <p>ยอดรวม</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.cart.getTotalPrice()}} บาท</p>
+        </div>
+      </div>
       <!--โปรโมชั่น-->
-      <div ng-show="vm.result > 0">
-        <p>ส่วนลด: {{vm.result}} บาท</p>
+      <div class="row">
+        <div class="col-md-6">
+          <p>ส่วนลด:</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.result}} บาท</p>
+        </div>
       </div>
-      <!--<div>
-        <p>ส่วนลดเงินสด {{discountBathTotal}} บาท</p>
-      </div>
-      <div>
-        <p>ส่วนลด % {{discountPercenTotal}} บาท</p>
-      </div>
-      <div>
-        <p>สินค้าที่แถม {{freeItem}}</p>
-        <p>จำนวน {{discountFreeItemTotal}} ชิ้น</p>
-      </div>-->
       <!--สิ้นสุดโปรโมชั่น-->
       <div class="row ">
         <div class="col-md-6">
           <h4>ยอดสุทธิ</h4>
         </div>
         <div class="col-md-6">
-          <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+          <h4>{{vm.cart.getTotalPrice() - vm.result}} บาท</h4>
         </div>
       </div>
       <div class="row" ng-hide="authentication.user || vm.cart.getTotalCount() === 0">
@@ -194,10 +197,28 @@
       </div>
       <div class="row ">
         <div class="col-md-6">
+          <p>ยอดรวม</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.cart.getTotalPrice()}} บาท</p>
+        </div>
+      </div>
+      <!--โปรโมชั่น-->
+      <div class="row">
+        <div class="col-md-6">
+          <p>ส่วนลด:</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.result}} บาท</p>
+        </div>
+      </div>
+      <!--สิ้นสุดโปรโมชั่น-->
+      <div class="row ">
+        <div class="col-md-6">
           <h4>ยอดสุทธิ</h4>
         </div>
         <div class="col-md-6">
-          <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+          <h4>{{vm.cart.getTotalPrice() - vm.result}} บาท</h4>
         </div>
       </div>
       <div class="row" ng-hide="authentication.user || vm.cart.getTotalCount() === 0">

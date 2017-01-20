@@ -12,7 +12,12 @@
       mockOrder,
       PostcodesService,
       mockPostcode,
-      OrdersService;
+      OrdersService,
+      mockPromotion,
+      mockPromotion2,
+      PromotionsService,
+      mockProduct,
+      ProductsService;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -39,7 +44,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _OrdersService_, _PostcodesService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _OrdersService_, _PostcodesService_, _PromotionsService_, _ProductsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -49,13 +54,40 @@
       $location = _$location_;
       OrdersService = _OrdersService_;
       PostcodesService = _PostcodesService_;
+      PromotionsService = _PromotionsService_;
+      ProductsService = _ProductsService_;
 
       // mockPostcode = [new PostcodesService({
       //   _id: '525a8422f6d0f87f0e407a44',
       //   postcode: '1234'
       // })];
+      mockPromotion = new PromotionsService({
+        _id: '525a8422f6d0f87f0e407a66',
+        product: mockProduct,
+        condition: 3,
+        description: 'test',
+        discount: {
+          fixBath: 50,
+          percen: 0
+        },
+        freeitem: {}
+      });
+      mockPromotion2 = new PromotionsService({
+        _id: '525a8422f6d0f87f0e407a88',
+        product: mockProduct,
+        condition: 1,
+        description: 'test',
+        discount: {
+          fixBath: 20,
+          percen: 0
+        },
+        freeitem: {}
+      });
 
-      
+      mockProduct = new ProductsService({
+        _id: '525a8422f6d0f87f0e407a77',
+        name: 'Product name'
+      });
 
       mockOrder = new OrdersService({
         _id: '525a8422f6d0f87f0e407a33',
@@ -68,7 +100,7 @@
       });
     }));
 
-    
+
 
     describe('Signup', function () {
       it('should init', inject(function () {
@@ -148,6 +180,49 @@
       });
 
     });
+
+    describe('vm.readPromotion() as read', function () {
+      var mockPromotionList;
+
+      beforeEach(function () {
+        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
+      });
+
+      it('should send a GET all Promotions', inject(function (PromotionsService) {
+        // Set POST response
+        $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
+
+        $scope.vm.Promotion();
+
+        $httpBackend.flush();
+
+        // Test form inputs are reset
+        expect($scope.vm.promotions.length).toEqual(3);
+
+      }));
+
+    });
+
+    describe('get response', function () {
+      var mockPromotionList;
+      var mockResDiscount;
+
+      beforeEach(function () {
+        mockPromotionList = [mockPromotion, mockPromotion2];
+        mockResDiscount = { promotions: [], freeitemunit: 0, total: 110 };
+      });
+
+      it('should send a GET response Promotions', inject(function (PromotionsService) {
+        $httpBackend.expectGET('api/promotions/productid/' + mockProduct._id + '/3').respond(mockResDiscount);
+        $scope.vm.initPromotion();
+        $scope.vm.checkPromotion(mockProduct, 3);
+        $httpBackend.flush();
+        expect($scope.vm.order.discountpromotion).toEqual(110);
+      }));
+
+    });
+
+
 
     // describe('vm.save() as create', function () {
     //   // $scope.authentication = {
