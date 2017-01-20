@@ -181,6 +181,47 @@
 
     });
 
+    describe('vm.readPromotion() as read', function () {
+      var mockPromotionList;
+
+      beforeEach(function () {
+        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
+      });
+
+      it('should send a GET all Promotions', inject(function (PromotionsService) {
+        // Set POST response
+        $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
+
+        $scope.vm.Promotion();
+
+        $httpBackend.flush();
+
+        // Test form inputs are reset
+        expect($scope.vm.promotions.length).toEqual(3);
+
+      }));
+
+    });
+
+    describe('get response', function () {
+      var mockPromotionList;
+      var mockResDiscount;
+
+      beforeEach(function () {
+        mockPromotionList = [mockPromotion, mockPromotion2];
+        mockResDiscount = { promotions: [], freeitemunit: 0, total: 110 };
+      });
+
+      it('should send a GET response Promotions', inject(function (PromotionsService) {
+        $httpBackend.expectGET('api/promotions/productid/' + mockProduct._id + '/3').respond(mockResDiscount);
+        $scope.vm.initPromotion();
+        $scope.vm.checkPromotion(mockProduct, 3);
+        $httpBackend.flush();
+        expect($scope.vm.result).toEqual(110);
+      }));
+
+    });
+
 
 
     // describe('vm.save() as create', function () {
