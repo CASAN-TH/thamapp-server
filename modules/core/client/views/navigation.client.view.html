@@ -28,17 +28,17 @@
         <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
       </li>-->
       <li ng-class="{active: $uiRoute}" ui-route="/" class="dropdown">
-        <a href="/#/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+        <a href="/#/"><i class="fa fa-home"></i> <span class="nav-label">หน้าหลัก</span></a>
       </li>
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
         ng-if="item.shouldRender(authentication.user);">
-        <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{::item.title}}&nbsp;</span></a>
+        <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสิ้นค้า': item.title}}&nbsp;</span></a>
       </li>
        <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user">
         <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">Me</span></a>
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
-        <a href="/#/assignlist"><i class="fa fa-file-o"></i> <span class="nav-label">Assign List</span></a>
+        <a href="/#/assignlist"><i class="fa fa-file-o"></i> <span class="nav-label">รายการส่งข้าว</span></a>
       </li>
     </ul>
   </div>
