@@ -166,6 +166,7 @@
     };
 
     $scope.saveOrder = function () {
+      vm.order.totalamount = 0;
       vm.order.items = [];
       //var getAllOrder = OrdersService.query();
       //vm.order.docno = new Date().getFullYear() + '' + new Date().getMonth() + '' + (getAllOrder.length + 1);
@@ -197,7 +198,7 @@
         vm.order.shipping.district = $scope.authentication.user.address.district;
       }
       vm.order.amount = vm.cart.getTotalPrice();
-
+      vm.order.totalamount = vm.order.amount - vm.order.discountpromotion;
       // ยังไม่รู้จะใส่ยังไง
 
       // delivery: {

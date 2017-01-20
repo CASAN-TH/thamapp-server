@@ -22,7 +22,7 @@
               <img src="{{itm.product.images}}" class="img img-thumbnail img-max-min-width-height-100" alt="">
             </div>
             <div class="col-xs-6 col-sm-6 col-md-6 padding-10px">
-              <h4>{{itm.product.description}}</h4>
+              <h4>{{itm.product.name}}</h4>
               <div ng-repeat="promotion in vm.promotions">
                 <h5 ng-if="itm.product._id === promotion.product._id">{{promotion.description}}</h5>
               </div>
@@ -43,9 +43,9 @@
             </a>
           </h4>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-1 padding-10px">
+        <div class="col-xs-1 col-sm-1 col-md-1 padding-10px margin-top20px">
           <a ng-click="vm.cart.removeItem(itm.product)">
-            <span class="glyphicon glyphicon-remove float-rigth" aria-hidden="true"></span>
+           <h2> <span class="fa fa-trash-o float-rigth " aria-hidden="true"></span></h2>
           </a>
         </div>
       </div>
