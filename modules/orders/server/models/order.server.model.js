@@ -33,7 +33,9 @@ var OrderSchema = new Schema({
         ref: 'Product'
       },
       qty: Number,
-      promotiondescription: String,
+      promotion: [{
+        description: String
+      }],
       amount: Number
     }]
   },
