@@ -23,8 +23,13 @@
         </div>
       </div>
       <div class="col-xs-12 col-md-3 col-sm-6" ng-repeat="product in products">
-        <div class="row" ui-sref="products.view({ productId: product._id })">
-          <img ng-src="{{product.images}}" class="img-rounded img-promotion img-product border-bottom" title="สั่งซื้อเลย!">
+        <div class="row img-rounded img-promotion border-bottom" ui-sref="products.view({ productId: product._id })">
+          <img ng-src="{{product.images}}" class="img-product" title="สั่งซื้อเลย!">
+          <label>{{product.name}}</label>
+          <p class="card-text ">
+          <p> {{product.description}}</p>
+        </p>
+          <h4 class="card-title text-warning front_price">{{product.price}} บาท</h4>
         </div>
       </div>
     </div>
