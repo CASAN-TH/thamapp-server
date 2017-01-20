@@ -432,7 +432,7 @@
           <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
           <div class="col-xs-3 col-sm-3 col-md-3 text-center">{{item.qty}}</div>
           <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.qty * item.price}}</div>
-          <div class="col-xs-12 col-sm-12 col-md-12" ng-repeat="promotion in vm.promotions" ng-if="item.product._id === promotion.product._id">- {{promotion.description}}</div>
+          <!--<div class="col-xs-12 col-sm-12 col-md-12" ng-repeat="promotion in vm.promotions" ng-if="item.product._id === promotion.product._id">- {{promotion.description}}</div>-->
         </div>
 
         <div class="row border-bottom">
@@ -456,7 +456,7 @@
             <h4>ยอดสุทธิ</h4>
           </div>
           <div class="col-md-6">
-            <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+            <h4>{{vm.cart.getTotalPrice() - vm.order.discountpromotion}} บาท</h4>
           </div>
         </div>
       </div>

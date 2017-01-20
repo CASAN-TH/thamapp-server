@@ -50,7 +50,6 @@
 
 
     function checkPromotion(product, qty, item) {
-      item.product.promotion = [];
       vm.order.discountpromotion = 0;
       $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
         vm.order.discountpromotion += response.total;
