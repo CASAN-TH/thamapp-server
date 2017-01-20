@@ -36,3 +36,10 @@
   min-width: 150px;
   max-width: 150px;
 }
+
+.user-profile-picture1 {
+  min-height: 60px;
+  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+}

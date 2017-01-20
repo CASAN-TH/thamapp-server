@@ -92,9 +92,9 @@
                 <div class="status-track">
                   <div class="complete size-status"> <i class="fa fa-inbox"></i>
                   </div>
-                  <div class="complete {{his.deliverystatus === 'accept'?'size-status':his.deliverystatus === 'complete'?'size-status':'color-gray-profile'}}"><i class="fa fa-truck"> </i>
+                  <div class="complete {{his.deliverystatus === 'accept'?'size-status':his.deliverystatus === 'complete'?'size-status':his.deliverystatus === 'close'?'size-status':'color-gray-profile'}}"><i class="fa fa-truck"> </i>
                   </div>
-                  <div class="complete {{his.deliverystatus === 'complete'?'size-status':'color-gray-profile'}}"><i class="fa fa-check-circle"></i>
+                  <div class="complete {{his.deliverystatus === 'complete'?'size-status':his.deliverystatus === 'close'?'size-status':'color-gray-profile'}}"><i class="fa fa-check-circle"></i>
                   </div>
                 </div>
               </div>
@@ -135,7 +135,7 @@
                     <td>
 
                       <div class="slide-left-top ">
-                        <img class="img-rounded user-profile-picture img-responsive " ng-src="{{item.product.images}} ">
+                        <img class="img-rounded user-profile-picture1 img-responsive " ng-src="{{item.product.images}} ">
                       </div>
                     </td>
                     <td>{{item.product.name}}</td>

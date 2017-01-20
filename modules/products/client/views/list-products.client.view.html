@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Products
+  <h1>เลือกซื้อสินค้า
     <div class="pull-right" ng-hide="!vm.authentication.user" ng-if="(vm.authentication.user.roles[0] == 'admin');">
       <a class="btn btn-primary" ui-sref="products.create">
         <span>New </span>
@@ -34,7 +34,8 @@
           <div class="card-block">
             <h4 class="card-title word-break">{{product.name}}</h4>
             <p class="card-text word-break">{{product.description}}</p>
-            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+            <h4 class="card-title text-warning border-bottom">{{product.price}} บาท</h4>
+            <label class="color-bg-discount">Promotion : <h4 class="card-title color-discount"></h4></label>
           </div>
         </div>
       </div>
