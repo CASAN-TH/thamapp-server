@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">
-                        <div class=" col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
                             <strong>Product</strong>
                         </div>
                         <div class=" col-xs-2 col-sm-2 col-md-2">
@@ -91,22 +91,25 @@
                         </div>
                     </div>
                     <div class="row form-group hidden-xs show-sm show-md show-lg" ng-repeat="product in vm.order.items">
-                        <div class=" col-xs-3 col-sm-3 col-md-3">
-                            <select name="shipping" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="product.product"
-                                ng-change="vm.productChanged(product)"></select>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <!--<select name="shipping" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="product.product"
+                                ng-change="vm.productChanged(product)"></select>-->
+                            <label ng-bind="product.product.name"></label>
                         </div>
                         <div class=" col-xs-2 col-sm-2 col-md-2">
-                            <input name="qty" type="number" ng-model="product.qty" id="total" class="form-control" placeholder="QTY" ng-change="vm.calculate(product)">
+                            <!--<input name="qty" type="number" ng-model="product.qty" id="total" class="form-control" placeholder="QTY" ng-change="vm.calculate(product)">-->
+                            <label ng-bind="product.qty"></label>
                         </div>
                         <div class=" col-xs-3 col-sm-3 col-md-3">
-                            <input name="price" type="number" ng-model="product.product.price" id="total" class="form-control" placeholder="price">
+                            <!--<input name="price" type="number" ng-model="product.product.price" id="total" class="form-control" placeholder="price">-->
+                            <label ng-bind="product.product.price"></label>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3 ">
                             {{product.amount}}
                         </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
+                        <!--<div class="col-xs-1 col-sm-1 col-md-1">
                             <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="row alert alert-success show-xs hidden-sm hidden-md hidden-lg">
                         <div class=" col-xs-12">
@@ -148,7 +151,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
+                    <!--<div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
                         <div class="col-xs-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'reject'">
                             <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
@@ -157,7 +160,7 @@
                         <div class="col-sm-12 col-md-12" ng-show="!vm.order._id || vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'reject'">
                             <button type="button" class="btn btn-default btn-block btnborder" ng-click="vm.selectedProduct()">เพิ่มสินค้า</button>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row form-group alert  show-xs show-sm show-md show-lg">
                         <div class="row">
                             <div class="col-md-12 form-group">
@@ -247,13 +250,13 @@
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
                                         <input ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
-                                            type="number" ng-model="vm.order.discountpromotion" class="form-control text-right" placeholder="Discount Promotion"
-                                            aria-describedby="sizing-addon3">
+                                            type="number" ng-model="vm.order.discountpromotion" class="form-control text-right"
+                                            placeholder="Discount Promotion" aria-describedby="sizing-addon3">
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row ">
+                        <!--<div class="row ">
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ส่วนลดเพิ่มเติม</label>
@@ -268,7 +271,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="row ">
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
@@ -282,7 +285,7 @@
                                             type="number" ng-model="vm.order.amount" class="form-control" placeholder="Amount"
                                             aria-describedby="sizing-addon3" ng-readonly="true">-->
 
-                                        <label ng-bind="vm.order.amount" class="form-control noneBorder"></label>
+                                        <label ng-bind="vm.order.totalamount" class="form-control noneBorder"></label>
                                     </div>
                                 </div>
                             </div>
@@ -513,13 +516,15 @@
                                         <strong>ที่อยู่จัดส่ง</strong>
                                         <div class="card-block">
                                             <blockquote class="card-blockquote">
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.firstname + ' ' + vm.order.shipping.lastname}}"></p>
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.tel}}"></p>
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.address}}"></p>
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.postcode}}"></p>
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.email}}"></p>
-                                                <h5>หมายเลขพัสดุ</h5>
-                                                <p><input type="text" class="form-control" value="{{vm.order.trackingnumber}}"></p>
+                                                <h5 ng-bind="'ชื่อผู้รับ : ' + vm.order.shipping.firstname + ' ' + vm.order.shipping.lastname"></h5>
+                                                <h5 ng-bind="'เบอร์โทร : ' + vm.order.shipping.tel"></h5>
+                                                <h5 ng-bind="'ที่อยู่ : ' + vm.order.shipping.address + ' ' + vm.order.shipping.district + ' ' + vm.order.shipping.province"></h5>
+                                                <h5 ng-bind="'ไปรษณีย์ : ' + vm.order.shipping.postcode"></h5>
+                                                <h5 ng-bind="'อีเมลล์ : ' + vm.order.shipping.email"></h5>
+                                                
+                                                 
+                                                <!--<h5>หมายเลขพัสดุ</h5>
+                                                <p><input type="text" class="form-control" value="{{vm.order.trackingnumber}}"></p>-->
                                             </blockquote>
                                         </div>
                                     </div>
