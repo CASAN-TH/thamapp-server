@@ -33,6 +33,7 @@ var OrderSchema = new Schema({
         ref: 'Product'
       },
       qty: Number,
+      promotiondescription: String,
       amount: Number
     }]
   },
@@ -58,6 +59,7 @@ var OrderSchema = new Schema({
   imgslip: String,
   postcost: Number,
   discount: Number,
+  discountpromotion: Number,
   comment: String,
   trackingnumber: String,
   delivery: {
