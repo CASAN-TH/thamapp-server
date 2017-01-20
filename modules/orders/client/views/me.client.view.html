@@ -161,7 +161,7 @@
     </div>
   </div>
   <div class="col-sm-4 col-md-4 text-right">
-    <p class="slide-left-top1"><strong> {{his.discount}} บาท</strong></p>
+    <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
     <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
   </div>
 </div>
@@ -180,11 +180,11 @@
       <div class="col-sm-4 col-md-4">
         <div class="ibox">
           <div class="ibox-content">
-            <a ui-sref-active="active" ui-sref="me.profile" class="btn btn-default btn-block">Edit Profile</a>
-            <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">Change Profile Picture</a>
-            <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">Change Password</a>
-            <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">Manage Social Accounts</a>
-            <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">Signout</a>
+            <a ui-sref-active="active" ui-sref="me.profile" class="btn btn-default btn-block">แก้ไขข้อมูลส่วนตัว</a>
+            <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">เปลี่ยนรูปโปรไฟล์</a>
+            <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">เปลี่ยนรหัสผ่าน</a>
+            <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">จัดการเครือข่ายสังคม</a>
+            <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">ออกจากระบบ</a>
           </div>
         </div>
       </div>
@@ -313,7 +313,7 @@
           </div>
         </div>
         <div class="col-xs-6 text-right">
-          <p class="slide-left-top1"><strong> {{his.discount}} บาท</strong></p>
+          <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
           <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
 
         </div>
