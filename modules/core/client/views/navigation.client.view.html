@@ -34,7 +34,7 @@
         ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'">
         <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า': item.title}}&nbsp;</span></a>
       </li>
-       <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user">
+       <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
         <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">Me</span></a>
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">

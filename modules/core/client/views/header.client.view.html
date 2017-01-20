@@ -40,7 +40,7 @@
       </li>
     </ul>
     <ul class="nav navbar-top-links navbar-nav navbar-right ">
-      <li>
+      <li ng-if="!authentication.user || authentication.user.roles[0] === 'user'">
         <a style="margin-top: -10px" ui-sref="cartview">
           <i class="fa fa-shopping-cart font-size26-margin-top3"></i>
           <p class="badge badge-danger margin-left-8-margin-top-20px">{{ cart.getTotalCount() }}</p>
