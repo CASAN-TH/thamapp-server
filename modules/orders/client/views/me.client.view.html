@@ -18,10 +18,10 @@
     </div>
     <div class="btn-group btn-group-justified margin-bottom-30" role="group">
       <div class="btn-group" role="group">
-        <button type="button" class="btn " ng-class="vm.tabname==='1'?'btn-primary':'btn-default'" ng-click="click('1')">History</button>
+        <button type="button" class="btn " ng-class="vm.tabname==='1'?'btn-primary':'btn-default'" ng-click="click('1')">ประวัติการสั่งซื้อ</button>
       </div>
       <div class="btn-group" role="group">
-        <button type="button" class="btn " ng-class="vm.tabname==='2'?'btn-primary':'btn-default'" ng-click="click('2')">Setting</button>
+        <button type="button" class="btn " ng-class="vm.tabname==='2'?'btn-primary':'btn-default'" ng-click="click('2')">ตั้งค่าความเป็นส่วนตัว</button>
       </div>
     </div>
     <!-- Tab panes1 -->
@@ -36,7 +36,7 @@
         <div class="panel-heading" ng-click="checked = !checked">
           <h4 class="panel-title">
             <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his.docno}}" aria-expanded="true">
-              <div class="col-sm-4 col-md-4">
+              <div class="col-sm-3 col-md-3">
                 <div role="button" aria-controls="collapseOne">
                   <div class="front_profile-color2 margin-bottom-10">
                     <strong>รายการสั่งซื้อ # </strong>{{his.docno}}
@@ -54,8 +54,8 @@
                     </div>
                   </div>
                 </div>
-              </div>    
-              <div class="col-sm-4 col-md-4 ">
+              </div>
+              <div class="col-sm-4 col-md-4">
                 <div class="front_profile-color1 margin-bottom-10">
                   <strong> สั่งเมื่อวันที่ </strong> {{his.docdate | date}}
                 </div>
@@ -63,11 +63,20 @@
                   <p><strong>ราคาสุทธิ</strong> {{his.amount}} บาท </p>
                 </div>
               </div>
+
+
+              <div class="col-sm-2 col-md-2">
+                <label class="bin-color "><i class="size-status fa fa-check"></i> {{his.deliverystatus}}</label>
+              </div>
+
+
+
               <div class="col-sm-3 col-md-3 text-right">
                 <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
                 <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
+                <i class="bin-color glyphicon glyphicon-trash text-right "></i>
               </div>
-                <i class="glyphicon glyphicon-trash text-right"></i>              
+
             </div>
           </h4>
         </div>
@@ -109,14 +118,18 @@
             <p>เราหวังว่าคุณจะมีความสุขกับสินค้าใหม่ที่คุณได้รับไป ขอบคุณสำหรับการช็อปปิ้งสินค้าออนไลน์กับธรรมธุรกิจ และหวังว่าเราจะได้รับโอกาสบริการคุณอีกครั้ง</p>
           </div>
 
-          <div class="row-sm-12 row-md-12  front_profile-color2 ">
+          <div class="row-sm-12 row-md-12  ">
             <div class="col-sm-12 col-md-12  border-bottom slide-left-top1">
               <p>
                 <h4>ที่อยู่จัดส่ง</h4>
               </p>
-              <p>{{his.shipping.firstname}} {{his.shipping.lastname}}</p>
-              <p>{{his.shipping.address}} {{his.shipping.subdistrict}} {{his.shipping.province}} {{his.shipping.postcode}} {{his.shipping.tel}}
-              </p>
+              <div class="front_profile-color2 ">
+                <p>{{his.shipping.firstname}} {{his.shipping.lastname}}</p>
+                <p>{{his.shipping.address}} {{his.shipping.subdistrict}} {{his.shipping.province}} {{his.shipping.postcode}}
+                  {{his.shipping.tel}}
+                </p>
+              </div>
+
             </div>
           </div>
           <div class="row ">
@@ -161,7 +174,7 @@
     </div>
   </div>
   <div class="col-sm-4 col-md-4 text-right">
-    <p class="slide-left-top1"><strong> {{his.discount}} บาท</strong></p>
+    <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
     <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
   </div>
 </div>
@@ -172,7 +185,7 @@
 <div ng-show="vm.tabname === '2'">
   <div class="row wrapper  white-bg page-heading">
     <div class="col-lg-10">
-      <h2>Settings</h2>
+      <h2>ตั้งค่าความเป็นส่วนตัว</h2>
     </div>
   </div>
   <div class="wrapper wrapper-content" ng-controller="SettingsController">
@@ -180,11 +193,11 @@
       <div class="col-sm-4 col-md-4">
         <div class="ibox">
           <div class="ibox-content">
-            <a ui-sref-active="active" ui-sref="me.profile" class="btn btn-default btn-block">Edit Profile</a>
-            <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">Change Profile Picture</a>
-            <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">Change Password</a>
-            <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">Manage Social Accounts</a>
-            <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">Signout</a>
+            <a ui-sref-active="active" ui-sref="me.profile" class="btn btn-default btn-block">แก้ไขข้อมูลส่วนตัว</a>
+            <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">เปลี่ยนรูปโปรไฟล์</a>
+            <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">เปลี่ยนรหัสผ่าน</a>
+            <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">จัดการเครือข่ายสังคม</a>
+            <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">ออกจากระบบ</a>
           </div>
         </div>
       </div>
@@ -205,7 +218,7 @@
     <div class="panel-heading" ng-click="checked = !checked">
       <h4 class="panel-title">
         <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his._id}}" aria-expanded="true">
-          <div class="col-xs-6">
+          <div class="col-xs-5">
             <div role="button" aria-controls="collapseOne">
               <div class="front_profile-color2">
                 <strong>รายการสั่งซื้อ # </strong>{{his.docno}}
@@ -215,22 +228,16 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-4 text-right">
+          <div class="col-xs-3 ">
+            <label class="bin-color">{{his.deliverystatus}}</label>
+          </div>
+          <div class="col-xs-2 text-right">
             <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
             <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
           </div>
-
           <div class="col-xs-2 ">
-
-            <i class="glyphicon glyphicon-trash" ng-click="vm.remove()"></i>
-
+            <i class="bin-color glyphicon glyphicon-trash" ng-click="vm.remove()"></i>
           </div>
-
-
-
-
-
-
         </div>
       </h4>
     </div>
@@ -313,7 +320,7 @@
           </div>
         </div>
         <div class="col-xs-6 text-right">
-          <p class="slide-left-top1"><strong> {{his.discount}} บาท</strong></p>
+          <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
           <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
 
         </div>
