@@ -59,7 +59,7 @@
                         <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
                         <p class="list-group-item-heading">-</p>
@@ -114,7 +114,7 @@
                         <span class="list-group-item-heading" ng-bind="order.docno"></span>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
                         <p class="list-group-item-heading">-</p>
@@ -166,10 +166,10 @@
                         <span class="list-group-item-heading" ng-bind="order.docno"></span>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
-                        <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
-                        <p class="list-group-item-heading" ng-bind="order.amount | number:2"></p>
+                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                       </div>
                       <div class="col-xs-4 col-sm-4 col-md-4" align="center">
                         <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.postcode + ' ' + order.shipping.province"></p>
