@@ -3,9 +3,9 @@
     <ul side-navigation class="nav metismenu" id="side-menu">
       <li class="nav-header">
         <!--<div class="profile-element">-->
-          <!-- Picture of user -->
-          <!--<img alt="image" class="img-circle" src="img/profile_small.jpg"/>-->
-          <!--<a href>
+        <!-- Picture of user -->
+        <!--<img alt="image" class="img-circle" src="img/profile_small.jpg"/>-->
+        <!--<a href>
             <span class="clear">
                 <span class="block m-t-xs">
                     <strong class="font-bold">User</strong>
@@ -32,9 +32,9 @@
       </li>
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
         ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'">
-        <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า': item.title}}&nbsp;</span></a>
+        <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า':item.title === 'Admin' ? 'ผู้ดูแลระบบ':item.title === 'Managebanks' ? 'การจัดการธนาคาร':item.title === 'me' ? 'ประวัติการสั่งซื้อ':item.title === 'Orders' ? 'รายการสั่งซื้อ':item.title === 'Promotions' ? 'โปรโมชั่น': item.title}}&nbsp;</span></a>
       </li>
-       <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
+      <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
         <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">Me</span></a>
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">

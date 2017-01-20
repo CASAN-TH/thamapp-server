@@ -8434,6 +8434,13 @@ body.md-skin {
   min-height: 300px;
 }
 
+.img-product-detail {
+  max-width: 100% !important;
+  max-height: 500px;
+  min-width: 100% !important;
+  min-height: 500px;
+}
+
 .color-gray-profile{
   font-size: 20px;
   color: gray;
