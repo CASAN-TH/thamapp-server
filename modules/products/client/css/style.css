@@ -273,7 +273,14 @@ margin-right: 10px;
 .margin-text-me-left-30{
     margin-left: 10px;
 }
+/*discout*/
+.color-discount{
+    color: #00FF00;
+}
 
+.color-bg-discount{
+    background-color: orangered;
 
+}
 
 
