@@ -60,7 +60,7 @@
                   <strong> สั่งเมื่อวันที่ </strong> {{his.docdate | date}}
                 </div>
                 <div class="front_profile-color1">
-                  <p><strong>ราคาสุทธิ</strong> {{his.amount}} บาท </p>
+                  <p><strong>ราคาสุทธิ</strong> {{his.totalamount}} บาท </p>
                 </div>
               </div>
 
@@ -175,7 +175,7 @@
   </div>
   <div class="col-sm-4 col-md-4 text-right">
     <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
-    <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
+    <p class="slide-left-top1"><strong> {{his.totalamount}} บาท</strong></p>
   </div>
 </div>
 </div>
@@ -304,7 +304,7 @@
         </div>
         <div class="col-xs-7 front_profile-color2 slide-left-top1">
           <p>ชื่อสินค้า :{{item.product.name}} </p>
-          <p>รายละเอียดสินค้า :{{item.product.description}}</p>
+          <!--<p>รายละเอียดสินค้า :{{item.product.description}}</p>-->
           <p>ราคาสินค้า :{{item.product.price}} บาท</p>
           <p>จำนวน :{{item.qty}}</p>
         </div>
@@ -321,7 +321,7 @@
         </div>
         <div class="col-xs-6 text-right">
           <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
-          <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
+          <p class="slide-left-top1"><strong> {{his.totalamount}} บาท</strong></p>
 
         </div>
       </div>

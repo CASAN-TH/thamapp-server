@@ -21,7 +21,6 @@
     vm.cart = ShopCartService.cart;
     vm.buynow = function (product) {
       $timeout(function () {
-        vm.cart.add(product);
         $state.go('cartview');
       }, 400);
 
