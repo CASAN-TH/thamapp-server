@@ -67,35 +67,6 @@ angular.module('users').config(['$stateProvider',
       .state('password.reset.form', {
         url: '/:token',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html'
-      })
-      .state('admin.users', {
-        url: 'admin/users',
-        templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
-        controller: 'UserListController'
-      })
-      .state('admin.user', {
-        url: 'admin/users/:userId',
-        templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
-        controller: 'UserController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }
-      })
-      .state('admin.user-edit', {
-        url: 'admin/users/:userId/edit',
-        templateUrl: 'modules/users/client/views/admin/edit-user.client.view.html',
-        controller: 'UserController',
-        resolve: {
-          userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
-          }]
-        }
       });
   }
 ]);
