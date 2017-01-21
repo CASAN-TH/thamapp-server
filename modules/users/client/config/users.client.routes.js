@@ -69,12 +69,12 @@ angular.module('users').config(['$stateProvider',
         templateUrl: 'modules/users/client/views/password/reset-password.client.view.html'
       })
       .state('admin.users', {
-        url: '/users',
+        url: 'admin/users',
         templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController'
       })
       .state('admin.user', {
-        url: '/users/:userId',
+        url: 'admin/users/:userId',
         templateUrl: 'modules/users/client/views/admin/view-user.client.view.html',
         controller: 'UserController',
         resolve: {
@@ -86,7 +86,7 @@ angular.module('users').config(['$stateProvider',
         }
       })
       .state('admin.user-edit', {
-        url: '/users/:userId/edit',
+        url: 'admin/users/:userId/edit',
         templateUrl: 'modules/users/client/views/admin/edit-user.client.view.html',
         controller: 'UserController',
         resolve: {
