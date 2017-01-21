@@ -8,5 +8,10 @@ angular.module('core.admin').run(['Menus',
     //   type: 'dropdown',
     //   roles: ['admin']
     // });
+    Menus.addMenuItem('topbar', {
+      title: 'Manage Users',
+      state: 'admin.users',
+      roles: ['admin']
+    });
   }
 ]);
