@@ -513,7 +513,7 @@ body1 {
 /*test*/
 .size-status{
     font-size: 16px;
-    color:#81a662;
+    color:green;
 }
 
 .marginTB{
@@ -537,6 +537,18 @@ body1 {
     height:50px
 }
 
+.height4{
+    height:40px
+}
+
 .margin-top20px{
     margin-top: -20px;
+}
+.text-colorgray{
+    color: gray;
+
+}
+.bin-color {
+  color: red;
+  
 }
