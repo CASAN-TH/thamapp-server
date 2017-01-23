@@ -32,7 +32,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--test web-->
     <div class="page-header hidden-xs show-sm show-md show-lg" ng-show="vm.tabname === '1'" ng-repeat="his in vm.history" ng-if="his.user._id === authentication.user._id">
+
       <div class="panel panel-default">
+
         <div class="panel-heading" ng-click="checked = !checked">
           <h4 class="panel-title">
             <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his.docno}}" aria-expanded="true">
@@ -66,19 +68,21 @@
 
 
               <div class="col-sm-2 col-md-2">
-                <label class="bin-color "><i class="size-status fa fa-check"></i> {{his.deliverystatus}}</label>
+                <label class="bin-color ">สถานะ :<i  class="size-status bin-color"></i> {{his.deliverystatus}} </label>
               </div>
 
 
 
               <div class="col-sm-3 col-md-3 text-right">
-                <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
-                <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
-                <label class="bin-color text-right "ng-click=vm.cancelOrder(his) ng-show="his.deliverystatus === 'confirmed' || his.deliverystatus === 'wait deliver'">ยกเลิกรายการ</label>
+                <span title="Close" class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
+                <span title="Open" class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
+                <label title="ยกเลิกคำสั่งซื้อ" class="bin-color1  text-right " ng-click=vm.cancelOrder(his) ng-show="his.deliverystatus === 'confirmed' || his.deliverystatus === 'wait deliver'"> ยกเลิกคำสั่งซื้อ</label>
+
               </div>
 
             </div>
           </h4>
+
         </div>
         <!--<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> test </div>-->
         <div id="{{his.docno}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
