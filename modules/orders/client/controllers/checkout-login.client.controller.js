@@ -74,7 +74,7 @@
     function checkPromotion(product, qty, item) {
       // vm.order.discountpromotion = 0;
       $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
-        vm.order.discountpromotion += response.total - (vm.order.discountpromotion || 0);
+        vm.order.discountpromotion += response.total;
       }).error(function (err) {
         console.log(err);
       });
