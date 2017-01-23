@@ -243,6 +243,25 @@ text-align : center;
     outline : none;
 }
 
+.buttonGray {
+    background-color: white; 
+    color: black; 
+    border-color: gray;
+    border-style: solid;
+    border-width: 0px 0px 0px 2px;
+}
+
+.buttonGray:hover {
+    background-color: gray;
+    color: white;
+}
+
+.buttonGray:focus  {
+    background-color: gray;
+    color: white;
+    outline : none;
+}
+
 .buttonBlueSky {
     background-color: white; 
     color: black; 
@@ -550,7 +569,7 @@ body1 {
 }
 .bin-color {
   color: red;
-  
+
 }
 
 .change-address {
