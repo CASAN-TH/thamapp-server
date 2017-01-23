@@ -13,6 +13,7 @@
     vm.tabname = '1';
     $scope.allQty = 0;
     vm.history = OrdersService.query();
+    vm.cancelOrder = cancelOrder;
     // Me controller logic
     // ...
     init();
@@ -22,6 +23,26 @@
     $scope.click = function (num) {
       vm.tabname = num;
     };
+
+    function cancelOrder(item) {
+      if (item.deliverystatus === 'confirmed' || item.deliverystatus === 'wait deliver') {
+        item.deliverystatus = 'cancel';
+         var historystatus = {
+          status:'cancel',
+          datestatus: new Date()
+        };
+        item.historystatus.push(historystatus);
+
+      }
+      item.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
 
   }
 })();

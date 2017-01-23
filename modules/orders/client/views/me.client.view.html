@@ -74,7 +74,7 @@
               <div class="col-sm-3 col-md-3 text-right">
                 <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
                 <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
-                <i class="bin-color glyphicon glyphicon-trash text-right "></i>
+                <label class="bin-color text-right "ng-click=vm.cancelOrder(his) ng-show="his.deliverystatus === 'confirmed' || his.deliverystatus === 'wait deliver'">ยกเลิกรายการ</label>
               </div>
 
             </div>
