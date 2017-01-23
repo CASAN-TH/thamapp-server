@@ -96,12 +96,24 @@
               </div>
               <div class="col-sm-4 col-md-4">
                 <h4 class="card-title font-price-modal slide-right">ราคา {{vm.product.price}} บาท</h4>
+                <h2 class="pum-text-center">
+                  <a ng-click="vm.cart.add(vm.product);">
+                    <span class="fa fa-plus-circle text-info slide-right" aria-hidden="true"></span>
+                    <!--<span class="fa fa-plus slide-right" aria-hidden="true"></span>-->
+                  </a>
+                  {{vm.cart.getTotalItemsCount(vm.product._id)}}
+                  <a ng-click="vm.cart.remove(vm.product);">
+                    <span class="fa fa-minus-circle text-danger" aria-hidden="true"></span>
+                    <!--<span class="fa fa-minus" aria-hidden="true"></span>-->
+                  </a>
+                </h2>
               </div>
               <!--right-->
               <div class="col-sm-5 col-md-5 border-left">
                 <div class="row ">
                   <div class="col-md-12 font-price-modal-head">
-                    <h3>ตะกร้าสินค้าของคุณ</h3><h3>(<span class="font-name-top-modal">{{vm.cart.getTotalCount()}}</span> ชิ้น)</h3>
+                    <h3>ตะกร้าสินค้าของคุณ</h3>
+                    <h3>(<span class="font-name-top-modal">{{vm.cart.getTotalCount()}}</span> ชิ้น)</h3>
                   </div>
                 </div>
                 <div class="row border-bottom">
@@ -174,21 +186,33 @@
           <div class="modal-body">
             <!-- content here -->
             <div class="row margin-bottom-20">
-              <div class="col-xs-6  text-center ">
+              <div class="col-xs-12  text-center ">
                 <img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-rounded user-profile-picture">
               </div>
-              <div class="col-xs-6 ">
+              <div class="col-xs-12 ">
                 <div class="font-price-modal-head">
-                 <h3>ตะกร้าสินค้าของคุณ(<span class="font-name-top-modal">{{vm.cart.getTotalCount()}}</span> ชิ้น)</h3>
+                  <h3>ตะกร้าสินค้าของคุณ(<span class="font-name-top-modal">{{vm.cart.getTotalCount()}}</span> ชิ้น)</h3>
                 </div>
                 <h4 class="card-title font-price-modal ">ราคา {{vm.product.price}} บาท</h4>
+                <h2 class="pum-text-center">
+                  <a ng-click="vm.cart.add(vm.product);">
+                    <span class="fa fa-plus-circle text-info slide-right" aria-hidden="true"></span>
+                    <!--<span class="fa fa-plus slide-right" aria-hidden="true"></span>-->
+                  </a>
+                  {{vm.cart.getTotalItemsCount(vm.product._id)}}
+                  <a ng-click="vm.cart.remove(vm.product);">
+                    <span class="fa fa-minus-circle text-danger" aria-hidden="true"></span>
+                    <!--<span class="fa fa-minus" aria-hidden="true"></span>-->
+                  </a>
+                </h2>
                 
               </div>
+              <br>
               <!--right-->
 
               <div class="row ">
                 <div class="col-xs-12 font-price-modal-head">
-                
+
                 </div>
               </div>
               <div class="text-right">
@@ -220,9 +244,9 @@
             </div>
             <!--footer category-->
             <div class="row border-top" ng-init="vm.readProduct()">
-              <div class="margin-top-20 margin-bottom-20 ">
+              <!--<div class="margin-top-20 margin-bottom-20 ">
                 <h3>สินค้าที่เกี่ยวข้อง</h3>
-              </div>
+              </div>-->
               <div class="modal-scroll ">
                 <div ng-repeat="product in vm.products" ng-if="vm.product.category===product.category && vm.product._id != product._id ">
                   <div class="demo-card margin-left-cart" data-dismiss="modal" ng-click="vm.moreCart(product)">
