@@ -28,7 +28,7 @@
     vm.promotions = [];
     vm.checkPromotion = checkPromotion;
     vm.initPromotion = initPromotion;
-    vm.order.discountpromotion = 0;
+    vm.order.discountpromotion = vm.order.discountpromotion || 0;
     $scope.user = Authentication.user;
 
     $scope.updateUserProfile = function (data) {
