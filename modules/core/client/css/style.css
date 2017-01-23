@@ -8512,7 +8512,7 @@ figure.snip1174 img {
 }
 figure.snip1174 figcaption {
   position: absolute;
-  padding: 40px 25px;
+  padding: 160px 45px;
   top: 0;
   left: 0;
 }
@@ -8537,7 +8537,7 @@ figure.snip1174 a {
   padding: 10px 20px;
   border: 1px solid #ffffff;
   text-decoration: none;
-  color: #ffffff;
+  color: orangered;
   letter-spacing: 2px;
   text-transform: uppercase;
   font-size: 0.8em;
@@ -8574,4 +8574,11 @@ figure.snip1174.hover a {
   -webkit-transform: translateY(0);
   transform: translateY(0);
   opacity: 1;
+}
+
+/*test-home*/
+.word-break1{
+   white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 }
