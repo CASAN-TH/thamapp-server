@@ -10,6 +10,7 @@
   function SigninuserController($scope, $http, $state, Authentication) {
     var vm = this;
     $scope.authentication = Authentication;
+    $scope.credentials = {};
     // Signinuser controller logic
     // ...
     $scope.signin = function (isValid) {
