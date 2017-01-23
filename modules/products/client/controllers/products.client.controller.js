@@ -21,12 +21,18 @@
     vm.cart = ShopCartService.cart;
     vm.buynow = function (product) {
       $timeout(function () {
-        vm.cart.add(product);
+        vm.cart.add(product); 
         $state.go('cartview');
       }, 400);
 
     };
     vm.moreCart = moreCart;
+    vm.viewCart = function () {
+      $timeout(function () { 
+        $state.go('cartview');
+      }, 400);
+
+    };
     vm.readPromotion = readPromotion;
 
     $scope.user = Authentication.user;

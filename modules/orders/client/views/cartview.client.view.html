@@ -128,11 +128,11 @@
                 <h4>{{itm.product.name}}</h4>
                 <h5>{{itm.price}} บาท</h5>
                 <h2 class="pum-text-center">
-                  <a ng-click="vm.cart.add(itm.product)">
+                  <a ng-click="vm.cart.add(itm.product); vm.initPromotion();">
                     <span class="fa fa-plus-circle text-info" aria-hidden="true"></span>
                   </a>
                   {{itm.qty}}
-                  <a ng-click="vm.cart.remove(itm.product)">
+                  <a ng-click="vm.cart.remove(itm.product); vm.initPromotion();">
                     <span class="fa fa-minus-circle text-danger" aria-hidden="true"></span>
                   </a>
                 </h2>
