@@ -23,22 +23,12 @@
         </div>
       </div>
 
-      <div class="col-xs-12 col-md-3 col-sm-6" ng-repeat="product in products">
-        <!--<div class="row img-rounded img-promotion border-bottom" ui-sref="products.view({ productId: product._id })">
-          <img ng-src="{{product.images}}" class="img-product" title="สั่งซื้อเลย!">
-          <div class="card-block">
-            <h4 class="card-title word-break">{{product.name}}</h4>
-            <p class="card-text word-break">{{product.description}}</p>
-            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
-          </div>
-        </div>-->
-        <figure class="snip1174  col-xs-12 col-md-3 col-sm-6">
-          <img ng-src="{{product.images}}" class="img-product" />
+      <div class="col-xs-12 col-md-3 col-sm-6 border-right border-left border-top border-bottom img-rounded" ng-repeat="product in products">
+        <figure class="snip1174 white col-xs-12 col-md-3 col-sm-6">
+          <img ng-src="{{product.images}}" class="img-product img-rounded" />
           <figcaption>
             <div class="card-block ">
-              
-                <a ui-sref="products.view({ productId: product._id })">คลิ๊กเพื่อสั่งซื้อ</a>
-            
+                <a ui-sref="products.view({ productId: product._id })">คลิ๊กสั่งซื้อ</a>
             </div>
           </figcaption>
           <div class="card-block ">

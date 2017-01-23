@@ -8486,12 +8486,12 @@ body.md-skin {
     margin: 20px auto;
     }
 figure.snip1174 {
-  color: #fff;
+  color: #000;
   position: relative;
   float: left;
   overflow: hidden;
   background-color: #1a1a1a;
-  color: #ffffff;
+  color: #000000;
   text-align: left;
   margin: 10px;
   width: 100%;
@@ -8508,7 +8508,7 @@ figure.snip1174 img {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
   vertical-align: top;
-  opacity: 0.7;
+  opacity: 1;
 }
 figure.snip1174 figcaption {
   position: absolute;
@@ -8535,18 +8535,20 @@ figure.snip1174 p {
 figure.snip1174 a {
   display: inline-block;
   padding: 10px 20px;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
+  background-color:orange;
   text-decoration: none;
-  color: orangered;
+  color: white;
   letter-spacing: 2px;
   text-transform: uppercase;
-  font-size: 0.8em;
+  font-size: 0.9em;
+  font-weight: bold;
   -webkit-transform: translateY(50%);
   transform: translateY(50%);
   opacity: 0;
 }
 figure.snip1174 a:hover {
-  background-color: rgba(0, 0, 0, 0.2);
+   background-color:orange;
 }
 figure.snip1174.blue {
   background-color: #20638f;
@@ -8560,12 +8562,15 @@ figure.snip1174.green {
 figure.snip1174.navy {
   background-color: #222f3d;
 }
+figure.snip1174.white {
+  background-color: white;
+}
 figure.snip1174.red {
   background-color: #962d22;
 }
 figure.snip1174:hover img,
 figure.snip1174.hover img {
-  opacity: 0;
+  opacity: 0.3;
   -webkit-transform: scale(1);
   transform: scale(1);
 }
