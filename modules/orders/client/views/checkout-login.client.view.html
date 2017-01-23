@@ -226,6 +226,27 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>หมายเหตุการจัดส่ง</h4>
+          </div>
+        </div>
+        <!--หมายเหตุการจัดส่ง-->
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="row">
+              
+              <div class="col-xs-12 col-md-12">
+                <div class="form-group" show-errors>
+                  <input type="text" ng-model="vm.order.remark" class="form-control" placeholder="หมายเหตุการจัดส่ง"
+                  >
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
         <div class="row container-fluid rounded address-container" ng-if="authentication.user">
           <div class="col-xs-12">
@@ -396,28 +417,8 @@
 
         </div>
 
-        <!--<div class="row">
-          <div class="col-xs-12">
-            <h4>ข้อมูลการส่งสินค้า</h4>
-          </div>
-        </div>
         <div class="row">
-          <div class="col-xs-12">
-            ส่งแบบธรรมดา: ฟรี
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            Get it 21 - 23 Dec 16
-          </div>
-        </div>-->
-        <div class="row">
-          <!--<div class="col-md-6" ng-if="authentication.user">
-            <button type="submit" ng-click="saveOrder()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
-          </div>
-          <div class="col-md-6" ng-if="!authentication.user">
-            <button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
-          </div>-->
+         
           <div class="col-md-6">
             <button type="submit" class="btn btn-warning btn-block" ng-show="vm.cart.getTotalCount()">ดำเนินการต่อ</button>
           </div>
