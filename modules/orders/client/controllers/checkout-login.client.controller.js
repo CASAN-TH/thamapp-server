@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'PromotionsService'];
+  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'PromotionsService', 'Users'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, PromotionsService) {
+  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, PromotionsService, Users) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -29,6 +29,27 @@
     vm.checkPromotion = checkPromotion;
     vm.initPromotion = initPromotion;
     vm.order.discountpromotion = 0;
+    $scope.user = Authentication.user;
+
+    $scope.updateUserProfile = function (data) {
+      $scope.user.address.address = data.address;
+      $scope.user.address.district = data.district;
+      $scope.user.address.subdistrict = data.subdistrict;
+      $scope.user.address.province = data.province;
+      $scope.user.address.postcode = data.postcode;
+      var user = new Users($scope.user);
+
+      user.$update(function (response) {
+        $scope.$broadcast('show-errors-reset', 'userForm');
+
+        $scope.success = true;
+        Authentication.user = response;
+      }, function (response) {
+        $scope.error = response.data.message;
+      });
+    };
+
+    // Update a user profile
     function Promotion() {
       PromotionsService.query(function (data) {
         angular.forEach(data, function (res) {
