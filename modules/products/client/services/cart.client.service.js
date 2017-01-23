@@ -127,12 +127,12 @@
         return count;
     };
 
-    Cart.prototype.getTotalItemsCount = function (code) {
+    Cart.prototype.getTotalItemsCount = function (_id) {
         var count = 0;
         for (var i = 0; i < this.items.length; i++) {
             var item = this.items[i];
-            if (code === null || item.code === code) {
-                count += 1;
+            if (_id === null || item.product._id === _id) {
+                count += item.qty;
             }
         }
         return count;

@@ -16,22 +16,38 @@
         </div>
       </div>
     </div>
-    <div class="row hidden-xs">
+    <div class="row hidden-xs service">
       <div class="col-xs-12 col-md-6 col-sm-6">
         <div class="row">
           <img src="./modules/users/client/img/promotion.jpg" class="img-rounded img-promotion" alt="">
         </div>
       </div>
-      <div class="col-xs-12 col-md-3 col-sm-6" ng-repeat="product in products" >
-        <div class="row img-rounded img-promotion border-bottom" ui-sref="products.view({ productId: product._id })">
-          <img ng-src="{{product.images}}" class="img-product" title="สั่งซื้อเลย!">
-          <div class="card-block">
-            <h4 class="card-title word-break">{{product.name}}</h4>
-            <p class="card-text word-break">{{product.description}}</p>
-            <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+
+      <div class="col-xs-12 col-md-3 col-sm-6 border-right border-left border-top border-bottom img-rounded" ng-repeat="product in products">
+        <figure class="snip1174 white col-xs-12 col-md-3 col-sm-6">
+          <img ng-src="{{product.images}}" class="img-product img-rounded" />
+          <figcaption>
+            <div class="card-block ">
+                <a ui-sref="products.view({ productId: product._id })">คลิ๊กสั่งซื้อ</a>
+            </div>
+          </figcaption>
+          <div class="card-block ">
+            <div>
+              <h4 class="card-title word-break1"></h4>
+              <h4 class="card-title word-break1"></h4>
+              <h4 class="card-title word-break">{{product.name}}</h4>
+              <p class="card-text word-break1">{{product.description}}</p>
+              <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+            </div>
           </div>
-        </div>
+        </figure>
       </div>
+
+
+
+
+
+
     </div>
     <div class="row visible-xs">
       <div class="col-xs-12">
@@ -39,10 +55,13 @@
           <img src="./modules/users/client/img/promotion.jpg" class="img-promotion-xs" alt="">
         </div>
       </div>
-      <div class="col-xs-12" ng-repeat="product in products">
+      <div class="col-xs-12 border-right border-left border-top border-bottom img-rounded" ng-repeat="product in products">
         <div class="row text-center" ui-sref="products.view({ productId: product._id })">
-          <img ng-src="{{product.images}}" class="img-rounded img-promotion img-product border-bottom" title="สั่งซื้อเลย!">
+          <img ng-src="{{product.images}}" class="text-center img-rounded img-promotion img-product border-bottom" title="สั่งซื้อเลย!">
         </div>
+        <h4 class="card-title word-break">{{product.name}}</h4>
+              <p class="card-text word-break1">{{product.description}}</p>
+              <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
       </div>
     </div>
   </div>

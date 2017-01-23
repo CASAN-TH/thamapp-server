@@ -17,7 +17,10 @@
       mockPromotion2,
       PromotionsService,
       mockProduct,
-      ProductsService;
+      ProductsService,
+      Authentication,
+      mockUser,
+      Users;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -44,7 +47,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _OrdersService_, _PostcodesService_, _PromotionsService_, _ProductsService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_, _OrdersService_, _PostcodesService_, _PromotionsService_, _ProductsService_, _Authentication_, _Users_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -56,11 +59,17 @@
       PostcodesService = _PostcodesService_;
       PromotionsService = _PromotionsService_;
       ProductsService = _ProductsService_;
+      Authentication = _Authentication_;
+      Users = _Users_;
 
       // mockPostcode = [new PostcodesService({
       //   _id: '525a8422f6d0f87f0e407a44',
       //   postcode: '1234'
       // })];
+      mockUser = new Users({
+        firstName: 'first Name',
+        address: {}
+      });
       mockPromotion = new PromotionsService({
         _id: '525a8422f6d0f87f0e407a66',
         product: mockProduct,
@@ -222,6 +231,31 @@
 
     });
 
+    describe('updateUserProfile', function () {
+      var user = {
+        address:{}
+      };
+      beforeEach(function () {
+        // Mock Order in $scope
+        user.address.address = 'New address';
+      });
+      it('update User', inject(function () {
+        $scope.shipping = {
+          address: 'New address'
+        };
+        $scope.user = {
+          address: { address: 'New address' }
+        };
+        // Set PUT response
+        // $httpBackend.expectPUT(/api\/users\/([0-9a-fA-F]{24})$/).respond(user);
+        $scope.updateUserProfile($scope.shipping);
+        //  $httpBackend.flush();
+        // Run controller functionality
+        expect($scope.user.address.address).toEqual($scope.shipping.address);
+
+
+      }));
+    });
 
 
     // describe('vm.save() as create', function () {

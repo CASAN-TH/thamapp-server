@@ -578,4 +578,40 @@ body1 {
 
 .font-medium{
     font-size: medium;
+
+}
+
+.bin-color1 {
+  color: red;
+    font-size: 14px;
+}
+
+.text-status-color {
+  color: black;
+    font-size: 14px;
+  
+}
+
+.great {
+	background: orangered;
+	margin: 0 0 25px -60px;
+	padding: 7px 15px;
+	color: #ffffff;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 5px;
+	display: inline-block;
+	-moz-box-shadow:    2px 4px 5px 0 #ccc;
+  	-webkit-box-shadow: 2px 4px 5px 0 #ccc;
+  	box-shadow:         2px 4px 5px 0 #ccc;
+
+}
+
+.change-address {
+    border-color: #2196F3!important;
+    color: #000!important;
+    background-color: #ddffff!important;
+    padding: 1em 16px;
+    border-left: 6px solid #ccc!important;
+
 }

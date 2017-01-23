@@ -235,7 +235,7 @@
             <div class="row">
               <!--{{authentication}}-->
               <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
-              <span>{{authentication.user.address.address}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
+              <span>{{authentication.user.address.address}} {{authentication.user.address.subdistrict}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
             </div>
           </div>
         </div>
@@ -372,13 +372,27 @@
                 </div>
               </div>
             </div>
+            <div class="row change-address" ng-if="vm.order.shipping.address && vm.order.shipping.province && vm.order.shipping.postcode && vm.order.shipping.province && vm.order.shipping.district && vm.order.shipping.subdistrict">
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <b>คุณต้องการเปลี่ยนแปลงที่อยู่หรือไม่?</b>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6">
+                <a type="button" class="btn btn-primary" ng-click="updateUserProfile(vm.order.shipping)">เปลี่ยนแปลง</a>
+                <div ng-show="success" class="text-center text-success">
+                  <strong>เปลี่ยนแปลงที่อยู่เรียบร้อยแล้ว</strong>
+                </div>
+              </div>
+            </div>
           </div>
+          <!--<button class="btn btn-primary" ng-click="updateUserProfile(vm.order.shipping);">updateUserProfile</button>-->
         </div>
 
         <div class="row min-height-20">
 
         </div>
         <div class="row min-height-20">
+
+
 
         </div>
 
