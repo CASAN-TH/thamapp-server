@@ -43,6 +43,7 @@
     vm.readCustomer = readCustomer;
     vm.customers = [];
     vm.selectCustomer = selectCustomer;
+    vm.selectDeliver = selectDeliver;
     vm.addHis = addHis;
     vm.updateDeliver = updateDeliver;
     vm.acceptOrder = acceptOrder;
@@ -228,6 +229,12 @@
       vm.order.shipping.postcode = vm.cust.address.postcode;
       vm.order.shipping.email = vm.cust.email;
     }
+
+    function selectDeliver(deli) {
+      vm.deliver = deli;
+      vm.order.namedeliver = vm.deliver;
+    }
+
     function readDeliver() {
       if (vm.authentication.user.roles[0] === 'admin') {
         vm.deliver = Users.query(function () {

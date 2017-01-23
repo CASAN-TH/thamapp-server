@@ -563,10 +563,19 @@ body1 {
 .margin-top20px{
     margin-top: -20px;
 }
+
+.margin-top6px{
+    margin-top: -6px;
+}
+
 .text-colorgray{
     color: gray;
 
 }
 .bin-color {
   color: red;
+}
+
+.font-medium{
+    font-size: medium;
 }

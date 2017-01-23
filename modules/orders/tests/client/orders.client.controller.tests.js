@@ -92,7 +92,10 @@
           lastname: 'lastname'
         },
         amount: 30,
-        discount: 20
+        discount: 20,
+        namedeliver:{
+          displayName: 'deliver2 deliver2'
+        }
       });
 
       mockHisStatus = new OrdersService({
@@ -315,6 +318,22 @@
         expect($scope.vm.order.shipping.postcode).toEqual($scope.vm.cust.address.postcode);
         expect($scope.vm.order.shipping.email).toEqual($scope.vm.cust.email);
 
+      }));
+    });
+    
+    describe('vm.selectDeliver() as read', function () {
+
+
+      beforeEach(function () {
+        $scope.vm.deliver = mockDeliver;
+        $scope.vm.order = mockOrder;
+      });
+
+      it('should send a GET request and return all User', inject(function () {
+
+        $scope.vm.selectDeliver($scope.vm.deliver);
+
+        expect($scope.vm.order.namedeliver).toEqual($scope.vm.deliver);
       }));
     });
 
