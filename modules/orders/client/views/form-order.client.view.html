@@ -209,7 +209,7 @@
                             <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <select ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                        <select ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
                                             name="singleSelect" ng-model="vm.order.delivery.deliveryid" class="form-control"
                                             aria-describedby="sizing-addon3">
                                             <!--<option value="1">ไปรษณีย์</option>-->
@@ -245,7 +245,7 @@
                             <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm">
-                                        <select ng-disabled="vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                        <select ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
                                             name="deliver" class="form-control" ng-options="item as item.displayName for item in vm.delivers track by item._id "
                                             ng-model="vm.order.namedeliver"></select>
                                     </div>
@@ -394,6 +394,9 @@
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'close'">
                     <button type="text" class="btn buttonBlackForm btn-block">สถานะ : ปิดออเดอร์</button>
                 </div>
+                <div class="col-md-12" ng-show="vm.order.deliverystatus === 'cancel'">
+                    <button type="text" class="btn buttonGrayForm btn-block">สถานะ : ยกเลิกออเดอร์</button>
+                </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="tabbable ">
@@ -527,6 +530,11 @@
 
                                                 <!--<h5>หมายเลขพัสดุ</h5>
                                                 <p><input type="text" class="form-control" value="{{vm.order.trackingnumber}}"></p>-->
+                                                <!---->
+                                                <div class="row" ng-show="vm.order.delivery.deliveryid === '0' && vm.order.deliverystatus === 'cancel'">
+                                                    <h5 class="bin-color">* หมายเหตุ</h5>
+                                                    <textarea name="" id="" cols="20" rows="3" ng-model="vm.order.comment" class="form-control" placeholder="Comment"></textarea>
+                                                </div>
                                             </blockquote>
                                         </div>
                                     </div>
@@ -722,6 +730,7 @@
                                 <i ng-show="status.status === 'reject'" class="fa fa-ban fa-2x fontRed" aria-hidden="true"></i>
                                 <i ng-show="status.status === 'close'" class="fa fa-smile-o fa-2x fontPink" aria-hidden="true"></i>
                                 <i ng-show="status.status === 'wait deliver'" class="fa fa-clock-o fa-2x fontBrown" aria-hidden="true"></i>
+                                <i ng-show="status.status === 'cancel'" class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="col-md-9">

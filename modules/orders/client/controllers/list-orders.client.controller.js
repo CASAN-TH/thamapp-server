@@ -20,6 +20,7 @@
     vm.statusClose = statusClose;
     vm.readReject = readReject;
     vm.readAccept = readAccept;
+    vm.statusCancel = statusCancel;
     vm.confirmedOrders = [];
     vm.confirmedPost = [];
     vm.confirmedDeli = [];
@@ -40,6 +41,9 @@
     vm.closeDeli = [];
     vm.acceptDeli = [];
     vm.rejectDeli = [];
+    vm.cancelOrders = [];
+    vm.cancelPost = [];
+    vm.cancelDeli = [];
 
     function init() {
       vm.statusConfirmed();
@@ -50,6 +54,7 @@
       vm.statusClose();
       vm.readReject();
       vm.readAccept();
+      vm.statusCancel();
     }
 
     function statusConfirmed() {
@@ -142,10 +147,25 @@
       });
     }
 
+    function statusCancel() {
+      vm.listCancel = OrdersService.query(function () {
+        angular.forEach(vm.listCancel, function (order) {
+          if (order.deliverystatus === 'cancel') {
+            vm.cancelOrders.push(order);
+          }
+          if (order.delivery.deliveryid === '1' && order.deliverystatus === 'cancel') {
+            vm.cancelPost.push(order);
+          } else if (order.delivery.deliveryid === '0' && order.deliverystatus === 'cancel') {
+            vm.cancelDeli.push(order);
+          }
+        });
+      });
+    }
+
     function readAccept() {
       vm.listAccept = OrdersService.query(function () {
         angular.forEach(vm.listAccept, function (order) {
-           if (order.delivery.deliveryid === '0' && order.deliverystatus === 'accept') {
+          if (order.delivery.deliveryid === '0' && order.deliverystatus === 'accept') {
             vm.acceptDeli.push(order);
           }
         });
@@ -153,9 +173,9 @@
     }
 
     function readReject() {
-       vm.listReject = OrdersService.query(function () {
+      vm.listReject = OrdersService.query(function () {
         angular.forEach(vm.listReject, function (order) {
-           if (order.delivery.deliveryid === '0' && order.deliverystatus === 'reject') {
+          if (order.delivery.deliveryid === '0' && order.deliverystatus === 'reject') {
             vm.rejectDeli.push(order);
           }
         });
