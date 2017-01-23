@@ -23,7 +23,9 @@
       mockConfirmedOrderPost,
       mockConfirmedOrderDeli,
       mockAcceptDeli,
-      mockRejectDeli;
+      mockRejectDeli,
+      mockCancelOrderPost,
+      mockCancelOrderDeli;
 
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -194,6 +196,28 @@
         docno: '1234',
         docdate: '24/05/2535',
         deliverystatus: 'close',
+        delivery: {
+          deliveryid: '0'
+        }
+      });
+
+      mockCancelOrderPost = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'cancel',
+        delivery: {
+          deliveryid: '1'
+        }
+      });
+
+      mockCancelOrderDeli = new OrdersService({
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Order Name',
+        docno: '1234',
+        docdate: '24/05/2535',
+        deliverystatus: 'cancel',
         delivery: {
           deliveryid: '0'
         }
@@ -395,6 +419,30 @@
         expect($scope.vm.closeDeli.length).toEqual(1);
         expect($scope.vm.closeDeli[0].deliverystatus).toEqual('close');
         expect($scope.vm.closeDeli[0].delivery.deliveryid).toEqual('0');
+
+      }));
+    });
+
+    describe('order status cancelOrder', function () {
+
+      beforeEach(function () {
+        $scope.vm.cancelOrders = [mockCancelOrderPost, mockCancelOrderDeli];
+        $scope.vm.cancelPost = [mockCancelOrderPost];
+        $scope.vm.cancelDeli = [mockCancelOrderDeli];
+      });
+
+      it('should send a GET request and return all Orders cancel status', inject(function () {
+        $scope.vm.statusCancel();
+        // Test form inputs are reset
+        expect($scope.vm.cancelOrders.length).toEqual(2);
+        expect($scope.vm.cancelOrders[0].deliverystatus).toEqual('cancel');
+        expect($scope.vm.cancelOrders[1].deliverystatus).toEqual('cancel');
+        expect($scope.vm.cancelPost.length).toEqual(1);
+        expect($scope.vm.cancelPost[0].deliverystatus).toEqual('cancel');
+        expect($scope.vm.cancelPost[0].delivery.deliveryid).toEqual('1');
+        expect($scope.vm.cancelDeli.length).toEqual(1);
+        expect($scope.vm.cancelDeli[0].deliverystatus).toEqual('cancel');
+        expect($scope.vm.cancelDeli[0].delivery.deliveryid).toEqual('0');
 
       }));
     });
