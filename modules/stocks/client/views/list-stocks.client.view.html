@@ -1,0 +1,106 @@
+<section>
+  <div class="page-header headerBorder">
+    <h1>สต๊อกสินค้า</h1>
+  </div>
+
+  <div class="tab-content">
+    <div class="row height4">
+      <div class="col-md-5">
+
+      </div>
+      <div class="col-md-7">
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input type="text" class="form-control" placeholder="Search for order..." ng-model="topsearch" aria-describedby="sizing-addon3">
+        </div>
+      </div>
+    </div>
+    
+    <div class="tab-pane active" id="allActive">
+      <div class="tabbable tabs-left">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="nav">
+              <a ng-repeat="itm in vm.stocks" href="#{{itm.name}}" ng-click="vm.selected = itm.name" data-toggle="tab"><button class="thumbnail button {{itm.name === vm.selected ? 'buttonGreenForm' : 'buttonGreen'}}" type="text"><span>{{itm.name}}</span></button></a>
+            </div>
+          </div>
+          <div class="col-md-11">
+            <!--tap-->
+            <div class="tab-content">
+              <div class="tab-pane {{itm.name === vm.selected ? 'active' : ''}}" ng-repeat="itm in vm.stocks" id="{{itm.name}}">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                          <strong>คนส่งข้าว</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>สูงสุด</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ขายออก</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>คงเหลือ</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>เติมสต๊อก</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="stock in itm.stocks | filter:topsearch">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+
+                      <div class="col-xs-4 col-sm-4 col-md-4">
+                        <img class="img-circle" src="{{stock.profileImageURL}}" width="10%"><img width="5%">
+                        <span class="list-group-item-heading" ng-bind="stock.deliveryname"></span><br>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="itm.max"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="stock.sold"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="{{(itm.max || 0) - (stock.sold || 0)}}"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button class="form-control btn btn-block buttonGreenForm">เติมสต๊อก</button>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!--<div class="list-group">
+    <a ng-repeat="stock in vm.stocks" ui-sref="stocks.view({ stockId: stock._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="stock.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="stock.user" ng-bind="stock.user.displayName"></span>
+        <span ng-if="!stock.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="stock.name"></h4>
+    </a>
+  </div>-->
+  <div class="alert alert-warning text-center" ng-if="vm.stocks.$resolved && !vm.stocks.length">
+    No Stocks yet, why don't you <a ui-sref="stocks.create">create one</a>?
+  </div>
+</section>
