@@ -26,7 +26,6 @@ exports.list = function (req, res) {
       var stocks = [];
       User.find().sort('-created').exec(function (err, users) {
         if (err) {
-          console.log('err');
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
@@ -43,14 +42,14 @@ exports.list = function (req, res) {
                   stocks: []
                 };
                 users.forEach(function (_usr) {
-
+                  console.log(_usr.profileImageURL);
                   var deliver = {
                     deliveryid: _usr._id,
                     deliveryname: _usr.displayName,
+                    profileImageURL: _usr.profileImageURL,
                     sold: 0
                   };
                   orders.forEach(function (_order) {
-                    console.log(_order.deliverystatus);
                     if (_order.namedeliver) {
 
 
@@ -58,7 +57,6 @@ exports.list = function (req, res) {
 
                         if (_order.items) {
                           _order.items.forEach(function (_itm) {
-                            console.log(_itm);
                             if (_itm.product._id.toString() === _product._id.toString()) {
                               deliver.sold += (_itm.qty || 0);
                             }
