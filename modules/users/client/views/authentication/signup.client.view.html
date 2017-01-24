@@ -122,28 +122,6 @@
                   <input type="radio" ng-model="role" ng-checked="true" value="user">User
                   <input type="radio" ng-model="role" value="deliver">Deliver
                 </div>
-                <div>
-                  <b>Location</b>
-                </div>
-                <div class="min-height-20"></div>
-                <div class="row">
-                  <div class="col-md-6">
-                    <label for="latitude">Latitude</label>
-                    <input type="text" id="latitude" name="latitude" class="form-control" ng-model="credentials.address.sharelocation.latitude"
-                      placeholder="Latitude">
-                    <div ng-messages="userForm.latitude.$error" role="alert">
-                      <p class="help-block error-text" ng-message="required">Latitude is required.</p>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="longitude">Longitude</label>
-                    <input type="text" id="longitude" name="longitude" class="form-control" ng-model="credentials.address.sharelocation.longitude"
-                      placeholder="Longitude">
-                    <div ng-messages="userForm.longitude.$error" role="alert">
-                      <p class="help-block error-text" ng-message="required">Longitude is required.</p>
-                    </div>
-                  </div>
-                </div>
                 <div class="min-height-20"></div>
                 <div class="text-center form-group">
                   <button type="submit" class="btn btn-primary">Sign up</button> &nbsp; or&nbsp;
