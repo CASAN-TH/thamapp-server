@@ -562,15 +562,14 @@
                                 </div>-->
                                 <div class="tab-pane active" id="tab2">
                                     <div class="card card-outline-primary mb-5">
-                                        <strong>ที่อยู่จัดส่ง</strong>
                                         <div class="card-block">
                                             <blockquote class="card-blockquote">
                                                 <h5 ng-bind="'ชื่อผู้รับ : ' + vm.order.shipping.firstname + ' ' + vm.order.shipping.lastname"></h5>
                                                 <h5 ng-bind="'เบอร์โทร : ' + vm.order.shipping.tel"></h5>
-                                                <h5 ng-bind="'ที่อยู่ : ' + vm.order.shipping.address + ' ' + vm.order.shipping.district + ' ' + vm.order.shipping.province"></h5>
+                                                <h5 ng-bind="'ที่อยู่ : ' + vm.order.shipping.address + ' ' + vm.order.shipping.subdistrict + ' ' + ' ' + vm.order.shipping.district + ' ' + vm.order.shipping.province"></h5>
                                                 <h5 ng-bind="'ไปรษณีย์ : ' + vm.order.shipping.postcode"></h5>
                                                 <h5 ng-bind="'อีเมลล์ : ' + vm.order.shipping.email"></h5>
-
+                                                <h5 ng-bind="'หมายเหตุ : ' + vm.order.remark"></h5>
 
                                                 <!--<h5>หมายเลขพัสดุ</h5>
                                                 <p><input type="text" class="form-control" value="{{vm.order.trackingnumber}}"></p>-->

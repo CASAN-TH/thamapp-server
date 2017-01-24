@@ -111,7 +111,15 @@
                   {{vm.order.totalamount | number:2}}
                 </div>
               </div>
-
+              <div class="row" ng-show="vm.order.remark">
+                <div class="col-xs-1 textRight">
+                  หมายเหตุ
+                </div>
+                <div class="col-xs-11 textRight">
+                  {{vm.order.remark}}
+                </div>
+                
+              </div>
             </div>
           </div>
         </div>
