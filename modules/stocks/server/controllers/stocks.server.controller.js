@@ -35,8 +35,10 @@ exports.list = function (req, res) {
 
             } else {
               products.forEach(function (_product) {
+                console.log(_product);
                 var st = {
                   name: _product.name,
+                  images: _product.images,
                   max: 20,
                   min: 15,
                   stocks: []

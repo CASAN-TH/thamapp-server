@@ -15,13 +15,17 @@
         </div>
       </div>
     </div>
-    
+
     <div class="tab-pane active" id="allActive">
       <div class="tabbable tabs-left">
         <div class="row">
           <div class="col-md-1">
             <div class="nav">
-              <a ng-repeat="itm in vm.stocks" href="#{{itm.name}}" ng-click="vm.selected = itm.name" data-toggle="tab"><button class="thumbnail button {{itm.name === vm.selected ? 'buttonGreenForm' : 'buttonGreen'}}" type="text"><span>{{itm.name}}</span></button></a>
+              <a ng-repeat="itm in vm.stocks" href="#{{itm.name}}" ng-click="vm.selected = itm.name" data-toggle="tab">
+                <button class="thumbnail button {{itm.name === vm.selected ? 'buttonGreenForm' : 'buttonGreen'}}" type="text">
+                <img class="img-circle" src="{{itm.images}}" title="{{itm.name}}" width="70%">
+                </button>
+              </a>
             </div>
           </div>
           <div class="col-md-11">
