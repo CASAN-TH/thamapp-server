@@ -218,9 +218,7 @@
         vm.order.shipping.postcode = $scope.authentication.user.address.postcode;
         vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
         vm.order.shipping.province = $scope.authentication.user.address.province;
-        vm.order.shipping.district = $scope.authentication.user.address.district;
-        vm.order.shipping.sharelocation.latitude = $scope.authentication.user.address.sharelocation.latitude;
-        vm.order.shipping.sharelocation.longitude = $scope.authentication.user.address.sharelocation.longitude;        
+        vm.order.shipping.district = $scope.authentication.user.address.district;        
       }
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.totalamount = vm.order.amount - vm.order.discountpromotion;
