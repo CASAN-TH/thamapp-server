@@ -226,6 +226,21 @@
           </div>
         </div>
 
+        <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
+        <div class="row container-fluid rounded address-container" ng-if="authentication.user">
+          <div class="col-xs-12">
+            <div class="row">
+              <label for="">{{authentication.user.displayName}}</label>
+            </div>
+            <div class="row">
+              <!--{{authentication}}-->
+              <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
+              <span>{{authentication.user.address.address}} {{authentication.user.address.subdistrict}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="row min-height-20">
+        </div>
         <div class="row">
           <div class="col-xs-12">
             <h4>หมายเหตุการจัดส่ง</h4>
@@ -246,23 +261,6 @@
             </div>
           </div>
         </div>
-
-        <!--ที่อยู่ที่จะจัดส่ง กรณี login-->
-        <div class="row container-fluid rounded address-container" ng-if="authentication.user">
-          <div class="col-xs-12">
-            <div class="row">
-              <label for="">{{authentication.user.displayName}}</label>
-            </div>
-            <div class="row">
-              <!--{{authentication}}-->
-              <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
-              <span>{{authentication.user.address.address}} {{authentication.user.address.subdistrict}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="row min-height-20">
-        </div>
-
         <!--กรณี user ต้องการระบุที่อยู่จัดส่งใหม่-->
         <div class="row container-fluid" ng-if="authentication.user">
           <div class="col-xs-12 col-md-12 ">
