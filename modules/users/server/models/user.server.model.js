@@ -70,7 +70,11 @@ var UserSchema = new Schema({
     province: String,
     district: String,
     tel: String,
-    email: String
+    email: String,
+    sharelocation: {
+      latitude: String,
+      longitude: String
+    }
   },
   salt: {
     type: String
