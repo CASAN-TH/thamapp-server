@@ -73,6 +73,7 @@ var OrderSchema = new Schema({
       detail: String
     }]
   },
+  remark: String,
   amount: Number,
   weight: String,
   deliveryamount: Number,

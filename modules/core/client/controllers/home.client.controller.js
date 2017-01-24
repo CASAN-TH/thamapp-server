@@ -6,7 +6,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.authentication = Authentication;
     $scope.products = product.query();
     // Some example string
-    $scope.helloText = 'ร้านค้ายักษ์จับมือโจน ส่งถึงบ้าน';
+    $scope.helloText = 'โครงการยักษ์จับมือโจน ส่งถึงบ้าน';
     $scope.descriptionText = 'แหล่งรวมสินค้า อาหาร ธรรมชาติ';
 
   }
