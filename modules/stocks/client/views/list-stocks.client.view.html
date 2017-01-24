@@ -23,7 +23,7 @@
             <div class="nav">
               <a ng-repeat="itm in vm.stocks" href="#{{itm.name}}" ng-click="vm.selected = itm.name" data-toggle="tab">
                 <button class="thumbnail button {{itm.name === vm.selected ? 'buttonGreenForm' : 'buttonGreen'}}" type="text">
-                <img class="img-circle" src="{{itm.images}}" title="{{itm.name}}" width="70%">
+                <img src="{{itm.images}}" title="{{itm.name}}" width="50%">
                 </button>
               </a>
             </div>
