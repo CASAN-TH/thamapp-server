@@ -17,6 +17,7 @@
     vm.order = orderResolve;
     vm.order.delivery = { deliveryid: '0' };
     vm.order.shipping = {};
+    vm.order.shipping.sharelocation = {};
     vm.isMember = false;
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
@@ -218,6 +219,8 @@
         vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
         vm.order.shipping.province = $scope.authentication.user.address.province;
         vm.order.shipping.district = $scope.authentication.user.address.district;
+        vm.order.shipping.sharelocation.latitude = $scope.authentication.user.address.sharelocation.latitude;
+        vm.order.shipping.sharelocation.longitude = $scope.authentication.user.address.sharelocation.longitude;        
       }
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.totalamount = vm.order.amount - vm.order.discountpromotion;
