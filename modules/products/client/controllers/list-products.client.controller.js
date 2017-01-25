@@ -22,7 +22,7 @@
             product.promotions = [];
             angular.forEach(promotions, function (promotion) {
               if (promotion.product._id === product._id) {
-                product.promotions.push(res);
+                product.promotions.push(promotion);
               }
             });
             vm.products.push(product);
