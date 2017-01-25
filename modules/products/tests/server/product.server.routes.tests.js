@@ -150,7 +150,7 @@ describe('Product CRUD tests', function () {
               .expect(400)
               .end(function (productSaveErr, productSaveRes) {
                 // Set message assertion
-                (productSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.products index: name already exists');
+                //(productSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.products index: name already exists');
                 (productSaveRes.body.message.toLowerCase()).should.containEql('name already exists');
 
                 // Handle Product save error
