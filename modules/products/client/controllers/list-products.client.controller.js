@@ -12,28 +12,31 @@
 
     vm.authentication = Authentication;
     vm.readProduct = readProduct;
-    vm.readPromotion = readPromotion;
-    vm.promotion = [];
+    //vm.readPromotion = readPromotion;
+    //vm.promotion = [];
     vm.products = [];
     function readProduct() {
       ProductsService.query(function (products) {
-        angular.forEach(products, function (pro) {
-          vm.products.push(pro);
-          pro.promotion = [];
-          angular.forEach(vm.promotion, function (res) {
-            if (res.product._id === pro._id) {
-              pro.promotion.push(res);
-            }
+        PromotionsService.query(function (promotions) {
+          angular.forEach(products, function (product) {
+            product.promotions = [];
+            angular.forEach(promotions, function (promotion) {
+              if (promotion.product._id === product._id) {
+                product.promotions.push(res);
+              }
+            });
+            vm.products.push(product);
           });
         });
+
       });
     }
-    function readPromotion() {
-      PromotionsService.query(function (promotion) {
-        angular.forEach(promotion, function (res) {
-          vm.promotion.push(res);
-        });
-      });
-    }
+    // function readPromotion() {
+    //   PromotionsService.query(function (promotion) {
+    //     angular.forEach(promotion, function (res) {
+    //       vm.promotion.push(res);
+    //     });
+    //   });
+    // }
   }
 } ());
