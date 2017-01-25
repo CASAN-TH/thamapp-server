@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Product = mongoose.model('Product'),
+  Promotion = mongoose.model('Promotion'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   multer = require('multer'),
   config = require(path.resolve('./config/config')),
@@ -40,8 +41,17 @@ exports.read = function (req, res) {
   // Add a custom field to the Article, for determining if the current User is the "owner".
   // NOTE: This field is NOT persisted to the database, since it doesn't exist in the Article model.
   product.isCurrentUserOwner = req.user && product.user && product.user._id.toString() === req.user._id.toString();
+  Promotion.find().sort('-created').where('product').equals(product._id).exec(function (err, promotions) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      product.promotions = promotions;
+      res.jsonp(product);
+    }
+  });
 
-  res.jsonp(product);
 };
 
 /**
@@ -90,7 +100,27 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(products);
+      Promotion.find().sort('-created').exec(function (err, promotions) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          products.forEach(function (product) { 
+            
+            product.promotions = [];
+            //console.log(product);
+            promotions.forEach(function(promotion){
+              if(promotion.product.toString() === product._id.toString()){
+                product.promotions.push(promotion);
+              }
+              
+            });
+          });
+          res.jsonp(products);
+        }
+      });
+
     }
   });
 };

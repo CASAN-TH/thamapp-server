@@ -6,6 +6,7 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Product = mongoose.model('Product'),
+  Promotion = mongoose.model('Promotion'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -103,7 +104,7 @@ describe('Product CRUD tests', function () {
                 (products[0].category).should.match('Product Category');
                 (products[0].price).should.match(100);
                 (products[0].images).should.match('img1');
-                
+
 
                 // Call the assertion callback
                 done();
@@ -301,18 +302,25 @@ describe('Product CRUD tests', function () {
   it('should be able to get a list of Products if not signed in', function (done) {
     // Create new Product model instance
     var productObj = new Product(product);
-
+    var PromotionObj = new Promotion({
+      product: productObj,
+      description: 'Promotion describe'
+    });
     // Save the product
     productObj.save(function () {
-      // Request Products
-      request(app).get('/api/products')
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Array).and.have.lengthOf(1);
+      PromotionObj.save(function () {
+        // Request Products
+        request(app).get('/api/products')
+          .end(function (req, res) {
+            // Set assertion
+            res.body.should.be.instanceof(Array).and.have.lengthOf(1);
+            
+            //res.body[0].should.equal(1);
+            // Call the assertion callback
+            done();
+          });
+      });
 
-          // Call the assertion callback
-          done();
-        });
 
     });
   });
@@ -320,17 +328,24 @@ describe('Product CRUD tests', function () {
   it('should be able to get a single Product if not signed in', function (done) {
     // Create new Product model instance
     var productObj = new Product(product);
+    var PromotionObj = new Promotion({
+      product: productObj,
+      description: 'Promotion describe'
+    });
+
 
     // Save the Product
     productObj.save(function () {
-      request(app).get('/api/products/' + productObj._id)
-        .end(function (req, res) {
-          // Set assertion
-          res.body.should.be.instanceof(Object).and.have.property('name', product.name);
-
-          // Call the assertion callback
-          done();
-        });
+      PromotionObj.save(function () {
+        request(app).get('/api/products/' + productObj._id)
+          .end(function (req, res) {
+            // Set assertion
+            res.body.should.be.instanceof(Object).and.have.property('name', product.name);
+            res.body.promotions.length.should.equal(1);
+            // Call the assertion callback
+            done();
+          });
+      });
     });
   });
 
@@ -563,7 +578,9 @@ describe('Product CRUD tests', function () {
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Product.remove().exec(done);
+      Product.remove().exec(function () {
+        Promotion.remove(done);
+      });
     });
   });
 });
