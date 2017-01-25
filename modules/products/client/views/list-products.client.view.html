@@ -7,7 +7,7 @@
     </div>
   </h1>
 </div>
-<section ng-init="vm.readPromotion(); vm.readProduct();">
+<section ng-init="vm.readProduct();">
 
 
   <!--<div class="list-group">
@@ -35,10 +35,10 @@
             <h4 class="card-title word-break">{{product.name}}</h4>
             <p class="card-text word-break">{{product.description}}</p>
             <h4 class="card-title text-warning">{{product.price}} บาท</h4>
-            <div class="card-text word-break color-discount" ng-show="product.promotion.length > 0">
+            <div class="card-text word-break color-discount" ng-show="product.promotions.length > 0">
               <h4>โปรโมชั่น</h4>
             </div>
-            <div ng-repeat="promotion in product.promotion">
+            <div ng-repeat="promotion in product.promotions">
               <label class="card-text word-break color-discount">- {{promotion.description}}</label>
             </div>
           </div>

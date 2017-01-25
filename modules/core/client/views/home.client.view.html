@@ -27,7 +27,7 @@
         <figure class="snip1174 white col-xs-12 col-md-3 col-sm-6">
           <img ng-src="{{product.images}}" class="img-product img-rounded" />
           <figcaption>
-            <div class="card-block ">
+            <div class="card-block " ng-if="!authentication.user || authentication.user.roles[0] !== 'deliver'">
                 <a ui-sref="products.view({ productId: product._id })">คลิ๊กสั่งซื้อ</a>
             </div>
           </figcaption>
