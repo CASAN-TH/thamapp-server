@@ -33,15 +33,19 @@
       }, 400);
 
     };
-    vm.readPromotion = readPromotion;
+
+    // พี่โก๋ยกเลิกการ readPromotion แบบเก่า
+    // ข้อมูล Promotions จะอ่านมาอยู่ในข้อมูล Product อยู่แล้ว
+    //vm.readPromotion = readPromotion;
+    // function readPromotion() {
+    //   vm.promotion = PromotionsService.query();
+    // }
 
     $scope.user = Authentication.user;
     function readProduct() {
       vm.products = ProductsService.query();
     }
-    function readPromotion() {
-      vm.promotion = PromotionsService.query();
-    }
+    
     // Create file uploader instance
     $scope.uploader = new FileUploader({
       url: 'api/products_picture',

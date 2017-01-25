@@ -3,7 +3,7 @@
     <span>New</span>
   </a>
 </div>-->
-<section ng-init="vm.readPromotion()">
+<section>
   <div class="page-header prd-header-wrapper">
 
     <h1 ng-bind="vm.product.name"></h1>
@@ -16,7 +16,7 @@
       <i class="glyphicon glyphicon-trash"></i>
     </a>
   </div>
-  <div class="row" ng-init="vm.readPromotion()">
+  <div class="row">
 
     <div class="col-sm-4 text-center">
       <img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-rounded img-product-detail">
@@ -42,8 +42,8 @@
       <div class="min-height-50">
 
       </div>
-      <div class="row" ng-repeat="promotion in vm.promotion">
-        <div class="col-xs-12" ng-if="vm.product._id === promotion.product._id">
+      <div class="row" ng-repeat="promotion in vm.product.promotions">
+        <div class="col-xs-12">
           <p>Promotion : {{promotion.description}}</p>
         </div>
       </div>
