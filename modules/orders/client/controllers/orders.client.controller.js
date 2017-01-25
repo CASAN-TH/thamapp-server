@@ -6,9 +6,9 @@
     .module('orders')
     .controller('OrdersController', OrdersController);
 
-  OrdersController.$inject = ['$scope', '$state', '$window', 'Authentication', 'orderResolve', 'ShopCartService', 'ProductsService', 'Users'];
+  OrdersController.$inject = ['$scope', '$state', '$http', '$window', 'Authentication', 'orderResolve', 'ShopCartService', 'ProductsService', 'Users'];
 
-  function OrdersController($scope, $state, $window, Authentication, order, ShopCartService, ProductsService, Users) {
+  function OrdersController($scope, $state, $http, $window, Authentication, order, ShopCartService, ProductsService, Users) {
     var vm = this;
     vm.users = Users;
     vm.authentication = Authentication;
@@ -51,6 +51,34 @@
     vm.addWait = addWait;
     vm.changeDis = changeDis;
     vm.updateWaitStatus = updateWaitStatus;
+    vm.selectProduct = selectProduct;
+    vm.order.amount = 0;
+    vm.addQty = addQty;
+    vm.removeQty = removeQty;
+    if (vm.order.items) {
+      vm.order.items = vm.order.items;
+    } else {
+      vm.order.items = [];
+    }
+
+
+    function addQty(item) {
+      item.qty += 1;
+      calculate(item);
+
+    }
+
+    function removeQty(item) {
+      item.qty -= 1;
+      calculate(item);
+    }
+    function selectProduct(item) {
+      vm.order.items.push({
+        product: item,
+        qty: 1
+      });
+      sumary(vm.order.items);
+    }
 
     function changeDis() {
       if (vm.order.discount) {
@@ -247,20 +275,18 @@
 
     }
     function calculate(item) {
-
-
       item.qty = item.qty || 1;
       item.amount = item.product.price * item.qty;
 
-      sumary();
-
+      sumary(vm.order.items);
     }
-    function sumary() {
-      vm.order.amount = 0;
-      vm.order.items.forEach(function (itm) {
-        vm.order.amount += itm.amount || 0;
+    function sumary(items) {
+      vm.order.totalamount = 0;
+      angular.forEach(items, function (prod) {
+        prod.amount = prod.product.price * prod.qty;
+        vm.order.amount = prod.amount;
+        vm.order.totalamount += prod.amount;
       });
-
     }
     function addItem() {
       vm.order.items.push({
@@ -270,10 +296,11 @@
     }
     function removeItem(item) {
       //vm.order.items.splice(item);
-      vm.order.items.splice(vm.order.items.indexOf(item), 1);
+      vm.order.items.splice(item, 1);
 
-      sumary();
+      sumary(vm.order.items);
     }
+
     function productChanged(item) {
 
       item.qty = item.qty || 1;
@@ -318,7 +345,39 @@
     function init() {
       vm.readProduct();
       vm.readDeliver();
-      if (!vm.order._id) {
+      if (!vm.order._id && vm.authentication.user.roles[0] === 'deliver') {
+        vm.order.docdate = new Date();
+        vm.order.docno = (+ new Date());
+        // vm.order.items = [{
+        //   product: new ProductsService(),
+        //   qty: 1
+        // }];
+        vm.order.historystatus = [{
+          status: 'complete',
+          datestatus: new Date()
+        }];
+
+        vm.order.shipping = {
+          firstname: vm.authentication.user.firstName,
+          lastname: vm.authentication.user.lastName,
+          address: vm.authentication.user.address.address,
+          postcode: vm.authentication.user.address.postcode,
+          subdistrict: vm.authentication.user.address.subdistrict,
+          province: vm.authentication.user.address.province,
+          district: vm.authentication.user.address.district,
+          tel: vm.authentication.user.address.tel,
+          email: vm.authentication.user.email
+        };
+        vm.order.delivery = {
+          deliveryid: '0'
+        };
+        vm.order.deliverystatus = 'complete';
+        vm.order.namedeliver = vm.authentication.user;
+        vm.order.user = vm.authentication.user;
+        vm.order.discountpromotion = 0;
+        vm.order.totalamount = 0;
+      }
+      else if (!vm.order._id) {
         vm.order.docdate = new Date();
         vm.order.items = [{
           product: new ProductsService(),
@@ -351,7 +410,6 @@
     }
 
     function selectedProduct() {
-      console.log(vm.selectedProductss);
       vm.order.items.push({
         product: new ProductsService(),
         qty: 1
@@ -380,12 +438,19 @@
         vm.order.$update(successCallback, errorCallback);
       } else {
         vm.changeDis();
-        vm.updateWaitStatus();
+        if (vm.authentication.user.roles[0] !== 'deliver') {
+          vm.updateWaitStatus();
+        }
         vm.order.$save(successCallback, errorCallback);
       }
 
       function successCallback(res) {
-        $state.go('orders.list');
+        if (res.user._id === res.namedeliver._id) {
+          $state.go('assignlist');
+        }
+        else {
+          $state.go('orders.list');
+        }
       }
 
       function errorCallback(res) {

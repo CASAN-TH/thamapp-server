@@ -93,7 +93,10 @@
         },
         amount: 30,
         discount: 20,
-        namedeliver:{
+        namedeliver: {
+          displayName: 'deliver2 deliver2'
+        },
+        user: {
           displayName: 'deliver2 deliver2'
         }
       });
@@ -194,6 +197,40 @@
         $scope.vm.init();
         // expect($scope.vm.order.docdate).toEqual(new Date());
         expect($scope.vm.order.items.length).toEqual(1);
+      }));
+    });
+
+    describe('vm.addQty() ', function () {
+      beforeEach(function () {
+        $scope.vm.order = {
+          items:[{
+             product : {
+               price : 200
+             },
+            qty:1
+          }]
+        };
+      });
+      it('should addQty', inject(function () {
+        $scope.vm.addQty($scope.vm.order.items[0]);
+        expect($scope.vm.order.items[0].qty).toEqual(2);
+      }));
+    });
+
+     describe('vm.removeQty() ', function () {
+      beforeEach(function () {
+        $scope.vm.order = {
+          items:[{
+             product : {
+               price : 200
+             },
+            qty:2
+          }]
+        };
+      });
+      it('should removeQty', inject(function () {
+        $scope.vm.removeQty($scope.vm.order.items[0]);
+        expect($scope.vm.order.items[0].qty).toEqual(1);
       }));
     });
 
@@ -320,7 +357,7 @@
 
       }));
     });
-    
+
     describe('vm.selectDeliver() as read', function () {
 
 
@@ -596,18 +633,17 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should select product item', function () {
-        $scope.vm.productChanged($scope.vm.order.items[0]);
+        $scope.vm.calculate($scope.vm.order.items[0]);
         expect($scope.vm.order.items[0].qty).toEqual(1);
         expect($scope.vm.order.items[0].amount).toEqual($scope.vm.order.items[0].product.price * $scope.vm.order.items[0].qty);
-        expect($scope.vm.order.amount).toEqual(200);
       });
 
       it('should  qty changed', function () {
@@ -615,7 +651,6 @@
         $scope.vm.calculate($scope.vm.order.items[0]);
         expect($scope.vm.order.items[0].qty).toEqual(2);
         expect($scope.vm.order.items[0].amount).toEqual($scope.vm.order.items[0].product.price * $scope.vm.order.items[0].qty);
-        expect($scope.vm.order.amount).toEqual(300);
       });
 
 
@@ -628,11 +663,11 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should addItem', function () {
@@ -650,11 +685,11 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should selectedProduct', function () {
@@ -673,11 +708,11 @@
           product: mockProduct,
           qty: 1
         },
-        {
-          product: mockProduct,
-          qty: 1,
-          amount: 100
-        }];
+          {
+            product: mockProduct,
+            qty: 1,
+            amount: 100
+          }];
       });
 
       it('should removeItem', function () {
@@ -695,7 +730,18 @@
       beforeEach(function () {
         // Create a sample Order object
         sampleOrderPostData = new OrdersService({
-          docno: '1234'
+          docno: '1234',
+          user: {
+            _id: '22222'
+          },
+          namedeliver: {
+            _id: '22222'
+          },
+          historystatus: [{
+            status: 'complete',
+            datestatus: '10/12/2000'
+          }]
+
         });
 
         $scope.vm.order = sampleOrderPostData;
@@ -703,14 +749,17 @@
 
       it('should send a POST request with the form input values and then locate to new object URL', inject(function (OrdersService) {
         // Set POST response
-        $httpBackend.expectPOST('api/orders', sampleOrderPostData).respond(mockOrder);
+        $httpBackend.expectPOST('api/orders', sampleOrderPostData).respond(sampleOrderPostData);
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
-
-        // Test URL redirection after the Order was created
-        expect($state.go).toHaveBeenCalledWith('orders.list');
+        if (sampleOrderPostData.user._id === sampleOrderPostData.namedeliver._id) {
+          expect($state.go).toHaveBeenCalledWith('assignlist');
+        } else {
+          // Test URL redirection after the Order was created
+          expect($state.go).toHaveBeenCalledWith('orders.list');
+        }
       }));
 
       it('should set $scope.vm.error if error', function () {
@@ -730,18 +779,22 @@
       beforeEach(function () {
         // Mock Order in $scope
         $scope.vm.order = mockOrder;
+
       });
 
       it('should update a valid Order', inject(function (OrdersService) {
         // Set PUT response
-        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond();
+        $httpBackend.expectPUT(/api\/orders\/([0-9a-fA-F]{24})$/).respond(mockOrder);
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
-
-        // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('orders.list');
+        if (mockOrder.user._id === mockOrder.namedeliver._id) {
+          expect($state.go).toHaveBeenCalledWith('assignlist');
+        } else {
+          // Test URL redirection after the Order was created
+          expect($state.go).toHaveBeenCalledWith('orders.list');
+        }
       }));
 
       it('should set $scope.vm.error if error', inject(function (OrdersService) {

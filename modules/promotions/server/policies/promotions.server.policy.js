@@ -18,28 +18,37 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/promotions',
       permissions: '*'
     }, {
-      resources: '/api/promotions/:promotionId',
-      permissions: '*'
-    }]
+        resources: '/api/promotions/:promotionId',
+        permissions: '*'
+      }]
   }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/promotions',
-      permissions: ['get', 'post']
+      roles: ['deliver'],
+      allows: [{
+        resources: '/api/promotions',
+        permissions: ['get']
+      }, {
+          resources: '/api/promotions/:promotionId',
+          permissions: ['get']
+        }]
     }, {
-      resources: '/api/promotions/:promotionId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/promotions',
-      permissions: ['get']
+      roles: ['user'],
+      allows: [{
+        resources: '/api/promotions',
+        permissions: ['get', 'post']
+      }, {
+          resources: '/api/promotions/:promotionId',
+          permissions: ['get']
+        }]
     }, {
-      resources: '/api/promotions/:promotionId',
-      permissions: ['get']
-    }]
-  }]);
+      roles: ['guest'],
+      allows: [{
+        resources: '/api/promotions',
+        permissions: ['get']
+      }, {
+          resources: '/api/promotions/:promotionId',
+          permissions: ['get']
+        }]
+    }]);
 };
 
 /**

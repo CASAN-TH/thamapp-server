@@ -90,7 +90,7 @@
           orderResolve: newOrder
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['user', 'admin','deliver'],
           pageTitle: 'Orders Create'
         }
       })

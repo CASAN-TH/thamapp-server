@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'orders', {
       title: 'Create Order',
       state: 'orders.create',
-      roles: ['admin']
+      roles: ['admin','deliver']
     });
   }
 }());

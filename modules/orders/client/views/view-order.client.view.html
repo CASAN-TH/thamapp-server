@@ -69,7 +69,6 @@
                 <strong>Amount</strong>
               </div>
             </div>
-
             <div class="row form-group" ng-repeat="order in vm.order.items" ui-sref="order.view({ orderId: order._id })">
               <div class="col-sm-3 col-md-3">
                 <strong>{{order.product.name}}</strong>
@@ -94,7 +93,7 @@
                 </div>
               </div>
               <div class="row">
-                <div ng-hide="!vm.order.discountpromotion">
+                <div ng-show="vm.order.discountpromotion > 0">
                   <div class="col-xs-11 textRight" ng-show="vm.order.amount > 0">
                     <strong>ส่วนลดจากโปรโมชั่น</strong>
                   </div>
