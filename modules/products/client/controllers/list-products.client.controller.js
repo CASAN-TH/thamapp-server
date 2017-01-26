@@ -31,12 +31,6 @@
 
       });
     }
-    // function readPromotion() {
-    //   PromotionsService.query(function (promotion) {
-    //     angular.forEach(promotion, function (res) {
-    //       vm.promotion.push(res);
-    //     });
-    //   });
-    // }
+    
   }
 } ());

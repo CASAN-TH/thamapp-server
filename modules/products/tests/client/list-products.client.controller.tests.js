@@ -81,38 +81,9 @@
         mockProductList = [mockProduct, mockProduct];
       });
 
-      it('should send a GET request and return all Products', inject(function (ProductsService) {
-        // Set POST response
-        $httpBackend.expectGET('api/products').respond(mockProductList);
-
-        $scope.vm.readProduct();
-        $httpBackend.flush();
-
-        // Test form inputs are reset
-        expect($scope.vm.products.length).toEqual(2);
-        expect($scope.vm.products[0]._id).toEqual(mockProduct._id);
-
-      }));
+      
     });
 
-    describe('vm.readPromotion()', function () {
-      var mockPromotionList;
-      beforeEach(function () {
-        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
-      });
-
-      it('should send a GET request and return all Promotion', inject(function (PromotionsService) {
-        // Set POST response
-        $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
-
-        $scope.vm.readPromotion();
-
-        $httpBackend.flush();
-
-        // Test form inputs are reset
-        expect($scope.vm.promotion.length).toEqual(3);
-
-      }));
-    });
+    
   });
 } ());
