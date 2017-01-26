@@ -257,43 +257,5 @@
       }));
     });
 
-
-    // describe('vm.save() as create', function () {
-    //   // $scope.authentication = {
-    //   //   user: {
-    //   //     firstName: 'Firstname',
-    //   //     lastName: 'lastName',
-    //   //     address: {
-    //   //       address: 'address',
-    //   //       postcode: 'postcode',
-    //   //       subdistrict: 'subdistrict',
-    //   //       province: 'province',
-    //   //       district: 'district',
-    //   //       tel: 'tel',
-    //   //       email: 'email'
-    //   //     }
-    //   //   }
-    //   // };
-
-    //   var sampleOrderPostData;
-
-    //   beforeEach(function () {
-    //     // Create a sample Order object
-    //     sampleOrderPostData = new OrdersService({
-    //       docno: '1234'
-    //     });
-
-    //     $scope.vm.order = sampleOrderPostData;
-    //   });
-    //   it('should send a POST request with the form input values and then locate to new object URL', inject(function (OrdersService) {
-    //     // Set POST response
-    //     $httpBackend.expectPOST('api/orders', sampleOrderPostData).respond(mockOrder);
-
-    //     // Run controller functionality
-    //     $scope.saveOrder(true);
-    //     $httpBackend.flush();
-    //   }));
-    // });
-
   });
 } ());

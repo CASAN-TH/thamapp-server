@@ -6,9 +6,9 @@
     .module('products')
     .controller('ProductsController', ProductsController);
 
-  ProductsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'productResolve', 'FileUploader', '$timeout', 'ShopCartService', 'ProductsService', 'PromotionsService'];
+  ProductsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'productResolve', 'FileUploader', '$timeout', 'ShopCartService', 'ProductsService'];
 
-  function ProductsController($scope, $state, $window, Authentication, product, FileUploader, $timeout, ShopCartService, ProductsService, PromotionsService) {
+  function ProductsController($scope, $state, $window, Authentication, product, FileUploader, $timeout, ShopCartService, ProductsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -61,13 +61,6 @@
       vm.product.rangtype2.splice(index, 1);
     }
 
-    // พี่โก๋ยกเลิกการ readPromotion แบบเก่า
-    // ข้อมูล Promotions จะอ่านมาอยู่ในข้อมูล Product อยู่แล้ว
-    //vm.readPromotion = readPromotion;
-    // function readPromotion() {
-    //   vm.promotion = PromotionsService.query();
-    // }
-
     $scope.user = Authentication.user;
     function readProduct() {
       vm.products = ProductsService.query();
@@ -108,7 +101,6 @@
       $scope.success = true;
 
       // Populate user object
-      // $scope.user = Authentication.user = response;
       vm.product.images = response.imageURL;
       console.log(response);
 
