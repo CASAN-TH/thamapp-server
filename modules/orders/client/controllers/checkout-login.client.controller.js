@@ -189,6 +189,11 @@
     };
 
     $scope.saveOrder = function () {
+      if (vm.order.shipping.sharelocation) {
+        vm.order.shipping.sharelocation = vm.order.shipping.sharelocation;
+      } else {
+        vm.order.shipping.sharelocation = {};
+      }
       vm.order.totalamount = 0;
       vm.order.items = [];
       //var getAllOrder = OrdersService.query();
@@ -218,54 +223,38 @@
         vm.order.shipping.postcode = $scope.authentication.user.address.postcode;
         vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
         vm.order.shipping.province = $scope.authentication.user.address.province;
-        vm.order.shipping.district = $scope.authentication.user.address.district;        
+        vm.order.shipping.district = $scope.authentication.user.address.district;
       }
+      var fullAddress = vm.order.shipping.address + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
+
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.totalamount = vm.order.amount - vm.order.discountpromotion;
-      // ยังไม่รู้จะใส่ยังไง
 
-      // delivery: {
-      //   deliveryid: String,
-      //   deliveryname: String,
-      //   deliverylog: [{
-      //     logdate: Date,
-      //     detail: String
-      //   }]
-      // },
-      // weight: String,
-      // deliveryamount: Number,
-      // totalamount: Number,
-      // cartdate: Date,
-      // deliverystatus: String,
-      // drilldate: Date,
-      // deliverylog: [{
-      //   logdate: Date,
-      //   detail: String
-      // }],
+      $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
+        if (response.status.toUpperCase() === 'OK') {
+          vm.order.shipping.sharelocation.latitude = response.results[0].geometry.location.lat;
+          vm.order.shipping.sharelocation.longitude = response.results[0].geometry.location.lng;
+          if (vm.order._id) {
+            vm.order.$update(successCallback, errorCallback);
+          } else {
+            vm.order.$save(successCallback, errorCallback);
+          }
+        } else {
+          alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
+        }
+        function successCallback(res) {
+          vm.cart.clear();
+          $state.go('complete', {
+            orderId: res._id
+          });
+        }
 
-      // TODO: move create/update logic to service
-      if (vm.order._id) {
-        vm.order.$update(successCallback, errorCallback);
-      } else {
-        vm.order.$save(successCallback, errorCallback);
-      }
-
-      function successCallback(res) {
-        // $scope.step += 1;
-        vm.cart.clear();
-        $state.go('complete', {
-          orderId: res._id
-        });
-        // vm.checkout = res;
-        // vm.checkout.allQty = 0;
-        // res.items.forEach(function (item) {
-        //   vm.checkout.allQty += item.qty;
-        // });
-      }
-
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
+        function errorCallback(res) {
+          vm.error = res.data.message;
+        }
+      }).error(function (err) {
+        console.log(err);
+      });
     };
     // $scope.postcode = [{ name: 'test' }];
 
