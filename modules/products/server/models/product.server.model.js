@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 
 /**
  * Product Schema
- */     
+ */
 var ProductSchema = new Schema({
   name: {
     type: String,
@@ -17,8 +17,8 @@ var ProductSchema = new Schema({
     unique: true,
     trim: true
   },
-  description:String,
-  images:String,
+  description: String,
+  images: String,
   category: {
     type: String,
     required: 'Please fill Product category',
@@ -28,6 +28,16 @@ var ProductSchema = new Schema({
     type: Number,
     required: 'Please fill Product price'
   },
+  grossweight:Number,
+  maxstock:Number,
+  minstock:Number,
+  deliveryratetype: Number,
+  valuetype1: Number,
+  rangtype2: [{
+    min: Number,
+    max: Number,
+    value: Number
+  }],
   created: {
     type: Date,
     default: Date.now

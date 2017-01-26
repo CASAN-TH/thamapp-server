@@ -57,6 +57,23 @@ describe('Product CRUD tests', function () {
         category: 'Product Category',
         price: 100,
         images: 'img1',
+        deliveryratetype: 2,
+        valuetype1: 0,
+        rangtype2:[{
+            min : 1,
+            max : 5,
+            value : 50
+          },
+          {
+            min : 6,
+            max : 10,
+            value : 100
+          },
+          {
+            min : 11,
+            max : 999999999,
+            value : 150
+          }]
       };
 
       done();
@@ -104,6 +121,9 @@ describe('Product CRUD tests', function () {
                 (products[0].category).should.match('Product Category');
                 (products[0].price).should.match(100);
                 (products[0].images).should.match('img1');
+                (products[0].deliveryratetype).should.match(2);
+                (products[0].valuetype1).should.match(0);
+                (products[0].rangtype2.length).should.match(3);
 
 
                 // Call the assertion callback
