@@ -189,8 +189,10 @@
       }
       var fullAddress = vm.order.shipping.address + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
-      vm.order.amount = vm.cart.getTotalPrice() + vm.cart.getTotalDeliveryCost();
-      vm.order.totalamount = vm.order.amount - vm.cart.getTotalDiscount();
+      vm.order.amount = vm.cart.getTotalPrice();
+      vm.order.deliveryamount = vm.cart.getTotalDeliveryCost();
+      vm.order.discountpromotion = vm.cart.getTotalDiscount();
+      vm.order.totalamount = vm.order.amount + vm.order.deliveryamount - vm.order.discountpromotion;
 
       $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
         if (response.status.toUpperCase() === 'OK') {

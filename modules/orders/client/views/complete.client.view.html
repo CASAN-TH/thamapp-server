@@ -82,9 +82,10 @@
   
     <div class="row">
       <div class="col-xs-12 col-md-12 text-right">
-        <p><h4>ราคารวม {{vm.complete.amount}} บาท</h4></p>                
+        <p><h4>ราคารวม {{vm.complete.amount}} บาท</h4></p>  
+        <p><h4>ค่าจัดส่ง {{vm.complete.deliveryamount}} บาท</h4></p>                                      
         <p><h4>ส่วนลด {{vm.complete.discountpromotion}} บาท</h4></p>        
-        <p><h3>ราคาสุทธิ {{vm.complete.amount - vm.complete.discountpromotion}} บาท</h3></p>
+        <p><h3>ราคาสุทธิ {{vm.complete.totalamount}} บาท</h3></p>
       </div>
     </div>
     <div class="row">

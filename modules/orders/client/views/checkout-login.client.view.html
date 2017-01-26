@@ -250,12 +250,12 @@
         <div class="row" ng-if="authentication.user">
           <div class="col-xs-12">
             <div class="row">
-              
+
               <div class="col-xs-12 col-md-12">
                 <div class="form-group" show-errors>
                   <textarea ng-model="vm.order.remark" class="form-control" placeholder="หมายเหตุการจัดส่ง">
                   </textarea>
-                  
+
                 </div>
               </div>
             </div>
@@ -416,7 +416,7 @@
         </div>
 
         <div class="row">
-         
+
           <div class="col-md-6">
             <button type="submit" class="btn btn-warning btn-block" ng-show="vm.cart.getTotalCount()">ดำเนินการต่อ</button>
           </div>
@@ -458,10 +458,18 @@
         </div>
         <div class="row border-bottom">
           <div class="col-md-6">
+            <p>ค่าจัดส่ง:</p>
+          </div>
+          <div class="col-md-6">
+            <p>{{vm.cart.getTotalDeliveryCost()}} บาท</p>
+          </div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col-md-6">
             <p>ส่วนลด:</p>
           </div>
           <div class="col-md-6">
-            <p>{{vm.order.discountpromotion}} บาท</p>
+            <p>{{vm.cart.getTotalDiscount()}} บาท</p>
           </div>
         </div>
         <div class="row ">
@@ -469,7 +477,7 @@
             <h4>ยอดสุทธิ</h4>
           </div>
           <div class="col-md-6">
-            <h4>{{vm.cart.getTotalPrice() - vm.order.discountpromotion}} บาท</h4>
+            <h4>{{vm.cart.getTotalPrice()+vm.cart.getTotalDeliveryCost()-vm.cart.getTotalDiscount()}} บาท</h4>
           </div>
         </div>
       </div>

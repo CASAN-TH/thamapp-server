@@ -49,7 +49,7 @@
                 for (var i = 0; i < items.length; i++) {
                     var item = items[i];
                     if (item.product !== null && item.price !== null && item.qty !== null && item.amount !== null) {
-                        item = new CartItem(item.product, item.price, item.qty, item.amount);
+                        item = new CartItem(item.product, item.price, item.qty, item.amount, item.deliverycost, item.discountamount);
                         this.items.push(item);
                     }
                 }

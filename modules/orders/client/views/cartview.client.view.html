@@ -45,7 +45,7 @@
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1 padding-10px margin-top20px">
           <a ng-click="vm.cart.removeItem(itm.product)">
-           <h2> <span class="bin-color fa fa-trash-o float-rigth " aria-hidden="true"></span></h2>
+            <h2> <span class="bin-color fa fa-trash-o float-rigth " aria-hidden="true"></span></h2>
           </a>
         </div>
       </div>
@@ -73,13 +73,21 @@
           <p>{{vm.cart.getTotalPrice()}} บาท</p>
         </div>
       </div>
+      <div class="row ">
+        <div class="col-md-6">
+          <p>ค่าจัดส่ง:</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.cart.getTotalDeliveryCost()}} บาท</p>
+        </div>
+      </div>
       <!--โปรโมชั่น-->
       <div class="row">
         <div class="col-md-6">
           <p>ส่วนลด:</p>
         </div>
         <div class="col-md-6">
-          <p>{{vm.result}} บาท</p>
+          <p>{{vm.cart.getTotalDiscount()}} บาท</p>
         </div>
       </div>
       <!--สิ้นสุดโปรโมชั่น-->
@@ -88,7 +96,7 @@
           <h4>ยอดสุทธิ</h4>
         </div>
         <div class="col-md-6">
-          <h4>{{vm.cart.getTotalPrice() - vm.result}} บาท</h4>
+          <h4>{{(vm.cart.getTotalPrice()+vm.cart.getTotalDeliveryCost()) - vm.cart.getTotalDiscount()}} บาท</h4>
         </div>
       </div>
       <div class="row" ng-hide="authentication.user || vm.cart.getTotalCount() === 0">
@@ -203,13 +211,21 @@
           <p>{{vm.cart.getTotalPrice()}} บาท</p>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p>ค่าจัดส่ง:</p>
+        </div>
+        <div class="col-md-6">
+          <p>{{vm.cart.getTotalDeliveryCost()}} บาท</p>
+        </div>
+      </div>
       <!--โปรโมชั่น-->
       <div class="row">
         <div class="col-md-6">
           <p>ส่วนลด:</p>
         </div>
         <div class="col-md-6">
-          <p>{{vm.result}} บาท</p>
+          <p>{{vm.cart.getTotalDiscount()}} บาท</p>
         </div>
       </div>
       <!--สิ้นสุดโปรโมชั่น-->
@@ -218,7 +234,7 @@
           <h4>ยอดสุทธิ</h4>
         </div>
         <div class="col-md-6">
-          <h4>{{vm.cart.getTotalPrice() - vm.result}} บาท</h4>
+          <h4>{{vm.cart.getTotalPrice()+vm.cart.getTotalDeliveryCost()-vm.cart.getTotalDiscount()}} บาท</h4>
         </div>
       </div>
       <div class="row" ng-hide="authentication.user || vm.cart.getTotalCount() === 0">
