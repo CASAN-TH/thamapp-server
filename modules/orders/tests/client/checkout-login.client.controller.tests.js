@@ -212,24 +212,24 @@
 
     });
 
-    describe('get response', function () {
-      var mockPromotionList;
-      var mockResDiscount;
+    // describe('get response', function () {
+    //   var mockPromotionList;
+    //   var mockResDiscount;
 
-      beforeEach(function () {
-        mockPromotionList = [mockPromotion, mockPromotion2];
-        mockResDiscount = { promotions: [], freeitemunit: 0, total: 110 };
-      });
+    //   beforeEach(function () {
+    //     mockPromotionList = [mockPromotion, mockPromotion2];
+    //     mockResDiscount = { promotions: [], freeitemunit: 0, total: 110 };
+    //   });
 
-      it('should send a GET response Promotions', inject(function (PromotionsService) {
-        $httpBackend.expectGET('api/promotions/productid/' + mockProduct._id + '/3').respond(mockResDiscount);
-        $scope.vm.initPromotion();
-        $scope.vm.checkPromotion(mockProduct, 3);
-        $httpBackend.flush();
-        expect($scope.vm.order.discountpromotion).toEqual(110);
-      }));
+    //   it('should send a GET response Promotions', inject(function (PromotionsService) {
+    //     $httpBackend.expectGET('api/promotions/productid/' + mockProduct._id + '/3').respond(mockResDiscount);
+    //     $scope.vm.initPromotion();
+    //     $scope.vm.checkPromotion(mockProduct, 3);
+    //     $httpBackend.flush();
+    //     expect($scope.vm.order.discountpromotion).toEqual(110);
+    //   }));
 
-    });
+    // });
 
     describe('updateUserProfile', function () {
       var user = {

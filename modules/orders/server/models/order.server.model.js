@@ -32,8 +32,11 @@ var OrderSchema = new Schema({
         type: Schema.ObjectId,
         ref: 'Product'
       },
+      price: Number,
       qty: Number,
-      amount: Number
+      amount: Number,
+      deliverycost: Number,
+      discountamount: Number
     }]
   },
   shipping: {
@@ -48,7 +51,7 @@ var OrderSchema = new Schema({
       district: String,
       tel: String,
       email: String,
-      sharelocation:{
+      sharelocation: {
         latitude: String,
         longitude: String
       }

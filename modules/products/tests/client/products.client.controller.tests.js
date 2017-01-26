@@ -198,6 +198,220 @@
       }));
     });
 
-    
+    describe('vm.cart.add(product) get deliveryCost', function () {
+      var product = {
+        _id: '525a8422f6d0f87f0e407a33',
+        name: 'Product Name',
+        deliveryratetype: 0
+      };
+      var product1 = {
+        _id: '525a8422f6d0f87f0e407a34',
+        name: 'Product Name',
+        deliveryratetype: 1,
+        valuetype1: 50
+      };
+      var product2 = {
+        _id: '525a8422f6d0f87f0e407a35',
+        name: 'Product Name',
+        deliveryratetype: 2,
+        rangtype2: [{
+          min: 1,
+          max: 5,
+          value: 50
+        },
+          {
+            min: 6,
+            max: 10,
+            value: 100
+          },
+          {
+            min: 11,
+            max: 999999999,
+            value: 150
+          }]
+      };
+      it('vm.cart.add(product) case 0', function () {
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(1);
+        expect($scope.vm.cart.items[0].product.deliveryratetype).toEqual(0);
+        expect($scope.vm.cart.items[0].deliverycost).toEqual(0);
+      });
+
+      it('vm.cart.add(product) case 1', function () {
+        $scope.vm.cart.clear();
+        product.deliveryratetype = 1;
+        product.valuetype1 = 50;
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(1);
+        expect($scope.vm.cart.items[0].product.deliveryratetype).toEqual(1);
+        expect($scope.vm.cart.items[0].deliverycost).toEqual(50);
+      });
+
+      it('vm.cart.add(product) case 1 have 2 unit', function () {
+        $scope.vm.cart.clear();
+        product.deliveryratetype = 1;
+        product.valuetype1 = 50;
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(2);
+        expect($scope.vm.cart.items[0].product.deliveryratetype).toEqual(1);
+        expect($scope.vm.cart.items[0].deliverycost).toEqual(100);
+      });
+
+      it('vm.cart.add(product) case 2 have 1 unit', function () {
+        $scope.vm.cart.clear();
+        product.deliveryratetype = 2;
+        product.rangtype2 = [{
+          min: 1,
+          max: 5,
+          value: 50
+        },
+          {
+            min: 6,
+            max: 10,
+            value: 100
+          },
+          {
+            min: 11,
+            max: 999999999,
+            value: 150
+          }];
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(1);
+        expect($scope.vm.cart.items[0].product.deliveryratetype).toEqual(2);
+        expect($scope.vm.cart.items[0].deliverycost).toEqual(50);
+      });
+
+      it('vm.cart.add(product) case 2 have 2 unit', function () {
+        $scope.vm.cart.clear();
+        product.deliveryratetype = 2;
+        product.rangtype2 = [{
+          min: 1,
+          max: 5,
+          value: 50
+        },
+          {
+            min: 6,
+            max: 10,
+            value: 100
+          },
+          {
+            min: 11,
+            max: 999999999,
+            value: 150
+          }];
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(2);
+        expect($scope.vm.cart.items[0].product.deliveryratetype).toEqual(2);
+        expect($scope.vm.cart.items[0].deliverycost).toEqual(50);
+      });
+
+      it('vm.cart.add(product) case 2 have 6 unit', function () {
+        $scope.vm.cart.clear();
+        product.deliveryratetype = 2;
+        product.rangtype2 = [{
+          min: 1,
+          max: 5,
+          value: 50
+        },
+          {
+            min: 6,
+            max: 10,
+            value: 100
+          },
+          {
+            min: 11,
+            max: 999999999,
+            value: 150
+          }];
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(6);
+        expect($scope.vm.cart.items[0].product.deliveryratetype).toEqual(2);
+        expect($scope.vm.cart.items[0].deliverycost).toEqual(100);
+      });
+
+      it('vm.cart.add(product) case getTotalDeliveryCost()', function () {
+        $scope.vm.cart.clear();
+        product.deliveryratetype = 0;
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product1);
+        $scope.vm.cart.add(product1);
+        $scope.vm.cart.remove(product1);
+        $scope.vm.cart.add(product2);
+        $scope.vm.cart.add(product2);
+        $scope.vm.cart.add(product2);
+        $scope.vm.cart.add(product2);
+        $scope.vm.cart.add(product2);
+        $scope.vm.cart.add(product2);
+        $scope.vm.cart.remove(product2);
+        expect($scope.vm.cart.items.length).toEqual(3);
+        expect($scope.vm.cart.items[0].qty).toEqual(1);
+        expect($scope.vm.cart.items[1].qty).toEqual(1);
+        expect($scope.vm.cart.items[2].qty).toEqual(5);
+        expect($scope.vm.cart.getTotalDeliveryCost()).toEqual(100);
+      });
+
+    });
+
+    describe('vm.cart.add(product) get discount', function () {
+      var product = {
+        _id: '5885e9bcea48c81000919ff8',
+        name: 'Product Name',
+        promotions: [{ '_id': '5885ea25ea48c81000919ff9', 'user': '58631cf0043a1110007dcfd0', 'product': '5885e9bcea48c81000919ff8', 'description': 'ลดค่าจัดส่งให้ 50 บาท ทุกๆ 3 ถุง เช่น 3 ถุงจะเหลือเพียง 250 บาท หรือ 6 ถุงจะเหลือเพียง 500 บาท', 'condition': 3, 'expdate': '2017-12-31T17:00:00.000Z', '__v': 0, 'created': '2017-01-23T11:33:57.694Z', 'discount': { 'percen': 0, 'fixBath': 50 }, '$$hashKey': 'object:102' }]
+      };
+      var product1 = {
+        _id: '5885e9bcea48c81000919ff7',
+        name: 'Product Name',
+        promotions: [{ '_id': '5885ea25ea48c81000919ff9', 'user': '58631cf0043a1110007dcfd0', 'product': '5885e9bcea48c81000919ff7', 'description': 'ลดค่าจัดส่งให้ 50 บาท ทุกๆ 3 ถุง เช่น 3 ถุงจะเหลือเพียง 250 บาท หรือ 6 ถุงจะเหลือเพียง 500 บาท', 'condition': 3, 'expdate': '2017-12-31T17:00:00.000Z', '__v': 0, 'created': '2017-01-23T11:33:57.694Z', 'discount': { 'percen': 0, 'fixBath': 20 }, '$$hashKey': 'object:102' }]
+      };
+      it('get discount case FixBath have 1 unit', function () {
+        $scope.vm.cart.clear();
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(1);
+        expect($scope.vm.cart.items[0].discountamount).toEqual(0);
+      });
+
+      it('get discount case FixBath have 4 unit', function () {
+        $scope.vm.cart.clear();
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        expect($scope.vm.cart.items.length).toEqual(1);
+        expect($scope.vm.cart.items[0].qty).toEqual(4);
+        expect($scope.vm.cart.items[0].discountamount).toEqual(50);
+      });
+
+      it('vm.cart.add(product) case getTotalDiscount()', function () {
+        $scope.vm.cart.clear();
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product);
+        $scope.vm.cart.add(product1);
+        $scope.vm.cart.add(product1);
+        $scope.vm.cart.add(product1);
+        $scope.vm.cart.remove(product1);
+        expect($scope.vm.cart.items.length).toEqual(2);
+        expect($scope.vm.cart.items[0].qty).toEqual(3);
+        expect($scope.vm.cart.items[1].qty).toEqual(2);
+        expect($scope.vm.cart.getTotalDiscount()).toEqual(50);
+      });
+
+    });
+
+
   });
 } ());

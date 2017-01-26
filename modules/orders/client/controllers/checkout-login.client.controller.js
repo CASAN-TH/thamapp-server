@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'PromotionsService', 'Users'];
+  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'Users'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, PromotionsService, Users) {
+  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, Users) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -22,14 +22,8 @@
     $scope.step = $scope.authentication.user ? 2 : 1;
     $scope.credentials = {};
     $scope.postcodedata = {};
-    $scope.products = product;
     $scope.newAddress = { status: false };
     $scope.authentication.address = {};
-    vm.Promotion = Promotion;
-    vm.promotions = [];
-    vm.checkPromotion = checkPromotion;
-    vm.initPromotion = initPromotion;
-    vm.order.discountpromotion = vm.order.discountpromotion || 0;
     $scope.user = Authentication.user;
 
     $scope.updateUserProfile = function (data) {
@@ -51,38 +45,6 @@
     };
 
     // Update a user profile
-    function Promotion() {
-      PromotionsService.query(function (data) {
-        angular.forEach(data, function (res) {
-          vm.promotions.push(res);
-        });
-      });
-      // vm.promotions = vm.promotion.resolve();
-    }
-
-    function initPromotion() {
-      var product = {};
-      var qty = 0;
-      vm.cart.items.forEach(function (item) {
-        product = item.product;
-        qty = item.qty;
-        vm.checkPromotion(product, qty, item);
-      });
-    }
-
-
-
-    function checkPromotion(product, qty, item) {
-      // vm.order.discountpromotion = 0;
-      $http.get('api/promotions/productid/' + product._id + '/' + qty).success(function (response) {
-        vm.order.discountpromotion += response.total;
-      }).error(function (err) {
-        console.log(err);
-      });
-    }
-    function product() {
-
-    }
 
     $scope.checkStep = function (isValid) {
       if (!isValid) {
@@ -227,8 +189,8 @@
       }
       var fullAddress = vm.order.shipping.address + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
-      vm.order.amount = vm.cart.getTotalPrice();
-      vm.order.totalamount = vm.order.amount - vm.order.discountpromotion;
+      vm.order.amount = vm.cart.getTotalPrice() + vm.cart.getTotalDeliveryCost();
+      vm.order.totalamount = vm.order.amount - vm.cart.getTotalDiscount();
 
       $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
         if (response.status.toUpperCase() === 'OK') {
