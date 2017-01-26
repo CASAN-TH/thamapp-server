@@ -753,7 +753,7 @@
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
-        if (sampleOrderPostData.user._id === sampleOrderPostData.namedeliver._id) {
+        if ($scope.vm.authentication.user._id === sampleOrderPostData.namedeliver._id) {
           expect($state.go).toHaveBeenCalledWith('assignlist');
         } else {
           // Test URL redirection after the Order was created
@@ -788,7 +788,7 @@
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
-        if (mockOrder.user._id === mockOrder.namedeliver._id) {
+        if ($scope.vm.authentication.user._id === mockOrder.namedeliver._id) {
           expect($state.go).toHaveBeenCalledWith('assignlist');
         } else {
           // Test URL redirection after the Order was created

@@ -451,7 +451,7 @@
       }
 
       function successCallback(res) {
-        if (res.user._id === res.namedeliver._id) {
+        if (vm.authentication.user._id === res.namedeliver._id) {
           $state.go('assignlist');
         }
         else {

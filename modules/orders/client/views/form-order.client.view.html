@@ -51,7 +51,7 @@
                                                         <div class="col-md-8">
                                                             <div class="input-group input-group-sm">
                                                                 <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                                                <input type="text" class="form-control" placeholder="Search for user..." ng-model="topsearch" aria-describedby="sizing-addon3">
+                                                                <input type="text" class="form-control" placeholder="ค้นหาผู้ใช้..." ng-model="topsearch" aria-describedby="sizing-addon3">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -81,42 +81,45 @@
                     </div>
                     <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">
                         <div class="col-xs-3 col-sm-3 col-md-3">
-                            <strong>Product</strong>
+                            <strong>ชื่อสินค้า</strong>
                         </div>
                         <div class=" col-xs-4 col-sm-4 col-md-4 text-center">
-                            <strong>Qty</strong>
+                            <strong>จำนวน</strong>
                         </div>
                         <div class=" col-xs-2 col-sm-2 col-md-2">
-                            <strong>Price</strong>
+                            <strong>ราคา/ชิ้น</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
-                            <strong>Amount</strong>
+                            <strong>รวม</strong>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
                         </div>
                     </div>
                     <div class="row form-group hidden-xs show-sm show-md show-lg" ng-repeat="product in vm.order.items">
-                        <div class="col-xs-4 col-sm-4 col-md-4 word-break">
+                        <div class="col-xs-3 col-sm-3 col-md-3 word-break">
                             <!--<select name="shipping" class="form-control" ng-options="item as item.name for item in vm.products track by item._id " ng-model="product.product"
                                 ng-change="vm.productChanged(product)" ng-show="!vm.order._id"></select>-->
                             <label title="{{product.product.name}}" ng-bind="product.product.name"></label>
                         </div>
-                        <div class=" col-xs-3 col-sm-3 col-md-3 text-center margin-top6px" ng-show="!vm.order._id">
+                        <div class=" col-xs-4 col-sm-4 col-md-4  margin-top6px" ng-show="!vm.order._id" align="center">
                             <div class="input-group">
-                                <span class="input-group-btn">
+                                <span>
                                         <button ng-click="vm.removeQty(product);" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
                                             <span class="glyphicon glyphicon-minus"></span>
                                 </button>
+                                <!--<i class="fa fa-minus-square-o fa-2x" ng-click="vm.removeQty(product);" aria-hidden="true"></i>-->
                                 </span>
-                                <input readonly type="text" name="quant[1]" class="form-control input-number" value="1" min="1" ng-model="product.qty">
-                                <span class="input-group-btn">
+                                <!--<input readonly type="text" name="quant[1]" class="form-control input-number" value="1" min="1" ng-model="product.qty">-->
+                                <label ng-bind="product.qty"> </label>
+                                <span>
                                     <button ng-click="vm.addQty(product);" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
                                             <span class="glyphicon glyphicon-plus"></span>
                                 </button>
+                                <!--<i class="fa fa-plus-square-o fa-2x" ng-click="vm.addQty(product);" aria-hidden="true"></i>-->
                                 </span>
                             </div>
                         </div>
-                        <div class=" col-xs-3 col-sm-3 col-md-3 text-center"  ng-show="vm.order._id">
+                        <div class=" col-xs-4 col-sm-4 col-md-4 text-center" ng-show="vm.order._id">
 
                             <label>{{product.qty}}</label>
 
@@ -133,7 +136,7 @@
                     </div>
                     <div class="row alert alert-success show-xs hidden-sm hidden-md hidden-lg">
                         <div class=" col-xs-12 text-center">
-                            <strong>Product</strong>
+                            <strong>สินค้าทั้งหมด</strong>
                         </div>
                     </div>
                     <!--list Product-->
@@ -141,24 +144,29 @@
                         <div class="row">
                             <div class="list-group">
                                 <div class="list-group-item list-group-item-action">
-                                    <div class="col-xs-12 word-break">
-                                        <h4 title="{{product.product.name}}" ng-bind="product.product.name"></h4>
-                                    </div>
+
                                     <div class="row ">
-                                        <div class="col-xs-6 marginT10" ng-show="!vm.order._id">
-                                                <div class="input-group">
-                                                    <span class="input-group-btn">
+                                        <div class="col-xs-12 ">
+                                            <strong class="form-control noneBorder word-break" title="{{product.product.name}}" ng-bind="product.product.name"></strong>
+                                        </div>
+                                    </div>
+
+                                    <div class="row ">
+                                        <div class="col-xs-12 marginT10" ng-show="!vm.order._id">
+                                            <div class="input-group">
+                                                <span>
                                                         <button ng-click="vm.removeQty(product);" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
                                                             <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                    </span>
-                                                    <input readonly type="text" name="quant[1]" class="form-control input-number text-center" value="1" min="1" ng-model="product.qty">
-                                                    <span class="input-group-btn">
+                                                </button>
+                                                </span>
+                                                <!--<input readonly type="text" name="quant[1]" class="form-control input-number text-center" value="1" min="1" ng-model="product.qty">-->
+                                                <label ng-bind="product.qty"> </label>
+                                                <span>
                                                         <button ng-click="vm.addQty(product);" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
                                                             <span class="glyphicon glyphicon-plus"></span>
-                                                    </button>
-                                                    </span>
-                                                </div>
+                                                </button>
+                                                </span>
+                                            </div>
                                             <!--<label ng-click="vm.addQty(product);">
                                             <span class="fa fa-plus-square-o fa-2x slide-right" aria-hidden="true"></span>
                                         </label>
@@ -167,31 +175,38 @@
                                             <span class="fa fa-minus-square-o fa-2x " aria-hidden="true"></span>
                                         </label>-->
                                         </div>
-                                        <div class="col-xs-6 textRight marginT10" ng-show="!vm.order._id">
-                                            <h4 ng-bind=" 'Price :' + product.product.price"></h4>
+                                    </div>
+                                    <div class="row marginT10">
+                                        <div class="col-xs-12" ng-show="!vm.order._id">
+                                            <label class="form-control noneBorder" ng-bind=" 'ราคา/ชิ้น :' + product.product.price"></label>
                                         </div>
-                                        <div class="col-xs-6" ng-show="vm.order._id">
-                                            <label>{{product.qty}}</label>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-xs-12" ng-show="vm.order._id">
+                                            <label class="form-control noneBorder">จำนวน : {{product.qty}}</label>
                                         </div>
-                                        <div class="col-xs-6 textRight" ng-show="vm.order._id">
-                                            <span>Price : </span><label ng-bind="product.product.price"></label>
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-xs-12" ng-show="vm.order._id">
+                                            <label class="form-control noneBorder" ng-bind="'ราคา/ชิ้น : ' + product.product.price"></label>
                                         </div>
                                     </div>
 
-                                    <div class="row fadePortrait marginT10">
+
+                                    <div class="row fadePortrait">
                                         <div class="col-xs-8">
-                                            <label class="form-control noneBorder">Amount : {{product.amount}} </label>
+                                            <label class="form-control noneBorder">รวม : {{product.amount}} </label>
                                         </div>
-                                        <div class="col-xs-4 textCenter">
+                                        <div class="col-xs-4 textCenter" ng-hide="vm.authentication.user.roles[0] == 'admin'">
                                             <button type="button" class="btn btn-link" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash text-danger"></span></button>
                                         </div>
                                     </div>
                                     <div class="row fadeLandscape">
                                         <div class="col-xs-9 marRight">
-                                            <span class="form-control noneBorder">Amount: {{product.amount}} </span>
+                                            <span class="form-control noneBorder">รวม: {{product.amount}} </span>
                                         </div>
-                                        <div class="col-xs-2 textRight">
-                                            <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
+                                        <div class="col-xs-2 textCenter" ng-hide="vm.authentication.user.roles[0] == 'admin'">
+                                            <button type="button" class="btn btn-link" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash text-danger"></span></button>
                                         </div>
                                     </div>
                                 </div>
@@ -225,16 +240,25 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group input-group-sm">
                                                         <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-                                                        <input type="text" class="form-control" placeholder="Search for product..." ng-model="topsearch" aria-describedby="sizing-addon3">
+                                                        <input type="text" class="form-control" placeholder="ค้นหาสินค้า..." ng-model="topsearch" aria-describedby="sizing-addon3">
                                                     </div>
                                                 </div>
                                             </div>
                                         </ul>
                                         <ul class="list-group">
                                             <div ng-repeat="prod in vm.products | filter:topsearch">
-                                                <li class="list-group-item"><img src="{{prod.images}}" class="img-circle" width="50px">
-                                                    <img width="5%"> {{prod.name}}
-                                                    <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectProduct(prod)">เลือก</button></li>
+                                                <li class="row list-group-item">
+                                                    <div class="col-xs-3">
+                                                        <img src="{{prod.images}}" class="img-circle" width="50px">
+                                                    </div>
+
+                                                    <div class="col-xs-7">
+                                                        <img width="5%"> <label>{{prod.name}}</label>
+                                                    </div>
+                                                    <div class="col-xs-2 marginT">
+                                                        <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectProduct(prod)">เลือก</button>
+                                                    </div>
+                                                </li>
                                             </div>
                                         </ul>
                                     </div>
@@ -262,10 +286,93 @@
                                 <label ng-bind="vm.order.totalamount">{{vm.order.totalamount | number:2}}</label>
                             </div>
                         </div>
+                        <div class="row form-group" ng-hide="vm.authentication.user.roles[0] === 'deliver'">
+                            <div class="col-xs-7">
+                                <strong>ประเภทการส่ง</strong>
+                            </div>
+                            <div class="col-xs-5 textRight">
+                                <label>คนส่งข้าว</label>
+                            </div>
+                        </div>
+                        <div class="row form-group" ng-show="vm.order.delivery.deliveryid === '0' && vm.authentication.user.roles[0] !== 'deliver'">
+                            <div class="col-xs-7">
+                                <strong>คนส่งข้าว</strong>
+                            </div>
+                            <div class="col-xs-5 ">
+                                <div class="row ">
+                                    <div class="col-xs-12 input-group input-group-sm textRight" ng-show="!vm.order._id">
+                                        <label class="control-label">{{vm.authentication.user.displayName}}</label>
+                                    </div>
 
-                        <div class="row" ng-hide="vm.authentication.user.roles[0] === 'deliver'">
-                            <!--<div class="col-md-12 form-group">
-                            </div>-->
+                                    <div class="col-xs-12 input-group input-group-sm textRight" ng-show="vm.order._id">
+
+                                        <button type="button" class="pull-right btn btn-block btn-primary" ng-hide="vm.order.namedeliver" ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                            name="deliver" aria-describedby="sizing-addon3" data-toggle="modal" data-target="#myDelivery">เลือกคนส่งข้าว</button>
+                                        <div ng-show="vm.order.namedeliver" class="input-group input-group-sm textRight">
+                                            <!---->
+                                            <span ng-show="vm.order.namedeliver && (vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject' || vm.order.deliverystatus === 'wait deliver')"
+                                                class="input-group-addon" id="sizing-addon3"><i class="fa fa-edit font-medium" aria-hidden="true" ng-click="vm.order.namedeliver=null"></i></span>
+                                            <!---->
+                                            <span ng-show="vm.order.namedeliver && (vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'accept')"
+                                                class="input-group-addon" id="sizing-addon3"><i class="fa fa-edit font-medium" aria-hidden="true"></i></span>
+                                            <!---->
+                                            <input type="text" class="form-control" ng-model="vm.order.namedeliver.displayName" aria-describedby="sizing-addon3" ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                                readonly>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="modal fade" id="myDelivery" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">เลือกคนส่งข้าว</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <ul class="list-group">
+                                                            <div class="row">
+                                                                <div class="col-md-4">
+
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="input-group input-group-sm">
+                                                                        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+                                                                        <input type="text" class="form-control" placeholder="คนหาคนส่งข้าว..." ng-model="topsearch" aria-describedby="sizing-addon3">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </ul>
+                                                        <ul class="list-group">
+                                                            <div ng-repeat="deli in vm.delivers | filter:topsearch">
+                                                                <li class="row list-group-item">
+                                                                    <div class="col-xs-3">
+                                                                        <img src="{{deli.profileImageURL}}" class="img-circle" width="50px">
+                                                                    </div>
+                                                                    <div class="col-xs-7">
+                                                                        <img width="5%"> <label>{{deli.displayName}}</label>
+                                                                    </div>
+                                                                    <div class="col-xs-2 marginT">
+                                                                        <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectDeliver(deli)">เลือก</button>
+                                                                    </div>
+                                                                </li>
+                                                            </div>
+                                                        </ul>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="row " ng-hide="vm.authentication.user.roles[0] === 'deliver'">
+                            <div class="col-md-12 form-group">
+                            </div>
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">ประเภทการส่ง</label>
@@ -274,18 +381,18 @@
                             <div class="col-md-5">
                                 <div class="row ">
                                     <div class="col-xs-12 input-group input-group-sm textRight">
-                                        <!--<select ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                        <select ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
                                             name="singleSelect" ng-model="vm.order.delivery.deliveryid" class="form-control"
                                             aria-describedby="sizing-addon3">
                                             <option value="1">ไปรษณีย์</option>
                                             <option value="0">คนส่งข้าว</option>
-                                        </select>-->
+                                        </select>
                                         <label class="form-control noneBorder">คนส่งข้าว</label>
-                                        <!--<label ng-bind="vm.order.delivery.deliveryid" class="form-control noneBorder"></label>-->
+                                        <label ng-bind="vm.order.delivery.deliveryid" class="form-control noneBorder"></label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="row" ng-show="vm.order.delivery.deliveryid === '1'">
                             <div class="col-md-7">
@@ -303,7 +410,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" ng-show="vm.order.delivery.deliveryid === '0' && vm.authentication.user.roles[0] !== 'deliver'">
+
+                        <!--<div class="row" ng-show="vm.order.delivery.deliveryid === '0' && vm.authentication.user.roles[0] !== 'deliver'">
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
                                     <label class="control-label">คนส่งข้าว</label>
@@ -364,7 +472,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <!--<div class="row" ng-show="vm.order.delivery.deliveryid === '0' && (vm.order.deliverystatus =='confirmed' || vm.order.deliverystatus =='accept' || vm.order.deliverystatus =='reject')">
                             <div class="col-md-7">
                                 <div class="col-md-12 ">
@@ -414,7 +522,7 @@
                         </div>
                         <div class="row form-group" ng-show="vm.order.deliverystatus != 'reject'">
                             <div class="col-md-4 form-group">
-                                <button type="submit" class="btn btn-default btn-block">{{vm.order._id ? 'Update' : 'Save Order'}}</button>
+                                <button type="submit" class="btn btn-default btn-block">{{vm.order._id ? 'แก้ไขรายการ' : 'บันทึกรายการ'}}</button>
                             </div>
                         </div>
                     </div>
@@ -470,11 +578,11 @@
             </form>
             <div class="row form-group" ng-show="vm.order.deliverystatus == 'reject'">
                 <div class="col-md-12 form-group">
-                    <button class="btn btn-default btn-block" ng-click="vm.updateDeliver()">Update Deliver</button>
+                    <button class="btn btn-default btn-block" ng-click="vm.updateDeliver()">แก้ไขรายการ</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-3 round1" ng-show="vm.order.delivery.deliveryid === '0'">
+        <div class="col-md-3 round1 " ng-show="vm.order.delivery.deliveryid === '0'">
             <div class="row marginB">
 
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'confirmed'">
@@ -664,8 +772,6 @@
                         </div>
                     </div>
                 </div>
-
-                
             </div>
         </div>
 
