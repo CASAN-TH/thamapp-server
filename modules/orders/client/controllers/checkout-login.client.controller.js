@@ -205,10 +205,11 @@
           }
         } else {
           //alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
-          vm.cart.clear();
-          $state.go('complete', {
-            orderId: res._id
-          });
+          if (vm.order._id) {
+            vm.order.$update(successCallback, errorCallback);
+          } else {
+            vm.order.$save(successCallback, errorCallback);
+          }
         }
         function successCallback(res) {
           vm.cart.clear();
