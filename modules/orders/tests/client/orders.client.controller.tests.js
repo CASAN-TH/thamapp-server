@@ -719,7 +719,6 @@
         $scope.vm.removeItem($scope.vm.order.items[0]);
 
         expect($scope.vm.order.items.length).toEqual(1);
-        expect($scope.vm.order.amount).toEqual(100);
       });
 
 
