@@ -204,7 +204,11 @@
             vm.order.$save(successCallback, errorCallback);
           }
         } else {
-          alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
+          //alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
+          vm.cart.clear();
+          $state.go('complete', {
+            orderId: res._id
+          });
         }
         function successCallback(res) {
           vm.cart.clear();
