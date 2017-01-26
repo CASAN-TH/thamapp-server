@@ -3,18 +3,22 @@
     <div class="navbar-header">
       <span minimaliza-sidebar></span>
     </div>
-    <ul class="nav navbar-top-links navbar-right hidden-xs" ng-hide="authentication.user">
+    <ul class="nav navbar-top-links navbar-right">
       <!--<li>
         <a ui-sref="authentication.signup">Sign Up</a>
       </li>-->
+      <li ng-if="!authentication.user || authentication.user.roles[0] === 'user'">
+        <a style="margin-top: -10px" ui-sref="cartview">
+          <i class="fa fa-shopping-cart font-size26-margin-top3"></i>
+          <p class="badge badge-danger margin-left-8-margin-top-20px">{{ cart.getTotalCount() }}</p>
+        </a>
+      </li>
       <li class="divider-vertical"></li>
       <li>
-        <a ui-sref="authentication.signin">Sign In</a>
+        <a ui-sref="authentication.signin" ng-hide="authentication.user">Sign In</a>
       </li>
-    </ul>
-    <ul class="nav navbar-top-links navbar-nav navbar-right hidden-xs" ng-show="authentication.user">
       <li uib-dropdown="">
-        <a uib-dropdown-toggle="" class="user-header-dropdown-toggle" role="button">
+        <a uib-dropdown-toggle="" class="user-header-dropdown-toggle" role="button" ng-show="authentication.user">
           <img ng-src="{{authentication.user.profileImageURL}}" alt="{{authentication.user.displayName}}" class="header-profile-image"
           />
           <span ng-bind="authentication.user.displayName"></span> <b class="caret"></b>
@@ -39,13 +43,11 @@
         </ul>
       </li>
     </ul>
-    <ul class="nav navbar-top-links navbar-nav navbar-right ">
-      <li ng-if="!authentication.user || authentication.user.roles[0] === 'user'">
-        <a style="margin-top: -10px" ui-sref="cartview">
-          <i class="fa fa-shopping-cart font-size26-margin-top3"></i>
-          <p class="badge badge-danger margin-left-8-margin-top-20px">{{ cart.getTotalCount() }}</p>
-        </a>
-      </li>
-    </ul>
+    <!--<ul class="nav navbar-top-links navbar-nav navbar-right" >
+
+    </ul>-->
+    <!--<ul class="nav navbar-top-links navbar-nav navbar-right ">
+
+    </ul>-->
   </nav>
 </div>
