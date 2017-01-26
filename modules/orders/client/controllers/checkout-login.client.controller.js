@@ -231,7 +231,7 @@
       vm.order.totalamount = vm.order.amount - vm.order.discountpromotion;
 
       $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
-        if (response.status === 'ok') {
+        if (response.status.toUpperCase() === 'OK') {
           vm.order.shipping.sharelocation.latitude = response.results[0].geometry.location.lat;
           vm.order.shipping.sharelocation.longitude = response.results[0].geometry.location.lng;
           if (vm.order._id) {
@@ -240,11 +240,7 @@
             vm.order.$save(successCallback, errorCallback);
           }
         } else {
-          if (vm.order._id) {
-            vm.order.$update(successCallback, errorCallback);
-          } else {
-            vm.order.$save(successCallback, errorCallback);
-          }
+          alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
         }
         function successCallback(res) {
           vm.cart.clear();
