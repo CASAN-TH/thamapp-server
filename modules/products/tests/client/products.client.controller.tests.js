@@ -198,37 +198,6 @@
       }));
     });
 
-    describe('vm.readPromotion()', function () {
-      var mockPromotionList;
-      beforeEach(function () {
-        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
-      });
-
-      it('should send a GET request and return all Promotion', inject(function (PromotionsService) {
-        // Set POST response
-        $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
-
-        $scope.vm.readPromotion();
-
-        $httpBackend.flush();
-
-        // Test form inputs are reset
-        expect($scope.vm.promotion[0].description).toEqual(mockPromotion.description);
-
-      }));
-    });
-    // describe('vm.moreCart()', function () {
-    //   var p1;
-
-    //   beforeEach(function () {
-    //     p1 = mockProduct;
-    //   });
-
-    //   it('change data', inject(function () {
-    //     $scope.moreCart(p1);
-    //     expect(p1).toEqual(mockProduct);
-
-    //   }));
-    // });
+    
   });
 } ());
