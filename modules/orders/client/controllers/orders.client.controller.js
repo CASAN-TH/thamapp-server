@@ -52,7 +52,6 @@
     vm.changeDis = changeDis;
     vm.updateWaitStatus = updateWaitStatus;
     vm.selectProduct = selectProduct;
-    vm.order.amount = 0;
     vm.addQty = addQty;
     vm.removeQty = removeQty;
     if (vm.order.items) {
@@ -284,9 +283,10 @@
       vm.order.totalamount = 0;
       angular.forEach(items, function (prod) {
         prod.amount = prod.product.price * prod.qty;
-        vm.order.amount = prod.amount;
+        //vm.order.amount = prod.amount;
         vm.order.totalamount += prod.amount;
       });
+      vm.order.amount = vm.order.totalamount + vm.order.discountpromotion;
     }
     function addItem() {
       vm.order.items.push({
@@ -376,6 +376,12 @@
         vm.order.user = vm.authentication.user;
         vm.order.discountpromotion = 0;
         vm.order.totalamount = 0;
+        if (vm.order.amount) {
+          vm.order.amount = vm.order.amount;
+        } else {
+          vm.order.amount = 0;
+        }
+
       }
       else if (!vm.order._id) {
         vm.order.docdate = new Date();
