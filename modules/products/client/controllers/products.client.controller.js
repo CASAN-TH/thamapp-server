@@ -19,20 +19,47 @@
     vm.save = save;
     vm.readProduct = readProduct;
     vm.cart = ShopCartService.cart;
+    vm.addRangType = addRangType;
+    vm.removeRangType = removeRangType;
+    var rangType = {
+      min: '',
+      max: '',
+      value: ''
+    };
+    if (vm.product.rangtype2) {
+      vm.product.rangtype2 = vm.product.rangtype2;
+    } else {
+      vm.product.rangtype2 = [];
+    }
+    if (!vm.product.rangtype2.length) {
+      vm.product.rangtype2.push(rangType);
+    }
     vm.buynow = function (product) {
       $timeout(function () {
-        vm.cart.add(product); 
+        vm.cart.add(product);
         $state.go('cartview');
       }, 400);
 
     };
     vm.moreCart = moreCart;
     vm.viewCart = function () {
-      $timeout(function () { 
+      $timeout(function () {
         $state.go('cartview');
       }, 400);
 
     };
+    function addRangType() {
+      rangType = {
+        min: '',
+        max: '',
+        value: ''
+      };
+      vm.product.rangtype2.push(rangType);
+    }
+
+    function removeRangType(index) {
+      vm.product.rangtype2.splice(index, 1);
+    }
 
     // พี่โก๋ยกเลิกการ readPromotion แบบเก่า
     // ข้อมูล Promotions จะอ่านมาอยู่ในข้อมูล Product อยู่แล้ว
@@ -45,7 +72,7 @@
     function readProduct() {
       vm.products = ProductsService.query();
     }
-    
+
     // Create file uploader instance
     $scope.uploader = new FileUploader({
       url: 'api/products_picture',
