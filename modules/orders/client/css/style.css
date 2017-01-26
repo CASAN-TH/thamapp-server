@@ -13,6 +13,12 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+.dotpyForm {
+    white-space: nowrap; 
+    width: 15em; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
 .textRight{
 text-align : right;
 }

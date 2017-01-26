@@ -22,7 +22,7 @@
                     <strong ng-show="vm.order.namedeliver.displayName">Deliver  : {{vm.order.namedeliver.displayName}}</strong>
                     <strong ng-show="vm.order.delivery.deliveryid === '1'">Deliver  : Post Office</strong>
                 </address>-->
-                <h5>To:</h5>
+                <h5>ผู้รับ:</h5>
                 <address>
                   <strong>{{vm.order.shipping.firstname + ' '+ vm.order.shipping.lastname }}</strong><br>
                   <strong>{{vm.order.shipping.address}}</strong>
@@ -36,7 +36,7 @@
               <div class="col-sm-6 text-right">
                 <h1 ng-bind="vm.order.docno"></h1>
                 <p>
-                  <span ng-bind="vm.order.docdate | date:'dd/MM/yyyy'"><strong> Date :</strong></span><br>
+                  <span ng-bind="vm.order.docdate | date:'dd/MM/yyyy'"><strong> วันที่ :</strong></span><br>
                 </p>
               </div>
             </div>
@@ -57,16 +57,16 @@
             </div>
             <div class="row form-group alert alert-success">
               <div class="col-sm-3 col-md-3">
-                <strong>Description</strong>
+                <strong>ชื่อสินค้า</strong>
               </div>
               <div class="col-sm-3 col-md-3">
-                <strong>Price</strong>
+                <strong>ราคา/ชิ้น</strong>
               </div>
               <div class="col-sm-3 col-md-3">
-                <strong>Quantity</strong>
+                <strong>จำนวน</strong>
               </div>
               <div class="col-sm-3 col-md-3">
-                <strong>Amount</strong>
+                <strong>รวม</strong>
               </div>
             </div>
             <div class="row form-group" ng-repeat="order in vm.order.items" ui-sref="order.view({ orderId: order._id })">
@@ -169,7 +169,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <h5>To:</h5>
+            <h5>ผู้รับ:</h5>
             <address>
               <strong>{{vm.order.shipping.firstname + ' '+ vm.order.shipping.lastname }}</strong><br>
               <strong>{{vm.order.shipping.address}}</strong>
@@ -182,7 +182,7 @@
         </div>
         <div class="row show-xs hidden-sm hidden-md hidden-lg alert alert-success">
           <div class="col-md-12 text-center">
-            <strong>Product</strong>
+            <strong>สินค้าทั้งหมด</strong>
           </div>
         </div>
         <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.order.items" ui-sref="order.view({ orderId: order._id })">
@@ -191,15 +191,15 @@
               <div class="list-group">
                 <div class="list-group-item list-group-item-action">
                   <div class="col-sm-4 col-md-4">
-                    <strong>Product: </strong> <abbr>{{order.product.name}}</abbr>
+                    <strong>ชื่อสินค้า : </strong> <abbr>{{order.product.name}}</abbr>
                   </div>
                   <div class="col-sm-4 col-md-4">
                     <div class="row">
                       <div class="col-sm-6">
-                        <p>Price : {{order.product.price | number:2}}</p>
+                        <p>ราคา/ชิ้น : {{order.product.price | number:2}}</p>
                       </div>
                       <div class="col-sm-6">
-                        <p>Qty : {{order.qty}}</p>
+                        <p>จำนวน : {{order.qty}}</p>
                       </div>
                     </div>
                   </div>
