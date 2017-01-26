@@ -93,6 +93,14 @@
                 </div>
               </div>
               <div class="row">
+                <div class="col-xs-11 textRight ">
+                  <strong>ค่าจัดส่ง</strong>
+                </div>
+                <div class="col-xs-1 textRight">
+                  {{vm.order.deliveryamount | number:2}}
+                </div>
+              </div>
+              <div class="row">
                 <div ng-show="vm.order.discountpromotion > 0">
                   <div class="col-xs-11 textRight">
                     <strong>ส่วนลดจากโปรโมชั่น</strong>
@@ -217,6 +225,14 @@
           </div>
           <div class="col-xs-3">
             {{vm.order.amount | number:2}}
+          </div>
+        </div>
+        <div class="row show-xs hidden-sm hidden-md hidden-lg">
+          <div class="col-xs-9 textRight">
+            <strong>ค่าจัดส่ง</strong>
+          </div>
+          <div class="col-xs-3">
+            {{vm.order.deliveryamount | number:2}}
           </div>
         </div>
         <div class="row show-xs hidden-sm hidden-md hidden-lg">
