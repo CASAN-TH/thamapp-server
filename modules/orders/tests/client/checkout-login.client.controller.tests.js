@@ -190,27 +190,27 @@
 
     });
 
-    describe('vm.readPromotion() as read', function () {
-      var mockPromotionList;
+    // describe('vm.readPromotion() as read', function () {
+    //   var mockPromotionList;
 
-      beforeEach(function () {
-        mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
-      });
+    //   beforeEach(function () {
+    //     mockPromotionList = [mockPromotion, mockPromotion, mockPromotion];
+    //   });
 
-      it('should send a GET all Promotions', inject(function (PromotionsService) {
-        // Set POST response
-        $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
+    //   it('should send a GET all Promotions', inject(function (PromotionsService) {
+    //     // Set POST response
+    //     $httpBackend.expectGET('api/promotions').respond(mockPromotionList);
 
-        $scope.vm.Promotion();
+    //     $scope.vm.Promotion();
 
-        $httpBackend.flush();
+    //     $httpBackend.flush();
 
-        // Test form inputs are reset
-        expect($scope.vm.promotions.length).toEqual(3);
+    //     // Test form inputs are reset
+    //     expect($scope.vm.promotions.length).toEqual(3);
 
-      }));
+    //   }));
 
-    });
+    // });
 
     // describe('get response', function () {
     //   var mockPromotionList;
