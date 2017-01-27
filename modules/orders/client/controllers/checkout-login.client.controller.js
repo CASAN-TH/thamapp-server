@@ -192,7 +192,7 @@
         vm.order.shipping.province = $scope.authentication.user.address.province;
         vm.order.shipping.district = $scope.authentication.user.address.district;
       }
-      var fullAddress = vm.order.shipping.address + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
+      var fullAddress = vm.order.shipping.address.replace(' ', '+') + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.deliveryamount = vm.cart.getTotalDeliveryCost();
@@ -209,7 +209,12 @@
             vm.order.$save(successCallback, errorCallback);
           }
         } else {
-          alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
+          //alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
+          if (vm.order._id) {
+            vm.order.$update(successCallback, errorCallback);
+          } else {
+            vm.order.$save(successCallback, errorCallback);
+          }
         }
         function successCallback(res) {
           vm.cart.clear();

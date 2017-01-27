@@ -203,11 +203,11 @@
     describe('vm.addQty() ', function () {
       beforeEach(function () {
         $scope.vm.order = {
-          items:[{
-             product : {
-               price : 200
-             },
-            qty:1
+          items: [{
+            product: {
+              price: 200
+            },
+            qty: 1
           }]
         };
       });
@@ -217,14 +217,14 @@
       }));
     });
 
-     describe('vm.removeQty() ', function () {
+    describe('vm.removeQty() ', function () {
       beforeEach(function () {
         $scope.vm.order = {
-          items:[{
-             product : {
-               price : 200
-             },
-            qty:2
+          items: [{
+            product: {
+              price: 200
+            },
+            qty: 2
           }]
         };
       });
@@ -753,7 +753,9 @@
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
-        if ($scope.vm.authentication.user._id === sampleOrderPostData.namedeliver._id) {
+        if (!sampleOrderPostData.namedeliver) {
+          expect($state.go).toHaveBeenCalledWith('orders.list');
+        } else if ($scope.vm.authentication.user._id === sampleOrderPostData.namedeliver._id) {
           expect($state.go).toHaveBeenCalledWith('assignlist');
         } else {
           // Test URL redirection after the Order was created
@@ -788,7 +790,9 @@
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
-        if ($scope.vm.authentication.user._id === mockOrder.namedeliver._id) {
+        if (!mockOrder.namedeliver) {
+          expect($state.go).toHaveBeenCalledWith('orders.list');
+        } else if ($scope.vm.authentication.user._id === mockOrder.namedeliver._id) {
           expect($state.go).toHaveBeenCalledWith('assignlist');
         } else {
           // Test URL redirection after the Order was created
