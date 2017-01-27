@@ -26,25 +26,6 @@
     $scope.authentication.address = {};
     $scope.user = Authentication.user;
 
-    $scope.updateUserProfile = function (data) {
-      $scope.user.address = {};
-      $scope.user.address.address = data.address;
-      $scope.user.address.district = data.district;
-      $scope.user.address.subdistrict = data.subdistrict;
-      $scope.user.address.province = data.province;
-      $scope.user.address.postcode = data.postcode;
-      var user = new Users($scope.user);
-
-      user.$update(function (response) {
-        $scope.$broadcast('show-errors-reset', 'userForm');
-
-        $scope.success = true;
-        Authentication.user = response;
-      }, function (response) {
-        $scope.error = response.data.message;
-      });
-    };
-
     // Update a user profile
 
     $scope.checkStep = function (isValid) {
@@ -151,6 +132,25 @@
       }
     };
 
+    $scope.updateUserProfile = function (data) {
+      $scope.user.address = $scope.authentication.user.address ? $scope.authentication.user.address : {};
+      $scope.user.address.address = data.address;
+      $scope.user.address.district = data.district;
+      $scope.user.address.subdistrict = data.subdistrict;
+      $scope.user.address.province = data.province;
+      $scope.user.address.postcode = data.postcode;
+      var user = new Users($scope.user);
+
+      user.$update(function (response) {
+        $scope.$broadcast('show-errors-reset', 'userForm');
+
+        $scope.success = true;
+        Authentication.user = response;
+      }, function (response) {
+        $scope.error = response.data.message;
+      });
+    };
+
     $scope.saveOrder = function () {
       if (vm.order.shipping.sharelocation) {
         vm.order.shipping.sharelocation = vm.order.shipping.sharelocation;
@@ -188,12 +188,12 @@
         vm.order.shipping.province = $scope.authentication.user.address.province;
         vm.order.shipping.district = $scope.authentication.user.address.district;
       }
-      var fullAddress = vm.order.shipping.address + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
-
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.deliveryamount = vm.cart.getTotalDeliveryCost();
       vm.order.discountpromotion = vm.cart.getTotalDiscount();
       vm.order.totalamount = vm.order.amount + vm.order.deliveryamount - vm.order.discountpromotion;
+
+      var fullAddress = vm.order.shipping.address.replace(' ', '+') + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
       $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
         if (response.status.toUpperCase() === 'OK') {

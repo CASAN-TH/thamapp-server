@@ -233,13 +233,16 @@
 
     describe('updateUserProfile', function () {
       var user = {
-        address:{}
+        address: {}
       };
       beforeEach(function () {
         // Mock Order in $scope
         user.address.address = 'New address';
       });
       it('update User', inject(function () {
+        $scope.authentication.user = {
+          address: {}
+        };
         $scope.shipping = {
           address: 'New address'
         };
