@@ -25,6 +25,11 @@
     $scope.newAddress = { status: false };
     $scope.authentication.address = {};
     $scope.user = Authentication.user;
+    if ($scope.user.address){
+      $scope.user.address = $scope.user.address;
+    }else{
+      $scope.user.address = {};
+    }
 
     $scope.updateUserProfile = function (data) {
       $scope.user.address.address = data.address;
