@@ -188,7 +188,7 @@
         vm.order.shipping.province = $scope.authentication.user.address.province;
         vm.order.shipping.district = $scope.authentication.user.address.district;
       }
-      var fullAddress = vm.order.shipping.address.replace(' ', '+') + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
+      var fullAddress = vm.order.shipping.address + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.deliveryamount = vm.cart.getTotalDeliveryCost();
