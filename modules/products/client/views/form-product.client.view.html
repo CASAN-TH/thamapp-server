@@ -12,7 +12,7 @@
             <img ng-src="{{vm.product.images}}" alt="{{vm.product.name}}" class="img-rounded img-product-detail">
           </div>
           <div class="text-center form-group" ng-hide="uploader.queue.length">
-            <span class="btn btn-default btn-file">
+            <span class="btn btn-success btn-file">
               Select Image <input type="file" nv-file-select uploader="uploader">
           </span>
           </div>
@@ -148,9 +148,12 @@
                   </div>
                   <div class="min-height-20"></div>                  
                   <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 btn btn-primary btn-block" ng-click="vm.addRangType()">
+                    <div class="col-xs-12 col-md-12">
+                      <div class="btn btn-success btn-block btn-outline" ng-click="vm.addRangType()">
                       <b>เพิ่ม</b>
                     </div>
+                    </div>
+                    
                   </div>
                   <div class="min-height-20"></div>
                   <!--<div class="form-group" show-errors>
@@ -176,7 +179,7 @@
                   </div>-->
 
                   <div class="form-group">
-                    <button type="submit" class="btn btn-default">{{vm.product._id ? 'Update' : 'Create'}}</button>
+                    <button type="submit" class="btn btn-primary btn-block">{{vm.product._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
                   </div>
 
                 </div>
