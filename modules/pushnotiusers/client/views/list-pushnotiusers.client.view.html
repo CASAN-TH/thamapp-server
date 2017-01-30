@@ -1,0 +1,68 @@
+<section>
+  <div class="page-header">
+    <h1>Push Noti Users
+      <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="pushnotiusers.create">
+          <span>New </span>
+        </a>
+      </div>
+    </h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>User Id</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>User Name</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>Role</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>Device Token</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="row" ng-repeat="pushnotiuser in vm.pushnotiusers" ui-sref="pushnotiusers.view({ pushnotiuserId: pushnotiuser._id })" class="list-group-item">
+    <div class="col-md-12 ">
+      <div class="row form-group">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>{{pushnotiuser.user_id}}</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>{{pushnotiuser.user_name}}</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>{{pushnotiuser.role}}</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>{{pushnotiuser.device_token}}</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!--<div class="list-group">
+    <a ng-repeat="pushnotiuser in vm.pushnotiusers" ui-sref="pushnotiusers.view({ pushnotiuserId: pushnotiuser._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="pushnotiuser.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="pushnotiuser.user" ng-bind="pushnotiuser.user.displayName"></span>
+        <span ng-if="!pushnotiuser.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="pushnotiuser.name"></h4>
+    </a>
+  </div>-->
+  <div class="alert alert-warning text-center" ng-if="vm.pushnotiusers.$resolved && !vm.pushnotiusers.length">
+    No Pushnotiusers yet, why don't you <a ui-sref="pushnotiusers.create">create one</a>?
+  </div>
+</section>

@@ -1,0 +1,20 @@
+<section>
+  <div class="page-header">
+   <h3 ng-bind=" 'User Name : ' + vm.pushnotiuser.user_name"></h3>
+  </div>
+  <div class="pull-right" ng-show="vm.pushnotiuser.isCurrentUserOwner">
+    <a class="btn btn-primary" ui-sref="pushnotiusers.edit({ pushnotiuserId: vm.pushnotiuser._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div class="row">
+    <strong>User Id : </strong><strong ng-bind="vm.pushnotiuser.user_id"></strong></br>
+    <strong>User Name : </strong><strong ng-bind="vm.pushnotiuser.user_name"></strong></br>
+    <strong>Role : </strong><strong ng-bind="vm.pushnotiuser.role"></strong></br>
+    <strong>Device Token : </strong><strong ng-bind="vm.pushnotiuser.device_token"></strong>
+  </div>
+  <p class="lead" ng-bind="vm.pushnotiuser.content"></p>
+</section>
