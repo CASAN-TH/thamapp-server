@@ -74,11 +74,11 @@ exports.update = function (req, res) {
     } else {
       if (order.deliverystatus === 'wait deliver') {
         sendNewOrder();
-        sendNewDeliver(order.namedeliver._id);
+        sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'accept') {
-        sendNewDeliver(order.namedeliver._id);
+        sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'reject') {
-        sendNewDeliver(order.namedeliver._id);
+        sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'complete') {
 
       }
