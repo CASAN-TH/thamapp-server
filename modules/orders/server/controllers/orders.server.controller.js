@@ -6,8 +6,13 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Order = mongoose.model('Order'),
+  Pushnotiuser = mongoose.model('Pushnotiuser'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  request = require('request'),
+  pushNotiUrl = 'https://api.ionic.io/push/notifications',
+  pushNotiAuthenADM = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZWM3YWNjZi1hYTNjLTQ2ZjUtYmMyNS1kODQ1MmQ2NDRlZmMifQ.Q3-2r2TL0Mq6Aq1JJSmUoTnh0LaoyMA-ZVuOylkJ7nI' },
+  pushNotiAuthenDEL = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs' };
 
 /**
  * Create a Order
@@ -31,6 +36,7 @@ exports.create = function (req, res) {
             message: errorHandler.getErrorMessage(err2)
           });
         } else {
+          sendNewOrder();
           res.jsonp(orders);
         }
       });
@@ -66,6 +72,17 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      if (order.deliverystatus === 'wait deliver') {
+        sendNewOrder();
+        sendNewDeliver(order.namedeliver._id);
+      } else if (order.deliverystatus === 'accept') {
+        sendNewDeliver(order.namedeliver._id);
+      } else if (order.deliverystatus === 'reject') {
+        sendNewDeliver(order.namedeliver._id);
+      } else if (order.deliverystatus === 'complete') {
+
+      }
+
       res.jsonp(order);
     }
   });
@@ -126,3 +143,95 @@ exports.orderByID = function (req, res, next, id) {
     next();
   });
 };
+
+
+function sendNewOrder() {
+  Order.find().sort('-created').where('deliverystatus').equals('confirmed').exec(function (err, orders) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+        if (err) {
+
+        } else {
+          var admtokens = [];
+          admins.forEach(function (admin) {
+            admtokens.push(admin.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenADM.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: admtokens,
+              profile: pushNotiAuthenADM.profile,
+              notification: {
+                message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ' + orders.length + ' รายการ',
+                ios: { badge: orders.length, sound: 'default' },
+                android: { badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+function sendNewDeliver(deliverId) {
+  Order.find().sort('-created').where('deliverystatus').equals('wait deliver').exec(function (err, orders) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created')
+        .where('role').equals('deliver')
+        .where('user_id').equals(deliverId)
+        .exec(function (err, delivers) {
+          if (err) {
+
+          } else {
+            var admtokens = [];
+            delivers.forEach(function (deliver) {
+              admtokens.push(deliver.device_token);
+            });
+            console.log(admtokens);
+            request({
+              url: pushNotiUrl,
+              auth: {
+                'bearer': pushNotiAuthenDEL.auth
+              },
+              method: 'POST',
+              json: {
+                tokens: admtokens,
+                profile: pushNotiAuthenDEL.profile,
+                notification: {
+                  message: 'คุณมีรายการส่งข้าวใหม่ ' + orders.length + ' รายการ',
+                  ios: { badge: orders.length, sound: 'default' },
+                  android: { badge: orders.length, sound: 'default' }
+                }
+              }
+            }, function (error, response, body) {
+              if (error) {
+                console.log('Error sending messages: ', error);
+              } else if (response.body.error) {
+                console.log('Error: ', response.body.error);
+              }
+            });
+          }
+        });
+    }
+  });
+
+
+}
