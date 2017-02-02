@@ -13,7 +13,7 @@
       title: 'Pushnotiusers',
       state: 'pushnotiusers',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item
@@ -26,7 +26,7 @@
     menuService.addSubMenuItem('topbar', 'pushnotiusers', {
       title: 'Create Pushnotiuser',
       state: 'pushnotiusers.create',
-      roles: ['user']
+      roles: ['admin']
     });
   }
 }());
