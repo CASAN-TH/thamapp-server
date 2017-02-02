@@ -24,11 +24,11 @@
     <div class="col-sm-4">
 
       <div class=" border-bottom">
-        <p class="card-text ">
+        <p class="card-text front_price2">
           <li> {{vm.product.description}}</i>
         </p>
       </div>
-      <h4 class="card-title text-warning front_price">{{vm.product.price}} บาท</h4>
+  <h4 class="card-title  front_price">{{vm.product.price}} บาท <label class="front_price1"> * หมายเหตุ: ราคาสินค้ายังไม่รวมค่าจัดส่ง</label></h4>
 
       <button type="button" class="btn btn-warning hidden-xs show-sm show-md show-lg" ng-click="vm.cart.add(vm.product)" data-toggle="modal"
         data-target="#squarespaceModal">ใส่ตะกร้า</button>
