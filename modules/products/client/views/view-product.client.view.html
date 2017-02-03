@@ -28,7 +28,7 @@
           <li> {{vm.product.description}}</i>
         </p>
       </div>
-  <h4 class="card-title  front_price">{{vm.product.price}} บาท <label class="front_price1"> * หมายเหตุ: ราคาสินค้ายังไม่รวมค่าจัดส่ง</label></h4>
+      <h4 class="card-title  front_price">{{vm.product.price}} บาท <label class="front_price1"> * หมายเหตุ: ราคาสินค้ายังไม่รวมค่าจัดส่ง</label></h4>
 
       <button type="button" class="btn btn-warning hidden-xs show-sm show-md show-lg" ng-click="vm.cart.add(vm.product)" data-toggle="modal"
         data-target="#squarespaceModal">ใส่ตะกร้า</button>
@@ -45,6 +45,11 @@
       <div class="row" ng-repeat="promotion in vm.product.promotions">
         <div class="col-xs-12">
           <p>Promotion : {{promotion.description}}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
         </div>
       </div>
     </div>
@@ -141,6 +146,11 @@
                 <button class="btn btn-warning" href="/cartview" data-dismiss="modal" ng-click="vm.viewCart();" type="submit">ยืนยันการสั่งซื้อ</button>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-12 text-right">
+                <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
+              </div>
+            </div>
             <!--footer category-->
             <!--<div class="row border-top" ng-init="vm.readProduct()">
               <div class="margin-top-20 margin-bottom-20 ">
@@ -205,7 +215,7 @@
                     <!--<span class="fa fa-minus" aria-hidden="true"></span>-->
                   </a>
                 </h2>
-                
+
               </div>
               <br>
               <!--right-->
@@ -240,6 +250,11 @@
               <div class="col-xs-12 text-center ">
                 <button class="btn btn-primary " href="/products" data-dismiss="modal" ng-click="vm.moreCart(product);" type="submit">เลือกซื้อสินค้าต่อ</button>
                 <button class="btn btn-warning" href="/cartview" data-dismiss="modal" ng-click="vm.viewCart();" type="submit">ยืนยันการสั่งซื้อ</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
               </div>
             </div>
             <!--footer category-->
