@@ -190,7 +190,10 @@ function sendNewOrder() {
 }
 
 function sendNewDeliver(deliverId) {
-  Order.find().sort('-created').where('deliverystatus').equals('wait deliver').exec(function (err, orders) {
+  Order.find().sort('-created')
+  .where('deliverystatus').equals('wait deliver')
+  .where('namedeliver._id').equals(deliverId)
+  .exec(function (err, orders) {
     if (err) {
 
     } else {
