@@ -76,11 +76,14 @@ exports.update = function (req, res) {
         sendNewOrder();
         sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'accept') {
+        sendNewOrder();
         sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'reject') {
+        sendNewOrder();
         sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'complete') {
-
+        sendNewOrder();
+        sendNewDeliver(order.namedeliver);
       }
 
       res.jsonp(order);
@@ -189,52 +192,58 @@ function sendNewOrder() {
 
 }
 
-function sendNewDeliver(deliverId) {
+function sendNewDeliver(deliver) {
+  var me = '';
+  if(deliver._id){
+    me = deliver._id;
+  }else{
+    me = deliver;
+  }
   Order.find().sort('-created')
-  .where('deliverystatus').equals('wait deliver')
-  .where('namedeliver._id').equals(deliverId)
-  .exec(function (err, orders) {
-    if (err) {
+    .where('deliverystatus').equals('wait deliver')
+    //.where('namedeliver._id').equals(deliver)
+    .exec(function (err, orders) {
+      if (err) {
 
-    } else {
-      Pushnotiuser.find().sort('-created')
-        .where('role').equals('deliver')
-        .where('user_id').equals(deliverId)
-        .exec(function (err, delivers) {
-          if (err) {
+      } else {
+        Pushnotiuser.find().sort('-created')
+          .where('role').equals('deliver')
+          .where('user_id').equals(me)
+          .exec(function (err, delivers) {
+            if (err) {
 
-          } else {
-            var admtokens = [];
-            delivers.forEach(function (deliver) {
-              admtokens.push(deliver.device_token);
-            });
-            console.log(admtokens);
-            request({
-              url: pushNotiUrl,
-              auth: {
-                'bearer': pushNotiAuthenDEL.auth
-              },
-              method: 'POST',
-              json: {
-                tokens: admtokens,
-                profile: pushNotiAuthenDEL.profile,
-                notification: {
-                  message: 'คุณมีรายการส่งข้าวใหม่ ' + orders.length + ' รายการ',
-                  ios: { badge: orders.length, sound: 'default' },
-                  android: { badge: orders.length, sound: 'default' }
+            } else {
+              var admtokens = [];
+              delivers.forEach(function (deliver) {
+                admtokens.push(deliver.device_token);
+              });
+              console.log(admtokens);
+              request({
+                url: pushNotiUrl,
+                auth: {
+                  'bearer': pushNotiAuthenDEL.auth
+                },
+                method: 'POST',
+                json: {
+                  tokens: admtokens,
+                  profile: pushNotiAuthenDEL.profile,
+                  notification: {
+                    message: 'คุณมีรายการส่งข้าวใหม่ ' + orders.length + ' รายการ',
+                    ios: { badge: orders.length, sound: 'default' },
+                    android: { badge: orders.length, sound: 'default' }
+                  }
                 }
-              }
-            }, function (error, response, body) {
-              if (error) {
-                console.log('Error sending messages: ', error);
-              } else if (response.body.error) {
-                console.log('Error: ', response.body.error);
-              }
-            });
-          }
-        });
-    }
-  });
+              }, function (error, response, body) {
+                if (error) {
+                  console.log('Error sending messages: ', error);
+                } else if (response.body.error) {
+                  console.log('Error: ', response.body.error);
+                }
+              });
+            }
+          });
+      }
+    });
 
 
 }
