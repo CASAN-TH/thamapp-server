@@ -29,7 +29,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      Order.findOne(order).populate('user', 'displayName').populate('product').populate('namedeliver').exec(function (err2, orders) {
+      Order.findOne(order).populate('user', 'displayName').populate('item.product').populate('namedeliver').exec(function (err2, orders) {
         if (err2) {
           console.log('err');
           return res.status(400).send({
