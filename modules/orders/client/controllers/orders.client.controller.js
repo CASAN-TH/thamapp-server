@@ -214,12 +214,12 @@
         vm.error = res.data.message;
       }
     }
-
     function rejectOrder(isValid) {
+     
       vm.order.deliverystatus = 'reject';
       vm.order.namedeliver = null;
       vm.addHis();
-      vm.addWait();
+      // vm.addWait();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
 
@@ -451,7 +451,7 @@
       }
 
       function successCallback(res) {
-        if(!res.namedeliver){
+        if (!res.namedeliver) {
           $state.go('orders.list');
         }
         else if (vm.authentication.user._id === res.namedeliver._id) {
@@ -467,4 +467,4 @@
       }
     }
   }
-} ());
+}());

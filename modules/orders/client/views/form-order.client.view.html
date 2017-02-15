@@ -1050,7 +1050,12 @@
                         </div>
                         <div class="col-md-9">
                             <p>{{status.status}}</p>
-                            <p>{{vm.authentication.user.firstName}}</p>
+                            <p ng-show="status.status === 'confirmed'">{{vm.order.user.firstName}}</p>
+                            <p ng-show="status.status === 'wait deliver'">{{vm.authentication.user.firstName}}</p>
+                            <p ng-show="status.status === 'accept'">{{vm.order.namedeliver.displayName}}</p>
+                            <!--<p ng-show="status.status === 'reject'">{{vm.name}}</p>-->
+                            <p ng-show="status.status === 'complete'">{{vm.order.namedeliver.displayName}}</p>
+                            <p ng-show="status.status === 'cancel'">{{vm.authentication.user.firstName}}</p>
                             <p>{{status.datestatus | date: 'dd/MM/yyyy:HH:mm'}}</p>
                         </div>
                     </div>
