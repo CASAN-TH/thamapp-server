@@ -19,6 +19,15 @@
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+.dotpyRank {
+    white-space: nowrap; 
+    width: 19em; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+.text-left{
+    margin-left: 32px;
+}
 .textRight{
 text-align : right;
 }

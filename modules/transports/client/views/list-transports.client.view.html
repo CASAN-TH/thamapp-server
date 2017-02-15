@@ -38,7 +38,7 @@
           <p class="list-group-item-heading" ng-bind="transport.name"></p>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4">
-          <p class="list-group-item-heading" ng-bind="transport.address.address"></p>
+          <p class="list-group-item-heading dotpyRank" ng-bind="transport.address.address + ' ' + transport.address.district + ' ' + transport.address.subdistrict + ' ' + transport.address.province + ' ' + transport.address.postcode"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="transport.address.tel"></p>
@@ -74,8 +74,9 @@
     <div class="col-md-12">
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
-          <label>ชื่อบริษัท : </label> <label class="list-group-item-heading" ng-bind="transport.name"></label><br>
-          <label>ที่อยู่ : </label> <label class="list-group-item-heading" ng-bind="transport.address.address"></label><br>
+          <label>บริษัท : </label> <label class="list-group-item-heading" ng-bind="transport.name"></label><br>
+          <label>ที่อยู่ : </label> <label class="list-group-item-heading" ng-bind="transport.address.address + ' ' + transport.address.district + ' ' + transport.address.subdistrict"></label><br>
+          <label class="text-left"></label> <label class="list-group-item-heading" ng-bind="transport.address.province + ' ' + transport.address.postcode"></label><br>
           <label>เบอร์โทร : </label> <label class="list-group-item-heading" ng-bind="transport.address.tel"></label><br>
           <div class="row">
             <div class="col-xs-10 text-right">
