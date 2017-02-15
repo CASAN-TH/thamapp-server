@@ -1,0 +1,92 @@
+<section>
+  <div class="page-header">
+    <h1>Transports
+    <div class="pull-right">
+        <a class="btn btn-primary" ui-sref="transports.create">
+          <span>Create</span>
+        </a>
+      </div>
+      </h1>
+  </div>
+    <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <strong>ชื่อบริษัท</strong>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <strong>ที่อยู่</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>เบอร์โทร</strong>
+        </div>
+        
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Update</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>Delete</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---->
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="transport in vm.transports">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <p class="list-group-item-heading" ng-bind="transport.name"></p>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <p class="list-group-item-heading" ng-bind="transport.address.address"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="transport.address.tel"></p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-primary" ng-click="vm.update(transport)"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-danger" ng-click="vm.remove(transport)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---->
+  <!--<div class="list-group">
+    <a ng-repeat="transport in vm.transports"
+       ui-sref="transports.view({ transportId: transport._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="transport.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="transport.user" ng-bind="transport.user.displayName"></span>
+        <span ng-if="!transport.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="transport.name"></h4>
+    </a>
+  </div>-->
+  <!--<div class="alert alert-warning text-center" ng-if="vm.transports.$resolved && !vm.transports.length">
+    No Transports yet, why don't you <a ui-sref="transports.create">create one</a>?
+  </div>-->
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="transport in vm.transports">
+    <div class="col-md-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+          <label>ชื่อบริษัท : </label> <label class="list-group-item-heading" ng-bind="transport.name"></label><br>
+          <label>ที่อยู่ : </label> <label class="list-group-item-heading" ng-bind="transport.address.address"></label><br>
+          <label>เบอร์โทร : </label> <label class="list-group-item-heading" ng-bind="transport.address.tel"></label><br>
+          <div class="row">
+            <div class="col-xs-10 text-right">
+              <button type="button" class="btn btn-primary" ng-click="vm.update(transport)"><span class="glyphicon glyphicon-edit"></span></button>
+            </div>
+            <div class="col-xs-1 text-right marLeft">
+              <button type="button" class="btn btn-danger" ng-click="vm.remove(transport)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

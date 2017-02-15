@@ -365,7 +365,7 @@
                       <div class="col-xs-1 col-sm-1 col-md-1">
                         <strong>รวม</strong>
                       </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                      <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                         <strong>รับเงิน</strong>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -373,6 +373,9 @@
                       </div>
                       <div class="col-xs-3 col-sm-3 col-md-3">
                         <strong>การจัดส่ง</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>วันที่สร้างบิล</strong>
                       </div>
                       <!--<div class="col-xs-1 col-sm-1 col-md-1">
                         <strong>พิมพ์</strong>
@@ -393,7 +396,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                               <p class="list-group-item-heading">-</p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -404,6 +407,9 @@
                               <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
                               <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
                             </div>
                             <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
@@ -423,7 +429,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -433,6 +439,9 @@
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
                             </div>
                             <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
@@ -452,7 +461,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -461,6 +470,9 @@
                             <div class="col-xs-3 col-sm-3 col-md-3">
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
                             </div>
                             <!--<div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading">-</p>
@@ -561,7 +573,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                               <!--<p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
@@ -573,7 +585,9 @@
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -590,7 +604,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                               <!--<p class="list-group-item-heading" ng-bind="order.historystatus[5].datestatus | date: 'dd/MM/yyyy:HH:mm'"></p>-->
                             </div>
@@ -602,7 +616,9 @@
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -648,7 +664,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                               <p class="list-group-item-heading">-</p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -660,9 +676,9 @@
                               <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>-->
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -680,7 +696,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                               <p class="list-group-item-heading">-</p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -691,9 +707,9 @@
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>-->
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -711,7 +727,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                               <p class="list-group-item-heading">-</p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -721,9 +737,9 @@
                               <!--<span>คนส่งข้าว</span>-->
                               <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
                             </div>
-                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>-->
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -828,7 +844,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -838,9 +854,9 @@
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>-->
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -858,7 +874,7 @@
                             <div class="col-xs-1 col-sm-1 col-md-1">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3 text-center">
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
                               <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
@@ -868,9 +884,9 @@
                               <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
-                            <!--<div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>-->
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                              <time am-time-ago="order.created"></time>
+                            </div>
                           </div>
                         </div>
                       </div>
