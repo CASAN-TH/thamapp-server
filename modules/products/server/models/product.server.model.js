@@ -28,9 +28,13 @@ var ProductSchema = new Schema({
     type: Number,
     required: 'Please fill Product price'
   },
-  grossweight:Number,
-  maxstock:Number,
-  minstock:Number,
+  retailerprice: {
+    type: Number,
+    default: 0,
+  },
+  grossweight: Number,
+  maxstock: Number,
+  minstock: Number,
   deliveryratetype: Number,
   valuetype1: Number,
   rangtype2: [{

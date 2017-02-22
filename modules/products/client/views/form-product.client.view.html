@@ -78,9 +78,14 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="control-label" for="category">Gross Weight</label>
-                    <input name="grossweight" type="text" ng-model="vm.product.grossweight" id="grossweight" class="form-control" placeholder="Gross Weight"
+                    <label class="control-label" for="retailerprice">Retailer Price</label>
+                    <input name="retailerprice" type="text" ng-model="vm.product.retailerprice" id="retailerprice" class="form-control" placeholder="Retailer Price" ng-pattern="/^[0-9]{1,7}$/"
                       >
+                  </div>
+
+                  <div class="form-group">
+                    <label class="control-label" for="category">Gross Weight</label>
+                    <input name="grossweight" type="text" ng-model="vm.product.grossweight" id="grossweight" class="form-control" placeholder="Gross Weight">
                     <!--<div ng-messages="vm.form.productForm.grossweight.$error" role="alert">
                       <p class="help-block error-text" ng-message="required">Product grossweight is required.</p>
                     </div>-->
@@ -88,8 +93,7 @@
 
                   <div class="form-group">
                     <label class="control-label" for="category">Max Stock</label>
-                    <input name="maxstock" type="number" ng-model="vm.product.maxstock" id="maxstock" class="form-control" placeholder="Max Stock"
-                      >
+                    <input name="maxstock" type="number" ng-model="vm.product.maxstock" id="maxstock" class="form-control" placeholder="Max Stock">
                     <!--<div ng-messages="vm.form.productForm.maxstock.$error" role="alert">
                       <p class="help-block error-text" ng-message="required">Product maxstock is required.</p>
                     </div>-->
@@ -97,8 +101,7 @@
 
                   <div class="form-group">
                     <label class="control-label" for="category">Min Stock</label>
-                    <input name="minstock" type="number" ng-model="vm.product.minstock" id="minstock" class="form-control" placeholder="Min Stock"
-                      >
+                    <input name="minstock" type="number" ng-model="vm.product.minstock" id="minstock" class="form-control" placeholder="Min Stock">
                     <!--<div ng-messages="vm.form.productForm.minstock.$error" role="alert">
                       <p class="help-block error-text" ng-message="required">Product minstock is required.</p>
                     </div>-->
@@ -115,8 +118,7 @@
 
                   <div class="form-group">
                     <label class="control-label" for="category">Value Type</label>
-                    <input name="valuetype1" type="number" ng-model="vm.product.valuetype1" id="valuetype1" class="form-control" placeholder="Value Type"
-                      >
+                    <input name="valuetype1" type="number" ng-model="vm.product.valuetype1" id="valuetype1" class="form-control" placeholder="Value Type">
                     <!--<div ng-messages="vm.form.productForm.valuetype1.$error" role="alert">
                       <p class="help-block error-text" ng-message="required">Product valuetype1 is required.</p>
                     </div>-->
@@ -130,7 +132,7 @@
                     <div class="col-xs-3 col-sm-3 col-md-3"><b>Min</b></div>
                     <div class="col-xs-3 col-sm-3 col-md-3"><b>Max</b></div>
                     <div class="col-xs-3 col-sm-3 col-md-3"><b>Value</b></div>
-                    <div class="col-xs-3 col-sm-3 col-md-3"></div>                    
+                    <div class="col-xs-3 col-sm-3 col-md-3"></div>
                   </div>
                   <div class="row border-right border-left border-top border-bottom img-rounded margin-top-20" ng-repeat="rang in vm.product.rangtype2">
                     <div class="col-xs-12 col-sm-3 col-md-3">
@@ -146,14 +148,14 @@
                       <i class="glyphicon glyphicon-trash btn btn-danger"></i>
                     </div>
                   </div>
-                  <div class="min-height-20"></div>                  
+                  <div class="min-height-20"></div>
                   <div class="row">
                     <div class="col-xs-12 col-md-12">
                       <div class="btn btn-success btn-block btn-outline" ng-click="vm.addRangType()">
-                      <b>เพิ่ม</b>
+                        <b>เพิ่ม</b>
+                      </div>
                     </div>
-                    </div>
-                    
+
                   </div>
                   <div class="min-height-20"></div>
                   <!--<div class="form-group" show-errors>
