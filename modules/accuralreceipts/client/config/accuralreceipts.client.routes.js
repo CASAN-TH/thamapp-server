@@ -51,7 +51,7 @@
           accuralreceiptResolve: getAccuralreceipt
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['user', 'admin', 'deliver'],
           pageTitle: 'Edit Accuralreceipt {{ accuralreceiptResolve.name }}'
         }
       })

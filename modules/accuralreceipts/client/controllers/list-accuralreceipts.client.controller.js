@@ -15,6 +15,9 @@
     vm.waitconfirmed = [];
     vm.confirmed = [];
     vm.receipt = [];
+    vm.statusWaitreview = statusWaitreview;
+    vm.statusWaitreceipt = statusWaitreceipt;
+    vm.addHis = addHis;
     vm.readdata = readdata;
     vm.init = init;
     vm.remove = function (itm) {
@@ -37,6 +40,47 @@
     };
     function init() {
       vm.readdata();
+    }
+
+    function addHis(data) {
+      data.historystatus.push({
+        status: data.arstatus,
+        datestatus: new Date()
+      });
+    }
+
+    function statusWaitreview(data) {
+      data.arstatus = 'wait for confirmed';
+      vm.addHis(data);
+      data.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        vm.waitreview = [];
+        vm.waitconfirmed = [];
+        vm.confirmed = [];
+        vm.receipt = [];
+        vm.init();
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function statusWaitreceipt(data){
+      data.arstatus = 'receipt';
+      vm.addHis(data);
+      data.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        vm.waitreview = [];
+        vm.waitconfirmed = [];
+        vm.confirmed = [];
+        vm.receipt = [];
+        vm.init();
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
     }
 
     function readdata() {
