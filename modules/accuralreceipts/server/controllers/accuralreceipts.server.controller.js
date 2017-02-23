@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Accuralreceipts
  */
 exports.list = function(req, res) {
-  Accuralreceipt.find().sort('-created').populate('user').populate('items.items').populate('items.user').populate('items.namedeliver').populate('namedeliver').exec(function(err, accuralreceipts) {
+  Accuralreceipt.find().sort('-created').populate('user').populate('items').populate('namedeliver').exec(function(err, accuralreceipts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.accuralreceiptByID = function(req, res, next, id) {
     });
   }
 
-  Accuralreceipt.findById(id).populate('user').populate('items.items').populate('items.user').populate('items.namedeliver').populate('namedeliver').exec(function (err, accuralreceipt) {
+  Accuralreceipt.findById(id).populate('user').populate('items').populate('namedeliver').exec(function (err, accuralreceipt) {
     if (err) {
       return next(err);
     } else if (!accuralreceipt) {
