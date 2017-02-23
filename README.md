@@ -2,7 +2,11 @@
 
 npm install
 
+npm install jwt-simple -- save
+
 bower install
+
+bower install angular-moment --save
 
 [![MEAN.JS Logo](http://meanjs.org/img/logo-small.png)](http://meanjs.org/)
 
