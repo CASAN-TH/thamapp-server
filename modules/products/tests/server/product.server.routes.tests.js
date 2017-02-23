@@ -546,55 +546,55 @@ describe('Product CRUD tests', function () {
     });
   });
 
-  it('should be able to change product picture if signed in', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
+  // it('should be able to change product picture if signed in', function (done) {
+  //   agent.post('/api/auth/signin')
+  //     .send(credentials)
+  //     .expect(200)
+  //     .end(function (signinErr, signinRes) {
+  //       // Handle signin error
+  //       if (signinErr) {
+  //         return done(signinErr);
+  //       }
 
-        agent.post('/api/products_picture')
-          .attach('newProfilePicture', './modules/products/client/img/default.jpg')
-          .send(credentials)
-          .expect(200)
-          .end(function (productInfoErr, productInfoRes) {
-            // Handle change profile picture error
-            if (productInfoErr) {
-              return done(productInfoErr);
-            }
+  //       agent.post('/api/products_picture')
+  //         .attach('newProfilePicture', './modules/products/client/img/default.jpg')
+  //         .send(credentials)
+  //         .expect(200)
+  //         .end(function (productInfoErr, productInfoRes) {
+  //           // Handle change profile picture error
+  //           if (productInfoErr) {
+  //             return done(productInfoErr);
+  //           }
 
-            //productInfoRes.body.should.be.instanceof(Object);
-            // productInfoRes.body.status.should.be.a.String();
-            productInfoRes.body.status.should.be.equal('000');
-            productInfoRes.body.imageURL.should.startWith('');
+  //           //productInfoRes.body.should.be.instanceof(Object);
+  //           // productInfoRes.body.status.should.be.a.String();
+  //           productInfoRes.body.status.should.be.equal('000');
+  //           productInfoRes.body.imageURL.should.startWith('');
 
-            return done();
-          });
-      });
-  });
+  //           return done();
+  //         });
+  //     });
+  // });
 
-  it('should not be able to change profile picture if attach a picture with a different field name', function (done) {
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
+  // it('should not be able to change profile picture if attach a picture with a different field name', function (done) {
+  //   agent.post('/api/auth/signin')
+  //     .send(credentials)
+  //     .expect(200)
+  //     .end(function (signinErr, signinRes) {
+  //       // Handle signin error
+  //       if (signinErr) {
+  //         return done(signinErr);
+  //       }
 
-        agent.post('/api/products_picture')
-          .attach('fieldThatDoesntWork', './modules/products/client/img/default.jpg')
-          .send(credentials)
-          .expect(400)
-          .end(function (productInfoErr, productInfoRes) {
-            done(productInfoErr);
-          });
-      });
-  });
+  //       agent.post('/api/products_picture')
+  //         .attach('fieldThatDoesntWork', './modules/products/client/img/default.jpg')
+  //         .send(credentials)
+  //         .expect(400)
+  //         .end(function (productInfoErr, productInfoRes) {
+  //           done(productInfoErr);
+  //         });
+  //     });
+  // });
 
   afterEach(function (done) {
     User.remove().exec(function () {
