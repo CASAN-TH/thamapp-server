@@ -179,66 +179,6 @@
       }));
     });
 
-    describe('list order assign as read', function () {
-
-
-      beforeEach(function () {
-        $scope.vm.listOrder = [mockOrder, mockOrder, mockOrder];
-        $scope.vm.authentication.user._id = '123456';
-
-      });
-
-      it('should send a GET request and return all list assign', inject(function (OrdersService) {
-
-        $scope.vm.listAssign();
-
-        expect($scope.vm.listOrder.length).toEqual(3);
-        expect($scope.vm.listOrder[0].namedeliver._id).toEqual($scope.vm.authentication.user._id);
-        expect($scope.vm.listOrder[0].deliverystatus).toEqual('confirmed');
-
-      }));
-    });
-
-    describe('list order accept as read', function () {
-
-
-      beforeEach(function () {
-        $scope.vm.listOrderAccept = [mockOrder2, mockOrder2];
-        $scope.vm.authentication.user._id = '123456';
-
-      });
-
-      it('should send a GET request and return all list accept', inject(function (OrdersService) {
-
-        $scope.vm.listAccept();
-
-        expect($scope.vm.listOrderAccept.length).toEqual(2);
-        expect($scope.vm.listOrderAccept[0].namedeliver._id).toEqual($scope.vm.authentication.user._id);
-        expect($scope.vm.listOrderAccept[0].deliverystatus).toEqual('accept');
-
-      }));
-    });
-
-    describe('list order complete as read', function () {
-
-
-      beforeEach(function () {
-        $scope.vm.listOrderComplete = [mockOrder3, mockOrder3];
-        $scope.vm.authentication.user._id = '123456';
-
-      });
-
-      it('should send a GET request and return all list complete', inject(function (OrdersService) {
-
-        $scope.vm.listComplete();
-
-        expect($scope.vm.listOrderComplete.length).toEqual(2);
-        expect($scope.vm.listOrderComplete[0].namedeliver._id).toEqual($scope.vm.authentication.user._id);
-        expect($scope.vm.listOrderComplete[0].deliverystatus).toEqual('complete');
-
-      }));
-    });
-
     describe('vm.addHis', function () {
 
       beforeEach(function () {
@@ -286,15 +226,15 @@
           status: 'sent',
           datestatus: '10/11/2015'
         }, {
-            status: 'pending',
-            datestatus: '10/11/2015'
-          }, {
-            status: 'paid',
-            datestatus: '10/11/2015'
-          }, {
-            status: 'complete',
-            datestatus: '10/11/2015'
-          }];
+          status: 'pending',
+          datestatus: '10/11/2015'
+        }, {
+          status: 'paid',
+          datestatus: '10/11/2015'
+        }, {
+          status: 'complete',
+          datestatus: '10/11/2015'
+        }];
       });
       it('vm.status complete()', inject(function () {
 
@@ -336,4 +276,4 @@
     });
 
   });
-} ());
+}());
