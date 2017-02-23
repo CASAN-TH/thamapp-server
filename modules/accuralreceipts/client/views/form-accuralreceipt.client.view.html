@@ -348,10 +348,6 @@
                     <ul class="list-group">
                       <div ng-repeat="order in vm.listorders | filter:topsearch">
                         <li class="row list-group-item">
-                          <!--<div class="col-xs-3">
-                      <img src="{{prod.images}}" class="img-circle" width="50px">
-                    </div>-->
-
                           <div class="col-xs-10">
                             <label>ใบแจ้งหนี้เลขที่ : {{order.docno}}</label><br>
                             <label>ชื่อ : {{order.namedeliver.displayName}}</label><br>
@@ -405,38 +401,7 @@
                 <label>{{vm.accuralreceipt.billamount | number:2}}</label>
               </div>
             </div>
-            <!--<div class="row form-group" ng-hide="vm.authentication.user.roles[0] === 'deliver'">-->
-            <!--<div class="col-xs-7">
-                <strong>ประเภทการส่ง</strong>
-              </div>-->
-            <!--<div class="col-xs-5 textRight">
-                <label>คนส่งข้าว</label>
-              </div>-->
-            <!--</div>-->
             <div class="row form-group" ng-show="vm.accuralreceipt.delivery.deliveryid === '0' && (vm.authentication.user.roles[0] !== 'deliver'&& vm.accuralreceipt.deliverystatus!='cancel')">
-              <!--<div class="col-xs-7 hidden-xs show-sm show-md show-lg">
-          <strong>บริษัทขนส่ง</strong>
-        </div>-->
-              <!--<div class="col-xs-7 show-xs hidden-sm hidden-md hidden-lg">
-          <strong>บริษัทขนส่ง</strong>
-        </div>-->
-              <!--<div class="col-xs-5 hidden-xs show-sm show-md show-lg">
-          <div class="row ">
-            <div class="col-xs-12 input-group input-group-sm textRight" ng-show="vm.accuralreceipt._id && vm.accuralreceipt.deliverystatus === 'response' || vm.accuralreceipt.deliverystatus === 'received'">
-              <label class="control-label">{{vm.accuralreceipt.transport.displayName}}</label>
-            </div>
-
-            <div class="col-xs-12 input-group input-group-sm textRight" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
-              <div class="input-group input-group-sm textRight">
-                
-                <span data-toggle="modal" data-target="#myTransprot" class="input-group-addon" id="sizing-addon3"><i class="fa fa-truck font-medium" aria-hidden="true"></i></span>
-                
-                <input type="text" class="form-control" ng-model="vm.accuralreceipt.transport.displayName" aria-describedby="sizing-addon3" readonly>
-              </div>
-            </div>
-
-          </div>
-        </div>-->
               <div class="col-xs-5 show-xs hidden-sm hidden-md hidden-lg">
                 <div class="row ">
                   <div class="col-xs-12 input-group input-group-sm textRight" ng-show="vm.accuralreceipt._id">
@@ -444,16 +409,9 @@
                   </div>
 
                   <div class="col-xs-12 input-group input-group-sm textRight" ng-show="!vm.accuralreceipt._id">
-
-                    <!--<button type="button" class="pull-right btn btn-block btn-primary" ng-hide="vm.accuralreceipt.namedeliver" ng-disabled="vm.accuralreceipt.deliverystatus === 'cancel' || vm.accuralreceipt.deliverystatus === 'pending' || vm.accuralreceipt.deliverystatus === 'paid' || vm.accuralreceipt.deliverystatus === 'sent' || vm.accuralreceipt.deliverystatus === 'complete' || vm.accuralreceipt.deliverystatus === 'close' || vm.accuralreceipt.deliverystatus === 'accept'"
-                                            name="deliver" aria-describedby="sizing-addon3" data-toggle="modal" data-target="#myDelivery">เลือกคนส่งข้าว</button>-->
                     <div class="input-group input-group-sm textRight">
                       <!---->
                       <span data-toggle="modal" data-target="#myTransprot" class="input-group-addon" id="sizing-addon3"><i class="fa fa-truck font-medium" aria-hidden="true"></i></span>
-                      <!---->
-                      <!--<span ng-show="vm.order.namedeliver && (vm.accuralreceipt.deliverystatus === 'cancel' || vm.accuralreceipt.deliverystatus === 'complete' || vm.accuralreceipt.deliverystatus === 'accept')"
-                    class="input-group-addon" id="sizing-addon3"><i class="fa fa-truck font-medium" aria-hidden="true"></i></span>-->
-                      <!---->
                       <input type="text" class="form-control" ng-model="vm.accuralreceipt.transport.displayName" aria-describedby="sizing-addon3"
                         readonly>
                     </div>
@@ -507,31 +465,6 @@
                 </div>
               </div>
             </div>
-
-            <!--<div class="row " ng-hide="vm.authentication.user.roles[0] === 'deliver'">
-                            <div class="col-md-12 form-group">
-                            </div>
-                            <div class="col-md-7">
-                                <div class="col-md-12 ">
-                                    <label class="control-label">ประเภทการส่ง</label>
-                                </div>
-                            </div>
-                            <div class="col-md-5">
-                                <div class="row ">
-                                    <div class="col-xs-12 input-group input-group-sm textRight">
-                                        <select ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
-                                            name="singleSelect" ng-model="vm.order.delivery.deliveryid" class="form-control"
-                                            aria-describedby="sizing-addon3">
-                                            <option value="1">ไปรษณีย์</option>
-                                            <option value="0">คนส่งข้าว</option>
-                                        </select>
-                                        <label class="form-control noneBorder">คนส่งข้าว</label>
-                                        <label ng-bind="vm.order.delivery.deliveryid" class="form-control noneBorder"></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-
             <div class="row" ng-show="vm.accuralreceipt.delivery.deliveryid === '1'">
               <div class="col-md-7">
                 <div class="col-md-12 ">
@@ -563,15 +496,6 @@
                 <button type="submit" class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
               </div>
             </div>
-            <!--<div class="row form-group" ng-show="vm.accuralreceipt.deliverystatus === 'confirmed'">
-                            <div class="col-md-6">
-                                <button type="submit" class="btn btn-primary btn-block">บันทึกรายการ</button>
-                            </div>
-                            <div class="col-md-6 ">
-                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#cancelAccuralreceipt">ยกเลิกรายการ</button>
-                            </div>
-                        </div>-->
-
           </div>
 
           <div class="row form-group">
@@ -673,7 +597,6 @@
             </div>
           </div>
         </div>
-
 
         <div class="container">
           <div class="modal fade" id="cancelAccuralreceipt" role="dialog">
