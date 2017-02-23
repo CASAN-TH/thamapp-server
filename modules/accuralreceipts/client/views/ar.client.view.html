@@ -39,21 +39,21 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{vm.listOrder.length}}</h3></button></a>
-              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>wait for confirmed</span><h3>{{vm.listOrderAccept.length}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>confirmed</span><h3>{{vm.listOrderComplete.length}}</h3></button></a>
+              <!--<a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{vm.listOrder.length}}</h3></button></a>-->
+              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รอยืนยัน</span><h3>{{vm.listArWaitconfirmed.length}}</h3></button></a>
+              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ยืนยันแล้ว</span><h3>{{vm.listArConfirmed.length}}</h3></button></a>
             </div>
           </div>
           <!---->
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">
-            <div class="col-xs-4">
+            <!--<div class="col-xs-4">
               <a href="#showAllActivemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">งานใหม่</button></a>
+            </div>-->
+            <div class="col-xs-4">
+              <a href="#showAllAcceptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">รอยืนยัน</button></a>
             </div>
             <div class="col-xs-4">
-              <a href="#showAllAcceptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">ของฉัน</button></a>
-            </div>
-            <div class="col-xs-4">
-              <a href="#showAllCompletemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">สำเร็จ</button></a>
+              <a href="#showAllCompletemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">ยืนยันแล้ว</button></a>
             </div>
           </div>
 
