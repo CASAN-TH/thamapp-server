@@ -43,11 +43,14 @@
       <li ng-class="{active: $uiRoute}" ui-route="/responseorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
         <a href="/#/responseorder"><i class="fa fa-file-o"></i> <span class="nav-label">บริษัทขนส่งข้าว</span></a>
       </li>
-      <!--<li ng-class="{active: $uiRoute}" ui-route="/receivedorder" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li ng-class="{active: $uiRoute}" ui-route="/receivedorder" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
         <a href="/#/receivedorder"><i class="fa fa-file-o"></i> <span class="nav-label">รายการรับข้าว</span></a>
-      </li>-->
+      </li>
       <li ng-class="{active: $uiRoute}" ui-route="/signinuser" class="dropdown" ng-if="!authentication.user">
         <a href="/#/signinuser"><i class="fa fa-file-o"></i> <span class="nav-label">ตรวจสอบประวัติการสั่งซื้อ</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/ar" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+        <a href="/#/ar"><i class="fa fa-file-o"></i> <span class="nav-label">ใบเสร็จแจ้งหนี้</span></a>
       </li>
     </ul>
   </div>

@@ -559,6 +559,10 @@ body1 {
     margin-bottom:5px;
 }
 
+.marginT5{
+    margin-top:5px;
+}
+
 .marginT{
     margin-top:20px;
 }
@@ -633,4 +637,10 @@ body1 {
     padding: 1em 16px;
     border-left: 6px solid #ccc!important;
 
+}
+
+.borderBT {
+    border-color: #dddddd;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
 }
