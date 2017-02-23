@@ -170,7 +170,7 @@ exports.changeProductPicture = function (req, res) {
         var cloudImageURL = './public/' + req.file.filename;
         cloudinary.uploader.upload(cloudImageURL, function (result) {
           var imageURL = result.url;
-          res.json({ status: '000', message: 'success', imageURL: imageURL });
+          res.json({ status: '000', message: 'success', imageURL: imageURL, cresult:  result});
         });
       }
     });
