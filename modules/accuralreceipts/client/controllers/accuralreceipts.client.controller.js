@@ -25,7 +25,7 @@
     vm.selectedOrder = selectedOrder;
     vm.removeItem = removeItem;
     vm.calculate = calculate;
-    vm.accuralreceipt.billamount = 0;
+    // vm.accuralreceipt.billamount = 0;
     vm.readOrder = readOrder;
     if (vm.accuralreceipt.items) {
       vm.accuralreceipt.items = vm.accuralreceipt.items;
@@ -37,9 +37,9 @@
     // Remove existing Accuralreceipt
     function init() {
       vm.readOrder();
-      vm.accuralreceipt.billamount = 0;
       vm.readDeliver();
       if (!vm.accuralreceipt._id) {
+         vm.accuralreceipt.billamount = 0;
         vm.accuralreceipt.docdate = new Date();
         vm.accuralreceipt.docno = (+ new Date());
 
