@@ -2,7 +2,7 @@
 
 npm install
 
-npm install jwt-simple -- save
+npm install jwt-simple --save
 
 bower install
 
