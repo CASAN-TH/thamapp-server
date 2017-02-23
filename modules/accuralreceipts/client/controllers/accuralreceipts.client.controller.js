@@ -79,17 +79,18 @@
 
     function selectedOrder(ord) {
 
-      if (vm.accuralreceipt.items.length === 0) {
-        vm.accuralreceipt.items.push(ord);
-      } else if (vm.accuralreceipt.items.length > 0) {
+      if (vm.accuralreceipt.items.length > 0) {
         vm.accuralreceipt.items.forEach(function (list) {
           if (list._id === ord._id) {
-            alert('คุณเลือกรายการซ้ำ');
-          }
-          else if (list._id !== ord._id) {
-            vm.accuralreceipt.items.push(ord);
+            vm.status = 'have';
           }
         });
+      }
+
+      if (vm.status !== 'have') {
+        vm.accuralreceipt.items.push(ord);
+      }else{
+        alert('คุณเลือกรายการซ้ำ');
       }
 
 
@@ -151,4 +152,4 @@
       }
     }
   }
-}());
+} ());
