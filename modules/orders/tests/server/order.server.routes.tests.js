@@ -17,6 +17,9 @@ var app,
   user,
   order;
 
+var tomorrow = new Date();
+
+
 /**
  * Order routes tests
  */
@@ -45,7 +48,9 @@ describe('Order CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Order
@@ -123,6 +128,43 @@ describe('Order CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Order if logged in with token', function (done) {
+    order.loginToken = user.loginToken;
+    // Save a new Order
+    agent.post('/api/orders')
+      .send(order)
+      .expect(200)
+      .end(function (orderSaveErr, orderSaveRes) {
+        // Handle Order save error
+        if (orderSaveErr) {
+          return done(orderSaveErr);
+        }
+
+        // Get a list of Orders
+        agent.get('/api/orders')
+          .end(function (ordersGetErr, ordersGetRes) {
+            // Handle Orders save error
+            if (ordersGetErr) {
+              return done(ordersGetErr);
+            }
+
+            // Get Orders list
+            var orders = ordersGetRes.body;
+
+            // Set assertions
+            // (orders[0].user._id).should.equal(userId);
+            (orders[0].docno).should.match('1234');
+            (orders[0].docdate).should.match(new Date());
+            (orders[0].accounting).should.match('bank');
+            (orders[0].deliverystatus).should.match('confirmed');
+
+
+            // Call the assertion callback
+            done();
           });
       });
   });

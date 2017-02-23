@@ -29,7 +29,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      Order.findOne(order).populate('user', 'displayName').populate('item.product').populate('namedeliver').exec(function (err2, orders) {
+      Order.findOne(order).populate('user', 'displayName').populate('items.product').populate('namedeliver').exec(function (err2, orders) {
         if (err2) {
           console.log('err');
           return res.status(400).send({
@@ -76,16 +76,16 @@ exports.update = function (req, res) {
         sendNewOrder();
         sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'accept') {
-        //sendNewOrder();
-        //sendNewDeliver(order.namedeliver);
+        sendNewOrder();
+        sendNewDeliver(order.namedeliver);
         // sendCompleteDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'reject') {
-        //sendNewOrder();
-        //sendNewDeliver(order.namedeliver);
+        sendNewOrder();
+        sendNewDeliver(order.namedeliver);
       } else if (order.deliverystatus === 'complete') {
         // sendNewOrder();
         // sendNewDeliver(order.namedeliver);
-        //sendCompleteDeliver(order.namedeliver);
+        sendCompleteDeliver(order.namedeliver);
       }
 
       res.jsonp(order);

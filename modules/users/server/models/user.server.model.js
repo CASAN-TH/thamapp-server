@@ -92,10 +92,16 @@ var UserSchema = new Schema({
   roles: {
     type: [{
       type: String,
-      enum: ['user', 'admin', 'deliver']
+      enum: ['user', 'admin', 'deliver', 'transporter']
     }],
     default: ['user'],
     required: 'Please provide at least one role'
+  },
+  loginToken: {
+    type: String
+  },
+  loginExpires: {
+    type: Date
   },
   updated: {
     type: Date

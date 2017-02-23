@@ -17,6 +17,9 @@ var app,
   user,
   postcode;
 
+var tomorrow = new Date();
+
+
 /**
  * Postcode routes tests
  */
@@ -45,7 +48,9 @@ describe('Postcode CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Postcode
@@ -107,6 +112,44 @@ describe('Postcode CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Postcode if logged in with token', function (done) {
+    postcode.loginToken = user.loginToken;
+    // Save a new Postcode
+    agent.post('/api/postcodes')
+      .send(postcode)
+      .expect(200)
+      .end(function (postcodeSaveErr, postcodeSaveRes) {
+        // Handle Postcode save error
+        if (postcodeSaveErr) {
+          return done(postcodeSaveErr);
+        }
+
+        // Get a list of Postcodes
+        agent.get('/api/postcodes')
+          .end(function (postcodesGetErr, postcodesGetRes) {
+            // Handle Postcodes save error
+            if (postcodesGetErr) {
+              return done(postcodesGetErr);
+            }
+
+            // Get Postcodes list
+            var postcodes = postcodesGetRes.body;
+
+            // Set assertions
+            // (postcodes[0].user._id).should.equal(userId);
+            (postcodes[0].locationcode).should.match('104203');
+            (postcodes[0].province).should.match('กทม');
+            (postcodes[0].subdistrict).should.match('คลองถนน');
+            (postcodes[0].postcode).should.match('10220');
+            (postcodes[0].district).should.match('สายไหม');
+
+
+            // Call the assertion callback
+            done();
           });
       });
   });

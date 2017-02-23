@@ -17,6 +17,7 @@ var app,
   user,
   transport;
 
+var tomorrow = new Date();
 /**
  * Transport routes tests
  */
@@ -45,7 +46,9 @@ describe('Transport CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Transport
@@ -99,6 +102,40 @@ describe('Transport CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Transport if logged in with token', function (done) {
+    transport.loginToken = user.loginToken;
+    // Save a new Transport
+    agent.post('/api/transports')
+      .send(transport)
+      .expect(200)
+      .end(function (transportSaveErr, transportSaveRes) {
+        // Handle Transport save error
+        if (transportSaveErr) {
+          return done(transportSaveErr);
+        }
+
+        // Get a list of Transports
+        agent.get('/api/transports')
+          .end(function (transportsGetErr, transportsGetRes) {
+            // Handle Transports save error
+            if (transportsGetErr) {
+              return done(transportsGetErr);
+            }
+
+            // Get Transports list
+            var transports = transportsGetRes.body;
+
+            // Set assertions
+            // (transports[0].user._id).should.equal(userId);
+            (transports[0].name).should.match('Transport name');
+
+
+            // Call the assertion callback
+            done();
           });
       });
   });

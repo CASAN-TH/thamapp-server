@@ -54,6 +54,7 @@
     vm.selectProduct = selectProduct;
     vm.addQty = addQty;
     vm.removeQty = removeQty;
+    vm.cancelOrder =cancelOrder;
     if (vm.order.items) {
       vm.order.items = vm.order.items;
     } else {
@@ -191,6 +192,19 @@
 
     function closeOrder(isValid) {
       vm.order.deliverystatus = 'close';
+      vm.addHis();
+      vm.order.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function cancelOrder() {
+      vm.order.deliverystatus = 'cancel';
       vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {

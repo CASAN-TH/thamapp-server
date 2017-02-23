@@ -1333,6 +1333,8 @@
           <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
           <label class="list-group-item-text">Amount: </label>
           <label class="list-group-item-text" ng-bind="order.totalamount | number:2"></label><br>
+          <label class="list-group-item-text">สถานะ: </label>
+          <label class="list-group-item-text" ng-bind="order.deliverystatus"></label><br>
           <!--<i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
           <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
           <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>

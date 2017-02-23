@@ -5,17 +5,19 @@
  */
 var ordersPolicy = require('../policies/orders.server.policy'),
   orders = require('../controllers/orders.server.controller');
+var users = require('../../../users/server/controllers/users.server.controller');
 
-module.exports = function(app) {
+
+module.exports = function (app) {
   // Orders Routes
   app.route('/api/orders')//.all(ordersPolicy.isAllowed)
-    .get(orders.list)
-    .post(orders.create);
+    .get(ordersPolicy.isAllowed, orders.list)
+    .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.create);
 
   app.route('/api/orders/:orderId')//.all(ordersPolicy.isAllowed)
-    .get(orders.read)
-    .put(orders.update)
-    .delete(orders.delete);
+    .get(ordersPolicy.isAllowed, orders.read)
+    .put(users.requiresLoginToken, ordersPolicy.isAllowed, orders.update)
+    .delete(users.requiresLoginToken, ordersPolicy.isAllowed, orders.delete);
 
   // Finish by binding the Order middleware
   app.param('orderId', orders.orderByID);

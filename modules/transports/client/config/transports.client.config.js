@@ -8,6 +8,7 @@
   menuConfig.$inject = ['Menus'];
 
   function menuConfig(menuService) {
+
     // // Set top bar menu items
     // menuService.addMenuItem('topbar', {
     //   title: 'บริษัทขนส่ง',
@@ -28,5 +29,6 @@
     //   state: 'transports.create',
     //   roles: ['admin']
     // });
+
   }
 }());

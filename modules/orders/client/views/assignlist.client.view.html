@@ -195,7 +195,7 @@
                           <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2" align="center">
-                          <strong>วันที่</strong>
+                          <strong>วันที่สั่งซื้อ</strong>
                         </div>
                       </div>
                     </div>
@@ -220,7 +220,7 @@
                         <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
-                        <p class="list-group-item-heading" ng-bind="order.created | date:'dd/MM/yyyy:HH:mm'"></p>
+                        <time am-time-ago="order.created"></time>
                       </div>
                     </div>
                   </div>

@@ -17,6 +17,8 @@ var app,
   user,
   managebank;
 
+var tomorrow = new Date();
+
 /**
  * Managebank routes tests
  */
@@ -45,7 +47,9 @@ describe('Managebank CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Managebank
@@ -105,6 +109,43 @@ describe('Managebank CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Managebank if logged in with token', function (done) {
+    managebank.loginToken = user.loginToken;
+    // Save a new Managebank
+    agent.post('/api/managebanks')
+      .send(managebank)
+      .expect(200)
+      .end(function (managebankSaveErr, managebankSaveRes) {
+        // Handle Managebank save error
+        if (managebankSaveErr) {
+          return done(managebankSaveErr);
+        }
+
+        // Get a list of Managebanks
+        agent.get('/api/managebanks')
+          .end(function (managebanksGetErr, managebanksGetRes) {
+            // Handle Managebanks save error
+            if (managebanksGetErr) {
+              return done(managebanksGetErr);
+            }
+
+            // Get Managebanks list
+            var managebanks = managebanksGetRes.body;
+
+            // Set assertions
+            // (managebanks[0].user._id).should.equal(userId);
+            (managebanks[0].bankname).should.match('bankname');
+            (managebanks[0].accountname).should.match('accountname');
+            (managebanks[0].accountnumber).should.match('12345');
+            (managebanks[0].branch).should.match('branch');
+
+
+            // Call the assertion callback
+            done();
           });
       });
   });

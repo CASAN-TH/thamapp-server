@@ -17,6 +17,9 @@ var app,
   user,
   pushnotiuser;
 
+var tomorrow = new Date();
+
+
 /**
  * Pushnotiuser routes tests
  */
@@ -45,7 +48,9 @@ describe('Pushnotiuser CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Pushnotiuser
@@ -105,6 +110,42 @@ describe('Pushnotiuser CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Pushnotiuser if logged in with token', function (done) {
+    pushnotiuser.loginToken = user.loginToken;
+    // Save a new Pushnotiuser
+    agent.post('/api/pushnotiusers')
+      .send(pushnotiuser)
+      .expect(200)
+      .end(function (pushnotiuserSaveErr, pushnotiuserSaveRes) {
+        // Handle Pushnotiuser save error
+        if (pushnotiuserSaveErr) {
+          return done(pushnotiuserSaveErr);
+        }
+
+        // Get a list of Pushnotiusers
+        agent.get('/api/pushnotiusers')
+          .end(function (pushnotiusersGetErr, pushnotiusersGetRes) {
+            // Handle Pushnotiusers save error
+            if (pushnotiusersGetErr) {
+              return done(pushnotiusersGetErr);
+            }
+
+            // Get Pushnotiusers list
+            var pushnotiusers = pushnotiusersGetRes.body;
+
+            // Set assertions
+            // (pushnotiusers[0].user._id).should.equal(userId);
+            (pushnotiusers[0].user_id).should.match('Pushnotiuser user id');
+            (pushnotiusers[0].user_name).should.match('Pushnotiuser user name');
+            (pushnotiusers[0].role).should.match('Pushnotiuser role');
+            (pushnotiusers[0].device_token).should.match('Pushnotiuser device token');
+
+            // Call the assertion callback
+            done();
           });
       });
   });

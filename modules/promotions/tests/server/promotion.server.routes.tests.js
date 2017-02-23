@@ -22,6 +22,9 @@ var app,
   product,
   order;
 
+var tomorrow = new Date();
+
+
 /**
  * Promotion routes tests
  */
@@ -50,7 +53,9 @@ describe('Promotion CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     product = new Product({
@@ -150,6 +155,39 @@ describe('Promotion CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Promotion if logged in with token', function (done) {
+    promotion.loginToken = user.loginToken;
+    // Save a new Promotion
+    agent.post('/api/promotions')
+      .send(promotion)
+      .expect(200)
+      .end(function (promotionSaveErr, promotionSaveRes) {
+        // Handle Promotion save error
+        if (promotionSaveErr) {
+          return done(promotionSaveErr);
+        }
+
+        // Get a list of Promotions
+        agent.get('/api/promotions')
+          .end(function (promotionsGetErr, promotionsGetRes) {
+            // Handle Promotions save error
+            if (promotionsGetErr) {
+              return done(promotionsGetErr);
+            }
+
+            // Get Promotions list
+            var promotions = promotionsGetRes.body;
+
+            // Set assertionss
+            // (promotions[0].user._id).should.equal(userId);
+            (promotions[0].description).should.equal('11111');
+
+            // Call the assertion callback
+            done();
           });
       });
   });

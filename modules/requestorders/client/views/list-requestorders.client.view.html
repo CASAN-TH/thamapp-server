@@ -1,0 +1,344 @@
+<section ng-init='vm.init()'>
+  <div class="page-header">
+    <h1>รายการขนส่งข้าว</h1>
+  </div>
+
+  <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+    <div class="col-xs-6">
+      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+    </div>
+    <div class="col-xs-4">
+      <a class="btn buttonCreate" ui-sref="requestorders.create">
+        <span>สร้างใหม่</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <div class="row">
+      <div class="col-md-5">
+
+      </div>
+      <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+        </div>
+      </div>
+      <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+        <div class="textCenter">
+          <a class="btn buttonCreate" ui-sref="requestorders.create">
+            <i class="fa fa-file-o" aria-hidden="true"></i>
+            <span>สร้างใหม่</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane active" id="allActive">
+      <div class="tabbable tabs-left">
+        <div class="row">
+          <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
+            <div class="nav">
+              <a href="#showAllRequest" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>Request</span><h3>{{vm.listRequest.length}}</h3></button></a>
+              <a href="#showAllReponse" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>Response</span><h3>{{vm.listResponse.length}}</h3></button></a>
+              <a href="#showAllReceived" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>Received</span><h3>{{vm.listReceived.length}}</h3></button></a>
+            </div>
+          </div>
+          <!---->
+          <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+            <div class="col-xs-4">
+              <a href="#showAllRequestmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">Request</button></a>
+            </div>
+            <div class="col-xs-4">
+              <a href="#showAllReponsemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">Response</button></a>
+            </div>
+            <div class="col-xs-4">
+              <a href="#showAllReceivedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">Received</button></a>
+            </div>
+          </div>
+
+          <!---->
+          <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
+            <!--tap-->
+            <div class="tab-content">
+              <div class="tab-pane active" id="showAllRequest">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+                        <!--<div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อบริษัท</strong>
+                        </div>-->
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อผู้รับ</strong>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                          <strong>ที่อยู่ผู้รับ</strong>
+                        </div>
+                        <!--<div class="col-xs-1 col-sm-1 col-md-1">
+                          <strong>สินค้า</strong>
+                        </div>-->
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>แก้ไข</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ลบ</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>วันที่สั่งซื้อ</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="request in vm.listRequest | filter:topsearch">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <!--<div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="request.transport.displayName"></p>
+                      </div>-->
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="request.namedeliver.displayName"></p>
+                      </div>
+                      <div class="col-xs-4 col-sm-4 col-md-4">
+                        <p class="list-group-item-heading" ng-bind="request.namedeliver.address.address +' '+ request.namedeliver.address.district +' '+ request.namedeliver.address.subdistrict +' '+ request.namedeliver.address.province +' '+ request.namedeliver.address.postcode +' '+ '('+request.namedeliver.address.tel+')'"></p>
+                      </div>
+                      <!--<div class="col-xs-1 col-sm-1 col-md-1">
+                        <button type="button" class="btn btn-success" ng-click="vm.requestProduct(request)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-file"></span></button>
+                      </div>-->
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button type="button" class="btn btn-primary" ng-click="vm.update(request)"><span class="glyphicon glyphicon-edit"></span></button>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button type="button" class="btn btn-danger" ng-click="vm.remove(request)"><span class="glyphicon glyphicon-trash"></span></button>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <time am-time-ago="request.created"></time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllReponse">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อบริษัท</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อผู้รับ</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>ที่อยู่ผู้รับ</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รายละเอียดสินค้า</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>วันที่สั่งซื้อ</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.listResponse | filter:topsearch">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="response.transport.displayName"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="response.namedeliver.displayName"></p>
+                      </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <p class="list-group-item-heading" ng-bind="response.namedeliver.address.address +' '+ response.namedeliver.address.district +' '+ response.namedeliver.address.subdistrict +' '+ response.namedeliver.address.province +' '+ response.namedeliver.address.postcode +' '+ '('+response.namedeliver.address.tel+')'"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button type="button" class="btn btn-primary" ng-click="vm.update(response)"><span class="glyphicon glyphicon-edit"></span></button>
+                        
+                        <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(response)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <time am-time-ago="response.created"></time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllReceived">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อบริษัท</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อผู้รับ</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>ที่อยู่ผู้รับ</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รายละเอียดสินค้า</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>วันที่สั่งซื้อ</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.listReceived | filter:topsearch">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="received.transport.displayName"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="received.namedeliver.displayName"></p>
+                      </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <p class="list-group-item-heading" ng-bind="received.namedeliver.address.address +' '+ received.namedeliver.address.district +' '+ received.namedeliver.address.subdistrict +' '+ received.namedeliver.address.province +' '+ received.namedeliver.address.postcode +' '+ '('+received.namedeliver.address.tel+')'"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button type="button" class="btn btn-primary" ng-click="vm.update(received)"><span class="glyphicon glyphicon-edit"></span></button>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <time am-time-ago="received.created"></time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row show-xs show-sm hidden-md hidden-lg">
+            <div class="tab-content">
+              <div class="tab-pane active" id="showAllRequestmb">
+                <div class="col-md-12" ng-repeat="request in vm.listRequest | filter:topsearch">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <!--<div>
+                        <label class="list-group-item-heading" ng-bind="request.transport.displayName"></label>
+                      </div>-->
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อผู้รับ'+ ' ' + request.namedeliver.displayName"></label>
+                      </div>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="request.namedeliver.address.address +' '+ request.namedeliver.address.district +' '+ request.namedeliver.address.subdistrict +' '+ request.namedeliver.address.province +' '+ request.namedeliver.address.postcode +' '+ '('+request.namedeliver.address.tel+')'"></span>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 textRight">
+                          <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(request)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-file"></span></button>-->
+                          <button type="button" class="btn btn-primary" ng-click="vm.update(request)"><span class="glyphicon glyphicon-edit"></span></button>
+                          <button type="button" class="btn btn-danger" ng-click="vm.remove(request)"><span class="glyphicon glyphicon-trash"></span></button>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllReponsemb">
+                <div class="col-md-12" ng-repeat="response in vm.listResponse | filter:topsearch">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="response.transport.displayName"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อผู้รับ'+ ' ' + response.namedeliver.displayName"></label>
+                      </div>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="response.namedeliver.address.address +' '+ response.namedeliver.address.district +' '+ response.namedeliver.address.subdistrict +' '+ response.namedeliver.address.province +' '+ response.namedeliver.address.postcode +' '+ '('+response.namedeliver.address.tel+')'"></span>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 textRight">
+                          <button type="button" class="btn btn-primary" ng-click="vm.update(response)"><span class="glyphicon glyphicon-edit"></span></button>
+                          
+                          <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(response)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllReceivedmb">
+                <div class="col-md-12" ng-repeat="received in vm.listReceived | filter:topsearch">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="received.transport.displayName"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อผู้รับ'+ ' ' + received.namedeliver.displayName"></label>
+                      </div>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="received.namedeliver.address.address +' '+ received.namedeliver.address.district +' '+ received.namedeliver.address.subdistrict +' '+ received.namedeliver.address.province +' '+ received.namedeliver.address.postcode +' '+ '('+received.namedeliver.address.tel+')'"></span>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 textRight">
+                          <button type="button" class="btn btn-primary" ng-click="vm.update(received)"><span class="glyphicon glyphicon-edit"></span></button>
+                          
+                           <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(received)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="modal fade" id="requestProduct" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">รายละเอียดสินค้า</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="list-group">
+              <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group-sm">
+                  </div>
+                </div>
+              </div>
+            </ul>
+            <ul class="list-group">
+              <div ng-repeat="pro in vm.requestprod.items">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">ชื่อสินค้า</div>
+                    <div class="col-md-3">จำนวน</div>
+                    <div class="col-md-3">ราคา</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3"><img src="{{pro.product.images}}" width="50%"></div>
+                    <div class="col-md-3" ng-bind="pro.product.name"></div>
+                    <div class="col-md-3" ng-bind="pro.qty"></div>
+                    <div class="col-md-3" ng-bind="pro.amount"></div>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

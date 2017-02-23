@@ -18,6 +18,9 @@ var app,
   user,
   product;
 
+var tomorrow = new Date();
+
+
 /**
  * Product routes tests
  */
@@ -46,7 +49,9 @@ describe('Product CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Product
@@ -59,21 +64,21 @@ describe('Product CRUD tests', function () {
         images: 'img1',
         deliveryratetype: 2,
         valuetype1: 0,
-        rangtype2:[{
-            min : 1,
-            max : 5,
-            value : 50
-          },
-          {
-            min : 6,
-            max : 10,
-            value : 100
-          },
-          {
-            min : 11,
-            max : 999999999,
-            value : 150
-          }]
+        rangtype2: [{
+          min: 1,
+          max: 5,
+          value: 50
+        },
+        {
+          min: 6,
+          max: 10,
+          value: 100
+        },
+        {
+          min: 11,
+          max: 999999999,
+          value: 150
+        }]
       };
 
       done();
@@ -133,6 +138,47 @@ describe('Product CRUD tests', function () {
       });
   });
 
+  it('should be able to save a Product if logged in with token', function (done) {
+    product.loginToken = user.loginToken;
+      // Save a new Product
+        agent.post('/api/products')
+          .send(product)
+          .expect(200)
+          .end(function (productSaveErr, productSaveRes) {
+            // Handle Product save error
+            if (productSaveErr) {
+              return done(productSaveErr);
+            }
+
+            // Get a list of Products
+            agent.get('/api/products')
+              .end(function (productsGetErr, productsGetRes) {
+                // Handle Products save error
+                if (productsGetErr) {
+                  return done(productsGetErr);
+                }
+
+                // Get Products list
+                var products = productsGetRes.body;
+
+                // Set assertions
+                //(products[0].user._id).should.equal(userId);
+                (products[0].name).should.match('Product Name');
+                (products[0].description).should.match('Product Description');
+                (products[0].category).should.match('Product Category');
+                (products[0].price).should.match(100);
+                (products[0].images).should.match('img1');
+                (products[0].deliveryratetype).should.match(2);
+                (products[0].valuetype1).should.match(0);
+                (products[0].rangtype2.length).should.match(3);
+
+
+                // Call the assertion callback
+                done();
+              });
+          });
+  });
+
   it('should not be able to save an Product if not logged in', function (done) {
     agent.post('/api/products')
       .send(product)
@@ -142,6 +188,7 @@ describe('Product CRUD tests', function () {
         done(productSaveErr);
       });
   });
+  
   it('should not be able to save an Product if name is duplicated', function (done) {
 
     agent.post('/api/auth/signin')
@@ -334,7 +381,7 @@ describe('Product CRUD tests', function () {
           .end(function (req, res) {
             // Set assertion
             res.body.should.be.instanceof(Array).and.have.lengthOf(1);
-            
+
             //res.body[0].should.equal(1);
             // Call the assertion callback
             done();

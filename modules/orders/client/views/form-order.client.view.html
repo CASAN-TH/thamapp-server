@@ -310,7 +310,7 @@
                                 <label>คนส่งข้าว</label>
                             </div>
                         </div>
-                        <div class="row form-group" ng-show="vm.order.delivery.deliveryid === '0' && vm.authentication.user.roles[0] !== 'deliver'">
+                        <div class="row form-group" ng-show="vm.order.delivery.deliveryid === '0' && (vm.authentication.user.roles[0] !== 'deliver'&& vm.order.deliverystatus!='cancel')">
                             <div class="col-xs-7 hidden-xs show-sm show-md show-lg">
                                 <strong>คนส่งข้าว</strong>
                             </div>
@@ -328,12 +328,12 @@
                                             <!---->
                                             <span data-toggle="modal" data-target="#myDelivery" ng-show="!vm.order.namedeliver || vm.order.namedeliver && (vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject' || vm.order.deliverystatus === 'wait deliver')"
                                                 class="input-group-addon" id="sizing-addon3"><i class="fa fa-user font-medium" aria-hidden="true" ng-click="vm.order.namedeliver=null"></i></span>
-                                            <!---->
-                                            <span ng-show="vm.order.namedeliver && (vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'accept')"
-                                                class="input-group-addon" id="sizing-addon3"><i class="fa fa-user font-medium" aria-hidden="true"></i></span>
-                                            <!---->
-                                            <input type="text" class="form-control" ng-model="vm.order.namedeliver.displayName" aria-describedby="sizing-addon3" ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
-                                                readonly>
+                                                <!---->
+                                                <span ng-show="vm.order.namedeliver && (vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'accept')"
+                                                    class="input-group-addon" id="sizing-addon3"><i class="fa fa-user font-medium" aria-hidden="true"></i></span>
+                                                    <!---->
+                                                    <input type="text" class="form-control" ng-model="vm.order.namedeliver.displayName" aria-describedby="sizing-addon3" ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                                        readonly>
                                         </div>
                                     </div>
 
@@ -398,12 +398,12 @@
                                             <!---->
                                             <span data-toggle="modal" data-target="#myDelivery" ng-show="!vm.order.namedeliver || vm.order.namedeliver && (vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'reject' || vm.order.deliverystatus === 'wait deliver')"
                                                 class="input-group-addon" id="sizing-addon3"><i class="fa fa-user font-medium" aria-hidden="true" ng-click="vm.order.namedeliver=null"></i></span>
-                                            <!---->
-                                            <span ng-show="vm.order.namedeliver && (vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'accept')"
-                                                class="input-group-addon" id="sizing-addon3"><i class="fa fa-user font-medium" aria-hidden="true"></i></span>
-                                            <!---->
-                                            <input type="text" class="form-control" ng-model="vm.order.namedeliver.displayName" aria-describedby="sizing-addon3" ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
-                                                readonly>
+                                                <!---->
+                                                <span ng-show="vm.order.namedeliver && (vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'accept')"
+                                                    class="input-group-addon" id="sizing-addon3"><i class="fa fa-user font-medium" aria-hidden="true"></i></span>
+                                                    <!---->
+                                                    <input type="text" class="form-control" ng-model="vm.order.namedeliver.displayName" aria-describedby="sizing-addon3" ng-disabled="vm.order.deliverystatus === 'cancel' || vm.order.deliverystatus === 'pending' || vm.order.deliverystatus === 'paid' || vm.order.deliverystatus === 'sent' || vm.order.deliverystatus === 'complete' || vm.order.deliverystatus === 'close' || vm.order.deliverystatus === 'accept'"
+                                                        readonly>
                                         </div>
                                     </div>
 
@@ -606,11 +606,29 @@
                             <div class="col-md-12 form-group">
                             </div>
                         </div>
-                        <div class="row form-group" ng-show="vm.order.deliverystatus != 'reject'">
+                        <!--<div class="row form-group" ng-show="vm.order.deliverystatus != 'reject' && vm.order.deliverystatus != 'confirmed'">
                             <div class="col-md-12 form-group">
                                 <button type="submit" class="btn btn-primary btn-block">{{vm.order._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
                             </div>
+
+                        </div>-->
+                        <div class="row form-group" ng-show="vm.order.deliverystatus == 'reject'">
+                            <div class="col-md-6 form-group">
+                                <button type="submit" class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
+                            </div>
+                            <div class="col-md-6 ">
+                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#cancelOrder">ยกเลิกรายการ</button>
+                            </div>
                         </div>
+                        <div class="row form-group" ng-show="vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'accept' || vm.order.deliverystatus === 'complete'">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary btn-block">บันทึกรายการ</button>
+                            </div>
+                            <div class="col-md-6 ">
+                                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#cancelOrder">ยกเลิกรายการ</button>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="row form-group">
@@ -662,11 +680,6 @@
                     </div>
                 </fieldset>
             </form>
-            <div class="row form-group" ng-show="vm.order.deliverystatus == 'reject'">
-                <div class="col-md-12 form-group">
-                    <button class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
-                </div>
-            </div>
         </div>
         <div class="col-md-3 round1 " ng-show="vm.order.delivery.deliveryid === '0'">
             <div class="row marginB">
@@ -847,10 +860,49 @@
                                                 <h5 ng-bind="'อีเมลล์ : ' + vm.order.shipping.email"></h5>
                                                 <h5 ng-bind="'หมายเหตุ : ' + vm.order.remark"></h5>
                                                 <div class="row" ng-show="vm.order.delivery.deliveryid === '0' && vm.order.deliverystatus === 'cancel'">
-                                                    <h5 class="bin-color">* หมายเหตุ</h5>
-                                                    <textarea name="" id="" cols="20" rows="3" ng-model="vm.order.comment" class="form-control" placeholder="Comment"></textarea>
+                                                    <h5 class="bin-color">* เหตุผลในการยกเลิก</h5>
+                                                    <textarea name="" id="" cols="20" rows="3" ng-model="vm.order.comment" class="form-control" placeholder="Comment" readonly></textarea>
                                                 </div>
                                             </blockquote>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div class="modal fade" id="cancelOrder" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">คุณต้องการยกเลิกรายการสินค้านี้</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <h5 class="bin-color">* เหตุผลในการยกเลิก</h5>
+                                                    <textarea name="" id="" cols="20" rows="3" ng-model="vm.order.comment" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-primary btn-block" data-dismiss="modal" ng-click="vm.cancelOrder()" ng-disabled="!vm.order.comment">ตกลง</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" ng-click="vm.order.comment = null">ยกเลิก</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 marginT">
                                         </div>
                                     </div>
                                 </div>
@@ -1020,6 +1072,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -1050,12 +1103,12 @@
                         </div>
                         <div class="col-md-9">
                             <p>{{status.status}}</p>
-                            <p ng-show="status.status === 'confirmed'">{{vm.order.user.firstName}}</p>
-                            <p ng-show="status.status === 'wait deliver'">{{vm.authentication.user.firstName}}</p>
+                            <p ng-show="status.status === 'confirmed'">{{vm.order.user.displayName}}</p>
+                            <p ng-show="status.status === 'wait deliver'">{{vm.authentication.user.displayName}}</p>
                             <p ng-show="status.status === 'accept'">{{vm.order.namedeliver.displayName}}</p>
                             <!--<p ng-show="status.status === 'reject'">{{vm.name}}</p>-->
                             <p ng-show="status.status === 'complete'">{{vm.order.namedeliver.displayName}}</p>
-                            <p ng-show="status.status === 'cancel'">{{vm.authentication.user.firstName}}</p>
+                            <p ng-show="status.status === 'cancel'">{{vm.authentication.user.displayName}}</p>
                             <p>{{status.datestatus | date: 'dd/MM/yyyy:HH:mm'}}</p>
                         </div>
                     </div>
