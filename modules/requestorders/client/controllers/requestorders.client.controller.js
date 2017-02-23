@@ -6,9 +6,9 @@
     .module('requestorders')
     .controller('RequestordersController', RequestordersController);
 
-  RequestordersController.$inject = ['$scope', '$state', '$http', '$window', 'Authentication', 'requestorderResolve', 'ProductsService', 'Users', 'TransportsService'];
+  RequestordersController.$inject = ['$scope', '$state', '$http', '$window', 'Authentication', 'requestorderResolve', 'ProductsService', 'Users'];
 
-  function RequestordersController($scope, $state, $http, $window, Authentication, requestorder, ProductsService, Users, TransportsService) {
+  function RequestordersController($scope, $state, $http, $window, Authentication, requestorder, ProductsService, Users) {
     var vm = this;
     vm.users = Users;
     vm.authentication = Authentication;
