@@ -8,7 +8,7 @@
       <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
     </div>
     <!--<div class="col-xs-4">
-      <a class="btn buttonCreate" ui-sref="orders.create">
+      <a class="btn buttonCreate" ui-sref="accuralreceipts.create">
         <span>สร้างใหม่</span>
       </a>
     </div>-->
@@ -27,7 +27,7 @@
       </div>
       <!--<div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
         <div class="textCenter">
-          <a class="btn buttonCreate" ui-sref="orders.create">
+          <a class="btn buttonCreate" ui-sref="accuralreceipts.create">
             <i class="fa fa-file-o" aria-hidden="true"></i>
             <span>สร้างใหม่</span>
           </a>
@@ -39,21 +39,25 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <!--<a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{vm.listOrder.length}}</h3></button></a>-->
-              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รอยืนยัน</span><h3>{{vm.listArWaitconfirmed.length}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ยืนยันแล้ว</span><h3>{{vm.listArConfirmed.length}}</h3></button></a>
+              <a href="#waitreview" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>รอตรวจสอบ</span><h3>{{vm.waitreview.length}}</h3></button></a>
+              <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รอยืนยัน</span><h3>{{vm.waitconfirmed.length}}</h3></button></a>
+              <a href="#confirmed" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ยืนยันแล้ว</span><h3>{{vm.confirmed.length}}</h3></button></a>
+              <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{vm.receipt.length}}</h3></button></a>
             </div>
           </div>
           <!---->
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">
-            <!--<div class="col-xs-4">
-              <a href="#showAllActivemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">งานใหม่</button></a>
-            </div>-->
-            <div class="col-xs-4">
-              <a href="#showAllAcceptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">รอยืนยัน</button></a>
+            <div class="col-xs-3">
+              <a href="#waitreviewmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">รอตรวจสอบ</button></a>
             </div>
-            <div class="col-xs-4">
-              <a href="#showAllCompletemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">ยืนยันแล้ว</button></a>
+            <div class="col-xs-3">
+              <a href="#waitconfirmedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">รอยืนยัน</button></a>
+            </div>
+            <div class="col-xs-3">
+              <a href="#confirmedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">ยืนยันแล้ว</button></a>
+            </div>
+            <div class="col-xs-3">
+              <a href="#receiptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">รับเงินแล้ว</button></a>
             </div>
           </div>
 
@@ -61,167 +65,186 @@
           <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
             <!--tap-->
             <div class="tab-content">
-              <div class="tab-pane active" id="showAllActive">
+              <div class="tab-pane" id="waitreview">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="col-md-12">
                       <div class="row form-group alert alert-info">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                          <strong>บิลสั่งซื้อลูกค้า</strong>
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งหนี้</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รวม</strong>
+                          <strong>ชื่อคนส่งข้าว</strong>
                         </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>รับเงิน</strong>
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                          <strong>ที่อยู่</strong>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>ยอมรับ</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>ยกเลิก</strong>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.listOrder | filter:topsearch">
-                  <div class="col-md-12">
-                    <div class="row form-group">
-                      <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                        <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                        <img width="25%">
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                        <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
-                        <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
-                        <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
-                        <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')"></i>
-                        <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
-                        <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading">-</p>
-                      </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="orders.view({ orderId: order._id })" align="center">
-                        <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="showAllAccept">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="col-md-12">
-                      <div class="row form-group alert alert-info">
                         <div class="col-xs-3 col-sm-3 col-md-3">
-                          <strong>บิลสั่งซื้อลูกค้า</strong>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รวม</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>รับเงิน</strong>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>สำเร็จ</strong>
+                          <strong>วันที่สร้าง</strong>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.listOrderAccept | filter:topsearch">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.waitreview | filter:topsearch" ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
                   <div class="col-md-12">
+
                     <div class="row form-group">
-                      <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                        <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                        <img width="25%">
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="data.docno"></p>
                       </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
                       </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading">-</p>
+                      <div class="col-xs-5 col-sm-5 col-md-5">
+                        <p class="list-group-item-heading dotpyRank" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
                       </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="orders.view({ orderId: order._id })" align="center">
-                        <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
-                        <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-info" ng-click="vm.complete(order)"><span class="glyphicon glyphicon-check"></span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="showAllComplete">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="col-md-12">
-                      <div class="row form-group alert alert-info">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                          <strong>บิลสั่งซื้อลูกค้า</strong>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รวม</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>รับเงิน</strong>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2" align="center">
-                          <strong>วันที่สั่งซื้อ</strong>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.listOrderComplete | filter:topsearch" ui-sref="orders.view({ orderId: order._id })">
-                  <div class="col-md-12">
-                    <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                        <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                        <img width="25%">
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                        <time am-time-ago="data.created"></time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane active" id="waitconfirmed">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งหนี้</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อคนส่งข้าว</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>ที่อยู่</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>วันที่สร้าง</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ยืนยัน</strong>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.waitconfirmed | filter:topsearch">
+                  <div class="col-md-12">
+
+                    <div class="row form-group">
+                      <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="data.docno"></p>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <p class="list-group-item-heading dotpyForm" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <time am-time-ago="data.created"></time>
+                        </div>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                        <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitconfirmed(data)"><span class="glyphicon glyphicon-check"></span></button>
                       </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="confirmed">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งหนี้</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อคนส่งข้าว</strong>
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                          <strong>ที่อยู่</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>วันที่สร้าง</strong>
+                        </div>
+
                       </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                        <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.confirmed | filter:topsearch" ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                  <div class="col-md-12">
+
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="data.docno"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
-                        <time am-time-ago="order.created"></time>
+                        <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
                       </div>
+                      <div class="col-xs-5 col-sm-5 col-md-5">
+                        <p class="list-group-item-heading dotpyForm" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
+                      </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <time am-time-ago="data.created"></time>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="receipt">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งหนี้</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อคนส่งข้าว</strong>
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5">
+                          <strong>ที่อยู่</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>วันที่สร้าง</strong>
+                        </div>
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.receipt | filter:topsearch" ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                  <div class="col-md-12">
+
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="data.docno"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
+                      </div>
+                      <div class="col-xs-5 col-sm-5 col-md-5">
+                        <p class="list-group-item-heading dotpyForm" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
+                      </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <time am-time-ago="data.created"></time>
+                      </div>
+
+
                     </div>
                   </div>
                 </div>
@@ -231,90 +254,131 @@
 
           <div class="row show-xs show-sm hidden-md hidden-lg">
             <div class="tab-content">
-              <div class="tab-pane active" id="showAllActivemb">
-                <div class="col-md-12" ng-repeat="order in vm.listOrder | filter:topsearch">
+              <div class="tab-pane " id="waitreviewmb">
+                <div class="col-md-12" ng-repeat="data in vm.waitreview | filter:topsearch">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
+                      <!--<div>
+                        <label class="list-group-item-heading" ng-bind="request.transport.displayName"></label>
+                      </div>-->
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
                       </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span class="list-group-item-heading">Or: </span>
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
+
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
                       </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-6 text-left">
-                          <label class="list-group-item-heading">รวม: </label>
-                          <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
-                          <!--<label ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></label>-->
-                        </div>
-                        <div class="col-xs-6 textRight">
-                          <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
-                          <button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>
-                        </div>
-                      </div>
+
                     </a>
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="showAllAcceptmb">
-                <div class="col-md-12" ng-repeat="order in vm.listOrderAccept | filter:topsearch">
+              <div class="tab-pane active" id="waitconfirmedmb">
+                <div class="col-md-12" ng-repeat="data in vm.waitconfirmed | filter:topsearch">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
                       </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span class="list-group-item-heading">Or: </span>
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
                       </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-6 text-left">
-                          <label class="list-group-item-heading">รวม: </label>
-                          <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
-                        </div>
-                        <div class="col-xs-6 textRight">
-                          <button type="button" class="btn btn-info" ng-click="vm.complete(order)"><span class="glyphicon glyphicon-check"></span></button>
-                        </div>
+                      <div class="list-group-item-heading textRight">
+                        <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitconfirmed(data)"><span class="glyphicon glyphicon-check"></span></button>
                       </div>
+
                     </a>
                   </div>
                 </div>
               </div>
-              <div class="tab-pane" id="showAllCompletemb">
-                <div class="col-md-12" ng-repeat="order in vm.listOrderComplete | filter:topsearch">
+              <div class="tab-pane" id="confirmedmb">
+                <div class="col-md-12" ng-repeat="data in vm.confirmed | filter:topsearch">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
                       </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span class="list-group-item-heading">Or: </span>
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
                       </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
                       </div>
-                      <div class="row">
-                        <div class="col-xs-6 text-left">
-                          <label class="list-group-item-heading">รับเงิน: </label>
-                          <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
-                        </div>
-                        <div class="col-xs-6 textRight">
-                          <label class="list-group-item-heading" ng-bind="order.created | date:'dd/MM/yyyy'"></label>
-                        </div>
+
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="receiptmb">
+                <div class="col-md-12" ng-repeat="data in vm.receipt | filter:topsearch">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
                       </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
+                      </div>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
+                      </div>
+
                     </a>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="modal fade" id="requestProduct" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">รายละเอียดสินค้า</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="list-group">
+              <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-8">
+                  <div class="input-group input-group-sm">
+                  </div>
+                </div>
+              </div>
+            </ul>
+            <ul class="list-group">
+              <div ng-repeat="pro in vm.requestprod.items">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">ชื่อสินค้า</div>
+                    <div class="col-md-3">จำนวน</div>
+                    <div class="col-md-3">ราคา</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3"><img src="{{pro.product.images}}" width="50%"></div>
+                    <div class="col-md-3" ng-bind="pro.product.name"></div>
+                    <div class="col-md-3" ng-bind="pro.qty"></div>
+                    <div class="col-md-3" ng-bind="pro.amount"></div>
+                  </div>
+                </li>
+              </div>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
           </div>
         </div>
       </div>

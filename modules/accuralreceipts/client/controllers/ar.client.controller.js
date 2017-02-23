@@ -5,36 +5,62 @@
     .module('accuralreceipts')
     .controller('ArController', ArController);
 
-  ArController.$inject = ['$scope', 'Users', 'AccuralreceiptsService', 'Authentication'];
+  ArController.$inject = ['$state', 'AccuralreceiptsService', 'Authentication', '$window'];
 
-  function ArController($scope, Users, AccuralreceiptsService, Authentication) {
+  function ArController($state, AccuralreceiptsService, Authentication, $window) {
     var vm = this;
     vm.authentication = Authentication;
     vm.accuralreceipts = AccuralreceiptsService.query();
-    vm.init = init;
-    vm.listWaitconfirmed = listWaitconfirmed;
-    vm.listConfirmed = listConfirmed;
-    vm.listArWaitconfirmed = [];
-    vm.listArConfirmed = [];
-    vm.waitconfirmed = waitconfirmed;
-    // vm.confirmed = confirmed;
+    vm.waitreview = [];
+    vm.waitconfirmed = [];
+    vm.confirmed = [];
+    vm.receipt = [];
+    vm.statusWaitconfirmed = statusWaitconfirmed;
     vm.addHis = addHis;
-    // Ar controller logic
-    // ...
+    vm.readdata = readdata;
+    vm.init = init;
 
     function init() {
-      vm.listWaitconfirmed();
-      vm.listConfirmed();
+      vm.readdata();
     }
 
-    function listWaitconfirmed() {
+    function addHis(data) {
+      data.historystatus.push({
+        status: data.arstatus,
+        datestatus: new Date()
+      });
+    }
+
+    function statusWaitconfirmed(data) {
+      data.arstatus = 'confirmed';
+      vm.addHis(data);
+      data.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        vm.waitreview = [];
+        vm.waitconfirmed = [];
+        vm.confirmed = [];
+        vm.receipt = [];
+        vm.init();
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function readdata() {
       vm.listWait = AccuralreceiptsService.query(function () {
         angular.forEach(vm.listWait, function (items) {
-          console.log(items);
           if (items.namedeliver) {
             if (items.namedeliver._id === vm.authentication.user._id) {
-              if (items.namedeliver._id === vm.authentication.user._id && items.deliverystatus === 'wait for confirmed') {
-                vm.listArWaitconfirmed.push(items);
+              if (items.namedeliver._id === vm.authentication.user._id && items.arstatus === 'wait for review') {
+                vm.waitreview.push(items);
+              }else if (items.namedeliver._id === vm.authentication.user._id && items.arstatus === 'wait for confirmed') {
+                vm.waitconfirmed.push(items);
+              }else if (items.namedeliver._id === vm.authentication.user._id && items.arstatus === 'confirmed') {
+                vm.confirmed.push(items);
+              }else if (items.namedeliver._id === vm.authentication.user._id && items.arstatus === 'receipt') {
+                vm.receipt.push(items);
               }
             }
           }
@@ -42,53 +68,7 @@
       });
     }
 
-    function listConfirmed() {
-      vm.listCon = AccuralreceiptsService.query(function () {
-        angular.forEach(vm.listCon, function (items) {
-          console.log(items);
-          if (items.namedeliver) {
-            if (items.namedeliver._id === vm.authentication.user._id && items.deliverystatus === 'confirmed') {
-              vm.listArConfirmed.push(items);
-            }
-          }
-        });
-      });
-    }
-
-    function waitconfirmed(item) {
-      item.deliverystatus = 'confirmed';
-      vm.addHis(item);
-      item.$update(successCallback, errorCallback);
-      function successCallback(res) {
-        vm.listArWaitconfirmed = [];
-        vm.listArConfirmed = [];
-        vm.init();
-      }
-      function errorCallback(res) {
-        vm.error = res.data.message;
-      }
-    }
-
-    // function confirmed(item) {
-    //   item.deliverystatus = 'confirmed';
-    //   vm.addHis(item);
-    //   item.$update(successCallback, errorCallback);
-    //   function successCallback(res) {
-    //     vm.listArWaitconfirmed = [];
-    //     vm.listArConfirmed = [];
-    //     vm.init();
-    //   }
-    //   function errorCallback(res) {
-    //     vm.error = res.data.message;
-    //   }
-    // }
-
-    function addHis(item) {
-      item.historystatus.push({
-        status: item.deliverystatus,
-        datestatus: new Date()
-      });
-    }
+    
 
 
   }
