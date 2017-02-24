@@ -682,8 +682,8 @@
             <div class="col-md-9">
               <p>{{status.status}}</p>
               <p ng-show="status.status === 'wait for review'">{{vm.accuralreceipt.user.displayName}}</p>
-              <p ng-show="status.status === 'wait for confirmed'">{{vm.accuralreceipt.namedeliver.displayName}}</p>
-              <p ng-show="status.status === 'confirmed'">{{vm.accuralreceipt.user.displayName}}</p>
+              <p ng-show="status.status === 'wait for confirmed'">{{vm.accuralreceipt.user.displayName}}</p>
+              <p ng-show="status.status === 'confirmed'">{{vm.accuralreceipt.namedeliver.displayName}}</p>
               <p ng-show="status.status === 'receipt'">{{vm.accuralreceipt.user.displayName}}</p>
               <p>{{status.datestatus | date: 'dd/MM/yyyy:HH:mm'}}</p>
             </div>
