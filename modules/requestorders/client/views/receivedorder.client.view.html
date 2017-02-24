@@ -307,17 +307,20 @@
               <div ng-repeat="pro in vm.requestprod.items">
                 <li class="list-group-item">
                   <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-3">ชื่อสินค้า</div>
-                    <div class="col-md-3">จำนวน</div>
-                    <div class="col-md-3">ราคา</div>
+                    <div class="col-xs-2">
+                      <img src="{{pro.product.images}}" class="img-circle" width="50px">
+                    </div>
+                    <div class="col-xs-3">
+                      {{pro.product.name}}
+                    </div>
+                    <div class="col-xs-4">
+                      จำนวน : {{pro.qty}}
+                    </div>
+                    <div class="col-xs-3">
+                      {{pro.amount}} ฿
+                    </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-3"><img src="{{pro.product.images}}" width="50%"></div>
-                    <div class="col-md-3" ng-bind="pro.product.name"></div>
-                    <div class="col-md-3" ng-bind="pro.qty"></div>
-                    <div class="col-md-3" ng-bind="pro.amount"></div>
-                  </div>
+                  
                 </li>
               </div>
             </ul>
