@@ -21,7 +21,6 @@
     vm.readDeliver = readDeliver;
     vm.init = init;
     vm.delivers = [];
-    vm.listremove = [];
     vm.listorders = [];
     vm.selectedOrder = selectedOrder;
     vm.removeItem = removeItem;
@@ -69,9 +68,7 @@
             if (order.namedeliver) {
               if (vm.accuralreceipt.namedeliver._id === order.namedeliver._id) {
                 if (order.deliverystatus === 'complete') {
-                  vm.accuralreceipt.items.push(order);
-                  vm.calculate(vm.accuralreceipt.items);
-
+                  vm.listorders.push(order);
                 }
               }
             }
@@ -84,8 +81,7 @@
             if (order.namedeliver) {
               if (deliver._id === order.namedeliver._id) {
                 if (order.deliverystatus === 'complete') {
-                  vm.accuralreceipt.items.push(order);
-                  vm.calculate(vm.accuralreceipt.items);
+                  vm.listorders.push(order);
                 }
               }
             }
@@ -102,48 +98,26 @@
         vm.accuralreceipt.billamount += order.totalamount;
         // console.log(order);
       });
-
     }
 
     function selectedOrder(ord) {
-      vm.accuralreceipt.items.push(ord);
+      vm.status = '';
+     if (vm.accuralreceipt.items.length > 0) {
+        vm.accuralreceipt.items.forEach(function (list) {
+          if (list._id === ord._id) {
+            vm.status = 'have';
+          }
+        });
+
+      }
+      
+      if (vm.status === '' || vm.status !== 'have') {
+        vm.accuralreceipt.items.push(ord);
+      } else {
+        alert('คุณเลือกรายการซ้ำ');
+      }
       vm.calculate(vm.accuralreceipt.items);
     }
-
-    // function selectedOrder(ord) {
-    //   if (vm.accuralreceipt.items.length > 0) {
-    //     vm.accuralreceipt.items.forEach(function (list) {
-    //       if (list._id === ord._id) {
-    //         vm.status = 'have';
-    //       }
-    //     });
-    //   }
-    //   if (vm.status !== 'have') {
-    //     vm.accuralreceipt.items.push(ord);
-    //   } else if (vm.status === 'have') {
-    //     alert('คุณเลือกรายการซ้ำ');
-    //     vm.accuralreceipt.items.push(ord);
-    //     vm.accuralreceipt.items.splice(ord, 1);
-    //   }
-    //   vm.calculate(vm.accuralreceipt.items);
-    // }
-    // function selectedOrder(ord) {
-    //   if (vm.accuralreceipt.items.length === 0) {
-    //     vm.accuralreceipt.items.push(ord);
-    //   } else if (vm.accuralreceipt.items.length > 0) {
-    //     vm.accuralreceipt.items.forEach(function (list) {
-    //       if (list._id === ord._id) {
-    //         alert('คุณเลือกรายการซ้ำ');
-    //         vm.accuralreceipt.items.push(ord);
-    //         vm.accuralreceipt.items.splice(ord, 1);
-    //       }
-    //       else if (list._id !== ord._id) {
-    //         vm.accuralreceipt.items.push(ord);
-    //       }
-    //     });
-    //   }
-    //   vm.calculate(vm.accuralreceipt.items);
-    // }
 
 
 
@@ -153,11 +127,9 @@
       vm.accuralreceipt.namedeliver = vm.deliver;
       vm.readOrder(vm.deliver);
 
-
     }
 
     function removeItem(item) {
-      vm.listremove.push(item);
       vm.accuralreceipt.items.splice(item, 1);
       vm.calculate(vm.accuralreceipt.items);
     }

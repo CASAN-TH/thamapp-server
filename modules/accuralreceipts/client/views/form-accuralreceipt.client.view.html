@@ -242,7 +242,7 @@
             </div>
           </div>
 
-          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-show="vm.accuralreceipt._id" ng-repeat="order in vm.accuralreceipt.items">
+          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-show="vm.accuralreceipt._id" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse" data-target="#{{order._id}}">
             <div class="row form-group hidden-xs show-sm show-md show-lg">
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
@@ -262,7 +262,7 @@
               </div>
             </div>
 
-            <div class="row form-group hidden-xs show-sm show-md show-lg">
+            <div class="row form-group hidden-xs show-sm show-md show-lg collapse" id="{{order._id}}">
               <div class="col-xs-12 col-sm-12 col-md-12">
                 <label>รายการสินค้า</label>
               </div>
@@ -372,7 +372,7 @@
                       </div>
                     </ul>
                     <ul class="list-group">
-                      <div ng-repeat="order in vm.listremove | filter:topsearch">
+                      <div ng-repeat="order in vm.listorders | filter:topsearch">
                         <li class="row list-group-item">
                           <div class="col-xs-10">
                             <label>ใบแจ้งหนี้เลขที่ : {{order.docno}}</label><br>
@@ -682,8 +682,8 @@
             <div class="col-md-9">
               <p>{{status.status}}</p>
               <p ng-show="status.status === 'wait for review'">{{vm.accuralreceipt.user.displayName}}</p>
-              <p ng-show="status.status === 'wait for confirmed'">{{vm.accuralreceipt.namedeliver.displayName}}</p>
-              <p ng-show="status.status === 'confirmed'">{{vm.accuralreceipt.user.displayName}}</p>
+              <p ng-show="status.status === 'wait for confirmed'">{{vm.accuralreceipt.user.displayName}}</p>
+              <p ng-show="status.status === 'confirmed'">{{vm.accuralreceipt.namedeliver.displayName}}</p>
               <p ng-show="status.status === 'receipt'">{{vm.accuralreceipt.user.displayName}}</p>
               <p>{{status.datestatus | date: 'dd/MM/yyyy:HH:mm'}}</p>
             </div>
