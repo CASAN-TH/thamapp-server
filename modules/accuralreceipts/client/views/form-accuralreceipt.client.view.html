@@ -117,7 +117,7 @@
                   </div>
                   <div ng-show="vm.accuralreceipt._id">
                     <label ng-show="vm.accuralreceipt._id && vm.accuralreceipt.deliverystatus != 'request'">
-                      ชื่อผู้รับ : </label><label>{{vm.accuralreceipt.namedeliver.displayName}}</label><br>
+                      ชื่อผู้รับ : &nbsp</label><label>{{vm.accuralreceipt.namedeliver.displayName}}</label><br>
                   </div>
                   <div class="row" ng-show="!vm.accuralreceipt._id">
                     <div class="col-xs-12 input-group input-group-sm">
@@ -175,13 +175,10 @@
               <p class="textRight" for="">วันที่ {{vm.accuralreceipt.docdate | date:'dd/MM/yyyy'}}</p>
             </div>
           </div>
-          <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">
+          <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id">
             <div class="col-xs-3 col-sm-3 col-md-3">
               <strong>รายการสั่งซื้อ</strong>
             </div>
-            <!--<div class=" col-xs-1 col-sm-1 col-md-1">
-              <strong>รวม</strong>
-            </div>-->
             <div class=" col-xs-4 col-sm-4 col-md-4">
               <strong>ที่อยู่จัดส่ง</strong>
             </div>
@@ -191,6 +188,18 @@
             <div class=" col-xs-2 col-sm-2 col-md-2">
 
             </div>
+          </div>
+          <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg" ng-show="vm.accuralreceipt._id">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <strong>รายการสั่งซื้อ</strong>
+            </div>
+            <div class=" col-xs-6 col-sm-6 col-md-6">
+              <strong>ที่อยู่จัดส่ง</strong>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3">
+              <strong>วันที่สั่งซื้อ</strong>
+            </div>
+            
           </div>
 
           <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id"  ng-repeat="order in vm.accuralreceipt.items">
@@ -203,7 +212,7 @@
                 <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
               </div>-->
               <div class="col-xs-4 col-sm-4 col-md-4">
-                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                <span class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <time am-time-ago="order.created"></time>
@@ -240,18 +249,15 @@
                 <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
                 <span class="list-group-item-heading" ng-bind="order.docno"></span>
               </div>
-              <div class="col-xs-1 col-sm-1 col-md-1">
-                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-              </div>
-              <div class="col-xs-4 col-sm-4 col-md-4">
-                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+              <div class="col-xs-5 col-sm-5 col-md-5">
+                <span class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <time am-time-ago="order.created"></time>
               </div>
-              <div class="col-xs-1 col-sm-1 col-md-1" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
+              <!--<div class="col-xs-1 col-sm-1 col-md-1" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
                 <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
-              </div>
+              </div>-->
             </div>
 
             <div class="row form-group hidden-xs show-sm show-md show-lg">
@@ -650,14 +656,15 @@
                 <i ng-show="status.status === 'wait for review'"  class="fa fa-eye fa-2x fontGreen" aria-hidden="true"></i>
                 <i ng-show="status.status === 'wait for confirmed'" class="fa fa-pause fa-2x fontOrange" aria-hidden="true"></i>
                 <i ng-show="status.status === 'confirmed'" class="fa fa-check-square-o fa-2x fontPurple" aria-hidden="true"></i>
-                <i ng-show="status.status === 'receipt'" class="fa fa-money fa-2x fontPurple" aria-hidden="true"></i>
+                <i ng-show="status.status === 'receipt'" class="fa fa-money fa-2x fontBrown" aria-hidden="true"></i>
               </div>
             </div>
             <div class="col-md-9">
               <p>{{status.status}}</p>
-              <p ng-show="status.status === 'wait for review'">{{vm.authentication.user.firstName}}</p>
-              <p ng-show="status.status === 'response'">{{vm.accuralreceipt.transport.displayName}}</p>
-              <p ng-show="status.status === 'received'">{{vm.accuralreceipt.namedeliver.displayName}}</p>
+              <p ng-show="status.status === 'wait for review'">{{vm.accuralreceipt.user.displayName}}</p>
+              <p ng-show="status.status === 'wait for confirmed'">{{vm.accuralreceipt.namedeliver.displayName}}</p>
+              <p ng-show="status.status === 'confirmed'">{{vm.accuralreceipt.user.displayName}}</p>
+              <p ng-show="status.status === 'receipt'">{{vm.accuralreceipt.user.displayName}}</p>
               <p>{{status.datestatus | date: 'dd/MM/yyyy:HH:mm'}}</p>
             </div>
           </div>
