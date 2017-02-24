@@ -15,6 +15,31 @@
     vm.response = response;
     vm.addHis = addHis;
 
+
+    vm.requestlist = function (req) {
+      if (req.deliverystatus === 'request') {
+
+        return true;
+
+      }
+    };
+
+    vm.responselist = function (req) {
+      if (req.transport) {
+        if (req.transport._id === vm.authentication.user._id && req.deliverystatus === 'response') {
+          return true;
+        }
+      }
+    };
+
+    vm.receivedlist = function (req) {
+      if (req.transport) {
+        if (req.transport._id === vm.authentication.user._id && req.deliverystatus === 'received') {
+          return true;
+        }
+      }
+    };
+
     function requestProduct(itm) {
       vm.requestprod = itm;
     }
