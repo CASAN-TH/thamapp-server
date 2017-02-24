@@ -16,8 +16,31 @@
     vm.reject = reject;
     vm.addHis = addHis;
 
-    vm.assignlist1 = function (item) {
-      return item.deliverystatus === 'confirmed' || item.deliverystatus === 'wait deliver';
+    vm.assignlist = function (order) {
+      if (order.namedeliver) {
+        if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'wait deliver') {
+          return true;
+        }
+
+      }
+    };
+
+    vm.acceptlist = function (order) {
+      if (order.namedeliver) {
+        if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'accept') {
+          return true;
+        }
+
+      }
+    };
+
+    vm.completelist = function (order) {
+      if (order.namedeliver) {
+        if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'complete') {
+          return true;
+        }
+
+      }
     };
 
 

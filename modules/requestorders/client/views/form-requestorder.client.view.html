@@ -240,7 +240,7 @@
 
           </div>
           <div class=" col-xs-2 col-sm-2 col-md-2">
-            <label ng-bind="product.product.price"></label>
+            <label ng-bind="product.product.retailerprice"></label>
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2 ">
             {{product.amount}}
@@ -293,7 +293,7 @@
             </div>
             <div class="row marginT10">
               <div class="col-xs-12" ng-show="!vm.requestorder._id">
-                <label class="form-control noneBorder" ng-bind=" 'ราคา/ชิ้น :' + product.product.price"></label>
+                <label class="form-control noneBorder" ng-bind=" 'ราคา/ชิ้น :' + product.product.retailerprice"></label>
               </div>
             </div>
             <div class="row ">
@@ -303,7 +303,7 @@
             </div>
             <div class="row ">
               <div class="col-xs-12" ng-show="vm.requestorder._id">
-                <label class="form-control noneBorder" ng-bind="'ราคา/ชิ้น : ' + product.product.price"></label>
+                <label class="form-control noneBorder" ng-bind="'ราคา/ชิ้น : ' + product.product.retailerprice"></label>
               </div>
             </div>
 

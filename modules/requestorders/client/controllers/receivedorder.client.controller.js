@@ -14,6 +14,27 @@
     vm.requestProduct = requestProduct;
     vm.receive = receive;
     vm.addHis = addHis;
+
+
+    vm.requestlist = function (req) {
+      if (req.namedeliver._id === vm.authentication.user._id && req.deliverystatus === 'request') {
+        return true;
+      }
+    };
+
+    vm.responselist = function (req) {
+      if (req.namedeliver._id === vm.authentication.user._id && req.deliverystatus === 'response') {
+        return true;
+      }
+    };
+
+    vm.receivedlist = function (req) {
+      if (req.namedeliver._id === vm.authentication.user._id && req.deliverystatus === 'received') {
+        return true;
+      }
+    };
+
+
     function requestProduct(itm) {
       vm.requestprod = itm;
     }

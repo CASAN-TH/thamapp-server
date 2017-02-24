@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{assignlist1.length || 0}}</h3></button></a>
-              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ของฉัน</span><h3>{{accept.length || 0}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{complete.length || 0}}</h3></button></a>
+              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{assignlist.length || 0}}</h3></button></a>
+              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptlist.length || 0}}</h3></button></a>
+              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{completelist.length || 0}}</h3></button></a>
             </div>
           </div>
           <!---->
@@ -88,7 +88,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.assignlist1  as assignlist1">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.assignlist  as assignlist">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
@@ -149,7 +149,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:{deliverystatus:'accept'} as accept">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.acceptlist as acceptlist">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
@@ -201,7 +201,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:{deliverystatus:'complete'} as complete"
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.completelist as completelist"
                   ui-sref="orders.view({ orderId: order._id })">
                   <div class="col-md-12">
                     <div class="row form-group">
@@ -233,7 +233,7 @@
         <div class="row show-xs show-sm hidden-md hidden-lg">
           <div class="tab-content">
             <div class="tab-pane active" id="showAllActivemb">
-              <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.assignlist1  as assignlist1">
+              <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.assignlist  as assignlist">
                 <div class="list-group">
                   <a href="#" class="list-group-item list-group-item-action">
                     <div ui-sref="orders.view({ orderId: order._id })">
@@ -262,7 +262,7 @@
               </div>
             </div>
             <div class="tab-pane" id="showAllAcceptmb">
-              <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:{deliverystatus:'accept'} as accept">
+              <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.acceptlist as acceptlist">
                 <div class="list-group">
                   <a href="#" class="list-group-item list-group-item-action">
                     <div ui-sref="orders.view({ orderId: order._id })">
@@ -289,7 +289,7 @@
               </div>
             </div>
             <div class="tab-pane" id="showAllCompletemb">
-              <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:{deliverystatus:'complete'} as complete">
+              <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.completelist as completelist">
                 <div class="list-group">
                   <a href="#" class="list-group-item list-group-item-action">
                     <div ui-sref="orders.view({ orderId: order._id })">
