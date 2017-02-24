@@ -1,4 +1,4 @@
-<section ng-init='vm.init()'>
+<section>
   <div class="page-header">
     <h1>รายการขนส่งข้าว</h1>
   </div>
@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllRequest" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>Request</span><h3>{{vm.listRequest.length}}</h3></button></a>
-              <a href="#showAllReponse" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>Response</span><h3>{{vm.listResponse.length}}</h3></button></a>
-              <a href="#showAllReceived" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>Received</span><h3>{{vm.listReceived.length}}</h3></button></a>
+              <a href="#showAllRequest" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>Request</span><h3>{{request.length || 0}}</h3></button></a>
+              <a href="#showAllReponse" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>Response</span><h3>{{response.length || 0}}</h3></button></a>
+              <a href="#showAllReceived" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>Received</span><h3>{{received.length || 0}}</h3></button></a>
             </div>
           </div>
           <!---->
@@ -91,7 +91,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="request in vm.listRequest | filter:topsearch">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="request in vm.requestorders | filter:topsearch | filter:{deliverystatus:'request'} as request">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <!--<div class="col-xs-2 col-sm-2 col-md-2">
@@ -143,7 +143,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.listResponse | filter:topsearch">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.requestorders | filter:topsearch | filter:{deliverystatus:'response'} as response">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -157,7 +157,7 @@
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <button type="button" class="btn btn-primary" ng-click="vm.update(response)"><span class="glyphicon glyphicon-edit"></span></button>
-                        
+
                         <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(response)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -191,7 +191,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.listReceived | filter:topsearch">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.requestorders | filter:topsearch | filter:{deliverystatus:'received'} as received">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -219,7 +219,7 @@
           <div class="row show-xs show-sm hidden-md hidden-lg">
             <div class="tab-content">
               <div class="tab-pane active" id="showAllRequestmb">
-                <div class="col-md-12" ng-repeat="request in vm.listRequest | filter:topsearch">
+                <div class="col-md-12" ng-repeat="request in vm.requestorders | filter:topsearch | filter:{deliverystatus:'request'} as request">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <!--<div>
@@ -243,7 +243,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllReponsemb">
-                <div class="col-md-12" ng-repeat="response in vm.listResponse | filter:topsearch">
+                <div class="col-md-12" ng-repeat="response in vm.requestorders | filter:topsearch | filter:{deliverystatus:'response'} as response">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div>
@@ -258,7 +258,7 @@
                       <div class="row">
                         <div class="col-xs-12 textRight">
                           <button type="button" class="btn btn-primary" ng-click="vm.update(response)"><span class="glyphicon glyphicon-edit"></span></button>
-                          
+
                           <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(response)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
                         </div>
                       </div>
@@ -267,7 +267,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllReceivedmb">
-                <div class="col-md-12" ng-repeat="received in vm.listReceived | filter:topsearch">
+                <div class="col-md-12" ng-repeat="received in vm.requestorders | filter:topsearch | filter:{deliverystatus:'received'} as received">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div>
@@ -282,8 +282,8 @@
                       <div class="row">
                         <div class="col-xs-12 textRight">
                           <button type="button" class="btn btn-primary" ng-click="vm.update(received)"><span class="glyphicon glyphicon-edit"></span></button>
-                          
-                           <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(received)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
+
+                          <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(received)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
                         </div>
                       </div>
                     </a>

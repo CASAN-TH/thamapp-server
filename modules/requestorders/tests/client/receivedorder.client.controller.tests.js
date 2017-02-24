@@ -12,8 +12,6 @@
       Users,
       Authentication,
       RequestordersService,
-      mockDeliver,
-      mockOrderRequest,
       mockOrderRequest2;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
@@ -53,39 +51,6 @@
       Authentication = _Authentication_;
       RequestordersService = _RequestordersService_;
 
-      mockDeliver = new Users({
-        _id: '585a0a624b1d9cd80e439b3e',
-        salt: 'g2K5zNV8Jgx+/AxyZcbiUw==',
-        displayName: 'deliver2 deliver2',
-        provider: 'local',
-        username: 'deliver2',
-        __v: 0,
-        created: '2016-12-21T04:51:46.142Z',
-        roles: [
-          'deliver'
-        ]
-      });
-
-      mockOrderRequest = new RequestordersService({
-        _id: '525a8422f6d0f87f0e407a33',
-        name: 'Order Name',
-        shipping: {
-          firstname: 'firstname',
-          postcode: 'postcode',
-          district: 'district',
-          subdistrict: 'subdistrict',
-          province: 'province',
-          address: 'address',
-          tel: 'tel',
-          email: 'email',
-          lastname: 'lastname'
-        },
-        namedeliver: {
-          _id: '123456'
-        },
-        deliverystatus: 'request'
-      });
-
       mockOrderRequest2 = new RequestordersService({
         _id: '525a8422f6d0f87f0e407a33',
         name: 'Order Name',
@@ -115,40 +80,6 @@
         $scope: $scope
       });
     }));
-
-    describe('list request as read', function () {
-      var mockRequestList;
-
-      beforeEach(function () {
-        mockRequestList = [mockOrderRequest, mockOrderRequest];
-      });
-
-      it('should send a GET request and return all orderRequest', inject(function (RequestordersService) {
-
-        $httpBackend.expectGET('api/requestorders').respond(mockRequestList);
-        $httpBackend.flush();
-
-        expect($scope.vm.requestorders.length).toEqual(2);
-        expect($scope.vm.requestorders[0]).toEqual(mockOrderRequest);
-        expect($scope.vm.requestorders[1]).toEqual(mockOrderRequest);
-      }));
-    });
-
-    describe('list status request as read', function () {
-
-
-      beforeEach(function () {
-        $scope.vm.listRequest = [mockOrderRequest, mockOrderRequest];
-        $scope.vm.authentication.user._id = '123456';
-      });
-
-      it('should send a GET request and return all list request', inject(function (RequestordersService) {
-        $scope.vm.listRequestOrder();
-        expect($scope.vm.listRequest.length).toEqual(2);
-        expect($scope.vm.listRequest[0].namedeliver._id).toEqual($scope.vm.authentication.user._id);
-        expect($scope.vm.listRequest[0].deliverystatus).toEqual('request');
-      }));
-    });
 
     describe('vm.addHis', function () {
       beforeEach(function () {
