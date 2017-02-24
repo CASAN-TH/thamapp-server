@@ -33,25 +33,25 @@
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
         ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'">
         <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า':item.title === 'Admin' ? 'ผู้ดูแลระบบ':item.title === 'Managebanks' ? 'การจัดการธนาคาร':item.title === 'me' ? 'ประวัติการสั่งซื้อ':item.title === 'Orders' ? 'รายการสั่งซื้อ':item.title === 'Promotions' ? 'โปรโมชั่น': item.title}}&nbsp;</span></a>
-      </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
-        <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">ประวัติการสั่งซื้อ</span></a>
-      </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
-        <a href="/#/assignlist"><i class="fa fa-file-o"></i> <span class="nav-label">รายการส่งข้าว</span></a>
-      </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/responseorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
-        <a href="/#/responseorder"><i class="fa fa-file-o"></i> <span class="nav-label">บริษัทขนส่งข้าว</span></a>
-      </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/receivedorder" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
-        <a href="/#/receivedorder"><i class="fa fa-file-o"></i> <span class="nav-label">รายการรับข้าว</span></a>
-      </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/signinuser" class="dropdown" ng-if="!authentication.user">
-        <a href="/#/signinuser"><i class="fa fa-file-o"></i> <span class="nav-label">ตรวจสอบประวัติการสั่งซื้อ</span></a>
-      </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/ar" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
-        <a href="/#/ar"><i class="fa fa-file-o"></i> <span class="nav-label">ใบเสร็จแจ้งหนี้</span></a>
-      </li>
+        </li>
+        <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
+          <a href="/#/me"><i class="fa fa-user"></i> <span class="nav-label">ประวัติการสั่งซื้อ</span></a>
+        </li>
+        <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+          <a href="/#/assignlist"><i class="fa fa-file-o"></i> <span class="nav-label">รายการส่งข้าว</span></a>
+        </li>
+        <li ng-class="{active: $uiRoute}" ui-route="/responseorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+          <a href="/#/responseorder"><i class="fa fa-file-o"></i> <span class="nav-label">บริษัทขนส่งข้าว</span></a>
+        </li>
+        <li ng-class="{active: $uiRoute}" ui-route="/receivedorder" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+          <a href="/#/receivedorder"><i class="fa fa-file-o"></i> <span class="nav-label">รายการรับข้าว</span></a>
+        </li>
+        <li ng-class="{active: $uiRoute}" ui-route="/signinuser" class="dropdown" ng-if="!authentication.user">
+          <a href="/#/signinuser"><i class="fa fa-file-o"></i> <span class="nav-label">ตรวจสอบประวัติการสั่งซื้อ</span></a>
+        </li>
+        <li ng-class="{active: $uiRoute}" ui-route="/ar" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+          <a href="/#/ar"><i class="fa fa-file-o"></i> <span class="nav-label">รายการใบแจ้งหนี้</span></a>
+        </li>
     </ul>
   </div>
 </nav>
