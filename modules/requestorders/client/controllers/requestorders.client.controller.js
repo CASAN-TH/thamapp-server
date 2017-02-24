@@ -163,7 +163,7 @@
 
     function calculate(item) {
       item.qty = item.qty || 1;
-      item.amount = item.product.price * item.qty;
+      item.amount = item.product.retailerprice * item.qty;
 
       sumary(vm.requestorder.items);
     }
@@ -171,7 +171,7 @@
     function sumary(items) {
       vm.requestorder.totalamount = 0;
       angular.forEach(items, function (prod) {
-        prod.amount = prod.product.price * prod.qty;
+        prod.amount = prod.product.retailerprice * prod.qty;
         //vm.order.amount = prod.amount;
         vm.requestorder.totalamount += prod.amount;
       });
