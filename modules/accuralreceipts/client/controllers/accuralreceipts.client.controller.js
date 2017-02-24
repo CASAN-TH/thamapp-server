@@ -39,7 +39,7 @@
       vm.readOrder();
       vm.readDeliver();
       if (!vm.accuralreceipt._id) {
-         vm.accuralreceipt.billamount = 0;
+        vm.accuralreceipt.billamount = 0;
         vm.accuralreceipt.docdate = new Date();
         vm.accuralreceipt.docno = (+ new Date());
 
@@ -55,12 +55,15 @@
 
     }
 
-    function readOrder() {
+    function readOrder(deliver) {
+      vm.listorders = [];
       vm.listorder = OrdersService.query(function () {
         vm.listorder.forEach(function (order) {
           if (order.namedeliver) {
-            if (order.user._id === order.namedeliver._id) {
-              vm.listorders.push(order);
+            if (deliver._id === order.namedeliver._id) {
+              if (order.deliverystatus === 'complete') {
+                vm.listorders.push(order);
+              }
             }
           }
 
@@ -89,7 +92,7 @@
 
       if (vm.status !== 'have') {
         vm.accuralreceipt.items.push(ord);
-      }else{
+      } else {
         alert('คุณเลือกรายการซ้ำ');
       }
 
@@ -100,6 +103,7 @@
     function selectDeliver(deli) {
       vm.deliver = deli;
       vm.accuralreceipt.namedeliver = vm.deliver;
+      vm.readOrder(vm.deliver);
 
     }
 
@@ -152,4 +156,4 @@
       }
     }
   }
-} ());
+}());
