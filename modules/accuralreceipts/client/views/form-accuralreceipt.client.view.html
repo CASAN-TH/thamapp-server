@@ -101,13 +101,13 @@
             <div class="col-md-8">
               <div class="row">
 
-                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
-                  <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
+                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+                  <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
                 </div>
-                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
-                  <div class="btn btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
+                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+                  <div class="btn btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
                 </div>
@@ -192,6 +192,9 @@
           <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg" ng-show="vm.accuralreceipt._id">
             <div class="col-xs-3 col-sm-3 col-md-3">
               <strong>รายการสั่งซื้อ</strong>
+            </div>
+            <div class=" col-xs-6 col-sm-6 col-md-6">
+              <strong>ที่อยู่จัดส่ง</strong>
             </div>
             <div class=" col-xs-6 col-sm-6 col-md-6">
               <strong>ที่อยู่จัดส่ง</strong>
@@ -321,12 +324,12 @@
           </div>
           <!--list Product-->
           <div class="row form-group show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id">
-            <div class="col-xs-12" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'confirmed' || vm.accuralreceipt.deliverystatus === 'wait deliver' || vm.accuralreceipt.deliverystatus === 'reject'">
+            <div class="col-xs-12" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myOrder">เพิ่มออเดอร์</button>
             </div>
           </div>
-          <div class="row form-group  hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
-            <div class="col-sm-12 col-md-12" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.deliverystatus === 'request'">
+          <div class="row form-group  hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+            <div class="col-sm-12 col-md-12" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myOrder">เพิ่มออเดอร์</button>
             </div>
           </div>
@@ -497,7 +500,7 @@
               </div>
 
             </div>
-            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review'">
               <div class="col-md-12 form-group">
                 <button type="submit" class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
               </div>

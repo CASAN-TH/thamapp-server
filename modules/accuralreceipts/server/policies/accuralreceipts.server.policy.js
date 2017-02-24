@@ -30,6 +30,15 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/accuralreceipts/:accuralreceiptId',
       permissions: ['get']
     }]
+  }, {
+    roles: ['guest'],
+    allows: [{
+      resources: '/api/accuralreceipts',
+      permissions: ['get']
+    }, {
+      resources: '/api/accuralreceipts/:accuralreceiptId',
+      permissions: ['get']
+    }]
   }]);
 };
 
