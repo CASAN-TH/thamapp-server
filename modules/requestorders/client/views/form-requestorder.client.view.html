@@ -637,14 +637,14 @@
   <div class="col-md-3 round1 " ng-show="vm.requestorder.delivery.deliveryid === '0'">
     <div class="row marginB">
 
-      <div class="col-md-12" ng-show="vm.requestorder.deliverystatus === 'confirmed'">
-        <button type="text" class="btn buttonGreenForm btn-block">สถานะ : สั่งจอง</button>
+      <div class="col-md-12" ng-show="vm.requestorder.deliverystatus === 'request'">
+        <button type="text" class="btn buttonGreenForm btn-block">สถานะ : ร้องขอ</button>
       </div>
-      <div class="col-md-12" ng-show="vm.requestorder.deliverystatus === 'wait deliver'">
-        <button type="text" class="btn buttonGrayForm btn-block">สถานะ : รอคนส่งข้าว</button>
+      <div class="col-md-12" ng-show="vm.requestorder.deliverystatus === 'response'">
+        <button type="text" class="btn buttonGrayForm btn-block">สถานะ : ตอบกลับ</button>
       </div>
-      <div class="col-md-12" ng-show="vm.requestorder.deliverystatus === 'sent'">
-        <button type="text" class="btn buttonBlackForm btn-block">สถานะ : จัดส่ง</button>
+      <div class="col-md-12" ng-show="vm.requestorder.deliverystatus === 'received'">
+        <button type="text" class="btn buttonBlackForm btn-block">สถานะ : ได้รับ</button>
       </div>
 
 
