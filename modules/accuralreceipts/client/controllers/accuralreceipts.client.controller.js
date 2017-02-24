@@ -21,12 +21,18 @@
     vm.readDeliver = readDeliver;
     vm.init = init;
     vm.delivers = [];
+    vm.listremove = [];
     vm.listorders = [];
     vm.selectedOrder = selectedOrder;
     vm.removeItem = removeItem;
     vm.calculate = calculate;
     // vm.accuralreceipt.billamount = 0;
     vm.readOrder = readOrder;
+    if (vm.accuralreceipt.namedeliver) {
+      vm.accuralreceipt.namedeliver = vm.accuralreceipt.namedeliver;
+    } else {
+      vm.accuralreceipt.namedeliver = [];
+    }
     if (vm.accuralreceipt.items) {
       vm.accuralreceipt.items = vm.accuralreceipt.items;
     } else {
@@ -56,20 +62,38 @@
     }
 
     function readOrder(deliver) {
-      vm.listorders = [];
-      vm.listorder = OrdersService.query(function () {
-        vm.listorder.forEach(function (order) {
-          if (order.namedeliver) {
-            if (deliver._id === order.namedeliver._id) {
-              if (order.deliverystatus === 'complete') {
-                vm.listorders.push(order);
+      if (vm.accuralreceipt._id) {
+        vm.listorders = [];
+        vm.listorder = OrdersService.query(function () {
+          vm.listorder.forEach(function (order) {
+            if (order.namedeliver) {
+              if (vm.accuralreceipt.namedeliver._id === order.namedeliver._id) {
+                if (order.deliverystatus === 'complete') {
+                  vm.accuralreceipt.items.push(order);
+                  vm.calculate(vm.accuralreceipt.items);
+
+                }
               }
             }
-          }
-
+          });
         });
-        // console.log(vm.listorders);
-      });
+      } else if (deliver) {
+        vm.listorders = [];
+        vm.listorder = OrdersService.query(function () {
+          vm.listorder.forEach(function (order) {
+            if (order.namedeliver) {
+              if (deliver._id === order.namedeliver._id) {
+                if (order.deliverystatus === 'complete') {
+                  vm.accuralreceipt.items.push(order);
+                  vm.calculate(vm.accuralreceipt.items);
+                }
+              }
+            }
+
+          });
+        });
+      }
+
     }
 
     function calculate(orders) {
@@ -78,36 +102,62 @@
         vm.accuralreceipt.billamount += order.totalamount;
         // console.log(order);
       });
+
     }
 
     function selectedOrder(ord) {
-
-      if (vm.accuralreceipt.items.length > 0) {
-        vm.accuralreceipt.items.forEach(function (list) {
-          if (list._id === ord._id) {
-            vm.status = 'have';
-          }
-        });
-      }
-
-      if (vm.status !== 'have') {
-        vm.accuralreceipt.items.push(ord);
-      } else {
-        alert('คุณเลือกรายการซ้ำ');
-      }
-
-
+      vm.accuralreceipt.items.push(ord);
       vm.calculate(vm.accuralreceipt.items);
     }
 
+    // function selectedOrder(ord) {
+    //   if (vm.accuralreceipt.items.length > 0) {
+    //     vm.accuralreceipt.items.forEach(function (list) {
+    //       if (list._id === ord._id) {
+    //         vm.status = 'have';
+    //       }
+    //     });
+    //   }
+    //   if (vm.status !== 'have') {
+    //     vm.accuralreceipt.items.push(ord);
+    //   } else if (vm.status === 'have') {
+    //     alert('คุณเลือกรายการซ้ำ');
+    //     vm.accuralreceipt.items.push(ord);
+    //     vm.accuralreceipt.items.splice(ord, 1);
+    //   }
+    //   vm.calculate(vm.accuralreceipt.items);
+    // }
+    // function selectedOrder(ord) {
+    //   if (vm.accuralreceipt.items.length === 0) {
+    //     vm.accuralreceipt.items.push(ord);
+    //   } else if (vm.accuralreceipt.items.length > 0) {
+    //     vm.accuralreceipt.items.forEach(function (list) {
+    //       if (list._id === ord._id) {
+    //         alert('คุณเลือกรายการซ้ำ');
+    //         vm.accuralreceipt.items.push(ord);
+    //         vm.accuralreceipt.items.splice(ord, 1);
+    //       }
+    //       else if (list._id !== ord._id) {
+    //         vm.accuralreceipt.items.push(ord);
+    //       }
+    //     });
+    //   }
+    //   vm.calculate(vm.accuralreceipt.items);
+    // }
+
+
+
     function selectDeliver(deli) {
+      vm.accuralreceipt.items = [];
       vm.deliver = deli;
       vm.accuralreceipt.namedeliver = vm.deliver;
       vm.readOrder(vm.deliver);
 
+
     }
 
     function removeItem(item) {
+      vm.listremove.push(item);
       vm.accuralreceipt.items.splice(item, 1);
       vm.calculate(vm.accuralreceipt.items);
     }
