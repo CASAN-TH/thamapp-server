@@ -375,8 +375,8 @@
                       <div ng-repeat="order in vm.listorders | filter:topsearch">
                         <li class="row list-group-item">
                           <div class="col-xs-10">
-                            <label>ใบแจ้งหนี้เลขที่ : {{order.docno}}</label><br>
-                            <label>ชื่อ : {{order.namedeliver.displayName}}</label><br>
+                            <label>ใบสั่งซื้อเลขที่ : {{order.docno}}</label><br>
+                            <label>ชื่อผู้สั่งซื้อ : {{order.user.displayName}}</label><br>
                             <label>รวม : {{order.totalamount}}</label><br>
                             <label>วันที่ : {{order.created | date:'dd/MM/yyyy'}}</label>
                           </div>
