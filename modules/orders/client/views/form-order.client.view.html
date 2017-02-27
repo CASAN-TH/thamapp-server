@@ -498,7 +498,7 @@
                             <div class="col-md-12 form-group">
                             </div>
                         </div>
-                        <div class="row form-group" ng-show="vm.order.deliverystatus == 'reject'">
+                        <div class="row form-group" ng-show="vm.order.deliverystatus == 'reject' || vm.order.deliverystatus === 'accept'">
                             <div class="col-md-6 form-group">
                                 <button type="submit" class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
                             </div>
@@ -506,7 +506,7 @@
                                 <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#cancelOrder">ยกเลิกรายการ</button>
                             </div>
                         </div>
-                        <div class="row form-group" ng-show="vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'accept' || vm.order.deliverystatus === 'complete'">
+                        <div class="row form-group" ng-show="vm.order.deliverystatus === 'confirmed' || vm.order.deliverystatus === 'wait deliver' || vm.order.deliverystatus === 'complete'">
                             <div class="col-md-6">
                                 <button type="submit" class="btn btn-primary btn-block">บันทึกรายการ</button>
                             </div>
