@@ -94,38 +94,73 @@ exports.delete = function (req, res) {
  * List of Products
  */
 exports.list = function (req, res) {
-  Product.find().sort('-created')
-  .populate('user', 'displayName')
-  .where('category').equals('อาหาร') //อ่านเฉพาะรายการข้าว
-  .exec(function (err, products) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      Promotion.find().sort('-created').exec(function (err, promotions) {
+  if (req.user && req.user.roles[0] === 'admin') {
+    Product.find().sort('-created')
+      .populate('user', 'displayName')
+      .exec(function (err, products) {
         if (err) {
           return res.status(400).send({
             message: errorHandler.getErrorMessage(err)
           });
         } else {
-          products.forEach(function (product) { 
-            
-            product.promotions = [];
-            //console.log(product);
-            promotions.forEach(function(promotion){
-              if(promotion.product.toString() === product._id.toString()){
-                product.promotions.push(promotion);
-              }
-              
-            });
+          Promotion.find().sort('-created').exec(function (err, promotions) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              products.forEach(function (product) {
+
+                product.promotions = [];
+                //console.log(product);
+                promotions.forEach(function (promotion) {
+                  if (promotion.product.toString() === product._id.toString()) {
+                    product.promotions.push(promotion);
+                  }
+
+                });
+              });
+              res.jsonp(products);
+            }
           });
-          res.jsonp(products);
+
         }
       });
+  } else {
+    Product.find().sort('-created')
+      .populate('user', 'displayName')
+      .where('category').equals('อาหาร') //อ่านเฉพาะรายการข้าว
+      .exec(function (err, products) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          Promotion.find().sort('-created').exec(function (err, promotions) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              products.forEach(function (product) {
 
-    }
-  });
+                product.promotions = [];
+                //console.log(product);
+                promotions.forEach(function (promotion) {
+                  if (promotion.product.toString() === product._id.toString()) {
+                    product.promotions.push(promotion);
+                  }
+
+                });
+              });
+              res.jsonp(products);
+            }
+          });
+
+        }
+      });
+  }
+
 };
 
 /**
