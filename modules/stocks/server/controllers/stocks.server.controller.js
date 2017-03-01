@@ -103,63 +103,64 @@ exports.list = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      Order.find().sort('-created').where('deliverystatus').eq('complete').exec(function (err, completes) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          Requestorder.find().sort('-created').where("deliverystatus").eq("received").exec(function (err, incomes) {
-            if (err) {
-              return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-              });
-            } else {
-              var stocks = [];
-              incomes.forEach(function (income) {
-                income.items.forEach(function (itm) {
-                  var stock = {
-                    namedeliver: income.namedeliver,
-                    product: itm.product,
-                    income: itm.qty,
-                    wip: 0,
-                    outcom: 0
-                  };
-                  stocks.push(stock);
-                });
-              });
+      res.jsonp(accepts);
+      // Order.find().sort('-created').where('deliverystatus').eq('complete').exec(function (err, completes) {
+      //   if (err) {
+      //     return res.status(400).send({
+      //       message: errorHandler.getErrorMessage(err)
+      //     });
+      //   } else {
+      //     Requestorder.find().sort('-created').where("deliverystatus").eq("received").exec(function (err, incomes) {
+      //       if (err) {
+      //         return res.status(400).send({
+      //           message: errorHandler.getErrorMessage(err)
+      //         });
+      //       } else {
+      //         var stocks = [];
+      //         incomes.forEach(function (income) {
+      //           income.items.forEach(function (itm) {
+      //             var stock = {
+      //               namedeliver: income.namedeliver,
+      //               product: itm.product,
+      //               income: itm.qty,
+      //               wip: 0,
+      //               outcom: 0
+      //             };
+      //             stocks.push(stock);
+      //           });
+      //         });
 
-              accepts.forEach(function (accept) {
-                accept.items.forEach(function (itm) {
-                  var stock = {
-                    namedeliver: accept.namedeliver,
-                    product: itm.product,
-                    income: 0,
-                    wip: itm.qty,
-                    outcom: 0
-                  };
-                  stocks.push(stock);
-                });
-              });
+      //         accepts.forEach(function (accept) {
+      //           accept.items.forEach(function (itm) {
+      //             var stock = {
+      //               namedeliver: accept.namedeliver,
+      //               product: itm.product,
+      //               income: 0,
+      //               wip: itm.qty,
+      //               outcom: 0
+      //             };
+      //             stocks.push(stock);
+      //           });
+      //         });
 
-              completes.forEach(function (complete) {
-                complete.items.forEach(function (itm) {
-                  var stock = {
-                    namedeliver: complete.namedeliver,
-                    product: itm.product,
-                    income: 0,
-                    wip: 0,
-                    outcom: itm.qty
-                  };
-                  stocks.push(stock);
-                });
-              });
+      //         completes.forEach(function (complete) {
+      //           complete.items.forEach(function (itm) {
+      //             var stock = {
+      //               namedeliver: complete.namedeliver,
+      //               product: itm.product,
+      //               income: 0,
+      //               wip: 0,
+      //               outcom: itm.qty
+      //             };
+      //             stocks.push(stock);
+      //           });
+      //         });
 
-              res.jsonp(stocks);
-            }
-          });
-        }
-      });
+      //         res.jsonp(stocks);
+      //       }
+      //     });
+      //   }
+      // });
     }//
   });
 };
