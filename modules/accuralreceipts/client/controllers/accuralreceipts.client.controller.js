@@ -95,7 +95,10 @@
     function calculate(orders) {
       vm.accuralreceipt.billamount = 0;
       orders.forEach(function (order) {
-        vm.accuralreceipt.billamount += order.totalamount;
+         order.items.forEach(function(itm){
+           vm.accuralreceipt.billamount += itm.product.retailerprice * itm.qty;
+         });
+        //vm.accuralreceipt.billamount += order.totalamount;
         // console.log(order);
       });
     }

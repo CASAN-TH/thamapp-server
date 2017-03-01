@@ -203,9 +203,9 @@
 
             </div>
           </div>
-
-          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse" data-target="#{{order._id}}">
-            <div class="row form-group hidden-xs show-sm show-md show-lg">
+          
+          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse" data-target="#{{order._id}}">
+            <div ng-show="!vm.accuralreceipt._id" class="row form-group hidden-xs show-sm show-md show-lg">
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
                 <span class="list-group-item-heading" ng-bind="order.docno"></span>
@@ -220,30 +220,8 @@
                 <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
-
-            <div class="row form-group hidden-xs show-sm show-md show-lg collapse" id="{{order._id}}">
-              <div class="col-xs-12 col-sm-12 col-md-12">
-                <label>รายการสินค้า</label>
-              </div>
-              <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="itm in order.items">
-                <div class="col-xs-3 col-sm-3 col-md-3">
-                  <img src="{{itm.product.images}}" class="img-circle" width="45px">
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
-                  <span>{{itm.product.name}}</span>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
-                  <span>{{itm.qty}}</span>
-                </div>
-                <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
-                  <span>{{itm.amount}}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-show="vm.accuralreceipt._id" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse" data-target="#{{order._id}}">
-            <div class="row form-group hidden-xs show-sm show-md show-lg">
+            <!---->
+            <div ng-show="vm.accuralreceipt._id" class="row form-group hidden-xs show-sm show-md show-lg">
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
                 <span class="list-group-item-heading" ng-bind="order.docno"></span>
@@ -274,17 +252,54 @@
                   <span>{{itm.product.name}}</span>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
-                  <span>{{itm.qty}}</span>
+                  <span>{{itm.product.retailerprice}} x {{itm.qty}}</span>
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
-                  <span>{{itm.amount}}</span>
+                  <span>{{itm.product.retailerprice * itm.qty}}</span>
                 </div>
               </div>
             </div>
           </div>
 
-
-
+          <!--<div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-show="vm.accuralreceipt._id" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse" data-target="#{{order._id}}">
+            <div class="row form-group hidden-xs show-sm show-md show-lg">
+              <div class="col-xs-3 col-sm-3 col-md-3">
+                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+              </div>
+              <div class="col-xs-5 col-sm-5 col-md-5" ng-show="vm.accuralreceipt.arstatus !== 'wait for review'">
+                <span class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+                <span class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+              </div>
+              <div class="col-xs-3 col-sm-3 col-md-3">
+                <time am-time-ago="order.created"></time>
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+                <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+            <div class="row form-group hidden-xs show-sm show-md show-lg collapse" id="{{order._id}}">
+              <div class="col-xs-12 col-sm-12 col-md-12">
+                <label>รายการสินค้า</label>
+              </div>
+              <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="itm in order.items">
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                  <img src="{{itm.product.images}}" class="img-circle" width="45px">
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
+                  <span>{{itm.product.name}}</span>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
+                  <span>{{itm.product.retailerprice}} x {{itm.qty}}</span>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
+                  <span>{{itm.product.retailerprice * itm.qty}}</span>
+                </div>
+              </div>
+            </div>
+          </div>-->
 
           <div class="row alert alert-success show-xs hidden-sm hidden-md hidden-lg">
             <div class=" col-xs-12 text-center">
