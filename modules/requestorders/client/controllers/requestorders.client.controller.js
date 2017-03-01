@@ -113,17 +113,33 @@
 
     function selectDeliver(deli) {
       vm.deliver = deli;
-      vm.requestorder.shipping = {
-        firstname: deli.firstName,
-        lastname: deli.lastName,
-        address: deli.address.address,
-        postcode: deli.address.postcode,
-        subdistrict: deli.address.subdistrict,
-        province: deli.address.province,
-        district: deli.address.district,
-        tel: deli.address.tel,
-        email: deli.email
-      };
+      if (deli.sharelocation) {
+        vm.requestorder.shipping = {
+          firstname: deli.firstName,
+          lastname: deli.lastName,
+          address: deli.address.address,
+          postcode: deli.address.postcode,
+          subdistrict: deli.address.subdistrict,
+          province: deli.address.province,
+          district: deli.address.district,
+          tel: deli.address.tel,
+          email: deli.email,
+          sharelocation: deli.sharelocation
+        };
+      } else if (!deli.sharelocation) {
+        vm.requestorder.shipping = {
+          firstname: deli.firstName,
+          lastname: deli.lastName,
+          address: deli.address.address,
+          postcode: deli.address.postcode,
+          subdistrict: deli.address.subdistrict,
+          province: deli.address.province,
+          district: deli.address.district,
+          tel: deli.address.tel,
+          email: deli.email
+        };
+      }
+
       vm.requestorder.namedeliver = vm.deliver;
     }
 
@@ -163,9 +179,9 @@
 
     function calculate(item) {
       item.qty = item.qty;
-        item.amount = item.product.retailerprice * item.qty;
+      item.amount = item.product.retailerprice * item.qty;
 
-        sumary(vm.requestorder.items);
+      sumary(vm.requestorder.items);
     }
 
     function sumary(items) {
