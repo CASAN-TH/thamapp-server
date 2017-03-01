@@ -148,7 +148,7 @@
     }
 
     function readTransport() {
-     
+
       if (vm.authentication.user.roles[0] === 'admin') {
         vm.transport = Users.query(function () {
           angular.forEach(vm.transport, function (user) {
@@ -162,10 +162,10 @@
     }
 
     function calculate(item) {
-      item.qty = item.qty || 1;
-      item.amount = item.product.retailerprice * item.qty;
+      item.qty = item.qty;
+        item.amount = item.product.retailerprice * item.qty;
 
-      sumary(vm.requestorder.items);
+        sumary(vm.requestorder.items);
     }
 
     function sumary(items) {
