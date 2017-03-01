@@ -97,72 +97,84 @@ exports.list = function (req, res) {
 
   //   }
   // });
-  Order.find().sort('-created').where('deliverystatus').equals('accept').exec(function (err, accepts) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      
-      Order.find().sort('-created').where('deliverystatus').equals('complete').exec(function (err, completes) {
-        if (err) {
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err)
-          });
-        } else {
-          Requestorder.find().sort('-created').where("deliverystatus").equals("received").exec(function (err, incomes) {
+  Order.find().sort('-created')
+    .where('deliverystatus').equals('accept')
+    .populate('items.product')
+    .populate('namedeliver')
+    .exec(function (err, accepts) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+
+        Order.find().sort('-created')
+          .where('deliverystatus').equals('complete')
+          .populate('items.product')
+          .populate('namedeliver')
+          .exec(function (err, completes) {
             if (err) {
               return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
               });
             } else {
-              var stocks = [];
-              incomes.forEach(function (income) {
-                income.items.forEach(function (itm) {
-                  var stock = {
-                    namedeliver: income.namedeliver,
-                    product: itm.product,
-                    income: itm.qty,
-                    wip: 0,
-                    outcom: 0
-                  };
-                  stocks.push(stock);
-                });
-              });
+              Requestorder.find().sort('-created')
+                .where("deliverystatus").equals("received")
+                .populate('items.product')
+                .populate('namedeliver')
+                .exec(function (err, incomes) {
+                  if (err) {
+                    return res.status(400).send({
+                      message: errorHandler.getErrorMessage(err)
+                    });
+                  } else {
+                    var stocks = [];
+                    incomes.forEach(function (income) {
+                      income.items.forEach(function (itm) {
+                        var stock = {
+                          namedeliver: income.namedeliver,
+                          product: itm.product,
+                          income: itm.qty,
+                          wip: 0,
+                          outcom: 0
+                        };
+                        stocks.push(stock);
+                      });
+                    });
 
-              accepts.forEach(function (accept) {
-                accept.items.forEach(function (itm) {
-                  var stock = {
-                    namedeliver: accept.namedeliver,
-                    product: itm.product,
-                    income: 0,
-                    wip: itm.qty,
-                    outcom: 0
-                  };
-                  stocks.push(stock);
-                });
-              });
+                    accepts.forEach(function (accept) {
+                      accept.items.forEach(function (itm) {
+                        var stock = {
+                          namedeliver: accept.namedeliver,
+                          product: itm.product,
+                          income: 0,
+                          wip: itm.qty,
+                          outcom: 0
+                        };
+                        stocks.push(stock);
+                      });
+                    });
 
-              completes.forEach(function (complete) {
-                complete.items.forEach(function (itm) {
-                  var stock = {
-                    namedeliver: complete.namedeliver,
-                    product: itm.product,
-                    income: 0,
-                    wip: 0,
-                    outcom: itm.qty
-                  };
-                  stocks.push(stock);
-                });
-              });
+                    completes.forEach(function (complete) {
+                      complete.items.forEach(function (itm) {
+                        var stock = {
+                          namedeliver: complete.namedeliver,
+                          product: itm.product,
+                          income: 0,
+                          wip: 0,
+                          outcom: itm.qty
+                        };
+                        stocks.push(stock);
+                      });
+                    });
 
-              res.jsonp(stocks);
+                    res.jsonp(stocks);
+                  }
+                });
             }
           });
-        }
-      });
-    }//
-  });
+      }//
+    });
 };
 
 /**
