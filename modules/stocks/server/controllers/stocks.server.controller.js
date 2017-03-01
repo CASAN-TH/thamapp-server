@@ -97,7 +97,7 @@ exports.list = function (req, res) {
 
   //   }
   // });
-  Order.find().sort('-created').where('deliverystatus').eq('accept').exec(function (err, accepts) {
+  Order.find().sort('-created').where('deliverystatus').equals('accept').exec(function (err, accepts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
