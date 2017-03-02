@@ -136,7 +136,7 @@ exports.list = function (req, res) {
                           product: itm.product,
                           income: itm.qty,
                           wip: 0,
-                          outcom: 0
+                          outcome: 0
                         };
                         stocks.push(stock);
                       });
@@ -149,7 +149,7 @@ exports.list = function (req, res) {
                           product: itm.product,
                           income: 0,
                           wip: itm.qty,
-                          outcom: 0
+                          outcome: 0
                         };
                         stocks.push(stock);
                       });
@@ -162,7 +162,7 @@ exports.list = function (req, res) {
                           product: itm.product,
                           income: 0,
                           wip: 0,
-                          outcom: itm.qty
+                          outcome: itm.qty
                         };
                         stocks.push(stock);
                       });
