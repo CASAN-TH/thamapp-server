@@ -167,8 +167,15 @@ exports.list = function (req, res) {
                         stocks.push(stock);
                       });
                     });
+                    var result = _.chain(stocks)
+                      .groupBy("namedeliver")
+                      .pairs()
+                      .map(function (currentItem) {
+                        return _.object(_.zip(["namedeliver", "stocks"], currentItem));
+                      })
+                      .value();
 
-                    res.jsonp(stocks);
+                    res.jsonp(result);
                   }
                 });
             }
