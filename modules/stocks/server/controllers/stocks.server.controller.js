@@ -168,20 +168,22 @@ exports.list = function (req, res) {
                       });
                     });
                     var stockByDeliver = [];
-                    _.groupBy(stocks, "namedeliver").forEach(function(store){
-                      var deliverStock = {
-                          namedeliver: store[0].namedeliver,
-                          stocks: []
-                        };
-                      _.groupBy(store, "product").forEach(function(prod){
-                         var stock = {
-                           product : prod[0].product
-                         };
-                         deliverStock.stocks.push(stock);
-                      });
-                      stockByDeliver.push(deliverStock);
-                    });
-                    res.jsonp(stockByDeliver);
+                    var deli = _.groupBy(stocks, "namedeliver");
+                    // deli.forEach(function(store){
+                    //   var deliverStock = {
+                    //       namedeliver: store[0].namedeliver,
+                    //       stocks: []
+                    //     };
+                    //   // _.groupBy(store, "product").forEach(function(prod){
+                    //   //    var stock = {
+                    //   //      product : prod[0].product
+                    //   //    };
+                    //   //    deliverStock.stocks.push(stock);
+                    //   // });
+                    //   stockByDeliver.push(deliverStock);
+                    // });
+                    
+                    res.jsonp(deli);
                   }
                 });
             }
