@@ -167,8 +167,8 @@ exports.list = function (req, res) {
                         stocks.push(stock);
                       });
                     });
-
-                    res.jsonp(stocks);
+                    var completeStock = _.groupBy(stocks, "namedeliver");
+                    res.jsonp(completeStock);
                   }
                 });
             }
