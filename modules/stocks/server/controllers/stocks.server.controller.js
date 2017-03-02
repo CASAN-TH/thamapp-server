@@ -176,7 +176,7 @@ exports.list = function (req, res) {
                       _.groupBy(store, "product").forEach(function(prod){
                          var stock = {
                            product : prod[0].product
-                         }
+                         };
                          deliverStock.stocks.push(stock);
                       });
                       stockByDeliver.push(deliverStock);
