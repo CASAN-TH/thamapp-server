@@ -12,7 +12,7 @@
     vm.authentication = Authentication;
     vm.requestorders = RequestordersService.query();
     vm.requestProduct = requestProduct;
-    vm.response = response;
+    vm.responsed = responsed;
     vm.addHis = addHis;
 
 
@@ -44,7 +44,7 @@
       vm.requestprod = itm;
     }
 
-    function response(item) {
+    function responsed(item) {
       if (item.transport) {
         var fix = confirm('มีการยอมรับรายการแล้ว');
       } else {
@@ -60,7 +60,7 @@
 
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
-
+        vm.requestorders = RequestordersService.query();
       }
 
       function errorCallback(res) {

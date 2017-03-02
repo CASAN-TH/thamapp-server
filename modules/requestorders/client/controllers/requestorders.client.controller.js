@@ -153,7 +153,10 @@
           district: deli.address.district,
           tel: deli.address.tel,
           email: deli.email,
-          sharelocation: deli.address.sharelocation
+          sharelocation: {
+            latitude: deli.address.sharelocation.latitude,
+            longitude: deli.address.sharelocation.longitude
+          }
         };
       } else if (!deli.sharelocation) {
         vm.requestorder.shipping = {
