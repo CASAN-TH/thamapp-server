@@ -36,6 +36,8 @@
     vm.selectCustomer = selectCustomer;
     vm.selectDeliver = selectDeliver;
     vm.selectTransport = selectTransport;
+    vm.reject = reject;
+    vm.newRequest = newRequest;
     vm.addHis = addHis;
     vm.readTransport = readTransport;
     // vm.updateDeliver = updateDeliver;
@@ -45,6 +47,33 @@
       vm.requestorder.items = vm.requestorder.items;
     } else {
       vm.requestorder.items = [];
+    }
+
+    function reject(item) {
+      var conf = confirm('ยกเลิกรายการ');
+      if (conf === true) {
+        if (item.deliverystatus === 'response') {
+          item.deliverystatus = 'reject';
+          vm.addHis(item);
+          vm.newRequest(item);
+        }
+      }
+    }
+
+    function newRequest(item) {
+      if (item.deliverystatus === 'reject') {
+        item.deliverystatus = 'request';
+        item.transport = null;
+        vm.addHis(item);
+      }
+      item.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('requestorders.list');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
     }
 
     function addQty(item) {
@@ -124,7 +153,7 @@
           district: deli.address.district,
           tel: deli.address.tel,
           email: deli.email,
-          sharelocation: deli.sharelocation
+          sharelocation: deli.address.sharelocation
         };
       } else if (!deli.sharelocation) {
         vm.requestorder.shipping = {
