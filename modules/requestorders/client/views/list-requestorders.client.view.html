@@ -130,11 +130,14 @@
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อผู้รับ</strong>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ที่อยู่ผู้รับ</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รายละเอียดสินค้า</strong>
+                          <strong>แก้ไข</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ยกเลิก</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>วันที่สั่งซื้อ</strong>
@@ -152,13 +155,16 @@
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="response.namedeliver.displayName"></p>
                       </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="response.namedeliver.address.address +' '+ response.namedeliver.address.district +' '+ response.namedeliver.address.subdistrict +' '+ response.namedeliver.address.province +' '+ response.namedeliver.address.postcode +' '+ '('+response.namedeliver.address.tel+')'"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <button type="button" class="btn btn-primary" ng-click="vm.update(response)"><span class="glyphicon glyphicon-edit"></span></button>
 
                         <!--<button type="button" class="btn btn-success" ng-click="vm.requestProduct(response)" data-toggle="modal" data-target="#requestProduct"><span class="glyphicon glyphicon-new-window"></span></button>-->
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <button type="button" class="btn btn-danger" ng-click="vm.reject(response)"><span class="glyphicon glyphicon-remove"></span></button>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <time am-time-ago="response.created"></time>

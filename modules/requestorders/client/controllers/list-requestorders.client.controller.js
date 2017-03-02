@@ -12,6 +12,47 @@
     vm.authentication = Authentication;
     vm.requestProduct = requestProduct;
     vm.requestorders = RequestordersService.query();
+    vm.reject = reject;
+    vm.addHis = addHis;
+    vm.newRequest = newRequest;
+
+    function reject(item) {
+      var conf = confirm('ยกเลิกรายการ');
+      if (conf === true) {
+        if (item.deliverystatus === 'response') {
+          item.deliverystatus = 'reject';
+          vm.addHis(item);
+          vm.newRequest(item);
+        }
+      }
+      console.log(item);
+    }
+
+    function newRequest(item) {
+      if (item.deliverystatus === 'reject') {
+        item.deliverystatus = 'request';
+        item.transport = null;
+        vm.addHis(item);
+      }
+      item.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+      console.log(item);
+    }
+
+    function addHis(item) {
+      item.historystatus.push({
+        status: item.deliverystatus,
+        datestatus: new Date()
+      });
+    }
+
+
 
     vm.remove = function (itm) {
       if ($window.confirm('คุณต้องการลบรายการนี้ ?')) {

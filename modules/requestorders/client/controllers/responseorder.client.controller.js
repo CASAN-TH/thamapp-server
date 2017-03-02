@@ -49,7 +49,7 @@
         var fix = confirm('มีการยอมรับรายการแล้ว');
       } else {
         var conf = confirm('ยอมรับรายการ');
-        if (conf) {
+        if (conf === true) {
           item.transport = vm.authentication.user;
           item.deliverystatus = 'response';
           vm.addHis(item);
