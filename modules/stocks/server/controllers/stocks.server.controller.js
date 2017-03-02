@@ -136,7 +136,7 @@ exports.list = function (req, res) {
                           product: itm.product,
                           income: itm.qty,
                           wip: 0,
-                          outcom: 0
+                          outcome: 0
                         };
                         stocks.push(stock);
                       });
@@ -149,7 +149,7 @@ exports.list = function (req, res) {
                           product: itm.product,
                           income: 0,
                           wip: itm.qty,
-                          outcom: 0
+                          outcome: 0
                         };
                         stocks.push(stock);
                       });
@@ -162,11 +162,12 @@ exports.list = function (req, res) {
                           product: itm.product,
                           income: 0,
                           wip: 0,
-                          outcom: itm.qty
+                          outcome: itm.qty
                         };
                         stocks.push(stock);
                       });
                     });
+                    var ret = [];
                     var result = _.chain(stocks)
                       .groupBy("namedeliver")
                       .pairs()
@@ -174,8 +175,41 @@ exports.list = function (req, res) {
                         return _.object(_.zip(["namedeliver", "stocks"], currentItem));
                       })
                       .value();
+                    var stks = [];
+                    result.forEach(function (stk) {
+                      var _stk = {
+                        namedeliver: stk.stocks[0].namedeliver,
+                        stocks: [],
 
-                    res.jsonp(result);
+                      };
+                      var prods = _.chain(stk.stocks)
+                      .groupBy("product")
+                      .pairs()
+                      .map(function (currentItem) {
+                        return _.object(_.zip(["product", "prodstocks"], currentItem));
+                      })
+                      .value();
+
+                      prods.forEach(function(prd){
+                        var pd = {
+                          product : prd.prodstocks[0].product,
+                          income: 0,
+                          wip:0,
+                          outcome:0
+                        };
+                        prd.prodstocks.forEach(function(vol){
+                          pd.income += vol.income;
+                          pd.wip += vol.wip;
+                          pd.outcome += vol.outcome;
+                        });
+                        _stk.stocks.push(pd);
+
+                      });
+                      
+                      ret.push(_stk);
+                    });
+
+                    res.jsonp(ret);
                   }
                 });
             }
