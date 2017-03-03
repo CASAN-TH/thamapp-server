@@ -69,7 +69,7 @@
     </div>
 
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="stock in vm.stocks | filter:topsearch">
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="stock in vm.stocks | filter:topsearch | orderBy:'namedeliver.displayName'">
     <div class="col-md-12">
       <div class="row form-group borderBT">
         <div class="col-xs-12 col-sm-12 col-md-12 marginB10">
