@@ -30,7 +30,7 @@
       </div>-->
     </h1>
   </div>
-  <div class="row">
+  <!--<div class="row">
     <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
       
     </div>
@@ -46,7 +46,7 @@
         <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
       </div>
     </div>
-  </div>
+  </div>-->
   <div class="row hidden-xs show-sm show-md show-lg">
     <div class="col-md-12">
       <div class="row form-group alert alert-success">
@@ -69,7 +69,7 @@
     </div>
 
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="stock in vm.stocks | filter:topsearch">
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="stock in  vm.stocks | filter:vm.liststock">
     <div class="col-md-12">
       <div class="row form-group borderBT">
         <div class="col-xs-12 col-sm-12 col-md-12 marginB10">

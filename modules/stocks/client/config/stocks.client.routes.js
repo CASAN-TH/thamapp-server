@@ -9,6 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('deliverstock', {
+        url: '/deliverstock',
+        templateUrl: 'modules/stocks/client/views/deliverstock.client.view.html',
+        controller: 'DeliverstockController',
+        controllerAs: 'vm'
+      })
       .state('stocks', {
         abstract: true,
         url: '/stocks',

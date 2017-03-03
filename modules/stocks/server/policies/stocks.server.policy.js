@@ -39,6 +39,15 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/stocks/:stockId',
       permissions: ['get']
     }]
+  },{
+    roles: ['deliver'],
+    allows: [{
+      resources: '/api/stocks',
+      permissions: ['get']
+    }, {
+      resources: '/api/stocks/:stockId',
+      permissions: ['get']
+    }]
   }]);
 };
 
