@@ -246,6 +246,7 @@
 
     function readProduct() {
       vm.products = ProductsService.query();
+      console.log(vm.products);
     }
     function readCustomer() {
       if (vm.authentication.user.roles[0] === 'admin') {
