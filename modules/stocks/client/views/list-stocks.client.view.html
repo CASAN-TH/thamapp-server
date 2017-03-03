@@ -1,4 +1,4 @@
-<section>
+<!--<section>
   <div class="page-header">
     <h1>Stocks</h1>
   </div>
@@ -19,4 +19,94 @@
   <div class="alert alert-warning text-center" ng-if="vm.stocks.$resolved && !vm.stocks.length">
     No Stocks yet, why don't you <a ui-sref="stocks.create">create one</a>?
   </div>
+</section>-->
+<section class="page-height" ng-init="vm.readProduct()">
+  <div class="page-header">
+    <h1>คลังสินค้า
+      <!--<div class="pull-right" ng-hide="!vm.authentication.user" ng-if="(vm.authentication.user.roles[0] == 'admin');">
+        <a class="btn btn-primary" ui-sref="stocks.create">
+          <span>Create</span>
+        </a>
+      </div>-->
+    </h1>
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-success">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <strong>ประเภทสินค้า</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>รับเข้า</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>ขายออก</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>จอง</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>คงเหลือ</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="stock in vm.stocks">
+    <div class="col-md-12">
+      <div class="row form-group borderBT">
+        <div class="col-xs-12 col-sm-12 col-md-12 marginB10">
+          <img src="{{stock.namedeliver.profileImageURL}}" class="img-circle" width="35px;">
+          <img width="15px;">
+          <label class="list-group-item-heading" ng-bind="stock.namedeliver.displayName"></label>
+          <span class="list-group-item-heading">{{stock.namedeliver.address.tel}}</span>
+        </div>
+
+        <div class="row form-group" ng-repeat="prod in stock.stocks">
+          <div class="col-xs-1 col-sm-1 col-md-1">
+            <span class="list-group-item-heading"></span>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <img src="{{prod.product.images}}" width="30px;">
+            <img width="10px;">
+            <span class="list-group-item-heading" ng-bind="prod.product.name"></span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <span class="list-group-item-heading" ng-bind="prod.income"></span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <span class="list-group-item-heading" ng-bind="prod.outcome"></span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <span class="list-group-item-heading" ng-bind="prod.wip"></span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip)}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!---->
+  <!--<div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="stock in vm.stocks">
+    <div class="col-md-12">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action">
+          <label>Product Id : </label> <label class="list-group-item-heading" ng-bind="stock.product.name"></label><br>
+          <label>Description : </label> <label class="list-group-item-heading" ng-bind="stock.description"></label><br>
+          <label>Discount ($) : </label> <label class="list-group-item-heading" ng-bind="stock.discount.fixbath"></label><br>
+          <label>Discount (%) : </label> <label class="list-group-item-heading" ng-bind="stock.discount.percen"></label><br>
+          <label>Free Product : </label> <label class="list-group-item-heading" ng-bind="stock.freeitem.product.name"></label>
+          <div class="row">
+            <div class="col-xs-10 text-right">
+              <button type="button" class="btn btn-primary" ng-click="vm.update(stock)"><span class="glyphicon glyphicon-edit"></span></button>
+            </div>
+            <div class="col-xs-1 text-right marLeft">
+              <button type="button" class="btn btn-danger" ng-click="vm.remove(stock)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>-->
 </section>
