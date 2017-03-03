@@ -142,7 +142,7 @@
 
     function selectDeliver(deli) {
       vm.deliver = deli;
-      if (deli.sharelocation) {
+      if (deli.address.sharelocation) {
         vm.requestorder.shipping = {
           firstname: deli.firstName,
           lastname: deli.lastName,
@@ -158,7 +158,7 @@
             longitude: deli.address.sharelocation.longitude
           }
         };
-      } else if (!deli.sharelocation) {
+      } else if (!deli.address.sharelocation) {
         vm.requestorder.shipping = {
           firstname: deli.firstName,
           lastname: deli.lastName,
