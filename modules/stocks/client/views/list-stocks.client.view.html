@@ -79,7 +79,7 @@
           <span class="list-group-item-heading">{{stock.namedeliver.address.tel}}</span>
         </div>
 
-        <div class="row form-group" ng-repeat="prod in stock.stocks | filter:topsearch">
+        <div class="row form-group" ng-repeat="prod in stock.stocks | filter:topsearch | orderBy:'product.name'">
           <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading"></span>
           </div>
