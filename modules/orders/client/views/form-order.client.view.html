@@ -103,20 +103,23 @@
                         </div>
                         <div class=" col-xs-4 col-sm-4 col-md-4  margin-top6px" ng-show="!vm.order._id" align="center">
                             <div class="input-group">
-                                <span>
-                                        <button ng-click="vm.removeQty(product);" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
-                                            <span class="glyphicon glyphicon-minus"></span>
+                                <span class="input-group-btn">
+                                <button ng-disabled="product.qty <= 0" ng-click="vm.removeQty(product);" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+                                    <span class="glyphicon glyphicon-minus"></span>
                                 </button>
                                 <!--<i class="fa fa-minus-square-o fa-2x" ng-click="vm.removeQty(product);" aria-hidden="true"></i>-->
                                 </span>
-                                <!--<input readonly type="text" name="quant[1]" class="form-control input-number" value="1" min="1" ng-model="product.qty">-->
-                                <label ng-bind="product.qty"> </label>
-                                <span>
-                                    <button ng-click="vm.addQty(product);" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                </button>
-                                <!--<i class="fa fa-plus-square-o fa-2x" ng-click="vm.addQty(product);" aria-hidden="true"></i>-->
-                                </span>
+                                <!--<input  type="text" name="quant[1]" class="form-control input-number" value="1" min="1" ng-model="product.qty">-->
+                                <!--<input  type="text" name="quant[1]"  class="form-control input-number" value="1" min="1" ng-model="product.qty">-->
+                                <input ng-keyup="vm.calculate(product)" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" name="quant[1]"
+                                    class="form-control" value="1" min="1" ng-model="product.qty">
+                                    <!--<label ng-bind="product.qty"> </label>-->
+                                    <span class="input-group-btn">
+                                <button ng-click="vm.addQty(product);" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    </button>
+                                    <!--<i class="fa fa-plus-square-o fa-2x" ng-click="vm.addQty(product);" aria-hidden="true"></i>-->
+                                    </span>
                             </div>
                         </div>
                         <div class=" col-xs-4 col-sm-4 col-md-4 text-center" ng-show="vm.order._id">
@@ -152,20 +155,22 @@
                                     </div>
 
                                     <div class="row ">
-                                        <div class="col-xs-12 marginT10" ng-show="!vm.order._id">
+                                        <div class="col-xs-8 marginT10" ng-show="!vm.order._id">
                                             <div class="input-group">
-                                                <span>
-                                                        <button ng-click="vm.removeQty(product);" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
-                                                            <span class="glyphicon glyphicon-minus"></span>
+                                                <span class="input-group-btn">
+                    <button ng-disabled="product.qty <= 0" ng-click="vm.removeQty(product);" type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+                      <span class="glyphicon glyphicon-minus"></span>
                                                 </button>
                                                 </span>
                                                 <!--<input readonly type="text" name="quant[1]" class="form-control input-number text-center" value="1" min="1" ng-model="product.qty">-->
-                                                <label ng-bind="product.qty"> </label>
-                                                <span>
-                                                        <button ng-click="vm.addQty(product);" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
-                                                            <span class="glyphicon glyphicon-plus"></span>
-                                                </button>
-                                                </span>
+                                                <!--<label ng-bind="product.qty"> </label>-->
+                                                <input ng-keyup="vm.calculate(product)" onkeypress='return event.charCode >= 48 && event.charCode <= 57' type="text" name="quant[1]"
+                                                    class="form-control" value="1" min="1" ng-model="product.qty">
+                                                    <span class="input-group-btn">
+                   <button ng-click="vm.addQty(product);" type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                    <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                    </span>
                                             </div>
                                             <!--<label ng-click="vm.addQty(product);">
                                             <span class="fa fa-plus-square-o fa-2x slide-right" aria-hidden="true"></span>
@@ -174,6 +179,9 @@
                                             <label ng-click="vm.removeQty(product);">
                                             <span class="fa fa-minus-square-o fa-2x " aria-hidden="true"></span>
                                         </label>-->
+                                        </div>
+                                        <div class="col-xs-4">
+
                                         </div>
                                     </div>
                                     <div class="row marginT10">
