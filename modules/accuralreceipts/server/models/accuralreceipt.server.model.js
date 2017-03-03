@@ -33,6 +33,8 @@ var AccuralreceiptSchema = new Schema({
     }]
   },
   billamount: Number,
+  totalamount: Number,
+  adjustamount: Number,
   imgslip: String,
   arstatus: {
     type: String,
@@ -42,6 +44,14 @@ var AccuralreceiptSchema = new Schema({
     type: [{
       status: String,
       datestatus: Date
+    }]
+  },
+  adjustments: {
+    type: [{
+      paid: {
+        typepaid: String,
+        total: Number
+      }
     }]
   },
   created: {

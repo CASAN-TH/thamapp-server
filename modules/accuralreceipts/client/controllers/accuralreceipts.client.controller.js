@@ -24,7 +24,11 @@
     vm.listorders = [];
     vm.selectedOrder = selectedOrder;
     vm.removeItem = removeItem;
+    vm.removeadjust = removeadjust;
     vm.calculate = calculate;
+    vm.addPaid = addPaid;
+    vm.sum = 0;
+    vm.caladjust = caladjust;
     // vm.accuralreceipt.billamount = 0;
     vm.readOrder = readOrder;
     if (vm.accuralreceipt.namedeliver) {
@@ -38,13 +42,14 @@
       vm.accuralreceipt.items = [];
     }
 
-
     // Remove existing Accuralreceipt
     function init() {
       vm.readOrder();
       vm.readDeliver();
       if (!vm.accuralreceipt._id) {
         vm.accuralreceipt.billamount = 0;
+        vm.accuralreceipt.totalamount = 0;
+        vm.accuralreceipt.adjustamount = 0;
         vm.accuralreceipt.docdate = new Date();
         vm.accuralreceipt.docno = (+ new Date());
 
@@ -53,13 +58,41 @@
           status: 'wait for review',
           datestatus: new Date()
         }];
+        vm.accuralreceipt.adjustments = [];
 
       } else if (vm.accuralreceipt._id) {
         vm.accuralreceipt.docdate = new Date(vm.accuralreceipt.docdate);
+        vm.accuralreceipt.adjustments = vm.accuralreceipt.adjustments;
       }
 
     }
+    function addPaid() {
+      vm.accuralreceipt.adjustments.push({
+        paid: {
+          typepaid: '',
+          total: 0
+        }
+      });
 
+      // vm.sumadjust(vm.accuralreceipt.adjustments);
+    }
+    // function sumadjust(item) {
+    //   item.forEach(function(amount){
+    //     console.log(amount);
+    //   });
+    //   // vm.sum += item.paid.total;
+    //   // vm.accuralreceipt.adjustamount = vm.sum;
+    //   // vm.accuralreceipt.adjustments.totalamount = vm.accuralreceipt.billamount - vm.accuralreceipt.adjustamount;
+    // }
+    function caladjust() {
+      var sum = 0;
+      vm.accuralreceipt.adjustments.forEach(function (adjust) {
+        sum += adjust.paid.total;
+      });
+      vm.accuralreceipt.adjustamount = sum;
+      vm.accuralreceipt.totalamount = vm.accuralreceipt.billamount - vm.accuralreceipt.adjustamount;
+
+    }
     function readOrder(deliver) {
       if (vm.accuralreceipt._id) {
         vm.listorders = [];
@@ -93,19 +126,21 @@
     }
 
     function calculate(orders) {
+      console.log(vm.accuralreceipt.adjustments);
       vm.accuralreceipt.billamount = 0;
       orders.forEach(function (order) {
-         order.items.forEach(function(itm){
-           vm.accuralreceipt.billamount += itm.product.retailerprice * itm.qty;
-         });
+        order.items.forEach(function (itm) {
+          vm.accuralreceipt.billamount += itm.product.retailerprice * itm.qty;
+        });
         //vm.accuralreceipt.billamount += order.totalamount;
         // console.log(order);
       });
+      vm.accuralreceipt.totalamount = vm.accuralreceipt.billamount - vm.accuralreceipt.adjustamount;
     }
 
     function selectedOrder(ord) {
       vm.status = '';
-     if (vm.accuralreceipt.items.length > 0) {
+      if (vm.accuralreceipt.items.length > 0) {
         vm.accuralreceipt.items.forEach(function (list) {
           if (list._id === ord._id) {
             vm.status = 'have';
@@ -113,7 +148,7 @@
         });
 
       }
-      
+
       if (vm.status === '' || vm.status !== 'have') {
         vm.accuralreceipt.items.push(ord);
       } else {
@@ -121,9 +156,6 @@
       }
       vm.calculate(vm.accuralreceipt.items);
     }
-
-
-
     function selectDeliver(deli) {
       vm.accuralreceipt.items = [];
       vm.deliver = deli;
@@ -135,6 +167,11 @@
     function removeItem(item) {
       vm.accuralreceipt.items.splice(item, 1);
       vm.calculate(vm.accuralreceipt.items);
+    }
+
+    function removeadjust(item) {
+      vm.accuralreceipt.adjustments.splice(item, 1);
+      vm.caladjust();
     }
 
     function readDeliver() {
@@ -167,6 +204,7 @@
       if (vm.accuralreceipt._id) {
         vm.accuralreceipt.$update(successCallback, errorCallback);
       } else {
+        console.log(vm.accuralreceipt);
         vm.accuralreceipt.$save(successCallback, errorCallback);
       }
 

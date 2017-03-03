@@ -203,8 +203,9 @@
 
             </div>
           </div>
-          
-          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse" data-target="#{{order._id}}">
+
+          <div class="borderBT row form-group hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.accuralreceipt.items" data-toggle="collapse"
+            data-target="#{{order._id}}">
             <div ng-show="!vm.accuralreceipt._id" class="row form-group hidden-xs show-sm show-md show-lg">
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
@@ -436,12 +437,60 @@
             </div>
             <div class="row form-group">
               <div class="col-xs-9">
-                <strong>รวมสุทธิ</strong>
+                <strong>รวม</strong>
               </div>
               <div class="col-xs-3 textRight">
                 <label>{{vm.accuralreceipt.billamount | number:2}}</label>
               </div>
             </div>
+            <div ng-show="vm.accuralreceipt.items.length > 0" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
+              <div class="col-md-5">
+                <select class="form-control" ng-model="ar.paid.typepaid">
+                  <option value="รับเงินล่วงหน้า">รับเงินล่วงหน้า</option>
+                  <option value="ค่าใช้จ่ายในการขาย">ค่าใช้จ่ายในการขาย</option>
+                </select>
+              </div>
+              <div class="col-md-5">
+                <input type="number" ng-change="vm.caladjust()" class="form-control textRight" ng-model="ar.paid.total">
+              </div>
+              <div class="col-md-2">
+                <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+            </div>
+            <div ng-show="vm.accuralreceipt.items.length > 0" class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review'">
+              <div class="col-md-12 form-group">
+                <button type="button" class="btn btn-success btn-outline btn-block" ng-click="vm.addPaid()">เพิ่มรายการปรับปรุง</button>
+              </div>
+            </div>
+            
+
+            <div class="row form-group">
+              <div class="col-md-6">
+                <label>รวมรายการปรับปรุง</label>
+              </div>
+
+              <div class="col-md-6 textRight">
+                <p ng-bind="vm.accuralreceipt.adjustamount || 0"></p>
+              </div>
+            </div>
+             <div class="row form-group">
+              <div class="col-md-6">
+                <label>รวมสุทธิ</label>
+              </div>
+
+              <div class="col-md-6 textRight">
+                <p ng-bind="vm.accuralreceipt.totalamount || 0"></p>
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
             <div class="row form-group" ng-show="vm.accuralreceipt.delivery.deliveryid === '0' && (vm.authentication.user.roles[0] !== 'deliver'&& vm.accuralreceipt.deliverystatus!='cancel')">
               <div class="col-xs-5 show-xs hidden-sm hidden-md hidden-lg">
                 <div class="row ">
