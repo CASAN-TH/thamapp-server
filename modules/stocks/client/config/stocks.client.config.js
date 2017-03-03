@@ -13,7 +13,7 @@
       title: 'คลังสินค้า',
       state: 'stocks',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['admin']
     });
 
     // Add the dropdown list item

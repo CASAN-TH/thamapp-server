@@ -1,21 +1,20 @@
-(function() {
+(function () {
   'use strict';
 
   angular
     .module('stocks')
     .controller('DeliverstockController', DeliverstockController);
 
-  DeliverstockController.$inject = ['$scope'];
+  DeliverstockController.$inject = ['$scope', 'StocksService', 'Authentication'];
 
-  function DeliverstockController($scope) {
+  function DeliverstockController($scope, StocksService, Authentication) {
     var vm = this;
-
-    // Deliverstock controller logic
-    // ...
-
-    init();
-
-    function init() {
-    }
+    vm.authentication = Authentication;
+    vm.stocks = StocksService.query();
+    vm.liststock = function(stock){
+      if(vm.authentication.user._id === stock.namedeliver._id){
+        return true;
+      }
+    };
   }
 })();

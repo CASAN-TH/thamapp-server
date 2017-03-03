@@ -20,7 +20,7 @@
     No Stocks yet, why don't you <a ui-sref="stocks.create">create one</a>?
   </div>
 </section>-->
-<section class="page-height" ng-init="vm.readProduct()">
+<section class="page-height">
   <div class="page-header">
     <h1>คลังสินค้า
       <!--<div class="pull-right" ng-hide="!vm.authentication.user" ng-if="(vm.authentication.user.roles[0] == 'admin');">
@@ -79,7 +79,7 @@
           <span class="list-group-item-heading">{{stock.namedeliver.address.tel}}</span>
         </div>
 
-        <div class="row form-group" ng-repeat="prod in stock.stocks | filter:topsearch | orderBy:'product.name'">
+        <div class="row form-group" ng-repeat="prod in stock.stocks | orderBy:'product.name'">
           <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading"></span>
           </div>
