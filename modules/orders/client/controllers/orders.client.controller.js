@@ -298,6 +298,7 @@
       vm.order.totalamount = 0;
       angular.forEach(items, function (prod) {
         prod.amount = prod.product.price * prod.qty;
+        prod.retailerprice = prod.product.retailerprice;
         //vm.order.amount = prod.amount;
         vm.order.totalamount += prod.amount;
       });
