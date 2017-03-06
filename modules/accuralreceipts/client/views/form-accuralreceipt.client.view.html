@@ -357,12 +357,12 @@
           </div>
           <!--list Product-->
           <div class="row form-group show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
-            <div class="col-xs-12" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+            <div class="col-xs-12 form-group" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myOrder">เพิ่มออเดอร์</button>
             </div>
           </div>
           <div class="row form-group  hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
-            <div class="col-sm-12 col-md-12" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+            <div class="col-sm-12 col-md-12 form-group" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myOrder">เพิ่มออเดอร์</button>
             </div>
           </div>
@@ -465,7 +465,7 @@
                 <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
-            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review'" class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review'">
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review'" class="row form-group">
               <div class="col-md-12 form-group">
                 <button type="button" class="btn btn-success btn-outline btn-block" ng-click="vm.addPaid()">เพิ่มรายการปรับปรุง</button>
               </div>
