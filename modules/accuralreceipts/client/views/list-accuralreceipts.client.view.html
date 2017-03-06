@@ -112,7 +112,7 @@
                           <p class="list-group-item-heading dotpy" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
-                          <p class="list-group-item-heading" ng-bind="data.billamount"></p>
+                          <p class="list-group-item-heading" ng-bind="data.totalamount"></p>
                         </div>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -169,65 +169,114 @@
                         <p class="list-group-item-heading dotpyRank" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
-                        <p class="list-group-item-heading" ng-bind="data.billamount"></p>
+                        <p class="list-group-item-heading" ng-bind="data.totalamount"></p>
                       </div>
                       <div class="col-xs-3 col-sm-3 col-md-3">
                         <time am-time-ago="data.created"></time>
                       </div>
                     </div>
                   </div>
+                </div>
               </div>
-            </div>
-            <div class="tab-pane" id="confirmed">
-              <div class="row">
-                <div class="col-md-12">
+              <div class="tab-pane" id="confirmed">
+                <div class="row">
                   <div class="col-md-12">
-                    <div class="row form-group alert alert-info">
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>รหัสใบแจ้งหนี้</strong>
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งหนี้</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อคนส่งข้าว</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>ที่อยู่</strong>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <strong>รวม</strong>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <strong>รับเงิน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>วันที่สร้าง</strong>
+                        </div>
                       </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>ชื่อคนส่งข้าว</strong>
-                      </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <strong>ที่อยู่</strong>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.confirmed as confirmed">
+                  <div class="col-md-12">
+
+                    <div class="row form-group">
+                      <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="data.docno"></p>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <p class="list-group-item-heading dotpyForm" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <p class="list-group-item-heading" ng-bind="data.totalamount"></p>
+                        </div>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
-                        <strong>รวม</strong>
+                        <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitreceipt(data)"><span class="glyphicon glyphicon-check"></span></button>
                       </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <strong>รับเงิน</strong>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>วันที่สร้าง</strong>
+                      <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <time am-time-ago="data.created"></time>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'confirmed'} as confirmed">
-                <div class="col-md-12">
+              <div class="tab-pane" id="receipt">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="col-md-12">
+                      <div class="row form-group alert alert-info">
 
-                  <div class="row form-group">
-                    <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งหนี้</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อคนส่งข้าว</strong>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                          <strong>ที่อยู่</strong>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <strong>รวม</strong>
+                        </div>
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>วันที่สร้าง</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'receipt'} as receipt"
+                  ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                  <div class="col-md-12">
+                    <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="data.docno"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
                       </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <p class="list-group-item-heading dotpyForm" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
+                      <div class="col-xs-4 col-sm-4 col-md-4">
+                        <p class="list-group-item-heading dotpyRank" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
-                        <p class="list-group-item-heading" ng-bind="data.billamount"></p>
+                        <p class="list-group-item-heading" ng-bind="data.totalamount"></p>
                       </div>
-                    </div>
-                    <div class="col-xs-1 col-sm-1 col-md-1">
-                      <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitreceipt(data)"><span class="glyphicon glyphicon-check"></span></button>
-                    </div>
-                    <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-                      <div class="col-xs-2 col-sm-2 col-md-2">
+                      <div class="col-xs-3 col-sm-3 col-md-3">
                         <time am-time-ago="data.created"></time>
                       </div>
                     </div>
@@ -235,157 +284,108 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane" id="receipt">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="col-md-12">
-                    <div class="row form-group alert alert-info">
+          </div>
 
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>รหัสใบแจ้งหนี้</strong>
+          <div class="row show-xs show-sm hidden-md hidden-lg">
+            <div class="tab-content">
+              <div class="tab-pane active" id="waitreviewmb">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for review'} as waitreview">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
+                        </div>
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
+                        </div>
+                        <div>
+                          <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
+                        </div>
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.totalamount"></label>
+                        </div>
                       </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>ชื่อคนส่งข้าว</strong>
+                      <div class="list-group-item-heading textRight">
+                        <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitreview(data)"><span class="glyphicon glyphicon-check"></span></button>
+                        <button type="button" class="btn btn-danger" ng-click="vm.remove(data)"><span class="glyphicon glyphicon-trash"></span></button>
                       </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4">
-                        <strong>ที่อยู่</strong>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <strong>รวม</strong>
-                      </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <strong>วันที่สร้าง</strong>
-                      </div>
-                    </div>
+                    </a>
                   </div>
                 </div>
               </div>
-              <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'receipt'} as receipt"
-                ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-                <div class="col-md-12">
-                  <div class="row form-group">
-                    <div class="col-xs-2 col-sm-2 col-md-2">
-                      <p class="list-group-item-heading" ng-bind="data.docno"></p>
-                    </div>
-                    <div class="col-xs-2 col-sm-2 col-md-2">
-                      <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
-                    </div>
-                    <div class="col-xs-4 col-sm-4 col-md-4">
-                      <p class="list-group-item-heading dotpyRank" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
-                    </div>
-                    <div class="col-xs-1 col-sm-1 col-md-1">
-                      <p class="list-group-item-heading" ng-bind="data.billamount"></p>
-                    </div>
-                    <div class="col-xs-3 col-sm-3 col-md-3">
-                      <time am-time-ago="data.created"></time>
-                    </div>
+              <div class="tab-pane" id="waitconfirmedmb">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for confirmed'} as waitconfirmed"
+                  ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
+                      </div>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.totalamount"></label>
+                      </div>
+                    </a>
                   </div>
                 </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row show-xs show-sm hidden-md hidden-lg">
-        <div class="tab-content">
-          <div class="tab-pane active" id="waitreviewmb">
-            <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for review'} as waitreview">
-              <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">
-                  <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-                    <div>
-                      <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
-                    </div>
-                    <div>
-                      <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
-                    </div>
-                    <div>
-                      <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
-                    </div>
-                    <div>
-                      <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.billamount"></label>
-                    </div>
+              </div>
+              <div class="tab-pane" id="confirmedmb">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.confirmed as confirmed">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
+                        </div>
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
+                        </div>
+                        <div>
+                          <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
+                        </div>
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.totalamount"></label>
+                        </div>
+                      </div>
+                      <div class="list-group-item-heading textRight">
+                        <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitreceipt(data)"><span class="glyphicon glyphicon-check"></span></button>
+                      </div>
+                    </a>
                   </div>
-                  <div class="list-group-item-heading textRight">
-                    <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitreview(data)"><span class="glyphicon glyphicon-check"></span></button>
-                    <button type="button" class="btn btn-danger" ng-click="vm.remove(data)"><span class="glyphicon glyphicon-trash"></span></button>
+                </div>
+              </div>
+              <div class="tab-pane" id="receiptmb">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'receipt'} as receipt"
+                  ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
+                      </div>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.totalamount"></label>
+                      </div>
+                    </a>
                   </div>
-                </a>
+                </div>
               </div>
             </div>
           </div>
-          <div class="tab-pane" id="waitconfirmedmb">
-            <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for confirmed'} as waitconfirmed"
-              ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-              <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">
-                  <div>
-                    <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
-                  </div>
-                  <div>
-                    <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
-                  </div>
-                  <div>
-                    <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
-                  </div>
-                  <div>
-                    <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.billamount"></label>
-                  </div>
-                </a>
-              </div>
-          </div>
-        </div>
-        <div class="tab-pane" id="confirmedmb">
-          <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'confirmed'} as confirmed">
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action">
-                <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-                  <div>
-                    <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
-                  </div>
-                  <div>
-                    <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
-                  </div>
-                  <div>
-                    <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
-                  </div>
-                  <div>
-                    <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.billamount"></label>
-                  </div>
-                </div>
-                <div class="list-group-item-heading textRight">
-                  <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitreceipt(data)"><span class="glyphicon glyphicon-check"></span></button>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane" id="receiptmb">
-          <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'receipt'} as receipt"
-            ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-            <div class="list-group">
-              <a href="#" class="list-group-item list-group-item-action">
-                <div>
-                  <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
-                </div>
-                <div>
-                  <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
-                </div>
-                <div>
-                  <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
-                </div>
-                <div>
-                  <label class="list-group-item-heading" ng-bind="'รวม'+ ' ' + data.billamount"></label>
-                </div>
-              </a>
-            </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
-  </div>
   </div>
 
   <!--<div class="container">

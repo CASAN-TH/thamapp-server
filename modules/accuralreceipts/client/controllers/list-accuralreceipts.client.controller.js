@@ -27,6 +27,14 @@
       }
     };
 
+    vm.confirmed = function (data) {
+      if (vm.authentication.user.roles[0] === 'admin') {
+        if (data.arstatus === 'confirmed') {
+          return true;
+        }
+      }
+    };
+
     function addHis(data) {
       data.historystatus.push({
         status: data.arstatus,

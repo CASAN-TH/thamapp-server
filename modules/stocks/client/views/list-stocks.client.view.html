@@ -1,25 +1,3 @@
-<!--<section>
-  <div class="page-header">
-    <h1>Stocks</h1>
-  </div>
-  <div class="list-group">
-    <a ng-repeat="stock in vm.stocks"
-       ui-sref="stocks.view({ stockId: stock._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="stock.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="stock.user" ng-bind="stock.user.displayName"></span>
-        <span ng-if="!stock.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="stock.name"></h4>
-    </a>
-  </div>
-  <div class="alert alert-warning text-center" ng-if="vm.stocks.$resolved && !vm.stocks.length">
-    No Stocks yet, why don't you <a ui-sref="stocks.create">create one</a>?
-  </div>
-</section>-->
 <section class="page-height">
   <div class="page-header">
     <h1>คลังสินค้า
@@ -32,7 +10,7 @@
   </div>
   <div class="row">
     <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
-      
+
     </div>
     <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
       <div class="input-group input-group-sm">
@@ -105,25 +83,37 @@
     </div>
   </div>
   <!---->
-  <!--<div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="stock in vm.stocks">
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="stock in vm.stocks | filter:topsearch | orderBy:'namedeliver.displayName'">
     <div class="col-md-12">
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action">
-          <label>Product Id : </label> <label class="list-group-item-heading" ng-bind="stock.product.name"></label><br>
-          <label>Description : </label> <label class="list-group-item-heading" ng-bind="stock.description"></label><br>
-          <label>Discount ($) : </label> <label class="list-group-item-heading" ng-bind="stock.discount.fixbath"></label><br>
-          <label>Discount (%) : </label> <label class="list-group-item-heading" ng-bind="stock.discount.percen"></label><br>
-          <label>Free Product : </label> <label class="list-group-item-heading" ng-bind="stock.freeitem.product.name"></label>
-          <div class="row">
-            <div class="col-xs-10 text-right">
-              <button type="button" class="btn btn-primary" ng-click="vm.update(stock)"><span class="glyphicon glyphicon-edit"></span></button>
+          <div>
+            <img src="{{stock.namedeliver.profileImageURL}}" class="img-circle" width="35px;">
+            <img width="15px;">
+            <label class="list-group-item-heading" ng-bind="stock.namedeliver.displayName"></label>
+            <!--<img width="45px;">
+            <span class="list-group-item-heading">({{stock.namedeliver.address.tel}})</span>-->
+          </div>
+
+          <div class="row marginT10" ng-repeat="prod in stock.stocks | orderBy:'product.name'">
+            <div class="col-xs-4 col-sm-4 col-md-4">
+              <span class="list-group-item-heading" ng-bind="prod.product.name"></span>
             </div>
-            <div class="col-xs-1 text-right marLeft">
-              <button type="button" class="btn btn-danger" ng-click="vm.remove(stock)"><span class="glyphicon glyphicon-trash"></span></button>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <span class="list-group-item-heading" ng-bind="prod.income"></span>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <span class="list-group-item-heading" ng-bind="prod.outcome"></span>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <span class="list-group-item-heading" ng-bind="prod.wip"></span>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2">
+              <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip)}}</span>
             </div>
           </div>
         </a>
       </div>
     </div>
-  </div>-->
+  </div>
 </section>

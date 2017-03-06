@@ -443,7 +443,15 @@
                 <label>{{vm.accuralreceipt.billamount | number:2}}</label>
               </div>
             </div>
-            <div ng-show="vm.accuralreceipt.items.length > 0" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
+            <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id">
+              <div class="col-xs-9">
+                <label>{{ar.paid.typepaid}}</label> 
+              </div>
+              <div class="col-xs-3 textRight">
+                <label>{{ar.paid.total | number:2}}</label>
+              </div>
+            </div>
+            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review'" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
               <div class="col-md-5">
                 <select class="form-control" ng-model="ar.paid.typepaid">
                   <option value="รับเงินล่วงหน้า">รับเงินล่วงหน้า</option>
@@ -457,7 +465,7 @@
                 <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
-            <div ng-show="vm.accuralreceipt.items.length > 0" class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review'">
+            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review'" class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review'">
               <div class="col-md-12 form-group">
                 <button type="button" class="btn btn-success btn-outline btn-block" ng-click="vm.addPaid()">เพิ่มรายการปรับปรุง</button>
               </div>
@@ -470,7 +478,7 @@
               </div>
 
               <div class="col-md-6 textRight">
-                <p ng-bind="vm.accuralreceipt.adjustamount || 0"></p>
+                <label ng-bind="vm.accuralreceipt.adjustamount  | number:2 || 0"></label>
               </div>
             </div>
              <div class="row form-group">
@@ -479,7 +487,7 @@
               </div>
 
               <div class="col-md-6 textRight">
-                <p ng-bind="vm.accuralreceipt.totalamount || 0"></p>
+                <label ng-bind="vm.accuralreceipt.totalamount  | number:2 || 0"></label>
               </div>
             </div>
 
