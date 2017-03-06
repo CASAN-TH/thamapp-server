@@ -20,6 +20,7 @@
       }
 
       function successCallback(res) {
+        vm.accuralreceipts = AccuralreceiptsService.query();
       }
 
       function errorCallback(res) {
