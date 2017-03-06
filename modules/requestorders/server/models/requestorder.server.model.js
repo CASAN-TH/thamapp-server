@@ -35,6 +35,10 @@ var RequestorderSchema = new Schema({
       },
       price: Number,
       qty: Number,
+      retailerprice: {
+        type: Number,
+        default: 0
+      },
       amount: Number,
       deliverycost: Number,
       discountamount: Number
@@ -98,7 +102,7 @@ var RequestorderSchema = new Schema({
       datestatus: Date
     }]
   },
-  transport:{
+  transport: {
     type: Schema.ObjectId,
     ref: 'User'
   },
