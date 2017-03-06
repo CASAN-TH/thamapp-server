@@ -173,7 +173,7 @@ function sendNewOrder() {
               notification: {
                 message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ' + orders.length + ' รายการ',
                 ios: { badge: orders.length, sound: 'default' },
-                android: { badge: orders.length, sound: 'default' }
+                android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -229,7 +229,8 @@ function sendNewDeliver(deliver) {
                   notification: {
                     message: 'คุณมีรายการส่งข้าวใหม่ ' + orders.length + ' รายการ',
                     ios: { badge: orders.length, sound: 'default' },
-                    android: { badge: orders.length, sound: 'default' }
+                    android: { data: { badge: orders.length } }
+                    // android: { badge: orders.length, sound: 'default' }
                   }
                 }
               }, function (error, response, body) {
@@ -285,7 +286,8 @@ function sendCompleteDeliver(deliver) {
                   notification: {
                     message: 'คุณมีรายการค้างส่งข้าวคงเหลือ ' + orders.length + ' รายการ',
                     ios: { badge: orders.length, sound: 'default' },
-                    android: { badge: orders.length, sound: 'default' }
+                    android: { data: { badge: orders.length } }
+                    // android: { badge: orders.length, sound: 'default' }
                   }
                 }
               }, function (error, response, body) {
