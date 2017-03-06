@@ -94,8 +94,10 @@
     function selectProduct(item) {
       vm.requestorder.items.push({
         product: item,
-        qty: 1
+        qty: 1,
+        retailerprice: item.retailerprice
       });
+      console.log(item);
       sumary(vm.requestorder.items);
     }
 
@@ -215,7 +217,8 @@
 
     function calculate(item) {
       item.qty = item.qty;
-      item.amount = item.product.retailerprice * item.qty;
+      item.retailerprice = item.product.retailerprice;
+      item.amount = item.retailerprice * item.qty;
 
       sumary(vm.requestorder.items);
     }
@@ -223,7 +226,7 @@
     function sumary(items) {
       vm.requestorder.totalamount = 0;
       angular.forEach(items, function (prod) {
-        prod.amount = prod.product.retailerprice * prod.qty;
+        prod.amount = prod.retailerprice * prod.qty;
         //vm.order.amount = prod.amount;
         vm.requestorder.totalamount += prod.amount;
       });
