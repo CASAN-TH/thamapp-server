@@ -20,10 +20,19 @@
       }
 
       function successCallback(res) {
+        vm.accuralreceipts = AccuralreceiptsService.query();
       }
 
       function errorCallback(res) {
         vm.error = res.data.message;
+      }
+    };
+
+    vm.confirmed = function (data) {
+      if (vm.authentication.user.roles[0] === 'admin') {
+        if (data.arstatus === 'confirmed') {
+          return true;
+        }
       }
     };
 
