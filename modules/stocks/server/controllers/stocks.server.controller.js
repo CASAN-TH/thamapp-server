@@ -119,7 +119,7 @@ exports.list = function (req, res) {
               });
             } else {
               Requestorder.find().sort('-created')
-                .where("deliverystatus").equals("received")
+                .where('deliverystatus').equals('received')
                 .populate('items.product')
                 .populate('namedeliver')
                 .exec(function (err, incomes) {
@@ -169,10 +169,10 @@ exports.list = function (req, res) {
                     });
                     var ret = [];
                     var result = _.chain(stocks)
-                      .groupBy("namedeliver")
+                      .groupBy('namedeliver')
                       .pairs()
                       .map(function (currentItem) {
-                        return _.object(_.zip(["namedeliver", "stocks"], currentItem));
+                        return _.object(_.zip(['namedeliver', 'stocks'], currentItem));
                       })
                       .value();
                     var stks = [];
@@ -183,10 +183,10 @@ exports.list = function (req, res) {
 
                       };
                       var prods = _.chain(stk.stocks)
-                      .groupBy("product")
+                      .groupBy('product')
                       .pairs()
                       .map(function (currentItem) {
-                        return _.object(_.zip(["product", "prodstocks"], currentItem));
+                        return _.object(_.zip(['product', 'prodstocks'], currentItem));
                       })
                       .value();
 

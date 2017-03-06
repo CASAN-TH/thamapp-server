@@ -110,7 +110,7 @@
 
 
         // Run controller functionality
-        $scope.vm.response($scope.vm.requestorders);
+        $scope.vm.responsed($scope.vm.requestorders);
         expect($scope.vm.requestorders.deliverystatus).toEqual('response');
         expect($scope.vm.requestorders.historystatus[0].status).toEqual('response');
         $scope.vm.addHis($scope.vm.requestorders);
