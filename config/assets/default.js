@@ -25,7 +25,9 @@ module.exports = {
         'public/lib/bootstrap/dist/js/bootstrap.min.js',
         'public/lib/moment/moment.js',
         'public/lib/moment/locale/th.js',
-        'public/lib/angular-moment/angular-moment.js'
+        'public/lib/angular-moment/angular-moment.js',
+        'public/lib/jspdf/dist/jspdf.min.js',
+        'public/lib/html2canvas/build/html2canvas.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

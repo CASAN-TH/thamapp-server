@@ -43,11 +43,15 @@
     // vm.updateDeliver = updateDeliver;
     vm.addQty = addQty;
     vm.removeQty = removeQty;
+    // vm.exportPdf = exportPdf;
     if (vm.requestorder.items) {
       vm.requestorder.items = vm.requestorder.items;
     } else {
       vm.requestorder.items = [];
     }
+    // function exportPdf() {
+      
+    // }
 
     function reject(item) {
       var conf = confirm('ยกเลิกรายการ');
