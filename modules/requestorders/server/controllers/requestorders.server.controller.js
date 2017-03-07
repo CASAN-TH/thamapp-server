@@ -28,8 +28,10 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      //admin,transporter
+      //admin,transporter and deliver pushnotification
       sendReqAllTransporter();
+      sendReqAllTransporter();
+      sendReqDeliver(requestorder);
       res.jsonp(requestorder);
     }
   });
@@ -64,7 +66,16 @@ exports.update = function (req, res) {
       });
     } else {
       if (requestorder.deliverystatus === 'request') {
+        //admin,transporter and deliver pushnotification
         sendReqAllTransporter();
+        sendReqAllTransporter();
+        sendReqDeliver(requestorder);
+      } else if (requestorder.deliverystatus === 'response') {
+        sendResAllAdmin(requestorder);
+        sendResDeliver(requestorder);
+      }else if(requestorder.deliverystatus === 'received'){
+        sendRecAllAdmin(requestorder);
+        sendRecSingleTransporter(requestorder);
       }
       res.jsonp(requestorder);
     }
@@ -191,7 +202,44 @@ function sendResAllAdmin(reqorder) {
           tokens: admtokens,
           profile: pushNotiAuthenADM.profile,
           notification: {
-            message: 'รายการ ' + reqorder.docno + ' ถูกเลือกโดย '+ reqorder.transport.displayName,
+            message: 'รายการ ' + reqorder.docno + ' ถูกเลือกโดย ' + reqorder.transport.displayName,
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+}
+
+function sendRecAllAdmin(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+    if (err) {
+
+    } else {
+      var admtokens = [];
+      admins.forEach(function (admin) {
+        admtokens.push(admin.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenADM.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: admtokens,
+          profile: pushNotiAuthenADM.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
             ios: { badge: 1, sound: 'default' },
             android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
@@ -246,6 +294,126 @@ function sendReqAllTransporter() {
           });
         }
       });
+    }
+  });
+
+
+}
+
+function sendRecSingleTransporter(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('transporter').exec(function (err, trans) {
+    if (err) {
+
+    } else {
+      if (trans.user._id === reqorder.transport._id) {
+        var trntokens = [];
+        trans.forEach(function (transporter) {
+          trntokens.push(transporter.device_token);
+        });
+
+        request({
+          url: pushNotiUrl,
+          auth: {
+            'bearer': pushNotiAuthenTRA.auth
+          },
+          method: 'POST',
+          json: {
+            tokens: trntokens,
+            profile: pushNotiAuthenTRA.profile,
+            notification: {
+              message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
+              ios: { badge: 1, sound: 'default' },
+              android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            }
+          }
+        }, function (error, response, body) {
+          if (error) {
+            console.log('Error sending messages: ', error);
+          } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+          }
+        });
+      }
+    }
+  });
+
+
+}
+
+function sendReqDeliver(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, trans) {
+    if (err) {
+
+    } else {
+      if (trans.user._id === reqorder.namedeliver._id) {
+        var trntokens = [];
+        trans.forEach(function (transporter) {
+          trntokens.push(transporter.device_token);
+        });
+
+        request({
+          url: pushNotiUrl,
+          auth: {
+            'bearer': pushNotiAuthenDEL.auth
+          },
+          method: 'POST',
+          json: {
+            tokens: trntokens,
+            profile: pushNotiAuthenDEL.profile,
+            notification: {
+              message: 'คุณมีรายการรับข้าวใหม่ ' + reqorder.docno,
+              ios: { badge: 1, sound: 'default' },
+              android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            }
+          }
+        }, function (error, response, body) {
+          if (error) {
+            console.log('Error sending messages: ', error);
+          } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+          }
+        });
+      }
+    }
+  });
+
+
+}
+
+function sendResDeliver(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, trans) {
+    if (err) {
+
+    } else {
+      if (trans.user._id === reqorder.namedeliver._id) {
+        var trntokens = [];
+        trans.forEach(function (transporter) {
+          trntokens.push(transporter.device_token);
+        });
+
+        request({
+          url: pushNotiUrl,
+          auth: {
+            'bearer': pushNotiAuthenDEL.auth
+          },
+          method: 'POST',
+          json: {
+            tokens: trntokens,
+            profile: pushNotiAuthenDEL.profile,
+            notification: {
+              message: 'รายการ ' + reqorder.docno + ' จัดส่งโดย' + reqorder.transport.displayName,
+              ios: { badge: 1, sound: 'default' },
+              android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            }
+          }
+        }, function (error, response, body) {
+          if (error) {
+            console.log('Error sending messages: ', error);
+          } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+          }
+        });
+      }
     }
   });
 
