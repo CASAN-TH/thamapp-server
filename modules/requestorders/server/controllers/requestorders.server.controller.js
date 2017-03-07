@@ -73,7 +73,7 @@ exports.update = function (req, res) {
       } else if (requestorder.deliverystatus === 'response') {
         // sendResAllAdmin(requestorder);
         // sendResDeliver(requestorder);
-      }else if(requestorder.deliverystatus === 'received'){
+      } else if (requestorder.deliverystatus === 'received') {
         // sendRecAllAdmin(requestorder);
         sendRecSingleTransporter(requestorder);
       }
@@ -305,36 +305,35 @@ function sendRecSingleTransporter(reqorder) {
     if (err) {
 
     } else {
-      console.log(trans.user._id + ' : ' + reqorder.transport._id);
-      if (trans.user._id === reqorder.transport._id) {
-        var trntokens = [];
-        trans.forEach(function (transporter) {
+      var trntokens = [];
+      trans.forEach(function (transporter) {
+        if (transporter && reqorder && transporter.user._id === reqorder.transport._id) {
           trntokens.push(transporter.device_token);
-        });
-
-        request({
-          url: pushNotiUrl,
-          auth: {
-            'bearer': pushNotiAuthenTRA.auth
-          },
-          method: 'POST',
-          json: {
-            tokens: trntokens,
-            profile: pushNotiAuthenTRA.profile,
-            notification: {
-              message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
-              ios: { badge: 1, sound: 'default' },
-              android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
-            }
+        }
+      });
+      console.log(trntokens);
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenTRA.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: trntokens,
+          profile: pushNotiAuthenTRA.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
-        }, function (error, response, body) {
-          if (error) {
-            console.log('Error sending messages: ', error);
-          } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-          }
-        });
-      }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
     }
   });
 
