@@ -23,7 +23,9 @@
     "owasp-password-strength-test": "~1.3.0",
     "metisMenu": "~2.0.2",
     "fontawesome": "~4.5.0",
-    "angular-moment": "^1.0.1"
+    "angular-moment": "^1.0.1",
+    "html2canvas": "^0.4.1",
+    "jspdf": "^1.3.3"
   },
   "resolutions": {
     "jquery": "~2.1.4",
