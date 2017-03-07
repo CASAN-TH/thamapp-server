@@ -301,15 +301,20 @@ function sendReqAllTransporter() {
 }
 
 function sendRecSingleTransporter(reqorder) {
-  Pushnotiuser.find().sort('-created').where('role').equals('transporter').exec(function (err, trans) {
+  console.log(reqorder);
+  var me = '';
+  if (reqorder && reqorder.transport) {
+    me = reqorder.transport._id;
+  } else {
+    me = reqorder;
+  }
+  Pushnotiuser.find().sort('-created').where('role').equals('transporter').where('user_id').equals(me).exec(function (err, trans) {
     if (err) {
 
     } else {
       var trntokens = [];
       trans.forEach(function (transporter) {
-        if (transporter && reqorder && transporter.user._id === reqorder.transport._id) {
-          trntokens.push(transporter.device_token);
-        }
+        trntokens.push(transporter.device_token);
       });
       console.log(trntokens);
       request({
