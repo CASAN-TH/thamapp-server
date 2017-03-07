@@ -50,7 +50,7 @@
       vm.requestorder.items = [];
     }
     // function exportPdf() {
-      
+
     // }
 
     function reject(item) {
@@ -225,11 +225,14 @@
 
     function sumary(items) {
       vm.requestorder.totalamount = 0;
+      vm.requestorder.amountqty = 0;
       angular.forEach(items, function (prod) {
         prod.amount = prod.retailerprice * prod.qty;
+        vm.requestorder.amountqty += prod.qty;
         //vm.order.amount = prod.amount;
         vm.requestorder.totalamount += prod.amount;
       });
+      console.log(vm.requestorder.amountqty);
       vm.requestorder.amount = vm.requestorder.totalamount;
     }
 

@@ -443,7 +443,7 @@
                 <label>{{vm.accuralreceipt.billamount | number:2}}</label>
               </div>
             </div>
-            <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id">
+            <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id && vm.accuralreceipt.arstatus !== 'wait for review'">
               <div class="col-xs-9">
                 <label>{{ar.paid.typepaid}}</label> 
               </div>
