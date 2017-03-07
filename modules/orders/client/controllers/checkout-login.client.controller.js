@@ -170,7 +170,7 @@
         vm.order.items.push(item);
       });
       // address contact
-      vm.order.shipping.tel = $scope.authentication.user.address.tel;
+      vm.order.shipping.tel = vm.order.shipping.tel ? vm.order.shipping.tel : $scope.authentication.user.address.tel;
       vm.order.shipping.email = $scope.authentication.user.email;
 
       //////status/////
@@ -187,6 +187,7 @@
         vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
         vm.order.shipping.province = $scope.authentication.user.address.province;
         vm.order.shipping.district = $scope.authentication.user.address.district;
+        vm.order.shipping.tel = $scope.authentication.user.address.tel;
       }
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.deliveryamount = vm.cart.getTotalDeliveryCost();

@@ -394,6 +394,19 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label class="control-label" for="pass">เบอร์โทร</label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <input name="address" type="text" id="address" ng-model="vm.order.shipping.tel" class="form-control" placeholder="Tel"
+                    >
+                </div>
+              </div>
+            </div>
             <div class="row change-address" ng-if="vm.order.shipping.address && vm.order.shipping.province && vm.order.shipping.postcode && vm.order.shipping.province && vm.order.shipping.district && vm.order.shipping.subdistrict">
               <div class="col-xs-12 col-sm-12 col-md-6">
                 <b>คุณต้องการเปลี่ยนแปลงที่อยู่หรือไม่?</b>
