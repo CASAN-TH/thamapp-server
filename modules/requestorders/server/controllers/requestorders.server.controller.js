@@ -29,7 +29,7 @@ exports.create = function (req, res) {
       });
     } else {
       //admin,transporter and deliver pushnotification
-      sendReqAllTransporter();
+      sendReqAllAdmin();
       sendReqAllTransporter();
       sendReqDeliver(requestorder);
       res.jsonp(requestorder);
@@ -67,7 +67,7 @@ exports.update = function (req, res) {
     } else {
       if (requestorder.deliverystatus === 'request') {
         //admin,transporter and deliver pushnotification
-        sendReqAllTransporter();
+        sendReqAllAdmin();
         sendReqAllTransporter();
         sendReqDeliver(requestorder);
       } else if (requestorder.deliverystatus === 'response') {
