@@ -305,6 +305,7 @@ function sendRecSingleTransporter(reqorder) {
     if (err) {
 
     } else {
+      console.log(trans.user._id + ' : ' + reqorder.transport._id);
       if (trans.user._id === reqorder.transport._id) {
         var trntokens = [];
         trans.forEach(function (transporter) {
