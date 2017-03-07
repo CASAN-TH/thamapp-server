@@ -6,13 +6,14 @@
         document.body.appendChild(canvas);
         var img = canvas.toDataURL();
         var doc = new jsPDF();
-        doc.addImage(img, 'JPEG', 10, 15, 190, 160);
+        doc.addImage(img, 'JPEG', 10, 10, 190, 160);
         doc.save('test.pdf');
       }
     })
   }
+
 </script>
-<section class="header-height" id="pdf">
+<!--<section class="header-height" id="pdf">
   <div class="page-header hidden-xs show-sm show-md show-lg">
     <div class="pull-right" ng-show="(vm.authentication.user.roles[0] == 'admin') || (vm.requestorder.isCurrentUserOwner && !vm.requestorder.namedeliver.displayName && (!vm.requestorder.deliverystatus || !vm.requestorder.deliverystatus === 'accept' || !vm.requestorder.deliverystatus === 'reject'))">
       <a href="javascript:exportPdf()"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save-file"></span></button></a>
@@ -23,14 +24,6 @@
           <div class="ibox-content p-xl">
             <div class="row">
               <div class="col-sm-6">
-                <!--<h5>From:</h5>
-                <address>
-                  <strong>Cyber Advance System And Network Co.,Ltd</strong>
-                  <p> 55/7 ม.11 ถ.วงแหวน-ลำลูกกา ต.บึงคำพร้อย อ.ลำลูกกา ปทุมธานี 12150<br>
-                    <abbr title="Phone">Tel:</abbr> 02-150-2016 <abbr title="Fax">Fax:</abbr> 02-150-2016 <br>
-                    <strong ng-show="vm.requestorder.namedeliver.displayName">Deliver  : {{vm.requestorder.namedeliver.displayName}}</strong>
-                    <strong ng-show="vm.requestorder.delivery.deliveryid === '1'">Deliver  : Post Office</strong>
-                </address>-->
                 <h5>ผู้รับ:</h5>
                 <address>
                   <strong>{{vm.requestorder.shipping.firstname + ' '+ vm.requestorder.shipping.lastname }}</strong><br>
@@ -51,15 +44,6 @@
             </div>
             <div class="row">
               <div class="col-sm-6">
-                <!--<h5>To:</h5>
-                <address>
-                  <strong>{{vm.requestorder.shipping.firstname + ' '+ vm.requestorder.shipping.lastname }}</strong><br>
-                  <strong>{{vm.requestorder.shipping.address}}</strong>
-                  <strong>{{vm.requestorder.shipping.subdistrict}} {{vm.requestorder.shipping.district}}</strong>
-                  <strong>{{vm.requestorder.shipping.province}} {{vm.requestorder.shipping.postcode}}</strong><br>
-                  <abbr title="Tel">Tel:</abbr>{{vm.requestorder.shipping.tel}}<br>
-                  <abbr title="Email">Email:</abbr>{{vm.requestorder.shipping.email}}
-                </address>-->
               </div>
               <div class="col-sm-6 text-right">
               </div>
@@ -140,14 +124,6 @@
   </div>
 
   <div class="page-header show-xs hidden-sm hidden-md hidden-lg">
-    <!--<div class="pull-right" ng-show="vm.requestorder.isCurrentUserOwner">
-      <a class="btn btn-primary" ui-sref="orders.edit({ orderId: vm.requestorder._id })">
-        <i class="glyphicon glyphicon-edit"></i>
-      </a>
-      <a class="btn btn-primary" ng-click="vm.remove()">
-        <i class="glyphicon glyphicon-trash"></i>
-      </a>
-    </div>-->
 
     <div class="row">
       <div class="col-xs-12">
@@ -237,6 +213,91 @@
           </div>
           <div class="col-xs-2" ng-show="vm.requestorder.deliverystatus==='accept' ">
             <button type="button " class="btn buttonSkyForm " ng-click="vm.complete() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>-->
+
+<section class="header-height">
+  <div class="page-header">
+   <div class="page-header hidden-xs show-sm show-md show-lg">
+    <div class="pull-right" ng-show="(vm.authentication.user.roles[0] == 'admin') || (vm.requestorder.isCurrentUserOwner && !vm.requestorder.namedeliver.displayName && (!vm.requestorder.deliverystatus || !vm.requestorder.deliverystatus === 'accept' || !vm.requestorder.deliverystatus === 'reject'))">
+      <a href="javascript:exportPdf()"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save-file"></span></button></a>
+    </div>
+    <div>
+    <div class="row" id="pdf">
+      <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+          <div class="ibox-content p-xl">
+            <div class="row">
+              <div class="col-sm-6">
+                <h5>From:</h5>
+                <address>
+                  <strong>ธรรมธุรกิจ</strong><br> 55/7 ม.11 ถ.วงแหวน-ลำลูกกา ต.บึงคำพร้อย อ.ลำลูกกา
+                  ปทุมธานี 12150<br>
+                  <abbr title="Phone">Tel:</abbr> 02-150-2016 <abbr title="Fax">Fax:</abbr> 02-150-2016
+                </address>
+              </div>
+
+              <div class="col-sm-6 text-right">
+                <h1 ng-bind="vm.requestorder.docno"></h1>
+                <p>
+                  <span ng-bind="vm.requestorder.docdate | date:'dd/MM/yyyy'"><strong> Date :</strong></span><br>
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span>To:</span>
+                <address>
+                  <strong>{{vm.requestorder.shipping.firstname + ' '+ vm.requestorder.shipping.lastname }}</strong><br>
+                  <strong>{{vm.requestorder.shipping.address}}</strong>
+                  <strong>{{vm.requestorder.shipping.subdistrict}} {{vm.requestorder.shipping.district}}</strong>
+                  <strong>{{vm.requestorder.shipping.province}} {{vm.requestorder.shipping.postcode}}</strong><br>
+                  <abbr title="Tel">Tel:</abbr>{{vm.requestorder.shipping.tel}}<br>
+                  <abbr title="Email">Email:</abbr>{{vm.requestorder.shipping.email}}
+                </address>
+              </div>
+              <div class="col-sm-6 text-right">
+              </div>
+            </div>
+            <div class="table-responsive m-t">
+              <table class="table requestorder-table">
+                <thead>
+                  <tr>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="requestorder in vm.requestorder.items" ui-sref="requestorder.view({ requestorderId: requestorder._id })">
+                    <td>
+                      <div><strong>{{requestorder.product.name}}</strong></div>
+                      <small>{{requestorder.product.description}}</small></td>
+                    <td>{{requestorder.product.retailerprice}}</td>
+                    <td>{{requestorder.qty}}</td>
+                    <td>{{requestorder.amount}}</td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /table-responsive -->
+            <table class="table requestorder-total">
+              <tbody>
+                <tr ng-show="vm.requestorder.totalamount > 0">
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-right"><strong>Total Amount</strong></td>
+                  <td class="no-line text-right">{{vm.requestorder.totalamount | number:2}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
