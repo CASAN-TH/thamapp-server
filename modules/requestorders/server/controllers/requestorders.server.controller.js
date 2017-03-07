@@ -7,7 +7,13 @@ var path = require('path'),
   mongoose = require('mongoose'),
   Requestorder = mongoose.model('Requestorder'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  Pushnotiuser = mongoose.model('Pushnotiuser'),
+  request = require('request'),
+  pushNotiUrl = 'https://api.ionic.io/push/notifications',
+  pushNotiAuthenADM = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZWM3YWNjZi1hYTNjLTQ2ZjUtYmMyNS1kODQ1MmQ2NDRlZmMifQ.Q3-2r2TL0Mq6Aq1JJSmUoTnh0LaoyMA-ZVuOylkJ7nI' },
+  pushNotiAuthenDEL = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs' },
+  pushNotiAuthenTRA = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0MTVkMjNlNS1mMzVkLTRmNjEtOTcyMy01ZWIxNGZjMzFjYjkifQ.8E_6neuDDdMz1cqVPxcFuk7RuwB0Tu-ksdBC2ZnCs8Y' };
 
 /**
  * Create a Requestorder
@@ -22,6 +28,8 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      //admin,transporter
+      sendReqAllTransporter();
       res.jsonp(requestorder);
     }
   });
@@ -55,6 +63,9 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      if (requestorder.deliverystatus === 'request') {
+        sendReqAllTransporter();
+      }
       res.jsonp(requestorder);
     }
   });
@@ -115,3 +126,128 @@ exports.requestorderByID = function (req, res, next, id) {
     next();
   });
 };
+
+function sendReqAllAdmin() {
+  Requestorder.find().sort('-created').where('deliverystatus').equals('request').exec(function (err, reqOrders) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+        if (err) {
+
+        } else {
+          var admtokens = [];
+          admins.forEach(function (admin) {
+            admtokens.push(admin.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenADM.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: admtokens,
+              profile: pushNotiAuthenADM.profile,
+              notification: {
+                message: 'คุณมีรายการขนส่งข้าวใหม่ ' + reqOrders.length + ' รายการ',
+                ios: { badge: reqOrders.length, sound: 'default' },
+                android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+function sendResAllAdmin(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+    if (err) {
+
+    } else {
+      var admtokens = [];
+      admins.forEach(function (admin) {
+        admtokens.push(admin.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenADM.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: admtokens,
+          profile: pushNotiAuthenADM.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' ถูกเลือกโดย '+ reqorder.transport.displayName,
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+}
+
+function sendReqAllTransporter() {
+  Requestorder.find().sort('-created').where('deliverystatus').equals('request').exec(function (err, reqOrders) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('transporter').exec(function (err, trans) {
+        if (err) {
+
+        } else {
+          var trntokens = [];
+          trans.forEach(function (transporter) {
+            trntokens.push(transporter.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenTRA.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: trntokens,
+              profile: pushNotiAuthenTRA.profile,
+              notification: {
+                message: 'คุณมีรายการขนส่งข้าวใหม่ ' + reqOrders.length + ' รายการ',
+                ios: { badge: reqOrders.length, sound: 'default' },
+                android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
