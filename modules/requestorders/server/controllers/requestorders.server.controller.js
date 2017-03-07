@@ -301,7 +301,6 @@ function sendReqAllTransporter() {
 }
 
 function sendRecSingleTransporter(reqorder) {
-  console.log(reqorder);
   var me = '';
   if (reqorder && reqorder.transport) {
     me = reqorder.transport._id;
@@ -346,39 +345,43 @@ function sendRecSingleTransporter(reqorder) {
 }
 
 function sendReqDeliver(reqorder) {
-  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, trans) {
+  var me = '';
+  if (reqorder && reqorder.namedeliver) {
+    me = reqorder.namedeliver._id;
+  } else {
+    me = reqorder;
+  }
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, trans) {
     if (err) {
 
     } else {
-      if (trans.user._id === reqorder.namedeliver._id) {
-        var trntokens = [];
-        trans.forEach(function (transporter) {
-          trntokens.push(transporter.device_token);
-        });
+      var trntokens = [];
+      trans.forEach(function (transporter) {
+        trntokens.push(transporter.device_token);
+      });
 
-        request({
-          url: pushNotiUrl,
-          auth: {
-            'bearer': pushNotiAuthenDEL.auth
-          },
-          method: 'POST',
-          json: {
-            tokens: trntokens,
-            profile: pushNotiAuthenDEL.profile,
-            notification: {
-              message: 'คุณมีรายการรับข้าวใหม่ ' + reqorder.docno,
-              ios: { badge: 1, sound: 'default' },
-              android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
-            }
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenDEL.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: trntokens,
+          profile: pushNotiAuthenDEL.profile,
+          notification: {
+            message: 'คุณมีรายการรับข้าวใหม่ ' + reqorder.docno,
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
-        }, function (error, response, body) {
-          if (error) {
-            console.log('Error sending messages: ', error);
-          } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-          }
-        });
-      }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
     }
   });
 
@@ -386,39 +389,43 @@ function sendReqDeliver(reqorder) {
 }
 
 function sendResDeliver(reqorder) {
-  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, trans) {
+  var me = '';
+  if (reqorder && reqorder.namedeliver) {
+    me = reqorder.namedeliver._id;
+  } else {
+    me = reqorder;
+  }
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, trans) {
     if (err) {
 
     } else {
-      if (trans.user._id === reqorder.namedeliver._id) {
-        var trntokens = [];
-        trans.forEach(function (transporter) {
-          trntokens.push(transporter.device_token);
-        });
+      var trntokens = [];
+      trans.forEach(function (transporter) {
+        trntokens.push(transporter.device_token);
+      });
 
-        request({
-          url: pushNotiUrl,
-          auth: {
-            'bearer': pushNotiAuthenDEL.auth
-          },
-          method: 'POST',
-          json: {
-            tokens: trntokens,
-            profile: pushNotiAuthenDEL.profile,
-            notification: {
-              message: 'รายการ ' + reqorder.docno + ' จัดส่งโดย' + reqorder.transport.displayName,
-              ios: { badge: 1, sound: 'default' },
-              android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
-            }
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenDEL.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: trntokens,
+          profile: pushNotiAuthenDEL.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' จัดส่งโดย' + reqorder.transport.displayName,
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
-        }, function (error, response, body) {
-          if (error) {
-            console.log('Error sending messages: ', error);
-          } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-          }
-        });
-      }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
     }
   });
 
