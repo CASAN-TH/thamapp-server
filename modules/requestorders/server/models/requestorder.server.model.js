@@ -82,6 +82,7 @@ var RequestorderSchema = new Schema({
     }]
   },
   remark: String,
+  amountqty: Number,
   amount: Number,
   weight: String,
   deliveryamount: Number,

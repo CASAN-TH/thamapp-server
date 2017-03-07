@@ -649,6 +649,13 @@ body1 {
     border-width: 0px 0px 1px 0px;
 }
 
+.borderBTMT {
+    margin-top: 15px;
+    border-color: #dddddd;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+}
+
 .marleft {
     margin-left: -15px
 }
