@@ -129,7 +129,8 @@ exports.list = function (req, res) {
   } else {
     Product.find().sort('-created')
       .populate('user', 'displayName')
-      .where('category').equals('อาหาร') //อ่านเฉพาะรายการข้าว
+      //.where('category').equals('อาหาร') //อ่านเฉพาะรายการข้าว
+      .or([{ category: 'อาหาร' }, { category: 'ผลไม้' }])
       .exec(function (err, products) {
         if (err) {
           return res.status(400).send({
