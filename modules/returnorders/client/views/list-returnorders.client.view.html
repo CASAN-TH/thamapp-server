@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Returnorders</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="returnorder in vm.returnorders"
+       ui-sref="returnorders.view({ returnorderId: returnorder._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="returnorder.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="returnorder.user" ng-bind="returnorder.user.displayName"></span>
+        <span ng-if="!returnorder.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="returnorder.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.returnorders.$resolved && !vm.returnorders.length">
+    No Returnorders yet, why don't you <a ui-sref="returnorders.create">create one</a>?
+  </div>
+</section>

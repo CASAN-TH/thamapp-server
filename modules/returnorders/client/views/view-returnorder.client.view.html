@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1 ng-bind="vm.returnorder.name"></h1>
+  </div>
+  <div class="pull-right"
+       ng-show="vm.returnorder.isCurrentUserOwner">
+    <a class="btn btn-primary"
+       ui-sref="returnorders.edit({ returnorderId: vm.returnorder._id })">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <small>
+    <em class="text-muted">
+      Posted on
+      <span ng-bind="vm.returnorder.created | date:'mediumDate'"></span>
+      by
+      <span ng-if="vm.returnorder.user"
+            ng-bind="vm.returnorder.user.displayName"></span>
+      <span ng-if="!vm.returnorder.user">Deleted User</span>
+    </em>
+  </small>
+  <p class="lead" ng-bind="vm.returnorder.content"></p>
+</section>
