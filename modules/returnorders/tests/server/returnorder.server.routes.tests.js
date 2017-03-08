@@ -17,6 +17,9 @@ var app,
   user,
   returnorder;
 
+var tomorrow = new Date();
+
+
 /**
  * Returnorder routes tests
  */
@@ -45,7 +48,9 @@ describe('Returnorder CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
-      provider: 'local'
+      provider: 'local',
+      loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
     // Save a user to the test db and create new Returnorder
@@ -123,6 +128,42 @@ describe('Returnorder CRUD tests', function () {
                 // Call the assertion callback
                 done();
               });
+          });
+      });
+  });
+
+  it('should be able to save a Returnorder if logged in with token', function (done) {
+    returnorder.loginToken = user.loginToken;
+    // Save a new Returnorder
+    agent.post('/api/returnorders')
+      .send(returnorder)
+      .expect(200)
+      .end(function (returnorderSaveErr, returnorderSaveRes) {
+        // Handle Returnorder save error
+        if (returnorderSaveErr) {
+          return done(returnorderSaveErr);
+        }
+
+        // Get a list of Returnorders
+        agent.get('/api/returnorders')
+          .end(function (returnordersGetErr, returnordersGetRes) {
+            // Handle Returnorders save error
+            if (returnordersGetErr) {
+              return done(returnordersGetErr);
+            }
+
+            // Get Returnorders list
+            var returnorders = returnordersGetRes.body;
+
+            // Set assertions
+            // (returnorders[0].user._id).should.equal(userId);
+            (returnorders[0].docno).should.match('20170210');
+            (returnorders[0].docdate).should.match(new Date());
+            (returnorders[0].accounting).should.match('bank');
+            (returnorders[0].deliverystatus).should.match('return');
+
+            // Call the assertion callback
+            done();
           });
       });
   });
