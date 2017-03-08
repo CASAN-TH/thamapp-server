@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Returnorders
  */
 exports.list = function(req, res) {
-  Returnorder.find().sort('-created').populate('user', 'displayName').exec(function(err, returnorders) {
+  Returnorder.find().sort('-created').populate('user', 'displayName').populate('items.product').populate('namedeliver').populate('transport').exec(function(err, returnorders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.returnorderByID = function(req, res, next, id) {
     });
   }
 
-  Returnorder.findById(id).populate('user', 'displayName').exec(function (err, returnorder) {
+  Returnorder.findById(id).populate('user', 'displayName').populate('items.product').populate('namedeliver').populate('transport').exec(function (err, returnorder) {
     if (err) {
       return next(err);
     } else if (!returnorder) {

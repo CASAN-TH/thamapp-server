@@ -9,6 +9,18 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('returndeliver', {
+        url: '/returndeliver',
+        templateUrl: 'modules/returnorders/client/views/returndeliver.client.view.html',
+        controller: 'ReturndeliverController',
+        controllerAs: 'vm'
+      })
+      .state('returnresponse', {
+        url: '/returnresponse',
+        templateUrl: 'modules/returnorders/client/views/returnresponse.client.view.html',
+        controller: 'ReturnresponseController',
+        controllerAs: 'vm'
+      })
       .state('returnorders', {
         abstract: true,
         url: '/returnorders',
@@ -32,7 +44,7 @@
           returnorderResolve: newReturnorder
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['deliver', 'admin'],
           pageTitle: 'Returnorders Create'
         }
       })
@@ -45,7 +57,7 @@
           returnorderResolve: getReturnorder
         },
         data: {
-          roles: ['user', 'admin'],
+          roles: ['deliver', 'admin'],
           pageTitle: 'Edit Returnorder {{ returnorderResolve.name }}'
         }
       })
