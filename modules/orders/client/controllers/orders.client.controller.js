@@ -54,7 +54,8 @@
     vm.selectProduct = selectProduct;
     vm.addQty = addQty;
     vm.removeQty = removeQty;
-    vm.cancelOrder =cancelOrder;
+    vm.cancelOrder = cancelOrder;
+    vm.updatedata = updatedata;
     if (vm.order.items) {
       vm.order.items = vm.order.items;
     } else {
@@ -87,8 +88,22 @@
     }
 
     function updateDeliver() {
-      vm.order.deliverystatus = 'wait deliver';
-      vm.addHis();
+      if (vm.order.deliverystatus === 'accept') {
+        if (vm.namedeliID === vm.order.namedeliver._id) {
+          vm.updatedata();
+        } else if (vm.namedeliID !== vm.order.namedeliver._id) {
+          vm.order.deliverystatus = 'wait deliver';
+          vm.addHis();
+          vm.updatedata();
+        }
+      } else if (vm.order.deliverystatus === 'reject') {
+        vm.order.deliverystatus = 'wait deliver';
+        vm.addHis();
+        vm.updatedata();
+      }
+    }
+
+    function updatedata() {
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
 
@@ -97,7 +112,7 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
-      $state.go('orders.list');
+       $state.go('orders.list');
     }
 
     function addHis() {
@@ -424,6 +439,8 @@
           deliveryid: '0'
         };
       } else {
+
+        vm.namedeliID = vm.order.namedeliver._id;
         vm.order.docdate = new Date(vm.order.docdate);
       }
       readDeliverid();
@@ -467,7 +484,7 @@
       }
 
       function successCallback(res) {
-        if(!res.namedeliver){
+        if (!res.namedeliver) {
           $state.go('orders.list');
         }
         else if (vm.authentication.user._id === res.namedeliver._id) {
@@ -483,4 +500,4 @@
       }
     }
   }
-} ());
+}());
