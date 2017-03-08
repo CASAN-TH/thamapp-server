@@ -8,7 +8,7 @@
 
   ReturnordersController.$inject = ['$scope', '$state', '$http', '$window', 'Authentication', 'returnorderResolve', 'ProductsService', 'Users'];
 
-  function ReturnordersController ($scope, $state, $http, $window, Authentication, returnorder, ProductsService, Users) {
+  function ReturnordersController($scope, $state, $http, $window, Authentication, returnorder, ProductsService, Users) {
     var vm = this;
     vm.users = Users;
     vm.authentication = Authentication;
@@ -119,6 +119,7 @@
 
     function readProduct() {
       vm.products = ProductsService.query();
+      console.log(vm.products);
     }
 
     function readCustomer() {
@@ -265,7 +266,10 @@
       vm.readProduct();
       vm.readDeliver();
       vm.readTransport();
-      if (!vm.returnorder._id && vm.authentication.user.roles[0] === 'admin') {
+      if (!vm.returnorder._id) {
+        if (vm.authentication.user.roles[0] === 'deliver') {
+          vm.returnorder.namedeliver = vm.authentication.user;
+        }
         vm.returnorder.docdate = new Date();
         vm.returnorder.docno = (+ new Date());
         // vm.order.items = [{
@@ -305,31 +309,28 @@
         // }
 
       }
-      else if (!vm.returnorder._id) {
-        vm.returnorder.docdate = new Date();
-        vm.returnorder.items = [{
-          product: new ProductsService(),
-          qty: 1
-        }];
-        // vm.order.historystatus = [{
-        //   status: 'confirmed',
-        //   datestatus: new Date()
-        // }];
-        vm.returnorder.shipping = {
-          firstname: '',
-          lastname: '',
-          address: '',
-          postcode: '',
-          subdistrict: '',
-          province: '',
-          district: '',
-          tel: '',
-          email: ''
-        };
-        vm.returnorder.delivery = {
-          deliveryid: '0'
-        };
-      } else {
+      // else if (!vm.returnorder._id) {
+      //   vm.returnorder.docdate = new Date();
+      //   vm.returnorder.items = [{
+      //     product: new ProductsService(),
+      //     qty: 1
+      //   }];
+      //   vm.returnorder.shipping = {
+      //     firstname: '',
+      //     lastname: '',
+      //     address: '',
+      //     postcode: '',
+      //     subdistrict: '',
+      //     province: '',
+      //     district: '',
+      //     tel: '',
+      //     email: ''
+      //   };
+      //   vm.returnorder.delivery = {
+      //     deliveryid: '0'
+      //   };
+      // } 
+      else {
         vm.returnorder.docdate = new Date(vm.returnorder.docdate);
       }
       // readDeliverid();
@@ -366,10 +367,13 @@
       }
 
       function successCallback(res) {
-        // $state.go('returnorders.list', {
-        //   returnorderId: res._id
-        // });
-        $state.go('returnorders.list');
+        console.log(res);
+        if (vm.authentication.user._id === res.namedeliver) {
+          $state.go('returndeliver');
+        }
+        else {
+          $state.go('returnorders.list');
+        }
       }
 
       function errorCallback(res) {

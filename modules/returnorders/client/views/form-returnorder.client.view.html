@@ -125,7 +125,7 @@
             <div class="col-md-8">
               <div class="row">
 
-                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
+                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.returnorder._id &&vm.returnorder.deliverystatus === 'return'  && vm.authentication.user.roles[0]==='admin'">
                   <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
                   <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
@@ -134,10 +134,29 @@
 
                   <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
                 </div>
-                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
+                  <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.returnorder._id && vm.returnorder.deliverystatus === 'return' && vm.authentication.user.roles[0]==='deliver'">
+                  <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
+                  <div class="btn btn-small btn-success btn-outline">
+                    <i class="fa fa-user fa-2x" aria-hidden="true" width="45px;"></i>
+                  </div>
+
+
+                  <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
+                </div>
+                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="vm.returnorder.deliverystatus === 'return' && vm.authentication.user.roles[0]==='admin'">
                   <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
                   <div class="btn btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
+                  </div>
+
+
+                  <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
+                </div>
+
+                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="vm.returnorder.deliverystatus === 'return'&& vm.authentication.user.roles[0]==='deliver'">
+                  <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
+                  <div class="btn btn-success btn-outline">
+                    <i class="fa fa-user fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
 
 

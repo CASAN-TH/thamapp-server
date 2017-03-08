@@ -81,14 +81,19 @@
 
       it('should send a POST request with the form input values and then locate to new object URL', inject(function (ReturnordersService) {
         // Set POST response
-        $httpBackend.expectPOST('api/returnorders', sampleReturnorderPostData).respond(mockReturnorder);
+        $httpBackend.expectPOST('api/returnorders', sampleReturnorderPostData).respond(sampleReturnorderPostData);
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
 
         // Test URL redirection after the Returnorder was created
-        expect($state.go).toHaveBeenCalledWith('returnorders.list');
+        if ($scope.vm.authentication.user._id === sampleReturnorderPostData.namedeliver) {
+          expect($state.go).toHaveBeenCalledWith('returndeliver');
+        } else {
+          // Test URL redirection after the Order was created
+          expect($state.go).toHaveBeenCalledWith('returnorders.list');
+        }
       }));
 
       it('should set $scope.vm.error if error', function () {
@@ -112,14 +117,20 @@
 
       it('should update a valid Returnorder', inject(function (ReturnordersService) {
         // Set PUT response
-        $httpBackend.expectPUT(/api\/returnorders\/([0-9a-fA-F]{24})$/).respond();
+        $httpBackend.expectPUT(/api\/returnorders\/([0-9a-fA-F]{24})$/).respond(mockReturnorder);
 
         // Run controller functionality
         $scope.vm.save(true);
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('returnorders.list');
+        if ($scope.vm.authentication.user._id === mockReturnorder.namedeliver) {
+          expect($state.go).toHaveBeenCalledWith('returndeliver');
+        } else {
+          // Test URL redirection after the Order was created
+          expect($state.go).toHaveBeenCalledWith('returnorders.list');
+        }
+        //
       }));
 
       it('should set $scope.vm.error if error', inject(function (ReturnordersService) {
