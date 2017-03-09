@@ -17,7 +17,7 @@
     vm.newRequest = newRequest;
 
     function reject(item) {
-      var conf = confirm('ยกเลิกรายการ');
+      var conf = confirm('ปฏิเสธรายการ');
       if (conf === true) {
         if (item.deliverystatus === 'response') {
           item.deliverystatus = 'reject';
