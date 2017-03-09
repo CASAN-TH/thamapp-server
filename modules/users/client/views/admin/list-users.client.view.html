@@ -5,17 +5,49 @@
         <h1>Users</h1>
       </div>
       <div class="col-md-4" style="margin-top: 2em">
-        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()" />
+        <input class="form-control col-md-4" type="text" ng-model="search" placeholder="Search" ng-change="figureOutItemsToDisplay()"
+        />
       </div>
     </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="user in pagedItems" ui-sref="admin.user({userId: user._id})" class="list-group-item">
-      <h4 class="list-group-item-heading" ng-bind="user.username"></h4>
-      <p class="list-group-item-text pull-right small" ng-bind="user.roles"></p>
-      <p class="list-group-item-text" ng-bind="user.email"></p>
-    </a>
+  <div class="tabs-container">
+    <uib-tabset>
+      <uib-tab ng-repeat="tab in users">
+        <uib-tab-heading>
+          {{tab.roles[0]}}
+        </uib-tab-heading>
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ชื่อ</th>
+                <th>นามสกุล</th>
+                <th>ที่อยู่</th>
+                <th>รหัสไปรษณีย์</th>
+                <th>ตำบล/เขต</th>
+                <th>อำเภอ</th>
+                <th>จังหวัด</th>
+                <th>เบอร์โทร</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="user in users | filter:{ roles : tab.roles[0] } | filter:search" ui-sref="admin.user-edit({ userId: user._id })">
+                <td>{{user.firstName}}</td>
+                <td>{{user.lastName}}</td>
+                <td>{{user.address.address}}</td>
+                <td>{{user.address.postcode}}</td>
+                <td>{{user.address.subdistrict}}</td>
+                <td>{{user.address.district}}</td>
+                <td>{{user.address.province}}</td>
+                <td>{{user.address.tel}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </uib-tab>
+    </uib-tabset>
   </div>
 
-  <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+  <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage"
+    ng-change="pageChanged()"></pagination>
 </section>

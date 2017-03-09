@@ -5,7 +5,7 @@ angular.module('users.admin.routes').config(['$stateProvider',
   function ($stateProvider) {
     $stateProvider
       .state('admin.users', {
-        url: '/users',
+        url: '',
         templateUrl: 'modules/users/client/views/admin/list-users.client.view.html',
         controller: 'UserListController'
       })
@@ -15,9 +15,9 @@ angular.module('users.admin.routes').config(['$stateProvider',
         controller: 'UserController',
         resolve: {
           userResolve: ['$stateParams', 'Admin', function ($stateParams, Admin) {
-            return Admin.get({
-              userId: $stateParams.userId
-            });
+            // return Admin.get({
+            //   userId: $stateParams.userId
+            // });
           }]
         }
       })
