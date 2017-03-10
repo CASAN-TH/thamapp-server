@@ -101,6 +101,10 @@ var OrderSchema = new Schema({
       datestatus: Date
     }]
   },
+  src: {
+    type: String,
+    default: 'ios'
+  },
   created: {
     type: Date,
     default: Date.now

@@ -159,6 +159,7 @@
       }
       vm.order.totalamount = 0;
       vm.order.items = [];
+      vm.order.src = 'web';
       //var getAllOrder = OrdersService.query();
       //vm.order.docno = new Date().getFullYear() + '' + new Date().getMonth() + '' + (getAllOrder.length + 1);
       vm.order.docno = (+ new Date());
