@@ -1,12 +1,11 @@
 'use strict';
 
-angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'PostcodesService','$http',
-  function ($scope, $state, Authentication, userResolve, PostcodesService,$http) {
+angular.module('users.admin').controller('UserController', ['$scope', '$state', 'Authentication', 'userResolve', 'PostcodesService', '$http',
+  function ($scope, $state, Authentication, userResolve, PostcodesService, $http) {
     $scope.authentication = Authentication;
     $scope.user = userResolve;
     $scope.postcodeQuery = PostcodesService.query();
     $scope.postcode = $scope.postcodeQuery;
-
     $scope.callback = function (postcode) {
       $scope.checkAutocomplete(postcode);
     };
@@ -17,10 +16,10 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
         $scope.user.address.subdistrict = postcode.subdistrict;
         $scope.user.address.province = postcode.province;
       } else {
-        $scope.user.address.district = '';
-        $scope.user.address.province = '';
-        $scope.user.address.subdistrict = '';
-      }
+        $scope.user.address.district = $scope.user.address.district ? $scope.user.address.district : '';
+        $scope.user.address.province = $scope.user.address.province ? $scope.user.address.province : '';
+        $scope.user.address.subdistrict =  $scope.user.address.subdistrict ? $scope.user.address.subdistrict :'';
+      } 
     };
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {

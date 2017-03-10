@@ -1,4 +1,4 @@
-<section>
+<!--<section>
   <div class="page-header">
     <div class="row">
       <div class="col-md-4">
@@ -50,4 +50,241 @@
 
   <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage"
     ng-change="pageChanged()"></pagination>
+</section>-->
+
+<section>
+  <div class="page-header">
+    <h1>รายชื่อผู้ใช้งาน</h1>
+  </div>
+
+  <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+    <div class="col-xs-8">
+      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+    </div>
+    <!--<div class="col-xs-4">
+      <a class="btn buttonCreate" ui-sref="orders.create">
+        <span>สร้างใหม่</span>
+      </a>
+    </div>-->
+  </div>
+  <div class="tab-content">
+    <div class="row">
+      <div class="col-md-5">
+
+      </div>
+      <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
+        <div class="input-group input-group-sm">
+          <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+        </div>
+      </div>
+      <!--<div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+        <div class="textCenter">
+          <a class="btn buttonCreate" ui-sref="orders.create">
+            <i class="fa fa-file-o" aria-hidden="true"></i>
+            <span>สร้างใหม่</span>
+          </a>
+        </div>
+      </div>-->
+    </div>
+    <div class="tab-pane active" id="allActive">
+      <div class="tabbable tabs-left">
+        <div class="row">
+          <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
+            <div class="nav">
+              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>ผู้ใช้</span><h3>{{listuser.length || 0}}</h3></button></a>
+              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>คนส่งข้าว</span><h3>{{listdeli.length || 0}}</h3></button></a>
+              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>บริษัทขนส่ง</span><h3>{{listtran.length || 0}}</h3></button></a>
+            </div>
+          </div>
+          <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+            <div class="col-xs-4">
+              <a href="#showAllActivemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">ผู้ใช้</button></a>
+            </div>
+            <div class="col-xs-4">
+              <a href="#showAllAcceptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">คนส่งข้าว</button></a>
+            </div>
+            <div class="col-xs-4">
+              <a href="#showAllCompletemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">บริษัทขนส่ง</button></a>
+            </div>
+          </div>
+
+          <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
+            <div class="tab-content">
+              <div class="tab-pane active" id="showAllActive">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row form-group alert alert-info">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>ชื่อ</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>นามสกุล</strong>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <strong>ที่อยู่</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2" align="center">
+                        <strong>โทร</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="users in listuser | filter:topsearch" ui-sref="admin.user-edit({ userId: users._id })">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.firstName"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.lastName"></p>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <p class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.address.tel"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllAccept">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row form-group alert alert-info">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>ชื่อ</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>นามสกุล</strong>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <strong>ที่อยู่</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2" align="center">
+                        <strong>โทร</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="users in listdeli | filter:topsearch" ui-sref="admin.user-edit({ userId: users._id })">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.firstName"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.lastName"></p>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <p class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.address.tel"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllComplete">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row form-group alert alert-info">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>ชื่อ</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>นามสกุล</strong>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <strong>ที่อยู่</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2" align="center">
+                        <strong>โทร</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="users in listtran | filter:topsearch" ui-sref="admin.user-edit({ userId: users._id })">
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.firstName"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.lastName"></p>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <p class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="users.address.tel"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row show-xs show-sm hidden-md hidden-lg">
+            <div class="tab-content">
+              <div class="tab-pane active" id="showAllActivemb">
+                <div class="col-md-12" ng-repeat="users in listuser | filter:topsearch" ui-sref="admin.user-edit({ userId: users._id })">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label>ชื่อ :</label> <label class="list-group-item-heading" ng-bind="users.firstName + ' ' + users.lastName"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></label>
+                      </div>
+                      <div>
+                        <label>เบอร์โทร :</label> <label class="list-group-item-heading" ng-bind="users.address.tel"></label>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllAcceptmb">
+                <div class="col-md-12" ng-repeat="users in listdeli | filter:topsearch" ui-sref="admin.user-edit({ userId: users._id })">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label>ชื่อ :</label> <label class="list-group-item-heading" ng-bind="users.firstName + ' ' + users.lastName"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></label>
+                      </div>
+                      <div>
+                        <label>เบอร์โทร :</label> <label class="list-group-item-heading" ng-bind="users.address.tel"></label>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="showAllCompletemb">
+                <div class="col-md-12" ng-repeat="users in listtran | filter:topsearch" ui-sref="admin.user-edit({ userId: users._id })">
+                  <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label>ชื่อ :</label> <label class="list-group-item-heading" ng-bind="users.firstName + ' ' + users.lastName"></label>
+                      </div>
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="users.address.address + ' ' + users.address.subdistrict + ' ' + users.address.district + ' ' + users.address.province + ' ' + users.address.postcode"></label>
+                      </div>
+                      <div>
+                        <label>เบอร์โทร :</label> <label class="list-group-item-heading" ng-bind="users.address.tel"></label>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

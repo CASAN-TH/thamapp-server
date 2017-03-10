@@ -2,10 +2,25 @@
 
 angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
   function ($scope, $filter, Admin) {
+    $scope.listuser = [];
+    $scope.listtran = [];
+    $scope.listdeli = [];
+    console.log($scope.listuser);
     Admin.query(function (data) {
+     data.forEach(function (data) {
+        if (data.roles[0] === 'user') {
+          $scope.listuser.push(data);
+        } else if (data.roles[0] === 'deliver') {
+          $scope.listdeli.push(data);
+        } else if (data.roles[0] === 'transporter') {
+          $scope.listtran.push(data);
+        }
+      });
       $scope.users = data;
       $scope.buildPager();
     });
+
+
 
     $scope.buildPager = function () {
       $scope.pagedItems = [];
