@@ -230,7 +230,11 @@ function sendReqDeliver(reqorder) {
   console.log(reqorder);
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = (reqorder.namedeliver || reqorder.namedeliver._id);
+    if (reqorder.namedeliver._id) {
+      me = reqorder.namedeliver._id;
+    } else {
+      me = reqorder.namedeliver;
+    }
   } else {
     me = reqorder;
   }
@@ -312,7 +316,11 @@ function sendResAllAdmin(reqorder) {
 function sendResDeliver(reqorder) {
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = (reqorder.namedeliver || reqorder.namedeliver._id);
+    if (reqorder.namedeliver._id) {
+      me = reqorder.namedeliver._id;
+    } else {
+      me = reqorder.namedeliver;
+    }
   } else {
     me = reqorder;
   }
