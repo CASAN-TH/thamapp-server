@@ -224,7 +224,7 @@ function deliverCreateAllTransportStatusReturn() {
 function deliverCreateStatusReturn(data) {
   var me = '';
   if (data && data.namedeliver) {
-    me = data.namedeliver._id;
+    me = data.namedeliver;
   } else {
     me = data.data;
   }
