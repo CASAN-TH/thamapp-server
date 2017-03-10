@@ -71,6 +71,22 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      if (returnorder.deliverystatus === 'return') {
+        if (returnorder.user.roles[0] === 'deliver') {
+          deliverCreateAllAdminStatusReturn();
+          deliverCreateAllTransportStatusReturn();
+          deliverCreateStatusReturn(returnorder);
+        } else {
+          deliverCreateAllTransportStatusReturn();
+          deliverCreateStatusReturn(returnorder);
+        }
+      } else if (returnorder.deliverystatus === 'response') {
+        statusResponseAllAdmin(returnorder);
+        statusResponseSingleDeliver(returnorder);
+      }else if(returnorder.deliverystatus === 'received'){
+        statusReceivedSingleTransport(returnorder);
+        statusReceivedSingleDeliver(returnorder);
+      }
       res.jsonp(returnorder);
     }
   });
