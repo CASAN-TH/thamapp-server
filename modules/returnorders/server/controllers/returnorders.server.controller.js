@@ -28,16 +28,9 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      if (returnorder.user) {
-        if (returnorder.user.roles[0] === 'deliver') {
-          deliverCreateAllAdminStatusReturn();
-          deliverCreateAllTransportStatusReturn();
-          deliverCreateStatusReturn(returnorder);
-        } else {
-          deliverCreateAllTransportStatusReturn();
-          deliverCreateStatusReturn(returnorder);
-        }
-      }
+      deliverCreateAllAdminStatusReturn();
+      deliverCreateAllTransportStatusReturn();
+      deliverCreateStatusReturn(returnorder);
       res.jsonp(returnorder);
     }
   });
@@ -72,18 +65,13 @@ exports.update = function (req, res) {
       });
     } else {
       if (returnorder.deliverystatus === 'return') {
-        if (returnorder.user.roles[0] === 'deliver') {
-          deliverCreateAllAdminStatusReturn();
-          deliverCreateAllTransportStatusReturn();
-          deliverCreateStatusReturn(returnorder);
-        } else {
-          deliverCreateAllTransportStatusReturn();
-          deliverCreateStatusReturn(returnorder);
-        }
+        deliverCreateAllAdminStatusReturn();
+        deliverCreateAllTransportStatusReturn();
+        deliverUpdateStatusReturn(returnorder);
       } else if (returnorder.deliverystatus === 'response') {
         statusResponseAllAdmin(returnorder);
         statusResponseSingleDeliver(returnorder);
-      }else if(returnorder.deliverystatus === 'received'){
+      } else if (returnorder.deliverystatus === 'received') {
         statusReceivedSingleTransport(returnorder);
         statusReceivedSingleDeliver(returnorder);
       }
@@ -286,7 +274,55 @@ function deliverCreateStatusReturn(data) {
 
 
 }
+function deliverUpdateStatusReturn(data) {
+  var me = '';
+  if (data && data.namedeliver) {
+    me = data.namedeliver._id;
+  } else {
+    me = data.data;
+  }
+  Returnorder.find().sort('-created').where('deliverystatus').equals('return').exec(function (err, reqReturs) {
+    if (err) {
 
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          var dertokens = [];
+          delivers.forEach(function (deliver) {
+            dertokens.push(deliver.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenDEL.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: dertokens,
+              profile: pushNotiAuthenDEL.profile,
+              notification: {
+                message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
+                ios: { badge: reqReturs.length, sound: 'default' },
+                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
 
 // status response
 function statusResponseAllAdmin(data) {
