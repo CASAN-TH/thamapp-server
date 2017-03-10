@@ -230,7 +230,7 @@ function sendReqDeliver(reqorder) {
   console.log(reqorder);
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = reqorder.namedeliver;
+    me = reqorder.namedeliver ? reqorder.namedeliver : reqorder.namedeliver._id;
   } else {
     me = reqorder;
   }
@@ -272,6 +272,7 @@ function sendReqDeliver(reqorder) {
 }
 
 function sendResAllAdmin(reqorder) {
+  console.log('all admin' + reqorder);
   Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
     if (err) {
 
@@ -311,7 +312,7 @@ function sendResAllAdmin(reqorder) {
 function sendResDeliver(reqorder) {
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = reqorder.namedeliver;
+    me = reqorder.namedeliver ? reqorder.namedeliver : reqorder.namedeliver._id;
   } else {
     me = reqorder;
   }
