@@ -1,61 +1,46 @@
-// 'use strict';
+'use strict';
 
-// angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin', 'Authentication',
-//   function ($scope, $filter, Admin, Authentication) {
-//      var vm = this;
-//      vm.authentication = Authentication;
-//      vm.users = Admin.query();
-//      console.log(vm.users);
+angular.module('users.admin').controller('UserListController', ['$scope', '$filter', 'Admin',
+  function ($scope, $filter, Admin) {
+    $scope.listuser = [];
+    $scope.listtran = [];
+    $scope.listdeli = [];
+    console.log($scope.listuser);
+    Admin.query(function (data) {
+     data.forEach(function (data) {
+        if (data.roles[0] === 'user') {
+          $scope.listuser.push(data);
+        } else if (data.roles[0] === 'deliver') {
+          $scope.listdeli.push(data);
+        } else if (data.roles[0] === 'transporter') {
+          $scope.listtran.push(data);
+        }
+      });
+      $scope.users = data;
+      $scope.buildPager();
+    });
 
-//      vm.listuser = function(user){
-//        console.log(user.roles[0]);
-//        if(user.roles[0] === 'user'){
-//         return true;
-//        }
-//      }
-//     // Admin.query(function (data) {
-//     //   $scope.users = data;
-//     //   $scope.buildPager();
-//     // });
 
-//     // $scope.buildPager = function () {
-//     //   $scope.pagedItems = [];
-//     //   $scope.itemsPerPage = 15;
-//     //   $scope.currentPage = 1;
-//     //   $scope.figureOutItemsToDisplay();
-//     // };
 
-//     // $scope.figureOutItemsToDisplay = function () {
-//     //   $scope.filteredItems = $filter('filter')($scope.users, {
-//     //     $: $scope.search
-//     //   });
-//     //   $scope.filterLength = $scope.filteredItems.length;
-//     //   var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
-//     //   var end = begin + $scope.itemsPerPage;
-//     //   $scope.pagedItems = $scope.filteredItems.slice(begin, end);
-//     // };
+    $scope.buildPager = function () {
+      $scope.pagedItems = [];
+      $scope.itemsPerPage = 15;
+      $scope.currentPage = 1;
+      $scope.figureOutItemsToDisplay();
+    };
 
-//     // $scope.pageChanged = function () {
-//     //   $scope.figureOutItemsToDisplay();
-//     // };
-//   }
-// ]);
+    $scope.figureOutItemsToDisplay = function () {
+      $scope.filteredItems = $filter('filter')($scope.users, {
+        $: $scope.search
+      });
+      $scope.filterLength = $scope.filteredItems.length;
+      var begin = (($scope.currentPage - 1) * $scope.itemsPerPage);
+      var end = begin + $scope.itemsPerPage;
+      $scope.pagedItems = $scope.filteredItems.slice(begin, end);
+    };
 
-(function () {
-  'use strict';
-
-  angular
-    .module('users.admin')
-    .controller('UserListController', UserListController);
-
-  UserListController.$inject = ['$scope', 'Admin', '$filter', 'Authentication'];
-
-  function UserListController($scope, Admin, $filter, Authentication) {
-    var vm = this;
-    vm.authentication = Authentication;
-    vm.users = Admin.query();
-
-   
-
+    $scope.pageChanged = function () {
+      $scope.figureOutItemsToDisplay();
+    };
   }
-})();
+]);
