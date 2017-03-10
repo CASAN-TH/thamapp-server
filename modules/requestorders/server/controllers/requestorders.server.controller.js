@@ -230,7 +230,7 @@ function sendReqDeliver(reqorder) {
   console.log(reqorder);
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = reqorder.namedeliver ? reqorder.namedeliver : reqorder.namedeliver._id;
+    me = (reqorder.namedeliver || reqorder.namedeliver._id);
   } else {
     me = reqorder;
   }
@@ -292,7 +292,7 @@ function sendResAllAdmin(reqorder) {
           tokens: admtokens,
           profile: pushNotiAuthenADM.profile,
           notification: {
-            message: 'รายการ ' + reqorder.docno + ' ถูกเลือกโดย ' + reqorder.transport.displayName,
+            message: 'รายการ ' + reqorder.docno + ' มีบริษัทขนส่งเลือกแล้ว',
             ios: { badge: 1, sound: 'default' },
             android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
@@ -312,7 +312,7 @@ function sendResAllAdmin(reqorder) {
 function sendResDeliver(reqorder) {
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = reqorder.namedeliver ? reqorder.namedeliver : reqorder.namedeliver._id;
+    me = (reqorder.namedeliver || reqorder.namedeliver._id);
   } else {
     me = reqorder;
   }
@@ -335,7 +335,7 @@ function sendResDeliver(reqorder) {
           tokens: trntokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: 'รายการ ' + reqorder.docno + ' จัดส่งโดย' + reqorder.transport.displayName,
+            message: 'รายการ ' + reqorder.docno + ' ของคุณมีบริษัทขนส่งเลือกแล้ว',
             ios: { badge: 1, sound: 'default' },
             android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
