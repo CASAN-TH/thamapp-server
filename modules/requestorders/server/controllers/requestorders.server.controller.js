@@ -67,14 +67,14 @@ exports.update = function (req, res) {
     } else {
       if (requestorder.deliverystatus === 'request') {
         //admin,transporter and deliver pushnotification
-        // sendReqAllAdmin();
+        sendReqAllAdmin();
         sendReqAllTransporter();
-        // sendReqDeliver(requestorder);
+        sendReqDeliver(requestorder);
       } else if (requestorder.deliverystatus === 'response') {
-        // sendResAllAdmin(requestorder);
-        // sendResDeliver(requestorder);
+        sendResAllAdmin(requestorder);
+        sendResDeliver(requestorder);
       } else if (requestorder.deliverystatus === 'received') {
-        // sendRecAllAdmin(requestorder);
+        sendRecAllAdmin(requestorder);
         sendRecSingleTransporter(requestorder);
       }
       res.jsonp(requestorder);
@@ -310,7 +310,7 @@ function sendResAllAdmin(reqorder) {
 function sendResDeliver(reqorder) {
   var me = '';
   if (reqorder && reqorder.namedeliver) {
-    me = reqorder.namedeliver._id;
+    me = reqorder.namedeliver;
   } else {
     me = reqorder;
   }
