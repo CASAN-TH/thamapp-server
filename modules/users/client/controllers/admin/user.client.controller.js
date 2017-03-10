@@ -18,8 +18,8 @@ angular.module('users.admin').controller('UserController', ['$scope', '$state', 
       } else {
         $scope.user.address.district = $scope.user.address.district ? $scope.user.address.district : '';
         $scope.user.address.province = $scope.user.address.province ? $scope.user.address.province : '';
-        $scope.user.address.subdistrict =  $scope.user.address.subdistrict ? $scope.user.address.subdistrict :'';
-      } 
+        $scope.user.address.subdistrict = $scope.user.address.subdistrict ? $scope.user.address.subdistrict : '';
+      }
     };
     $scope.remove = function (user) {
       if (confirm('Are you sure you want to delete this user?')) {
