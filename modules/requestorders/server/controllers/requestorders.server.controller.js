@@ -29,7 +29,7 @@ exports.create = function (req, res) {
       });
     } else {
       //admin,transporter and deliver pushnotification
-      // sendReqAllAdmin();
+      sendReqAllAdmin();
       sendReqAllTransporter();
       // sendReqDeliver(requestorder);
       res.jsonp(requestorder);
@@ -182,80 +182,6 @@ function sendReqAllAdmin() {
 
 }
 
-function sendResAllAdmin(reqorder) {
-  Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
-    if (err) {
-
-    } else {
-      var admtokens = [];
-      admins.forEach(function (admin) {
-        admtokens.push(admin.device_token);
-      });
-
-      request({
-        url: pushNotiUrl,
-        auth: {
-          'bearer': pushNotiAuthenADM.auth
-        },
-        method: 'POST',
-        json: {
-          tokens: admtokens,
-          profile: pushNotiAuthenADM.profile,
-          notification: {
-            message: 'รายการ ' + reqorder.docno + ' ถูกเลือกโดย ' + reqorder.transport.displayName,
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
-          }
-        }
-      }, function (error, response, body) {
-        if (error) {
-          console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
-        }
-      });
-    }
-  });
-
-}
-
-function sendRecAllAdmin(reqorder) {
-  Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
-    if (err) {
-
-    } else {
-      var admtokens = [];
-      admins.forEach(function (admin) {
-        admtokens.push(admin.device_token);
-      });
-
-      request({
-        url: pushNotiUrl,
-        auth: {
-          'bearer': pushNotiAuthenADM.auth
-        },
-        method: 'POST',
-        json: {
-          tokens: admtokens,
-          profile: pushNotiAuthenADM.profile,
-          notification: {
-            message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
-          }
-        }
-      }, function (error, response, body) {
-        if (error) {
-          console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
-        }
-      });
-    }
-  });
-
-}
-
 function sendReqAllTransporter() {
   Requestorder.find().sort('-created').where('deliverystatus').equals('request').exec(function (err, reqOrders) {
     if (err) {
@@ -292,50 +218,6 @@ function sendReqAllTransporter() {
               console.log('Error: ', response.body.error);
             }
           });
-        }
-      });
-    }
-  });
-
-
-}
-
-function sendRecSingleTransporter(reqorder) {
-  var me = '';
-  if (reqorder && reqorder.transport) {
-    me = reqorder.transport._id;
-  } else {
-    me = reqorder;
-  }
-  Pushnotiuser.find().sort('-created').where('role').equals('transporter').where('user_id').equals(me).exec(function (err, trans) {
-    if (err) {
-
-    } else {
-      var trntokens = [];
-      trans.forEach(function (transporter) {
-        trntokens.push(transporter.device_token);
-      });
-      console.log(trntokens);
-      request({
-        url: pushNotiUrl,
-        auth: {
-          'bearer': pushNotiAuthenTRA.auth
-        },
-        method: 'POST',
-        json: {
-          tokens: trntokens,
-          profile: pushNotiAuthenTRA.profile,
-          notification: {
-            message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
-          }
-        }
-      }, function (error, response, body) {
-        if (error) {
-          console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
         }
       });
     }
@@ -388,6 +270,43 @@ function sendReqDeliver(reqorder) {
 
 }
 
+function sendResAllAdmin(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+    if (err) {
+
+    } else {
+      var admtokens = [];
+      admins.forEach(function (admin) {
+        admtokens.push(admin.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenADM.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: admtokens,
+          profile: pushNotiAuthenADM.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' ถูกเลือกโดย ' + reqorder.transport.displayName,
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+}
+
 function sendResDeliver(reqorder) {
   var me = '';
   if (reqorder && reqorder.namedeliver) {
@@ -415,6 +334,87 @@ function sendResDeliver(reqorder) {
           profile: pushNotiAuthenDEL.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' จัดส่งโดย' + reqorder.transport.displayName,
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+
+}
+
+function sendRecAllAdmin(reqorder) {
+  Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+    if (err) {
+
+    } else {
+      var admtokens = [];
+      admins.forEach(function (admin) {
+        admtokens.push(admin.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenADM.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: admtokens,
+          profile: pushNotiAuthenADM.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
+            ios: { badge: 1, sound: 'default' },
+            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+}
+
+function sendRecSingleTransporter(reqorder) {
+  var me = '';
+  if (reqorder && reqorder.transport) {
+    me = reqorder.transport._id;
+  } else {
+    me = reqorder;
+  }
+  Pushnotiuser.find().sort('-created').where('role').equals('transporter').where('user_id').equals(me).exec(function (err, trans) {
+    if (err) {
+
+    } else {
+      var trntokens = [];
+      trans.forEach(function (transporter) {
+        trntokens.push(transporter.device_token);
+      });
+      console.log(trntokens);
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenTRA.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: trntokens,
+          profile: pushNotiAuthenTRA.profile,
+          notification: {
+            message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
             ios: { badge: 1, sound: 'default' },
             android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
