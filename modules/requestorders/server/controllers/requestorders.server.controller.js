@@ -234,6 +234,7 @@ function sendReqDeliver(reqorder) {
   } else {
     me = reqorder;
   }
+  console.log('------me--------' + me);
   Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, trans) {
     if (err) {
 
