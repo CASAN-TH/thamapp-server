@@ -1,4 +1,4 @@
-<section>
+<!--<section>
   <div class="page-header">
     <div class="row">
       <div class="col-md-4">
@@ -50,11 +50,11 @@
 
   <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage"
     ng-change="pageChanged()"></pagination>
-</section>
+</section>-->
 
 <section>
   <div class="page-header">
-    <h1>การจัดการข้อมูลผู้ใช้งาน</h1>
+    <h1>ผู้ใช้งาน</h1>
   </div>
 
   <div class="row show-xs show-sm hidden-md hidden-lg marginT">
@@ -79,20 +79,20 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>user</span><h3>{{listwaitcomfirmed.length || 0}}</h3></button></a>
+              <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>user</span><h3>{{user.length || 0}}</h3></button></a>
               <a href="#confirmed" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>deliver</span><h3>{{listconfirmed.length || 0}}</h3></button></a>
               <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>transporter</span><h3>{{listreceipt.length || 0}}</h3></button></a>
             </div>
           </div>
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">
             <div class="col-xs-4">
-              <a href="#waitconfirmedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">รอยืนยัน</button></a>
+              <a href="#waitconfirmedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">user</button></a>
             </div>
             <div class="col-xs-4">
-              <a href="#confirmedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonPurple">ยืนยันแล้ว</button></a>
+              <a href="#confirmedmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonPurple">deliver</button></a>
             </div>
             <div class="col-xs-4">
-              <a href="#receiptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">รับเงินแล้ว</button></a>
+              <a href="#receiptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">transporter</button></a>
             </div>
           </div>
           <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
@@ -122,7 +122,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.listwaitreview as listwaitreview"
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in users | filter:topsearch | filter: {roles[0]: 'user'} as user"
                   ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
                   <div class="col-md-12">
 
