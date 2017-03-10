@@ -272,6 +272,7 @@ function sendReqDeliver(reqorder) {
 }
 
 function sendResAllAdmin(reqorder) {
+  console.log('all admin' + reqorder);
   Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
     if (err) {
 
