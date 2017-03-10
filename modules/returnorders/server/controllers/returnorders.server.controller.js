@@ -28,9 +28,16 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      deliverCreateAllAdminStatusReturn();
-      deliverCreateAllTransportStatusReturn();
-      deliverCreateStatusReturn(returnorder);
+      if (returnorder.user) {
+        if (returnorder.user.roles[0] === 'deliver') {
+          deliverCreateAllAdminStatusReturn();
+          deliverCreateAllTransportStatusReturn();
+          deliverCreateStatusReturn(returnorder);
+        } else {
+          deliverCreateAllTransportStatusReturn();
+          deliverCreateStatusReturn(returnorder);
+        }
+      }
       res.jsonp(returnorder);
     }
   });
@@ -216,9 +223,9 @@ function deliverCreateAllTransportStatusReturn() {
 
 function deliverCreateStatusReturn(data) {
   var me = '';
-  if(data && data.namedeliver){
+  if (data && data.namedeliver) {
     me = data.namedeliver._id;
-  }else{
+  } else {
     me = data.data;
   }
   Returnorder.find().sort('-created').where('deliverystatus').equals('return').exec(function (err, reqReturs) {
@@ -312,9 +319,9 @@ function statusResponseAllAdmin(data) {
 
 function statusResponseSingleDeliver(data) {
   var me = '';
-  if(data && data.namedeliver){
+  if (data && data.namedeliver) {
     me = data.namedeliver._id;
-  }else{
+  } else {
     me = data;
   }
   Returnorder.find().sort('-created').where('deliverystatus').equals('response').exec(function (err, reqReturs) {
@@ -363,9 +370,9 @@ function statusResponseSingleDeliver(data) {
 // status received
 function statusReceivedSingleTransport(data) {
   var me = '';
-  if(data && data.transport){
+  if (data && data.transport) {
     me = data.transport._id;
-  }else{
+  } else {
     me = data;
   }
   Returnorder.find().sort('-created').where('deliverystatus').equals('received').exec(function (err, reqReturs) {
@@ -413,9 +420,9 @@ function statusReceivedSingleTransport(data) {
 
 function statusReceivedSingleDeliver(data) {
   var me = '';
-  if(data && data.namedeliver){
+  if (data && data.namedeliver) {
     me = data.namedeliver._id;
-  }else{
+  } else {
     me = data;
   }
   Returnorder.find().sort('-created').where('deliverystatus').equals('request').exec(function (err, reqReturs) {
