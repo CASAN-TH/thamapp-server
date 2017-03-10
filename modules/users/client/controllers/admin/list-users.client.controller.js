@@ -55,7 +55,16 @@
     vm.authentication = Authentication;
     vm.users = Admin.query();
 
-    console.log(vm.users);
+    // console.log(vm.users);
+
+    vm.listuser = function (data) {
+      if (vm.authentication.user.roles[0] === 'admin') {
+        if (data.roles[0] === 'user') {
+          return true;
+        }
+      }
+
+    };
 
   }
 })();
