@@ -9,7 +9,13 @@ var path = require('path'),
   User = mongoose.model('User'),
   Product = mongoose.model('Product'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
-  _ = require('lodash');
+  _ = require('lodash'),
+  Pushnotiuser = mongoose.model('Pushnotiuser'),
+  request = require('request'),
+  pushNotiUrl = 'https://api.ionic.io/push/notifications',
+  pushNotiAuthenADM = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZWM3YWNjZi1hYTNjLTQ2ZjUtYmMyNS1kODQ1MmQ2NDRlZmMifQ.Q3-2r2TL0Mq6Aq1JJSmUoTnh0LaoyMA-ZVuOylkJ7nI' },
+  pushNotiAuthenDEL = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs' },
+  pushNotiAuthenTRA = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0MTVkMjNlNS1mMzVkLTRmNjEtOTcyMy01ZWIxNGZjMzFjYjkifQ.8E_6neuDDdMz1cqVPxcFuk7RuwB0Tu-ksdBC2ZnCs8Y' };
 
 /**
  * Create a Accuralreceipt
@@ -24,6 +30,7 @@ exports.create = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      allAdminStatusReview();
       res.jsonp(accuralreceipt);
     }
   });
@@ -69,6 +76,15 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      if (accuralreceipt.arstatus === 'wait for review') {
+        allAdminStatusReview();
+      } else if (accuralreceipt.arstatus === 'wait for confirmed') {
+        allAdminStatusConfirm(accuralreceipt);
+      } else if (accuralreceipt.arstatus === 'confirmed') {
+        allAdminStatusConfirmed(accuralreceipt);
+      } else if (accuralreceipt.arstatus === 'receipt') {
+        allAdminStatusReceipt(accuralreceipt);
+      }
       res.jsonp(accuralreceipt);
     }
   });
@@ -142,3 +158,195 @@ exports.accuralreceiptByID = function (req, res, next, id) {
     next();
   });
 };
+
+// status wait for review
+function allAdminStatusReview() {
+  Accuralreceipt.find().sort('-created').where('arstatus').equals('wait for review').exec(function (err, reqAccs) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+        if (err) {
+
+        } else {
+          var admtokens = [];
+          admins.forEach(function (admin) {
+            admtokens.push(admin.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenADM.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: admtokens,
+              profile: pushNotiAuthenADM.profile,
+              notification: {
+                message: 'คุณมีรายการใบแจ้งหนี้ใหม่ ' + reqAccs.length + ' รายการ',
+                ios: { badge: reqAccs.length, sound: 'default' },
+                android: { data: { badge: reqAccs.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+// status wait form confirmed
+function allAdminStatusConfirm(data) {
+  var me = '';
+  if (data && data.namedeliver) {
+    me = data.namedeliver._id;
+  } else {
+    me = data;
+  }
+  Accuralreceipt.find().sort('-created').where('arstatus').equals('wait for confirmed').exec(function (err, reqAccs) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          var dlrtokens = [];
+          delivers.forEach(function (deliver) {
+            dlrtokens.push(deliver.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenDEL.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: dlrtokens,
+              profile: pushNotiAuthenDEL.profile,
+              notification: {
+                message: 'คุณมีรายการใบแจ้งหนี้ใหม่ ' + reqAccs.length + ' รายการ',
+                ios: { badge: reqAccs.length, sound: 'default' },
+                android: { data: { badge: reqAccs.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+// status confirmed
+function allAdminStatusConfirmed(data) {
+  Accuralreceipt.find().sort('-created').where('arstatus').equals('confirmed').exec(function (err, reqAccs) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+        if (err) {
+
+        } else {
+          var admtokens = [];
+          admins.forEach(function (admin) {
+            admtokens.push(admin.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenADM.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: admtokens,
+              profile: pushNotiAuthenADM.profile,
+              notification: {
+                message: 'รายการใบแจ้งหนี้' + data.docno + ' ได้รับการยืนยันแล้ว',
+                ios: { badge: 1, sound: 'default' },
+                android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+// status receipt
+function allAdminStatusReceipt(data) {
+  var me = '';
+  if (data && data.namedeliver) {
+    me = data.namedeliver._id;
+  } else {
+    me = data;
+  }
+  Accuralreceipt.find().sort('-created').where('arstatus').equals('receipt').exec(function (err, reqAccs) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          var dlrtokens = [];
+          delivers.forEach(function (deliver) {
+            dlrtokens.push(deliver.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenDEL.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: dlrtokens,
+              profile: pushNotiAuthenDEL.profile,
+              notification: {
+                message: 'รายการใบแจ้งหนี้ ' + data.docno + ' ได้รับเงินแล้ว',
+                ios: { badge: 1, sound: 'default' },
+                android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
