@@ -31,7 +31,7 @@ exports.create = function (req, res) {
       //admin,transporter and deliver pushnotification
       sendReqAllAdmin();
       sendReqAllTransporter();
-      // sendReqDeliver(requestorder);
+      sendReqDeliver(requestorder);
       res.jsonp(requestorder);
     }
   });
