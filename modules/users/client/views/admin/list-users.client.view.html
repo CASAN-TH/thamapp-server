@@ -1,4 +1,4 @@
-<!--<section>
+<section>
   <div class="page-header">
     <div class="row">
       <div class="col-md-4">
@@ -50,11 +50,11 @@
 
   <pagination boundary-links="true" max-size="8" items-per-page="itemsPerPage" total-items="filterLength" ng-model="currentPage"
     ng-change="pageChanged()"></pagination>
-</section>-->
+</section>
 
 <section>
   <div class="page-header">
-    <h1>ผู้ดูแลระบบ</h1>
+    <h1>การจัดการข้อมูลผู้ใช้งาน</h1>
   </div>
 
   <div class="row show-xs show-sm hidden-md hidden-lg marginT">
@@ -79,9 +79,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รอยืนยัน</span><h3>{{listwaitcomfirmed.length || 0}}</h3></button></a>
-              <a href="#confirmed" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>ยืนยันแล้ว</span><h3>{{listconfirmed.length || 0}}</h3></button></a>
-              <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{listreceipt.length || 0}}</h3></button></a>
+              <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>user</span><h3>{{listwaitcomfirmed.length || 0}}</h3></button></a>
+              <a href="#confirmed" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>deliver</span><h3>{{listconfirmed.length || 0}}</h3></button></a>
+              <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>transporter</span><h3>{{listreceipt.length || 0}}</h3></button></a>
             </div>
           </div>
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">
