@@ -227,12 +227,14 @@ function sendReqAllTransporter() {
 }
 
 function sendReqDeliver(reqorder) {
+  console.log(reqorder);
   var me = '';
   if (reqorder && reqorder.namedeliver) {
     me = reqorder.namedeliver._id;
   } else {
     me = reqorder;
   }
+  console.log('------me--------' + me);
   Pushnotiuser.find().sort('-created').where('role').equals('deliver').where('user_id').equals(me).exec(function (err, trans) {
     if (err) {
 
