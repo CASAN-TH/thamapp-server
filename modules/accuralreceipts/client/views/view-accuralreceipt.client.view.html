@@ -285,9 +285,9 @@
                         <th class="text-right">จำนวนเงิน</th>
                       </tr>
                     </thead>
-                    <tbody ng-repeat="accuralreceipt in vm.accuralreceipt.items">
-                      <tr ng-repeat="ar in accuralreceipt.items" ui-sref="accuralreceipt.view({ accuralreceiptId: accuralreceipt._id })">
-                        <td><strong>{{$index +1}}</strong></td>
+                    <tbody ng-repeat="accuralreceipt in vm.accuralreceipt.items" >
+                      <tr ng-repeat="ar in accuralreceipt.items" ui-sref="accuralreceipt.view({ accuralreceiptId: accuralreceipt._id })" ng-init="number = countInit()">
+                        <td><strong>{{number +1}}</strong></td>
                         <td>
                           <div><strong>{{ar.product.name}}</strong><span> (ใบสั่งซื้อเลขที่ : {{accuralreceipt.docno}})</span></div>
                           <!--<small>{{accuralreceipt.product.description}}</small>-->

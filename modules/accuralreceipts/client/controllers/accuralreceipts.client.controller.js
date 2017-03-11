@@ -29,6 +29,10 @@
     vm.addPaid = addPaid;
     vm.sum = 0;
     vm.caladjust = caladjust;
+    $scope.totalCount = 0;
+    $scope.countInit = function () {
+      return $scope.totalCount++;
+    }
     // vm.accuralreceipt.billamount = 0;
     vm.readOrder = readOrder;
     if (vm.accuralreceipt.namedeliver) {
