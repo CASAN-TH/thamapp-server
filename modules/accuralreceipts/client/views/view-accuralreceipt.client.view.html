@@ -289,7 +289,7 @@
                       <tr ng-repeat="ar in accuralreceipt.items" ui-sref="accuralreceipt.view({ accuralreceiptId: accuralreceipt._id })">
                         <td><strong>{{$index +1}}</strong></td>
                         <td>
-                          <div><strong>{{ar.product.name}}</strong><span> (ใบสั่งซื้อเลขที่ : {accuralreceipt.docno})</span></div>
+                          <div><strong>{{ar.product.name}}</strong><span> (ใบสั่งซื้อเลขที่ : {{accuralreceipt.docno}})</span></div>
                           <!--<small>{{accuralreceipt.product.description}}</small>-->
                         </td>
                         <td class="text-right">{{ar.qty}}</td>
