@@ -188,7 +188,7 @@ exports.list = function (req, res) {
                                       wip: 0,
                                       outcome: 0,
                                       returnord: 0,
-                                      ap: itm.items.qty
+                                      ap: itm.qty
                                     };
                                     stocks.push(stock);
                                   });
