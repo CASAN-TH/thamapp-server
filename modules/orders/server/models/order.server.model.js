@@ -90,6 +90,7 @@ var OrderSchema = new Schema({
     type: String,
     default: 'confirmed'
   },
+  refdoc : String,
   drilldate: Date,
   deliverylog: [{
     logdate: Date,
