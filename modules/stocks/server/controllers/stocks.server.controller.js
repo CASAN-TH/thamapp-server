@@ -9,6 +9,7 @@ var path = require('path'),
   User = mongoose.model('User'),
   Order = mongoose.model('Order'),
   Requestorder = mongoose.model('Requestorder'),
+  Returnorder = mongoose.model('Returnorder'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash');
 
@@ -107,7 +108,6 @@ exports.list = function (req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-
         Order.find().sort('-created')
           .where('deliverystatus').equals('complete')
           .populate('items.product')
@@ -128,93 +128,159 @@ exports.list = function (req, res) {
                       message: errorHandler.getErrorMessage(err)
                     });
                   } else {
-                    var stocks = [];
-                    incomes.forEach(function (income) {
-                      income.items.forEach(function (itm) {
-                        var stock = {
-                          namedeliver: income.namedeliver,
-                          product: itm.product,
-                          income: itm.qty,
-                          wip: 0,
-                          outcome: 0
-                        };
-                        stocks.push(stock);
+                    Returnorder.find().sort('-created')
+                      .where('deliverystatus').equals('received')
+                      .populate('items.product')
+                      .populate('namedeliver')
+                      .exec(function (err, returnords) {
+                        if (err) {
+                          return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                          });
+                        } else {
+                          Order.find().sort('-created')
+                            .where('deliverystatus').equals('ap')
+                            .populate('items.product')
+                            .populate('namedeliver')
+                            .exec(function (err, aps) {
+                              if (err) {
+                                return res.status(400).send({
+                                  message: errorHandler.getErrorMessage(err)
+                                });
+                              } else {
+                                var stocks = [];
+                                incomes.forEach(function (income) {
+                                  income.items.forEach(function (itm) {
+                                    var stock = {
+                                      namedeliver: income.namedeliver,
+                                      product: itm.product,
+                                      income: itm.qty,
+                                      wip: 0,
+                                      outcome: 0,
+                                      returnord: 0,
+                                      ap: 0
+                                    };
+                                    stocks.push(stock);
+                                  });
+                                });
+
+                                returnords.forEach(function (returnord) {
+                                  returnord.items.forEach(function (itm) {
+                                    var stock = {
+                                      namedeliver: returnord.namedeliver,
+                                      product: itm.product,
+                                      income: 0,
+                                      wip: 0,
+                                      outcome: 0,
+                                      returnord: itm.qty,
+                                      ap: 0
+                                    };
+                                    stocks.push(stock);
+                                  });
+                                });
+
+                                aps.forEach(function (apord) {
+                                  apord.items.forEach(function (itm) {
+                                    var stock = {
+                                      namedeliver: apord.namedeliver,
+                                      product: itm.product,
+                                      income: 0,
+                                      wip: 0,
+                                      outcome: 0,
+                                      returnord: 0,
+                                      ap: itm.items.qty
+                                    };
+                                    stocks.push(stock);
+                                  });
+                                });
+
+                                accepts.forEach(function (accept) {
+                                  accept.items.forEach(function (itm) {
+                                    var stock = {
+                                      namedeliver: accept.namedeliver,
+                                      product: itm.product,
+                                      income: 0,
+                                      wip: itm.qty,
+                                      outcome: 0,
+                                      returnord: 0,
+                                      ap: 0
+                                    };
+                                    stocks.push(stock);
+                                  });
+                                });
+
+                                completes.forEach(function (complete) {
+                                  complete.items.forEach(function (itm) {
+                                    var stock = {
+                                      namedeliver: complete.namedeliver,
+                                      product: itm.product,
+                                      income: 0,
+                                      wip: 0,
+                                      outcome: itm.qty,
+                                      returnord: 0,
+                                      ap: 0
+                                    };
+                                    stocks.push(stock);
+                                  });
+                                });
+
+                                var ret = [];
+                                var result = _.chain(stocks)
+                                  .groupBy('namedeliver')
+                                  .pairs()
+                                  .map(function (currentItem) {
+                                    return _.object(_.zip(['namedeliver', 'stocks'], currentItem));
+                                  })
+                                  .value();
+                                var stks = [];
+                                result.forEach(function (stk) {
+                                  var _stk = {
+                                    namedeliver: stk.stocks[0].namedeliver,
+                                    stocks: [],
+
+                                  };
+                                  var prods = _.chain(stk.stocks)
+                                    .groupBy('product')
+                                    .pairs()
+                                    .map(function (currentItem) {
+                                      return _.object(_.zip(['product', 'prodstocks'], currentItem));
+                                    })
+                                    .value();
+
+                                  prods.forEach(function (prd) {
+                                    var pd = {
+                                      product: prd.prodstocks[0].product,
+                                      income: 0,
+                                      wip: 0,
+                                      outcome: 0,
+                                      returnord: 0,
+                                      ap: 0
+                                    };
+                                    prd.prodstocks.forEach(function (vol) {
+                                      pd.income += vol.income;
+                                      pd.wip += vol.wip;
+                                      pd.outcome += vol.outcome;
+                                      pd.returnord += vol.returnord;
+                                      pd.ap += vol.ap;
+                                    });
+                                    _stk.stocks.push(pd);
+
+                                  });
+
+                                  ret.push(_stk);
+                                });
+
+                                res.jsonp(ret);
+                              }
+
+                            });
+                        }
                       });
-                    });
-
-                    accepts.forEach(function (accept) {
-                      accept.items.forEach(function (itm) {
-                        var stock = {
-                          namedeliver: accept.namedeliver,
-                          product: itm.product,
-                          income: 0,
-                          wip: itm.qty,
-                          outcome: 0
-                        };
-                        stocks.push(stock);
-                      });
-                    });
-
-                    completes.forEach(function (complete) {
-                      complete.items.forEach(function (itm) {
-                        var stock = {
-                          namedeliver: complete.namedeliver,
-                          product: itm.product,
-                          income: 0,
-                          wip: 0,
-                          outcome: itm.qty
-                        };
-                        stocks.push(stock);
-                      });
-                    });
-                    var ret = [];
-                    var result = _.chain(stocks)
-                      .groupBy('namedeliver')
-                      .pairs()
-                      .map(function (currentItem) {
-                        return _.object(_.zip(['namedeliver', 'stocks'], currentItem));
-                      })
-                      .value();
-                    var stks = [];
-                    result.forEach(function (stk) {
-                      var _stk = {
-                        namedeliver: stk.stocks[0].namedeliver,
-                        stocks: [],
-
-                      };
-                      var prods = _.chain(stk.stocks)
-                      .groupBy('product')
-                      .pairs()
-                      .map(function (currentItem) {
-                        return _.object(_.zip(['product', 'prodstocks'], currentItem));
-                      })
-                      .value();
-
-                      prods.forEach(function(prd){
-                        var pd = {
-                          product : prd.prodstocks[0].product,
-                          income: 0,
-                          wip:0,
-                          outcome:0
-                        };
-                        prd.prodstocks.forEach(function(vol){
-                          pd.income += vol.income;
-                          pd.wip += vol.wip;
-                          pd.outcome += vol.outcome;
-                        });
-                        _stk.stocks.push(pd);
-
-                      });
-                      
-                      ret.push(_stk);
-                    });
-
-                    res.jsonp(ret);
-                  }
+                  }//
                 });
             }
           });
-      }//
+      }
     });
 };
 
@@ -241,3 +307,4 @@ exports.list = function (req, res) {
 //     next();
 //   });
 // };
+
