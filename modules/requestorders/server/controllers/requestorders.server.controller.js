@@ -227,7 +227,6 @@ function sendReqAllTransporter() {
 }
 
 function sendReqDeliver(reqorder) {
-  console.log(reqorder);
   var me = '';
   if (reqorder && reqorder.namedeliver) {
     me = reqorder.namedeliver;
@@ -272,7 +271,6 @@ function sendReqDeliver(reqorder) {
 }
 
 function sendResAllAdmin(reqorder) {
-  console.log('all admin' + reqorder);
   Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
     if (err) {
 
@@ -405,7 +403,6 @@ function sendRecSingleTransporter(reqorder) {
       trans.forEach(function (transporter) {
         trntokens.push(transporter.device_token);
       });
-      console.log(trntokens);
       request({
         url: pushNotiUrl,
         auth: {

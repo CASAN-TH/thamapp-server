@@ -8,6 +8,7 @@ var path = require('path'),
   Accuralreceipt = mongoose.model('Accuralreceipt'),
   User = mongoose.model('User'),
   Product = mongoose.model('Product'),
+  Order = mongoose.model('Order'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
   Pushnotiuser = mongoose.model('Pushnotiuser'),
@@ -23,7 +24,8 @@ var path = require('path'),
 exports.create = function (req, res) {
   var accuralreceipt = new Accuralreceipt(req.body);
   accuralreceipt.user = req.user;
-
+  console.log(accuralreceipt);
+  var ordcount = 0;
   accuralreceipt.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -31,9 +33,31 @@ exports.create = function (req, res) {
       });
     } else {
       allAdminStatusReview();
-      res.jsonp(accuralreceipt);
+      
+      req.body.items.forEach(function (order) {
+        console.log(order);
+        updateAP(order, accuralreceipt.docno, function (err, item) {
+          if (err) {
+            console.log(err);
+            return res.status(400).send({
+              message: errorHandler.getErrorMessage(err)
+            });
+          } else {
+            ordcount++;
+            if (ordcount === accuralreceipt.items.length) {
+              res.jsonp(accuralreceipt);
+            }
+          }
+
+        });
+      });
+      
+      //res.jsonp(accuralreceipt);
     }
   });
+
+
+
 };
 
 /**
@@ -69,42 +93,86 @@ exports.update = function (req, res) {
   var accuralreceipt = req.accuralreceipt;
 
   accuralreceipt = _.extend(accuralreceipt, req.body);
+  var ordcount = 0;
+  accuralreceipt.items.forEach(function (order) {
+    Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, function () {
+      updateAP(order, accuralreceipt.docno, function (err, item) {
+        if (err) {
+          console.log(err);
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          ordcount++;
+          if (ordcount === accuralreceipt.items.length) {
+            accuralreceipt.save(function (err) {
+              if (err) {
+                return res.status(400).send({
+                  message: errorHandler.getErrorMessage(err)
+                });
+              } else {
+                if (accuralreceipt.arstatus === 'wait for review') {
+                  allAdminStatusReview();
+                } else if (accuralreceipt.arstatus === 'wait for confirmed') {
+                  allAdminStatusConfirm(accuralreceipt);
+                } else if (accuralreceipt.arstatus === 'confirmed') {
+                  allAdminStatusConfirmed(accuralreceipt);
+                } else if (accuralreceipt.arstatus === 'receipt') {
+                  allAdminStatusReceipt(accuralreceipt);
+                }
+                res.jsonp(accuralreceipt);
+              }
+            });
+          }
+        }
 
-  accuralreceipt.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
       });
-    } else {
-      if (accuralreceipt.arstatus === 'wait for review') {
-        allAdminStatusReview();
-      } else if (accuralreceipt.arstatus === 'wait for confirmed') {
-        allAdminStatusConfirm(accuralreceipt);
-      } else if (accuralreceipt.arstatus === 'confirmed') {
-        allAdminStatusConfirmed(accuralreceipt);
-      } else if (accuralreceipt.arstatus === 'receipt') {
-        allAdminStatusReceipt(accuralreceipt);
-      }
-      res.jsonp(accuralreceipt);
-    }
+    });
+    /////////////////
+
   });
+
+
+
 };
 
+
+
+function updateAP(order, docno, callback) {
+  order.deliverystatus = 'ap';
+  order.refdoc = docno;
+  Order.findById(order._id).exec(function (err, _order) {
+    console.log(_order);
+    _order.deliverystatus = 'ap';
+    _order.refdoc = docno;
+    _order.save(function (err) {
+      if (err) {
+        return callback(err, null);
+      } else {
+        //order = _order;
+        return callback(null, _order);
+      }
+    });
+  });
+
+}
 /**
  * Delete an Accuralreceipt
  */
 exports.delete = function (req, res) {
   var accuralreceipt = req.accuralreceipt;
-
-  accuralreceipt.remove(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(accuralreceipt);
-    }
+  Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, function () {
+    accuralreceipt.remove(function (err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(accuralreceipt);
+      }
+    });
   });
+
 };
 
 /**

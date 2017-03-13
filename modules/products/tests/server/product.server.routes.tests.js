@@ -49,6 +49,7 @@ describe('Product CRUD tests', function () {
       email: 'test@test.com',
       username: credentials.username,
       password: credentials.password,
+      roles :['admin'],
       provider: 'local',
       loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
       loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
@@ -138,46 +139,6 @@ describe('Product CRUD tests', function () {
       });
   });
 
-  it('should be able to save a Product if logged in with token', function (done) {
-    product.loginToken = user.loginToken;
-      // Save a new Product
-        agent.post('/api/products')
-          .send(product)
-          .expect(200)
-          .end(function (productSaveErr, productSaveRes) {
-            // Handle Product save error
-            if (productSaveErr) {
-              return done(productSaveErr);
-            }
-
-            // Get a list of Products
-            agent.get('/api/products')
-              .end(function (productsGetErr, productsGetRes) {
-                // Handle Products save error
-                if (productsGetErr) {
-                  return done(productsGetErr);
-                }
-
-                // Get Products list
-                var products = productsGetRes.body;
-
-                // Set assertions
-                //(products[0].user._id).should.equal(userId);
-                (products[0].name).should.match('Product Name');
-                (products[0].description).should.match('Product Description');
-                (products[0].category).should.match('Product Category');
-                (products[0].price).should.match(100);
-                (products[0].images).should.match('img1');
-                (products[0].deliveryratetype).should.match(2);
-                (products[0].valuetype1).should.match(0);
-                (products[0].rangtype2.length).should.match(3);
-
-
-                // Call the assertion callback
-                done();
-              });
-          });
-  });
 
   it('should not be able to save an Product if not logged in', function (done) {
     agent.post('/api/products')
@@ -366,31 +327,31 @@ describe('Product CRUD tests', function () {
       });
   });
 
-  it('should be able to get a list of Products if not signed in', function (done) {
-    // Create new Product model instance
-    var productObj = new Product(product);
-    var PromotionObj = new Promotion({
-      product: productObj,
-      description: 'Promotion describe'
-    });
-    // Save the product
-    productObj.save(function () {
-      PromotionObj.save(function () {
-        // Request Products
-        request(app).get('/api/products')
-          .end(function (req, res) {
-            // Set assertion
-            res.body.should.be.instanceof(Array).and.have.lengthOf(1);
+  // it('should be able to get a list of Products if not signed in', function (done) {
+  //   // Create new Product model instance
+  //   var productObj = new Product(product);
+  //   var PromotionObj = new Promotion({
+  //     product: productObj,
+  //     description: 'Promotion describe'
+  //   });
+  //   // Save the product
+  //   productObj.save(function () {
+  //     PromotionObj.save(function () {
+  //       // Request Products
+  //       request(app).get('/api/products')
+  //         .end(function (req, res) {
+  //           // Set assertion
+  //           res.body.should.be.instanceof(Array).and.have.lengthOf(1);
 
-            //res.body[0].should.equal(1);
-            // Call the assertion callback
-            done();
-          });
-      });
+  //           //res.body[0].should.equal(1);
+  //           // Call the assertion callback
+  //           done();
+  //         });
+  //     });
 
 
-    });
-  });
+  //   });
+  // });
 
   it('should be able to get a single Product if not signed in', function (done) {
     // Create new Product model instance

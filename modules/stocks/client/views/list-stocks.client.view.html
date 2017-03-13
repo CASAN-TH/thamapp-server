@@ -31,13 +31,19 @@
         <div class="col-xs-4 col-sm-4 col-md-4">
           <strong>ประเภทสินค้า</strong>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class="col-xs-1 col-sm-1 col-md-1">
           <strong>รับเข้า</strong>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>ขายออก</strong>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>รับคืน</strong>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
+        <div class="col-xs-2 col-sm-2 col-md-2" align="center">
+          <strong>จ่ายแล้ว</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>ขาย</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
           <strong>จอง</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -66,17 +72,27 @@
             <img width="10px;">
             <span class="list-group-item-heading" ng-bind="prod.product.name"></span>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading" ng-bind="prod.income"></span>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+          <div class="col-xs-1 col-sm-1 col-md-1">
+            <span class="list-group-item-heading" ng-bind="prod.returnord"></span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2" align="center" ng-show="prod.ap === null || prod.ap === 0">
+            <!--<span class="list-group-item-heading" ng-bind="prod.ap"></span>-->
+            <span class="list-group-item-heading">ยังไม่จ่าย</span>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2" align="center" ng-show="prod.ap.length > 0">
+            <span class="list-group-item-heading">จ่ายแล้ว</span>
+          </div>
+          <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading" ng-bind="prod.outcome"></span>
           </div>
-          <div class="col-xs-2 col-sm-2 col-md-2">
+         <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading" ng-bind="prod.wip"></span>
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2">
-            <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip)}}</span>
+            <span class="list-group-item-heading">{{(prod.income - (prod.outcome + prod.wip))+prod.returnord}}</span>
           </div>
         </div>
       </div>
@@ -99,16 +115,22 @@
             <div class="col-xs-4 col-sm-4 col-md-4">
               <span class="list-group-item-heading" ng-bind="prod.product.name"></span>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2">
+            <div class="col-xs-1 col-sm-1 col-md-1">
               <span class="list-group-item-heading" ng-bind="prod.income"></span>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2">
+             <div class="col-xs-1 col-sm-1 col-md-1">
+              <span class="list-group-item-heading" ng-bind="prod.returnord"></span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
+              <span class="list-group-item-heading" ng-bind="prod.ap"></span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1">
               <span class="list-group-item-heading" ng-bind="prod.outcome"></span>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2">
+            <div class="col-xs-1 col-sm-1 col-md-1">
               <span class="list-group-item-heading" ng-bind="prod.wip"></span>
             </div>
-            <div class="col-xs-2 col-sm-2 col-md-2">
+            <div class="col-xs-1 col-sm-1 col-md-1">
               <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip)}}</span>
             </div>
           </div>
