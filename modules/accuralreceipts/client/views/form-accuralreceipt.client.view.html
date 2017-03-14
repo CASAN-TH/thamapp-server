@@ -342,12 +342,12 @@
 
 
                   <div class="fadePortrait">
-                    <div class="textRight" ng-show="vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin' && vm.accuralreceipt.arstatus === 'wait for review' || !vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin'">
+                    <div class="textRight" ng-show="vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin' && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed' || !vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin'">
                       <button type="button" class="btn btn-link" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash text-danger"></span></button>
                     </div>
                   </div>
                   <div class="fadeLandscape">
-                    <div class="textCenter" ng-show="vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin' && vm.accuralreceipt.arstatus === 'wait for review' || !vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin'">
+                    <div class="textCenter" ng-show="vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin' && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed' || !vm.accuralreceipt._id && vm.authentication.user.roles[0] == 'admin'">
                       <button type="button" class="btn btn-link" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash text-danger"></span></button>
                     </div>
                   </div>
@@ -356,13 +356,13 @@
             </div>
           </div>
           <!--list Product-->
-          <div class="row form-group show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
-            <div class="col-xs-12 form-group" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+          <div class="row form-group show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
+            <div class="col-xs-12 form-group" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myOrder">เพิ่มออเดอร์</button>
             </div>
           </div>
-          <div class="row form-group  hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
-            <div class="col-sm-12 col-md-12 form-group" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+          <div class="row form-group  hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
+            <div class="col-sm-12 col-md-12 form-group" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myOrder">เพิ่มออเดอร์</button>
             </div>
           </div>
@@ -443,7 +443,7 @@
                 <label>{{vm.accuralreceipt.billamount | number:2}}</label>
               </div>
             </div>
-            <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id && vm.accuralreceipt.arstatus !== 'wait for review'">
+            <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id && vm.accuralreceipt.arstatus !== 'wait for review' && vm.accuralreceipt.arstatus !== 'wait for confirmed'">
               <div class="col-xs-9">
                 <label>{{ar.paid.typepaid}}</label> 
               </div>
@@ -451,7 +451,7 @@
                 <label>{{ar.paid.total | number:2}}</label>
               </div>
             </div>
-            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review'" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
+            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' && vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
               <div class="col-md-5">
                 <select class="form-control" ng-model="ar.paid.typepaid">
                   <option value="รับเงินล่วงหน้า">รับเงินล่วงหน้า</option>
@@ -465,7 +465,7 @@
                 <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
-            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review'" class="row form-group">
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' && vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group">
               <div class="col-md-12 form-group">
                 <button type="button" class="btn btn-success btn-outline btn-block" ng-click="vm.addPaid()">เพิ่มรายการปรับปรุง</button>
               </div>
@@ -589,7 +589,7 @@
               </div>
 
             </div>
-            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review'">
+            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
               <div class="col-md-12 form-group">
                 <button type="submit" class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
               </div>
@@ -650,7 +650,7 @@
     <div class="col-md-3 round1 ">
       <div class="row marginB">
 
-        <div class="col-md-12" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+        <div class="col-md-12" ng-show="vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
           <button type="text" class="btn buttonGreenForm btn-block">สถานะ : รอตรวจสอบ</button>
         </div>
         <div class="col-md-12" ng-show="vm.accuralreceipt.arstatus === 'wait for confirmed'">
