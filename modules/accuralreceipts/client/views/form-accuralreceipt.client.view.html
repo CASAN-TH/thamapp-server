@@ -101,12 +101,12 @@
               <div class="row">
 
                 <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
-                  <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+                  <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
                 </div>
-                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
-                  <div class="btn btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
+                  <div class="btn btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
                 </div>
@@ -190,16 +190,16 @@
             <div class="col-xs-3 col-sm-3 col-md-3">
               <strong>รายการสั่งซื้อ</strong>
             </div>
-            <div class=" col-xs-4 col-sm-4 col-md-4" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+            <div class=" col-xs-4 col-sm-4 col-md-4" ng-show="vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
               <strong>ที่อยู่จัดส่ง</strong>
             </div>
-            <div class=" col-xs-6 col-sm-6 col-md-6" ng-show="vm.accuralreceipt.arstatus !== 'wait for review'">
+            <div class=" col-xs-6 col-sm-6 col-md-6" ng-show="vm.accuralreceipt.arstatus !== 'wait for review' && vm.accuralreceipt.arstatus !== 'wait for confirmed'">
               <strong>ที่อยู่จัดส่ง</strong>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3">
               <strong>วันที่สั่งซื้อ</strong>
             </div>
-            <div class=" col-xs-2 col-sm-2 col-md-2" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+            <div class=" col-xs-2 col-sm-2 col-md-2" ng-show="vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
 
             </div>
           </div>
@@ -227,16 +227,16 @@
                 <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
                 <span class="list-group-item-heading" ng-bind="order.docno"></span>
               </div>
-              <div class="col-xs-5 col-sm-5 col-md-5" ng-show="vm.accuralreceipt.arstatus !== 'wait for review'">
+              <div class="col-xs-5 col-sm-5 col-md-5" ng-show="vm.accuralreceipt.arstatus !== 'wait for review' && vm.accuralreceipt.arstatus !== 'wait for confirmed'">
                 <span class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
               </div>
-              <div class="col-xs-4 col-sm-4 col-md-4" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+              <div class="col-xs-4 col-sm-4 col-md-4" ng-show="vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
                 <span class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
               </div>
               <div class="col-xs-3 col-sm-3 col-md-3">
                 <time am-time-ago="order.created"></time>
               </div>
-              <div class="col-xs-2 col-sm-2 col-md-2" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
+              <div class="col-xs-2 col-sm-2 col-md-2" ng-show="vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
                 <button type="button" class="btn btn-danger" ng-click="vm.removeItem($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
