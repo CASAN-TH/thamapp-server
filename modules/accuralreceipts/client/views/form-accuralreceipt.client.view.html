@@ -465,7 +465,7 @@
                 <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
-            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' && vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group">
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group">
               <div class="col-md-12 form-group">
                 <button type="button" class="btn btn-success btn-outline btn-block" ng-click="vm.addPaid()">เพิ่มรายการปรับปรุง</button>
               </div>
@@ -650,7 +650,7 @@
     <div class="col-md-3 round1 ">
       <div class="row marginB">
 
-        <div class="col-md-12" ng-show="vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
+        <div class="col-md-12" ng-show="vm.accuralreceipt.arstatus === 'wait for review'">
           <button type="text" class="btn buttonGreenForm btn-block">สถานะ : รอตรวจสอบ</button>
         </div>
         <div class="col-md-12" ng-show="vm.accuralreceipt.arstatus === 'wait for confirmed'">
