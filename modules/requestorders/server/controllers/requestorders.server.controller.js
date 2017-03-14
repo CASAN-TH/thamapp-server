@@ -163,8 +163,8 @@ function sendReqAllAdmin() {
               profile: pushNotiAuthenADM.profile,
               notification: {
                 message: 'คุณมีรายการขนส่งข้าวใหม่ ' + reqOrders.length + ' รายการ',
-                ios: { badge: reqOrders.length, sound: 'default' },
-                android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqOrders.length, sound: 'default' },
+                //android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -207,8 +207,8 @@ function sendReqAllTransporter() {
               profile: pushNotiAuthenTRA.profile,
               notification: {
                 message: 'คุณมีรายการขนส่งข้าวใหม่ ' + reqOrders.length + ' รายการ',
-                ios: { badge: reqOrders.length, sound: 'default' },
-                android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqOrders.length, sound: 'default' },
+                //android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -253,8 +253,8 @@ function sendReqDeliver(reqorder) {
           profile: pushNotiAuthenDEL.profile,
           notification: {
             message: 'คุณมีรายการรับข้าวใหม่ ' + reqorder.docno,
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            // ios: { badge: 1, sound: 'default' },
+            //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -290,9 +290,9 @@ function sendResAllAdmin(reqorder) {
           tokens: admtokens,
           profile: pushNotiAuthenADM.profile,
           notification: {
-            message: 'รายการ ' + reqorder.docno + ' มีบริษัทขนส่งเลือกแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            message: reqorder.transport.displayName + ' พร้อมส่ง 1 รายการ',
+            // ios: { badge: 1, sound: 'default' },
+            //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -333,9 +333,9 @@ function sendResDeliver(reqorder) {
           tokens: trntokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: 'รายการ ' + reqorder.docno + ' ของคุณมีบริษัทขนส่งเลือกแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            message: reqorder.transport.displayName + ' พร้อมส่งข้าวให้คุณ',
+            // ios: { badge: 1, sound: 'default' },
+            //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -372,8 +372,8 @@ function sendRecAllAdmin(reqorder) {
           profile: pushNotiAuthenADM.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+           // ios: { badge: 1, sound: 'default' },
+            // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -414,8 +414,8 @@ function sendRecSingleTransporter(reqorder) {
           profile: pushNotiAuthenTRA.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            // ios: { badge: 1, sound: 'default' },
+           // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {

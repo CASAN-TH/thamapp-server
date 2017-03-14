@@ -162,8 +162,8 @@ function deliverCreateAllAdminStatusReturn() {
               profile: pushNotiAuthenADM.profile,
               notification: {
                 message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -206,8 +206,8 @@ function deliverCreateAllTransportStatusReturn() {
               profile: pushNotiAuthenTRA.profile,
               notification: {
                 message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -256,8 +256,8 @@ function deliverCreateStatusReturn(data) {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -305,8 +305,8 @@ function deliverUpdateStatusReturn(data) {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -350,8 +350,8 @@ function statusResponseAllAdmin(data) {
               profile: pushNotiAuthenADM.profile,
               notification: {
                 message: 'คุณมีรายการยอมรับการส่งคืน ' + data.docno + ' จากบริษัทขนส่งแล้ว',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -400,8 +400,8 @@ function statusResponseSingleDeliver(data) {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'รายการส่งคืน ' + data.docno + ' มีบริษัทขนส่งรับเรื่องแล้ว',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -451,8 +451,8 @@ function statusReceivedSingleTransport(data) {
               profile: pushNotiAuthenTRA.profile,
               notification: {
                 message: 'รายการ ' + data.docno + ' ส่งคืนเรียบร้อยแล้ว',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -501,8 +501,8 @@ function statusReceivedSingleDeliver(data) {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'รายการ ' + data.docno + ' ส่งคืนเรียบร้อยแล้ว',
-                ios: { badge: reqReturs.length, sound: 'default' },
-                android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqReturs.length, sound: 'default' },
+                //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
