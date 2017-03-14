@@ -207,8 +207,8 @@ function sendReqAllTransporter() {
               profile: pushNotiAuthenTRA.profile,
               notification: {
                 message: 'คุณมีรายการขนส่งข้าวใหม่ ' + reqOrders.length + ' รายการ',
-                // ios: { badge: reqOrders.length, sound: 'default' },
-                //android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
+                ios: { badge: reqOrders.length, sound: 'default' },
+                android: { data: { badge: reqOrders.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {

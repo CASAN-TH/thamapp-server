@@ -57,7 +57,7 @@ exports.update = function (req, res) {
   var returnorder = req.returnorder;
 
   returnorder = _.extend(returnorder, req.body);
-
+console.log(req.body);
   returnorder.save(function (err) {
     if (err) {
       return res.status(400).send({
