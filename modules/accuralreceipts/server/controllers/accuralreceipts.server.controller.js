@@ -394,7 +394,7 @@ function allAdminStatusReceipt(data, nameDeli) {
               tokens: dlrtokens,
               profile: pushNotiAuthenADM.profile,
               notification: {
-                message: 'รายการใบแจ้งหนี้ของ ' + nameDeli + ' ได้รับเงินแล้ว',
+                message: 'ใบแจ้งหนี้ของ ' + nameDeli + ' ได้รับเงินแล้ว',
                 // ios: { badge: 1, sound: 'default' },
                 //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
               }
