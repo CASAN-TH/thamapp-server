@@ -58,7 +58,6 @@ exports.update = function (req, res) {
   var requestorder = req.requestorder;
 
   requestorder = _.extend(requestorder, req.body);
-  console.log(req.body);
   requestorder.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -71,8 +70,7 @@ exports.update = function (req, res) {
         sendReqAllTransporter();
         sendReqDeliver(requestorder);
       } else if (requestorder.deliverystatus === 'response') {
-        var nameTransport = requestorder.transport.displayName;
-        console.log(requestorder.transport);
+        var nameTransport = req.body.transport.displayName;
         sendResAllAdmin(requestorder, nameTransport);
         sendResDeliver(requestorder, nameTransport);
       } else if (requestorder.deliverystatus === 'received') {
