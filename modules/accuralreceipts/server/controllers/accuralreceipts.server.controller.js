@@ -91,7 +91,7 @@ exports.update = function (req, res) {
   var accuralreceipt = req.accuralreceipt;
 
   accuralreceipt = _.extend(accuralreceipt, req.body);
-  console.log(req.body);
+  console.log(req.accuralreceipt);
   var ordcount = 0;
   accuralreceipt.items.forEach(function (order) {
     Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, { multi: true }, function () {
