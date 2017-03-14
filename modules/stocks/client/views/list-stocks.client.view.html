@@ -127,7 +127,7 @@
               <span class="list-group-item-heading" ng-bind="prod.wip"></span>
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1">
-              <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip)}}</span>
+              <span class="list-group-item-heading">{{(prod.income - (prod.outcome + prod.wip + prod.ap)) + prod.returnord}}</span>
             </div>
           </div>
         </a>
