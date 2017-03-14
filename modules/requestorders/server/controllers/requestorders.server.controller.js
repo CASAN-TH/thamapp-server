@@ -8,6 +8,7 @@ var path = require('path'),
   Requestorder = mongoose.model('Requestorder'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
+  User = mongoose.model('User'),
   Pushnotiuser = mongoose.model('Pushnotiuser'),
   request = require('request'),
   pushNotiUrl = 'https://api.ionic.io/push/notifications',
@@ -275,32 +276,34 @@ function sendResAllAdmin(reqorder) {
     if (err) {
 
     } else {
-      var admtokens = [];
-      admins.forEach(function (admin) {
-        admtokens.push(admin.device_token);
-      });
+      User.find().sort('-created').where('role').equals('transporter').where('_id').equals(reqorder.transport).exec(function (err, user) {
+        var admtokens = [];
+        admins.forEach(function (admin) {
+          admtokens.push(admin.device_token);
+        });
 
-      request({
-        url: pushNotiUrl,
-        auth: {
-          'bearer': pushNotiAuthenADM.auth
-        },
-        method: 'POST',
-        json: {
-          tokens: admtokens,
-          profile: pushNotiAuthenADM.profile,
-          notification: {
-            message: reqorder.transport.displayName + ' พร้อมส่ง 1 รายการ',
-            // ios: { badge: 1, sound: 'default' },
-            //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+        request({
+          url: pushNotiUrl,
+          auth: {
+            'bearer': pushNotiAuthenADM.auth
+          },
+          method: 'POST',
+          json: {
+            tokens: admtokens,
+            profile: pushNotiAuthenADM.profile,
+            notification: {
+              message: user.displayName + ' พร้อมส่ง 1 รายการ',
+              // ios: { badge: 1, sound: 'default' },
+              //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            }
           }
-        }
-      }, function (error, response, body) {
-        if (error) {
-          console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
-        }
+        }, function (error, response, body) {
+          if (error) {
+            console.log('Error sending messages: ', error);
+          } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+          }
+        });
       });
     }
   });
@@ -318,32 +321,34 @@ function sendResDeliver(reqorder) {
     if (err) {
 
     } else {
-      var trntokens = [];
-      trans.forEach(function (transporter) {
-        trntokens.push(transporter.device_token);
-      });
+      User.find().sort('-created').where('role').equals('transporter').where('_id').equals(reqorder.transport).exec(function (err, user) {
+        var admtokens = [];
+        admins.forEach(function (admin) {
+          admtokens.push(admin.device_token);
+        });
 
-      request({
-        url: pushNotiUrl,
-        auth: {
-          'bearer': pushNotiAuthenDEL.auth
-        },
-        method: 'POST',
-        json: {
-          tokens: trntokens,
-          profile: pushNotiAuthenDEL.profile,
-          notification: {
-            message: reqorder.transport.displayName + ' พร้อมส่งข้าวให้คุณ',
-            // ios: { badge: 1, sound: 'default' },
-            //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+        request({
+          url: pushNotiUrl,
+          auth: {
+            'bearer': pushNotiAuthenADM.auth
+          },
+          method: 'POST',
+          json: {
+            tokens: admtokens,
+            profile: pushNotiAuthenADM.profile,
+            notification: {
+              message: user.displayName + ' พร้อมส่ง 1 รายการ',
+              // ios: { badge: 1, sound: 'default' },
+              //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            }
           }
-        }
-      }, function (error, response, body) {
-        if (error) {
-          console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
-        }
+        }, function (error, response, body) {
+          if (error) {
+            console.log('Error sending messages: ', error);
+          } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+          }
+        });
       });
     }
   });
@@ -372,7 +377,7 @@ function sendRecAllAdmin(reqorder) {
           profile: pushNotiAuthenADM.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
-           // ios: { badge: 1, sound: 'default' },
+            // ios: { badge: 1, sound: 'default' },
             // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
@@ -415,7 +420,7 @@ function sendRecSingleTransporter(reqorder) {
           notification: {
             message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
             // ios: { badge: 1, sound: 'default' },
-           // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
