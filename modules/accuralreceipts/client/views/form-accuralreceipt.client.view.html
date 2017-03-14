@@ -451,7 +451,7 @@
                 <label>{{ar.paid.total | number:2}}</label>
               </div>
             </div>
-            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' && vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
+            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
               <div class="col-md-5">
                 <select class="form-control" ng-model="ar.paid.typepaid">
                   <option value="รับเงินล่วงหน้า">รับเงินล่วงหน้า</option>
