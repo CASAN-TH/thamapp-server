@@ -91,7 +91,6 @@ exports.update = function (req, res) {
   var accuralreceipt = req.accuralreceipt;
 
   accuralreceipt = _.extend(accuralreceipt, req.body);
-  console.log(req.accuralreceipt);
   var ordcount = 0;
   accuralreceipt.items.forEach(function (order) {
     Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, { multi: true }, function () {
@@ -115,10 +114,10 @@ exports.update = function (req, res) {
                 } else if (accuralreceipt.arstatus === 'wait for confirmed') {
                   allAdminStatusConfirm(accuralreceipt);
                 } else if (accuralreceipt.arstatus === 'confirmed') {
-                  var nameDeli = req.body.namedeliver.displayName;
+                  var nameDeli = req.accuralreceipt.namedeliver.displayName;
                   allAdminStatusConfirmed(accuralreceipt, nameDeli);
                 } else if (accuralreceipt.arstatus === 'receipt') {
-                  var nameDeli = req.body.namedeliver.displayName;                  
+                  var nameDeli = req.accuralreceipt.namedeliver.displayName;                  
                   allAdminStatusReceipt(accuralreceipt, nameDeli);
                   deliverStatusReceipt(accuralreceipt);
                 }
