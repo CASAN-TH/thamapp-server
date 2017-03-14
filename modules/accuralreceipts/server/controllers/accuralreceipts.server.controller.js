@@ -116,9 +116,12 @@ exports.update = function (req, res) {
                 } else if (accuralreceipt.arstatus === 'wait for confirmed') {
                   allAdminStatusConfirm(accuralreceipt);
                 } else if (accuralreceipt.arstatus === 'confirmed') {
-                  allAdminStatusConfirmed(accuralreceipt);
+                  var nameDeli = req.body.namedeliver.displayName;
+                  allAdminStatusConfirmed(accuralreceipt, nameDeli);
                 } else if (accuralreceipt.arstatus === 'receipt') {
-                  allAdminStatusReceipt(accuralreceipt);
+                  var nameDeli = req.body.namedeliver.displayName;                  
+                  allAdminStatusReceipt(accuralreceipt, nameDeli);
+                  deliverStatusReceipt(accuralreceipt);
                 }
                 res.jsonp(accuralreceipt);
               }
@@ -324,7 +327,7 @@ function allAdminStatusConfirm(data) {
 }
 
 // status confirmed
-function allAdminStatusConfirmed(data) {
+function allAdminStatusConfirmed(data, nameDeli) {
   Accuralreceipt.find().sort('-created').where('arstatus').equals('confirmed').exec(function (err, reqAccs) {
     if (err) {
 
@@ -348,7 +351,7 @@ function allAdminStatusConfirmed(data) {
               tokens: admtokens,
               profile: pushNotiAuthenADM.profile,
               notification: {
-                message: 'รายการใบแจ้งหนี้' + data.docno + ' ได้รับการยืนยันแล้ว',
+                message: nameDeli + ' ยืนยันใบแจ้งหนี้แล้ว',
                 // ios: { badge: 1, sound: 'default' },
                 //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
               }
@@ -369,7 +372,51 @@ function allAdminStatusConfirmed(data) {
 }
 
 // status receipt
-function allAdminStatusReceipt(data) {
+function allAdminStatusReceipt(data, nameDeli) {
+  Accuralreceipt.find().sort('-created').where('arstatus').equals('receipt').exec(function (err, reqAccs) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          var dlrtokens = [];
+          delivers.forEach(function (deliver) {
+            dlrtokens.push(deliver.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenADM.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: dlrtokens,
+              profile: pushNotiAuthenADM.profile,
+              notification: {
+                message: 'รายการใบแจ้งหนี้ของ ' + nameDeli + ' ได้รับเงินแล้ว',
+                // ios: { badge: 1, sound: 'default' },
+                //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+function deliverStatusReceipt(data) {
   var me = '';
   if (data && data.namedeliver) {
     me = data.namedeliver._id;
@@ -399,7 +446,7 @@ function allAdminStatusReceipt(data) {
               tokens: dlrtokens,
               profile: pushNotiAuthenDEL.profile,
               notification: {
-                message: 'รายการใบแจ้งหนี้ ' + data.docno + ' ได้รับเงินแล้ว',
+                message: 'รายการแจ้งหนี้ของคุณสำเร็จแล้ว 1 รายการ',
                 // ios: { badge: 1, sound: 'default' },
                 //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
               }
