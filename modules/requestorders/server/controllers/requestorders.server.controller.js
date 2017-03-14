@@ -334,8 +334,8 @@ function sendResDeliver(reqorder) {
           profile: pushNotiAuthenDEL.profile,
           notification: {
             message: reqorder.transport.displayName + ' พร้อมส่งข้าวให้คุณ',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            // ios: { badge: 1, sound: 'default' },
+            //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -372,8 +372,8 @@ function sendRecAllAdmin(reqorder) {
           profile: pushNotiAuthenADM.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+           // ios: { badge: 1, sound: 'default' },
+            // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -414,8 +414,8 @@ function sendRecSingleTransporter(reqorder) {
           profile: pushNotiAuthenTRA.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
-            ios: { badge: 1, sound: 'default' },
-            android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            // ios: { badge: 1, sound: 'default' },
+           // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {

@@ -253,8 +253,8 @@ function allAdminStatusReview() {
               profile: pushNotiAuthenADM.profile,
               notification: {
                 message: 'คุณมีรายการใบแจ้งหนี้ใหม่ ' + reqAccs.length + ' รายการ',
-                ios: { badge: reqAccs.length, sound: 'default' },
-                android: { data: { badge: reqAccs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqAccs.length, sound: 'default' },
+                //android: { data: { badge: reqAccs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -304,8 +304,8 @@ function allAdminStatusConfirm(data) {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'คุณมีรายการใบแจ้งหนี้ใหม่ ' + reqAccs.length + ' รายการ',
-                ios: { badge: reqAccs.length, sound: 'default' },
-                android: { data: { badge: reqAccs.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: reqAccs.length, sound: 'default' },
+                //android: { data: { badge: reqAccs.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -349,8 +349,8 @@ function allAdminStatusConfirmed(data) {
               profile: pushNotiAuthenADM.profile,
               notification: {
                 message: 'รายการใบแจ้งหนี้' + data.docno + ' ได้รับการยืนยันแล้ว',
-                ios: { badge: 1, sound: 'default' },
-                android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: 1, sound: 'default' },
+                //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
@@ -400,8 +400,8 @@ function allAdminStatusReceipt(data) {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'รายการใบแจ้งหนี้ ' + data.docno + ' ได้รับเงินแล้ว',
-                ios: { badge: 1, sound: 'default' },
-                android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+                // ios: { badge: 1, sound: 'default' },
+                //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
