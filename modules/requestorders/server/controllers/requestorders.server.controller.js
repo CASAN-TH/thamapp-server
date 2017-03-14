@@ -72,8 +72,8 @@ exports.update = function (req, res) {
         sendReqDeliver(requestorder);
       } else if (requestorder.deliverystatus === 'response') {
         console.log(requestorder.transport);
-        sendResAllAdmin(requestorder);
-        sendResDeliver(requestorder);
+        sendResAllAdmin(requestorder.transport.displayName);
+        sendResDeliver(requestorder.transport.displayName);
       } else if (requestorder.deliverystatus === 'received') {
         sendRecAllAdmin(requestorder);
         sendRecSingleTransporter(requestorder);
@@ -291,7 +291,7 @@ function sendResAllAdmin(reqorder) {
           tokens: admtokens,
           profile: pushNotiAuthenADM.profile,
           notification: {
-            message: reqorder.transport.displayName + ' พร้อมส่ง 1 รายการ',
+            message: reqorder + ' พร้อมส่ง 1 รายการ',
             // ios: { badge: 1, sound: 'default' },
             //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
@@ -334,7 +334,7 @@ function sendResDeliver(reqorder) {
           tokens: trntokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: reqorder.transport.displayName + ' พร้อมส่งข้าวให้คุณ',
+            message: reqorder + ' พร้อมส่งข้าวให้คุณ',
             // ios: { badge: 1, sound: 'default' },
             //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
