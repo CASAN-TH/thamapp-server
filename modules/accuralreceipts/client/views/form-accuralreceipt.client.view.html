@@ -100,7 +100,7 @@
             <div class="col-md-8">
               <div class="row">
 
-                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
+                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
                   <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.accuralreceipt._id || vm.accuralreceipt.arstatus === 'wait for review'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
