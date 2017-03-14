@@ -69,7 +69,8 @@ exports.update = function (req, res) {
         deliverCreateAllTransportStatusReturn();
         deliverUpdateStatusReturn(returnorder);
       } else if (returnorder.deliverystatus === 'response') {
-        statusResponseAllAdmin(returnorder);
+        var nameTransport = req.body.transport.displayName;
+        statusResponseAllAdmin(returnorder, nameTransport);
         statusResponseSingleDeliver(returnorder);
       } else if (returnorder.deliverystatus === 'received') {
         statusReceivedSingleTransport(returnorder);
@@ -161,7 +162,7 @@ function deliverCreateAllAdminStatusReturn() {
               tokens: admtokens,
               profile: pushNotiAuthenADM.profile,
               notification: {
-                message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
+                message: 'คุณมีรายการใบแจ้งคืนสินค้า ' + reqReturs.length + ' รายการ',
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -205,7 +206,7 @@ function deliverCreateAllTransportStatusReturn() {
               tokens: trntokens,
               profile: pushNotiAuthenTRA.profile,
               notification: {
-                message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
+                message: 'คุณมีรายการใบแจ้งคืนสินค้า ' + reqReturs.length + ' รายการ',
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -255,7 +256,7 @@ function deliverCreateStatusReturn(data) {
               tokens: dertokens,
               profile: pushNotiAuthenDEL.profile,
               notification: {
-                message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
+                message: 'คุณมีรายการใบแจ้งคืนสินค้า ' + reqReturs.length + ' รายการ',
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -304,7 +305,7 @@ function deliverUpdateStatusReturn(data) {
               tokens: dertokens,
               profile: pushNotiAuthenDEL.profile,
               notification: {
-                message: 'คุณมีรายการใบแจ้งคืนใหม่ ' + reqReturs.length + ' รายการ',
+                message: 'คุณมีรายการใบแจ้งคืนสินค้า ' + reqReturs.length + ' รายการ',
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -325,7 +326,7 @@ function deliverUpdateStatusReturn(data) {
 }
 
 // status response
-function statusResponseAllAdmin(data) {
+function statusResponseAllAdmin(data, nameTransport) {
   Returnorder.find().sort('-created').where('deliverystatus').equals('response').exec(function (err, reqReturs) {
     if (err) {
 
@@ -349,7 +350,7 @@ function statusResponseAllAdmin(data) {
               tokens: admtokens,
               profile: pushNotiAuthenADM.profile,
               notification: {
-                message: 'คุณมีรายการยอมรับการส่งคืน ' + data.docno + ' จากบริษัทขนส่งแล้ว',
+                message: 'คุณมีรายการส่งคืนสินค้าโดย ' + nameTransport,
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -385,7 +386,7 @@ function statusResponseSingleDeliver(data) {
 
         } else {
           var dlrtokens = [];
-          delivers.forEach(function (deliver) {
+          delivers.forEach(function (deliver, nameTransport) {
             dlrtokens.push(deliver.device_token);
           });
 
@@ -399,7 +400,7 @@ function statusResponseSingleDeliver(data) {
               tokens: dlrtokens,
               profile: pushNotiAuthenDEL.profile,
               notification: {
-                message: 'รายการส่งคืน ' + data.docno + ' มีบริษัทขนส่งรับเรื่องแล้ว',
+                message: 'คุณมีรายการส่งคืนสินค้าโดย ' + nameTransport,
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -450,7 +451,7 @@ function statusReceivedSingleTransport(data) {
               tokens: trntokens,
               profile: pushNotiAuthenTRA.profile,
               notification: {
-                message: 'รายการ ' + data.docno + ' ส่งคืนเรียบร้อยแล้ว',
+                message: 'รายการส่งคืนของคุณสำเร็จแล้ว',
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
@@ -500,7 +501,7 @@ function statusReceivedSingleDeliver(data) {
               tokens: dlrtokens,
               profile: pushNotiAuthenDEL.profile,
               notification: {
-                message: 'รายการ ' + data.docno + ' ส่งคืนเรียบร้อยแล้ว',
+                message: 'รายการส่งคืนสำเร็จแล้ว',
                 // ios: { badge: reqReturs.length, sound: 'default' },
                 //android: { data: { badge: reqReturs.length } }//{ badge: orders.length, sound: 'default' }
               }
