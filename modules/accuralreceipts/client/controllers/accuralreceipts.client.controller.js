@@ -169,7 +169,13 @@
     }
 
     function removeItem(item) {
+      console.log(item);
+      // item.deliverystatus = 'complete';
+      // item.refdoc = '';
+      vm.accuralreceipt.items[item].deliverystatus ='complete';
+       vm.accuralreceipt.items[item].refdoc ='';
       vm.accuralreceipt.items.splice(item, 1);
+
       vm.calculate(vm.accuralreceipt.items);
     }
 

@@ -33,7 +33,7 @@ exports.create = function (req, res) {
       });
     } else {
       allAdminStatusReview();
-      
+
       req.body.items.forEach(function (order) {
         console.log(order);
         updateAP(order, accuralreceipt.docno, function (err, item) {
@@ -51,7 +51,7 @@ exports.create = function (req, res) {
 
         });
       });
-      
+
       //res.jsonp(accuralreceipt);
     }
   });
@@ -95,7 +95,7 @@ exports.update = function (req, res) {
   accuralreceipt = _.extend(accuralreceipt, req.body);
   var ordcount = 0;
   accuralreceipt.items.forEach(function (order) {
-    Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, function () {
+    Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, { multi: true }, function () {
       updateAP(order, accuralreceipt.docno, function (err, item) {
         if (err) {
           console.log(err);
@@ -161,18 +161,18 @@ function updateAP(order, docno, callback) {
  */
 exports.delete = function (req, res) {
   var accuralreceipt = req.accuralreceipt;
-  Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, function () {
+  Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, { multi: true }, function () {
     accuralreceipt.remove(function (err) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
         });
       } else {
+        console.log(accuralreceipt);
         res.jsonp(accuralreceipt);
       }
     });
   });
-
 };
 
 /**
