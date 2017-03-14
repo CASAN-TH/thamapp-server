@@ -71,9 +71,10 @@ exports.update = function (req, res) {
         sendReqAllTransporter();
         sendReqDeliver(requestorder);
       } else if (requestorder.deliverystatus === 'response') {
+        var nameTransport = requestorder.transport.displayName;
         console.log(requestorder.transport);
-        sendResAllAdmin(requestorder.transport.displayName);
-        sendResDeliver(requestorder.transport.displayName);
+        sendResAllAdmin(requestorder, nameTransport);
+        sendResDeliver(requestorder, nameTransport);
       } else if (requestorder.deliverystatus === 'received') {
         sendRecAllAdmin(requestorder);
         sendRecSingleTransporter(requestorder);
@@ -271,7 +272,7 @@ function sendReqDeliver(reqorder) {
 
 }
 
-function sendResAllAdmin(reqorder) {
+function sendResAllAdmin(reqorder, nameTransport) {
   Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
     if (err) {
 
@@ -291,7 +292,7 @@ function sendResAllAdmin(reqorder) {
           tokens: admtokens,
           profile: pushNotiAuthenADM.profile,
           notification: {
-            message: reqorder + ' พร้อมส่ง 1 รายการ',
+            message: nameTransport + ' พร้อมส่ง 1 รายการ',
             // ios: { badge: 1, sound: 'default' },
             //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
@@ -308,7 +309,7 @@ function sendResAllAdmin(reqorder) {
 
 }
 
-function sendResDeliver(reqorder) {
+function sendResDeliver(reqorder, nameTransport) {
   var me = '';
   if (reqorder && reqorder.namedeliver) {
     me = reqorder.namedeliver._id;
@@ -334,7 +335,7 @@ function sendResDeliver(reqorder) {
           tokens: trntokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: reqorder + ' พร้อมส่งข้าวให้คุณ',
+            message: nameTransport + ' พร้อมส่งข้าวให้คุณ',
             // ios: { badge: 1, sound: 'default' },
             //android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
