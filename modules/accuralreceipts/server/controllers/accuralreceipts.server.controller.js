@@ -24,7 +24,6 @@ var path = require('path'),
 exports.create = function (req, res) {
   var accuralreceipt = new Accuralreceipt(req.body);
   accuralreceipt.user = req.user;
-  console.log(accuralreceipt);
   var ordcount = 0;
   accuralreceipt.save(function (err) {
     if (err) {
@@ -35,7 +34,6 @@ exports.create = function (req, res) {
       allAdminStatusReview();
 
       req.body.items.forEach(function (order) {
-        console.log(order);
         updateAP(order, accuralreceipt.docno, function (err, item) {
           if (err) {
             console.log(err);
@@ -93,6 +91,7 @@ exports.update = function (req, res) {
   var accuralreceipt = req.accuralreceipt;
 
   accuralreceipt = _.extend(accuralreceipt, req.body);
+  console.log(req.body);
   var ordcount = 0;
   accuralreceipt.items.forEach(function (order) {
     Order.update({ refdoc: accuralreceipt.docno }, { $set: { deliverystatus: 'complete', refdoc: '' } }, { multi: true }, function () {
@@ -145,7 +144,7 @@ function updateAP(order, docno, callback) {
   order.deliverystatus = 'ap';
   order.refdoc = docno;
   Order.findById(order._id).exec(function (err, _order) {
-    console.log(_order);
+    // console.log(_order);
     _order.deliverystatus = 'ap';
     _order.refdoc = docno;
     _order.save(function (err) {
@@ -171,7 +170,7 @@ exports.delete = function (req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        console.log(accuralreceipt);
+        // console.log(accuralreceipt);
         res.jsonp(accuralreceipt);
       }
     });
