@@ -289,8 +289,8 @@ function sendCompleteDeliver(deliver) {
                   profile: pushNotiAuthenDEL.profile,
                   notification: {
                     message: 'คุณมีรายการค้างส่งข้าวคงเหลือ ' + orders.length + ' รายการ',
-                    ios: { badge: orders.length, sound: 'default' },
-                    android: { data: { badge: orders.length } }
+                    //ios: { badge: orders.length, sound: 'default' },
+                    //android: { data: { badge: orders.length } }
                     // android: { badge: orders.length, sound: 'default' }
                   }
                 }
