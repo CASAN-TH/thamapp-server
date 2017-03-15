@@ -117,8 +117,8 @@ exports.update = function (req, res) {
                   var nameDeli = req.accuralreceipt.namedeliver.displayName;
                   allAdminStatusConfirmed(accuralreceipt, nameDeli);
                 } else if (accuralreceipt.arstatus === 'receipt') {
-                  var nameDeli = req.accuralreceipt.namedeliver.displayName;                  
-                  allAdminStatusReceipt(accuralreceipt, nameDeli);
+                  var nameDeliver = req.accuralreceipt.namedeliver.displayName;                  
+                  allAdminStatusReceipt(accuralreceipt, nameDeliver);
                   deliverStatusReceipt(accuralreceipt);
                 }
                 res.jsonp(accuralreceipt);
