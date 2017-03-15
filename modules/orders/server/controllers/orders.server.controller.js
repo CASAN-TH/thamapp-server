@@ -12,6 +12,7 @@ var path = require('path'),
   request = require('request'),
   pushNotiUrl = 'https://api.ionic.io/push/notifications',
   pushNotiAuthenADM = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZWM3YWNjZi1hYTNjLTQ2ZjUtYmMyNS1kODQ1MmQ2NDRlZmMifQ.Q3-2r2TL0Mq6Aq1JJSmUoTnh0LaoyMA-ZVuOylkJ7nI' },
+  pushNotiAuthenUSR = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MmRiMGFjNC1iNWU0LTRkZDUtOTdhMy1hZDEyNzc1ZGI3MzgifQ.zXo565twaedV97JzIZXAiLkGiXtoUIvkyMOUFS-tcms' },
   pushNotiAuthenDEL = { profile: 'dev', auth: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs' };
 
 /**
@@ -301,6 +302,57 @@ function sendCompleteDeliver(deliver) {
           });
       }
     });
+
+
+}
+
+function sendAcceptUser(order) {
+  console.log(order);
+  var me = '';
+  if (deliver._id) {
+    me = deliver._id;
+  } else {
+    me = deliver;
+  }
+  Order.find().sort('-created').where('deliverystatus').equals('accept').exec(function (err, orders) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('user').exec(function (err, users) {
+        if (err) {
+
+        } else {
+          var usrtokens = [];
+          users.forEach(function (user) {
+            usrtokens.push(user.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenUSR.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: admtokens,
+              profile: pushNotiAuthenUSR.profile,
+              notification: {
+                message: 'nameDeliver รับรายการซื้อข้าวแล้ว',
+                //ios: { badge: orders.length, sound: 'default' },
+                //android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
 
 
 }
