@@ -79,6 +79,7 @@ exports.update = function (req, res) {
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
         sendNewDeliver(order.namedeliver);
+        sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
         //sendNewOrder();
         //sendNewDeliver(order.namedeliver);
