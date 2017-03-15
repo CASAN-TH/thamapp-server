@@ -310,16 +310,16 @@ function sendCompleteDeliver(deliver) {
 function sendAcceptUser(order) {
   console.log(order);
   var me = '';
-  if (deliver._id) {
-    me = deliver._id;
+  if (order.user) {
+    me = order.user._id;
   } else {
-    me = deliver;
+    me = order;
   }
   Order.find().sort('-created').where('deliverystatus').equals('accept').exec(function (err, orders) {
     if (err) {
 
     } else {
-      Pushnotiuser.find().sort('-created').where('role').equals('user').exec(function (err, users) {
+      Pushnotiuser.find().sort('-created').where('role').equals('user').where('user_id').equals(me).exec(function (err, users) {
         if (err) {
 
         } else {
@@ -338,7 +338,7 @@ function sendAcceptUser(order) {
               tokens: admtokens,
               profile: pushNotiAuthenUSR.profile,
               notification: {
-                message: 'nameDeliver รับรายการซื้อข้าวแล้ว',
+                message: order.namedeliver.displayName + ' รับรายการซื้อข้าวแล้ว',
                 //ios: { badge: orders.length, sound: 'default' },
                 //android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
               }
