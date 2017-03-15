@@ -76,6 +76,7 @@ exports.update = function (req, res) {
       if (order.deliverystatus === 'wait deliver') {
         sendNewOrder();
         sendNewDeliver(order.namedeliver);
+        sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
         sendNewDeliver(order.namedeliver);
@@ -308,6 +309,50 @@ function sendCompleteDeliver(deliver) {
 
 }
 
+function sendWaitDeliUser(order) {
+  var me = '';
+  if (order.user) {
+    me = order.user._id;
+  } else {
+    me = order;
+  }
+  Pushnotiuser.find().sort('-created').where('role').equals('user').where('user_id').equals(me).exec(function (err, users) {
+    if (err) {
+
+    } else {
+      var usrtokens = [];
+      users.forEach(function (user) {
+        usrtokens.push(user.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenUSR.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: usrtokens,
+          profile: pushNotiAuthenUSR.profile,
+          notification: {
+            message: 'ทางเราได้รับรายการสั่งซื้อของคุณแล้ว',
+            //ios: { badge: orders.length, sound: 'default' },
+            //android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
+
+
+}
+
 function sendAcceptUser(order) {
   var me = '';
   if (order.user) {
@@ -334,7 +379,7 @@ function sendAcceptUser(order) {
           tokens: usrtokens,
           profile: pushNotiAuthenUSR.profile,
           notification: {
-            message: order.namedeliver.displayName + ' รับรายการซื้อข้าวแล้ว',
+            message: 'คำสั่งซื้อของคุณอยู่ระหว่างจัดส่ง',
             //ios: { badge: orders.length, sound: 'default' },
             //android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
           }
