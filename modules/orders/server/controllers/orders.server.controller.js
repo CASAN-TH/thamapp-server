@@ -331,7 +331,7 @@ function sendAcceptUser(order) {
         },
         method: 'POST',
         json: {
-          tokens: admtokens,
+          tokens: usrtokens,
           profile: pushNotiAuthenUSR.profile,
           notification: {
             message: order.namedeliver.displayName + ' รับรายการซื้อข้าวแล้ว',
@@ -375,7 +375,7 @@ function sendCompleteUser(order) {
         },
         method: 'POST',
         json: {
-          tokens: admtokens,
+          tokens: usrtokens,
           profile: pushNotiAuthenUSR.profile,
           notification: {
             message: 'ขอขอบคุณที่ใช้บริการ ธรรมธุรกิจ',
