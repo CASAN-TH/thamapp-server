@@ -15,7 +15,9 @@ var app,
   agent,
   credentials,
   user,
-  order;
+  order,
+  order2,
+  order3;
 
 var tomorrow = new Date();
 
@@ -61,6 +63,32 @@ describe('Order CRUD tests', function () {
         items: [{
           qty: 1,
           price: 100,
+          amount: 200
+        }],
+        shipping: {
+          postcode: 10220,
+          subdistrict: 'คลองถนน',
+          province: 'กรุงเทพฯ',
+          district: 'สายไหม',
+          tel: '0900077580',
+          email: 'destinationpainbm@gmail.com'
+        },
+        accounting: 'bank',
+        imgslip: 'picture',
+        postcost: 10,
+        discount: 10,
+        comment: 'comment',
+        trackingnumber: 'tracking Number',
+        deliverystatus: 'confirmed',
+        created: '2017-03-17T04:49:37.653Z'
+      };
+
+      order2 = {
+        docno: '1235',
+        docdate: new Date(),
+        items: [{
+          qty: 1,
+          price: 100,
           amount: 100
         }],
         shipping: {
@@ -77,7 +105,34 @@ describe('Order CRUD tests', function () {
         discount: 10,
         comment: 'comment',
         trackingnumber: 'tracking Number',
-        deliverystatus: 'confirmed'
+        deliverystatus: 'confirmed',
+        created: '2017-03-17T04:49:37.653Z'
+      };
+
+      order3 = {
+        docno: '1236',
+        docdate: new Date(),
+        items: [{
+          qty: 1,
+          price: 100,
+          amount: 100
+        }],
+        shipping: {
+          postcode: 10220,
+          subdistrict: 'คลองถนน',
+          province: 'กรุงเทพฯ',
+          district: 'สายไหม',
+          tel: '0900077580',
+          email: 'destinationpainbm@gmail.com'
+        },
+        accounting: 'bank',
+        imgslip: 'picture',
+        postcost: 10,
+        discount: 10,
+        comment: 'comment',
+        trackingnumber: 'tracking Number',
+        deliverystatus: 'confirmed',
+        created: '2017-03-18T04:49:37.653Z'
       };
 
       done();
@@ -567,6 +622,53 @@ describe('Order CRUD tests', function () {
                   });
               });
             });
+        });
+    });
+  });
+
+  it('sale report', function (done) {
+    var orderObj = new Order(order);
+    var orderObj2 = new Order(order2);
+    var orderObj3 = new Order(order3);
+    // This is a valid mongoose Id but a non-existent Order
+    var date = '2017-03-16T04:49:37.653Z';
+    var startdate = new Date(date);
+    var end = '2017-03-18T04:49:37.653Z';
+    var enddate = new Date(end);
+    orderObj.save();
+    orderObj2.save(function () {
+      request(app).get('/api/salereports/' + startdate + '/' + enddate)
+        .end(function (req, res) {
+          // Set assertion
+          // (res.body.freeitemunit).should.match(1);
+          // console.log(res.body.orders);
+          (res.body.orders.length).should.match(2);
+          // Call the assertion callback
+          done();
+        });
+    });
+  });
+
+  it('sale report out end date', function (done) {
+    var orderObj = new Order(order);
+    var orderObj2 = new Order(order2);
+    var orderObj3 = new Order(order3);    
+    // This is a valid mongoose Id but a non-existent Order
+    var date = '2017-03-16T04:49:37.653Z';
+    var startdate = new Date(date);
+    var end = '2017-03-17T04:50:37.653Z';
+    var enddate = new Date(end);
+    orderObj.save();
+    orderObj3.save();
+    orderObj2.save(function () {
+      request(app).get('/api/salereports/' + startdate + '/' + enddate)
+        .end(function (req, res) {
+          // Set assertion
+          // (res.body.freeitemunit).should.match(1);
+          // console.log(res.body.orders);
+          (res.body.orders.length).should.match(2);
+          // Call the assertion callback
+          done();
         });
     });
   });

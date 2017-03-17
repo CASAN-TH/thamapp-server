@@ -150,6 +150,70 @@ exports.orderByID = function (req, res, next, id) {
   });
 };
 
+exports.startdate = function (req, res, next, enddate) {
+  var end = new Date(enddate);
+  var startdate = req.startdate;
+  Order.find({ created: { $gte: startdate, $lte: end } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+    if (err) {
+      return next(err);
+    } else if (!orders) {
+      return res.status(404).send({
+        message: 'No Order with that identifier has been found'
+      });
+    }
+    req.orders = orders;
+    next();
+  });
+};
+
+exports.salereport = function (req, res, next) {
+  var end = req.enddate;
+  var startdate = new Date(req.startdate);
+  var orderslist = req.orders ? req.orders : [];
+  var saleday = [];
+  var salseprod = [];
+  // var saledata = [];
+  // var resulteofdate = [];
+  // var countallamount = countallamount ? countallamount : 0;
+  // orderslist.forEach(function (order) {
+  //   var result = {};
+  //   if (saledata.length === 0) {
+  //     saledata.push(order);
+  //   } else {
+  //     var orderDate = order.created.getDay();
+  //     var orderMonth = order.created.getMonth();
+  //     var orderYear = order.created.getFullYear();
+  //     saledata.forEach(function (check) {
+  //       var checkDate = check.created.getDay();
+  //       var checkMonth = check.created.getMonth();
+  //       var checkYear = check.created.getFullYear();
+  //       if (checkDate === orderDate && checkMonth === orderMonth && checkYear === orderYear) {
+  //         order.items.forEach(function (item) {
+  //           check.items.forEach(function (product) {
+  //             countallamount += product.amount + item.amount;
+  //           });
+  //         });
+  //         result.date = check.created;
+  //         result.sum = countallamount;
+  //         resulteofdate.push(result);
+  //         console.log(resulteofdate);
+  //       } else {
+  //         result = {};
+  //         saledata.push(order);
+  //         saledata.forEach(function (check) {
+  //           check.items.forEach(function (product) {
+  //             countallamount += product.amount + item.amount;
+  //           });
+  //           result.date = check.created;
+  //           result.sum = countallamount;
+  //           resulteofdate.push(result);
+  //           console.log(resulteofdate);
+  //         });
+  //       }
+  //     });
+  res.jsonp({ orders: orderslist, saleday: saleday, salseprod: salseprod });
+
+};
 
 function sendNewOrder() {
   Order.find().sort('-created').where('deliverystatus').equals('confirmed').exec(function (err, orders) {

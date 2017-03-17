@@ -19,6 +19,14 @@ module.exports = function (app) {
     .put(users.requiresLoginToken, ordersPolicy.isAllowed, orders.update)
     .delete(users.requiresLoginToken, ordersPolicy.isAllowed, orders.delete);
 
+  app.route('/api/salereports/:startdate/:enddate')//.all(ordersPolicy.isAllowed)
+    .get(orders.salereport);
+
   // Finish by binding the Order middleware
   app.param('orderId', orders.orderByID);
+  app.param('startdate', function (req, res, next, startdate) {
+    req.startdate = startdate;
+    next();
+  });
+  app.param('enddate', orders.startdate);
 };
