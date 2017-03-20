@@ -1,0 +1,65 @@
+<div class="page-header">
+  <h1>รายการผังบัญชี
+    <div class="pull-right">
+      <a class="btn btn-primary" ui-sref="accountcharts.create">
+        <span>New</span>
+      </a>
+    </div>
+  </h1>
+</div>
+<section>
+
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-info">
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>ลำดับ</strong>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <strong>รหัสบัญชี</strong>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <strong>ชื่อบัญชี</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="account in vm.accountcharts">
+    <div class="col-md-12">
+      <div class="row form-group" ui-sref="accountcharts.view({ accountchartId: account._id })">
+        <div class="col-xs-1 col-sm-1 col-md-1" align="center">
+          <p class="list-group-item-heading">{{$index + 1}}</p>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <p class="list-group-item-heading" ng-bind="account.accountno"></p>
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <p class="list-group-item-heading" ng-bind="account.accountname"></p>
+        </div>
+        <!--<div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-primary" ng-click="vm.update(promotion)"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-danger" ng-click="vm.remove(promotion)"><span class="glyphicon glyphicon-trash"></span></button>
+        </div>-->
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="list-group">
+    <a ng-repeat="accountchart in vm.accountcharts" ui-sref="accountcharts.view({ accountchartId: accountchart._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="accountchart.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="accountchart.user" ng-bind="accountchart.user.displayName"></span>
+        <span ng-if="!accountchart.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="accountchart.name"></h4>
+    </a>
+  </div>-->
+  <!--<div class="alert alert-warning text-center" ng-if="vm.accountcharts.$resolved && !vm.accountcharts.length">
+    No Accountcharts yet, why don't you <a ui-sref="accountcharts.create">create one</a>?
+  </div>-->
+</section>
