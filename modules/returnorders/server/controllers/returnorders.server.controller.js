@@ -168,9 +168,9 @@ function deliverCreateAllAdminStatusReturn() {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -212,9 +212,9 @@ function deliverCreateAllTransportStatusReturn() {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -262,9 +262,9 @@ function deliverCreateStatusReturn(data) {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -311,9 +311,9 @@ function deliverUpdateStatusReturn(data) {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -356,9 +356,9 @@ function statusResponseAllAdmin(data, nameTransport) {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -406,9 +406,9 @@ function statusResponseSingleDeliver(data, nameTransport) {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -457,9 +457,9 @@ function statusReceivedSingleTransport(data) {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -507,9 +507,9 @@ function statusReceivedSingleDeliver(data) {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }

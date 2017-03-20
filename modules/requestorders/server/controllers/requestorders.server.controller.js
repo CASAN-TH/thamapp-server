@@ -169,9 +169,9 @@ function sendReqAllAdmin() {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -213,9 +213,9 @@ function sendReqAllTransporter() {
             }
           }, function (error, response, body) {
             if (error) {
-              console.log('Error sending messages: ', error);
+              //console.log('Error sending messages: ', error);
             } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
+              //console.log('Error: ', response.body.error);
             }
           });
         }
@@ -259,9 +259,9 @@ function sendReqDeliver(reqorder) {
         }
       }, function (error, response, body) {
         if (error) {
-          console.log('Error sending messages: ', error);
+          //console.log('Error sending messages: ', error);
         } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
+          //console.log('Error: ', response.body.error);
         }
       });
     }
@@ -297,9 +297,9 @@ function sendResAllAdmin(reqorder, nameTransport) {
         }
       }, function (error, response, body) {
         if (error) {
-          console.log('Error sending messages: ', error);
+          //console.log('Error sending messages: ', error);
         } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
+          //console.log('Error: ', response.body.error);
         }
       });
     }
@@ -340,9 +340,9 @@ function sendResDeliver(reqorder, nameTransport) {
         }
       }, function (error, response, body) {
         if (error) {
-          console.log('Error sending messages: ', error);
+          //console.log('Error sending messages: ', error);
         } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
+          //console.log('Error: ', response.body.error);
         }
       });
     }
@@ -378,9 +378,9 @@ function sendRecAllAdmin(reqorder) {
         }
       }, function (error, response, body) {
         if (error) {
-          console.log('Error sending messages: ', error);
+          //console.log('Error sending messages: ', error);
         } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
+          //console.log('Error: ', response.body.error);
         }
       });
     }
@@ -420,9 +420,9 @@ function sendRecSingleTransporter(reqorder) {
         }
       }, function (error, response, body) {
         if (error) {
-          console.log('Error sending messages: ', error);
+          //console.log('Error sending messages: ', error);
         } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
+          //console.log('Error: ', response.body.error);
         }
       });
     }
