@@ -171,7 +171,7 @@ exports.salereport = function (req, res, next) {
   var startdate = new Date(req.startdate);
   var orderslist = req.orders ? req.orders : [];
   var saleday = [];
-  var salseprod = [];
+  var saleprod = [];
   // var saledata = [];
   // var resulteofdate = [];
   // var countallamount = countallamount ? countallamount : 0;
@@ -211,7 +211,7 @@ exports.salereport = function (req, res, next) {
   //         });
   //       }
   //     });
-  res.jsonp({ orders: orderslist, saleday: saleday, salseprod: salseprod });
+  res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod });
 
 };
 
