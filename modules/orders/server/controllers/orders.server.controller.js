@@ -170,7 +170,7 @@ exports.salereport = function (req, res, next) {
   var end = req.enddate;
   var startdate = new Date(req.startdate);
   var orderslist = req.orders ? req.orders : [];
-  var saleday = saleDate(orderslist);
+  var saleday = [];
   var saleprod = [];
 
   res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod });
