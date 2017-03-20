@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Accountcharts
  */
 exports.list = function(req, res) {
-  Accountchart.find().sort('-created').populate('user', 'displayName').exec(function(err, accountcharts) {
+  Accountchart.find().sort('accountno').populate('user', 'displayName').exec(function(err, accountcharts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
