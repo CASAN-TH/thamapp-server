@@ -39,14 +39,14 @@
     vm.getsumcost = function (order) {
       var result = 0;
       order.items.forEach(function (itm) {
-        result += (itm.product.deliverycost || 0);
+        result += (itm.deliverycost || 0);
       });
       return result;
     };
     vm.getsumall = function (order) {
       var result = 0;
       order.items.forEach(function (itm) {
-        result += ((itm.product.retailerprice || 0) * (itm.qty || 0)) + (itm.product.deliverycost || 0);
+        result += ((itm.product.retailerprice || 0) * (itm.qty || 0)) + (itm.deliverycost || 0);
       });
       return result;
     };
