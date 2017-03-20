@@ -6,6 +6,7 @@ var should = require('should'),
   mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Order = mongoose.model('Order'),
+  Product = mongoose.model('Product'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -17,7 +18,9 @@ var app,
   user,
   order,
   order2,
-  order3;
+  order3,
+  product,
+  product2;
 
 var tomorrow = new Date();
 
@@ -55,87 +58,160 @@ describe('Order CRUD tests', function () {
       loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
+    product = new Product({
+      _id: '5885e9bcea48c81000919ff8',
+      user: '58631cf0043a1110007dcfd0',
+      images: 'http://res.cloudinary.com/hrpqiager/image/upload/v1485171075/d7mt2yhjrwttxdllvnzr.jpg',
+      category: 'ข้าวสาร',
+      description: 'ข้าวธรรมชาติ ไร้สารเคมี ตั้งแต่กระบวนการเพาะปลูก ที่หมักดองดินด้วยสมุนไพรรสจืดก่อนจะปลูกข้าวพันธุ์สันป่าตอง ใส่ปุ๋ยธรรมชาติสูตรบำรุงดิน แห้งชามน้ำชาม (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืด) เพื่อล้างพิษสารเคมีที่สะสมอยู่ในดินในน้ำ และใส่ปุ๋ยธรรมชาติสูตรเร่งดอกผล (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืดผสมกับผลไม้สุกสีเหลือง) เพื่อบำรุงต้นข้าวให้ออกดอกข้าวเป็นเมล็ดข้าว',
+      price: 50,
+      __v: 1,
+      deliveryratetype: 2,
+      grossweight: 1,
+      maxstock: 20,
+      minstock: 5,
+      valuetype1: 0,
+      created: '2017-01-23T11:32:12.051Z',
+      rangtype2: [
+        {
+          min: 1,
+          max: 5,
+          value: 50,
+          _id: '58897fc811ac041000adaaa2'
+        },
+        {
+          min: 6,
+          max: 10,
+          value: 100,
+          _id: '58897fc811ac041000adaaa1'
+        },
+        {
+          min: 11,
+          max: 999999999,
+          value: 150,
+          _id: '58897fc811ac041000adaaa0'
+        }
+      ],
+      retailerprice: 40,
+      name: 'ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 1 กิโลกรัม'
+    });
+
+    product2 = new Product({
+      _id: '586e06f5be44cc100062981b',
+      user: '58631cf0043a1110007dcfd0',
+      images: 'http://res.cloudinary.com/hrpqiager/image/upload/v1483959393/hvoopiqtn4shyk4itp6g.jpg',
+      category: 'ข้าวสาร',
+      description: 'ข้าวธรรมชาติ ไร้สารเคมี ตั้งแต่กระบวนการเพาะปลูก ที่หมักดองดินด้วยสมุนไพรรสจืดก่อนจะปลูกข้าวพันธุ์สันป่าตอง ใส่ปุ๋ยธรรมชาติสูตรบำรุงดิน แห้งชามน้ำชาม (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืด) เพื่อล้างพิษสารเคมีที่สะสมอยู่ในดินในน้ำ และใส่ปุ๋ยธรรมชาติสูตรเร่งดอกผล (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืดผสมกับผลไม้สุกสีเหลือง) เพื่อบำรุงต้นข้าวให้ออกดอกข้าวเป็นเมล็ดข้าวที่สมบูรณ์',
+      price: 200,
+      __v: 1,
+      deliveryratetype: 1,
+      grossweight: 5,
+      maxstock: 20,
+      minstock: 5,
+      valuetype1: 50,
+      created: '2017-01-05T08:42:29.760Z',
+      rangtype2: [
+        {
+          min: null,
+          max: null,
+          value: null,
+          _id: '5889f81759953210003f195f'
+        }
+      ],
+      retailerprice: 180,
+      name: 'ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม'
+    });
     // Save a user to the test db and create new Order
     user.save(function () {
-      order = {
-        docno: '1234',
-        docdate: new Date(),
-        items: [{
-          qty: 1,
-          price: 100,
-          amount: 200
-        }],
-        shipping: {
-          postcode: 10220,
-          subdistrict: 'คลองถนน',
-          province: 'กรุงเทพฯ',
-          district: 'สายไหม',
-          tel: '0900077580',
-          email: 'destinationpainbm@gmail.com'
-        },
-        accounting: 'bank',
-        imgslip: 'picture',
-        postcost: 10,
-        discount: 10,
-        comment: 'comment',
-        trackingnumber: 'tracking Number',
-        deliverystatus: 'confirmed',
-        created: '2017-03-17T04:49:37.653Z'
-      };
+      product.save(function () {
+        product2.save(function () {
+          order = {
+            docno: '1234',
+            docdate: new Date(),
+            items: [{
+              product: product2,
+              qty: 1,
+              price: 100,
+              amount: 200
+            }],
+            shipping: {
+              postcode: 10220,
+              subdistrict: 'คลองถนน',
+              province: 'กรุงเทพฯ',
+              district: 'สายไหม',
+              tel: '0900077580',
+              email: 'destinationpainbm@gmail.com'
+            },
+            accounting: 'bank',
+            imgslip: 'picture',
+            postcost: 10,
+            amount: 200,
+            discount: 10,
+            comment: 'comment',
+            trackingnumber: 'tracking Number',
+            deliverystatus: 'confirmed',
+            created: '2017-03-17T04:49:37.653Z'
+          };
 
-      order2 = {
-        docno: '1235',
-        docdate: new Date(),
-        items: [{
-          qty: 1,
-          price: 100,
-          amount: 100
-        }],
-        shipping: {
-          postcode: 10220,
-          subdistrict: 'คลองถนน',
-          province: 'กรุงเทพฯ',
-          district: 'สายไหม',
-          tel: '0900077580',
-          email: 'destinationpainbm@gmail.com'
-        },
-        accounting: 'bank',
-        imgslip: 'picture',
-        postcost: 10,
-        discount: 10,
-        comment: 'comment',
-        trackingnumber: 'tracking Number',
-        deliverystatus: 'confirmed',
-        created: '2016-12-21T10:51:33.512Z'
-      };
+          order2 = {
+            docno: '1235',
+            docdate: new Date(),
+            items: [{
+              product: product,
+              qty: 1,
+              price: 100,
+              amount: 100
+            }],
+            shipping: {
+              postcode: 10220,
+              subdistrict: 'คลองถนน',
+              province: 'กรุงเทพฯ',
+              district: 'สายไหม',
+              tel: '0900077580',
+              email: 'destinationpainbm@gmail.com'
+            },
+            accounting: 'bank',
+            imgslip: 'picture',
+            postcost: 10,
+            amount: 100,
+            discount: 10,
+            comment: 'comment',
+            trackingnumber: 'tracking Number',
+            deliverystatus: 'confirmed',
+            created: '2016-12-21T10:51:33.512Z'
+          };
 
-      order3 = {
-        docno: '1236',
-        docdate: new Date(),
-        items: [{
-          qty: 1,
-          price: 100,
-          amount: 100
-        }],
-        shipping: {
-          postcode: 10220,
-          subdistrict: 'คลองถนน',
-          province: 'กรุงเทพฯ',
-          district: 'สายไหม',
-          tel: '0900077580',
-          email: 'destinationpainbm@gmail.com'
-        },
-        accounting: 'bank',
-        imgslip: 'picture',
-        postcost: 10,
-        discount: 10,
-        comment: 'comment',
-        trackingnumber: 'tracking Number',
-        deliverystatus: 'confirmed',
-        created: '2017-03-17T04:49:37.653Z'
-      };
+          order3 = {
+            docno: '1236',
+            docdate: new Date(),
+            items: [{
+              product: product2,
+              qty: 1,
+              price: 100,
+              amount: 100
+            }],
+            shipping: {
+              postcode: 10220,
+              subdistrict: 'คลองถนน',
+              province: 'กรุงเทพฯ',
+              district: 'สายไหม',
+              tel: '0900077580',
+              email: 'destinationpainbm@gmail.com'
+            },
+            accounting: 'bank',
+            imgslip: 'picture',
+            postcost: 10,
+            amount: 100,
+            discount: 10,
+            comment: 'comment',
+            trackingnumber: 'tracking Number',
+            deliverystatus: 'confirmed',
+            created: '2017-03-17T04:49:37.653Z'
+          };
 
-      done();
+          done();
+        });
+      });
     });
   });
 
@@ -642,19 +718,64 @@ describe('Order CRUD tests', function () {
         .end(function (req, res) {
           // Set assertion
           // (res.body.freeitemunit).should.match(1);
-          console.log(res.body.orders);
+          // console.log(res.body.orders);
           (res.body.orders.length).should.match(2);
+          (res.body.saleday.length).should.match(1);
+          (res.body.saleday[0].date).should.match('20170317');
+          (res.body.saleday[0].amount).should.match(300);
+          (res.body.saleprod.length).should.match(1);
+          (res.body.saleprod[0].product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม');
+          (res.body.saleprod[0].qty).should.match(2);
+          (res.body.saleprod[0].amount).should.match(300);
           // Call the assertion callback
           done();
         });
     });
   });
 
-  
+  it('sale report 3 orders', function (done) {
+    var orderObj = new Order(order);
+    var orderObj2 = new Order(order2);
+    var orderObj3 = new Order(order3);
+    // This is a valid mongoose Id but a non-existent Order
+    //var date = '2017-03-16';
+    var startdate = '2016-12-01';
+    //var end = '2017-03-18';
+    var enddate = '2017-03-18';
+    orderObj.save();
+    orderObj2.save();
+    orderObj3.save(function () {
+      request(app).get('/api/salereports/' + startdate + '/' + enddate)
+        .end(function (req, res) {
+          // Set assertion
+          // (res.body.freeitemunit).should.match(1);
+          // console.log(res.body.orders);
+          (res.body.orders.length).should.match(3);
+          (res.body.saleday.length).should.match(2);
+          (res.body.saleday[0].date).should.match('20170317');
+          (res.body.saleday[0].amount).should.match(300);
+          (res.body.saleday[1].date).should.match('20161221');
+          (res.body.saleday[1].amount).should.match(100);
+          (res.body.saleprod.length).should.match(2);
+          (res.body.saleprod[0].product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม');
+          (res.body.saleprod[0].qty).should.match(2);
+          (res.body.saleprod[0].amount).should.match(300);
+          (res.body.saleprod[1].product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 1 กิโลกรัม');   
+          (res.body.saleprod[1].qty).should.match(1);
+          (res.body.saleprod[1].amount).should.match(100);       
+          // Call the assertion callback
+          done();
+        });
+    });
+  });
+
+
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Order.remove().exec(done);
+      Product.remove().exec(function () {
+        Order.remove().exec(done);
+      });
     });
   });
 });
