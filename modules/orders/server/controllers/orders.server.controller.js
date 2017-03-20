@@ -162,10 +162,6 @@ exports.startdate = function (req, res, next, enddate) {
       });
     }
     req.orders = orders;
-    if (orders.length > 0) {
-      req.saleday = saleDate(orders);
-      req.saleprod = saleProduct(orders);
-    }
     next();
   });
 };
@@ -174,8 +170,9 @@ exports.salereport = function (req, res, next) {
   var end = req.enddate;
   var startdate = new Date(req.startdate);
   var orderslist = req.orders ? req.orders : [];
-  var saleday = req.saleday ? req.saleday : [];
-  var saleprod = req.saleprod ? req.saleprod : [];
+  var saleday = []; //saleDate(orderslist);
+  var saleprod = []; //saleProduct(orderslist);
+
   res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod });
 
 };
