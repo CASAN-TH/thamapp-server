@@ -106,7 +106,7 @@ describe('Order CRUD tests', function () {
         comment: 'comment',
         trackingnumber: 'tracking Number',
         deliverystatus: 'confirmed',
-        created: '2017-03-17T04:49:37.653Z'
+        created: '2016-12-21T10:51:33.512Z'
       };
 
       order3 = {
@@ -132,7 +132,7 @@ describe('Order CRUD tests', function () {
         comment: 'comment',
         trackingnumber: 'tracking Number',
         deliverystatus: 'confirmed',
-        created: '2017-03-18T04:49:37.653Z'
+        created: '2017-03-17T04:49:37.653Z'
       };
 
       done();
@@ -631,17 +631,18 @@ describe('Order CRUD tests', function () {
     var orderObj2 = new Order(order2);
     var orderObj3 = new Order(order3);
     // This is a valid mongoose Id but a non-existent Order
-    var date = '2017-03-16T04:49:37.653Z';
-    var startdate = new Date(date);
-    var end = '2017-03-18T04:49:37.653Z';
-    var enddate = new Date(end);
+    //var date = '2017-03-16';
+    var startdate = '2017-03-16';
+    //var end = '2017-03-18';
+    var enddate = '2017-03-18';
     orderObj.save();
-    orderObj2.save(function () {
+    orderObj2.save();
+    orderObj3.save(function () {
       request(app).get('/api/salereports/' + startdate + '/' + enddate)
         .end(function (req, res) {
           // Set assertion
           // (res.body.freeitemunit).should.match(1);
-          // console.log(res.body.orders);
+          console.log(res.body.orders);
           (res.body.orders.length).should.match(2);
           // Call the assertion callback
           done();
@@ -649,29 +650,7 @@ describe('Order CRUD tests', function () {
     });
   });
 
-  it('sale report out end date', function (done) {
-    var orderObj = new Order(order);
-    var orderObj2 = new Order(order2);
-    var orderObj3 = new Order(order3);    
-    // This is a valid mongoose Id but a non-existent Order
-    var date = '2017-03-16T04:49:37.653Z';
-    var startdate = new Date(date);
-    var end = '2017-03-17T04:50:37.653Z';
-    var enddate = new Date(end);
-    orderObj.save();
-    orderObj3.save();
-    orderObj2.save(function () {
-      request(app).get('/api/salereports/' + startdate + '/' + enddate)
-        .end(function (req, res) {
-          // Set assertion
-          // (res.body.freeitemunit).should.match(1);
-          // console.log(res.body.orders);
-          (res.body.orders.length).should.match(2);
-          // Call the assertion callback
-          done();
-        });
-    });
-  });
+  
 
   afterEach(function (done) {
     User.remove().exec(function () {
