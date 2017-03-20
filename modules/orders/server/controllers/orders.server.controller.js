@@ -59,6 +59,7 @@ exports.read = function (req, res) {
   res.jsonp(order);
 };
 
+
 /**
  * Update a Order
  */
@@ -170,50 +171,68 @@ exports.salereport = function (req, res, next) {
   var end = req.enddate;
   var startdate = new Date(req.startdate);
   var orderslist = req.orders ? req.orders : [];
-  var saleday = [];
-  var saleprod = [];
-  // var saledata = [];
-  // var resulteofdate = [];
-  // var countallamount = countallamount ? countallamount : 0;
-  // orderslist.forEach(function (order) {
-  //   var result = {};
-  //   if (saledata.length === 0) {
-  //     saledata.push(order);
-  //   } else {
-  //     var orderDate = order.created.getDay();
-  //     var orderMonth = order.created.getMonth();
-  //     var orderYear = order.created.getFullYear();
-  //     saledata.forEach(function (check) {
-  //       var checkDate = check.created.getDay();
-  //       var checkMonth = check.created.getMonth();
-  //       var checkYear = check.created.getFullYear();
-  //       if (checkDate === orderDate && checkMonth === orderMonth && checkYear === orderYear) {
-  //         order.items.forEach(function (item) {
-  //           check.items.forEach(function (product) {
-  //             countallamount += product.amount + item.amount;
-  //           });
-  //         });
-  //         result.date = check.created;
-  //         result.sum = countallamount;
-  //         resulteofdate.push(result);
-  //         console.log(resulteofdate);
-  //       } else {
-  //         result = {};
-  //         saledata.push(order);
-  //         saledata.forEach(function (check) {
-  //           check.items.forEach(function (product) {
-  //             countallamount += product.amount + item.amount;
-  //           });
-  //           result.date = check.created;
-  //           result.sum = countallamount;
-  //           resulteofdate.push(result);
-  //           console.log(resulteofdate);
-  //         });
-  //       }
-  //     });
+  var saleday = saleDate(orderslist);
+  var saleprod = saleProduct(orderslist);
+
   res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod });
 
 };
+Date.prototype.yyyymmdd = function () {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd
+  ].join('');
+};
+function saleProduct(orders) {
+  var products = [];
+  orders.forEach(function (order) {
+    if (products.length > 0) {
+      order.items.forEach(function (itm) {
+        products.forEach(function (prod) {
+          if (itm.product._id === prod.product._id) {
+            prod.qty += itm.qty;
+            prod.amount += itm.amount;
+          } else {
+            products.push(itm);
+          }
+        });
+      });
+    } else {
+      order.items.forEach(function (itm) {
+        products.push(itm);
+      });
+    }
+  });
+  return products;
+}
+
+function saleDate(orders) {
+  var results = [];
+  orders.forEach(function (order) {
+    if (results.length > 0) {
+      results.forEach(function (resultorder) {
+        if (order.created.yyyymmdd() === resultorder.date) {
+          resultorder.amount += order.amount;
+        } else {
+          results.push({
+            date: order.created.yyyymmdd(),
+            amount: order.amount
+          });
+        }
+      });
+    } else {
+      results.push({
+        date: order.created.yyyymmdd(),
+        amount: order.amount
+      });
+    }
+
+  });
+  return results;
+}
 
 function sendNewOrder() {
   Order.find().sort('-created').where('deliverystatus').equals('confirmed').exec(function (err, orders) {
