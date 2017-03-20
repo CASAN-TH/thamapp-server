@@ -6,7 +6,7 @@
         // document.body.appendChild(canvas);
         var img = canvas.toDataURL();
         var doc = new jsPDF();
-        doc.addImage(img, 'JPEG', 0, 0, 210, 160);
+        doc.addImage(img, 'JPEG', 0, 0, 210, 260);
         doc.save('รายงานขายสด.pdf');
       }
     })
