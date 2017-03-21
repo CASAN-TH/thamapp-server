@@ -156,12 +156,12 @@
                       <th colspan="3"></th>
                     </tr>
                   </thead>
-                  <tbody ng-repeat="order in vm.orders">
+                  <tbody ng-repeat="order in vm.listOrders | orderBy:'created'">
                     <tr>
                       <td>{{order.created | date:'dd/MM/yyyy'}}</td>
                       <td class="text-right">{{order.docno}}</td>
-                      <td></td>
-                      <td></td>
+                      <td>{{order.items.created | date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{order.refdoc || '-'}}</td>
                       <td>{{order.user.displayName}}</td>
                       <td class="text-center" colspan="2">{{order.namedeliver.displayName}}</td>
                       <td class="text-right">{{vm.getsumamount(order)}}</td>

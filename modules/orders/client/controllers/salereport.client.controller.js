@@ -9,21 +9,32 @@
 
   function SalereportController($scope, $http, OrdersService, Authentication) {
     var vm = this;
+    vm.listOrders = [];
     vm.authentication = Authentication;
     // vm.orders = OrdersService.query();
     var lastweek = new Date();
     $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 6);
     $scope.endDay = new Date();
     $http.get('api/salereports/' + $scope.startDay + '/' + $scope.endDay).success(function (response) {
-      vm.orders = response.orders;
+      vm.listOrders = [];
+      response.orders.forEach(function (ord) {
+        if (ord.deliverystatus !== 'cancel') {
+          vm.listOrders.push(ord);
+        }
+      });
     }).error(function (err) {
       console.log(err);
     });
 
     vm.getDay = function (startDay, endDay) {
-      console.log(startDay + ':' + endDay);
+      // console.log(startDay + ':' + endDay);
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
-        vm.orders = response.orders;
+        vm.listOrders = [];
+        response.orders.forEach(function (ord) {
+          if (ord.deliverystatus !== 'cancel') {
+            vm.listOrders.push(ord);
+          }
+        });
       }).error(function (err) {
         console.log(err);
       });
