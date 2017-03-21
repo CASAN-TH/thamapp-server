@@ -1,4 +1,4 @@
-<section>
+<section class="header-height">
   <div class="page-header">
     <h1>{{vm.accountchart._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}</h1>
   </div>
@@ -7,17 +7,27 @@
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">รหัสบัญชี</label>
-          <input name="name" type="text" ng-model="vm.accountchart.accountno" id="name" class="form-control" placeholder="accountno" required>
+          <input name="name" type="text" ng-model="vm.accountchart.accountno" id="name" class="form-control" placeholder="accountno"
+            required>
           <div ng-messages="vm.form.accountchartForm.accountno.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Accountchart No is required.</p>
           </div>
         </div>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">ชื่อบัญชี</label>
-          <input name="name" type="text" ng-model="vm.accountchart.accountname" id="name" class="form-control" placeholder="accountname" required>
+          <input name="name" type="text" ng-model="vm.accountchart.accountname" id="name" class="form-control" placeholder="accountname"
+            required>
           <div ng-messages="vm.form.accountchartForm.accountname.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Accountchart Name is required.</p>
           </div>
+        </div>
+
+        <div class="form-group" show-errors ng-show="vm.accountchart._id">
+          <label class="control-label" for="name">สถานะ</label>
+          <label>
+            <input type="radio" ng-model="vm.accountchart.status" value="active">Active</input>
+            <input type="radio" ng-model="vm.accountchart.status" value="inactive">Inactive</input>
+          </label>
         </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">{{vm.accountchart._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>

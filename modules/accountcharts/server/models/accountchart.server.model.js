@@ -23,6 +23,10 @@ var AccountchartSchema = new Schema({
     required: 'Please fill Accountchart accountname',
     trim: true
   },
+  status: {
+    type: String,
+    default: 'active'
+  },
   created: {
     type: Date,
     default: Date.now
