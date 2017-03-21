@@ -171,8 +171,8 @@ exports.salereport = function (req, res, next) {
   var end = req.enddate;
   var startdate = new Date(req.startdate);
   var orderslist = req.orders ? req.orders : [];
-  var saleday = []; //saleDate(orderslist);
-  var saleprod = []; //saleProduct(orderslist);
+  var saleday = saleDate(orderslist);
+  var saleprod = saleProduct(orderslist);
 
   res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod });
 
@@ -188,48 +188,53 @@ Date.prototype.yyyymmdd = function () {
 };
 function saleProduct(orders) {
   var products = [];
+  var productId = [];
+  var items = [];
   orders.forEach(function (order) {
-    if (products.length > 0) {
-      order.items.forEach(function (itm) {
-        products.forEach(function (prod) {
-          if (itm.product._id === prod.product._id) {
-            prod.qty += itm.qty;
-            prod.amount += itm.amount;
-          } else {
-            products.push(itm);
-          }
-        });
-      });
-    } else {
-      order.items.forEach(function (itm) {
-        products.push(itm);
-      });
-    }
+    order.items.forEach(function (itm) {
+      if (productId.indexOf(itm.product._id) === -1) {
+        productId.push(itm.product._id);
+      }
+      items.push(itm);
+    });
+  });
+  productId.forEach(function (id) {
+    var data = {
+      qty: 0,
+      amount: 0
+    };
+    items.forEach(function (itm) {
+      if (id === itm.product._id) {
+        data.item = itm;
+        data.qty += itm.qty;
+        data.amount += itm.amount;
+      }
+    });
+    products.push(data);
   });
   return products;
 }
 
 function saleDate(orders) {
   var results = [];
+  var days = [];
   orders.forEach(function (order) {
-    if (results.length > 0) {
-      results.forEach(function (resultorder) {
-        if (order.created.yyyymmdd() === resultorder.date) {
-          resultorder.amount += order.amount;
-        } else {
-          results.push({
-            date: order.created.yyyymmdd(),
-            amount: order.amount
-          });
-        }
-      });
-    } else {
-      results.push({
-        date: order.created.yyyymmdd(),
-        amount: order.amount
-      });
+    var orderDate = order.created.yyyymmdd();
+    if (days.indexOf(orderDate) === -1) {
+      days.push(orderDate);
     }
-
+  });
+  days.forEach(function (day) {
+    var data = {
+      date: day,
+      amount: 0
+    };
+    orders.forEach(function (order) {
+      if (day === order.created.yyyymmdd()) {
+        data.amount += order.amount;
+      }
+    });
+    results.push(data);
   });
   return results;
 }
