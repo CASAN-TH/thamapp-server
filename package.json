@@ -22,6 +22,7 @@
     "angular-chart.js": "^1.1.1",
     "angular-moment": "^1.0.1",
     "async": "^1.3.0",
+    "audit-log": "^0.9.1",
     "body-parser": "^1.13.1",
     "bower": "^1.4.1",
     "cfenv": "~1.0.0",
