@@ -47,4 +47,4 @@ var conn = process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || process.env.MO
 // console.log(conn);
 auditLog.addTransport('mongoose', { connectionString: conn });
 // either or both -- up to you where your messages are sent! 
-auditLog.addTransport('console');
+// auditLog.addTransport('console');
