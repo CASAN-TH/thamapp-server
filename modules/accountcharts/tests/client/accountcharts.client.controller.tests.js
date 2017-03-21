@@ -88,7 +88,7 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Accountchart was created
-        expect($state.go).toHaveBeenCalledWith('accountcharts.view', {
+        expect($state.go).toHaveBeenCalledWith('accountcharts.list', {
           accountchartId: mockAccountchart._id
         });
       }));
@@ -121,7 +121,7 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('accountcharts.view', {
+        expect($state.go).toHaveBeenCalledWith('accountcharts.list', {
           accountchartId: mockAccountchart._id
         });
       }));

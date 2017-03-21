@@ -27,7 +27,9 @@ module.exports = {
         'public/lib/moment/locale/th.js',
         'public/lib/angular-moment/angular-moment.js',
         'public/lib/jspdf/dist/jspdf.min.js',
-        'public/lib/html2canvas/build/html2canvas.js'
+        'public/lib/html2canvas/build/html2canvas.js',
+        'public/lib/chart.js/dist/Chart.min.js',
+        'public/lib/angular-chart.js/dist/angular-chart.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

@@ -51,7 +51,9 @@ module.exports = {
         'public/lib/angular-ui-utils/ui-utils.js',
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/dist/angular-file-upload.js',
-        'public/lib/owasp-password-strength-test/owasp-password-strength-test.js'
+        'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
+        'public/lib/chart.js/dist/Chart.min.js',
+        'public/lib/angular-chart.js/dist/angular-chart.min.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
