@@ -9,35 +9,52 @@
 
   function SalereportController($scope, $http, OrdersService, Authentication) {
     var vm = this;
-    vm.listOrders = [];
     vm.authentication = Authentication;
-    // vm.orders = OrdersService.query();
+    vm.listOrders = [];
+    var allAmount = [];
     var lastweek = new Date();
     $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 6);
     $scope.endDay = new Date();
-    $http.get('api/salereports/' + $scope.startDay + '/' + $scope.endDay).success(function (response) {
-      vm.listOrders = [];
-      response.orders.forEach(function (ord) {
-        if (ord.deliverystatus !== 'cancel') {
-          vm.listOrders.push(ord);
-        }
-      });
-    }).error(function (err) {
-      console.log(err);
-    });
 
     vm.getDay = function (startDay, endDay) {
-      // console.log(startDay + ':' + endDay);
+      allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
-        vm.listOrders = [];
-        response.orders.forEach(function (ord) {
-          if (ord.deliverystatus !== 'cancel') {
-            vm.listOrders.push(ord);
-          }
+        vm.listOrders = response.orders;
+        vm.saleday = response.saleday;
+        vm.saleprod = response.saleprod;
+        var labels = [];
+        vm.saleday.forEach(function (res) {
+          var data = {};
+          data.sales = res.amount;
+          data.date = res.date;
+          allAmount.push(data);
         });
+        console.log(allAmount);
+        $scope.options = {
+          data: allAmount,
+          dimensions: {
+            sales: {
+              axis: 'y',
+              type: 'spline'
+            }
+          }
+        };
+        $scope.instance = null;
       }).error(function (err) {
         console.log(err);
       });
+    };
+
+    vm.getDay($scope.startDay, $scope.endDay);
+
+    vm.sumallamount = function () {
+      var result = 0;
+      vm.listOrders.forEach(function (order) {
+        order.items.forEach(function (itm) {
+          result += (itm.product.retailerprice || 0) * (itm.qty || 0);
+        });
+      });
+      return result;
     };
 
     vm.getsumamount = function (order) {
@@ -47,19 +64,6 @@
       });
       return result;
     };
-    vm.getsumcost = function (order) {
-      var result = 0;
-      order.items.forEach(function (itm) {
-        result += (itm.deliverycost || 0);
-      });
-      return result;
-    };
-    vm.getsumall = function (order) {
-      var result = 0;
-      order.items.forEach(function (itm) {
-        result += ((itm.product.retailerprice || 0) * (itm.qty || 0)) + (itm.deliverycost || 0);
-      });
-      return result;
-    };
+
   }
 })();

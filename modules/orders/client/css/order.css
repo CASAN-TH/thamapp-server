@@ -37,3 +37,17 @@
     text-align: center;
 }
 
+.min-heigth-50{
+    min-height:50px;    
+}
+
+.min-heigth-20{
+    min-height:50px;    
+}
+
+.fix-scroll{
+    width: auto;
+    height: 150px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
