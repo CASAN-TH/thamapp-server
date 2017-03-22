@@ -49,7 +49,7 @@
 
             </div>
         </div>
-        <div id="date" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div id="date" class="panel-collapse collapse in fix-scroll" role="tabpanel" aria-labelledby="headingOne">
             <div class="row" ng-repeat="prod in vm.saleday">
                 <div class="col-xs-2 col-sm-2 col-md-2">
                     {{$index}}
@@ -108,7 +108,7 @@
                     </h4>
                 </div>
             </div>
-            <div id="prod" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div id="prod" class="panel-collapse collapse in fix-scroll" role="tabpanel" aria-labelledby="headingOne">
                 <div class="row" ng-repeat="item in vm.saleprod">
                     <div class="col-xs-2 col-sm-2 col-md-2">
                         <img src="{{item.item.product.images}}" alt="" width="20%">
