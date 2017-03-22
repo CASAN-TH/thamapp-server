@@ -72,21 +72,23 @@
   </div>
 
   <div class="row show-xs hidden-sm hidden-md hidden-lg">
-    <div class="list-group" ng-repeat="account in vm.accountcharts | filter:topsearch">
-      <a href="#" class="list-group-item list-group-item-action">
-        <div>
-          <span class="list-group-item-heading" ng-bind="'รหัสบัญชี'+ ' : ' + account.accountno"></span>
-        </div>
-        <div>
-          <span class="list-group-item-heading" ng-bind="'ชื่อบัญชี'+ ' : ' + account.accountname"></span>
-        </div>
-        <div>
-          <span class="list-group-item-heading" ng-bind="'สถานะ'+ ' : ' + account.status"></span>
-        </div>
-        <div class="list-group-item-heading textRight">
-          <button type="button" class="btn btn-primary" ng-click="vm.update(account)"><span class="glyphicon glyphicon-edit"></span></button>
-        </div>
-      </a>
+    <div class="col-xs-12">
+      <div class="list-group" ng-repeat="account in vm.accountcharts | filter:topsearch">
+        <a href="#" class="list-group-item list-group-item-action">
+          <div>
+            <span class="list-group-item-heading" ng-bind="'รหัสบัญชี'+ ' : ' + account.accountno"></span>
+          </div>
+          <div>
+            <span class="list-group-item-heading" ng-bind="'ชื่อบัญชี'+ ' : ' + account.accountname"></span>
+          </div>
+          <div>
+            <span class="list-group-item-heading" ng-bind="'สถานะ'+ ' : ' + account.status"></span>
+          </div>
+          <div class="list-group-item-heading textRight">
+            <button type="button" class="btn btn-primary" ng-click="vm.update(account)"><span class="glyphicon glyphicon-edit"></span></button>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 </section>
