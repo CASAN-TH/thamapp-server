@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Adjusts</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="adjust in vm.adjusts"
+       ui-sref="adjusts.view({ adjustId: adjust._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="adjust.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="adjust.user" ng-bind="adjust.user.displayName"></span>
+        <span ng-if="!adjust.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="adjust.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.adjusts.$resolved && !vm.adjusts.length">
+    No Adjusts yet, why don't you <a ui-sref="adjusts.create">create one</a>?
+  </div>
+</section>

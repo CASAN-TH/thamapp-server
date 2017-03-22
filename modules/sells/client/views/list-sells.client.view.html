@@ -1,0 +1,40 @@
+<section>
+  <div class="page-header">
+    <h1>Sells
+      <div class="pull-right" ng-hide="!vm.authentication.user">
+        <a class="btn btn-primary" ui-sref="sells.create">
+          <span>Create</span>
+        </a>
+      </div>
+    </h1>
+  </div>
+
+  <div class="list-group" ng-show="vm.sells.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Doc No.</th>
+          <th>Account Name</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="sell in vm.sells | orderBy:'-docdate && docno' " ui-sref="sells.view({ sellId: sell._id })">
+          <td>
+            <p class="list-group-item-heading">{{$index+1}}</p>
+          </td>
+          <td>
+            <p class="list-group-item-heading">{{sell.docno}}</p>
+          </td>
+          <td>
+            <p class="list-group-item-heading">{{sell.client.accountname}}</p>
+          </td>
+          <td>
+            <p class="list-group-item-heading">{{sell.amount | number:2}}</p>
+          </td>  
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
