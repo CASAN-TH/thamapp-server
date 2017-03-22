@@ -36,11 +36,14 @@ var AccountchartSchema = new Schema({
     ref: 'User'
   }
 });
-var pluginFn = auditLog.getPlugin('mongoose', { modelName: 'Accountchart', namePath: 'accountname' }); // setup occurs here 
-AccountchartSchema.plugin(pluginFn.handler);
+var pluginFnName = auditLog.getPlugin('mongoose', { modelName: 'Accountchart', namePath: 'accountname' }); // setup occurs here 
+AccountchartSchema.plugin(pluginFnName.handler);
 
-var pluginFn1 = auditLog.getPlugin('mongoose', { modelName: 'Accountchart', namePath: 'accountno' }); // setup occurs here 
-AccountchartSchema.plugin(pluginFn1.handler);
+var pluginFnNo = auditLog.getPlugin('mongoose', { modelName: 'Accountchart', namePath: 'accountno' }); // setup occurs here 
+AccountchartSchema.plugin(pluginFnNo.handler);
+
+var pluginFnStatus = auditLog.getPlugin('mongoose', { modelName: 'Accountchart', namePath: 'status' }); // setup occurs here 
+AccountchartSchema.plugin(pluginFnStatus.handler);
 mongoose.model('Accountchart', AccountchartSchema);
 
 var conn = process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || process.env.MONGODB_URI || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean-dev';
