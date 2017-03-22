@@ -1,15 +1,33 @@
- <div class="row">
-    <div class="col-xs-3 col-sm-3 col-md-3">
-        จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
-    </div>
-    <div class="col-xs-3 col-sm-3 col-md-3">
-        ถึงวันที่ : <input type="date" class="form-control" ng-model="endDay">
-    </div>
-    <div class="col-xs-2 col-sm-2 col-md-2">
-        &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+<div id='loadingpdf' align="center">
+    <div class="sk-fading-circle">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
     </div>
 </div>
- <!--จากวันที่ : <input type="date" ng-model="startDay"> ถึงวันที่ : <input type="date" ng-model="endDay">
-<button ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>-->
-<div ng-include="'/modules/orders/client/views/chart/salereport-chart.html'"></div>
-<div ng-include="'modules/orders/client/views/tablereport.html'"></div>
+<div id="pagedisable">
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+            ถึงวันที่ : <input type="date" class="form-control" ng-model="endDay">
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+            &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+        </div>
+    </div>
+
+    <div ng-include="'/modules/orders/client/views/chart/salereport-chart.html'"></div>
+    <div ng-include="'modules/orders/client/views/tablereport.html'"></div>
+
+</div>
