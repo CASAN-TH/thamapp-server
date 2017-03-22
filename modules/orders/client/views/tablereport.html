@@ -3,9 +3,9 @@
     html2canvas(document.getElementById('pdf'), {
       onrendered: function (canvas) {
         //jigkoh
-        alert('html2canvas success..');
+        //alert('html2canvas success..');
         var imgData = canvas.toDataURL("image/jpeg");
-        alert(imgData);
+        //alert(imgData);
         var imgWidth = 210; 
         var pageHeight = 295;  
         var imgHeight = canvas.height * imgWidth / canvas.width;
@@ -14,7 +14,7 @@
         var position = 0;
 
         doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-        alert('before save');
+        //alert('before save');
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
