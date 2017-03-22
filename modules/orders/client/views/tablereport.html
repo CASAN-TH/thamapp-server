@@ -14,6 +14,7 @@
         var position = 0;
 
         doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        alert('before save');
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
@@ -22,7 +23,7 @@
           doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
-        alert('before save');
+        
         doc.save( 'รายงานขาย.pdf');
         //end jigkoh
 
