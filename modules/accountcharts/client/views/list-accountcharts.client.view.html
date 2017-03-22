@@ -3,7 +3,7 @@
     <h1>รายการผังบัญชี</h1>
   </div>
 
-  <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+  <!--<div class="row show-xs show-sm hidden-md hidden-lg marginT">
     <div class="col-xs-8">
       <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
     </div>
@@ -12,20 +12,34 @@
         <span>New</span>
       </a>
     </div>
-  </div>
-
-  <div class="col-md-10 hidden-xs hidden-sm show-md show-lg">
-    <div class="input-group input-group-sm">
-      <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+  </div>-->
+  <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+    <div class="col-xs-8">
+      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+    </div>
+    <div class="col-md-4">
+      <div class="pull-right">
+        <a class="btn buttonCreate" ui-sref="accountcharts.create">
+          <span>New</span>
+        </a>
+      </div>
     </div>
   </div>
-  <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
-    <div class="textCenter">
-      <a class="btn btn-primary" ui-sref="accountcharts.create">
-        <i class="fa fa-file-o" aria-hidden="true"></i>
-        <span>New</span>
-      </a>
+
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-10 hidden-xs hidden-sm show-md show-lg">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+      </div>
+    </div>
+    <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+      <div class="pull-right">
+        <a class="btn buttonCreate" ui-sref="accountcharts.create">
+          <i class="fa fa-file-o" aria-hidden="true"></i>
+          <span>New</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -48,7 +62,7 @@
     </div>
 
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="account in vm.accountcharts | filter:topsearch" >
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="account in vm.accountcharts | filter:topsearch">
     <div class="col-md-12">
       <div class="row form-group">
         <div class="col-xs-4 col-sm-4 col-md-4">
