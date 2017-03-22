@@ -4,7 +4,7 @@
       onrendered: function (canvas) {
         //jigkoh
         //alert('html2canvas success..');
-        var imgData = canvas.toDataURL("image/png");
+        var imgData = canvas.toDataURL("image/jpeg");
         //alert(imgData);
         var imgWidth = 210; 
         var pageHeight = 295;  
@@ -13,14 +13,14 @@
         var doc = new jsPDF('p', 'mm');
         var position = 0;
 
-        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
         //alert('before save');
         heightLeft -= pageHeight;
 
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           doc.addPage();
-          doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
           heightLeft -= pageHeight;
         }
         
