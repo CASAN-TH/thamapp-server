@@ -11,40 +11,35 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.listOrders = [];
+    var allAmount = [];
     var lastweek = new Date();
     $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 6);
     $scope.endDay = new Date();
 
     vm.getDay = function (startDay, endDay) {
+      allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
         vm.listOrders = response.orders;
         vm.saleday = response.saleday;
         vm.saleprod = response.saleprod;
         var labels = [];
-        var data = [];
         vm.saleday.forEach(function (res) {
-          labels.push(res.date);
-          data.push(res.amount);
+          var data = {};
+          data.sales = res.amount;
+          data.date = res.date;
+          allAmount.push(data);
         });
-        $scope.labels = labels;
-        $scope.series = ['Series A'];
-        $scope.data = data;
-        $scope.onClick = function (points, evt) {
-          console.log(points, evt);
-        };
-        $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }];
+        console.log(allAmount);
         $scope.options = {
-          scales: {
-            yAxes: [
-              {
-                id: 'y-axis-1',
-                type: 'linear',
-                display: true,
-                position: 'left'
-              }
-            ]
+          data: allAmount,
+          dimensions: {
+            sales: {
+              axis: 'y',
+              type: 'spline'
+            }
           }
         };
+        $scope.instance = null;
       }).error(function (err) {
         console.log(err);
       });
