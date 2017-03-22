@@ -1,6 +1,5 @@
 <script type="text/javascript">
   document.getElementById('loadingpdf').hidden = true;
-
   function exportPdf() {
     document.getElementById('loadingpdf').hidden = false;
     html2canvas(document.getElementById('pdf'), {
@@ -29,8 +28,6 @@
               doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
               heightLeft -= pageHeight;
             }
-
-
           }
         }
 
@@ -41,29 +38,17 @@
               document.getElementById('pagedisable').hidden = false;
               doc.save('รายงานขาย.pdf');
             }, 1000);
-
-
           }
         }
-
-        // document.getElementById('loadingpdf').hidden = true;
-        // document.getElementById('testdis').hidden = false;
-
-        // doc.save('รายงานขาย.pdf');
-
-
         //end jigkoh
 
         // var img = canvas.toDataURL();
         // var doc = new jsPDF();
         // doc.addImage(img, 'JPEG', 0, 0, 210, 290);
         // doc.save('รายงานขายสด.pdf');
-
       }
-
     });
   }
-
 </script>
 <!--<section class="header-height show-xs hidden-sm hidden-md hidden-lg">
   <div class="page-header show-xs hidden-sm hidden-md hidden-lg">
@@ -158,9 +143,7 @@
 <section class="page-header header-height hidden-xs show-sm show-md show-lg">
   <div class="pull-right">
     <a href="javascript:exportPdf()"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>
-    <!--<a ng-click="exportPdf()"><i class="fa fa-download fa-2x" aria-hidden="true"></i></a>-->
   </div>
-
 
   <div class="row" id="pdf">
     <div class="col-lg-12">
@@ -231,5 +214,4 @@
       </div>
     </div>
   </div>
-
 </section>
