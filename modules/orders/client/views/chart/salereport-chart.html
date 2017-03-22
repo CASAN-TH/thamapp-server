@@ -5,9 +5,66 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options"
-                chart-dataset-override="datasetOverride" chart-click="onClick">
-            </canvas>
+            <angular-chart options="options" instance="instance"></angular-chart>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <h3 class="text-center">รายการขายสินค้า/วัน</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading" ng-click="checked = !checked">
+                <h4 class="panel-title">
+                    <div class="row" data-toggle="collapse" data-parent="#accordion" href="#date" aria-expanded="true">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                            <div role="button" aria-controls="collapseOne">
+                                <div class="front_profile-color2 margin-bottom-10">
+                                    <strong>ลำดับ</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="front_profile-color1 margin-bottom-10">
+                                <strong> วันที่ </strong>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="front_profile-color1 margin-bottom-10">
+                                <strong> ราคาที่ขาย </strong>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-xs-3 col-sm-3 col-md-3 text-right">
+                            <span title="Close" class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
+                            <span title="Open" class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
+                        </div>
+
+                    </div>
+                </h4>
+
+            </div>
+        </div>
+        <div id="date" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="row" ng-repeat="prod in vm.saleday">
+                <div class="col-xs-2 col-sm-2 col-md-2">
+                    {{$index}}
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4">
+                    {{prod.date}}
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    {{prod.amount}}
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    บาท
+                </div>
+                <div class="min-heigth-20"></div>
+            </div>
         </div>
     </div>
     <div class="min-heigth-50"></div>
@@ -16,19 +73,59 @@
             <h3 class="text-center">รายการสินค้า</h3>
         </div>
         <div class="min-heigth-20"></div>
-        <div class="col-xs-12 col-sm-12 col-md-12" ng-repeat="item in vm.saleprod">
-            <div class="row">
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <img src="{{item.item.product.images}}" alt="" width="20%">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading" ng-click="checked = !checked">
+                    <h4 class="panel-title">
+                        <div class="row" data-toggle="collapse" data-parent="#accordion" href="#prod" aria-expanded="true">
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                                <div role="button" aria-controls="collapseOne">
+                                    <div class="front_profile-color2 margin-bottom-10">
+                                        <strong>รูป</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> ชื่อสินค้า </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> จำนวน </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-3 col-sm-3 col-md-3">
+                                <div class="front_profile-color1 margin-bottom-10">
+                                    <strong> ราคา </strong>
+                                </div>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1 text-right">
+                                <span title="Close" class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
+                                <span title="Open" class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
+                            </div>
+                        </div>
+                    </h4>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    {{item.item.product.name}}
-                </div>
-                <div class="col-xs-12 col-sm-2 col-md-2">
-                    {{item.qty}}
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    {{item.amount}}
+            </div>
+            <div id="prod" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="row" ng-repeat="item in vm.saleprod">
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        <img src="{{item.item.product.images}}" alt="" width="20%">
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4">
+                        {{item.item.product.name}}
+                    </div>
+                    <div class="col-xs-2 col-sm-2 col-md-2">
+                        {{item.qty}}
+                    </div>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                        {{item.amount}}
+                    </div>
+                    <div class="hidden-xs col-sm-1 col-md-1">
+                        บาท
+                    </div>
+                    <div class="min-heigth-20"></div>
                 </div>
             </div>
         </div>

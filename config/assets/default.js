@@ -6,7 +6,8 @@ module.exports = {
       css: [
         'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/metisMenu/dist/metisMenu.min.css',
-        'public/lib/fontawesome/css/font-awesome.min.css'
+        'public/lib/fontawesome/css/font-awesome.min.css',
+        'public/lib/c3/c3.css'
       ],
       js: [
         'public/lib/jquery/dist/jquery.min.js',
@@ -27,7 +28,10 @@ module.exports = {
         'public/lib/moment/locale/th.js',
         'public/lib/angular-moment/angular-moment.js',
         'public/lib/jspdf/dist/jspdf.min.js',
-        'public/lib/html2canvas/build/html2canvas.js'
+        'public/lib/html2canvas/build/html2canvas.js',
+        'public/lib/c3/c3.js',
+        'public/lib/d3/d3.js',
+        'public/lib/angular-chart/angular-chart.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
