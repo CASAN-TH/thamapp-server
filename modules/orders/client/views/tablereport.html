@@ -51,96 +51,63 @@
   }
 
 </script>
-<!--<section class="header-height show-xs hidden-sm hidden-md hidden-lg">
-  <div class="page-header show-xs hidden-sm hidden-md hidden-lg">
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="row">
-          <div class="col-xs-12 text-right">
-            <h1 ng-bind="vm.requestorder.docno"></h1>
-            <p>
-              <span ng-bind="vm.requestorder.docdate | date:'dd/MM/yyyy'"><strong> Date :</strong></span><br>
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <h5>ผู้รับ:</h5>
-            <address>
-              <strong>{{vm.requestorder.shipping.firstname + ' '+ vm.requestorder.shipping.lastname }}</strong><br>
-              <strong>{{vm.requestorder.shipping.address}}</strong>
-              <strong>{{vm.requestorder.shipping.subdistrict}} {{vm.requestorder.shipping.district}}</strong>
-              <strong>{{vm.requestorder.shipping.province}} {{vm.requestorder.shipping.postcode}}</strong><br>
-              <abbr title="Tel">Tel:</abbr>{{vm.requestorder.shipping.tel}}<br>
-              <abbr title="Email">Email:</abbr>{{vm.requestorder.shipping.email}}
-            </address>
-          </div>
-        </div>
-        <div class="row show-xs hidden-sm hidden-md hidden-lg alert alert-success">
-          <div class="col-md-12 text-center">
-            <strong>สินค้าทั้งหมด</strong>
-          </div>
-        </div>
-        <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="requestorder in vm.requestorder.items" ui-sref="requestorders.view({ orderId: requestorder._id })">
-          <div class="col-md-12">
-            <div class="row">
-              <div class="list-group">
-                <div class="list-group-item list-group-item-action">
-                  <div class="col-sm-4 col-md-4">
-                    <strong>ชื่อสินค้า : </strong> <abbr>{{requestorder.product.name}}</abbr>
-                  </div>
-                  <div class="col-sm-4 col-md-4">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <p>จำนวน : {{requestorder.qty}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<section class="page-header header-height show-xs show-sm hidden-md hidden-lg">
+          <div class="row">
+            <d iv class="col-xs-12 text-center">
+              <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+              <address>
+                <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
+                <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+              </address>
             </div>
           </div>
-        </div>
-        <div class="row show-xs hidden-sm hidden-md hidden-lg">
-          <div ng-show="vm.requestorder.discountpromotion > 0">
-            <div class="col-xs-9 textRight">
-              <strong>ส่วนลดจากโปรโมชั่น</strong>
-            </div>
-            <div class="col-xs-3">
-              {{vm.requestorder.discountpromotion | number:2}}
-            </div>
+          <div class="table-responsive m-t">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>วันที่สั่งซื้อ</th>
+                  <th>เลขที่สั่งซื้อ</th>
+                  <!--<th>วันที่ใบแจ้งหนี้</th>-->
+                  <th>เลขที่ใบแจ้งหนี้</th>
+                  <th>ชื่อลูกค้า</th>
+                  <th colspan="2"><img width="25%">ชื่อคนส่งข้าว</th>
+                  <th>จำนวนเงิน</th>
+                </tr>
+                <tr>
+                  <th colspan="2"><img width="25%">ชื่อสินค้า</th>
+                  <th colspan="2"></th>
+                  <th>จำนวนสั่งซื้อ</th>
+                  <th>ราคาต่อหน่วย</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody ng-repeat="order in vm.listOrders">
+                <tr>
+                  <td>{{order.created | date:'dd/MM/yyyy'}}</td>
+                  <td class="text-right">{{order.docno}}</td>
+                  <!--<td class="text-center">-</td>-->
+                  <td class="text-center">{{order.refdoc || '-'}}</td>
+                  <td>{{order.user.displayName}}</td>
+                  <td colspan="2">{{order.namedeliver.displayName}}</td>
+                  <td class="text-right">{{vm.getsumamount(order) | number:2}}</td>
+                </tr>
+                <tr ng-repeat="itm in order.items">
+                  <td colspan="2">{{itm.product.name}}</td>
+                  <td colspan="2"></td>
+                  <td class="text-right">{{itm.qty}}</td>
+                  <td class="text-right">{{(itm.product.retailerprice || 0) | number:2}}</td>
+                  <td class="text-right">{{(itm.product.retailerprice || 0) * (itm.qty || 0) | number:2}}</td>
+                </tr>
+              </tbody>
+              <tr>
+                <td colspan="5"></td>
+                <td>รายการรวม</td>
+                <td class="text-right">{{vm.sumallamount() | number:2}}</td>
+              </tr>
+            </table>
           </div>
-        </div>
-        <div class="row show-xs hidden-sm hidden-md hidden-lg">
-          <div class="col-xs-9 textRight" ng-show="vm.requestorder.totalamount > 0">
-            <strong>รวม</strong>
-          </div>
-          <div class="col-xs-3">
-            {{vm.requestorder.amountqty}}
-          </div>
-        </div>
-        <div class="row show-xs hidden-sm hidden-md hidden-lg marginT">
-          <div class="col-xs-8">
-            <div ng-show="vm.authentication.user.roles[0]=='deliver' ">
-              <button type="button " class="btn buttonBlackForm " ui-sref="assignlist "><i class="fa fa-long-arrow-left" aria-hidden="true "></i></button>
-            </div>
-          </div>
-          <div class="col-xs-2 " ng-show="vm.requestorder.deliverystatus==='wait deliver' ">
-            <button type="button " class="btn buttonGreenForm " ng-click="vm.acceptOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></span></button>
-          </div>
-          <div class="col-xs-2 " ng-show="vm.requestorder.deliverystatus==='wait deliver' ">
-            <button type="button " class="btn buttonRedForm " ng-click="vm.rejectOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-trash "></span></button>
-          </div>
-          <div class="col-xs-2" ng-show="vm.requestorder.deliverystatus==='accept' ">
-          </div>
-          <div class="col-xs-2" ng-show="vm.requestorder.deliverystatus==='accept' ">
-            <button type="button " class="btn buttonSkyForm " ng-click="vm.complete() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>-->
+</section>
+
 <section class="page-header header-height hidden-xs show-sm show-md show-lg">
   <div class="row">
     <div class="col-sm-8">
@@ -173,7 +140,6 @@
 
             </div>
           </div>
-
           <div class="table-responsive m-t">
             <table class="table">
               <thead>

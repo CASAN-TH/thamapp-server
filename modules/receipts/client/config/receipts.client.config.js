@@ -13,7 +13,7 @@
       title: 'Receipts',
       state: 'receipts',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['']
     });
 
     // Add the dropdown list item
@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'receipts', {
-      title: 'Create Receipt',
-      state: 'receipts.create',
-      roles: ['user']
-    });
+    // menuService.addSubMenuItem('topbar', 'receipts', {
+    //   title: 'Create Receipt',
+    //   state: 'receipts.create',
+    //   roles: ['user']
+    // });
   }
 }());

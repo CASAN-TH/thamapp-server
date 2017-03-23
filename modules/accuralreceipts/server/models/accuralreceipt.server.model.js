@@ -50,7 +50,8 @@ var AccuralreceiptSchema = new Schema({
     type: [{
       paid: {
         typepaid: String,
-        total: Number
+        total: Number,
+        remark: String
       }
     }]
   },

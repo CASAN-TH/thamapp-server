@@ -13,7 +13,7 @@
       title: 'Purchases',
       state: 'purchases',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['']
     });
 
     // Add the dropdown list item
@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'purchases', {
-      title: 'Create Purchase',
-      state: 'purchases.create',
-      roles: ['user']
-    });
+    // menuService.addSubMenuItem('topbar', 'purchases', {
+    //   title: 'Create Purchase',
+    //   state: 'purchases.create',
+    //   roles: ['user']
+    // });
   }
 }());

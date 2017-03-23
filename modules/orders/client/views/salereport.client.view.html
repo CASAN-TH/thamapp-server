@@ -15,7 +15,7 @@
     </div>
 </div>
 <div id="pagedisable">
-    <div class="row">
+    <div class="row hidden-xs show-sm show-md show-lg">
         <div class="col-xs-3 col-sm-3 col-md-3">
             จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
         </div>
@@ -24,6 +24,29 @@
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
             &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+        </div>
+    </div>
+    <div class="row show-xs show-sm hidden-md hidden-lg">
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                จากวันที่ :
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <input type="date" class="form-control" ng-model="startDay">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3 col-sm-3 col-md-3">
+                ถึงวันที่ :
+            </div>
+            <div class="col-xs-9 col-sm-9 col-md-9">
+                <input type="date" class="form-control" ng-model="endDay">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+            </div>
         </div>
     </div>
     <div ng-include="'/modules/orders/client/views/chart/salereport-chart.html'"></div>
