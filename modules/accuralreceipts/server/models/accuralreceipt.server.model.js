@@ -36,7 +36,10 @@ var AccuralreceiptSchema = new Schema({
   totalamount: Number,
   adjustamount: Number,
   imgslip: String,
-  paiddate: Date,
+  paiddate: {
+    type: Date,
+    default: Date.now
+  },
   attm: String,
   arstatus: {
     type: String,

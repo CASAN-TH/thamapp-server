@@ -58,7 +58,7 @@
     }
 
     function addattm(data) {
-      // vm.accuralreceipts.attm = data.attm;
+      console.log(data);
       data.$update(successCallback, errorCallback);
       function successCallback(res) {
 
