@@ -13,7 +13,7 @@
       title: 'Adjusts',
       state: 'adjusts',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['']
     });
 
     // Add the dropdown list item
@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'adjusts', {
-      title: 'Create Adjust',
-      state: 'adjusts.create',
-      roles: ['user']
-    });
+    // menuService.addSubMenuItem('topbar', 'adjusts', {
+    //   title: 'Create Adjust',
+    //   state: 'adjusts.create',
+    //   roles: ['user']
+    // });
   }
 }());

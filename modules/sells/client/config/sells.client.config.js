@@ -13,7 +13,7 @@
       title: 'Sells',
       state: 'sells',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['']
     });
 
     // Add the dropdown list item
@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'sells', {
-      title: 'Create Sell',
-      state: 'sells.create',
-      roles: ['user']
-    });
+    // menuService.addSubMenuItem('topbar', 'sells', {
+    //   title: 'Create Sell',
+    //   state: 'sells.create',
+    //   roles: ['user']
+    // });
   }
 }());
