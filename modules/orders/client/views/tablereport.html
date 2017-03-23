@@ -1,9 +1,7 @@
 <script type="text/javascript">
   document.getElementById('loadingpdf').hidden = true;
-  document.getElementById('hidecontent').hidden = true;
   function exportPdf() {
     document.getElementById('loadingpdf').hidden = false;
-    document.getElementById('hidecontent').hidden = false;
     html2canvas(document.getElementById('pdf'), {
       onrendered: function (canvas) {
         document.getElementById('pagedisable').hidden = true;
@@ -36,7 +34,6 @@
         if (document.getElementById('pagedisable').hidden === true) {
           if (document.getElementById('loadingpdf').hidden === false) {
             setTimeout(function () {
-              document.getElementById('hidecontent').hidden = true;
               document.getElementById('loadingpdf').hidden = true;
               document.getElementById('pagedisable').hidden = false;
               doc.save('รายงานขาย.pdf');
@@ -161,7 +158,6 @@
     <div class="col-lg-12">
       <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox-content p-xl">
-          <div id="hidecontent">
             <div class="row">
               <div class="col-sm-4">
 
@@ -177,7 +173,6 @@
 
               </div>
             </div>
-          </div>
           <div class="table-responsive m-t">
             <table class="table">
               <thead>
