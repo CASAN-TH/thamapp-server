@@ -47,7 +47,7 @@
 
 .fix-scroll{
     width: auto;
-    height: 150px;
+    height: 180px;
     overflow: scroll;
     overflow-x: hidden;
 }

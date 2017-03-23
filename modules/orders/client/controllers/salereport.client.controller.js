@@ -13,7 +13,7 @@
     vm.listOrders = [];
     var allAmount = [];
     var lastweek = new Date();
-    $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 6);
+    $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 29);
     $scope.endDay = new Date();
 
     vm.getDay = function (startDay, endDay) {
@@ -22,24 +22,62 @@
         vm.listOrders = response.orders;
         vm.saleday = response.saleday;
         vm.saleprod = response.saleprod;
+        vm.max = response.avg[0].max.max;
+        vm.min = response.avg[0].min.min;
+        vm.avg = response.avg[0].avg;
+        var percens = [];
+        response.percens.forEach(function (percen) {
+          var dataPercen = {
+            values: []
+          };
+          dataPercen.text = percen.product.item.product.name;
+          dataPercen.values.push(parseInt(percen.percen));
+          percens.push(dataPercen);
+        });
         var labels = [];
         vm.saleday.forEach(function (res) {
           var data = {};
           data.sales = res.amount;
+          data.average = (parseInt(response.avg[0].avg));
           data.date = res.date;
           allAmount.push(data);
         });
-        console.log(allAmount);
         $scope.options = {
           data: allAmount,
           dimensions: {
             sales: {
               axis: 'y',
               type: 'spline'
+            }, average: {
+              axis: 'y',
+              type: 'spline'
             }
           }
         };
         $scope.instance = null;
+        $scope.myJson = {
+          globals: {
+            shadow: true,
+            fontFamily: 'Verdana',
+            fontWeight: '100'
+          },
+          type: 'pie',
+          backgroundColor: '#fff',
+          tooltip: {
+            text: '%v % %t'
+          },
+          plot: {
+            refAngle: '-90',
+            borderWidth: '0px',
+            valueBox: {
+              placement: 'in',
+              text: '%npv  %',
+              fontSize: '15px',
+              textAlpha: 1,
+            }
+          },
+          series: percens
+        };
       }).error(function (err) {
         console.log(err);
       });

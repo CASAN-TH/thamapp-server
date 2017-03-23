@@ -13,7 +13,7 @@
       title: 'Payments',
       state: 'payments',
       type: 'dropdown',
-      roles: ['*']
+      roles: ['']
     });
 
     // Add the dropdown list item
@@ -23,10 +23,10 @@
     });
 
     // Add the dropdown create item
-    menuService.addSubMenuItem('topbar', 'payments', {
-      title: 'Create Payment',
-      state: 'payments.create',
-      roles: ['user']
-    });
+    // menuService.addSubMenuItem('topbar', 'payments', {
+    //   title: 'Create Payment',
+    //   state: 'payments.create',
+    //   roles: ['user']
+    // });
   }
 }());

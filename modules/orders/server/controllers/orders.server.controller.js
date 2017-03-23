@@ -154,7 +154,7 @@ exports.orderByID = function (req, res, next, id) {
 exports.startdate = function (req, res, next, enddate) {
   var end = new Date(enddate);
   var startdate = req.startdate;
-  Order.find({ created: { $gte: startdate, $lte: end }, deliverystatus: { $ne : 'cancel' } }).sort('created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+  Order.find({ created: { $gte: startdate, $lte: end }, deliverystatus: { $ne: 'cancel' } }).sort('created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
     if (err) {
       return next(err);
     } else if (!orders) {
@@ -173,8 +173,10 @@ exports.salereport = function (req, res, next) {
   var orderslist = req.orders ? req.orders : [];
   var saleday = saleDate(orderslist);
   var saleprod = saleProduct(orderslist);
+  var avgMaxMin = progressOfDate(saleday);
+  var percenOfProd = percenProd(saleprod);
 
-  res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod });
+  res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod, avg: avgMaxMin, percens: percenOfProd });
 
 };
 Date.prototype.yyyymmdd = function () {
@@ -204,10 +206,12 @@ function saleProduct(orders) {
       amount: 0
     };
     items.forEach(function (itm) {
+      var retailer = 0;
+      retailer = itm.product.retailerprice;
       if (id === itm.product._id) {
         data.item = itm;
         data.qty += itm.qty;
-        data.amount += itm.amount;
+        data.amount = (data.qty * retailer);
       }
     });
     products.push(data);
@@ -229,13 +233,85 @@ function saleDate(orders) {
       date: day,
       amount: 0
     };
+    var amoutRetailer = 0;
     orders.forEach(function (order) {
       if (day === order.created.yyyymmdd()) {
-        data.amount += order.amount;
+        var sum = 0;
+        order.items.forEach(function (itm) {
+          sum += (itm.qty * itm.product.retailerprice);
+        });
+        data.amount += sum;
       }
     });
     results.push(data);
   });
+  return results;
+}
+
+function progressOfDate(data) {
+  var min = [];
+  var max = [];
+  var mocData = {
+    min: {},
+    max: {}
+  };
+  var sumForAvg = 0;
+  var countData = data.length;
+  var results = [];
+  data.forEach(function (itm) {
+    sumForAvg += itm.amount;
+    if (min.length > 0) {
+      min.forEach(function (findmin) {
+        if (findmin.amount > itm.amount) {
+          min = [];
+          min.push(itm);
+        }
+        if (findmin.amount < itm.amount) {
+          max = [];
+          max.push(itm);
+        }
+      });
+    } else {
+      min.push(itm);
+    }
+    min.forEach(function (mn) {
+      mocData.min.date = mn.date;
+      mocData.min.min = mn.amount;
+    });
+    if (max.length > 0) {
+      max.forEach(function (mx) {
+        mocData.max.date = mx.date;
+        mocData.max.max = mx.amount;
+      });
+    } else {
+      max = min;
+      max.forEach(function (mx) {
+        mocData.max.date = mx.date;
+        mocData.max.max = mx.amount;
+      });
+    }
+    mocData.avg = sumForAvg / countData;
+    results.push(mocData);
+  });
+  return results;
+}
+
+function percenProd(products) {
+  var data = {};
+  var results = [];
+  var allProd = 0;
+  products.forEach(function (prod) {
+    allProd += prod.amount;
+  });
+  products.forEach(function (prod) {
+    data = {};
+    var percen = 0;
+    percen = (prod.amount / allProd) * 100;
+    data.product = prod;
+    data.percen = percen;
+    results.push(data);
+  });
+
   return results;
 }
 
