@@ -445,13 +445,14 @@
             </div>
             <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id && vm.accuralreceipt.arstatus !== 'wait for review' && vm.accuralreceipt.arstatus !== 'wait for confirmed'">
               <div class="col-xs-9">
-                <label>{{ar.paid.typepaid}}</label> 
+                <label>{{ar.paid.typepaid}}</label>
               </div>
               <div class="col-xs-3 textRight">
                 <label>{{ar.paid.total | number:2}}</label>
               </div>
             </div>
-            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
+            <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'"
+              class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
               <div class="col-md-5">
                 <select class="form-control" ng-model="ar.paid.typepaid">
                   <option value="รับเงินล่วงหน้า">รับเงินล่วงหน้า</option>
@@ -461,16 +462,25 @@
               <div class="col-md-5">
                 <input type="number" ng-change="vm.caladjust()" class="form-control textRight" ng-model="ar.paid.total">
               </div>
-              <div class="col-md-2">
+              <div class="col-md-2 hidden-xs show-sm show-md show-lg">
+                <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
+              </div>
+              <div class="col-md-10">
+                <p>*หมายเหตุ</p>
+                <textarea rows="3" class="form-control" ng-model="ar.paid.remark" placeholder="หมายเหตุรายการปรับปรุง">
+                </textarea>
+              </div>
+              <div class="col-md-2 show-xs show-sm hidden-md hidden-lg">
                 <button type="button" class="btn btn-danger" ng-click="vm.removeadjust($index)"><span class="glyphicon glyphicon-trash"></span></button>
               </div>
             </div>
-            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'" class="row form-group">
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'"
+              class="row form-group">
               <div class="col-md-12 form-group">
                 <button type="button" class="btn btn-success btn-outline btn-block" ng-click="vm.addPaid()">เพิ่มรายการปรับปรุง</button>
               </div>
             </div>
-            
+
 
             <div class="row form-group">
               <div class="col-md-6">
@@ -481,7 +491,7 @@
                 <label ng-bind="vm.accuralreceipt.adjustamount  | number:2 || 0"></label>
               </div>
             </div>
-             <div class="row form-group">
+            <div class="row form-group">
               <div class="col-md-6">
                 <label>รวมสุทธิ</label>
               </div>
