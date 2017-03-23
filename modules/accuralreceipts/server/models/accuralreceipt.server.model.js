@@ -36,6 +36,8 @@ var AccuralreceiptSchema = new Schema({
   totalamount: Number,
   adjustamount: Number,
   imgslip: String,
+  paiddate: Date,
+  attm: String,
   arstatus: {
     type: String,
     default: 'wait for review'

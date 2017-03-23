@@ -13,6 +13,7 @@
     vm.accuralreceipts = AccuralreceiptsService.query();
     vm.statusWaitreview = statusWaitreview;
     vm.statusWaitreceipt = statusWaitreceipt;
+    vm.addattm = addattm;
     vm.addHis = addHis;
     vm.remove = function (itm) {
       if ($window.confirm('คุณต้องการลบรายการนี้ ?')) {
@@ -46,6 +47,18 @@
     function statusWaitreview(data) {
       data.arstatus = 'wait for confirmed';
       vm.addHis(data);
+      data.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function addattm(data) {
+      // vm.accuralreceipts.attm = data.attm;
       data.$update(successCallback, errorCallback);
       function successCallback(res) {
 

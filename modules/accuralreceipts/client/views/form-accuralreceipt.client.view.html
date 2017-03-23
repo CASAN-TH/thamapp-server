@@ -450,6 +450,14 @@
               <div class="col-xs-3 textRight">
                 <label>{{ar.paid.total | number:2}}</label>
               </div>
+              <div ng-show="ar.paid.remark">
+                <div class="col-xs-3">
+                  <label>หมายเหตุ</label>
+                </div>
+                <div class="col-xs-9">
+                  <span>{{ar.paid.remark}}</span>
+                </div>
+              </div>
             </div>
             <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'"
               class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
