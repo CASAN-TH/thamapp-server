@@ -81,7 +81,7 @@ exports.delete = function(req, res) {
  * List of Payments
  */
 exports.list = function(req, res) {
-  Payment.find().sort('-created').populate('user', 'displayName').populate('client').populate('items.product').exec(function(err, payments) {
+  Payment.find().sort('-created').populate('user', 'displayName').populate('payfor.paytype').populate('payby.paytype').populate('items.product').exec(function(err, payments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.paymentByID = function(req, res, next, id) {
     });
   }
 
-  Payment.findById(id).populate('user', 'displayName').populate('client').populate('items.product').exec(function (err, payment) {
+  Payment.findById(id).populate('user', 'displayName').populate('payfor.paytype').populate('payby.paytype').populate('items.product').exec(function (err, payment) {
     if (err) {
       return next(err);
     } else if (!payment) {

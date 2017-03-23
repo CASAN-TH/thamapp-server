@@ -7,13 +7,10 @@
       <fieldset>
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group" show-errors>
-              <label class="control-label" for="client">Client</label>
-              <select name="client" id="client" class="form-control" ng-options="item as item.accountname for item in vm.client | filter:{ status : '!inactive' } track by item._id "
-                ng-model="vm.payment.client" ng-change="vm.selectCustomer()" style="height: 30px;" required></select>
-              <div ng-messages="vm.form.paymentForm.client.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Payment Client is required.</p>
-              </div>
+            <div class="form-group">
+              <label class="control-label" for="docdate">วันที่บันทึก</label>
+              <input name="docdate" type="date" ng-model="vm.payment.docdate" ng-change="vm.creditdayChanged()" id="docdate" class="form-control"
+                placeholder="Doc Date">
             </div>
           </div>
           <div class="col-md-3">
@@ -22,7 +19,7 @@
           </div>
           <div class="col-md-3">
             <div class="form-group" show-errors>
-              <label class="control-label" for="docno">Doc No</label>
+              <label class="control-label" for="docno">เลขที่รายการ</label>
               <input name="docno" type="text" ng-model="vm.payment.docno" id="docno" class="form-control" placeholder="Doc No" required>
               <div ng-messages="vm.form.paymentForm.docno.$error" role="alert">
                 <p class="help-block error-text" ng-message="required">Payment docdate is required.</p>
@@ -30,144 +27,123 @@
             </div>
           </div>
         </div>
+
         <div class="row">
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="address">Address</label>
-              <textarea name="docdate" type="text" ng-model="vm.payment.address" id="address" class="form-control" placeholder="Address"
-              />
+          <!--จ่ายให้ payfor-->
+          <div class="form-group">
+            <p>จ่ายให้</p>
+            <table class="table">
+              <thead style="background-color:lightgray;">
+                <tr>
+                  <th>No.</th>
+                  <th>ชื่อบัญชี</th>
+                  <th>รายระเอียด</th>
+                  <th>จำนวนเงิน</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="product in vm.payment.payfor">
+                  <td>
+                    <p>{{$index+1}}</p>
+                  </td>
+                  <td>
+                    <select ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
+                      ng-model="product.paytype" class="form-control"></select>
+                  </td>
+                  <td>
+                    <input ng-model="product.description" class="form-control">
+                  </td>
+                  <td>
+                    <input ng-change="vm.calpayfor(payfor)" type="number" ng-model="product.amount" class="form-control">
+                  </td>
+                  <td style="text-align:right;">
+                    <button type="button" class="btn btn-danger" ng-click="vm.removePayfor($index)">Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-4">
+                <button type="button" class="btn btn-default" ng-click="vm.selectedPayfor()">Add</button>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-1" style="margin-top: -10px;">
+                <h2>Total</h2>
+              </div>
+              <div class="col-md-3" style="text-align:right;">
+                <label ng-bind="vm.payment.totalamountpayfor | number:2" class="form-control">
+                </label>
+              </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="brunch">Brunch</label>
-              <input name="docdate" type="text" ng-model="vm.payment.brunch" id="brunch" class="form-control" placeholder="Brunch">
+          <!---->
+          <!--จ่ายโดย payby-->
+         <div class="form-group">
+            <p>จ่ายโดย</p>
+            <table class="table">
+              <thead style="background-color:lightgray;">
+                <tr>
+                  <th>No.</th>
+                  <th>ชื่อบัญชี</th>
+                  <th>รายระเอียด</th>
+                  <th>จำนวนเงิน</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="product in vm.payment.payby">
+                  <td>
+                    <p>{{$index+1}}</p>
+                  </td>
+                  <td>
+                    <select ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
+                      ng-model="product.paytype" class="form-control"></select>
+                  </td>
+                  <td>
+                    <input ng-model="product.description" class="form-control">
+                  </td>
+                  <td>
+                    <input ng-change="vm.calpayby(payby)" type="number" ng-model="product.amount" class="form-control">
+                  </td>
+                  <td style="text-align:right;">
+                    <button type="button" class="btn btn-danger" ng-click="vm.removePayfor($index)">Remove</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-4">
+                <button type="button" class="btn btn-default" ng-click="vm.selectedPayby()">Add</button>
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-1" style="margin-top: -10px;">
+                <h2>Total</h2>
+              </div>
+              <div class="col-md-3" style="text-align:right;">
+                <label ng-bind="vm.payment.totalamountpayby | number:2" class="form-control">
+                </label>
+              </div>
             </div>
           </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="taxid">Tax ID</label>
-              <input name="docdate" type="text" ng-model="vm.payment.taxid" id="taxid" class="form-control" placeholder="Tax ID">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="docdate">Doc Date</label>
-              <input name="docdate" type="date" ng-model="vm.payment.docdate" ng-change="vm.creditdayChanged()" id="docdate" class="form-control"
-                placeholder="Doc Date">
-            </div>
-          </div>
+          <!---->
         </div>
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="telofficeno">Phone</label>
-              <input name="telofficeno" type="text" ng-model="vm.payment.telofficeno" id="telofficeno" class="form-control" placeholder="Phone">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="creditday">Credit Day</label>
-              <input name="creditday" type="number" ng-model="vm.payment.creditday" ng-change="vm.creditdayChanged()" id="creditday" class="form-control"
-                placeholder="Credit Day">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="refno">Ref No</label>
-              <input name="refno" type="text" ng-model="vm.payment.refno" id="refno" class="form-control" placeholder="Ref No">
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="form-group">
-              <label class="control-label" for="drilldate">Drill Date</label>
-              <input name="drildate" type="date" ng-model="vm.payment.drilldate" id="drildate" class="form-control" placeholder="Drill Date"
-                readonly>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="refno">Is Include Vat</label>
-              <input name="isincludevat" type="checkbox" value=false ng-model="vm.payment.isincludevat" id="isincludevat">
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <table class="table">
-            <thead style="background-color:lightgray;">
-              <tr>
-                <th>No.</th>
-                <th>Product name</th>
-                <th>QTY</th>
-                <th>Price</th>
-                <th>Amount</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr ng-repeat="product in vm.payment.items">
-                <td>
-                  <p>{{$index+1}}</p>
-                </td>
-                <td><select name="client" ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id " ng-model="product.product"
-                    ng-change="vm.changeUnitPrice(product)" class="form-control"></select></td>
-                <td><input name="qty" type="number" ng-model="product.qty" id="total" class="form-control" placeholder="QTY"
-                    ng-change="vm.calculate(product)" class="form-control"></td>
-                <td><input name="unitprice" type="number" ng-change="vm.calculate(product)" ng-model="product.unitprice" id="total"
-                    class="form-control" placeholder="price"></td>
-                <td>
-                  <p  ng-bind="product.amount| number:2"></p>
-                </td>
-                <td style="text-align:right;">
-                  <button type="button" class="btn btn-danger" ng-click="vm.removeProduct($index)">Remove</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="button" class="btn btn-default" ng-click="vm.selectedProduct()">Add</button>
-        </div>
-        <div class="row">
-          <div class="col-lg-3">
             <div class="form-group">
               <label class="control-label" for="Remark">Remark</label>
-              <textarea name="remark" type="text" ng-model="vm.payment.remark" id="remark" class="form-control" placeholder="Remark"
-              />              
+              <textarea name="remark" type="text" ng-model="vm.payment.remark" id="remark" class="form-control" placeholder="Remark" />
             </div>
           </div>
-          <div class="col-lg-3"></div>
-          <div class="col-lg-3"></div>
-          <div class="col-lg-3">
-            <div class="form-group">
-              <label class="control-label" for="amount">Amount</label>
-              <p ng-bind="vm.payment.amount | number:2" class="form-control"/>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="discountamount">Discount amount</label>
-              <input name="discountamount" type="number" ng-model="vm.payment.discountamount" id="discountamount" class="form-control"
-                placeholder="Discount amount">
-            </div>
-            <div class="form-group" ng-show="vm.payment.discountamount">
-              <label class="control-label" for="amount">Amount after discount</label>
-              <p ng-bind="vm.payment.amountafterdiscount" class="form-control"/>-
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="vatamount">Vat Amount</label>
-              <p ng-bind="vm.payment.vatamount | number:2" class="form-control"/>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="vatamount ">Wht Amount</label>
-              <p ng-bind="vm.payment.whtamount | number:2" class="form-control"/>
-            </div>
-            <div class="form-group">
-              <label class="control-label" for="vatamount">Total Amount</label>
-              <p ng-bind="vm.payment.totalamount | number:2" class="form-control"/>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary">{{vm.payment._id ? 'Update' : 'Create'}} </button>
-              
-            </div>
-            <div ng-show="vm.error" class="text-danger">
-              <strong ng-bind="vm.error"></strong>
-            </div>
-          </div>
+          <div class="col-md-3"></div>
+          <div class="col-md-3"></div>
+          <div class="col-md-3"></div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">{{vm.purchase._id ? 'Update' : 'Create'}} </button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
         </div>
       </fieldset>
     </form>

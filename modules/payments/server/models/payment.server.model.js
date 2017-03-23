@@ -17,10 +17,10 @@ var PaymentSchema = new Schema({
         required: 'Please fill Payment docno',
         trim: true
     },
-    brunch:String,
-    taxid:String,
-    address:String,
-    telofficeno:String,
+    brunch: String,
+    taxid: String,
+    address: String,
+    telofficeno: String,
     remark: String,
     docdate: {
         type: Date,
@@ -62,6 +62,31 @@ var PaymentSchema = new Schema({
             default: 0
         }
     }],
+
+    payfor: [{
+        paytype: {
+            type: Schema.ObjectId,
+            ref: 'Accountchart'
+        },
+        description: String,
+        amount: {
+            type: Number,
+            default: 0
+        }
+    }],
+
+    payby: [{
+        paytype: {
+            type: Schema.ObjectId,
+            ref: 'Accountchart'
+        },
+        description: String,
+        amount: {
+            type: Number,
+            default: 0
+        },
+        totalamount: Number
+    }],
     drilldate: {
         type: Date,
     },
@@ -91,7 +116,11 @@ var PaymentSchema = new Schema({
         type: Number,
         default: 0
     },
-    totalamount: {
+    totalamountpayby: {
+        type: Number,
+        default: 0
+    },
+    totalamountpayfor: {
         type: Number,
         default: 0
     },
