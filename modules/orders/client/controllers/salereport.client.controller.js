@@ -38,7 +38,7 @@
         vm.saleday.forEach(function (res) {
           var data = {};
           data.sales = res.amount;
-          data.average = response.avg[0].avg;
+          data.average = (parseInt(response.avg[0].avg));
           data.date = res.date;
           allAmount.push(data);
         });
@@ -58,21 +58,21 @@
         $scope.myJson = {
           globals: {
             shadow: true,
-            fontFamily: "Verdana",
-            fontWeight: "100"
+            fontFamily: 'Verdana',
+            fontWeight: '100'
           },
-          type: "pie",
-          backgroundColor: "#fff",
+          type: 'pie',
+          backgroundColor: '#fff',
           tooltip: {
-            text: "%v % %t"
+            text: '%v % %t'
           },
           plot: {
-            refAngle: "-90",
-            borderWidth: "0px",
+            refAngle: '-90',
+            borderWidth: '0px',
             valueBox: {
-              placement: "in",
-              text: "%npv  %",
-              fontSize: "15px",
+              placement: 'in',
+              text: '%npv  %',
+              fontSize: '15px',
               textAlpha: 1,
             }
           },
