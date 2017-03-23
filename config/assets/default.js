@@ -31,7 +31,10 @@ module.exports = {
         'public/lib/html2canvas/build/html2canvas.js',
         'public/lib/c3/c3.js',
         'public/lib/d3/d3.js',
-        'public/lib/angular-chart/angular-chart.js'
+        'public/lib/angular-chart/angular-chart.js',
+        'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js',
+        'https://cdn.zingchart.com/zingchart.min.js',
+        'https://cdn.zingchart.com/angular/zingchart-angularjs.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

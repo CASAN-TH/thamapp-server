@@ -131,6 +131,7 @@ describe('Order CRUD tests', function () {
             items: [{
               product: product2,
               qty: 1,
+              retailerprice: 180,
               price: 100,
               amount: 200
             }],
@@ -159,9 +160,16 @@ describe('Order CRUD tests', function () {
             items: [{
               product: product,
               qty: 1,
+              retailerprice: 40,
               price: 100,
               amount: 100
-            }],
+            }, {
+                product: product,
+                qty: 1,
+                retailerprice: 40,
+                price: 100,
+                amount: 100
+              }],
             shipping: {
               postcode: 10220,
               subdistrict: 'คลองถนน',
@@ -187,6 +195,7 @@ describe('Order CRUD tests', function () {
             items: [{
               product: product2,
               qty: 1,
+              retailerprice: 0,
               price: 100,
               amount: 100
             }],
@@ -722,11 +731,14 @@ describe('Order CRUD tests', function () {
           (res.body.orders.length).should.match(2);
           (res.body.saleday.length).should.match(1);
           (res.body.saleday[0].date).should.match('20170317');
-          (res.body.saleday[0].amount).should.match(300);
+          (res.body.saleday[0].amount).should.match(360);
           (res.body.saleprod.length).should.match(1);
           (res.body.saleprod[0].item.product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม');
           (res.body.saleprod[0].qty).should.match(2);
-          (res.body.saleprod[0].amount).should.match(300);
+          (res.body.saleprod[0].amount).should.match(360);
+          (res.body.avg[0].min.min).should.match(360);
+          (res.body.avg[0].max.max).should.match(360);
+          (res.body.percens[0].percen).should.match(100);
           // Call the assertion callback
           done();
         });
@@ -753,16 +765,18 @@ describe('Order CRUD tests', function () {
           (res.body.orders.length).should.match(3);
           (res.body.saleday.length).should.match(2);
           (res.body.saleday[1].date).should.match('20170317');
-          (res.body.saleday[1].amount).should.match(300);
+          (res.body.saleday[1].amount).should.match(360);
           (res.body.saleday[0].date).should.match('20161221');
-          (res.body.saleday[0].amount).should.match(100);
+          (res.body.saleday[0].amount).should.match(80);
           (res.body.saleprod.length).should.match(2);
           (res.body.saleprod[1].item.product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม');
           (res.body.saleprod[1].qty).should.match(2);
-          (res.body.saleprod[1].amount).should.match(300);
-          (res.body.saleprod[0].item.product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 1 กิโลกรัม');   
-          (res.body.saleprod[0].qty).should.match(1);
-          (res.body.saleprod[0].amount).should.match(100);       
+          (res.body.saleprod[1].amount).should.match(360);
+          (res.body.saleprod[0].item.product.name).should.match('ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 1 กิโลกรัม');
+          (res.body.saleprod[0].qty).should.match(2);
+          (res.body.saleprod[0].amount).should.match(80);
+          (res.body.avg[0].min.min).should.match(80);
+          (res.body.avg[0].max.max).should.match(360);
           // Call the assertion callback
           done();
         });
