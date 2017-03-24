@@ -261,7 +261,7 @@
 
     function readProduct() {
       vm.products = ProductsService.query();
-      console.log(vm.products);
+      // console.log(vm.products);
     }
     function readCustomer() {
       if (vm.authentication.user.roles[0] === 'admin') {
@@ -270,7 +270,7 @@
             if (usr.roles[0] === 'user')
               vm.customers.push(usr);
           });
-          console.log(vm.customers);
+          // console.log(vm.customers);
         });
       }
     }
@@ -343,7 +343,7 @@
     function acceptPost(itm) {
       vm.status = itm.deliverystatus;
       vm.status = 'accept';
-      console.log(vm.status);
+      // console.log(vm.status);
       vm.order.deliverystatus = vm.status;
     }
 
@@ -356,7 +356,7 @@
     }
 
     function readDeliverid() {
-      console.log(vm.authentication.user.roles[0]);
+      // console.log(vm.authentication.user.roles[0]);
       if (vm.order._id) {
         if (vm.order.delivery.deliveryid === '1' && (vm.authentication.user.roles[0] === 'admin' || vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver')) {
           vm.show = false;

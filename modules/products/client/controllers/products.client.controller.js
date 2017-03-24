@@ -102,7 +102,7 @@
 
       // Populate user object
       vm.product.images = response.imageURL;
-      console.log(response);
+      // console.log(response);
 
       // Clear upload buttons
       $scope.cancelUpload();

@@ -19,7 +19,7 @@
     };
        
      vm.update = function(itm){
-       console.log(itm._id);
+      //  console.log(itm._id);
        if (itm._id) {
          $state.go('postcodes.edit', {
           postcodeId: itm._id

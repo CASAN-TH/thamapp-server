@@ -65,12 +65,12 @@
           backgroundColor: '#fff',
 
           legend: {
-            layout: "x1",
-            position: "right",
-            borderColor: "transparent",
+            layout: 'x1',
+            position: 'right',
+            borderColor: 'transparent',
             marker: {
               borderRadius: 10,
-              borderColor: "transparent"
+              borderColor: 'transparent'
             }
           },
           tooltip: {
