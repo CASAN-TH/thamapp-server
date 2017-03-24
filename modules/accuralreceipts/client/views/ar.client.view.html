@@ -39,13 +39,11 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <!--<a href="#waitreview" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>รอตรวจสอบ</span><h3>{{listwaitreview.length || 0}}</h3></button></a>-->
               <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รอยืนยัน</span><h3>{{listwaitcomfirmed.length || 0}}</h3></button></a>
               <a href="#confirmed" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>ยืนยันแล้ว</span><h3>{{listconfirmed.length || 0}}</h3></button></a>
               <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{listreceipt.length || 0}}</h3></button></a>
             </div>
           </div>
-          <!---->
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">
             <!--<div class="col-xs-3">
               <a href="#waitreviewmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">รอตรวจสอบ</button></a>
@@ -252,7 +250,7 @@
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อคนส่งข้าว</strong>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ที่อยู่</strong>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
@@ -260,6 +258,9 @@
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>วันที่สร้าง</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ลิงค์การโอน</strong>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
                           <strong>พิมพ์</strong>
@@ -279,8 +280,8 @@
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <p class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></p>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                          <p class="list-group-item-heading dotpyRank" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading dotpy" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></p>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
                           <p class="list-group-item-heading" ng-bind="data.totalamount"></p>
@@ -290,6 +291,12 @@
                             <time am-time-ago="data.created"></time>
                           </p>
                         </div>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2" ng-show="data.attm">
+                        <a href="{{data.attm}}" target="_blank"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-new-window"></span></button></a>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2" ng-show="!data.attm">
+                        <p>-</p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="accuralreceipts.view({ accuralreceiptId: data._id })">
                         <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save-file"></span></button>
@@ -382,10 +389,11 @@
                           <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
                         </div>
                       </div>
-                      <div class="list-group-item-heading textRight">
-                        <button type="button" class="btn btn-warning" ui-sref="accuralreceipts.view({ accuralreceiptId: data._id })"><span class="glyphicon glyphicon-save-file"></span></button>
-                      </div>
                     </a>
+                    <div class="list-group-item-heading textRight">
+                      <a ng-show="data.attm" href="{{data.attm}}" target="_blank"><button type="button" class="btn btn-info"><span class="glyphicon glyphicon-new-window"></span></button></a>
+                      <button type="button" class="btn btn-warning" ui-sref="accuralreceipts.view({ accuralreceiptId: data._id })"><span class="glyphicon glyphicon-save-file"></span></button>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -69,10 +69,13 @@
                         <!--<div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อบริษัท</strong>
                         </div>-->
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งคืน</strong>
+                        </div>
                         <div class="col-xs-3 col-sm-3 col-md-3">
                           <strong>ชื่อผู้แจ้งคืน</strong>
                         </div>
-                        <div class="col-xs-5 col-sm-5 col-md-5">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
                           <strong>ที่อยู่ผู้รับ</strong>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
@@ -92,13 +95,16 @@
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="returnorders.edit({ returnorderId: return._id })">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="return.docno"></p>
+                        </div>
                         <div class="col-xs-3 col-sm-3 col-md-3" ng-show="return.user.roles[0] === 'admin'">
                           <p class="list-group-item-heading" ng-bind="return.namedeliver.displayName + ' ' + '(' + return.user.displayName + ')'"></p>
                         </div>
                         <div class="col-xs-3 col-sm-3 col-md-3" ng-show="return.user.roles[0] === 'deliver'">
                           <p class="list-group-item-heading" ng-bind="return.namedeliver.displayName"></p>
                         </div>
-                        <div class="col-xs-5 col-sm-5 col-md-5">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
                           <p class="list-group-item-heading" ng-bind="return.shipping.address +' '+ return.shipping.district +' '+ return.shipping.subdistrict +' '+ return.shipping.province +' '+ return.shipping.postcode +' '+ '('+return.shipping.tel+')'"></p>
                         </div>
                       </div>
@@ -121,12 +127,15 @@
                     <div class="col-md-12">
                       <div class="row form-group alert alert-info">
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งคืน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อบริษัท</strong>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อผู้แจ้งคืน</strong>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ที่อยู่ผู้รับ</strong>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
@@ -147,15 +156,18 @@
                     <div class="row form-group">
                       <div ui-sref="returnorders.edit({ returnorderId: response._id })">
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="response.docno"></p>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <p class="list-group-item-heading" ng-bind="response.transport.displayName"></p>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3" ng-show="response.user.roles[0] === 'admin'">
+                        <div class="col-xs-2 col-sm-2 col-md-2" ng-show="response.user.roles[0] === 'admin'">
                           <p class="list-group-item-heading" ng-bind="response.namedeliver.displayName + ' ' + '(' + response.user.displayName + ')'"></p>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3" ng-show="response.user.roles[0] === 'deliver'">
+                        <div class="col-xs-2 col-sm-2 col-md-2" ng-show="response.user.roles[0] === 'deliver'">
                           <p class="list-group-item-heading" ng-bind="response.namedeliver.displayName"></p>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <p class="list-group-item-heading" ng-bind="response.shipping.address +' '+ response.shipping.district +' '+ response.shipping.subdistrict +' '+ response.shipping.province +' '+ response.shipping.postcode +' '+ '('+response.shipping.tel+')'"></p>
                         </div>
                       </div>
@@ -178,12 +190,15 @@
                     <div class="col-md-12">
                       <div class="row form-group alert alert-info">
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งคืน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อบริษัท</strong>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อผู้แจ้งคืน</strong>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
                           <strong>ที่อยู่ผู้รับ</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -201,15 +216,18 @@
                     <div class="row form-group">
                       <div ui-sref="returnorders.edit({ returnorderId: received._id })">
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="received.docno"></p>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <p class="list-group-item-heading" ng-bind="received.transport.displayName"></p>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3" ng-show="received.user.roles[0] === 'admin'">
+                        <div class="col-xs-2 col-sm-2 col-md-2" ng-show="received.user.roles[0] === 'admin'">
                           <p class="list-group-item-heading" ng-bind="received.namedeliver.displayName + ' ' + '(' + received.user.displayName + ')'"></p>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3" ng-show="received.user.roles[0] === 'deliver'">
+                        <div class="col-xs-2 col-sm-2 col-md-2" ng-show="received.user.roles[0] === 'deliver'">
                           <p class="list-group-item-heading" ng-bind="received.namedeliver.displayName"></p>
                         </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
                           <p class="list-group-item-heading" ng-bind="received.shipping.address +' '+ received.shipping.district +' '+ received.shipping.subdistrict +' '+ received.shipping.province +' '+ received.shipping.postcode +' '+ '('+received.shipping.tel+')'"></p>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -233,6 +251,9 @@
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="returnorders.edit({ returnorderId: return._id })">
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งคืน'+ ' ' + return.docno"></label>
+                        </div>
                         <div ng-show="return.user.roles[0] === 'admin'">
                           <label class="list-group-item-heading" ng-bind="'ชื่อผู้แจ้งคืน'+ ' ' + return.namedeliver.displayName  + ' ' + '(' + return.user.displayName + ')'"></label>
                         </div>
@@ -258,6 +279,9 @@
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="returnorders.edit({ returnorderId: response._id })">
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งคืน'+ ' ' + response.docno"></label>
+                        </div>
                         <div>
                           <label class="list-group-item-heading" ng-bind="response.transport.displayName"></label>
                         </div>
@@ -285,6 +309,9 @@
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="returnorders.edit({ returnorderId: received._id })">
+                        <div>
+                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งคืน'+ ' ' + received.docno"></label>
+                        </div>
                         <div>
                           <label class="list-group-item-heading" ng-bind="received.transport.displayName"></label>
                         </div>

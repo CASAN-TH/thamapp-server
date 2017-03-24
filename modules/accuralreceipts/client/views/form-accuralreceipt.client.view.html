@@ -518,13 +518,16 @@
               </div>
             </div>
 
-            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'receipt'" class="row form-group">
+            <div ng-show="vm.accuralreceipt.arstatus === 'receipt'" class="row form-group">
               <div class="col-md-3">
                 <label>วันที่อ้างอิง</label>
               </div>
               <div class="col-md-5">
                 <div ng-show="vm.accuralreceipt.paiddate">
                   <span ng-bind="vm.accuralreceipt.paiddate | date:'dd/MM/yyyy'"></span>
+                </div>
+                <div ng-show="!vm.accuralreceipt.paiddate">
+                  <label>-</label>
                 </div>
               </div>
             </div>
@@ -539,9 +542,12 @@
               </div>
             </div>
 
-            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'receipt'" class="row form-group">
-              <div class="col-md-12">
+            <div ng-show="vm.accuralreceipt.arstatus === 'receipt'" class="row form-group">
+              <div class="col-md-12" ng-show="vm.accuralreceipt.attm">
                 <label>ลิงค์หลักฐานการโอนเงิน</label>&nbsp;&nbsp;<a href="{{vm.accuralreceipt.attm}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+              </div>
+              <div class="col-md-12" ng-show="!vm.accuralreceipt.attm">
+                <label>ลิงค์หลักฐานการโอนเงิน</label>&nbsp;&nbsp;<label>-</label>
               </div>
             </div>
 
@@ -677,9 +683,14 @@
               </div>
 
             </div>
-            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'">
+            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && (vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed')">
               <div class="col-md-12 form-group">
                 <button type="submit" class="btn btn-primary btn-block" ng-click="vm.updateDeliver()">บันทึกรายการ</button>
+              </div>
+            </div>
+            <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'deliver' && (vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed')">
+              <div class="col-md-12 form-group">
+                <button type="button" class="btn btn-primary btn-block" ng-click="vm.updateWaitforConfirmed()">บันทึกรายการ</button>
               </div>
             </div>
           </div>

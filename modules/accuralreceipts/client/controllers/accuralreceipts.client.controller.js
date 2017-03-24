@@ -30,6 +30,7 @@
     vm.sum = 0;
     vm.caladjust = caladjust;
     vm.statusWaitreceipt = statusWaitreceipt;
+    vm.updateWaitforConfirmed = updateWaitforConfirmed;
     $scope.totalCount = 0;
     $scope.countInit = function () {
       return $scope.totalCount++;
@@ -197,7 +198,7 @@
       }
 
     }
-    vm.setdates = new Date();
+    // vm.setdates = new Date();
     function statusWaitreceipt() {
       // console.log(vm.setdates);
       vm.accuralreceipt.paiddate = vm.setdates;
@@ -209,6 +210,17 @@
       vm.accuralreceipt.$update(successCallback, errorCallback);
       function successCallback(res) {
         $state.go('accuralreceipts.list');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function updateWaitforConfirmed (){
+      vm.accuralreceipt.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('ar');
       }
 
       function errorCallback(res) {
@@ -238,9 +250,10 @@
       }
 
       function successCallback(res) {
-        $state.go('accuralreceipts.list', {
-          accuralreceiptId: res._id
-        });
+        // $state.go('accuralreceipts.list', {
+        //   accuralreceiptId: res._id
+        // });
+        $state.go('accuralreceipts.list');
       }
 
       function errorCallback(res) {
