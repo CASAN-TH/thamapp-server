@@ -25,7 +25,7 @@
           vm.newRequest(item);
         }
       }
-      console.log(item);
+      // console.log(item);
     }
 
     function newRequest(item) {
@@ -42,7 +42,7 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
-      console.log(item);
+      // console.log(item);
     }
 
     function addHis(item) {

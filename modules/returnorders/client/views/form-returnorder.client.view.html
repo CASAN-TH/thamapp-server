@@ -122,69 +122,52 @@
           </div>
           <!---->
           <div class="row marginTB">
+            <div class="row">
+              <div class="col-md-8">
+                <label>รหัสใบแจ้งคืน : &nbsp;</label><label>{{vm.returnorder.docno}}</label>
+              </div>
+              <div class="col-md-4" ng-show="vm.authentication.user.roles[0] === 'deliver'">
+                <label class="textRight" for="">วันที่ {{vm.returnorder.docdate | date:'dd/MM/yyyy'}}</label>
+              </div>
+              <div class="col-md-4" ng-show="vm.authentication.user.roles[0] !== 'deliver'">
+                <label class="textRight" for="">วันที่สั่งจอง {{vm.returnorder.docdate | date:'dd/MM/yyyy'}}</label>
+              </div>
+              <div class="col-md-12" ng-show="vm.returnorder._id && vm.returnorder.deliverystatus !== 'return'">
+                <label>ชื่อผู้รับ : {{vm.returnorder.namedeliver.displayName}}</label><br>
+              </div>
+              <div class="col-md-12" ng-show="(!vm.returnorder._id  && vm.authentication.user.roles[0]==='deliver') && vm.returnorder.deliverystatus === 'return'">
+                <label>ชื่อผู้แจ้งคืน : {{vm.returnorder.namedeliver.displayName}}</label>
+              </div>
+              <div class="col-md-12" ng-show="(vm.returnorder._id && vm.authentication.user.roles[0]==='deliver') && vm.returnorder.deliverystatus === 'return'">
+                <br><label>ชื่อผู้รับ : {{vm.returnorder.namedeliver.displayName}}</label>
+              </div>
+            </div>
             <div class="col-md-8">
               <div class="row">
-
                 <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.returnorder._id &&vm.returnorder.deliverystatus === 'return'  && vm.authentication.user.roles[0]==='admin'">
-                  <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
                   <div class="btn btn-small btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
-
-
-                  <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
-                </div>
-                <div class="col-md-1 show-xs hidden-sm hidden-md hidden-lg" ng-show="!vm.returnorder._id && vm.returnorder.deliverystatus === 'return' && vm.authentication.user.roles[0]==='deliver'">
-                  <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
-                  <div>
-                    <!--<i class="fa fa-user fa-2x" aria-hidden="true" width="45px;"></i>-->
-                    <label>ชื่อผู้แจ้งคืน</label>
-                  </div>
-
-
-                  <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
                 </div>
                 <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="vm.returnorder.deliverystatus === 'return' && vm.authentication.user.roles[0]==='admin'">
-                  <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
                   <div class="btn btn-success btn-outline" data-toggle="modal" data-target="#myDelivery" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
                     <i class="fa fa-user-plus fa-2x" aria-hidden="true" width="45px;"></i>
                   </div>
-
-
-                  <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
                 </div>
-
-                <div class="col-md-4 hidden-xs show-sm show-md show-lg" ng-show="vm.returnorder.deliverystatus === 'return'&& vm.authentication.user.roles[0]==='deliver'">
-                  <!--<button type="button" class="btn btn-secondary">Secondary</button>-->
-                  <div>
-                    <!--<i class="fa fa-user fa-2x" aria-hidden="true" width="45px;"></i>-->
-                    <label>ชื่อผู้แจ้งคืน</label>
-                  </div>
-
-
-                  <!--<img src="{{vm.returnorder.user.profileImageURL}}" class="img-circle" width="45px;" data-toggle="modal" data-target="#myDelivery">-->
-                </div>
-
-                <!--<div class="col-md-2" ng-show="vm.returnorder._id">
-                  <i class="fa fa-user fa-3x" aria-hidden="true" width="45px;"></i>
-                </div>-->
 
                 <div class="col-md-8">
-                  <div ng-show="!vm.returnorder._id">
-                    <!--<label>{{vm.cust.displayName}}</label><br>-->
-                    <label>{{vm.returnorder.namedeliver.displayName}}</label>
+                  <div ng-show="!vm.returnorder._id && vm.authentication.user.roles[0] === 'admin'">
+                    <br><label>{{vm.returnorder.namedeliver.displayName}}</label>
                   </div>
-                  <div ng-show="vm.returnorder._id">
-                    <label ng-show="vm.returnorder._id && vm.returnorder.deliverystatus != 'return'">ชื่อผู้รับ : </label>                    <label>{{vm.returnorder.namedeliver.displayName}}</label><br>
+                  <div ng-show="(vm.returnorder._id && vm.authentication.user.roles[0] === 'admin') && vm.returnorder.deliverystatus === 'return'">
+                    <br><label>ชื่อผู้รับ : {{vm.returnorder.namedeliver.displayName}}</label>
                   </div>
                   <div class="row" ng-show="!vm.returnorder._id">
                     <div class="col-xs-12 input-group input-group-sm">
-                      <!--<input type="text" ng-model="vm.returnorder.docno" class="form-control" placeholder="Doc No" aria-describedby="sizing-addon3">-->
                     </div>
                   </div>
                   <div class="row" ng-show="vm.returnorder._id">
                     <div class="col-xs-12 input-group input-group-sm">
-                      <!--<abbr>{{vm.returnorder.docno}}</abbr>-->
                     </div>
                   </div>
                 </div>
@@ -225,12 +208,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4" ng-show="vm.authentication.user.roles[0] === 'deliver'">
-              <p class="textRight" for="">วันที่ {{vm.returnorder.docdate | date:'dd/MM/yyyy'}}</p>
-            </div>
-            <div class="col-md-4" ng-show="vm.authentication.user.roles[0] !== 'deliver'">
-              <p class="textRight" for="">วันที่สั่งจอง {{vm.returnorder.docdate | date:'dd/MM/yyyy'}}</p>
             </div>
           </div>
           <div class="row form-group alert alert-success hidden-xs show-sm show-md show-lg">
@@ -278,14 +255,10 @@
               </div>
             </div>
             <div class=" col-xs-4 col-sm-4 col-md-4 text-center" ng-hide="vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
-
               <label>{{product.qty}}</label>
-
             </div>
             <div class=" col-xs-4 col-sm-4 col-md-4 text-center" ng-show="vm.returnorder._id && vm.returnorder.deliverystatus != 'return'">
-
               <label ng-bind="product.qty"> </label>
-
             </div>
             <div class=" col-xs-2 col-sm-2 col-md-2">
               <label ng-bind="product.retailerprice"></label>
@@ -302,18 +275,15 @@
               <strong>สินค้าทั้งหมด</strong>
             </div>
           </div>
-          <!--list Product-->
           <div class="row form-group show-xs hidden-sm hidden-md hidden-lg" ng-repeat="product in vm.returnorder.items">
             <div class="row">
               <div class="list-group">
                 <div class="list-group-item list-group-item-action">
-
                   <div class="row ">
                     <div class="col-xs-12 ">
                       <strong class="form-control noneBorder word-break" title="{{product.product.name}}" ng-bind="product.product.name"></strong>
                     </div>
                   </div>
-
                   <div class="row ">
                     <div class="col-xs-8 marginT10" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
                       <div class="input-group">
@@ -341,7 +311,6 @@
                                         </label>-->
                     </div>
                     <div class="col-xs-4">
-
                     </div>
                   </div>
                   <div class="row marginT10">
@@ -359,8 +328,6 @@
                       <label class="form-control noneBorder" ng-bind="'ราคา/ชิ้น : ' + product.retailerprice"></label>
                     </div>
                   </div>
-
-
                   <div class="row fadePortrait">
                     <div class="col-xs-8">
                       <label class="form-control noneBorder">รวม : {{product.amount}} </label>
@@ -381,7 +348,6 @@
               </div>
             </div>
           </div>
-          <!--list Product-->
           <div class="row form-group show-xs hidden-sm hidden-md hidden-lg">
             <div class="col-xs-12" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'confirmed' || vm.returnorder.deliverystatus === 'wait deliver' || vm.returnorder.deliverystatus === 'reject' || vm.returnorder.deliverystatus === 'return'">
               <button type="button" class="btn btn-default btn-block btnborder" data-toggle="modal" data-target="#myProduct">เพิ่มสินค้า</button>
@@ -403,7 +369,6 @@
                     <ul class="list-group">
                       <div class="row">
                         <div class="col-md-4">
-
                         </div>
                         <div class="col-md-8">
                           <div class="input-group input-group-sm">
@@ -419,7 +384,6 @@
                           <div class="col-xs-3">
                             <img src="{{prod.images}}" class="img-circle" width="50px">
                           </div>
-
                           <div class="col-xs-7">
                             <img width="5%"> <label>{{prod.name}}</label>
                           </div>
@@ -470,46 +434,10 @@
                 <label>{{vm.returnorder.totalamount | number:2}}</label>
               </div>
             </div>
-            <!--<div class="row form-group" ng-hide="vm.authentication.user.roles[0] === 'deliver'">-->
-            <!--<div class="col-xs-7">
-                <strong>ประเภทการส่ง</strong>
-              </div>-->
-            <!--<div class="col-xs-5 textRight">
-                <label>คนส่งข้าว</label>
-              </div>-->
-            <!--</div>-->
             <div class="row form-group" ng-show="vm.returnorder.delivery.deliveryid === '0' && (vm.authentication.user.roles[0] !== 'deliver'&& vm.returnorder.deliverystatus!='cancel')">
-              <!--<div class="col-xs-7 hidden-xs show-sm show-md show-lg">
-          <strong>บริษัทขนส่ง</strong>
-        </div>-->
-              <!--<div class="col-xs-7 show-xs hidden-sm hidden-md hidden-lg">
-          <strong>บริษัทขนส่ง</strong>
-        </div>-->
-              <!--<div class="col-xs-5 hidden-xs show-sm show-md show-lg">
-          <div class="row ">
-            <div class="col-xs-12 input-group input-group-sm textRight" ng-show="vm.returnorder._id && vm.returnorder.deliverystatus === 'response' || vm.returnorder.deliverystatus === 'received'">
-              <label class="control-label">{{vm.returnorder.transport.displayName}}</label>
-            </div>
-
-            <div class="col-xs-12 input-group input-group-sm textRight" ng-show="!vm.returnorder._id || vm.returnorder.deliverystatus === 'return'">
-              <div class="input-group input-group-sm textRight">
-                
-                <span data-toggle="modal" data-target="#myTransprot" class="input-group-addon" id="sizing-addon3"><i class="fa fa-truck font-medium" aria-hidden="true"></i></span>
-                
-                <input type="text" class="form-control" ng-model="vm.returnorder.transport.displayName" aria-describedby="sizing-addon3" readonly>
-              </div>
-            </div>
-
-          </div>
-        </div>-->
               <div class="col-xs-5 show-xs hidden-sm hidden-md hidden-lg">
                 <div class="row ">
-                  <!--<div class="col-xs-12 input-group input-group-sm textRight" ng-show="vm.returnorder._id">
-                    <label class="control-label">{{vm.returnorder.transport.displayName}}</label>
-                  </div>-->
-
                   <div class="col-xs-12 input-group input-group-sm textRight" ng-show="!vm.returnorder._id">
-
                     <!--<button type="button" class="pull-right btn btn-block btn-primary" ng-hide="vm.returnorder.namedeliver" ng-disabled="vm.returnorder.deliverystatus === 'cancel' || vm.returnorder.deliverystatus === 'pending' || vm.returnorder.deliverystatus === 'paid' || vm.returnorder.deliverystatus === 'sent' || vm.returnorder.deliverystatus === 'complete' || vm.returnorder.deliverystatus === 'close' || vm.returnorder.deliverystatus === 'accept'"
                                             name="deliver" aria-describedby="sizing-addon3" data-toggle="modal" data-target="#myDelivery">เลือกคนส่งข้าว</button>-->
                     <div class="input-group input-group-sm textRight">
@@ -523,7 +451,6 @@
                         readonly>
                     </div>
                   </div>
-
                   <div class="container">
                     <div class="modal fade" id="myDelivery" role="dialog">
                       <div class="modal-dialog">
@@ -535,7 +462,6 @@
                             <ul class="list-group">
                               <div class="row">
                                 <div class="col-md-4">
-
                                 </div>
                                 <div class="col-md-8">
                                   <div class="input-group input-group-sm">
@@ -560,7 +486,6 @@
                                 </li>
                               </div>
                             </ul>
-
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
@@ -612,7 +537,6 @@
                 </div>
               </div>
             </div>
-
             <div class="row ">
               <div class="col-md-12 form-group">
               </div>

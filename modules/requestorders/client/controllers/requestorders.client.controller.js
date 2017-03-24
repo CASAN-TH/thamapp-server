@@ -97,7 +97,7 @@
         qty: 1,
         retailerprice: item.retailerprice
       });
-      console.log(item);
+      // console.log(item);
       sumary(vm.requestorder.items);
     }
 
@@ -128,7 +128,7 @@
             if (usr.roles[0] === 'user')
               vm.customers.push(usr);
           });
-          console.log(vm.customers);
+          // console.log(vm.customers);
         });
       }
     }
@@ -184,7 +184,7 @@
     function selectTransport(tran) {
       vm.transport = tran;
       vm.requestorder.transport = vm.transport;
-      console.log(vm.requestorder);
+      // console.log(vm.requestorder);
     }
 
 
@@ -195,7 +195,7 @@
             if (user.roles[0] === 'deliver')
               vm.delivers.push(user);
           });
-          console.log(vm.delivers);
+          // console.log(vm.delivers);
         });
       }
 
@@ -209,7 +209,7 @@
             if (user.roles[0] === 'transporter')
               vm.transports.push(user);
           });
-          console.log(vm.transports);
+          // console.log(vm.transports);
         });
       }
 
@@ -232,7 +232,7 @@
         //vm.order.amount = prod.amount;
         vm.requestorder.totalamount += prod.amount;
       });
-      console.log(vm.requestorder.amountqty);
+      // console.log(vm.requestorder.amountqty);
       vm.requestorder.amount = vm.requestorder.totalamount;
     }
 
@@ -274,7 +274,7 @@
     }
 
     function readDeliverid() {
-      console.log(vm.authentication.user.roles[0]);
+      // console.log(vm.authentication.user.roles[0]);
       if (vm.requestorder._id) {
         if (vm.requestorder.delivery.deliveryid === '1' && (vm.authentication.user.roles[0] === 'admin' || vm.authentication.user.roles[0] === 'user' || vm.authentication.user.roles[0] === 'deliver')) {
           vm.show = false;

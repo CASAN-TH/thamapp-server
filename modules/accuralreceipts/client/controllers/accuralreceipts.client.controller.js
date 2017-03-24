@@ -29,6 +29,8 @@
     vm.addPaid = addPaid;
     vm.sum = 0;
     vm.caladjust = caladjust;
+    vm.statusWaitreceipt = statusWaitreceipt;
+    vm.updateWaitforConfirmed = updateWaitforConfirmed;
     $scope.totalCount = 0;
     $scope.countInit = function () {
       return $scope.totalCount++;
@@ -172,8 +174,8 @@
       console.log(item);
       // item.deliverystatus = 'complete';
       // item.refdoc = '';
-      vm.accuralreceipt.items[item].deliverystatus ='complete';
-       vm.accuralreceipt.items[item].refdoc ='';
+      vm.accuralreceipt.items[item].deliverystatus = 'complete';
+      vm.accuralreceipt.items[item].refdoc = '';
       vm.accuralreceipt.items.splice(item, 1);
 
       vm.calculate(vm.accuralreceipt.items);
@@ -196,6 +198,35 @@
       }
 
     }
+    // vm.setdates = new Date();
+    function statusWaitreceipt() {
+      // console.log(vm.setdates);
+      vm.accuralreceipt.paiddate = vm.setdates;
+      vm.accuralreceipt.arstatus = 'receipt';
+      vm.accuralreceipt.historystatus.push({
+        status: vm.accuralreceipt.arstatus,
+        datestatus: new Date()
+      });
+      vm.accuralreceipt.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('accuralreceipts.list');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
+    function updateWaitforConfirmed (){
+      vm.accuralreceipt.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('ar');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
 
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -214,14 +245,15 @@
       if (vm.accuralreceipt._id) {
         vm.accuralreceipt.$update(successCallback, errorCallback);
       } else {
-        console.log(vm.accuralreceipt);
+        // console.log(vm.accuralreceipt);
         vm.accuralreceipt.$save(successCallback, errorCallback);
       }
 
       function successCallback(res) {
-        $state.go('accuralreceipts.list', {
-          accuralreceiptId: res._id
-        });
+        // $state.go('accuralreceipts.list', {
+        //   accuralreceiptId: res._id
+        // });
+        $state.go('accuralreceipts.list');
       }
 
       function errorCallback(res) {

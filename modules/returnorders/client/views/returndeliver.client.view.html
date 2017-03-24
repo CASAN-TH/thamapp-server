@@ -70,6 +70,9 @@
                           <strong>ชื่อบริษัท</strong>
                         </div>-->
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งคืน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อผู้แจ้งคืน</strong>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5">
@@ -96,6 +99,9 @@
                         <p class="list-group-item-heading" ng-bind="return.transport.displayName"></p>
                       </div>-->
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <p class="list-group-item-heading" ng-bind="return.docno"></p>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <p class="list-group-item-heading" ng-bind="return.namedeliver.displayName"></p>
                         </div>
                         <div class="col-xs-5 col-sm-5 col-md-5">
@@ -121,15 +127,18 @@
                     <div class="col-md-12">
                       <div class="row form-group alert alert-info">
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งคืน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อบริษัท</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อผู้แจ้งคืน</strong>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ที่อยู่ผู้รับ</strong>
                         </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
+                        <div class="col-xs-1 col-sm-1 col-md-1">
                           <strong>สินค้า</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -146,15 +155,18 @@
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="response.docno"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="response.transport.displayName"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="response.namedeliver.displayName"></p>
                       </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <p class="list-group-item-heading" ng-bind="response.shipping.address +' '+ response.shipping.district +' '+ response.shipping.subdistrict +' '+ response.shipping.province +' '+ response.shipping.postcode +' '+ '('+response.shipping.tel+')'"></p>
-                      </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading dotpy" ng-bind="response.shipping.address +' '+ response.shipping.district +' '+ response.shipping.subdistrict +' '+ response.shipping.province +' '+ response.shipping.postcode +' '+ '('+response.shipping.tel+')'"></p>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-md-1">
                         <button type="button" class="btn btn-success" ng-click="vm.returnProduct(response)" data-toggle="modal" data-target="#returnProduct"><span class="glyphicon glyphicon-new-window"></span></button>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -173,15 +185,18 @@
                     <div class="col-md-12">
                       <div class="row form-group alert alert-info">
                         <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>รหัสใบแจ้งคืน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อบริษัท</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ชื่อผู้แจ้งคืน</strong>
                         </div>
-                        <div class="col-xs-3 col-sm-3 col-md-3">
+                        <div class="col-xs-2 col-sm-2 col-md-2">
                           <strong>ที่อยู่ผู้รับ</strong>
                         </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
+                        <div class="col-xs-1 col-sm-1 col-md-1">
                           <strong>สินค้า</strong>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
@@ -198,15 +213,18 @@
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="received.docno"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="received.transport.displayName"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <p class="list-group-item-heading" ng-bind="received.namedeliver.displayName"></p>
                       </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <p class="list-group-item-heading" ng-bind="received.shipping.address +' '+ received.shipping.district +' '+ received.shipping.subdistrict +' '+ received.shipping.province +' '+ received.shipping.postcode +' '+ '('+received.shipping.tel+')'"></p>
-                      </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading dotpy" ng-bind="received.shipping.address +' '+ received.shipping.district +' '+ received.shipping.subdistrict +' '+ received.shipping.province +' '+ received.shipping.postcode +' '+ '('+received.shipping.tel+')'"></p>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-md-1">
                         <button type="button" class="btn btn-success" ng-click="vm.returnProduct(received)" data-toggle="modal" data-target="#returnProduct"><span class="glyphicon glyphicon-new-window"></span></button>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -233,6 +251,9 @@
                         <label class="list-group-item-heading" ng-bind="return.transport.displayName"></label>
                       </div>-->
                         <div>
+                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งคืน'+ ' ' + return.docno"></label>
+                        </div>
+                        <div>
                           <label class="list-group-item-heading" ng-bind="'ชื่อผู้แจ้งคืน'+ ' ' + return.namedeliver.displayName"></label>
                         </div>
                         <div>
@@ -252,6 +273,9 @@
                 <div class="col-md-12" ng-repeat="response in vm.returnorders | filter:topsearch | filter:vm.responselist as responselist">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งคืน'+ ' ' + response.docno"></label>
+                      </div>
                       <div>
                         <label class="list-group-item-heading" ng-bind="response.transport.displayName"></label>
                       </div>
@@ -275,6 +299,9 @@
                 <div class="col-md-12" ng-repeat="received in vm.returnorders | filter:topsearch | filter:vm.receivedlist as receivedlist">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งคืน'+ ' ' + received.docno"></label>
+                      </div>
                       <div>
                         <label class="list-group-item-heading" ng-bind="received.transport.displayName"></label>
                       </div>
