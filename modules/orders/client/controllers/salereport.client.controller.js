@@ -64,15 +64,15 @@
           type: 'pie',
           backgroundColor: '#fff',
 
-          legend: {
-            layout: 'x1',
-            position: 'right',
-            borderColor: 'transparent',
-            marker: {
-              borderRadius: 10,
-              borderColor: 'transparent'
-            }
-          },
+          // legend: {
+          //   layout: 'x1',
+          //   position: 'right',
+          //   borderColor: 'transparent',
+          //   marker: {
+          //     borderRadius: 10,
+          //     borderColor: 'transparent'
+          //   }
+          // },
           tooltip: {
             text: '%t'
           },
