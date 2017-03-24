@@ -455,6 +455,8 @@
               </div>
             </div>
             <div class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments" ng-show="vm.accuralreceipt._id && vm.accuralreceipt.arstatus !== 'wait for review' && vm.accuralreceipt.arstatus !== 'wait for confirmed'">
+              <!--<div class="col-xs-12">-->
+              <!--<div class="row">-->
               <div class="col-xs-9">
                 <label>{{ar.paid.typepaid}}</label>
               </div>
@@ -469,6 +471,8 @@
                   <span>{{ar.paid.remark}}</span>
                 </div>
               </div>
+              <!--</div>-->
+              <!--</div>-->
             </div>
             <div ng-show="vm.accuralreceipt.items.length > 0 && vm.accuralreceipt.arstatus === 'wait for review' || vm.accuralreceipt.arstatus === 'wait for confirmed'"
               class="row form-group" ng-repeat="ar in vm.accuralreceipt.adjustments">
@@ -500,22 +504,77 @@
               </div>
             </div>
 
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'confirmed'" class="row form-group">
+              <div class="col-md-3">
+                <label>วันที่อ้างอิง</label>
+              </div>
+              <div class="col-md-5">
+                <div ng-hide="vm.accuralreceipt.paiddate">
+                  <input type="date" class="form-control" ng-model="vm.setdates">
+                </div>
+                <div ng-show="vm.accuralreceipt.paiddate">
+                  <span ng-bind="vm.accuralreceipt.paiddate | date:'dd/MM/yyyy'"></span>&nbsp;&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true" style="cursor:pointer" ng-click="vm.accuralreceipt.paiddate = null; vm.setdates = null"></i>
+                </div>
+              </div>
+            </div>
 
-            <div class="row form-group">
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'receipt'" class="row form-group">
+              <div class="col-md-3">
+                <label>วันที่อ้างอิง</label>
+              </div>
+              <div class="col-md-5">
+                <div ng-show="vm.accuralreceipt.paiddate">
+                  <span ng-bind="vm.accuralreceipt.paiddate | date:'dd/MM/yyyy'"></span>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'confirmed'" class="row form-group">
+              <div class="col-md-12">
+                <label>ลิงค์หลักฐานการโอนเงิน</label>
+              </div>
+              <div class="col-md-12">
+                <textarea rows="2" class="form-control" ng-model="vm.accuralreceipt.attm" placeholder="ลิงค์หลักฐานการโอนเงิน">
+                </textarea>
+              </div>
+            </div>
+
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'receipt'" class="row form-group">
+              <div class="col-md-12">
+                <label>ลิงค์หลักฐานการโอนเงิน</label>&nbsp;&nbsp;<a href="{{vm.accuralreceipt.attm}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+              </div>
+            </div>
+
+            <div ng-show="vm.authentication.user.roles[0] === 'admin' && vm.accuralreceipt.arstatus === 'confirmed'" class="row form-group">
+              <div class="col-md-12 form-group">
+                <button type="button" class="btn btn-primary btn-block" ng-click="vm.statusWaitreceipt()">รับเงิน</button>
+              </div>
+            </div>
+
+            <!--<div class="row form-group">
               <div class="col-md-6">
                 <label>รวมรายการปรับปรุง</label>
               </div>
-
               <div class="col-md-6 textRight">
+                <label ng-bind="vm.accuralreceipt.adjustamount  | number:2 || 0"></label>
+              </div>
+            </div>-->
+
+            <div class="row form-group">
+              <div class="col-xs-6">
+                <label>รวมรายการปรับปรุง</label>
+              </div>
+
+              <div class="col-xs-6 textRight">
                 <label ng-bind="vm.accuralreceipt.adjustamount  | number:2 || 0"></label>
               </div>
             </div>
             <div class="row form-group">
-              <div class="col-md-6">
+              <div class="col-xs-6">
                 <label>รวมสุทธิ</label>
               </div>
 
-              <div class="col-md-6 textRight">
+              <div class="col-xs-6 textRight">
                 <label ng-bind="vm.accuralreceipt.totalamount  | number:2 || 0"></label>
               </div>
             </div>

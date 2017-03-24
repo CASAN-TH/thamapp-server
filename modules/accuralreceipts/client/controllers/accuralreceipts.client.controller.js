@@ -29,6 +29,7 @@
     vm.addPaid = addPaid;
     vm.sum = 0;
     vm.caladjust = caladjust;
+    vm.statusWaitreceipt = statusWaitreceipt;
     $scope.totalCount = 0;
     $scope.countInit = function () {
       return $scope.totalCount++;
@@ -172,8 +173,8 @@
       console.log(item);
       // item.deliverystatus = 'complete';
       // item.refdoc = '';
-      vm.accuralreceipt.items[item].deliverystatus ='complete';
-       vm.accuralreceipt.items[item].refdoc ='';
+      vm.accuralreceipt.items[item].deliverystatus = 'complete';
+      vm.accuralreceipt.items[item].refdoc = '';
       vm.accuralreceipt.items.splice(item, 1);
 
       vm.calculate(vm.accuralreceipt.items);
@@ -195,6 +196,24 @@
         // console.log(vm.delivers);
       }
 
+    }
+    vm.setdates = new Date();
+    function statusWaitreceipt() {
+      // console.log(vm.setdates);
+      vm.accuralreceipt.paiddate = vm.setdates;
+      vm.accuralreceipt.arstatus = 'receipt';
+      vm.accuralreceipt.historystatus.push({
+        status: vm.accuralreceipt.arstatus,
+        datestatus: new Date()
+      });
+      vm.accuralreceipt.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('accuralreceipts.list');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
     }
 
     function remove() {
