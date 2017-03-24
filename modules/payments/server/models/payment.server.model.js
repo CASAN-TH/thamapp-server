@@ -17,52 +17,10 @@ var PaymentSchema = new Schema({
         required: 'Please fill Payment docno',
         trim: true
     },
-    brunch: String,
-    taxid: String,
-    address: String,
-    telofficeno: String,
-    remark: String,
     docdate: {
         type: Date,
         default: Date.now
     },
-    refno: {
-        type: String
-    },
-    client: {
-        type: Schema.ObjectId,
-        ref: 'Accountchart'
-    },
-    items: [{
-        product: {
-            type: Schema.ObjectId,
-            ref: 'Accountchart'
-        },
-        qty: {
-            type: Number
-        },
-        unitprice: {
-            type: Number,
-            default: 0
-        },
-        amount: {
-            type: Number,
-            default: 0
-        },
-        vatamount: {
-            type: Number,
-            default: 0
-        },
-        whtamount: {
-            type: Number,
-            default: 0
-        },
-        totalamount: {
-            type: Number,
-            default: 0
-        }
-    }],
-
     payfor: [{
         paytype: {
             type: Schema.ObjectId,
@@ -74,7 +32,6 @@ var PaymentSchema = new Schema({
             default: 0
         }
     }],
-
     payby: [{
         paytype: {
             type: Schema.ObjectId,
@@ -87,35 +44,6 @@ var PaymentSchema = new Schema({
         },
         totalamount: Number
     }],
-    drilldate: {
-        type: Date,
-    },
-    creditday: {
-        type: Number
-    },
-    isincludevat: {
-        type: Boolean
-    },
-    amount: {
-        type: Number,
-        default: 0
-    },
-    discountamount: {
-        type: Number,
-        default: 0
-    },
-    amountafterdiscount: {
-        type: Number,
-        default: 0
-    },
-    vatamount: {
-        type: Number,
-        default: 0
-    },
-    whtamount: {
-        type: Number,
-        default: 0
-    },
     totalamountpayby: {
         type: Number,
         default: 0
@@ -124,6 +52,7 @@ var PaymentSchema = new Schema({
         type: Number,
         default: 0
     },
+    remark: String,
     status: {
         type: String,
         default: 'buy',
