@@ -139,9 +139,10 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Accuralreceipt was created
-        expect($state.go).toHaveBeenCalledWith('accuralreceipts.list', {
-          accuralreceiptId: mockAccuralreceipt._id
-        });
+        // expect($state.go).toHaveBeenCalledWith('accuralreceipts.list', {
+        //   accuralreceiptId: mockAccuralreceipt._id
+        // });
+        expect($state.go).toHaveBeenCalledWith('accuralreceipts.list');
       }));
 
       it('should set $scope.vm.error if error', function () {
@@ -172,9 +173,10 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('accuralreceipts.list', {
-          accuralreceiptId: mockAccuralreceipt._id
-        });
+        // expect($state.go).toHaveBeenCalledWith('accuralreceipts.list', {
+        //   accuralreceiptId: mockAccuralreceipt._id
+        // });
+        expect($state.go).toHaveBeenCalledWith('accuralreceipts.list');
       }));
 
       it('should set $scope.vm.error if error', inject(function (AccuralreceiptsService) {

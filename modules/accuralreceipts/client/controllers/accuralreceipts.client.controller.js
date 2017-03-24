@@ -245,7 +245,7 @@
       if (vm.accuralreceipt._id) {
         vm.accuralreceipt.$update(successCallback, errorCallback);
       } else {
-        console.log(vm.accuralreceipt);
+        // console.log(vm.accuralreceipt);
         vm.accuralreceipt.$save(successCallback, errorCallback);
       }
 
