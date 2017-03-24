@@ -266,30 +266,29 @@ function progressOfDate(data) {
           min = [];
           min.push(itm);
         }
+      });
+    } else {
+      min.push(itm);
+    }
+
+    if (max.length > 0) {
+      max.forEach(function (findmin) {
         if (findmin.amount < itm.amount) {
           max = [];
           max.push(itm);
         }
       });
     } else {
-      min.push(itm);
+      max.push(itm);
     }
     min.forEach(function (mn) {
       mocData.min.date = mn.date;
       mocData.min.min = mn.amount;
     });
-    if (max.length > 0) {
-      max.forEach(function (mx) {
-        mocData.max.date = mx.date;
-        mocData.max.max = mx.amount;
-      });
-    } else {
-      max = min;
-      max.forEach(function (mx) {
-        mocData.max.date = mx.date;
-        mocData.max.max = mx.amount;
-      });
-    }
+    max.forEach(function (mx) {
+      mocData.max.date = mx.date;
+      mocData.max.max = mx.amount;
+    });
     mocData.avg = sumForAvg / countData;
     results.push(mocData);
   });
