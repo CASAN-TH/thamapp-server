@@ -63,8 +63,18 @@
           },
           type: 'pie',
           backgroundColor: '#fff',
+
+          legend: {
+            layout: "x1",
+            position: "right",
+            borderColor: "transparent",
+            marker: {
+              borderRadius: 10,
+              borderColor: "transparent"
+            }
+          },
           tooltip: {
-            text: '%v % %t'
+            text: '%t'
           },
           plot: {
             refAngle: '-90',
