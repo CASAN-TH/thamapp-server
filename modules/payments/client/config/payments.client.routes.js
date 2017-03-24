@@ -60,6 +60,214 @@
         data: {
           pageTitle: 'Payment {{ paymentResolve.name }}'
         }
+      })
+      .state('aps', {
+        abstract: true,
+        url: '/ap',
+        template: '<ui-view/>'
+      })
+      .state('aps.list', {
+        url: '',
+        templateUrl: 'modules/payments/client/views/ap/list-payments.client.view.html',
+        controller: 'PaymentsListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'AP List'
+        }
+      })
+      .state('aps.create', {
+        url: '/create',
+        templateUrl: 'modules/payments/client/views/ap/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: newPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Payments Create'
+        }
+      })
+      .state('aps.edit', {
+        url: '/:paymentId/edit',
+        templateUrl: 'modules/payments/client/views/ap/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Edit Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('aps.view', {
+        url: '/:paymentId',
+        templateUrl: 'modules/payments/client/views/ap/view-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          pageTitle: 'Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('ars', {
+        abstract: true,
+        url: '/ars',
+        template: '<ui-view/>'
+      })
+      .state('ars.list', {
+        url: '',
+        templateUrl: 'modules/payments/client/views/ar/list-payments.client.view.html',
+        controller: 'PaymentsListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'AR List'
+        }
+      })
+      .state('ars.create', {
+        url: '/create',
+        templateUrl: 'modules/payments/client/views/ar/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: newPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Payments Create'
+        }
+      })
+      .state('ars.edit', {
+        url: '/:paymentId/edit',
+        templateUrl: 'modules/payments/client/views/ar/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Edit Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('ars.view', {
+        url: '/:paymentId',
+        templateUrl: 'modules/payments/client/views/ar/view-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          pageTitle: 'Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('rvs', {
+        abstract: true,
+        url: '/rv',
+        template: '<ui-view/>'
+      })
+      .state('rvs.list', {
+        url: '',
+        templateUrl: 'modules/payments/client/views/rv/list-payments.client.view.html',
+        controller: 'PaymentsListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'RV List'
+        }
+      })
+      .state('rvs.create', {
+        url: '/create',
+        templateUrl: 'modules/payments/client/views/rv/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: newPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Payments Create'
+        }
+      })
+      .state('rvs.edit', {
+        url: '/:paymentId/edit',
+        templateUrl: 'modules/payments/client/views/rv/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Edit Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('rvs.view', {
+        url: '/:paymentId',
+        templateUrl: 'modules/payments/client/views/rv/view-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          pageTitle: 'Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('ajs', {
+        abstract: true,
+        url: '/aj',
+        template: '<ui-view/>'
+      })
+      .state('ajs.list', {
+        url: '',
+        templateUrl: 'modules/payments/client/views/aj/list-payments.client.view.html',
+        controller: 'PaymentsListController',
+        controllerAs: 'vm',
+        data: {
+          pageTitle: 'AJ List'
+        }
+      })
+      .state('ajs.create', {
+        url: '/create',
+        templateUrl: 'modules/payments/client/views/aj/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: newPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Payments Create'
+        }
+      })
+      .state('ajs.edit', {
+        url: '/:paymentId/edit',
+        templateUrl: 'modules/payments/client/views/aj/form-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          roles: ['user', 'admin'],
+          pageTitle: 'Edit Payment {{ paymentResolve.name }}'
+        }
+      })
+      .state('ajs.view', {
+        url: '/:paymentId',
+        templateUrl: 'modules/payments/client/views/aj/view-payment.client.view.html',
+        controller: 'PaymentsController',
+        controllerAs: 'vm',
+        resolve: {
+          paymentResolve: getPayment
+        },
+        data: {
+          pageTitle: 'Payment {{ paymentResolve.name }}'
+        }
       });
   }
 
@@ -76,4 +284,4 @@
   function newPayment(PaymentsService) {
     return new PaymentsService();
   }
-}());
+} ());

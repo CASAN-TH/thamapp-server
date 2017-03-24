@@ -21,8 +21,8 @@ var PaymentSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    payfor: [{
-        paytype: {
+    debits: [{
+        account: {
             type: Schema.ObjectId,
             ref: 'Accountchart'
         },
@@ -32,8 +32,8 @@ var PaymentSchema = new Schema({
             default: 0
         }
     }],
-    payby: [{
-        paytype: {
+    credits: [{
+        account: {
             type: Schema.ObjectId,
             ref: 'Accountchart'
         },
@@ -41,22 +41,20 @@ var PaymentSchema = new Schema({
         amount: {
             type: Number,
             default: 0
-        },
-        totalamount: Number
+        }
     }],
-    totalamountpayby: {
-        type: Number,
-        default: 0
-    },
-    totalamountpayfor: {
-        type: Number,
-        default: 0
-    },
     remark: String,
-    status: {
+    totaldebit: {
+        type: Number,
+        default: 0
+    },
+    totalcredit: {
+        type: Number,
+        default: 0
+    },
+    gltype: {
         type: String,
-        default: 'buy',
-        trim: true
+        enum: ['AR', 'AP', 'PV', 'RV', 'AJ']
     },
     created: {
         type: Date,

@@ -41,9 +41,9 @@
 
 <section class="page-height">
   <div class="page-header">
-    <h1>Payments
+    <h1>RV
       <div class="pull-right">
-        <a class="btn btn-primary" ui-sref="payments.create">
+        <a class="btn btn-primary" ui-sref="rvs.create">
           <span>Create</span>
         </a>
       </div>
@@ -75,19 +75,19 @@
     </div>
 
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="payment in vm.payments | filter: {gltype: 'PV'} | orderBy:'-docdate'">
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="payment in vm.payments | filter: {gltype: 'RV'} | orderBy:'-docdate'">
     <div class="col-md-12">
       <div class="row form-group">
-        <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="payments.view({ paymentId: payment._id })">
+        <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="rvs.view({ paymentId: payment._id })">
           <p class="list-group-item-heading">{{$index+1}}</p>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="payments.view({ paymentId: payment._id })">
+        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="rvs.view({ paymentId: payment._id })">
           <p class="list-group-item-heading">{{payment.docdate | date : 'dd/MM/yyyy'}}</p>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="payments.view({ paymentId: payment._id })">
+        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="rvs.view({ paymentId: payment._id })">
           <p class="list-group-item-heading">{{payment.docno}}</p>
         </div>
-        <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="payments.view({ paymentId: payment._id })">
+        <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="rvs.view({ paymentId: payment._id })">
           <div class="row" ng-repeat="item in payment.debits track by $index">
             <div class="col-md-6">
               <p class="list-group-item-heading">{{'จ่ายให้ : '+item.account.accountname}}</p>
@@ -98,11 +98,11 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="payments.view({ paymentId: payment._id })">
+        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="rvs.view({ paymentId: payment._id })">
           <p class="list-group-item-heading">{{payment.totaldebit}}</p>
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1">
-          <button type="button" class="btn btn-primary" ui-sref="payments.edit({ paymentId: payment._id })"><span class="glyphicon glyphicon-edit"></span></button>
+          <button type="button" class="btn btn-primary" ui-sref="rvs.edit({ paymentId: payment._id })"><span class="glyphicon glyphicon-edit"></span></button>
         </div>
       </div>
     </div>

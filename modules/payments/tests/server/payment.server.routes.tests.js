@@ -60,8 +60,6 @@ describe('Payment CRUD tests', function () {
       accountchart.save(function () {
         payment = {
           docno: 'Payment docno',
-          refno: 'Payment refno',
-          client: accountchart,
           user: user
         };
         done();
@@ -82,7 +80,7 @@ describe('Payment CRUD tests', function () {
         // Get the userId
         var userId = user.id;
 
-        // Save a new Payment
+        // Savea new Payment
         agent.post('/api/payments')
           .send(payment)
           .expect(200)
@@ -106,8 +104,6 @@ describe('Payment CRUD tests', function () {
                 // Set assertions
                 (payments[0].user._id).should.equal(userId);
                 (payments[0].docno).should.match('Payment docno');
-                (payments[0].refno).should.match('Payment refno');
-                (payments[0].client.accountname).should.match('Account Name');
                 // Call the assertion callback
                 done();
               });
@@ -187,36 +183,6 @@ describe('Payment CRUD tests', function () {
           .end(function (paymentSaveErr, paymentSaveRes) {
             // Set message assertion
             (paymentSaveRes.body.message).should.match('Please fill Payment docno');
-
-            // Handle Payment save error
-            done(paymentSaveErr);
-          });
-      });
-  });
-
-  it('should not be able to save an Payment if no client is provided', function (done) {
-    // Invalidate name field
-    payment.client = '';
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-
-        // Get the userId
-        var userId = user.id;
-
-        // Save a new Payment
-        agent.post('/api/payments')
-          .send(payment)
-          .expect(400)
-          .end(function (paymentSaveErr, paymentSaveRes) {
-            // Set message assertion
-            (paymentSaveRes.body.message).should.match('Cast to ObjectID failed for value "" at path "client"');
 
             // Handle Payment save error
             done(paymentSaveErr);

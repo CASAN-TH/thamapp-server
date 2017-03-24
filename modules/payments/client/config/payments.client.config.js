@@ -13,7 +13,7 @@
       title: 'Payments',
       state: 'payments',
       type: 'dropdown',
-      roles: ['']
+      roles: ['admin']
     });
 
     // Add the dropdown list item

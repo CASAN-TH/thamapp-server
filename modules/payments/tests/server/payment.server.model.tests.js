@@ -40,7 +40,9 @@ describe('Payment Model Unit Tests:', function () {
     user.save(function () {
       payment = new Payment({
         docno: 'Payment Docno',
-        client: accountchart,
+        debits: accountchart,
+        credits: accountchart,
+        gltype: 'AR',
         user: user
       });
 
@@ -66,8 +68,8 @@ describe('Payment Model Unit Tests:', function () {
       });
     });
 
-    it('should be able to show an error when try to save without client', function (done) {
-      payment.client = '';
+    it('should be able to show an error when try to save valid enum value for gltype', function (done) {
+      payment.gltype = 'AV';
 
       return payment.save(function (err) {
         should.exist(err);

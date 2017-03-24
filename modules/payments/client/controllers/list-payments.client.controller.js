@@ -11,6 +11,5 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.payments = PaymentsService.query();
-
   }
-}());
+} ());

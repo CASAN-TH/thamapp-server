@@ -1,6 +1,6 @@
-<section ng-init="vm.init(); vm.payment.gltype = 'PV'" style="min-height:1600px;">
+<section ng-init="vm.init(); vm.payment.gltype = 'AR'" style="min-height:1600px;">
   <div class="page-header">
-    <h1>{{vm.payment._id ? 'Edit Payment' : 'New Payment'}}</h1>
+    <h1>{{vm.payment._id ? 'Edit AR' : 'New AR'}}</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.paymentForm" class="form-horizontal" ng-submit="vm.save(vm.form.paymentForm.$valid)" novalidate>
