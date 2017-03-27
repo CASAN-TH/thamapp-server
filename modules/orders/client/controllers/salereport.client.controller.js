@@ -106,14 +106,14 @@
           series: [
             {
               argumentField: 'text',
-              valueField: 'values',
-              label: {
-                visible: true,
-                connector: {
-                  visible: true,
-                  width: 1
-                }
-              }
+              valueField: 'values'
+              // label: {
+              //   visible: true,
+              //   connector: {
+              //     visible: true,
+              //     width: 1
+              //   }
+              // }
             }
           ],
           // title: 'สรุปยอดการขายรายสินค้า',
