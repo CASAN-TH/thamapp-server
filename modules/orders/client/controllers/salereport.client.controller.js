@@ -44,7 +44,7 @@
         var labels = [];
         vm.saleday.forEach(function (res) {
           var data = {};
-          data.title = res.date;
+          data.date = res.date;
           data.sales = res.amount;
           data.average = response.avg[0].avg;
           // $scope.titles.push(res.date);
@@ -64,6 +64,8 @@
             }, average: {
               axis: 'y',
               type: 'spline'
+            },date:{
+              axis: 'x'
             }
           }
         };
