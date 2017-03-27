@@ -96,6 +96,54 @@
           },
           series: percens
         };
+        // /////////////
+        $scope.chartOptions = {
+          size: {
+            width: 500
+          },
+          palette: 'bright',
+          dataSource: percens,
+          series: [
+            {
+              argumentField: 'text',
+              valueField: 'values',
+              label: {
+                visible: true,
+                connector: {
+                  visible: true,
+                  width: 1
+                }
+              }
+            }
+          ],
+          // title: 'สรุปยอดการขายรายสินค้า',
+          tooltip: {
+            enabled: true,
+            // format: 'currency',
+            customizeTooltip: function () {
+              return { text: this.argumentText + '<br>' + this.valueText + '%' };
+            }
+          }
+          // ,
+          // onPointClick: function (e) {
+          //   var point = e.target;
+
+          //   toggleVisibility(point);
+          // },
+          // onLegendClick: function (e) {
+          //   var arg = e.target;
+
+          //   toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
+          // }
+        };
+
+        // function toggleVisibility(item) {
+        //   if (item.isVisible()) {
+        //     item.hide();
+        //   } else {
+        //     item.show();
+        //   }
+        // }
       }).error(function (err) {
         console.log(err);
       });
