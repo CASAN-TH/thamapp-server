@@ -12,17 +12,38 @@ var path = require('path'),
 /**
  * Create a Payment
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
-
-  payment.save(function(err) {
+  var reqGltype = payment.gltype;
+  Payment.find({ gltype: reqGltype }).sort('-docno').populate('user', 'displayName').populate('debits.account').populate('credits.account').limit(1).exec(function (err, payments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(payment);
+      if (payments.length > 0) {
+        var chkDoc = payment.docno.substr(0, 8);
+        var chkResultDoc = payments[0].docno.substr(0, 8);
+        if (chkDoc === chkResultDoc) {
+          var getDocno = payments[0].docno.substr(2, 9);
+          var calDocno = parseInt(getDocno) + 1;
+          payment.docno = payments[0].gltype + calDocno;
+        } else {
+          payment.docno = payment.docno + '001';
+        }
+      } else if (payments.length === 0) {
+        payment.docno = payment.docno + '001';
+      }
+      payment.save(function (err) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          res.jsonp(payment);
+        }
+      });
     }
   });
 };
@@ -30,7 +51,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Payment
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var payment = req.payment ? req.payment.toJSON() : {};
 
@@ -44,12 +65,12 @@ exports.read = function(req, res) {
 /**
  * Update a Payment
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var payment = req.payment;
 
   payment = _.extend(payment, req.body);
 
-  payment.save(function(err) {
+  payment.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +84,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Payment
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var payment = req.payment;
 
-  payment.remove(function(err) {
+  payment.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +101,8 @@ exports.delete = function(req, res) {
 /**
  * List of Payments
  */
-exports.list = function(req, res) {
-  Payment.find().sort('-created').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function(err, payments) {
+exports.list = function (req, res) {
+  Payment.find().sort('-created').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +116,7 @@ exports.list = function(req, res) {
 /**
  * Payment middleware
  */
-exports.paymentByID = function(req, res, next, id) {
+exports.paymentByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

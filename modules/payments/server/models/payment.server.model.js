@@ -54,7 +54,7 @@ var PaymentSchema = new Schema({
     },
     gltype: {
         type: String,
-        enum: ['AR', 'AP', 'PV', 'RV', 'AJ']
+        enum: ['AR', 'AP', 'PV', 'RV', 'JV']
     },
     created: {
         type: Date,
