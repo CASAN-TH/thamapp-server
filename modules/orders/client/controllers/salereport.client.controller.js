@@ -11,12 +11,19 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.listOrders = [];
+    $scope.titles = [];
+    $scope.saleOfDays = [];
+    $scope.averages = [];
+    $scope.titleObj = {};
     var allAmount = [];
     var lastweek = new Date();
     $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 29);
     $scope.endDay = new Date();
 
     vm.getDay = function (startDay, endDay) {
+      $scope.titles = [];
+      $scope.saleOfDays = [];
+      $scope.averages = [];
       allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
         vm.listOrders = response.orders;
@@ -37,11 +44,12 @@
         var labels = [];
         vm.saleday.forEach(function (res) {
           var data = {};
-          data.sales = res.amount;
-          data.average = (parseInt(response.avg[0].avg));
-          data.date = res.date;
-          allAmount.push(data);
+          $scope.titles.push(res.date);
+          $scope.saleOfDays.push(res.amount);
+          $scope.averages.push(parseInt(response.avg[0].avg));
         });
+        // console.log('saleOfday : ' + $scope.saleOfDays);
+        // console.log('averages : ' + $scope.averages);
         $scope.options = {
           data: allAmount,
           dimensions: {
