@@ -44,10 +44,15 @@
         var labels = [];
         vm.saleday.forEach(function (res) {
           var data = {};
-          $scope.titles.push(res.date);
-          $scope.saleOfDays.push(res.amount);
-          $scope.averages.push(parseInt(response.avg[0].avg));
+          data.title = res.date;
+          data.sales = res.amount;
+          data.average = response.avg[0].avg;
+          // $scope.titles.push(res.date);
+          // $scope.saleOfDays.push(res.amount);
+          // $scope.averages.push(parseInt(response.avg[0].avg));
+          allAmount.push(data);
         });
+        // console.log('titles : ' + $scope.titles);
         // console.log('saleOfday : ' + $scope.saleOfDays);
         // console.log('averages : ' + $scope.averages);
         $scope.options = {
