@@ -1,16 +1,16 @@
-<section ng-init="vm.init(); vm.payment.gltype = 'RV'" style="min-height:1600px;">
+<section ng-init="vm.init(); vm.payment.gltype = 'RV'; vm.getDocno();" style="min-height:1600px;">
   <div class="page-header">
-    <h1>{{vm.payment._id ? 'Edit RV' : 'New RV'}}</h1>
+    <h1>{{vm.payment._id ? 'แก้ไข บัญชีขาย' : 'สร้าง บัญชีขาย'}}</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.paymentForm" class="form-horizontal" ng-submit="vm.save(vm.form.paymentForm.$valid)" novalidate>
       <fieldset>
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group" show-errors>
               <label class="control-label" for="docdate">วันที่บันทึก</label>
               <input name="docdate" type="date" ng-model="vm.payment.docdate" ng-change="vm.creditdayChanged()" id="docdate" class="form-control"
-                placeholder="Doc Date">
+                placeholder="Doc Date" required>
             </div>
           </div>
           <div class="col-md-3">
@@ -18,13 +18,10 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-3">
-            <!--<div class="form-group" show-errors>
-              <label class="control-label" for="docno">เลขที่รายการ</label>
-              <input name="docno" type="text" ng-model="vm.payment.docno" id="docno" class="form-control" placeholder="Doc No" required>
-              <div ng-messages="vm.form.paymentForm.docno.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Payment docdate is required.</p>
-              </div>
-            </div>-->
+            <div class="form-group">
+              <label class="control-label" for="docno">เลขที่รายการ</label><br>
+              <label ng-bind="vm.payment.docno"></label>
+            </div>
           </div>
         </div>
 

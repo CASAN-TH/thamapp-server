@@ -1,16 +1,16 @@
-<section ng-init="vm.init(); vm.payment.gltype = 'PV'" style="min-height:1600px;">
+<section ng-init="vm.init(); vm.payment.gltype = 'PV'; vm.getDocno();" style="min-height:1600px;">
   <div class="page-header">
-    <h1>{{vm.payment._id ? 'Edit Payment' : 'New Payment'}}</h1>
+    <h1>{{vm.payment._id ? 'แก้ไข บัญชีจ่าย' : 'สร้าง บัญชีจ่าย'}}</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.paymentForm" class="form-horizontal" ng-submit="vm.save(vm.form.paymentForm.$valid)" novalidate>
       <fieldset>
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group" show-errors>
               <label class="control-label" for="docdate">วันที่บันทึก</label>
               <input name="docdate" type="date" ng-model="vm.payment.docdate" ng-change="vm.creditdayChanged()" id="docdate" class="form-control"
-                placeholder="Doc Date">
+                placeholder="Doc Date" required>
             </div>
           </div>
           <div class="col-md-3">
@@ -18,19 +18,16 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-3">
-            <!--<div class="form-group" show-errors>
-              <label class="control-label" for="docno">เลขที่รายการ</label>
-              <input name="docno" type="text" ng-model="vm.payment.docno" id="docno" class="form-control" placeholder="Doc No" required>
-              <div ng-messages="vm.form.paymentForm.docno.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Payment docdate is required.</p>
-              </div>
-            </div>-->
+            <div class="form-group">
+              <label class="control-label" for="docno">เลขที่รายการ</label><br>
+              <label ng-bind="vm.payment.docno"></label>
+            </div>
           </div>
         </div>
 
         <div class="row">
           <!--จ่ายโดย credits-->
-          <div class="form-group">
+          <div class="form-group" show-errors>
             <p>จ่ายให้</p>
             <table class="table">
               <thead style="background-color:lightgray;">
@@ -48,7 +45,7 @@
                     <p>{{$index+1}}</p>
                   </td>
                   <td>
-                    <select ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
+                    <select id="account" ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
                       ng-model="product.account" class="form-control"></select>
                   </td>
                   <td>

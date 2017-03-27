@@ -9,12 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
-      .state('payments', {
+      .state('pvs', {
         abstract: true,
-        url: '/payments',
+        url: '/pvs',
         template: '<ui-view/>'
       })
-      .state('payments.list', {
+      .state('pvs.list', {
         url: '',
         templateUrl: 'modules/payments/client/views/list-payments.client.view.html',
         controller: 'PaymentsListController',
@@ -23,7 +23,7 @@
           pageTitle: 'Payments List'
         }
       })
-      .state('payments.create', {
+      .state('pvs.create', {
         url: '/create',
         templateUrl: 'modules/payments/client/views/form-payment.client.view.html',
         controller: 'PaymentsController',
@@ -36,7 +36,7 @@
           pageTitle: 'Payments Create'
         }
       })
-      .state('payments.edit', {
+      .state('pvs.edit', {
         url: '/:paymentId/edit',
         templateUrl: 'modules/payments/client/views/form-payment.client.view.html',
         controller: 'PaymentsController',
@@ -49,7 +49,7 @@
           pageTitle: 'Edit Payment {{ paymentResolve.name }}'
         }
       })
-      .state('payments.view', {
+      .state('pvs.view', {
         url: '/:paymentId',
         templateUrl: 'modules/payments/client/views/view-payment.client.view.html',
         controller: 'PaymentsController',
@@ -63,7 +63,7 @@
       })
       .state('aps', {
         abstract: true,
-        url: '/ap',
+        url: '/aps',
         template: '<ui-view/>'
       })
       .state('aps.list', {
@@ -167,7 +167,7 @@
       })
       .state('rvs', {
         abstract: true,
-        url: '/rv',
+        url: '/rvs',
         template: '<ui-view/>'
       })
       .state('rvs.list', {
@@ -217,23 +217,23 @@
           pageTitle: 'Payment {{ paymentResolve.name }}'
         }
       })
-      .state('ajs', {
+      .state('jvs', {
         abstract: true,
-        url: '/aj',
+        url: '/jvs',
         template: '<ui-view/>'
       })
-      .state('ajs.list', {
+      .state('jvs.list', {
         url: '',
-        templateUrl: 'modules/payments/client/views/aj/list-payments.client.view.html',
+        templateUrl: 'modules/payments/client/views/jv/list-payments.client.view.html',
         controller: 'PaymentsListController',
         controllerAs: 'vm',
         data: {
-          pageTitle: 'AJ List'
+          pageTitle: 'JV List'
         }
       })
-      .state('ajs.create', {
+      .state('jvs.create', {
         url: '/create',
-        templateUrl: 'modules/payments/client/views/aj/form-payment.client.view.html',
+        templateUrl: 'modules/payments/client/views/jv/form-payment.client.view.html',
         controller: 'PaymentsController',
         controllerAs: 'vm',
         resolve: {
@@ -244,9 +244,9 @@
           pageTitle: 'Payments Create'
         }
       })
-      .state('ajs.edit', {
+      .state('jvs.edit', {
         url: '/:paymentId/edit',
-        templateUrl: 'modules/payments/client/views/aj/form-payment.client.view.html',
+        templateUrl: 'modules/payments/client/views/jv/form-payment.client.view.html',
         controller: 'PaymentsController',
         controllerAs: 'vm',
         resolve: {
@@ -257,9 +257,9 @@
           pageTitle: 'Edit Payment {{ paymentResolve.name }}'
         }
       })
-      .state('ajs.view', {
+      .state('jvs.view', {
         url: '/:paymentId',
-        templateUrl: 'modules/payments/client/views/aj/view-payment.client.view.html',
+        templateUrl: 'modules/payments/client/views/jv/view-payment.client.view.html',
         controller: 'PaymentsController',
         controllerAs: 'vm',
         resolve: {

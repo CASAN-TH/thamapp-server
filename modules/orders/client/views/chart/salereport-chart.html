@@ -5,7 +5,23 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-            <angular-chart options="options" instance="instance"></angular-chart>
+            <!--<angular-chart options="options" instance="instance"></angular-chart>-->
+            <c3chart bindto-id="chart3">
+                <chart-column column-id="x" column-values="{{titles.toString()}}" />
+                <chart-column column-id="data1" column-name="Averages" column-color="red" column-values="{{averages.toString()}}" column-type="spline"
+                />
+                <chart-column column-id="data2" column-name="Sales of days" column-color="green" column-values="{{saleOfDays.toString()}}" column-type="spline"
+                />
+                <chart-axes values-x="x" y="data1,data2" />
+
+                <chart-axis>
+                    <chart-axis-x axis-position="outer-center" axis-label="Number by 10" axis-type="category">
+                        <chart-axis-x-tick tick-rotate="50" />
+                    </chart-axis-x>
+                    <chart-axis-y axis-id="y" axis-position="outer-right" axis-label="" padding-top="100" padding-bottom="0" range-min="0"
+                    />
+                </chart-axis>
+            </c3chart>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <h3 class="text-center">สรุปยอดการขายรายวัน</h3>
@@ -178,7 +194,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 ">
-                    <div zingchart id="chart-1" zc-json="myJson" zc-width="100%" zc-height="300px" ></div>
+                    <div zingchart id="chart-1" zc-json="myJson" zc-width="100%" zc-height="300px"></div>
                 </div>
             </div>
         </div>

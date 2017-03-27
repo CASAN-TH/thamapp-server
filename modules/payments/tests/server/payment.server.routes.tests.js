@@ -17,6 +17,7 @@ var app,
   credentials,
   user,
   payment,
+  payment2,
   accountchart;
 
 /**
@@ -54,12 +55,16 @@ describe('Payment CRUD tests', function () {
       accountname: 'Account Name',
       user: user
     });
+    payment2 = new Payment({
+      docno: 'AP201704',
+      user: user
+    });
 
     // Save a user to the test db and create new Payment
     user.save(function () {
       accountchart.save(function () {
         payment = {
-          docno: 'Payment docno',
+          docno: 'AP201703',
           user: user
         };
         done();
@@ -103,7 +108,7 @@ describe('Payment CRUD tests', function () {
 
                 // Set assertions
                 (payments[0].user._id).should.equal(userId);
-                (payments[0].docno).should.match('Payment docno');
+                (payments[0].docno).should.match('AP201703001');
                 // Call the assertion callback
                 done();
               });
@@ -145,14 +150,23 @@ describe('Payment CRUD tests', function () {
             }
             // Save a new payment
             agent.post('/api/payments')
-              .send(payment)
-              .expect(400)
+              .send(payment2)
+              .expect(200)
               .end(function (paymentSaveErr, paymentSaveRes) {
-                // Set message assertion
-                (paymentSaveRes.body.message.toLowerCase()).should.endWith('docno already exists');
+                // Handle payment save error
+                if (paymentSaveErr) {
+                  return done(paymentSaveErr);
+                }
+                agent.post('/api/payments')
+                  .send(payment)
+                  .expect(400)
+                  .end(function (paymentSaveErr, paymentSaveRes) {
+                    // Set message assertion
+                    (paymentSaveRes.body.message.toLowerCase()).should.endWith('docno already exists');
 
-                // Handle company save error
-                done(paymentSaveErr);
+                    // Handle company save error
+                    done(paymentSaveErr);
+                  });
               });
 
           });
@@ -179,10 +193,10 @@ describe('Payment CRUD tests', function () {
         // Save a new Payment
         agent.post('/api/payments')
           .send(payment)
-          .expect(400)
+          .expect(200)
           .end(function (paymentSaveErr, paymentSaveRes) {
             // Set message assertion
-            (paymentSaveRes.body.message).should.match('Please fill Payment docno');
+            // (paymentSaveRes.body[0].docno).should.match('001');
 
             // Handle Payment save error
             done(paymentSaveErr);
@@ -410,7 +424,7 @@ describe('Payment CRUD tests', function () {
               }
 
               // Set assertions on new Payment
-              (paymentSaveRes.body.docno).should.equal(payment.docno);
+              (paymentSaveRes.body.docno).should.equal(payment.docno + '001');
               should.exist(paymentSaveRes.body.user);
               should.equal(paymentSaveRes.body.user._id, orphanId);
 
@@ -437,7 +451,7 @@ describe('Payment CRUD tests', function () {
 
                         // Set assertions
                         (paymentInfoRes.body._id).should.equal(paymentSaveRes.body._id);
-                        (paymentInfoRes.body.docno).should.equal(payment.docno);
+                        (paymentInfoRes.body.docno).should.equal(payment.docno + '001');
                         should.equal(paymentInfoRes.body.user, undefined);
 
                         // Call the assertion callback
@@ -453,7 +467,7 @@ describe('Payment CRUD tests', function () {
   afterEach(function (done) {
     User.remove().exec(function () {
       Accountchart.remove().exec(function () {
-          Payment.remove().exec(done);
+        Payment.remove().exec(done);
       });
     });
   });

@@ -36,7 +36,7 @@
         vm.calcredits = calcredits;
         vm.payment.totaldebit = vm.payment.totaldebit ? vm.payment.totaldebit : 0;
         vm.payment.totalcredit = vm.payment.totalcredit ? vm.payment.totalcredit : 0;
-        var genDocno = (+ new Date());
+        vm.getDocno = getDocno;
 
         var dat = new Date();
         Date.prototype.addDays = function (days) {
@@ -44,6 +44,25 @@
             dat.setDate(dat.getDate() + days);
             return dat;
         };
+
+        function getDocno() {
+            var dateNow = new Date();
+            var getYear = dateNow.getFullYear();
+            var getMonth = dateNow.getMonth() + 1;
+            var month = null;
+            if (!vm.payment.docno) {
+                if (getMonth > 9) {
+                    if (vm.payment.gltype !== undefined) {
+                        vm.payment.docno = vm.payment.gltype + '' + getYear + '' + getMonth;
+                    }
+                } else {
+                    month = '0' + getMonth.toString();
+                    if (vm.payment.gltype !== undefined) {
+                        vm.payment.docno = vm.payment.gltype + '' + getYear + '' + month;
+                    }
+                }
+            }
+        }
 
         function creditdayChanged(docdate) {
             vm.payment.drilldate = dat.addDays(vm.payment.creditday);
@@ -61,7 +80,7 @@
                 vm.payment.docdate = new Date(vm.payment.docdate);
                 vm.payment.drilldate = new Date(vm.payment.drilldate);
             } else {
-                vm.payment.docdate = vm.payment.docdate ? new Date(vm.payment.docdate) : vm.payment.docdate;
+                vm.payment.docdate = vm.payment.docdate ? new Date(vm.payment.docdate) : new Date();
                 vm.payment.drilldate = new Date();
             }
             if (!vm.payment.items) {
@@ -238,23 +257,20 @@
             if (vm.payment._id) {
                 vm.payment.$update(successCallback, errorCallback);
             } else {
-                if (vm.payment.gltype !== undefined) {
-                    vm.payment.docno = vm.payment.gltype + '' + genDocno;
-                }
                 vm.payment.$save(successCallback, errorCallback);
             }
 
             function successCallback(res) {
                 if (res.gltype === 'PV') {
-                    $state.go('payments.list');
+                    $state.go('pvs.list');
                 } else if (res.gltype === 'AP') {
                     $state.go('aps.list');
                 } else if (res.gltype === 'AR') {
                     $state.go('ars.list');
                 } else if (res.gltype === 'RV') {
                     $state.go('rvs.list');
-                } else if (res.gltype === 'AJ') {
-                    $state.go('ajs.list');
+                } else if (res.gltype === 'JV') {
+                    $state.go('jvs.list');
                 }
             }
 
