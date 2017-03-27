@@ -22,11 +22,11 @@
       describe('Main Route', function () {
         var mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('payments');
+          mainstate = $state.get('pvs');
         }));
 
         it('Should have the correct URL', function () {
-          expect(mainstate.url).toEqual('/payments');
+          expect(mainstate.url).toEqual('/pvs');
         });
 
         it('Should be abstract', function () {
@@ -44,7 +44,7 @@
           mockPayment;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          viewstate = $state.get('payments.view');
+          viewstate = $state.get('pvs.view');
           $templateCache.put('modules/payments/client/views/view-payment.client.view.html', '');
 
           // create mock Payment
@@ -72,7 +72,7 @@
         it('should respond to URL', inject(function ($state) {
           expect($state.href(viewstate, {
             paymentId: 1
-          })).toEqual('/payments/1');
+          })).toEqual('/pvs/1');
         }));
 
         it('should attach an Payment to the controller scope', function () {
@@ -94,7 +94,7 @@
           mockPayment;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          createstate = $state.get('payments.create');
+          createstate = $state.get('pvs.create');
           $templateCache.put('modules/payments/client/views/form-payment.client.view.html', '');
 
           // create mock Payment
@@ -117,7 +117,7 @@
         });
 
         it('should respond to URL', inject(function ($state) {
-          expect($state.href(createstate)).toEqual('/payments/create');
+          expect($state.href(createstate)).toEqual('/pvs/create');
         }));
 
         it('should attach an Payment to the controller scope', function () {
@@ -140,7 +140,7 @@
           mockPayment;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          editstate = $state.get('payments.edit');
+          editstate = $state.get('pvs.edit');
           $templateCache.put('modules/payments/client/views/form-payment.client.view.html', '');
 
           // create mock Payment
@@ -168,7 +168,7 @@
         it('should respond to URL', inject(function ($state) {
           expect($state.href(editstate, {
             paymentId: 1
-          })).toEqual('/payments/1/edit');
+          })).toEqual('/pvs/1/edit');
         }));
 
         it('should attach an Payment to the controller scope', function () {

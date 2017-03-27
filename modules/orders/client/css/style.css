@@ -812,3 +812,12 @@ text-align: left;
   0%, 39%, 100% { opacity: 0; }
   40% { opacity: 1; } 
 }
+
+#pie {
+    height: 440px;
+    width: 100%;
+}
+
+#pie * {
+    margin: 0 auto;
+}

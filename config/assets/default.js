@@ -34,7 +34,10 @@ module.exports = {
         'public/lib/angular-chart/angular-chart.js',
         'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js',
         'https://cdn.zingchart.com/zingchart.min.js',
-        'https://cdn.zingchart.com/angular/zingchart-angularjs.js'
+        'https://cdn.zingchart.com/angular/zingchart-angularjs.js',
+        'public/lib/devextreme/js/dx.all.js',
+        'public/lib/c3-angular/c3-angular.min.js'
+
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },

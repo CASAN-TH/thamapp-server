@@ -11,12 +11,19 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.listOrders = [];
+    $scope.titles = [];
+    $scope.saleOfDays = [];
+    $scope.averages = [];
+    $scope.titleObj = {};
     var allAmount = [];
     var lastweek = new Date();
     $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 29);
     $scope.endDay = new Date();
 
     vm.getDay = function (startDay, endDay) {
+      $scope.titles = [];
+      $scope.saleOfDays = [];
+      $scope.averages = [];
       allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
         vm.listOrders = response.orders;
@@ -37,11 +44,17 @@
         var labels = [];
         vm.saleday.forEach(function (res) {
           var data = {};
+          data.title = res.date;
           data.sales = res.amount;
-          data.average = (parseInt(response.avg[0].avg));
-          data.date = res.date;
+          data.average = response.avg[0].avg;
+          // $scope.titles.push(res.date);
+          // $scope.saleOfDays.push(res.amount);
+          // $scope.averages.push(parseInt(response.avg[0].avg));
           allAmount.push(data);
         });
+        // console.log('titles : ' + $scope.titles);
+        // console.log('saleOfday : ' + $scope.saleOfDays);
+        // console.log('averages : ' + $scope.averages);
         $scope.options = {
           data: allAmount,
           dimensions: {
@@ -88,6 +101,54 @@
           },
           series: percens
         };
+        // /////////////
+        $scope.chartOptions = {
+          size: {
+            width: 500
+          },
+          palette: 'bright',
+          dataSource: percens,
+          series: [
+            {
+              argumentField: 'text',
+              valueField: 'values'
+              // label: {
+              //   visible: true,
+              //   connector: {
+              //     visible: true,
+              //     width: 1
+              //   }
+              // }
+            }
+          ],
+          // title: 'สรุปยอดการขายรายสินค้า',
+          tooltip: {
+            enabled: true,
+            // format: 'currency',
+            customizeTooltip: function () {
+              return { text: this.argumentText + '<br>' + this.valueText + ' %' };
+            }
+          }
+          // ,
+          // onPointClick: function (e) {
+          //   var point = e.target;
+
+          //   toggleVisibility(point);
+          // },
+          // onLegendClick: function (e) {
+          //   var arg = e.target;
+
+          //   toggleVisibility(this.getAllSeries()[0].getPointsByArg(arg)[0]);
+          // }
+        };
+
+        // function toggleVisibility(item) {
+        //   if (item.isVisible()) {
+        //     item.hide();
+        //   } else {
+        //     item.show();
+        //   }
+        // }
       }).error(function (err) {
         console.log(err);
       });

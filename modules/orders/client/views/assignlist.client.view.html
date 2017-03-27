@@ -110,7 +110,7 @@
                         <p class="list-group-item-heading">-</p>
                       </div>
                       <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="orders.view({ orderId: order._id })" align="center">
-                        <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                        <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1">
                         <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
@@ -165,7 +165,7 @@
                         <p class="list-group-item-heading">-</p>
                       </div>
                       <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="orders.view({ orderId: order._id })" align="center">
-                        <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                        <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
                       </div>
                       <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
                         <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
@@ -218,7 +218,7 @@
                         <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                       </div>
                       <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                        <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                        <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <time am-time-ago="order.created"></time>
