@@ -121,7 +121,7 @@
             enabled: true,
             // format: 'currency',
             customizeTooltip: function () {
-              return { text: this.argumentText + '<br>' + this.valueText + '%' };
+              return { text: this.argumentText + '<br>' + this.valueText + ' %' };
             }
           }
           // ,
