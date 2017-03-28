@@ -38,7 +38,7 @@
             values: []
           };
           dataPercen.text = percen.product.item.product.name;
-          dataPercen.values.push(percen.percen.toFixed(2));
+          dataPercen.values.push(percen.percen);
           percens.push(dataPercen);
         });
         var labels = [];
@@ -73,7 +73,7 @@
         $scope.instance = null;
         $scope.myJson = {
           globals: {
-            shadow: true,
+            shadow: false,
             fontFamily: 'Verdana',
             fontWeight: '100'
           },
@@ -81,8 +81,8 @@
           backgroundColor: '#fff',
 
           legend: {
-            layout: 'y1',
-            position: '100%',
+            layout: 'x1',
+            position: 'right',
             borderColor: 'transparent',
             marker: {
               borderRadius: 10,
@@ -97,7 +97,7 @@
             borderWidth: '0px',
             valueBox: {
               placement: 'in',
-              text: '%npv  %',
+              text: '%npv%',
               fontSize: '15px',
               textAlpha: 1,
             }
