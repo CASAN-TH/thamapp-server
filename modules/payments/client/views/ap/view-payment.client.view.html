@@ -40,25 +40,24 @@
             <table class="table">
               <thead style="background-color:lightgray;">
                 <tr>
-                  <th>No.</th>
-                  <th>ชื่อบัญชี</th>
-                  <th>รายระเอียด</th>
-                  <th>จำนวนเงิน</th>
-                  <th></th>
+                  <th width="10%">No.</th>
+                  <th width="20%">ชื่อบัญชี</th>
+                  <th width="30%">รายระเอียด</th>
+                  <th width="20%">จำนวนเงิน</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="product in vm.payment.debits">
-                  <td>
+                  <td width="10%">
                     <p>{{$index+1}}</p>
                   </td>
-                  <td>
+                  <td width="20%">
                     <label ng-bind="product.account.accountname"></label>
                   </td>
-                  <td>
+                  <td width="30%">
                     <label ng-bind="product.description"></label>
                   </td>
-                  <td>
+                  <td width="20%">
                     <label ng-bind="product.amount | number:2"></label>
                   </td>
                   <!--<td style="text-align:right;">
@@ -84,27 +83,26 @@
             <table class="table">
               <thead style="background-color:lightgray;">
                 <tr>
-                  <th>No.</th>
-                  <th>ชื่อบัญชี</th>
-                  <th>รายระเอียด</th>
-                  <th>จำนวนเงิน</th>
-                  <th></th>
+                  <th width="10%">No.</th>
+                  <th width="20%">ชื่อบัญชี</th>
+                  <th width="30%">รายละเอียด</th>
+                  <th width="20%">จำนวนเงิน</th>
                 </tr>
               </thead>
               <tbody>
                 <tr ng-repeat="product in vm.payment.credits">
-                  <td>
+                  <td width="10%">
                     <p>{{$index+1}}</p>
                   </td>
-                  <td>
+                  <td width="20%">
                     <label ng-bind="product.account.accountname"></label>
                     <!--<select ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
                       ng-model="product.account" class="form-control"></select>-->
                   </td>
-                  <td>
+                  <td width="30%">
                     <label ng-bind="product.description"></label>
                   </td>
-                  <td>
+                  <td width="20%">
                     <label ng-bind="product.amount | number:2"></label>
                     <!--<input ng-change="vm.calcredits(credits)" type="number" ng-model="product.amount" class="form-control">-->
                   </td>
