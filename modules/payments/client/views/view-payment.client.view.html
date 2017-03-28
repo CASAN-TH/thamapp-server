@@ -1,6 +1,6 @@
 <section ng-init="vm.init(); vm.payment.gltype = 'PV'" style="min-height:1600px;">
   <div class="page-header">
-    <h1>บัญชีจ่าย</h1>
+    <h1>บัญชีจ่ายเงิน</h1>
   </div>
   <!--<div class="pull-right" ng-show="vm.payment.isCurrentUserOwner">
     <a class="btn btn-primary" ui-sref="payments.edit({ paymentId: vm.payment._id })">
@@ -34,53 +34,9 @@
         </div>
 
         <div class="row">
-          <!--จ่ายโดย credits-->
-          <div class="form-group">
-            <h4>จ่ายให้</h4>
-            <table class="table">
-              <thead style="background-color:lightgray;">
-                <tr>
-                  <th>No.</th>
-                  <th>ชื่อบัญชี</th>
-                  <th>รายระเอียด</th>
-                  <th>จำนวนเงิน</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr ng-repeat="product in vm.payment.credits">
-                  <td>
-                    <p>{{$index+1}}</p>
-                  </td>
-                  <td>
-                    <label ng-bind="product.account.accountname"></label>
-                    <!--<select ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
-                      ng-model="product.account" class="form-control"></select>-->
-                  </td>
-                  <td>
-                    <label ng-bind="product.description"></label>
-                  </td>
-                  <td>
-                    <label ng-bind="product.amount | number:2"></label>
-                    <!--<input ng-change="vm.calcredits(credits)" type="number" ng-model="product.amount" class="form-control">-->
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="row">
-              <div class="col-md-4">
-                <!--<button type="button" class="btn btn-default" ng-click="vm.selectedCredits()">Add</button>-->
-              </div>
-              <div class="col-md-4"></div>
-              <div class="col-md-4">
-                <h3>Total: {{vm.payment.totalcredit | number:2}}</h3>
-              </div>
-            </div>
-          </div>
-          <!---->
           <!--จ่ายให้ debits-->
           <div class="form-group">
-            <h4>จ่ายโดย</h4>
+            <h4>จ่ายให้</h4>
             <table class="table">
               <thead style="background-color:lightgray;">
                 <tr>
@@ -122,7 +78,50 @@
             </div>
           </div>
           <!---->
-
+          <!--จ่ายโดย credits-->
+          <div class="form-group">
+            <h4>จ่ายโดย</h4>
+            <table class="table">
+              <thead style="background-color:lightgray;">
+                <tr>
+                  <th>No.</th>
+                  <th>ชื่อบัญชี</th>
+                  <th>รายระเอียด</th>
+                  <th>จำนวนเงิน</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="product in vm.payment.credits">
+                  <td>
+                    <p>{{$index+1}}</p>
+                  </td>
+                  <td>
+                    <label ng-bind="product.account.accountname"></label>
+                    <!--<select ng-options="item as item.accountname for item in vm.products | filter:{ status : '!inactive' } track by item._id "
+                      ng-model="product.account" class="form-control"></select>-->
+                  </td>
+                  <td>
+                    <label ng-bind="product.description"></label>
+                  </td>
+                  <td>
+                    <label ng-bind="product.amount | number:2"></label>
+                    <!--<input ng-change="vm.calcredits(credits)" type="number" ng-model="product.amount" class="form-control">-->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="row">
+              <div class="col-md-4">
+                <!--<button type="button" class="btn btn-default" ng-click="vm.selectedCredits()">Add</button>-->
+              </div>
+              <div class="col-md-4"></div>
+              <div class="col-md-4">
+                <h3>Total: {{vm.payment.totalcredit | number:2}}</h3>
+              </div>
+            </div>
+          </div>
+          <!---->
         </div>
         <div class="row">
           <div class="col-md-3">

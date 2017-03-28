@@ -41,7 +41,7 @@
 
 <section class="page-height">
   <div class="page-header">
-    <h1>รายการ บัญชีขาย
+    <h1>รายการรับเงิน
       <div class="pull-right">
         <a class="btn btn-primary" ui-sref="rvs.create">
           <span>Create</span>
@@ -90,10 +90,10 @@
         <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="rvs.view({ paymentId: payment._id })">
           <div class="row" ng-repeat="item in payment.debits track by $index">
             <div class="col-md-6">
-              <p class="list-group-item-heading">{{'จ่ายให้ : '+item.account.accountname}}</p>
+              <p class="list-group-item-heading">{{'รับโดย : '+item.account.accountname}}</p>
             </div>
             <div class="col-md-6">
-              <p class="list-group-item-heading">{{payment.credits[$index].account.accountname ? 'จ่ายโดย : ' + payment.credits[$index].account.accountname
+              <p class="list-group-item-heading">{{payment.credits[$index].account.accountname ? 'รับจาก : ' + payment.credits[$index].account.accountname
                 : ''}}</p>
             </div>
           </div>
