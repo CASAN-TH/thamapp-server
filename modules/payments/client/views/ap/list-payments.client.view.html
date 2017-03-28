@@ -62,7 +62,7 @@
           <strong>เลขที่</strong>
         </div>
         <div class="col-xs-4 col-sm-4 col-md-4 text-center">
-          <strong>จ่ายให้/จ่ายโดย</strong>
+          <strong>ค่าใช้จ่าย/เจ้าหนี้</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <strong>จำนวนเงิน</strong>
@@ -90,7 +90,7 @@
         <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="aps.view({ paymentId: payment._id })">
           <div class="row" ng-repeat="item in payment.debits track by $index">
             <div class="col-md-6">
-              <p class="list-group-item-heading">{{'ค่าใช้จ่ายสินทรัพย์ : '+item.account.accountname}}</p>
+              <p class="list-group-item-heading">{{'ค่าใช้จ่าย : '+item.account.accountname}}</p>
             </div>
             <div class="col-md-6">
               <p class="list-group-item-heading">{{payment.credits[$index].account.accountname ? 'เจ้าหนี้ : ' + payment.credits[$index].account.accountname
