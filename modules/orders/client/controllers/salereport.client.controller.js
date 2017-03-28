@@ -38,7 +38,7 @@
             values: []
           };
           dataPercen.text = percen.product.item.product.name;
-          dataPercen.values.push(parseInt(percen.percen));
+          dataPercen.values.push(percen.percen.toFixed(2));
           percens.push(dataPercen);
         });
         var labels = [];
@@ -46,7 +46,7 @@
           var data = {};
           data.date = res.date;
           data.sales = res.amount;
-          data.average = response.avg[0].avg;
+          data.average = response.avg[0].avg.toFixed(2);
           // $scope.titles.push(res.date);
           // $scope.saleOfDays.push(res.amount);
           // $scope.averages.push(parseInt(response.avg[0].avg));
@@ -64,8 +64,9 @@
             }, average: {
               axis: 'y',
               type: 'spline'
-            },date:{
-              axis: 'x'
+            }, date: {
+              axis: 'x',
+              label: true
             }
           }
         };
