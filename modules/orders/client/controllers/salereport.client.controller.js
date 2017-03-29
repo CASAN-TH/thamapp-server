@@ -26,12 +26,21 @@
       $scope.averages = [];
       allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
+        console.log(response);
+        if(response.orders.length === 0){
+          alert('ไม่พบข้อมูล');
+        }
         vm.listOrders = response.orders;
         vm.saleday = response.saleday;
         vm.saleprod = response.saleprod;
-        vm.max = response.avg[0].max.max;
-        vm.min = response.avg[0].min.min;
-        vm.avg = response.avg[0].avg;
+        vm.max = 0;
+        vm.min = 0;
+        vm.avg = 0;
+        if (response.avg.length > 0) {
+          vm.max = response.avg[0].max.max;
+          vm.min = response.avg[0].min.min;
+          vm.avg = response.avg[0].avg;
+        }
         var percens = [];
         var countpercen = 0;
         var other = {
@@ -60,16 +69,20 @@
         });
         percens.push(other);
         var labels = [];
-        vm.saleday.forEach(function (res) {
-          var data = {};
-          data.date = res.date.substr(6, 2) + '/' + res.date.substr(4, 2);
-          data.sales = res.amount;
-          data.average = response.avg[0].avg.toFixed(2);
-          // $scope.titles.push(res.date);
-          // $scope.saleOfDays.push(res.amount);
-          // $scope.averages.push(parseInt(response.avg[0].avg));
-          allAmount.push(data);
-        });
+        if (vm.saleday.length > 0) {
+          vm.saleday.forEach(function (res) {
+            var data = {};
+            data.date = res.date.substr(6, 2);
+            data.sales = res.amount;
+            data.average = response.avg[0].avg.toFixed(2);
+            // $scope.titles.push(res.date);
+            // $scope.saleOfDays.push(res.amount);
+            // $scope.averages.push(parseInt(response.avg[0].avg));
+            allAmount.push(data);
+          });
+        } else {
+          allAmount = [];
+        }
         // console.log('titles : ' + $scope.titles);
         // console.log('saleOfday : ' + $scope.saleOfDays);
         // console.log('averages : ' + $scope.averages);
@@ -98,15 +111,15 @@
           type: 'pie',
           backgroundColor: '#fff',
 
-          legend: {
-            layout: 'x1',
-            position: 'right',
-            borderColor: 'transparent',
-            marker: {
-              borderRadius: 10,
-              borderColor: 'transparent'
-            }
-          },
+          // legend: {
+          //   layout: 'x1',
+          //   position: 'right',
+          //   borderColor: 'transparent',
+          //   marker: {
+          //     borderRadius: 10,
+          //     borderColor: 'transparent'
+          //   }
+          // },
           tooltip: {
             text: '%t'
           },
@@ -195,5 +208,89 @@
       return result;
     };
 
+
+    // filter date
+    $scope.sendDate = function (itm) {
+      console.log(itm);
+      $scope.itmSearchprod = '';
+      $scope.totalAmountResult = 0;
+      
+      $scope.itmSearch = itm.substr(0, 4) + '-' + itm.substr(4, 2) + '-' + itm.substr(6, 2);
+      $scope.calFilterdate(itm);
+    };
+    $scope.calFilterdate = function (itm) {
+      $scope.totalAmountResultdate = 0;
+      var filterOrders = [];
+
+      vm.listOrders.forEach(function (order) {
+        var date = new Date(order.created);
+        var dd = itm.substr(6, 2);
+        var MM = itm.substr(4, 2);
+        var yyyy = itm.substr(0, 4);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        if (month > 9) {
+        } else {
+          month = '0' + month;
+        }
+        var year = date.getFullYear();
+        if (yyyy.toString() === year.toString()) {
+          if (MM.toString() === month.toString()) {
+            if (dd.toString() === day.toString()) {
+              filterOrders.push(order);
+            }
+          }
+        }
+      });
+      filterOrders.forEach(function (forder) {
+        console.log(forder);
+        forder.items.forEach(function (itm) {
+          $scope.totalAmountResultdate += (itm.product.retailerprice || 0) * (itm.qty || 0);
+        });
+      });
+    };
+
+    // filter  product
+    $scope.sendprod = function (itm) {
+      $scope.itmSearchprod = itm;
+      $scope.itmSearch = '';
+      $scope.totalAmountResultdate = 0;
+      
+      $scope.calFilter($scope.itmSearchprod);
+    };
+
+    $scope.calFilter = function (nameprod) {
+      $scope.totalAmountResult = 0;
+      var filterOrders = [];
+      vm.listOrders.forEach(function (order) {
+        order.items.forEach(function (itm) {
+          if (itm.product.name === nameprod) {
+            filterOrders.push(order);
+          }
+        });
+      });
+      filterOrders.forEach(function (forder) {
+        console.log(forder);
+        forder.items.forEach(function (itm) {
+          $scope.totalAmountResult += (itm.product.retailerprice || 0) * (itm.qty || 0);
+        });
+      });
+    };
+    $scope.hidediv = false;
+    $scope.showdiv = false;
+    $scope.hidedate = function (days) {
+      $scope.dayTime = days.substr(6, 2) + '/' + days.substr(4, 2) + '/' + days.substr(0, 4);
+      // $scope.dayTime = days;
+      $scope.showdiv = true;
+      $scope.hidediv = true;
+    };
+    $scope.hidesearch = function () {
+      $scope.hidediv = false;
+      $scope.showdiv = false;
+    };
+    $scope.hideprod = function () {
+      $scope.showdiv = false;
+      $scope.hidediv = true;
+    };
   }
 })();
