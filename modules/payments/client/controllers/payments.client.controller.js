@@ -1,4 +1,4 @@
-(function () {
+(function() {
     'use strict';
 
     // Payments controller
@@ -6,9 +6,9 @@
         .module('payments')
         .controller('PaymentsController', PaymentsController);
 
-    PaymentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'paymentResolve', 'AccountchartsService'];
+    PaymentsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'paymentResolve', 'AccountchartsService', '$http'];
 
-    function PaymentsController($scope, $state, $window, Authentication, payment, AccountchartsService) {
+    function PaymentsController($scope, $state, $window, Authentication, payment, AccountchartsService, $http) {
         var vm = this;
 
         vm.authentication = Authentication;
@@ -36,34 +36,68 @@
         vm.calcredits = calcredits;
         vm.payment.totaldebit = vm.payment.totaldebit ? vm.payment.totaldebit : 0;
         vm.payment.totalcredit = vm.payment.totalcredit ? vm.payment.totalcredit : 0;
-        vm.getDocno = getDocno;
         vm.searchEdit = searchEdit;
+        $scope.chkStatus = function() {
+            if ($window.confirm('คุณต้องการลบรายการนี้ ?')) {
+                vm.payment.status = 'Closed';
+                vm.payment.batchno = new Date();
+                vm.payment.$update(successCallback, errorCallback);
+            }
+
+            function successCallback(res) {
+                 if (res.gltype === 'PV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        // $state.go('pvs.create', { reload: true });
+                        $state.go('pvs.create');
+                    } else if (res.gltype === 'AP') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('aps.create');
+                    } else if (res.gltype === 'AR') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('ars.create');
+                    } else if (res.gltype === 'RV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('rvs.create');
+                    } else if (res.gltype === 'JV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('jvs.create');
+                    }
+            }
+
+            function errorCallback(res) {
+                vm.error = res.data.message;
+            }
+
+
+            // vm.save();
+        };
+        // vm.getDocno = getDocno;
 
         var dat = new Date();
-        Date.prototype.addDays = function (days) {
+        Date.prototype.addDays = function(days) {
             var dat = new Date(vm.payment.docdate);
             dat.setDate(dat.getDate() + days);
             return dat;
         };
 
-        function getDocno() {
-            var dateNow = new Date();
-            var getYear = dateNow.getFullYear();
-            var getMonth = dateNow.getMonth() + 1;
-            var month = null;
-            if (!vm.payment.docno) {
-                if (getMonth > 9) {
-                    if (vm.payment.gltype !== undefined) {
-                        vm.payment.docno = vm.payment.gltype + '' + getYear + '' + getMonth;
-                    }
-                } else {
-                    month = '0' + getMonth.toString();
-                    if (vm.payment.gltype !== undefined) {
-                        vm.payment.docno = vm.payment.gltype + '' + getYear + '' + month;
-                    }
-                }
-            }
-        }
+        // function getDocno() {
+        //     var dateNow = new Date();
+        //     var getYear = dateNow.getFullYear();
+        //     var getMonth = dateNow.getMonth() + 1;
+        //     var month = null;
+        //     if (!vm.payment.docno) {
+        //         if (getMonth > 9) {
+        //             if (vm.payment.gltype !== undefined) {
+        //                 vm.payment.docno = vm.payment.gltype + '' + getYear + '' + getMonth;
+        //             }
+        //         } else {
+        //             month = '0' + getMonth.toString();
+        //             if (vm.payment.gltype !== undefined) {
+        //                 vm.payment.docno = vm.payment.gltype + '' + getYear + '' + month;
+        //             }
+        //         }
+        //     }
+        // }
 
         function creditdayChanged(docdate) {
             vm.payment.drilldate = dat.addDays(vm.payment.creditday);
@@ -129,7 +163,7 @@
 
             vm.payment.totaldebit = 0;
 
-            vm.payment.debits.forEach(function (itm) {
+            vm.payment.debits.forEach(function(itm) {
 
                 vm.payment.totaldebit += itm.amount;
 
@@ -149,7 +183,7 @@
 
             vm.payment.totalcredit = 0;
 
-            vm.payment.credits.forEach(function (itm) {
+            vm.payment.credits.forEach(function(itm) {
 
                 vm.payment.totalcredit += itm.amount;
 
@@ -230,7 +264,7 @@
                 vm.payment.totalcredit = 0;
             } else {
                 vm.payment.totalcredit = 0;
-                vm.payment.credits.forEach(function (itm) {
+                vm.payment.credits.forEach(function(itm) {
                     vm.payment.totalcredit += itm.amount;
                 });
             }
@@ -250,7 +284,7 @@
                 vm.payment.totaldebit = 0;
             } else {
                 vm.payment.totaldebit = 0;
-                vm.payment.debits.forEach(function (itm) {
+                vm.payment.debits.forEach(function(itm) {
                     vm.payment.totaldebit += itm.amount;
                 });
             }
@@ -258,11 +292,38 @@
 
         function searchEdit(txtsearch) {
             //PV201703001
-            if (txtsearch === 'PV201703001') {
-                alert('-= PV201703001 =-');
-            } else {
-                alert('ค้นหาไม่สำเร็จ\n ไม่มีเลขที่เอกสารนี้');;
-            }
+            $http.get('api/payments/docno/' + txtsearch).success(function(response) {
+                vm.result = response;
+                if (vm.result.length <= 0) {
+                    alert('ค้นหาไม่สำเร็จ\n ไม่มีเลขที่เอกสารนี้');
+                } else {
+                    if (vm.result[0].status === 'Closed') {
+                        alert('ไม่สามารถแก้ไขเอกสารนี้ได้');
+                    } else {
+                        if (vm.result[0].status === 'Open') {
+                            if (vm.result[0].gltype === 'PV') {
+                                $state.go('pvs.edit', { paymentId: vm.result[0]._id });
+                            } else if (vm.result[0].gltype === 'AR') {
+                                $state.go('ars.edit', { paymentId: vm.result[0]._id });
+                            } else if (vm.result[0].gltype === 'RV') {
+                                $state.go('rvs.edit', { paymentId: vm.result[0]._id });
+                            } else if (vm.result[0].gltype === 'JV') {
+                                $state.go('jvs.edit', { paymentId: vm.result[0]._id });
+                            } else if (vm.result[0].gltype === 'AP') {
+                                $state.go('aps.edit', { paymentId: vm.result[0]._id });
+                            }
+                        }
+                    }
+                }
+            }).error(function(err) {
+                console.log(err);
+            });
+
+            // if (txtsearch === 'PV201703001') {
+            //     alert('-= PV201703001 =-');
+            // } else {
+            //     alert('ค้นหาไม่สำเร็จ\n ไม่มีเลขที่เอกสารนี้');
+            // }
         }
 
         // Remove existing Payment
@@ -281,31 +342,55 @@
             // TODO: move create/update logic to service
             if (vm.payment._id) {
                 vm.payment.$update(successCallback, errorCallback);
+                function successCallback(res) {
+                    if (res.gltype === 'PV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        // $state.go('pvs.create', { reload: true });
+                        $state.go('pvs.create');
+                    } else if (res.gltype === 'AP') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('aps.create');
+                    } else if (res.gltype === 'AR') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('ars.create');
+                    } else if (res.gltype === 'RV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('rvs.create');
+                    } else if (res.gltype === 'JV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.go('jvs.create');
+                    }
+                }
+
+                function errorCallback(res) {
+                    vm.error = res.data.message;
+                }
             } else {
                 vm.payment.$save(successCallback, errorCallback);
-            }
 
-            function successCallback(res) {
-                if (res.gltype === 'PV') {
-                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
-                    $state.reload();
-                } else if (res.gltype === 'AP') {
-                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
-                    $state.reload();
-                } else if (res.gltype === 'AR') {
-                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
-                    $state.reload();
-                } else if (res.gltype === 'RV') {
-                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
-                    $state.reload();
-                } else if (res.gltype === 'JV') {
-                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
-                    $state.reload();
+                function successCallback(res) {
+                    if (res.gltype === 'PV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        // $state.go('pvs.create', { reload: true });
+                        $state.reload();
+                    } else if (res.gltype === 'AP') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.reload();
+                    } else if (res.gltype === 'AR') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.reload();
+                    } else if (res.gltype === 'RV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.reload();
+                    } else if (res.gltype === 'JV') {
+                        alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                        $state.reload();
+                    }
                 }
-            }
 
-            function errorCallback(res) {
-                vm.error = res.data.message;
+                function errorCallback(res) {
+                    vm.error = res.data.message;
+                }
             }
         }
     }

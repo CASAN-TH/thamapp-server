@@ -29,9 +29,9 @@
           </div>
           <div class="col-md-3">
           </div>
-          <div class="col-md-3 form-group">
-            <label class="control-label" for="docno">เลขที่รายการ</label><br>
-            <div class="form-group" ng-if="vm.payment._id">
+          <div class="col-md-3">
+            <label for="docno">เลขที่รายการ</label>
+            <div ng-if="vm.payment._id">
               <label ng-bind="vm.payment.docno"></label>
             </div>
           </div>
@@ -88,7 +88,7 @@
           </div>
           <!---->
           <!--จ่ายโดย credits-->
-          <div class="form-group" show-errors>
+          <div class="form-group">
             <p>จ่ายโดย</p>
             <table class="table">
               <thead style="background-color:lightgray;">
@@ -146,10 +146,23 @@
           </div>
           <div class="col-md-3"></div>
           <div class="col-md-3"></div>
-          <div class="col-md-3"></div>
+          <div class="col-md-3">
+            
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" ng-if="!vm.payment._id">
           <button type="submit" class="btn btn-primary btn-block" ng-disabled="vm.payment.totaldebit === 0 || vm.payment.totalcredit === 0 || vm.payment.totaldebit != vm.payment.totalcredit">{{vm.payment._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+        </div>
+        <div class="row" ng-if="vm.payment._id">
+          <div class="col-md-7 form-group">
+            <button type="submit" class="btn btn-primary btn-block" ng-disabled="vm.payment.totaldebit === 0 || vm.payment.totalcredit === 0 || vm.payment.totaldebit != vm.payment.totalcredit">{{vm.payment._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+          </div>
+          <div class="col-md-1">
+
+          </div>
+          <div class="col-md-4 form-group">
+            <button type="button" ng-click="chkStatus()" class="btn btn-danger btn-block" ng-disabled="vm.payment.totaldebit === 0 || vm.payment.totalcredit === 0 || vm.payment.totaldebit != vm.payment.totalcredit">{{vm.payment._id ? 'ปิดบัญชี' : 'ปิดบัญชี'}}</button>
+          </div>
         </div>
         <div ng-show="vm.error" class="text-danger">
           <strong ng-bind="vm.error"></strong>
