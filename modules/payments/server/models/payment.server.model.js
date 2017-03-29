@@ -56,6 +56,12 @@ var PaymentSchema = new Schema({
         type: String,
         enum: ['AR', 'AP', 'PV', 'RV', 'JV']
     },
+    status: {
+        type: String,
+        enum: ['Open', 'Closed'],
+        default: 'Open'
+    },
+    batchno: Date,
     created: {
         type: Date,
         default: Date.now

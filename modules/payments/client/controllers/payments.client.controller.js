@@ -36,7 +36,7 @@
         vm.calcredits = calcredits;
         vm.payment.totaldebit = vm.payment.totaldebit ? vm.payment.totaldebit : 0;
         vm.payment.totalcredit = vm.payment.totalcredit ? vm.payment.totalcredit : 0;
-        vm.getDocno = getDocno;
+        // vm.getDocno = getDocno;
 
         var dat = new Date();
         Date.prototype.addDays = function (days) {
@@ -45,24 +45,24 @@
             return dat;
         };
 
-        function getDocno() {
-            var dateNow = new Date();
-            var getYear = dateNow.getFullYear();
-            var getMonth = dateNow.getMonth() + 1;
-            var month = null;
-            if (!vm.payment.docno) {
-                if (getMonth > 9) {
-                    if (vm.payment.gltype !== undefined) {
-                        vm.payment.docno = vm.payment.gltype + '' + getYear + '' + getMonth;
-                    }
-                } else {
-                    month = '0' + getMonth.toString();
-                    if (vm.payment.gltype !== undefined) {
-                        vm.payment.docno = vm.payment.gltype + '' + getYear + '' + month;
-                    }
-                }
-            }
-        }
+        // function getDocno() {
+        //     var dateNow = new Date();
+        //     var getYear = dateNow.getFullYear();
+        //     var getMonth = dateNow.getMonth() + 1;
+        //     var month = null;
+        //     if (!vm.payment.docno) {
+        //         if (getMonth > 9) {
+        //             if (vm.payment.gltype !== undefined) {
+        //                 vm.payment.docno = vm.payment.gltype + '' + getYear + '' + getMonth;
+        //             }
+        //         } else {
+        //             month = '0' + getMonth.toString();
+        //             if (vm.payment.gltype !== undefined) {
+        //                 vm.payment.docno = vm.payment.gltype + '' + getYear + '' + month;
+        //             }
+        //         }
+        //     }
+        // }
 
         function creditdayChanged(docdate) {
             vm.payment.drilldate = dat.addDays(vm.payment.creditday);
