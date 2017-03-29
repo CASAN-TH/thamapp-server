@@ -63,8 +63,6 @@ exports.create = function (req, res) {
                         } else {
                             maxDoc = genDocno + '000';
                         }
-
-                        console.log(genDocno);
                         setDocno = payments[0].gltype + (parseInt(maxDoc) + 1);
                     } else {
                         setDocno = reqDocno + '001';
