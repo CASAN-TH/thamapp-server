@@ -33,18 +33,36 @@
         vm.min = response.avg[0].min.min;
         vm.avg = response.avg[0].avg;
         var percens = [];
+        var countpercen = 0;
+        var other = {
+          text: 'other',
+          values: []
+        };
         response.percens.forEach(function (percen) {
           var dataPercen = {
             values: []
           };
-          dataPercen.text = percen.product.item.product.name;
-          dataPercen.values.push(percen.percen);
-          percens.push(dataPercen);
+          other = {
+            text: 'other',
+            values: []
+          };
+          if (percen.percen < 20) {
+            other.values = [];
+            countpercen += percen.percen;
+            other.values.push(countpercen);
+          } else {
+            dataPercen.text = percen.product.item.product.name;
+            dataPercen.values.push(percen.percen);
+          }
+          if (dataPercen.text) {
+            percens.push(dataPercen);
+          }
         });
+        percens.push(other);
         var labels = [];
         vm.saleday.forEach(function (res) {
           var data = {};
-          data.date = res.date.substr(6,2) + '/' + res.date.substr(4,2);
+          data.date = res.date.substr(6, 2) + '/' + res.date.substr(4, 2);
           data.sales = res.amount;
           data.average = response.avg[0].avg.toFixed(2);
           // $scope.titles.push(res.date);
