@@ -12,25 +12,27 @@ var path = require('path'),
 /**
  * Create a Payment
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
     var payment = new Payment(req.body);
     payment.user = req.user;
     var reqGltype = payment.gltype;
     var year = payment.docdate.getFullYear();
     var getmonth = payment.docdate.getMonth() + 1;
     var month = '';
-    if (month < 10) {
-        month = '0' + getmonth;
-    } else {
+    if (getmonth >= 10) {
         month = getmonth;
+    } else {
+        month = '0' + getmonth;
     }
-    var genDocno = year + month;
-    Payment.find({ gltype: reqGltype }).sort('-docno').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function(err, payments) {
+    console.log(month);
+    var genDocno = year + '' + month;
+    Payment.find({ gltype: reqGltype }).sort('-docno').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            var reqDocno = payments[0].gltype + genDocno;
             if (payments.length > 0) {
                 var chkDoc = payment.docno.substr(0, 8);
                 var chkResultDoc = payments[0].docno.substr(0, 8);
@@ -39,21 +41,30 @@ exports.create = function(req, res) {
                     var calDocno = parseInt(getDocno) + 1;
                     payment.docno = payments[0].gltype + calDocno;
                 } else {
-                    var reqDocno = payments[0].gltype + genDocno;
                     var setDocno = '';
 
                     if (payments.length > 0) {
                         var setDoc = '';
                         var maxDoc = 0;
-                        payments.forEach(function(pm) {
+                        var getMaxs = [];
+                        payments.forEach(function (pm) {
                             var pmDocno = pm.docno.substr(2, 6);
                             var countDocno = pm.docno.substr(2, 9);
                             if (genDocno.toString() === pmDocno.toString()) {
-                                if (maxDoc < parseInt(pmDocno)) {
-                                    maxDoc = countDocno;
-                                }
+                                getMaxs.push(countDocno);
                             }
                         });
+                        if (getMaxs.length > 0) {
+                            getMaxs.forEach(function (max) {
+                                if (maxDoc < max) {
+                                    maxDoc = max;
+                                }
+                            });
+                        } else {
+                            maxDoc = genDocno + '000';
+                        }
+
+                        console.log(genDocno);
                         setDocno = payments[0].gltype + (parseInt(maxDoc) + 1);
                     } else {
                         setDocno = reqDocno + '001';
@@ -63,7 +74,7 @@ exports.create = function(req, res) {
             } else if (payments.length === 0) {
                 payment.docno = reqGltype + genDocno + '001';
             }
-            payment.save(function(err) {
+            payment.save(function (err) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
@@ -79,7 +90,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Payment
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
     // convert mongoose document to JSON
     var payment = req.payment ? req.payment.toJSON() : {};
 
@@ -93,12 +104,12 @@ exports.read = function(req, res) {
 /**
  * Update a Payment
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
     var payment = req.payment;
 
     payment = _.extend(payment, req.body);
 
-    payment.save(function(err) {
+    payment.save(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -112,10 +123,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Payment
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
     var payment = req.payment;
 
-    payment.remove(function(err) {
+    payment.remove(function (err) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -129,8 +140,8 @@ exports.delete = function(req, res) {
 /**
  * List of Payments
  */
-exports.list = function(req, res) {
-    Payment.find().sort('-created').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function(err, payments) {
+exports.list = function (req, res) {
+    Payment.find().sort('-created').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -144,7 +155,7 @@ exports.list = function(req, res) {
 /**
  * Payment middleware
  */
-exports.paymentByID = function(req, res, next, id) {
+exports.paymentByID = function (req, res, next, id) {
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).send({
@@ -152,7 +163,7 @@ exports.paymentByID = function(req, res, next, id) {
         });
     }
 
-    Payment.findById(id).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function(err, payment) {
+    Payment.findById(id).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payment) {
         if (err) {
             return next(err);
         } else if (!payment) {
@@ -165,8 +176,8 @@ exports.paymentByID = function(req, res, next, id) {
     });
 };
 
-exports.paymentBydocno = function(req, res, next, docno) {
-    Payment.find({ docno: docno }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function(err, payment) {
+exports.paymentBydocno = function (req, res, next, docno) {
+    Payment.find({ docno: docno }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payment) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -178,7 +189,7 @@ exports.paymentBydocno = function(req, res, next, docno) {
     });
 };
 
-exports.docno = function(req, res) {
+exports.docno = function (req, res) {
     var payment = req.payment ? req.payment : {};
     res.jsonp(payment);
 };
