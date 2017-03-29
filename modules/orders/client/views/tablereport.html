@@ -52,60 +52,60 @@
 
 </script>
 <section class="page-header header-height show-xs show-sm hidden-md hidden-lg">
-          <div class="row">
-            <div class="col-xs-12 text-center">
-              <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
-              <address>
-                <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
-                <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
-              </address>
-            </div>
-          </div>
-          <div class="table-responsive m-t">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>วันที่สั่งซื้อ</th>
-                  <th>เลขที่สั่งซื้อ</th>
-                  <!--<th>วันที่ใบแจ้งหนี้</th>-->
-                  <th>เลขที่ใบแจ้งหนี้</th>
-                  <th>ชื่อลูกค้า</th>
-                  <th colspan="2"><img width="25%">ชื่อคนส่งข้าว</th>
-                  <th>จำนวนเงิน</th>
-                </tr>
-                <tr>
-                  <th colspan="2"><img width="25%">ชื่อสินค้า</th>
-                  <th colspan="2"></th>
-                  <th>จำนวนสั่งซื้อ</th>
-                  <th>ราคาต่อหน่วย</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody ng-repeat="order in vm.listOrders">
-                <tr>
-                  <td>{{order.created | date:'dd/MM/yyyy'}}</td>
-                  <td class="text-right">{{order.docno}}</td>
-                  <!--<td class="text-center">-</td>-->
-                  <td class="text-center">{{order.refdoc || '-'}}</td>
-                  <td>{{order.user.displayName}}</td>
-                  <td colspan="2">{{order.namedeliver.displayName}}</td>
-                  <td class="text-right">{{vm.getsumamount(order) | number:2}}</td>
-                </tr>
-                <tr ng-repeat="itm in order.items">
-                  <td colspan="2">{{itm.product.name}}</td>
-                  <td colspan="2"></td>
-                  <td class="text-right">{{itm.qty}}</td>
-                  <td class="text-right">{{(itm.product.retailerprice || 0) | number:2}}</td>
-                  <td class="text-right">{{(itm.product.retailerprice || 0) * (itm.qty || 0) | number:2}}</td>
-                </tr>
-              </tbody>
-              <tr>
-                <td colspan="5"></td>
-                <td>รายการรวม</td>
-                <td class="text-right">{{vm.sumallamount() | number:2}}</td>
-              </tr>
-            </table>
-          </div>
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+      <address>
+        <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
+        <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+      </address>
+    </div>
+  </div>
+  <div class="table-responsive m-t">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>วันที่สั่งซื้อ</th>
+          <th>เลขที่สั่งซื้อ</th>
+          <!--<th>วันที่ใบแจ้งหนี้</th>-->
+          <th>เลขที่ใบแจ้งหนี้</th>
+          <th>ชื่อลูกค้า</th>
+          <th colspan="2"><img width="25%">ชื่อคนส่งข้าว</th>
+          <th>จำนวนเงิน</th>
+        </tr>
+        <tr>
+          <th colspan="2"><img width="25%">ชื่อสินค้า</th>
+          <th colspan="2"></th>
+          <th>จำนวนสั่งซื้อ</th>
+          <th>ราคาต่อหน่วย</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="order in vm.listOrders">
+        <tr>
+          <td>{{order.created | date:'dd/MM/yyyy'}}</td>
+          <td class="text-right">{{order.docno}}</td>
+          <!--<td class="text-center">-</td>-->
+          <td class="text-center">{{order.refdoc || '-'}}</td>
+          <td>{{order.user.displayName}}</td>
+          <td colspan="2">{{order.namedeliver.displayName}}</td>
+          <td class="text-right">{{vm.getsumamount(order) | number:2}}</td>
+        </tr>
+        <tr ng-repeat="itm in order.items">
+          <td colspan="2">{{itm.product.name}}</td>
+          <td colspan="2"></td>
+          <td class="text-right">{{itm.qty}}</td>
+          <td class="text-right">{{(itm.product.retailerprice || 0) | number:2}}</td>
+          <td class="text-right">{{(itm.product.retailerprice || 0) * (itm.qty || 0) | number:2}}</td>
+        </tr>
+      </tbody>
+      <tr>
+        <td colspan="5"></td>
+        <td>รายการรวม</td>
+        <td class="text-right">{{vm.sumallamount() | number:2}}</td>
+      </tr>
+    </table>
+  </div>
 </section>
 
 <section class="page-header header-height hidden-xs show-sm show-md show-lg">
@@ -122,7 +122,7 @@
 
 
   <div class="row" id="pdf">
-    <div class="col-lg-12" ng-hide="true">
+    <div class="col-lg-12">
       <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox-content p-xl">
           <div class="row">
@@ -131,9 +131,13 @@
             </div>
             <div class="col-sm-5">
               <h5><img width="17%">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
-              <address>
+              <address ng-hide="hidediv">
                 <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
                 <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+              </address>
+              <address ng-show="showdiv">
+                <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
+                <p ng-show="startDay && endDay"><img width="26%">วันที่ {{dayTime}}</p>
               </address>
             </div>
             <div class="col-sm-4">
@@ -160,7 +164,7 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody ng-repeat="order in vm.listOrders">
+              <tbody ng-repeat="order in vm.listOrders | filter: {created : itmSearch} | filter: {items: {product: {name : itmSearchprod}}}">
                 <tr>
                   <td>{{order.created | date:'dd/MM/yyyy'}}</td>
                   <td class="text-right">{{order.docno}}</td>
@@ -181,7 +185,7 @@
               <tr>
                 <td colspan="6"></td>
                 <td>รายการรวม</td>
-                <td class="text-right">{{vm.sumallamount() | number:2}}</td>
+                <td class="text-right">{{totalAmountResult ? totalAmountResult :totalAmountResultdate ? totalAmountResultdate : vm.sumallamount() | number:2}}</td>                
               </tr>
             </table>
           </div>
