@@ -225,7 +225,14 @@
 
         function removeCredits(index) {
             vm.payment.credits.splice(index, 1);
-            calculate();
+            if (vm.payment.credits.length === 0) {
+                vm.payment.totalcredit = 0;
+            } else {
+                vm.payment.totalcredit = 0;
+                vm.payment.credits.forEach(function (itm) {
+                    vm.payment.totalcredit += itm.amount;
+                });
+            }
         }
         // debits
         function selectedDebits() {
@@ -238,7 +245,14 @@
 
         function removeDebits(index) {
             vm.payment.debits.splice(index, 1);
-            calculate();
+            if (vm.payment.debits.length === 0) {
+                vm.payment.totaldebit = 0;
+            } else {
+                vm.payment.totaldebit = 0;
+                vm.payment.debits.forEach(function (itm) {
+                    vm.payment.totaldebit += itm.amount;
+                });
+            }
         }
         // Remove existing Payment
         function remove() {
@@ -264,7 +278,8 @@
                 if (res.gltype === 'PV') {
                     $state.go('pvs.list');
                 } else if (res.gltype === 'AP') {
-                    $state.go('aps.list');
+                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                    $state.reload();
                 } else if (res.gltype === 'AR') {
                     $state.go('ars.list');
                 } else if (res.gltype === 'RV') {

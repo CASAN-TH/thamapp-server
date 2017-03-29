@@ -1,6 +1,6 @@
 <section ng-init="vm.init(); vm.payment.gltype = 'JV'; vm.getDocno();" style="min-height:1600px;">
   <div class="page-header">
-    <h1>{{vm.payment._id ? 'บันทึกปรับปรุงรายการ' : 'บันทึกปรับปรุงรายการ'}}</h1>
+    <h1>ปรับปรุง</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.paymentForm" class="form-horizontal" ng-submit="vm.save(vm.form.paymentForm.$valid)" novalidate>
@@ -18,7 +18,7 @@
           <div class="col-md-3">
           </div>
           <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group" ng-if="vm.payment._id">
               <label class="control-label" for="docno">เลขที่รายการ</label><br>
               <label ng-bind="vm.payment.docno"></label>
             </div>

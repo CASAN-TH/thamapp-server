@@ -1,6 +1,6 @@
 <section ng-init="vm.init(); vm.payment.gltype = 'PV'" style="min-height:1600px;">
   <div class="page-header">
-    <h1>บัญชีจ่ายเงิน</h1>
+    <h1>จ่ายเงิน</h1>
   </div>
   <!--<div class="pull-right" ng-show="vm.payment.isCurrentUserOwner">
     <a class="btn btn-primary" ui-sref="payments.edit({ paymentId: vm.payment._id })">
@@ -123,7 +123,7 @@
         </div>
         <div class="row">
           <div class="col-md-3">
-            <div class="form-group">
+            <div class="form-group" ng-if="vm.payment.remark">
               <label class="control-label" for="Remark">Remark : </label>
               <label ng-bind="vm.payment.remark"></label>
             </div>
