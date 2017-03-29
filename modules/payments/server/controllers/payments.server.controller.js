@@ -16,7 +16,16 @@ exports.create = function (req, res) {
   var payment = new Payment(req.body);
   payment.user = req.user;
   var reqGltype = payment.gltype;
-  Payment.find({ gltype: reqGltype }).sort('-docno').populate('user', 'displayName').populate('debits.account').populate('credits.account').limit(1).exec(function (err, payments) {
+  var year = payment.docdate.getFullYear();
+  var getmonth = payment.docdate.getMonth() + 1;
+  var month = '';
+  if (month < 10) {
+    month = '0' + getmonth;
+  } else {
+    month = getmonth;
+  }
+  var genDocno = year + month;
+  Payment.find({ gltype: reqGltype }).sort('-docno').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,10 +39,29 @@ exports.create = function (req, res) {
           var calDocno = parseInt(getDocno) + 1;
           payment.docno = payments[0].gltype + calDocno;
         } else {
-          payment.docno = payment.docno + '001';
+          var reqDocno = payments[0].gltype + genDocno;
+          var setDocno = '';
+
+          if (payments.length > 0) {
+            var setDoc = '';
+            var maxDoc = 0;
+            payments.forEach(function (pm) {
+              var pmDocno = pm.docno.substr(2, 6);
+              var countDocno = pm.docno.substr(2, 9);
+              if (genDocno.toString() === pmDocno.toString()) {
+                if (maxDoc < parseInt(pmDocno)) {
+                  maxDoc = countDocno;
+                }
+              }
+            });
+            setDocno = payments[0].gltype + (parseInt(maxDoc) + 1);
+          } else {
+            setDocno = reqDocno + '001';
+          }
+          payment.docno = setDocno;
         }
       } else if (payments.length === 0) {
-        payment.docno = payment.docno + '001';
+        payment.docno = reqGltype + genDocno + '001';
       }
       payment.save(function (err) {
         if (err) {
