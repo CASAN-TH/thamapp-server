@@ -37,6 +37,7 @@
         vm.payment.totaldebit = vm.payment.totaldebit ? vm.payment.totaldebit : 0;
         vm.payment.totalcredit = vm.payment.totalcredit ? vm.payment.totalcredit : 0;
         vm.getDocno = getDocno;
+        vm.searchEdit = searchEdit;
 
         var dat = new Date();
         Date.prototype.addDays = function (days) {
@@ -254,6 +255,16 @@
                 });
             }
         }
+
+        function searchEdit(txtsearch) {
+            //PV201703001
+            if (txtsearch === 'PV201703001') {
+                alert('-= PV201703001 =-');
+            } else {
+                alert('ค้นหาไม่สำเร็จ\n ไม่มีเลขที่เอกสารนี้');;
+            }
+        }
+
         // Remove existing Payment
         function remove() {
             if ($window.confirm('Are you sure you want to delete?')) {
@@ -276,16 +287,20 @@
 
             function successCallback(res) {
                 if (res.gltype === 'PV') {
-                    $state.go('pvs.list');
+                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                    $state.reload();
                 } else if (res.gltype === 'AP') {
                     alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
                     $state.reload();
                 } else if (res.gltype === 'AR') {
-                    $state.go('ars.list');
+                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                    $state.reload();
                 } else if (res.gltype === 'RV') {
-                    $state.go('rvs.list');
+                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                    $state.reload();
                 } else if (res.gltype === 'JV') {
-                    $state.go('jvs.list');
+                    alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
+                    $state.reload();
                 }
             }
 
