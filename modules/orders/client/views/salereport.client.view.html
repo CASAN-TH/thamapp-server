@@ -9,27 +9,36 @@
         //   if (document.getElementById('pagedisable').hidden === true) {
             //jigkoh
             //alert('html2canvas success..');
-            var imgData = canvas.toDataURL("image/jpeg");
-            //alert(imgData);
-            var imgWidth = 210;
-            var pageHeight = 295;
-            var imgHeight = canvas.height * imgWidth / canvas.width;
-            var heightLeft = imgHeight;
-            var doc = new jsPDF('p', 'mm');
-            var position = 0;
+             var a = document.createElement('a');
+        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+        a.download = 'somefilename.jpg';
+        a.click();
 
-            doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            console.log('First position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);            
-            //alert('before save');
-            heightLeft -= pageHeight;
 
-            while (heightLeft >= 0) {
-              position = -10;//heightLeft - imgHeight;
-              doc.addPage();
-              doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-              console.log('position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);
-              heightLeft -= pageHeight;
-            }
+            // var imgData = canvas.toDataURL("image/jpeg");
+            // //alert(imgData);
+            // var imgWidth = 210;
+            // var pageHeight = 295;
+            // var imgHeight = canvas.height * imgWidth / canvas.width;
+            // var heightLeft = imgHeight;
+            // var doc = new jsPDF('p', 'mm');
+            // var position = 0;
+
+            // doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            // console.log('First position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);            
+            // //alert('before save');
+            // heightLeft -= pageHeight;
+
+            // while (heightLeft >= 0) {
+            //   position = -10;//heightLeft - imgHeight;
+            //   doc.addPage();
+            //   doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            //   console.log('position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);
+            //   heightLeft -= pageHeight;
+            // }
+
+
         //   }
         // }
 
