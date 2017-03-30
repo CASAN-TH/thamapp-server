@@ -24,7 +24,6 @@ exports.create = function (req, res) {
     } else {
         month = '0' + getmonth;
     }
-    console.log(month);
     var genDocno = year + '' + month;
     Payment.find({ gltype: reqGltype }).sort('-docno').populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
         if (err) {
@@ -32,7 +31,7 @@ exports.create = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            var reqDocno = payments[0].gltype + genDocno;
+            var reqDocno = reqGltype + genDocno;
             if (payments.length > 0) {
                 var chkDoc = payment.docno.substr(0, 8);
                 var chkResultDoc = payments[0].docno.substr(0, 8);
