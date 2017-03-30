@@ -207,7 +207,7 @@
                                     {{item.amount | number:2}} บาท
                                 </div>
                                 <div class="col-xs-2 col-sm-2 col-md-2 text-center">
-                                    <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendprod(item.item.product.name);hideprod()"></button>
+                                    <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendprod(item.item.product.name);hideprod();showname()"></button>
                                 </div>
                                 <div class="min-heigth-20"></div>
                             </div>
@@ -256,19 +256,25 @@
 
                                             </div>
                                             <div class="col-sm-5">
-                                                <h5><img width="17%">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
                                                 <address ng-hide="hidediv">
+                                                    <h5><img width="17%">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
                                                     <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
                                                     <p ng-show="startDay && endDay"><img width="8%">จากวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่
                                                         {{endDay | date:'dd/MM/yyyy'}}</p>
                                                 </address>
                                                 <address ng-show="showdiv">
+                                                    <h5><img width="17%">บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
                                                     <strong>รายงานขาย - เรียงตามวันที่เอกสาร (แบบแจกแจง)</strong>
                                                     <p ng-show="startDay && endDay"><img width="26%">วันที่ {{dayTime}}</p>
                                                 </address>
                                             </div>
                                             <div class="col-sm-4">
 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center" ng-show="shownameprod">
+                                                <strong>{{itmSearchprod}}</strong>
                                             </div>
                                         </div>
                                         <div class="table-responsive m-t ">

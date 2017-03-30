@@ -303,6 +303,12 @@
       $scope.hidediv = true;
     };
 
+    $scope.showname = function () {
+      $scope.shownameprod = true;
+      $scope.hidediv = true;
+      $scope.showdiv = false;
+    };
+
     $scope.sendNull = function () {
       $scope.itmSearchprod = '';
       $scope.itmSearch = '';
