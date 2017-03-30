@@ -26,7 +26,7 @@
       $scope.averages = [];
       allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
-        console.log(response);
+        // console.log(response);
         if (response.orders.length === 0) {
           alert('ไม่พบข้อมูล');
         }
@@ -211,7 +211,7 @@
 
     // filter date
     $scope.sendDate = function (itm) {
-      console.log(itm);
+      // console.log(itm);
       $scope.itmSearchprod = '';
       $scope.totalAmountResult = 0;
 
@@ -247,7 +247,7 @@
         }
       });
       filterOrders.forEach(function (forder) {
-        console.log(forder);
+        // console.log(forder);
         forder.items.forEach(function (itm) {
           $scope.totalAmountResultdate += (itm.product.retailerprice || 0) * (itm.qty || 0);
         });
