@@ -26,6 +26,7 @@
               position = heightLeft - imgHeight;
               doc.addPage();
               doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+              console.log('position : ' + position + ' imgHeight : ' + imgHeight);
               heightLeft -= pageHeight;
             }
         //   }
