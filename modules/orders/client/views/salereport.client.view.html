@@ -24,7 +24,7 @@
             heightLeft -= pageHeight;
 
             while (heightLeft >= 0) {
-              position = 295;//heightLeft - imgHeight;
+              position = -10;//heightLeft - imgHeight;
               doc.addPage();
               doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
               console.log('position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);
