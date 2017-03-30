@@ -61,7 +61,7 @@
         };
         $scope.reloadform = function() {
                 $state.reload();
-        }
+        };
         // vm.getDocno = getDocno;
 
         var dat = new Date();
