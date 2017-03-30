@@ -297,7 +297,7 @@
                                                 </thead>
                                                 <tbody ng-repeat="order in vm.listOrders | filter: {created : itmSearch} | filter: {items: {product: {name : itmSearchprod}}}">
                                                     <tr>
-                                                        <td>{{order.created | date:'dd/MM/yyyy'}}</td>
+                                                        <td>{{order.created.substring(0, 10) | date:'dd/MM/yyyy'}}</td>
                                                         <td class="text-right">{{order.docno}}</td>
                                                         <td class="text-center">-</td>
                                                         <td class="text-center">{{order.refdoc || '-'}}</td>

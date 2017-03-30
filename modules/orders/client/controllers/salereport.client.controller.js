@@ -227,7 +227,7 @@
         var dd = itm.substr(6, 2);
         var MM = itm.substr(4, 2);
         var yyyy = itm.substr(0, 4);
-        var day = date.getDate();
+        var day = date.getUTCDate();
         if (day <= 9) {
 
           day = '0' + day;
