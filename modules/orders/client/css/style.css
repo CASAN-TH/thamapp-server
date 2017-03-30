@@ -51,6 +51,10 @@ text-align : center;
     }
 }
 
+.modal-dialogreport {
+          width: 80%;
+        }
+
 .headerBorder {
     border: 0px;
 }

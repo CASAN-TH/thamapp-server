@@ -26,8 +26,8 @@
       $scope.averages = [];
       allAmount = [];
       $http.get('api/salereports/' + startDay + '/' + endDay).success(function (response) {
-        console.log(response);
-        if(response.orders.length === 0){
+        // console.log(response);
+        if (response.orders.length === 0) {
           alert('ไม่พบข้อมูล');
         }
         vm.listOrders = response.orders;
@@ -211,10 +211,10 @@
 
     // filter date
     $scope.sendDate = function (itm) {
-      console.log(itm);
+      // console.log(itm);
       $scope.itmSearchprod = '';
       $scope.totalAmountResult = 0;
-      
+
       $scope.itmSearch = itm.substr(0, 4) + '-' + itm.substr(4, 2) + '-' + itm.substr(6, 2);
       $scope.calFilterdate(itm);
     };
@@ -228,6 +228,10 @@
         var MM = itm.substr(4, 2);
         var yyyy = itm.substr(0, 4);
         var day = date.getDate();
+        if (day <= 9) {
+
+          day = '0' + day;
+        }
         var month = date.getMonth() + 1;
         if (month > 9) {
         } else {
@@ -243,7 +247,7 @@
         }
       });
       filterOrders.forEach(function (forder) {
-        console.log(forder);
+        // console.log(forder);
         forder.items.forEach(function (itm) {
           $scope.totalAmountResultdate += (itm.product.retailerprice || 0) * (itm.qty || 0);
         });
@@ -255,27 +259,33 @@
       $scope.itmSearchprod = itm;
       $scope.itmSearch = '';
       $scope.totalAmountResultdate = 0;
-      
       $scope.calFilter($scope.itmSearchprod);
     };
 
     $scope.calFilter = function (nameprod) {
       $scope.totalAmountResult = 0;
-      var filterOrders = [];
+      $scope.filterOrdersreport = [];
       vm.listOrders.forEach(function (order) {
         order.items.forEach(function (itm) {
           if (itm.product.name === nameprod) {
-            filterOrders.push(order);
+            $scope.filterOrdersreport.push({
+              docno: order.docno,
+              items: {
+                product: {
+                  name: itm.product.name,
+                  retailerprice: itm.product.retailerprice
+                },
+                qty: itm.qty
+              }
+            });
           }
         });
       });
-      filterOrders.forEach(function (forder) {
-        console.log(forder);
-        forder.items.forEach(function (itm) {
-          $scope.totalAmountResult += (itm.product.retailerprice || 0) * (itm.qty || 0);
-        });
+      $scope.filterOrdersreport.forEach(function (forder) {
+        $scope.totalAmountResult += (forder.items.product.retailerprice || 0) * (forder.items.qty || 0);
       });
     };
+
     $scope.hidediv = false;
     $scope.showdiv = false;
     $scope.hidedate = function (days) {
@@ -291,6 +301,21 @@
     $scope.hideprod = function () {
       $scope.showdiv = false;
       $scope.hidediv = true;
+    };
+
+    $scope.showname = function () {
+      $scope.shownameprod = true;
+      $scope.hidediv = true;
+      $scope.showdiv = false;
+    };
+
+    $scope.sendNull = function () {
+      $scope.itmSearchprod = '';
+      $scope.itmSearch = '';
+      $scope.totalAmountResultdate = '';
+      $scope.totalAmountResult = '';
+      $scope.showdiv = false;
+      $scope.hidediv = false;
     };
   }
 })();

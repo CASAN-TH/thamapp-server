@@ -1,57 +1,4 @@
-<script type="text/javascript">
-  document.getElementById('loadingpdf').hidden = true;
-  function exportPdf() {
-    document.getElementById('loadingpdf').hidden = false;
-    html2canvas(document.getElementById('pdf'), {
-      onrendered: function (canvas) {
-        document.getElementById('pagedisable').hidden = true;
-        if (document.getElementById('loadingpdf').hidden === false) {
-          if (document.getElementById('pagedisable').hidden === true) {
-            //jigkoh
-            //alert('html2canvas success..');
-            var imgData = canvas.toDataURL("image/jpeg");
-            //alert(imgData);
-            var imgWidth = 210;
-            var pageHeight = 295;
-            var imgHeight = canvas.height * imgWidth / canvas.width;
-            var heightLeft = imgHeight;
-            var doc = new jsPDF('p', 'mm');
-            var position = 0;
-
-            doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            //alert('before save');
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-              position = heightLeft - imgHeight;
-              doc.addPage();
-              doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-              heightLeft -= pageHeight;
-            }
-          }
-        }
-
-        if (document.getElementById('pagedisable').hidden === true) {
-          if (document.getElementById('loadingpdf').hidden === false) {
-            setTimeout(function () {
-              document.getElementById('loadingpdf').hidden = true;
-              document.getElementById('pagedisable').hidden = false;
-              doc.save('รายงานขาย.pdf');
-            }, 1000);
-          }
-        }
-        //end jigkoh
-
-        // var img = canvas.toDataURL();
-        // var doc = new jsPDF();
-        // doc.addImage(img, 'JPEG', 0, 0, 210, 290);
-        // doc.save('รายงานขายสด.pdf');
-      }
-    });
-  }
-
-</script>
-<section class="page-header header-height show-xs show-sm hidden-md hidden-lg">
+<!--<section class="page-header header-height show-xs show-sm hidden-md hidden-lg">
   <div class="row">
     <div class="col-xs-12 text-center">
       <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
@@ -67,7 +14,6 @@
         <tr>
           <th>วันที่สั่งซื้อ</th>
           <th>เลขที่สั่งซื้อ</th>
-          <!--<th>วันที่ใบแจ้งหนี้</th>-->
           <th>เลขที่ใบแจ้งหนี้</th>
           <th>ชื่อลูกค้า</th>
           <th colspan="2"><img width="25%">ชื่อคนส่งข้าว</th>
@@ -85,7 +31,6 @@
         <tr>
           <td>{{order.created | date:'dd/MM/yyyy'}}</td>
           <td class="text-right">{{order.docno}}</td>
-          <!--<td class="text-center">-</td>-->
           <td class="text-center">{{order.refdoc || '-'}}</td>
           <td>{{order.user.displayName}}</td>
           <td colspan="2">{{order.namedeliver.displayName}}</td>
@@ -106,9 +51,9 @@
       </tr>
     </table>
   </div>
-</section>
+</section>-->
 
-<section class="page-header header-height hidden-xs show-sm show-md show-lg">
+<!--<section class="page-header header-height hidden-xs show-sm show-md show-lg">
   <div class="row">
     <div class="col-sm-8">
 
@@ -193,4 +138,4 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
