@@ -1,12 +1,12 @@
 <script type="text/javascript">
-  document.getElementById('loadingpdf').hidden = true;
+//   document.getElementById('loadingpdf').hidden = true;
   function exportPdf() {
-    document.getElementById('loadingpdf').hidden = false;
+    // document.getElementById('loadingpdf').hidden = false;
     html2canvas(document.getElementById('pdf'), {
       onrendered: function (canvas) {
-        document.getElementById('pagedisable').hidden = true;
-        if (document.getElementById('loadingpdf').hidden === false) {
-          if (document.getElementById('pagedisable').hidden === true) {
+        // document.getElementById('pagedisable').hidden = true;
+        // if (document.getElementById('loadingpdf').hidden === false) {
+        //   if (document.getElementById('pagedisable').hidden === true) {
             //jigkoh
             //alert('html2canvas success..');
             var imgData = canvas.toDataURL("image/jpeg");
@@ -28,18 +28,18 @@
               doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
               heightLeft -= pageHeight;
             }
-          }
-        }
+        //   }
+        // }
 
-        if (document.getElementById('pagedisable').hidden === true) {
-          if (document.getElementById('loadingpdf').hidden === false) {
-            setTimeout(function () {
-              document.getElementById('loadingpdf').hidden = true;
-              document.getElementById('pagedisable').hidden = false;
+        // if (document.getElementById('pagedisable').hidden === true) {
+        //   if (document.getElementById('loadingpdf').hidden === false) {
+            // setTimeout(function () {
+            //   document.getElementById('loadingpdf').hidden = true;
+            //   document.getElementById('pagedisable').hidden = false;
               doc.save('รายงานขาย.pdf');
-            }, 5000);
-          }
-        }
+            // }, 5000);
+        //   }
+        // }
         //end jigkoh
 
         // var img = canvas.toDataURL();
