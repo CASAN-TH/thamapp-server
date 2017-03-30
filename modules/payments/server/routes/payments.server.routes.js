@@ -6,7 +6,7 @@
 var paymentsPolicy = require('../policies/payments.server.policy'),
   payments = require('../controllers/payments.server.controller');
 
-module.exports = function(app) {
+module.exports = function (app) {
   // Payments Routes
   app.route('/api/payments').all(paymentsPolicy.isAllowed)
     .get(payments.list)
@@ -16,7 +16,10 @@ module.exports = function(app) {
     .get(payments.read)
     .put(payments.update)
     .delete(payments.delete);
+  app.route('/api/payments/docno/:docno')
+    .get(payments.docno);
 
   // Finish by binding the Payment middleware
   app.param('paymentId', payments.paymentByID);
+  app.param('docno', payments.paymentBydocno);
 };
