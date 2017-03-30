@@ -107,6 +107,11 @@
                 <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+                <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
+            </div>
+        </div>
     </div>
     <div ng-include="'/modules/orders/client/views/chart/salereport-chart.html'"></div>
     <div ng-include="'modules/orders/client/views/tablereport.html'"></div>
