@@ -12,7 +12,7 @@
             var imgData = canvas.toDataURL("image/jpeg");
             //alert(imgData);
             var imgWidth = 210;
-            var pageHeight = 395;
+            var pageHeight = 295;
             var imgHeight = canvas.height * imgWidth / canvas.width;
             var heightLeft = imgHeight;
             var doc = new jsPDF('p', 'mm');
@@ -33,11 +33,11 @@
 
         // if (document.getElementById('pagedisable').hidden === true) {
         //   if (document.getElementById('loadingpdf').hidden === false) {
-            // setTimeout(function () {
+            setTimeout(function () {
             //   document.getElementById('loadingpdf').hidden = true;
             //   document.getElementById('pagedisable').hidden = false;
               doc.save('รายงานขาย.pdf');
-            // }, 5000);
+            }, 10000);
         //   }
         // }
         //end jigkoh
