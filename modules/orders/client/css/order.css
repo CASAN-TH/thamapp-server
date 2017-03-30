@@ -51,3 +51,9 @@
     overflow: scroll;
     overflow-x: hidden;
 }
+.fix-scrollreport{
+    width: auto;
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+}

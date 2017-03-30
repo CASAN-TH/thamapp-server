@@ -1,3 +1,56 @@
+<script type="text/javascript">
+  document.getElementById('loadingpdf').hidden = true;
+  function exportPdf() {
+    document.getElementById('loadingpdf').hidden = false;
+    html2canvas(document.getElementById('pdf'), {
+      onrendered: function (canvas) {
+        document.getElementById('pagedisable').hidden = true;
+        if (document.getElementById('loadingpdf').hidden === false) {
+          if (document.getElementById('pagedisable').hidden === true) {
+            //jigkoh
+            //alert('html2canvas success..');
+            var imgData = canvas.toDataURL("image/jpeg");
+            //alert(imgData);
+            var imgWidth = 210;
+            var pageHeight = 295;
+            var imgHeight = canvas.height * imgWidth / canvas.width;
+            var heightLeft = imgHeight;
+            var doc = new jsPDF('p', 'mm');
+            var position = 0;
+
+            doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            //alert('before save');
+            heightLeft -= pageHeight;
+
+            while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              doc.addPage();
+              doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+              heightLeft -= pageHeight;
+            }
+          }
+        }
+
+        if (document.getElementById('pagedisable').hidden === true) {
+          if (document.getElementById('loadingpdf').hidden === false) {
+            setTimeout(function () {
+              document.getElementById('loadingpdf').hidden = true;
+              document.getElementById('pagedisable').hidden = false;
+              doc.save('รายงานขาย.pdf');
+            }, 1000);
+          }
+        }
+        //end jigkoh
+
+        // var img = canvas.toDataURL();
+        // var doc = new jsPDF();
+        // doc.addImage(img, 'JPEG', 0, 0, 210, 290);
+        // doc.save('รายงานขายสด.pdf');
+      }
+    });
+  }
+
+</script>
 <div id='loadingpdf' class="page-header header-height" align="center">
     <div class="sk-fading-circle">
         <div class="sk-circle1 sk-circle"></div>
@@ -25,6 +78,12 @@
         <div class="col-xs-2 col-sm-2 col-md-2">
             &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay);hidesearch()">ค้นหา</button>
         </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 text-right">
+            <div class="pull-right">
+                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
+            </div>
+        </div>
+
     </div>
     <div class="row show-xs show-sm hidden-md hidden-lg">
         <div class="row">
