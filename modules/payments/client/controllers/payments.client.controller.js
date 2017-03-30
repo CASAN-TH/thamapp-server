@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     // Payments controller
@@ -37,7 +37,7 @@
         vm.payment.totaldebit = vm.payment.totaldebit ? vm.payment.totaldebit : 0;
         vm.payment.totalcredit = vm.payment.totalcredit ? vm.payment.totalcredit : 0;
         vm.searchEdit = searchEdit;
-        $scope.chkStatus = function() {
+        $scope.chkStatus = function () {
 
             if (vm.payment.gltype === 'PV') {
                 // alert('บันทึกข้อมูลสำเร็จ\n เอกสารเลขที่ ' + res.docno);
@@ -59,13 +59,13 @@
 
             // vm.save();
         };
-        $scope.reloadform = function() {
-                $state.reload();
+        $scope.reloadform = function () {
+            $state.reload();
         };
         // vm.getDocno = getDocno;
 
         var dat = new Date();
-        Date.prototype.addDays = function(days) {
+        Date.prototype.addDays = function (days) {
             var dat = new Date(vm.payment.docdate);
             dat.setDate(dat.getDate() + days);
             return dat;
@@ -154,9 +154,9 @@
 
             vm.payment.totaldebit = 0;
 
-            vm.payment.debits.forEach(function(itm) {
+            vm.payment.debits.forEach(function (itm) {
 
-                vm.payment.totaldebit += itm.amount;
+                vm.payment.totaldebit += itm.amount || 0;
 
 
 
@@ -174,9 +174,9 @@
 
             vm.payment.totalcredit = 0;
 
-            vm.payment.credits.forEach(function(itm) {
+            vm.payment.credits.forEach(function (itm) {
 
-                vm.payment.totalcredit += itm.amount;
+                vm.payment.totalcredit += itm.amount || 0;
 
 
 
@@ -255,7 +255,7 @@
                 vm.payment.totalcredit = 0;
             } else {
                 vm.payment.totalcredit = 0;
-                vm.payment.credits.forEach(function(itm) {
+                vm.payment.credits.forEach(function (itm) {
                     vm.payment.totalcredit += itm.amount;
                 });
             }
@@ -275,7 +275,7 @@
                 vm.payment.totaldebit = 0;
             } else {
                 vm.payment.totaldebit = 0;
-                vm.payment.debits.forEach(function(itm) {
+                vm.payment.debits.forEach(function (itm) {
                     vm.payment.totaldebit += itm.amount;
                 });
             }
@@ -283,7 +283,7 @@
 
         function searchEdit(txtsearch) {
             //PV201703001
-            $http.get('api/payments/docno/' + txtsearch).success(function(response) {
+            $http.get('api/payments/docno/' + txtsearch).success(function (response) {
                 vm.result = response;
                 if (vm.result.length <= 0) {
                     alert('ค้นหาไม่สำเร็จ\n ไม่มีเลขที่เอกสารนี้');
@@ -306,7 +306,7 @@
                         }
                     }
                 }
-            }).error(function(err) {
+            }).error(function (err) {
                 console.log(err);
             });
 
