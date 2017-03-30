@@ -11,7 +11,7 @@
             //alert('html2canvas success..');
             var imgData = canvas.toDataURL("image/jpeg");
             //alert(imgData);
-            var imgWidth = 420;
+            var imgWidth = 210;
             var pageHeight = 295;
             var imgHeight = canvas.height * imgWidth / canvas.width;
             var heightLeft = imgHeight;
@@ -24,7 +24,7 @@
             heightLeft -= pageHeight;
 
             while (heightLeft >= 0) {
-              position = heightLeft - imgHeight;
+              position = 295;//heightLeft - imgHeight;
               doc.addPage();
               doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
               console.log('position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);
