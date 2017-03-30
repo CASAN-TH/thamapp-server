@@ -19,6 +19,7 @@
             var position = 0;
 
             doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            console.log('First position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);            
             //alert('before save');
             heightLeft -= pageHeight;
 
@@ -26,7 +27,7 @@
               position = heightLeft - imgHeight;
               doc.addPage();
               doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-              console.log('position : ' + position + ' imgHeight : ' + imgHeight);
+              console.log('position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);
               heightLeft -= pageHeight;
             }
         //   }
