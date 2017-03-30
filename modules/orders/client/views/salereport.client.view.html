@@ -1,56 +1,45 @@
 <script type="text/javascript">
-//   document.getElementById('loadingpdf').hidden = true;
+  document.getElementById('loadingpdf').hidden = true;
   function exportPdf() {
-    // document.getElementById('loadingpdf').hidden = false;
+    document.getElementById('loadingpdf').hidden = false;
     html2canvas(document.getElementById('pdf'), {
       onrendered: function (canvas) {
-        // document.getElementById('pagedisable').hidden = true;
-        // if (document.getElementById('loadingpdf').hidden === false) {
-        //   if (document.getElementById('pagedisable').hidden === true) {
+        document.getElementById('pagedisable').hidden = true;
+        if (document.getElementById('loadingpdf').hidden === false) {
+          if (document.getElementById('pagedisable').hidden === true) {
             //jigkoh
             //alert('html2canvas success..');
-             var a = document.createElement('a');
-        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-        a.download = 'somefilename.jpg';
-        a.click();
+            var imgData = canvas.toDataURL("image/jpeg");
+            //alert(imgData);
+            var imgWidth = 210;
+            var pageHeight = 295;
+            var imgHeight = canvas.height * imgWidth / canvas.width;
+            var heightLeft = imgHeight;
+            var doc = new jsPDF('p', 'mm');
+            var position = 0;
 
+            doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+            //alert('before save');
+            heightLeft -= pageHeight;
 
-            // var imgData = canvas.toDataURL("image/jpeg");
-            // //alert(imgData);
-            // var imgWidth = 210;
-            // var pageHeight = 295;
-            // var imgHeight = canvas.height * imgWidth / canvas.width;
-            // var heightLeft = imgHeight;
-            // var doc = new jsPDF('p', 'mm');
-            // var position = 0;
+            while (heightLeft >= 0) {
+              position = heightLeft - imgHeight;
+              doc.addPage();
+              doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+              heightLeft -= pageHeight;
+            }
+          }
+        }
 
-            // doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            // console.log('First position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);            
-            // //alert('before save');
-            // heightLeft -= pageHeight;
-
-            // while (heightLeft >= 0) {
-            //   position = -10;//heightLeft - imgHeight;
-            //   doc.addPage();
-            //   doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
-            //   console.log('position : ' + position + ' imgHeight : ' + imgHeight + ' heightLeft : ' + heightLeft);
-            //   heightLeft -= pageHeight;
-            // }
-
-
-        //   }
-        // }
-
-        // if (document.getElementById('pagedisable').hidden === true) {
-        //   if (document.getElementById('loadingpdf').hidden === false) {
-            // setTimeout(function () {
-            //   document.getElementById('loadingpdf').hidden = true;
-            //   document.getElementById('pagedisable').hidden = false;
+        if (document.getElementById('pagedisable').hidden === true) {
+          if (document.getElementById('loadingpdf').hidden === false) {
+            setTimeout(function () {
+              document.getElementById('loadingpdf').hidden = true;
+              document.getElementById('pagedisable').hidden = false;
               doc.save('รายงานขาย.pdf');
-            // }, 10000);
-        //   }
-        // }
+            }, 1000);
+          }
+        }
         //end jigkoh
 
         // var img = canvas.toDataURL();
@@ -62,7 +51,7 @@
   }
 
 </script>
-<!--<div id='loadingpdf' class="page-header header-height" align="center">
+<div id='loadingpdf' class="page-header header-height" align="center">
     <div class="sk-fading-circle">
         <div class="sk-circle1 sk-circle"></div>
         <div class="sk-circle2 sk-circle"></div>
@@ -77,7 +66,7 @@
         <div class="sk-circle11 sk-circle"></div>
         <div class="sk-circle12 sk-circle"></div>
     </div>
-</div>-->
+</div>
 <div id="pagedisable">
     <div class="row hidden-xs hidden-sm show-md show-lg">
         <div class="col-xs-3 col-sm-3 col-md-3">
