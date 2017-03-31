@@ -250,13 +250,13 @@ exports.ledgers = function (req, res) {
             accountcharts.forEach(function (accountchart) {
                 var transetions = [];
                 req.trns.forEach(function (trn) {
-                    if (trn.accountno === accountcharts.accountno) {
+                    if (trn.accountno === accountchart.accountno) {
                         transetions.push(trn);
                     }
                 });
                 var accntchart = {
                     account: accountchart,
-                    trns: req.trns
+                    trns: transetions
                 };
                 accntcharts.push(accntchart);
             });
