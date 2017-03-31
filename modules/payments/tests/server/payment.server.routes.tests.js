@@ -466,6 +466,32 @@ describe('Payment CRUD tests', function () {
     });
   });
 
+  it('ledger report', function (done) {
+    var startdate = '2017-03-25';
+    var enddate = '2017-03-31';
+    agent.get('/api/ledgers/' + startdate + '/' + enddate)
+      .expect(200)
+      .end(function (paymentInfoErr, paymentInfoRes) {
+        // Handle Payment error
+        if (paymentInfoErr) {
+          return done(paymentInfoErr);
+        }
+
+        // Set assertions
+        // (paymentInfoRes.body).should.equal('');
+        (paymentInfoRes.body.startdate).should.equal('2017-03-25');
+        (paymentInfoRes.body.enddate).should.equal('2017-03-31');
+        (paymentInfoRes.body.accounts.length).should.equal(1);
+        (paymentInfoRes.body.accounts[0].account.accountno).should.equal('1234567');
+        (paymentInfoRes.body.accounts[0].account.accountname).should.equal('Account Name');
+        (paymentInfoRes.body.accounts[0].trns.length).should.equal(1);        
+        (paymentInfoRes.body.accounts[0].trns[0].trnsno).should.equal('AP201703001');        
+
+        // Call the assertion callback
+        done();
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Accountchart.remove().exec(function () {
