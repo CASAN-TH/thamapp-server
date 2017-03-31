@@ -298,14 +298,20 @@
       // $scope.dayTime = days;
       $scope.showdiv = true;
       $scope.hidediv = true;
+      $scope.shownameprod = false;
+
     };
     $scope.hidesearch = function () {
       $scope.hidediv = false;
       $scope.showdiv = false;
+      $scope.shownameprod = false;
+
     };
     $scope.hideprod = function () {
       $scope.showdiv = false;
       $scope.hidediv = true;
+      $scope.shownameprod = false;
+
     };
 
     $scope.showname = function () {
