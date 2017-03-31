@@ -19,7 +19,11 @@ module.exports = function (app) {
   app.route('/api/payments/docno/:docno')
     .get(payments.docno);
 
+  app.route('/api/ledgers/:startdate/:enddate')
+    .get(payments.ledgers);
+
   // Finish by binding the Payment middleware
   app.param('paymentId', payments.paymentByID);
   app.param('docno', payments.paymentBydocno);
+  app.param('enddate', payments.enddate);
 };

@@ -6,6 +6,7 @@
 var path = require('path'),
     mongoose = require('mongoose'),
     Payment = mongoose.model('Payment'),
+    Accountchart = mongoose.model('Accountchart'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
 
@@ -189,4 +190,42 @@ exports.paymentBydocno = function (req, res, next, docno) {
 exports.docno = function (req, res) {
     var payment = req.payment ? req.payment : {};
     res.jsonp(payment);
+};
+
+exports.enddate = function (req, res, next, enddate) {
+    req.enddate = enddate;
+    next();
+};
+
+exports.ledgers = function (req, res) {
+    Accountchart.find().exec(function (err, accountcharts) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            var accntcharts = [];
+            accountcharts.forEach(function (accountchart) {
+                var accntchart = {
+                    account: accountchart,
+                    trns: [{
+                        date:new Date(),
+                        trnsno:'AP201703001',
+                        accountno:accountchart.accountno,
+                        accountname:accountchart.accountname,
+                        des:'ทดสอบ เดส',
+                        debit:200,
+                        credit:0
+                    }]
+                };
+                accntcharts.push(accntchart);
+            });
+            res.jsonp({
+                startdate: req.startdate,
+                enddate: req.enddate,
+                accounts: accntcharts
+            });
+        }
+    });
+
 };
