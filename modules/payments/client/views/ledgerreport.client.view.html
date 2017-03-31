@@ -1,0 +1,98 @@
+<section >
+  <div id="pagedisable">
+    <div class="row hidden-xs hidden-sm show-md show-lg">
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        ถึงวันที่ : <input type="date" class="form-control" ng-model="endDay">
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2">
+        &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+      </div>
+      <!--<div class="col-xs-3 col-sm-3 col-md-3 text-right">
+            <div class="pull-right">
+                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
+            </div>
+        </div>-->
+
+    </div>
+    <div class="row show-xs show-sm hidden-md hidden-lg">
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          จากวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="startDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          ถึงวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="endDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+          <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="header-height">
+  <div class="row text-center">
+    <div>
+      <address>
+        <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+        <strong>รายงานบัญชีแยกประเภท</strong>
+        <p>ระหว่างวันที่ {{'2017-03-25'}} ถึงวันที่ {{'2017-03-30'}}</p>
+        <strong>{{itmSearchprod}}</strong>
+      </address>
+    </div>
+  </div>
+  <div class="table-responsive m-t">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>วันที่</th>
+          <th>เลขที่เอกสาร</th>
+          <th>รายการ</th>
+          <th>เดบิต</th>
+          <th>เครดิต</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{'111000'}} </td>
+          <td>{{'เงินสด'}} </td>
+          <td colspan="5"></td>
+
+        </tr>
+        <tr>
+          <td> {{'31/03/2017'}} </td>
+          <td> {{'SPV001'}} </td>
+          <td> {{'ข้าวมหัศจรรย์ 1 กิโลกรัม'}} </td>
+          <td>700</td>
+          <td>0</td>
+
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+          <td>{{'5555555'}}</td>
+          
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+</section>
