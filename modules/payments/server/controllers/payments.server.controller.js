@@ -194,7 +194,49 @@ exports.docno = function (req, res) {
 
 exports.enddate = function (req, res, next, enddate) {
     req.enddate = enddate;
-    next();
+    req.startdate = req.startdate;
+    var trns = [];
+
+    Payment.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) } }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            
+            payments.forEach(function (payment) {
+                payment.debits.forEach(function (debit) {
+                    var trn = {
+                        date: payment.docdate,
+                        trnsno: payment.docno,
+                        accountno: debit.account.accountno,
+                        accountname: debit.account.accountname,
+                        des: debit.description,
+                        debit: debit.amount,
+                        credit: 0
+                    };
+                    trns.push(trn);
+                });
+                payment.credits.forEach(function (credit) {
+                    var trn = {
+                        date: payment.docdate,
+                        trnsno: payment.docno,
+                        accountno: credit.account.accountno,
+                        accountname: credit.account.accountname,
+                        des: credit.description,
+                        debit: 0,
+                        credit: credit.amount
+                    };
+                    trns.push(trn);
+                });
+            });
+
+            req.trns = trns;
+            next();
+        }
+
+    });
+
 };
 
 exports.ledgers = function (req, res) {
@@ -205,18 +247,17 @@ exports.ledgers = function (req, res) {
             });
         } else {
             var accntcharts = [];
+
             accountcharts.forEach(function (accountchart) {
+                var transetions = [];
+                req.trns.forEach(function (trn) {
+                    if (trn.accountno === accountcharts.accountno) {
+                        transetions.push(trn);
+                    }
+                });
                 var accntchart = {
                     account: accountchart,
-                    trns: [{
-                        date:new Date(),
-                        trnsno:'AP201703001',
-                        accountno:accountchart.accountno,
-                        accountname:accountchart.accountname,
-                        des:'ทดสอบ เดส',
-                        debit:200,
-                        credit:0
-                    }]
+                    trns: transetions
                 };
                 accntcharts.push(accntchart);
             });
