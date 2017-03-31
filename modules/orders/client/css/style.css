@@ -829,3 +829,11 @@ text-align: left;
 .height-5000{
     height: 15000px;
 }
+
+.bordertable {
+    border-style: none none solid none;
+    border-width: 3px;
+}
+.bordertableno{
+    border : none;
+}

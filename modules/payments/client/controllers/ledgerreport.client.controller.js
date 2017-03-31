@@ -11,15 +11,18 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.listpayment = [];
+    $scope.testday = new Date();
 
-    var lastweek = new Date();
-    $scope.startDay = new Date(lastweek.getFullYear(), lastweek.getMonth(), lastweek.getDate() - 29);
     $scope.endDay = new Date();
-
+    var lastweek = new Date();
+    var getendMonth = $scope.endDay.getMonth()+1;
+    var getendYear = $scope.endDay.getFullYear();
+    $scope.startDay = new Date(getendYear + '-' + getendMonth + '-01');
+console.log( $scope.startDay);
     vm.getDay = function (startDay, endDay) {
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
-        console.log(response);
-        // console.log(response);
+        vm.listpayment = response;
+        console.log(vm.listpayment);
         // if (response.orders.length === 0) {
         //   alert('ไม่พบข้อมูล');
         // }
@@ -27,6 +30,7 @@
         console.log(err);
       });
     };
+    vm.getDay($scope.startDay, $scope.endDay);
 
     // Ledgerreport controller logic
     // ...
