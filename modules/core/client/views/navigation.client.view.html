@@ -72,7 +72,9 @@
       <li ng-class="{active: $uiRoute}" ui-route="/jvs/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/jvs/create"><i class="fa fa-book"></i> <span class="nav-label">ปรับปรุง</span></a>
       </li>
-      
+       <li ng-class="{active: $uiRoute}" ui-route="/ledgerreport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/ledgerreport"><i class="fa fa-book"></i> <span class="nav-label">รายงานแยกประเภท</span></a>
+      </li>
 
       <!--ตั้งค่าระบบ-->
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">

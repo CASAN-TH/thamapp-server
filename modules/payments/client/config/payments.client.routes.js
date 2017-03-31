@@ -9,6 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('ledgerreport', {
+        url: '/ledgerreport',
+        templateUrl: 'modules/payments/client/views/ledgerreport.client.view.html',
+        controller: 'LedgerreportController',
+        controllerAs: 'vm'
+      })
       .state('pvs', {
         abstract: true,
         url: '/pvs',
