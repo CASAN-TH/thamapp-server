@@ -230,7 +230,6 @@ exports.enddate = function (req, res, next, enddate) {
                     trns.push(trn);
                 });
             });
-
             req.trns = trns;
             next();
         }
@@ -257,7 +256,7 @@ exports.ledgers = function (req, res) {
                 });
                 var accntchart = {
                     account: accountchart,
-                    trns: transetions
+                    trns: req.trns
                 };
                 accntcharts.push(accntchart);
             });
