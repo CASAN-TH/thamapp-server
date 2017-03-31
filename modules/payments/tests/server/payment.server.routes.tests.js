@@ -485,7 +485,11 @@ describe('Payment CRUD tests', function () {
         (paymentInfoRes.body.accounts[0].account.accountno).should.equal('1234567');
         (paymentInfoRes.body.accounts[0].account.accountname).should.equal('Account Name');
         (paymentInfoRes.body.accounts[0].trns.length).should.equal(1);        
-        (paymentInfoRes.body.accounts[0].trns[0].trnsno).should.equal('AP201703001');        
+        (paymentInfoRes.body.accounts[0].trns[0].trnsno).should.equal('AP201703001');     
+        (paymentInfoRes.body.accounts[0].trns[0].accountno).should.equal('1234567');      
+        (paymentInfoRes.body.accounts[0].trns[0].accountname).should.equal('Account Name');        
+          
+           
 
         // Call the assertion callback
         done();

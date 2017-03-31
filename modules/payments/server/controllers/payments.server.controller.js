@@ -211,6 +211,8 @@ exports.ledgers = function (req, res) {
                     trns: [{
                         date:new Date(),
                         trnsno:'AP201703001',
+                        accountno:accountchart.accountno,
+                        accountname:accountchart.accountname,
                         des:'ทดสอบ เดส',
                         debit:200,
                         credit:0
