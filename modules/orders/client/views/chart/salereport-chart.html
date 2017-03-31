@@ -270,9 +270,15 @@
 
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-12 text-center" ng-show="shownameprod">
-                                                <strong>{{itmSearchprod}}</strong>
+                                        <div class="row text-center">
+                                            <div>
+                                                <address ng-show="shownameprod">
+                                                    <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                                    <strong>รายงานขาย - เรียงตามรายการสินค้า</strong>
+                                                    <p>จากวันที่ {{filtertime[0].created | date: 'dd/MM/yyyy'}} ถึงวันที่ {{
+                                                        filtertime[filtertime.length-1].created | date: 'dd/MM/yyyy'}}</p>
+                                                    <strong>{{itmSearchprod}}</strong>
+                                                </address>
                                             </div>
                                         </div>
                                         <div class="table-responsive m-t ">
@@ -349,9 +355,15 @@
 
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 text-center" ng-show="shownameprod">
-                                <strong>{{itmSearchprod}}</strong>
+                        <div class="row text-center">
+                            <div>
+                                <address ng-show="shownameprod">
+                                    <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+                                    <strong>รายงานขาย - เรียงตามรายการสินค้า</strong>
+                                    <p>จากวันที่ {{filtertime[0].created | date: 'dd/MM/yyyy'}} ถึงวันที่ {{ filtertime[filtertime.length-1].created
+                                        | date: 'dd/MM/yyyy'}}</p>
+                                    <strong>{{itmSearchprod}}</strong>
+                                </address>
                             </div>
                         </div>
                         <div class="table-responsive m-t">

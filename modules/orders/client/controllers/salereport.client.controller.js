@@ -264,6 +264,7 @@
 
     $scope.calFilter = function (nameprod) {
       $scope.totalAmountResult = 0;
+      $scope.filtertime = [];
       $scope.filterOrdersreport = [];
       vm.listOrders.forEach(function (order) {
         order.items.forEach(function (itm) {
@@ -278,9 +279,13 @@
                 qty: itm.qty
               }
             });
+            $scope.filtertime.push({
+              created: order.created
+            });
           }
         });
       });
+
       $scope.filterOrdersreport.forEach(function (forder) {
         $scope.totalAmountResult += (forder.items.product.retailerprice || 0) * (forder.items.qty || 0);
       });
@@ -293,14 +298,20 @@
       // $scope.dayTime = days;
       $scope.showdiv = true;
       $scope.hidediv = true;
+      $scope.shownameprod = false;
+
     };
     $scope.hidesearch = function () {
       $scope.hidediv = false;
       $scope.showdiv = false;
+      $scope.shownameprod = false;
+
     };
     $scope.hideprod = function () {
       $scope.showdiv = false;
       $scope.hidediv = true;
+      $scope.shownameprod = false;
+
     };
 
     $scope.showname = function () {
@@ -316,6 +327,7 @@
       $scope.totalAmountResult = '';
       $scope.showdiv = false;
       $scope.hidediv = false;
+      $scope.shownameprod = false;
     };
   }
 })();
