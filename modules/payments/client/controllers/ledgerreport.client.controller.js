@@ -11,7 +11,7 @@
     var vm = this;
     vm.authentication = Authentication;
     vm.listpayment = [];
-    $scope.testday = new Date();
+    // $scope.testday = new Date();
 
     $scope.endDay = new Date();
     var lastweek = new Date();
