@@ -91,7 +91,7 @@
           <td><label>{{journal.gltype}}</label></td>
           <td colspan="6"><label>{{journal.gltype === 'AP' ? 'ตั้งเจ้าหนี้' : journal.gltype === 'PV' ? 'จ่ายเงิน' : journal.gltype === 'AR' ? 'ตั้งลูกหนี้' : journal.gltype === 'RV' ? 'รับเงิน' : journal.gltype === 'JV' ? 'ปรับปรุง' : ''}}</label>            </td>
         </tr>
-        <tr ng-repeat="jn in journal.trns | orderBy:'date'">
+        <tr ng-repeat="jn in journal.trns | orderBy:'date' | filter:{ trnsno:topsearch}">
           <td>{{jn.date | date: 'dd/MM/yyyy'}}</td>
           <td>{{jn.trnsno}}</td>
           <td colspan="3">{{jn.accountno +' : ' +jn.accountname}} {{jn.des ? '( '+ jn.des +' )' : ''}}</td>
