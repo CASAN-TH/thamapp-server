@@ -21,7 +21,7 @@
     vm.getDay = function (startDay, endDay) {
       $http.get('api/journals/' + startDay + '/' + endDay).success(function (response) {
         vm.listjournal = response;
-        console.log(vm.listjournal);
+        // console.log(vm.listjournal);
         // if (response.orders.length === 0) {
         //   alert('ไม่พบข้อมูล');
         // }
