@@ -336,10 +336,12 @@ exports.jrenddate = function (req, res, next, jrenddate) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
+            var sumdebit = 0;
+            var sumcredit = 0;
             var trns = [];
             types.forEach(function (type) {
-                var sumdebit = 0;
-                var sumcredit = 0;
+                sumdebit = 0;
+                sumcredit = 0;
                 payments.forEach(function (payment) {
                     if (type === payment.gltype) {
                         payment.debits.forEach(function (debit) {
@@ -371,16 +373,16 @@ exports.jrenddate = function (req, res, next, jrenddate) {
                         });
 
                     }
-                    var journal = {
-                        gltype: type,
-                        trns: trns,
-                        bfsumdebit: 0,
-                        bfsumcredit: 0,
-                        sumdebit: sumdebit,
-                        sumcredit: sumcredit
-                    };
-                    journals.push(journal);
                 });
+                var journal = {
+                    gltype: type,
+                    trns: trns,
+                    bfsumdebit: 0,
+                    bfsumcredit: 0,
+                    sumdebit: sumdebit,
+                    sumcredit: sumcredit
+                };
+                journals.push(journal);
             });
             req.journals = journals;
             next();
