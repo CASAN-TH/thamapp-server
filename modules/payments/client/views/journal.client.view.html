@@ -89,12 +89,12 @@
       <tbody ng-repeat="journal in vm.listjournal.journals | filter:{trns : { trnsno:topsearch}}">
         <tr>
           <td><label>{{journal.gltype}}</label></td>
-          <td colspan="6"><label>{{journal.gltype === 'AP' ? 'ตั้งเจ้าหนี้' : journal.gltype === 'PV' ? 'จ่ายเงิน' : journal.gltype === 'AR' ? 'ตั้งลูกหนี้' : journal.gltype === 'RV' ? 'รับเงิน' : journal.gltype === 'JV' ? 'ปรับปรุง' : ''}}</label> </td>
+          <td colspan="6"><label>{{journal.gltype === 'AP' ? 'ตั้งเจ้าหนี้' : journal.gltype === 'PV' ? 'จ่ายเงิน' : journal.gltype === 'AR' ? 'ตั้งลูกหนี้' : journal.gltype === 'RV' ? 'รับเงิน' : journal.gltype === 'JV' ? 'ปรับปรุง' : ''}}</label>            </td>
         </tr>
         <tr ng-repeat="jn in journal.trns | orderBy:'date'">
           <td>{{jn.date | date: 'dd/MM/yyyy'}}</td>
           <td>{{jn.trnsno}}</td>
-          <td colspan="3">{{jn.accountno +' : ' +jn.accountname}}</td>
+          <td colspan="3">{{jn.accountno +' : ' +jn.accountname}} {{jn.des ? '( '+ jn.des +' )' : ''}}</td>
           <td class="text-right">{{jn.debit | number:2}}</td>
           <td class="text-right">{{jn.credit | number:2}}</td>
         </tr>
