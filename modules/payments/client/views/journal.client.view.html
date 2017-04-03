@@ -94,15 +94,15 @@
         <tr ng-repeat="jn in journal.trns | orderBy:'date'">
           <td>{{jn.date | date: 'dd/MM/yyyy'}}</td>
           <td>{{jn.trnsno}}</td>
-          <td colspan="3">{{jn.des}}</td>
-          <td class="text-right">{{jn.debit}}</td>
-          <td class="text-right">{{jn.credit}}</td>
+          <td colspan="3">{{jn.accountno +' : ' +jn.accountname}}</td>
+          <td class="text-right">{{jn.debit | number:2}}</td>
+          <td class="text-right">{{jn.credit | number:2}}</td>
         </tr>
         <tr>
           <td colspan="4"></td>
           <td class="text-right bordertable"><label>รวม</label></td>
-          <td class="text-right bordertable"><label>{{journal.sumdebit | number:2}}/debit</label></td>
-          <td class="text-right bordertable"><label>{{journal.sumcredit | number:2}}/crebit</label></td>
+          <td class="text-right bordertable"><label>{{journal.sumdebit | number:2}}</label></td>
+          <td class="text-right bordertable"><label>{{journal.sumcredit | number:2}}</label></td>
         </tr>
       </tbody>
     </table>

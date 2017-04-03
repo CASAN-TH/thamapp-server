@@ -94,8 +94,8 @@
         <tr>
           <td colspan="2"></td>
           <td colspan="3"><label>ยกมา</label></td>
-          <td class="text-right"><label>{{ledger.bfsumdebit | number:2 }}/debit</label></td>
-          <td class="text-right"><label>{{ledger.bfsumcredit | number:2}}/crebit</label></td>
+          <td class="text-right"><label>{{ledger.bfsumdebit | number:2 }}</label></td>
+          <td class="text-right"><label>{{ledger.bfsumcredit | number:2}}</label></td>
         </tr>
 
         <tr ng-repeat="trans in  ledger.trns | orderBy:'trans.date'">
@@ -108,14 +108,14 @@
         <tr>
           <td colspan="4"></td>
           <td class="text-right"><label>ในงวด</label></td>
-          <td class="text-right"><label>{{ledger.sumdebit | number:2}}/debit</label></td>
-          <td class="text-right"><label>{{ledger.sumcredit | number:2}}/crebit</label></td>
+          <td class="text-right"><label>{{ledger.sumdebit | number:2}}</label></td>
+          <td class="text-right"><label>{{ledger.sumcredit | number:2}}</label></td>
         </tr>
         <tr>
           <td colspan="4"></td>
           <td class="text-right bordertable"><label>รวม</label></td>
-          <td class="text-right bordertable"><label>{{ledger.bfsumdebit + ledger.sumdebit | number:2}}/debit</label></td>
-          <td class="text-right bordertable"><label>{{ledger.bfsumcredit + ledger.sumcredit | number:2}}/crebit</label></td>
+          <td class="text-right bordertable"><label>{{ledger.bfsumdebit + ledger.sumdebit | number:2}}</label></td>
+          <td class="text-right bordertable"><label>{{ledger.bfsumcredit + ledger.sumcredit | number:2}}</label></td>
         </tr>
       </tbody>
     </table>
