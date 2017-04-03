@@ -69,7 +69,6 @@
         <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
         <strong>รายงานบัญชีแยกประเภท</strong>
         <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
-        <strong>{{itmSearchprod}}</strong>
       </address>
     </div>
   </div>
@@ -92,11 +91,6 @@
           <td><label>{{journal.account.accountno}}</label></td>
           <td colspan="6"><label>{{journal.account.accountname}}</label> </td>
         </tr>
-        <tr>
-          <td colspan="2"></td>
-          <td colspan="4"><label>ยกมา</label></td>
-          <td class="text-right">0.00</td>
-        </tr>
 
         <tr ng-repeat="trans in  journal.trns">
           <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
@@ -104,12 +98,6 @@
           <td colspan="3">{{trans.des}}</td>
           <td class="text-right">{{trans.debit}}</td>
           <td class="text-right">{{trans.credit}}</td>
-        </tr>
-        <tr>
-          <td colspan="4"></td>
-          <td class="text-right"><label>ในงวด</label></td>
-          <td class="text-right"><label>0.00/debit</label></td>
-          <td class="text-right"><label>0.00/crebit</label></td>
         </tr>
         <tr>
           <td colspan="4"></td>
