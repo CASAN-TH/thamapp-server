@@ -94,8 +94,8 @@
         <tr>
           <td colspan="2"></td>
           <td colspan="3"><label>ยกมา</label></td>
-          <td class="text-right"><label>{{ledger.bfsumdebit | number:2 }}</label></td>
-          <td class="text-right"><label>{{ledger.bfsumcredit | number:2}}</label></td>
+          <td class="text-right"><label ng-if="(ledger.bfsumdebit - ledger.bfsumcredit) > 0">{{ledger.bfsumdebit - ledger.bfsumcredit | number:2 }}</label></td>
+          <td class="text-right"><label ng-if="(ledger.bfsumcredit - ledger.bfsumdebit) > 0">{{ledger.bfsumcredit - ledger.bfsumdebit | number:2}}</label></td>
         </tr>
 
         <tr ng-repeat="trans in  ledger.trns | orderBy:'trans.date'">
