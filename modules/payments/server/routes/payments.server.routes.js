@@ -22,8 +22,17 @@ module.exports = function (app) {
   app.route('/api/ledgers/:startdate/:enddate')
     .get(payments.ledgers);
 
+  app.route('/api/journals/:jrstartdate/:jrenddate')
+    .get(payments.journals);
+
   // Finish by binding the Payment middleware
   app.param('paymentId', payments.paymentByID);
   app.param('docno', payments.paymentBydocno);
   app.param('enddate', payments.enddate);
+  app.param('jrstartdate', function (req, res, next, jrstartdate) {
+    req.jrstartdate = jrstartdate;
+    next();
+  });
+  app.param('jrenddate', payments.jrenddate);
+
 };

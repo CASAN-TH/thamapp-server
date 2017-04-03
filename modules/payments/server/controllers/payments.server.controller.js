@@ -323,3 +323,76 @@ exports.ledgers = function (req, res) {
     });
 
 };
+
+exports.jrenddate = function (req, res, next, jrenddate) {
+    req.jrenddate = jrenddate;
+    req.jrstartdate = req.jrstartdate;
+    var types = ['AP', 'AR', 'PV', 'RV', 'JV'];
+    var journals = [];
+
+    Payment.find({ docdate: { $gte: new Date(req.jrstartdate), $lte: new Date(req.jrenddate) } }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            var trns = [];
+            types.forEach(function (type) {
+                var sumdebit = 0;
+                var sumcredit = 0;
+                payments.forEach(function (payment) {
+                    if (type === payment.gltype) {
+                        payment.debits.forEach(function (debit) {
+                            var trn = {
+                                date: payment.docdate,
+                                trnsno: payment.docno,
+                                accountno: debit.account.accountno,
+                                accountname: debit.account.accountname,
+                                des: debit.description,
+                                debit: debit.amount,
+                                credit: 0
+                            };
+                            trns.push(trn);
+                            sumdebit += debit.amount;
+
+                        });
+                        payment.credits.forEach(function (credit) {
+                            var trn = {
+                                date: payment.docdate,
+                                trnsno: payment.docno,
+                                accountno: credit.account.accountno,
+                                accountname: credit.account.accountname,
+                                des: credit.description,
+                                debit: 0,
+                                credit: credit.amount
+                            };
+                            trns.push(trn);
+                            sumcredit += credit.amount;
+                        });
+
+                    }
+                    var journal = {
+                        gltype: type,
+                        trns: trns,
+                        bfsumdebit: 0,
+                        bfsumcredit: 0,
+                        sumdebit: sumdebit,
+                        sumcredit: sumcredit
+                    };
+                    journals.push(journal);
+                });
+            });
+            req.journals = journals;
+            next();
+        }
+    });
+
+
+};
+exports.journals = function (req, res) {
+    res.jsonp({
+        jrstartdate: req.jrstartdate,
+        jrenddate: req.jrenddate,
+        journals: req.journals
+    });
+};
