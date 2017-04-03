@@ -256,7 +256,11 @@ exports.ledgers = function (req, res) {
                 });
                 var accntchart = {
                     account: accountchart,
-                    trns: transetions
+                    trns: transetions,
+                    bfsumdebit : 0,
+                    bfsumcredit : 0,
+                    sumdebit : 0,
+                    sumcredit :0,
                 };
                 accntcharts.push(accntchart);
             });
