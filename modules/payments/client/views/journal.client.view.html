@@ -67,7 +67,7 @@
     <div>
       <address>
         <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
-        <strong>รายงานบัญชีแยกประเภท</strong>
+        <strong>รายงานสมุดรายวันทั่วไป</strong>
         <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
       </address>
     </div>
@@ -86,24 +86,23 @@
           <th class="text-right">เครดิต</th>
         </tr>
       </thead>
-      <tbody ng-repeat="journal in vm.listpayment.accounts | filter:{account : { accountno:topsearch}}">
+      <tbody ng-repeat="journal in vm.listjournal.journals | filter:{trns : { trnsno:topsearch}}">
         <tr>
-          <td><label>{{journal.account.accountno}}</label></td>
-          <td colspan="6"><label>{{journal.account.accountname}}</label> </td>
+          <td><label>{{journal.gltype}}</label></td>
+          <td colspan="6"><label>{{journal.gltype === 'AP' ? 'ตั้งเจ้าหนี้' : journal.gltype === 'PV' ? 'จ่ายเงิน' : journal.gltype === 'AR' ? 'ตั้งลูกหนี้' : journal.gltype === 'RV' ? 'รับเงิน' : journal.gltype === 'JV' ? 'ปรับปรุง' : ''}}</label> </td>
         </tr>
-
-        <tr ng-repeat="trans in  journal.trns">
-          <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
-          <td>{{trans.trnsno}}</td>
-          <td colspan="3">{{trans.des}}</td>
-          <td class="text-right">{{trans.debit}}</td>
-          <td class="text-right">{{trans.credit}}</td>
+        <tr ng-repeat="jn in journal.trns | orderBy:'date'">
+          <td>{{jn.date | date: 'dd/MM/yyyy'}}</td>
+          <td>{{jn.trnsno}}</td>
+          <td colspan="3">{{jn.des}}</td>
+          <td class="text-right">{{jn.debit}}</td>
+          <td class="text-right">{{jn.credit}}</td>
         </tr>
         <tr>
           <td colspan="4"></td>
           <td class="text-right bordertable"><label>รวม</label></td>
-          <td class="text-right bordertable"><label>0.00/debit</label></td>
-          <td class="text-right bordertable"><label>0.00/crebit</label></td>
+          <td class="text-right bordertable"><label>{{journal.sumdebit | number:2}}/debit</label></td>
+          <td class="text-right bordertable"><label>{{journal.sumcredit | number:2}}/crebit</label></td>
         </tr>
       </tbody>
     </table>
