@@ -19,7 +19,7 @@
     $scope.startDay = new Date($scope.endDay.getFullYear(), $scope.endDay.getMonth(), '01');
     console.log($scope.startDay);
     vm.getDay = function (startDay, endDay) {
-      $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
+      $http.get('api/journals/' + startDay + '/' + endDay).success(function (response) {
         vm.listjournal = response;
         console.log(vm.listjournal);
         // if (response.orders.length === 0) {
@@ -29,6 +29,8 @@
         console.log(err);
       });
     };
+    vm.getDay($scope.startDay, $scope.endDay);
+
 
 
   }
