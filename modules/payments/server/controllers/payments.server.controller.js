@@ -277,7 +277,7 @@ exports.enddate = function (req, res, next, enddate) {
 };
 
 exports.ledgers = function (req, res) {
-    Accountchart.find().exec(function (err, accountcharts) {
+    Accountchart.find().sort('accountno').exec(function (err, accountcharts) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
