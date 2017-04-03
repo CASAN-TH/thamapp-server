@@ -86,7 +86,7 @@
           <th class="text-right">เครดิต</th>
         </tr>
       </thead>
-      <tbody ng-repeat="ledger in vm.listpayment.accounts | orderBy:'account.accountno' | filter:{account : { accountno:topsearch}}">
+      <tbody ng-repeat="ledger in vm.listpayment.accounts | filter:{account : { accountno:topsearch}}">
         <tr>
           <td><label>{{ledger.account.accountno}}</label></td>
           <td colspan="6"><label>{{ledger.account.accountname}}</label> </td>
