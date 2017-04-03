@@ -342,6 +342,7 @@ exports.jrenddate = function (req, res, next, jrenddate) {
             types.forEach(function (type) {
                 sumdebit = 0;
                 sumcredit = 0;
+                trns = [];
                 payments.forEach(function (payment) {
                     if (type === payment.gltype) {
                         payment.debits.forEach(function (debit) {
