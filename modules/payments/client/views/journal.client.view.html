@@ -1,3 +1,124 @@
 <section>
-  This is the Journal view
+  <div id="pagedisable">
+    <div class="row hidden-xs hidden-sm show-md show-lg">
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        ถึงวันที่ : <input type="date" class="form-control" ng-model="endDay">
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2">
+        &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+      </div>
+      <!--<div class="col-xs-3 col-sm-3 col-md-3 text-right">
+            <div class="pull-right">
+                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
+            </div>
+        </div>-->
+
+    </div>
+    <div class="row show-xs show-sm hidden-md hidden-lg">
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          จากวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="startDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          ถึงวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="endDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+        </div>
+      </div>
+
+
+      <!--<div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+          <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
+        </div>
+      </div>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 marginT25">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6">
+
+    </div>
+  </div>
+</section>
+
+<section class="header-height">
+  <div class="row text-center">
+    <div>
+      <address>
+        <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+        <strong>รายงานบัญชีแยกประเภท</strong>
+        <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+        <strong>{{itmSearchprod}}</strong>
+      </address>
+    </div>
+  </div>
+
+  <div class="table-responsive m-t">
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="10%">วันที่</th>
+          <th width="10%">เลขที่เอกสาร</th>
+          <th></th>
+          <th class="text-center">รายการ</th>
+          <th></th>
+          <th class="text-right">เดบิต</th>
+          <th class="text-right">เครดิต</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="journal in vm.listpayment.accounts | filter:{account : { accountno:topsearch}}">
+        <tr>
+          <td><label>{{journal.account.accountno}}</label></td>
+          <td colspan="6"><label>{{journal.account.accountname}}</label> </td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="4"><label>ยกมา</label></td>
+          <td class="text-right">0.00</td>
+        </tr>
+
+        <tr ng-repeat="trans in  journal.trns">
+          <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
+          <td>{{trans.trnsno}}</td>
+          <td colspan="3">{{trans.des}}</td>
+          <td class="text-right">{{trans.debit}}</td>
+          <td class="text-right">{{trans.credit}}</td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+          <td class="text-right"><label>ในงวด</label></td>
+          <td class="text-right"><label>0.00/debit</label></td>
+          <td class="text-right"><label>0.00/crebit</label></td>
+        </tr>
+        <tr>
+          <td colspan="4"></td>
+          <td class="text-right bordertable"><label>รวม</label></td>
+          <td class="text-right bordertable"><label>0.00/debit</label></td>
+          <td class="text-right bordertable"><label>0.00/crebit</label></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 </section>

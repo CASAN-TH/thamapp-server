@@ -72,8 +72,11 @@
       <li ng-class="{active: $uiRoute}" ui-route="/jvs/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/jvs/create"><i class="fa fa-book"></i> <span class="nav-label">ปรับปรุง</span></a>
       </li>
-       <li ng-class="{active: $uiRoute}" ui-route="/ledgerreport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li ng-class="{active: $uiRoute}" ui-route="/ledgerreport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/ledgerreport"><i class="fa fa-book"></i> <span class="nav-label">รายงานบัญชีแยกประเภท</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/journal" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/journal"><i class="fa fa-book"></i> <span class="nav-label">รายงานสมุดรายวันทั่วไป</span></a>
       </li>
 
       <!--ตั้งค่าระบบ-->
@@ -123,7 +126,7 @@
       <li ng-class="{active: $uiRoute}" ui-route="/returnresponse" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
         <a href="/#/returnresponse"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งคืน</span></a>
       </li>
-      
+
 
       <!--user authen-->
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'user'">
@@ -135,9 +138,9 @@
       <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
         <a href="/#/me"><i class="fa fa-file-o"></i> <span class="nav-label">ประวัติการสั่งซื้อ</span></a>
       </li>
-      
 
-        <!--user not authen-->
+
+      <!--user not authen-->
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="!authentication.user">
         <span class="nav-label menu-headline">สินค้า</span>
       </li>
@@ -147,10 +150,10 @@
       <li ng-class="{active: $uiRoute}" ui-route="/signinuser" class="dropdown" ng-if="!authentication.user">
         <a href="/#/signinuser"><i class="fa fa-file-o"></i> <span class="nav-label">ตรวจสอบประวัติการสั่งซื้อ</span></a>
       </li>
-      
-      
-      
-      
+
+
+
+
     </ul>
   </div>
 </nav>
