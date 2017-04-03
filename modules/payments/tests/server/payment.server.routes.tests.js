@@ -19,6 +19,8 @@ var app,
   payment,
   payment2,
   paymenttest,
+  paymenttest2,
+  paymenttest3,
   accountchart;
 
 /**
@@ -60,7 +62,7 @@ describe('Payment CRUD tests', function () {
       docno: 'AP201704',
       user: user
     });
-    
+
 
     // Save a user to the test db and create new Payment
     user.save(function () {
@@ -471,6 +473,38 @@ describe('Payment CRUD tests', function () {
   it('ledger report', function (done) {
     var startdate = '2017-03-01';
     var enddate = '2017-03-31';
+    paymenttest2 = new Payment({
+      docno: 'AP201703022',
+      docdate: '2017-02-17T04:49:37.653Z',
+      gltype: 'AP',
+      credits: [{
+        account: accountchart,
+        description: 'ทดสอบ',
+        amount: 200
+      }],
+      debits: [{
+        account: accountchart,
+        description: 'ทดสอบ',
+        amount: 200
+      }],
+      user: user
+    });
+    paymenttest3 = new Payment({
+      docno: 'AP201703033',
+      docdate: '2017-01-17T04:49:37.653Z',
+      gltype: 'AP',
+      credits: [{
+        account: accountchart,
+        description: 'ทดสอบ',
+        amount: 200
+      }],
+      debits: [{
+        account: accountchart,
+        description: 'ทดสอบ',
+        amount: 200
+      }],
+      user: user
+    });
     paymenttest = new Payment({
       docno: 'AP201703001',
       docdate: '2017-03-17T04:49:37.653Z',
@@ -487,6 +521,8 @@ describe('Payment CRUD tests', function () {
       }],
       user: user
     });
+    paymenttest2.save();
+    paymenttest3.save();
     paymenttest.save(function () {
       agent.get('/api/ledgers/' + startdate + '/' + enddate)
         .expect(200)
@@ -497,16 +533,19 @@ describe('Payment CRUD tests', function () {
           }
 
           // Set assertions
-          // (paymentInfoRes.body).should.equal('');
           (paymentInfoRes.body.startdate).should.equal('2017-03-01');
           (paymentInfoRes.body.enddate).should.equal('2017-03-31');
           (paymentInfoRes.body.accounts.length).should.equal(1);
           (paymentInfoRes.body.accounts[0].account.accountno).should.equal('1234567');
-          (paymentInfoRes.body.accounts[0].account.accountname).should.equal('Account Name');         
+          (paymentInfoRes.body.accounts[0].account.accountname).should.equal('Account Name');
           (paymentInfoRes.body.accounts[0].trns.length).should.equal(2);
           (paymentInfoRes.body.accounts[0].trns[0].trnsno).should.equal('AP201703001');
           (paymentInfoRes.body.accounts[0].trns[0].accountno).should.equal('1234567');
           (paymentInfoRes.body.accounts[0].trns[0].accountname).should.equal('Account Name');
+          (paymentInfoRes.body.accounts[0].sumcredit).should.equal(200);
+          (paymentInfoRes.body.accounts[0].sumdebit).should.equal(200);
+          (paymentInfoRes.body.accounts[0].bfsumdebit).should.equal(400);
+          (paymentInfoRes.body.accounts[0].bfsumcredit).should.equal(400);
 
           // Call the assertion callback
           done();

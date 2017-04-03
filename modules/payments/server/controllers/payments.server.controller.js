@@ -196,6 +196,7 @@ exports.enddate = function (req, res, next, enddate) {
     req.enddate = enddate;
     req.startdate = req.startdate;
     var trns = [];
+    var oldtrns = [];
 
     Payment.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) } }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
         if (err) {
@@ -203,7 +204,7 @@ exports.enddate = function (req, res, next, enddate) {
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            
+
             payments.forEach(function (payment) {
                 payment.debits.forEach(function (debit) {
                     var trn = {
@@ -231,7 +232,44 @@ exports.enddate = function (req, res, next, enddate) {
                 });
             });
             req.trns = trns;
-            next();
+            Payment.find({ docdate: { $lt: new Date(req.startdate) } }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, oldpayments) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    oldpayments.forEach(function (oldpayment) {
+                        oldpayment.debits.forEach(function (debit) {
+                            var otrn = {
+                                date: oldpayment.docdate,
+                                trnsno: oldpayment.docno,
+                                accountno: debit.account.accountno,
+                                accountname: debit.account.accountname,
+                                des: debit.description,
+                                debit: debit.amount,
+                                credit: 0
+                            };
+                            oldtrns.push(otrn);
+                        });
+                        oldpayment.credits.forEach(function (credit) {
+                            var otrn = {
+                                date: oldpayment.docdate,
+                                trnsno: oldpayment.docno,
+                                accountno: credit.account.accountno,
+                                accountname: credit.account.accountname,
+                                des: credit.description,
+                                debit: 0,
+                                credit: credit.amount
+                            };
+                            oldtrns.push(otrn);
+                        });
+                    });
+                    req.oldtrns = oldtrns;
+                    next();
+                }
+
+            });
+
         }
 
     });
@@ -249,18 +287,30 @@ exports.ledgers = function (req, res) {
 
             accountcharts.forEach(function (accountchart) {
                 var transetions = [];
+                var sumdebit = 0;
+                var sumcredit = 0;
+                var bfsumdebit = 0;
+                var bfsumcredit = 0;
                 req.trns.forEach(function (trn) {
                     if (trn.accountno === accountchart.accountno) {
                         transetions.push(trn);
+                        sumdebit += trn.debit || 0;
+                        sumcredit += trn.credit || 0;
+                    }
+                });
+                req.oldtrns.forEach(function (otrn) {
+                    if (otrn.accountno === accountchart.accountno) {
+                        bfsumdebit += otrn.debit || 0;
+                        bfsumcredit += otrn.credit || 0;
                     }
                 });
                 var accntchart = {
                     account: accountchart,
                     trns: transetions,
-                    bfsumdebit : 0,
-                    bfsumcredit : 0,
-                    sumdebit : 0,
-                    sumcredit :0,
+                    bfsumdebit: bfsumdebit || 0,
+                    bfsumcredit: bfsumcredit || 0,
+                    sumdebit: sumdebit || 0,
+                    sumcredit: sumcredit || 0,
                 };
                 accntcharts.push(accntchart);
             });
