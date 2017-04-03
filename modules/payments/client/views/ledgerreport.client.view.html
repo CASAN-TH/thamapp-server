@@ -114,8 +114,8 @@
         <tr>
           <td colspan="4"></td>
           <td class="text-right bordertable"><label>รวม</label></td>
-          <td class="text-right bordertable"><label>{{ledger.bfsumdebit + ledger.sumdebit | number:2}}</label></td>
-          <td class="text-right bordertable"><label>{{ledger.bfsumcredit + ledger.sumcredit | number:2}}</label></td>
+          <td class="text-right bordertable"><label>{{(ledger.bfsumdebit - ledger.bfsumcredit) + ledger.sumdebit | number:2}}</label></td>
+          <td class="text-right bordertable"><label>{{(ledger.bfsumcredit - ledger.bfsumdebit) + ledger.sumcredit | number:2}}</label></td>
         </tr>
       </tbody>
     </table>
