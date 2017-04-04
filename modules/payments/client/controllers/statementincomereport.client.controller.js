@@ -38,13 +38,13 @@
               bf: 0,
               period: 0,
             };
-            datafivezero.bf = sample.bfsumdebit - sample.bfsumcredit;
-            datafivezero.period = sample.bfsumdebit - sample.bfsumcredit;
+            datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
+            datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
             console.log('datafivezero : ' + JSON.stringify(datafivezero));
-            if (datafivezero.bf > 0 || datafivezero.period > 0) {
-              vm.sumfivezero += datafivezero.period - datafivezero.bf;
-            } else {
+            if (datafivezero.bf < 0 || datafivezero.period < 0) {
               vm.sumfivezero += datafivezero.period + datafivezero.bf;
+            } else {
+              vm.sumfivezero += datafivezero.period - datafivezero.bf;
             }
             console.log('vm.sumfivezero : ' + vm.sumfivezero);
           } else if (sample.account.accountno.substr(0, 2) === '51') {
