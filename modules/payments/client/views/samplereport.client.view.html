@@ -88,29 +88,26 @@
           <th class="text-right">ยอดยกไปเครดิต</th>
         </tr>
       </thead>
-      <tbody ng-repeat="sample in vm.listsample.accounts">
-        <tr ng-repeat="sp in sample.trns | orderBy:'date' | filter: { trnsno:topsearch}">
-          <td><label>{{sp.trnsno}}</label></td>
-          <td>{{sp.des}}</td>
-          <td class="text-right">{{sample.bfsumdebit - sample.bfsumcredit | number:2}}</td>
-          <td class="text-right">{{sample.bfsumcredit - sample.bfsumdebit | number:2}}</td>
-          <td class="text-right">{{sample.sumdebit | number:2}}</td>
-          <td class="text-right">{{sample.sumcredit | number:2}}</td>
-          <td class="text-right">{{sample.bfsumdebit + sample.sumdebit | number:2}}</td>
-          <td class="text-right">{{sample.bfsumcredit + sample.sumcredit | number:2}}</td>
+      <tbody ng-repeat="sample in vm.listsample.accounts| filter:{account : { accountno:topsearch}}">
+        <tr>
+          <td><label>{{sample.account.accountno}}</label></td>
+          <td>{{sample.account.accountname}}</td>
+          <td class="text-right">{{sample.bfsumdebit > 0 ? sample.bfsumdebit : null | number:2}}</td>
+          <td class="text-right">{{sample.bfsumcredit > 0 ? sample.bfsumcredit : null | number:2}}</td>
+          <td class="text-right">{{sample.sumdebit > 0 ? sample.sumdebit : null | number:2}}</td>
+          <td class="text-right">{{sample.sumcredit > 0 ? sample.sumcredit : null | number:2}}</td>
+          <td class="text-right">{{sample.bfsumdebit + sample.sumdebit > 0 ? sample.bfsumdebit + sample.sumdebit : null | number:2}}</td>
+          <td class="text-right">{{sample.bfsumcredit + sample.sumcredit > 0 ? sample.bfsumcredit + sample.sumcredit : null | number:2}}</td>
         </tr>
       </tbody>
       <tr class="bordertable">
         <td colspan="2"></td>
-        <td class="text-right">{{resultOfallatsumdebit && resultOfallatsumdebit > 0 &&  resultOfallsumdebit && resultOfallsumdebit > 0 ? resultOfallatsumdebit - resultOfallsumdebit : vm.allatsumdebit - vm.allsumdebit |
-          number:2}}
-        </td>
-        <td class="text-right">{{resultOfallatsumcredit && resultOfallatsumcredit > 0 &&  resultOfallsumcredit && resultOfallsumcredit > 0 ? resultOfallatsumcredit - resultOfallsumcredit : vm.allatsumcredit - vm.allsumcredit
-          | number:2}}</td>
-        <td class="text-right">{{resultOfallsumdebit && resultOfallsumdebit > 0 ? resultOfallsumdebit : vm.allsumdebit | number:2}}</td>
-        <td class="text-right">{{resultOfallsumcredit && resultOfallsumcredit > 0 ? resultOfallsumcredit : vm.allsumcredit | number:2}}</td>
-        <td class="text-right">{{resultOfallatsumdebit && resultOfallatsumdebit > 0 ? resultOfallatsumdebit : vm.allatsumdebit | number:2}}</td>
-        <td class="text-right">{{resultOfallatsumcredit && resultOfallatsumcredit > 0 ? resultOfallatsumcredit : vm.allatsumcredit | number:2}}</td>
+        <td class="text-right">{{resultOfallbfsumdebit || resultOfallbfsumdebit >= 0 ? resultOfallbfsumdebit : vm.allbfsumdebit | number:2}}</td>
+        <td class="text-right">{{resultOfallbfsumcredit || resultOfallbfsumcredit >= 0 ? resultOfallbfsumcredit : vm.allbfsumcredit | number:2}}</td>
+        <td class="text-right">{{resultOfallsumdebit || resultOfallsumdebit >= 0 ? resultOfallsumdebit : vm.allsumdebit | number:2}}</td>
+        <td class="text-right">{{resultOfallsumcredit || resultOfallsumcredit >= 0 ? resultOfallsumcredit : vm.allsumcredit | number:2}}</td>
+        <td class="text-right">{{resultOfallatsumdebit || resultOfallatsumdebit >= 0 ? resultOfallatsumdebit : vm.allatsumdebit | number:2}}</td>
+        <td class="text-right">{{resultOfallatsumcredit || resultOfallatsumcredit >= 0 ? resultOfallatsumcredit : vm.allatsumcredit | number:2}}</td>
       </tr>
     </table>
   </div>

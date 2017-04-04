@@ -19,7 +19,7 @@
     vm.getDay = function (startDay, endDay) {
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
         vm.listsample = response;
-        // console.log(vm.listsample);
+        console.log(vm.listsample);
 
         vm.allbfsumdebit = 0;
         vm.allbfsumcredit = 0;
@@ -29,8 +29,8 @@
         vm.allatsumcredit = 0;
         vm.listsample.accounts.forEach(function (sample) {
 
-          vm.allbfsumdebit += sample.bfsumdebit - sample.bfsumcredit;
-          vm.allbfsumcredit += sample.bfsumcredit - sample.bfsumdebit;
+          vm.allbfsumdebit += sample.bfsumdebit;
+          vm.allbfsumcredit += sample.bfsumcredit;
           vm.allsumdebit += sample.sumdebit;
           vm.allsumcredit += sample.sumcredit;
           vm.allatsumdebit += sample.bfsumdebit + sample.sumdebit;
@@ -52,21 +52,20 @@
       $scope.resultOfallbfsumcredit = 0;
 
       vm.listsample.accounts.forEach(function (samp) {
-        samp.trns.forEach(function (trn) {
-          var trnId = trn.trnsno.substr(0, search.length);
+
+          var trnId = samp.account.accountno.substr(0, search.length);
           if (trnId.toString() === search.toString().toUpperCase()) {
             $scope.resultOfallatsumdebit += samp.bfsumdebit + samp.sumdebit;
             $scope.resultOfallatsumcredit += samp.bfsumcredit + samp.sumcredit;
-            // $scope.resultOfallbfsumdebit += samp.bfsumdebit - samp.bfsumcredit;
-            
-            $scope.resultOfallbfsumcredit += samp.bfsumcredit - samp.bfsumdebit;
+
             $scope.resultOfallsumdebit += samp.sumdebit;
             $scope.resultOfallsumcredit += samp.sumcredit;
 
-            $scope.resultOfallbfsumdebit += $scope.resultOfallatsumdebit - $scope.resultOfallsumdebit;
-            
+            $scope.resultOfallbfsumcredit += samp.bfsumcredit;
+            $scope.resultOfallbfsumdebit += samp.bfsumdebit;
+            console.log($scope.resultOfallbfsumdebit);
+
           }
-        });
       });
     };
 
