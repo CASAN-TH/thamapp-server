@@ -81,6 +81,12 @@
       <li ng-class="{active: $uiRoute}" ui-route="/samplereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/samplereport"><i class="fa fa-book"></i> <span class="nav-label">รายงานงบทดลอง</span></a>
       </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/expensereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/expensereport"><i class="fa fa-book"></i> <span class="nav-label">รายงานค่าใช้จ่าย</span></a>
+      </li>
+       <li ng-class="{active: $uiRoute}" ui-route="/revenuereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/revenuereport"><i class="fa fa-book"></i> <span class="nav-label">รายงานรายได้</span></a>
+      </li>
 
       <!--ตั้งค่าระบบ-->
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
