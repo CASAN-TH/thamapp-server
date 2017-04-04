@@ -1,0 +1,105 @@
+<section>
+  <div id="pagedisable">
+    <div class="row hidden-xs hidden-sm show-md show-lg">
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        ถึงวันที่ : <input type="date" class="form-control" ng-model="endDay">
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2">
+        &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+      </div>
+      <!--<div class="col-xs-3 col-sm-3 col-md-3 text-right">
+            <div class="pull-right">
+                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
+            </div>
+        </div>-->
+
+    </div>
+    <div class="row show-xs show-sm hidden-md hidden-lg">
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          จากวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="startDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          ถึงวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="endDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+        </div>
+      </div>
+
+
+      <!--<div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+          <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
+        </div>
+      </div>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 marginT25">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3"
+          ng-change="searchForCal(topsearch)">
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6">
+
+    </div>
+  </div>
+</section>
+
+<section class="header-height">
+  <div class="row text-center">
+    <div>
+      <address>
+        <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+        <strong>รายงานรายได้</strong>
+        <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+      </address>
+    </div>
+  </div>
+
+  <div class="table-responsive m-t">
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="10%"></th>
+          <th width="50%">ชื่อบัญชี</th>
+          <th></th>
+          <th class="text-right">จำนวนเงิน</th>
+          <th width="10%"></th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="revenue in vm.listrevenue| filter:{account : { accountno:topsearch}}">
+        <tr>
+          <td></td>
+          <td><label>{{revenue.account.accountno}} : {{revenue.account.accountname}}</label></td>
+          <td colspan="1"></td>
+          <td class="text-right">{{revenue.sumdebit - revenue.sumcredit}}</td>
+          <td></td>
+        </tr>
+      </tbody>
+      <tr>
+        <td colspan="2"></td>
+        <td class="bordertable">รวม</td>
+        <td class="bordertable text-right">{{vm.sumrevenue}}</td>
+        <td class="bordertable"></td>
+      </tr>
+    </table>
+  </div>
+</section>
