@@ -40,7 +40,7 @@
             };
             datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
             datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
-            if (datafivezero.bf > 0 && datafivezero.period > 0) {
+            if (datafivezero.bf > 0 || datafivezero.period > 0) {
               vm.sumfivezero += datafivezero.period - datafivezero.bf;
             } else {
               vm.sumfivezero += datafivezero.period + datafivezero.bf;
