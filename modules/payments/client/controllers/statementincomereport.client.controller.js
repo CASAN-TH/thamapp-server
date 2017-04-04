@@ -40,7 +40,11 @@
             };
             datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
             datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
-            vm.sumfivezero += datafivezero.period - datafivezero.bf;
+            if (datafivezero.bf > 0 && datafivezero.period > 0) {
+              vm.sumfivezero += datafivezero.period - datafivezero.bf;
+            } else {
+              vm.sumfivezero += datafivezero.period + datafivezero.bf;
+            }
           } else if (sample.account.accountno.substr(0, 2) === '51') {
             vm.fiveones += sample.sumdebit - sample.sumcredit;
           } else if (sample.account.accountno.substr(0, 2) === '52') {
