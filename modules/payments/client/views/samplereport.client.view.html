@@ -1,0 +1,117 @@
+<section>
+  <div id="pagedisable">
+    <div class="row hidden-xs hidden-sm show-md show-lg">
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        จากวันที่ : <input type="date" class="form-control" ng-model="startDay">
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3">
+        ถึงวันที่ : <input type="date" class="form-control" ng-model="endDay">
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2">
+        &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+      </div>
+      <!--<div class="col-xs-3 col-sm-3 col-md-3 text-right">
+            <div class="pull-right">
+                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
+            </div>
+        </div>-->
+
+    </div>
+    <div class="row show-xs show-sm hidden-md hidden-lg">
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          จากวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="startDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          ถึงวันที่ :
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9">
+          <input type="date" class="form-control" ng-model="endDay">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
+        </div>
+      </div>
+
+
+      <!--<div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+          <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
+        </div>
+      </div>-->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-6 col-sm-6 col-md-6 marginT25">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3"
+          ng-change="searchForCal(topsearch)">
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6">
+
+    </div>
+  </div>
+</section>
+
+<section class="header-height">
+  <div class="row text-center">
+    <div>
+      <address>
+        <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+        <strong>รายงานงบทดลอง</strong>
+        <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+      </address>
+    </div>
+  </div>
+
+  <div class="table-responsive m-t">
+    <table class="table">
+      <thead>
+        <tr>
+          <th width="10%"></th>
+          <th width="20%"></th>
+          <th class="text-center">ยอดยกมาเดบิต</th>
+          <th class="text-right">ยอดยกมาเครดิต</th>
+          <th class="text-right">เดบิต</th>
+          <th class="text-right">เครดิต</th>
+          <th class="text-right">ยอดยกไปเดบิต</th>
+          <th class="text-right">ยอดยกไปเครดิต</th>
+        </tr>
+      </thead>
+      <tbody ng-repeat="sample in vm.listsample.accounts">
+        <tr ng-repeat="sp in sample.trns | orderBy:'date' | filter: { trnsno:topsearch}">
+          <td><label>{{sp.trnsno}}</label></td>
+          <td>{{sp.des}}</td>
+          <td class="text-right">{{sample.bfsumdebit - sample.bfsumcredit | number:2}}</td>
+          <td class="text-right">{{sample.bfsumcredit - sample.bfsumdebit | number:2}}</td>
+          <td class="text-right">{{sample.sumdebit | number:2}}</td>
+          <td class="text-right">{{sample.sumcredit | number:2}}</td>
+          <td class="text-right">{{sample.bfsumdebit + sample.sumdebit}}</td>
+          <td class="text-right">{{sample.bfsumcredit + sample.sumcredit }}</td>
+        </tr>
+      </tbody>
+      <tr class="bordertable">
+        <td colspan="2"></td>
+        <td class="text-right">{{resultOfallatsumdebit && resultOfallatsumdebit > 0 &&  resultOfallsumdebit && resultOfallsumdebit > 0 ? resultOfallatsumdebit - resultOfallsumdebit : vm.allatsumdebit - vm.allsumdebit |
+          number:2}}
+        </td>
+        <td class="text-right">{{resultOfallatsumcredit && resultOfallatsumcredit > 0 &&  resultOfallsumcredit && resultOfallsumcredit > 0 ? resultOfallatsumcredit - resultOfallsumcredit : vm.allatsumcredit - vm.allsumcredit
+          | number:2}}</td>
+        <td class="text-right">{{resultOfallsumdebit && resultOfallsumdebit > 0 ? resultOfallsumdebit : vm.allsumdebit | number:2}}</td>
+        <td class="text-right">{{resultOfallsumcredit && resultOfallsumcredit > 0 ? resultOfallsumcredit : vm.allsumcredit | number:2}}</td>
+        <td class="text-right">{{resultOfallatsumdebit && resultOfallatsumdebit > 0 ? resultOfallatsumdebit : vm.allatsumdebit | number:2}}</td>
+        <td class="text-right">{{resultOfallatsumcredit && resultOfallatsumcredit > 0 ? resultOfallatsumcredit : vm.allatsumcredit | number:2}}</td>
+      </tr>
+    </table>
+  </div>
+</section>

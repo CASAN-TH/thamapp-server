@@ -9,6 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('samplereport', {
+        url: '/samplereport',
+        templateUrl: 'modules/payments/client/views/samplereport.client.view.html',
+        controller: 'SamplereportController',
+        controllerAs: 'vm'
+      })
       .state('journal', {
         url: '/journal',
         templateUrl: 'modules/payments/client/views/journal.client.view.html',
