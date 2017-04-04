@@ -31,6 +31,20 @@
     };
     vm.getDay($scope.startDay, $scope.endDay);
 
+    $scope.searchForCal = function (search) {
+      $scope.resultOfSearchCredit = 0;
+      $scope.resultOfSearchDebit = 0;
+      vm.listjournal.journals.forEach(function (jour) {
+        jour.trns.forEach(function (trn) {
+          var trnId = trn.trnsno.substr(0, search.length);
+          if (trnId.toString() === search.toString().toUpperCase()) {
+            $scope.resultOfSearchCredit += trn.debit;
+            $scope.resultOfSearchDebit += trn.credit;
+          }
+        });
+      });
+    };
+
 
 
   }
