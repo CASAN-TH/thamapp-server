@@ -28,16 +28,16 @@
       vm.sumfivezero = 0;
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
         vm.listsample = response;
+        var datafivezero = {
+          bf: 0,
+          period: 0,
+        };
         vm.listsample.accounts.forEach(function (sample) {
           if (sample.account.accountno.substr(0, 2).toString() === '41') {
             vm.sumfourone += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '42') {
             vm.fourtwos += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '50') {
-            var datafivezero = {
-              bf: 0,
-              period: 0,
-            };
             datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
             datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
             console.log('datafivezero : ' + JSON.stringify(datafivezero));
