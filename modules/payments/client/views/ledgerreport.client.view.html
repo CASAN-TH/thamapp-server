@@ -113,9 +113,9 @@
         </tr>
         <tr>
           <td colspan="4"></td>
-          <td class="text-right bordertable"><label>รวม</label></td>
-          <td class="text-right bordertable"><label>{{(ledger.bfsumdebit - ledger.bfsumcredit > 0 ? ledger.bfsumdebit - ledger.bfsumcredit : 0) + ledger.sumdebit | number:2}}</label></td>
-          <td class="text-right bordertable"><label>{{(ledger.bfsumcredit - ledger.bfsumdebit > 0 ? ledger.bfsumcredit - ledger.bfsumdebit : 0 ) + ledger.sumcredit | number:2}}</label></td>
+          <td class="text-right bordertable"><label>ยกไป</label></td>
+          <td class="text-right bordertable"><label ng-if="((ledger.bfsumdebit + ledger.sumdebit) - (ledger.bfsumcredit + ledger.sumcredit)) > 0">{{((ledger.bfsumdebit + ledger.sumdebit) - (ledger.bfsumcredit + ledger.sumcredit)) | number:2}}</label></td>
+          <td class="text-right bordertable"><label ng-if="((ledger.bfsumcredit + ledger.sumcredit) - (ledger.bfsumdebit + ledger.sumdebit)) > 0">{{((ledger.bfsumcredit + ledger.sumcredit) - (ledger.bfsumdebit + ledger.sumdebit)) | number:2}}</label></td>
         </tr>
       </tbody>
     </table>
