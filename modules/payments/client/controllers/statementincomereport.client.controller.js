@@ -26,32 +26,36 @@
       vm.fivetwos = 0;
       vm.sumfourone = 0;
       vm.sumfivezero = 0;
+      var sumfivezeros = [];
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
         vm.listsample = response;
-        var datafivezero = {
-          bf: 0,
-          period: 0,
-        };
         vm.listsample.accounts.forEach(function (sample) {
           if (sample.account.accountno.substr(0, 2).toString() === '41') {
             vm.sumfourone += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '42') {
             vm.fourtwos += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '50') {
+            var datafivezero = {
+              bf: 0,
+              period: 0,
+            };
             datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
             datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
-            console.log('datafivezero : ' + JSON.stringify(datafivezero));
-            if (datafivezero.bf < 0 || datafivezero.period < 0) {
-              vm.sumfivezero += datafivezero.period + datafivezero.bf;
-            } else {
-              vm.sumfivezero += datafivezero.period - datafivezero.bf;
-            }
-            console.log('vm.sumfivezero : ' + vm.sumfivezero);
+            sumfivezeros.push(datafivezero);
+            console.log('datafivezero : ' + JSON.stringify(sumfivezeros));
           } else if (sample.account.accountno.substr(0, 2) === '51') {
             vm.fiveones += sample.sumdebit - sample.sumcredit;
           } else if (sample.account.accountno.substr(0, 2) === '52') {
             vm.fivetwos += sample.sumdebit - sample.sumcredit;
           }
+        });
+        sumfivezeros.forEach(function (datafivezero) {
+          if (datafivezero.bf < 0 || datafivezero.period < 0) {
+            vm.sumfivezero += datafivezero.period + datafivezero.bf;
+          } else {
+            vm.sumfivezero += datafivezero.period - datafivezero.bf;
+          }
+          console.log('vm.sumfivezero : ' + vm.sumfivezero);
         });
       }).error(function (err) {
         console.log(err);
