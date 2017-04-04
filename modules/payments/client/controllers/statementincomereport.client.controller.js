@@ -42,7 +42,6 @@
             datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
             datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
             sumfivezeros.push(datafivezero);
-            console.log('datafivezero : ' + JSON.stringify(sumfivezeros));
           } else if (sample.account.accountno.substr(0, 2) === '51') {
             vm.fiveones += sample.sumdebit - sample.sumcredit;
           } else if (sample.account.accountno.substr(0, 2) === '52') {
@@ -55,7 +54,6 @@
           } else {
             vm.sumfivezero += datafivezero.period - datafivezero.bf;
           }
-          console.log('vm.sumfivezero : ' + vm.sumfivezero);
         });
       }).error(function (err) {
         console.log(err);
