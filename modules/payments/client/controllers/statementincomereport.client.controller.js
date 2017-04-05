@@ -46,7 +46,6 @@
             vm.fivetwos += sample.sumdebit - sample.sumcredit;
           }
         });
-        console.log('vm.fivetwoarray 50 : ' + JSON.stringify(vm.fivetwoarray));
 
         vm.fivetwoarray.forEach(function (sample) {
           var datafivezero = {
@@ -57,7 +56,7 @@
           datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
           sumfivezeros.push(datafivezero);
         });
-        
+
         sumfivezeros.forEach(function (datafivezero) {
           if (datafivezero.bf < 0 || datafivezero.period < 0) {
             vm.sumfivezero += datafivezero.period + datafivezero.bf;
