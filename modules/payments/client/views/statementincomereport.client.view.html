@@ -64,13 +64,13 @@
   <div class="table-responsive m-t">
     <label>รายได้จากการขาย</label>
     <table class="table">
-      <tbody ng-repeat="sample in vm.fourones">
+      <tbody ng-repeat="datas in vm.liststatementincomes.saleincome.trns">
         <tr>
           <td width="5%"></td>
           <td width="10%"></td>
-          <td width="15%">{{sample.account.accountname}}</td>
+          <td width="15%">{{datas.accountname}}</td>
           <td></td>
-          <td width="10%" class="text-right">{{sample.sumcredit - sample.sumdebit | number:2}}</td>
+          <td width="10%" class="text-right">{{datas.summary | number:2}}</td>
           <td width="20%" class="text-right"></td>
         </tr>
       </tbody>
@@ -82,7 +82,7 @@
             <td width="20%" class="bordertable">รวมรายได้จากการขาย</td>
             <td class="bordertable"></td>
             <td width="10%" class="bordertable"></td>
-            <td width="20%" class="text-right bordertable">{{vm.sumfourone | number:2}}</td>
+            <td width="20%" class="text-right bordertable">{{vm.liststatementincomes.saleincome.summary | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -90,10 +90,10 @@
   <div class="table-responsive m-t">
     <label>ต้นทุน</label>
     <table class="table">
-      <tbody ng-repeat="sample in vm.fivetwoarray">
+      <tbody ng-repeat="datas in vm.liststatementincomes.costsell.trns">
         <tr>
           <td width="5%"></td>
-          <td width="10%">{{sample.account.accountname}}</td>
+          <td width="10%">{{datas.accountname}}</td>
           <td width="10%"></td>
           <td width="10%"></td>
           <td width="20%"></td>
@@ -102,8 +102,8 @@
         <tr>
           <td width="5%"></td>
           <td width="10%"></td>
-          <td width="20%">{{sample.account.accountname}} ต้นงวด</td>
-          <td width="10%" class="text-right">{{sample.bfsumdebit - sample.bfsumcredit | number:2}}</td>
+          <td width="20%">{{datas.accountname}} ต้นงวด</td>
+          <td width="10%" class="text-right">{{datas.bfsummary | number:2}}</td>
           <td width="20%"></td>
           <td width="10%"></td>
         </tr>
@@ -111,18 +111,16 @@
           <td width="5%"></td>
           <td width="10%"></td>
           <td width="20%">บวก ซื้อ ระหว่างงวด</td>
-          <td width="10%" class="text-right bordertable">{{sample.bfsumdebit - sample.bfsumcredit | number:2}}</td>
+          <td width="10%" class="text-right bordertable">{{datas.bfsummary | number:2}}</td>
           <td width="20%"></td>
           <td width="10%"></td>
         </tr>
         <tr>
           <td width="5%"></td>
           <td width="10%"></td>
-          <td width="10%" class="text-right">รวม {{sample.account.accountname}}</td>
+          <td width="10%" class="text-right">รวม {{datas.accountname}}</td>
           <td></td>
-          <td width="10%" class="text-right">{{(sample.bfsumdebit - sample.bfsumcredit) > 0 || (sample.bfsumdebit - sample.bfsumcredit) > 0 ? (sample.bfsumdebit
-            - sample.bfsumcredit) + (sample.bfsumdebit - sample.bfsumcredit) : (sample.bfsumdebit - sample.bfsumcredit) +
-            (sample.bfsumdebit - sample.bfsumcredit) | number:2}}</td>
+          <td width="10%" class="text-right">{{datas.summary | number:2}}</td>
           <td width="20%"></td>
         </tr>
       </tbody>
@@ -134,7 +132,7 @@
             <td width="20%"></td>
             <td width="10%"></td>
             <td width="30%"></td>
-            <td width="10%" class="text-right bordertable">{{vm.sumfivezero | number:2}}</td>
+            <td width="10%" class="text-right bordertable">{{vm.liststatementincomes.costsell.summary | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -146,7 +144,7 @@
             <td width="20%"></td>
             <td width="10%">กำไรขั้นต้น</td>
             <td width="30%"></td>
-            <td width="10%" class="text-right">{{vm.sumfourone - vm.sumfivezero | number:2}}</td>
+            <td width="10%" class="text-right">{{vm.liststatementincomes.grossprofit | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -158,7 +156,7 @@
             <td width="20%"></td>
             <td width="10%"></td>
             <td width="30%"></td>
-            <td width="10%" class="text-right bordertable">{{vm.fiveones | number:2}}</td>
+            <td width="10%" class="text-right bordertable">{{vm.liststatementincomes.othercost | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -170,7 +168,7 @@
             <td width="20%"></td>
             <td width="20%">กำไร (ขาดทุน) จากการดำเนินงาน</td>
             <td width="20%"></td>
-            <td width="10%" class="text-right">{{(vm.sumfourone - vm.sumfivezero) - vm.fiveones | number:2}}</td>
+            <td width="10%" class="text-right">{{vm.liststatementincomes.grossprofitwithoutotherincome | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -182,7 +180,7 @@
             <td width="20%"></td>
             <td width="10%"></td>
             <td width="30%"></td>
-            <td width="10%" class="text-right bordertable">{{vm.fourtwos | number:2}}</td>
+            <td width="10%" class="text-right bordertable">{{vm.liststatementincomes.otherincome | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -194,7 +192,7 @@
             <td width="20%"></td>
             <td width="20%">กำไร (ขาดทุน) สุทธิก่อนหักดอกเบี้ย</td>
             <td width="20%"></td>
-            <td width="10%" class="text-right">{{(vm.sumfourone - vm.sumfivezero) - vm.fiveones + vm.fourtwos | number:2}}</td>
+            <td width="10%" class="text-right">{{vm.liststatementincomes.grossprofitwithoutinterest | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -206,7 +204,7 @@
             <td width="20%"></td>
             <td width="20%">หัก ดอกเบี้ยจ่าย</td>
             <td width="20%"></td>
-            <td width="10%" class="text-right bordertable">{{vm.fivetwos | number:2}}</td>
+            <td width="10%" class="text-right bordertable">{{vm.liststatementincomes.interestcost | number:2}}</td>
           </tr>
         </tbody>
       </table>
@@ -218,7 +216,7 @@
             <td width="20%"></td>
             <td width="20%">กำไร (ขาดทุน) สุทธิ</td>
             <td width="20%"></td>
-            <td width="10%" class="text-right bordertable">{{((vm.sumfourone - vm.sumfivezero) - vm.fiveones + vm.fourtwos) - vm.fivetwos | number:2}}</td>
+            <td width="10%" class="text-right bordertable">{{vm.liststatementincomes.netprofit | number:2}}</td>
           </tr>
         </tbody>
       </table>
