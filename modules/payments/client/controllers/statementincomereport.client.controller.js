@@ -40,14 +40,6 @@
             vm.fourtwos += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '50') {
             vm.fivetwoarray.push(sample);
-            console.log('sample 50 : ' + JSON.stringify(sample));
-            var datafivezero = {
-              bf: 0,
-              period: 0,
-            };
-            datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
-            datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
-            sumfivezeros.push(datafivezero);
           } else if (sample.account.accountno.substr(0, 2) === '51') {
             vm.fiveones += sample.sumdebit - sample.sumcredit;
           } else if (sample.account.accountno.substr(0, 2) === '52') {
@@ -56,6 +48,16 @@
         });
         console.log('vm.fivetwoarray 50 : ' + JSON.stringify(vm.fivetwoarray));
 
+        vm.fivetwoarray.forEach(function (sample) {
+          var datafivezero = {
+            bf: 0,
+            period: 0,
+          };
+          datafivezero.bf += sample.bfsumdebit - sample.bfsumcredit;
+          datafivezero.period += sample.bfsumdebit - sample.bfsumcredit;
+          sumfivezeros.push(datafivezero);
+        });
+        
         sumfivezeros.forEach(function (datafivezero) {
           if (datafivezero.bf < 0 || datafivezero.period < 0) {
             vm.sumfivezero += datafivezero.period + datafivezero.bf;
