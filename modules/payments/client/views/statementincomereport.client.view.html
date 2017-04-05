@@ -121,7 +121,7 @@
           <td width="10%" class="text-right">รวม {{sample.account.accountname}}</td>
           <td></td>
           <td width="10%" class="text-right">{{(sample.bfsumdebit - sample.bfsumcredit) > 0 || (sample.bfsumdebit - sample.bfsumcredit) > 0 ? (sample.bfsumdebit
-            - sample.bfsumcredit) - (sample.bfsumdebit - sample.bfsumcredit) : (sample.bfsumdebit - sample.bfsumcredit) +
+            - sample.bfsumcredit) + (sample.bfsumdebit - sample.bfsumcredit) : (sample.bfsumdebit - sample.bfsumcredit) +
             (sample.bfsumdebit - sample.bfsumcredit) | number:2}}</td>
           <td width="20%"></td>
         </tr>

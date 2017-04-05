@@ -58,11 +58,11 @@
         });
 
         sumfivezeros.forEach(function (datafivezero) {
-          if (datafivezero.bf < 0 || datafivezero.period < 0) {
+          // if (datafivezero.bf < 0 || datafivezero.period < 0) {
             vm.sumfivezero += datafivezero.period + datafivezero.bf;
-          } else {
-            vm.sumfivezero += datafivezero.period - datafivezero.bf;
-          }
+          // } else {
+          //   vm.sumfivezero += datafivezero.period + datafivezero.bf;
+          // }
         });
       }).error(function (err) {
         console.log(err);
