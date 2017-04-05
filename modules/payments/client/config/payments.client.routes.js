@@ -12,7 +12,7 @@
       .state('balancereport', {
         url: '/balancereport',
         templateUrl: 'modules/payments/client/views/balancereport.client.view.html',
-        controller: 'StatementincomereportController',
+        controller: 'BalancereportController',
         controllerAs: 'vm'
       })
       .state('statementincomereport', {

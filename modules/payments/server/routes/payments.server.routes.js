@@ -31,6 +31,9 @@ module.exports = function (app) {
   app.route('/api/statementincomes/:startdate/:enddate')
     .get(payments.ledgerCooking, payments.statementincomesCooking, payments.statementincomes);
 
+  app.route('/api/balance/:startdate/:enddate')
+    .get(payments.ledgerCooking, payments.statementincomesCooking, payments.balanceCooking, payments.balance);
+
   app.route('/api/journals/:jrstartdate/:jrenddate')
     .get(payments.journals);
 

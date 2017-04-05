@@ -22,6 +22,7 @@ var app,
     paymenttest2,
     paymenttest3,
     accountchart,
+    // accountchart1,
     accountchart4,
     accountchart41,
     accountchart411,
@@ -68,6 +69,11 @@ describe('Payment CRUD tests', function () {
             accountname: 'Account Name',
             user: user
         });
+        // accountchart1 = new Accountchart({
+        //     accountno: '1000000',
+        //     accountname: 'Balance',
+        //     user: user
+        // });
         accountchart4 = new Accountchart({
             accountno: '4000000',
             accountname: 'Income',
@@ -126,6 +132,7 @@ describe('Payment CRUD tests', function () {
 
         // Save a user to the test db and create new Payment
         user.save(function () {
+            // accountchart1.save();
             accountchart4.save();
             accountchart41.save();
             accountchart411.save();
@@ -763,6 +770,69 @@ describe('Payment CRUD tests', function () {
                     (paymentInfoRes.body.data.grossprofitwithoutotherincome).should.equal(-200);
                     (paymentInfoRes.body.data.grossprofitwithoutinterest).should.equal(0);
                     (paymentInfoRes.body.data.netprofit).should.equal(-200);
+
+                    // (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('4');
+
+                    // Call the assertion callback
+                    done();
+                });
+        });
+    });
+
+    it('balance report', function (done) {
+        var startdate = '2017-03-01';
+        var enddate = '2017-03-31';
+        paymenttest2 = new Payment({
+            docno: 'AP201703027',
+            docdate: '2017-03-17T04:49:37.653Z',
+            gltype: 'AP',
+            // credits: [{
+            //     account: accountchart1,
+            //     description: 'ทดสอบ',
+            //     amount: 200
+            // }],
+            // debits: [{
+            //     account: accountchart502,
+            //     description: 'ทดสอบ',
+            //     amount: 200
+            // }, {
+            //         account: accountchart503,
+            //         description: 'ทดสอบ',
+            //         amount: 200
+            //     }, {
+            //         account: accountchart51,
+            //         description: 'ทดสอบ',
+            //         amount: 200
+            //     }, {
+            //         account: accountchart52,
+            //         description: 'ทดสอบ',
+            //         amount: 200
+            //     }],
+            user: user
+        });
+        paymenttest2.save(function () {
+            agent.get('/api/balance/' + startdate + '/' + enddate)
+                .expect(200)
+                .end(function (paymentInfoErr, paymentInfoRes) {
+                    // Handle Payment error
+                    if (paymentInfoErr) {
+                        return done(paymentInfoErr);
+                    }
+
+                    // Set assertions
+                    (paymentInfoRes.body.startdate).should.equal('2017-03-01');
+                    (paymentInfoRes.body.enddate).should.equal('2017-03-31');
+                    // (paymentInfoRes.body.data.saleincome.trns.length).should.equal(2);
+                    // (paymentInfoRes.body.data.saleincome.summary).should.equal(400);
+                    // (paymentInfoRes.body.data.costsell.trns.length).should.equal(2);
+                    // (paymentInfoRes.body.data.costsell.summary).should.equal(400);
+                    // (paymentInfoRes.body.data.otherincome).should.equal(200);
+                    // (paymentInfoRes.body.data.othercost).should.equal(200);
+                    // (paymentInfoRes.body.data.interestcost).should.equal(200);
+                    // (paymentInfoRes.body.data.grossprofit).should.equal(0);
+                    // (paymentInfoRes.body.data.grossprofitwithoutotherincome).should.equal(-200);
+                    // (paymentInfoRes.body.data.grossprofitwithoutinterest).should.equal(0);
+                    // (paymentInfoRes.body.data.netprofit).should.equal(-200);
 
                     // (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('4');
 

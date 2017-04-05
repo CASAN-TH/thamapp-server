@@ -442,6 +442,33 @@ exports.statementincomes = function (req, res) {
     });
 };
 
+
+exports.balanceCooking = function (req, res, next) {
+    var listasset = [];
+    var summaryAsset = 0;
+    req.accntcharts.forEach(function (acc) {
+        if (acc.account.accountno.substr(0, 1) === '1') {
+            // console.log(acc);
+            // listasset.push({
+            //     accountno: acc.account.accountno,
+            //     accountname: acc.account.accountname,
+            //     summary: acc.sumdebit - acc.sumcredit
+            // });
+            // summaryAsset += acc.sumdebit - acc.sumcredit;
+        }
+
+    });
+    next();
+};
+
+exports.balance = function (req, res) {
+
+    res.jsonp({
+        startdate: req.startdate,
+        enddate: req.enddate
+    });
+};
+
 exports.jrenddate = function (req, res, next, jrenddate) {
     req.jrenddate = jrenddate;
     req.jrstartdate = req.jrstartdate;
