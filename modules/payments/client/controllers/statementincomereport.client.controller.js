@@ -40,6 +40,7 @@
             vm.fourtwos += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '50') {
             vm.fivetwoarray.push(sample);
+            console.log('sample 50 : ' + JSON.stringify(sample));
             var datafivezero = {
               bf: 0,
               period: 0,
@@ -53,6 +54,8 @@
             vm.fivetwos += sample.sumdebit - sample.sumcredit;
           }
         });
+        console.log('vm.fivetwoarray 50 : ' + JSON.stringify(vm.fivetwoarray));
+
         sumfivezeros.forEach(function (datafivezero) {
           if (datafivezero.bf < 0 || datafivezero.period < 0) {
             vm.sumfivezero += datafivezero.period + datafivezero.bf;
