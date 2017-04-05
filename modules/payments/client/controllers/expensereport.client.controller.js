@@ -18,14 +18,13 @@
     console.log($scope.startDay);
     vm.getDay = function (startDay, endDay) {
       vm.listexpenser = [];
-      $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
-        response.accounts.forEach(function (expenser) {
-          if (expenser.account.accountno.substr(0, 1) === '5') {
-            vm.listexpenser.push(expenser);
-          }
-        });
-        // vm.listexpenser = response;
-        console.log(vm.listexpenser);
+      $http.get('api/expenses/' + startDay + '/' + endDay).success(function (response) {
+        // response.accounts.forEach(function (expenser) {
+        //   if (expenser.account.accountno.substr(0, 1) === '5') {
+        //     vm.listexpenser.push(expenser);
+        //   }
+        // });
+        vm.listexpenser = response.accounts;
         vm.sumexpense = 0;
         vm.listexpenser.forEach(function (sumall) {
           vm.sumexpense += sumall.sumdebit - sumall.sumcredit;

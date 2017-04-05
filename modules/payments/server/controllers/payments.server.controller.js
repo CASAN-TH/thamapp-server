@@ -276,7 +276,7 @@ exports.enddate = function (req, res, next, enddate) {
 
 };
 
-exports.ledgers = function (req, res) {
+exports.ledgerCooking = function (req, res, next) {
     Accountchart.find().sort('accountno').exec(function (err, accountcharts) {
         if (err) {
             return res.status(400).send({
@@ -314,14 +314,132 @@ exports.ledgers = function (req, res) {
                 };
                 accntcharts.push(accntchart);
             });
-            res.jsonp({
-                startdate: req.startdate,
-                enddate: req.enddate,
-                accounts: accntcharts
-            });
+            req.accntcharts = accntcharts;
+            next();
         }
     });
+};
 
+exports.ledgers = function (req, res) {
+
+    res.jsonp({
+        startdate: req.startdate,
+        enddate: req.enddate,
+        accounts: req.accntcharts
+    });
+
+};
+
+exports.expenses = function (req, res) {
+    var listexpenser = [];
+    req.accntcharts.forEach(function (acc) {
+        if (acc.account.accountno.substr(0, 1) === '5') {
+            listexpenser.push(acc);
+        }
+    });
+    res.jsonp({
+        startdate: req.startdate,
+        enddate: req.enddate,
+        accounts: listexpenser
+    });
+};
+
+exports.revenues = function (req, res) {
+    var listrevenues = [];
+    req.accntcharts.forEach(function (acc) {
+        if (acc.account.accountno.substr(0, 1) === '4') {
+            listrevenues.push(acc);
+        }
+    });
+    res.jsonp({
+        startdate: req.startdate,
+        enddate: req.enddate,
+        accounts: listrevenues
+    });
+};
+
+exports.statementincomesCooking = function (req, res, next) {
+    var listsaleincome = [];
+    var listcostsell = [];
+    var summarySaleIncome = 0;
+    var summaryCostsell = 0;
+    var summaryotherincome = 0;
+    var summaryothercost = 0;
+    var summaryinterestcost = 0;
+    req.accntcharts.forEach(function (acc) {
+        if (acc.account.accountno.substr(0, 2) === '41' && acc.account.accountno.substr(0, 3) !== '410') {
+            listsaleincome.push({
+                accountname: acc.account.accountname,
+                summary: acc.sumcredit - acc.sumdebit
+            });
+            summarySaleIncome += acc.sumcredit - acc.sumdebit;
+        }
+        if (acc.account.accountno.substr(0, 2) === '42') {
+            summaryotherincome += acc.sumcredit - acc.sumdebit;
+        }
+
+        if (acc.account.accountno.substr(0, 2) === '50' && acc.account.accountno.substr(0, 3) !== '500') {
+            listcostsell.push({
+                accountname: acc.account.accountname,
+                bfsummary: acc.bfsumdebit - acc.bfsumcredit,
+                summary: acc.sumdebit - acc.sumcredit,
+                afsummary: (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit)
+            });
+            summaryCostsell += (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit);
+        }
+
+        if (acc.account.accountno.substr(0, 2) === '51') {
+            summaryothercost += acc.sumdebit - acc.sumcredit;
+        }
+        if (acc.account.accountno.substr(0, 2) === '52') {
+            summaryinterestcost += acc.sumdebit - acc.sumcredit;
+        }
+
+    });
+    // ทุน
+    req.costsell = {
+        trns: listcostsell,
+        summary: summaryCostsell
+    };
+    //  รายได้อื่นๆ
+    req.otherincome = summaryotherincome;
+    // รายได้
+    req.saleincome = {
+        trns: listsaleincome,
+        summary: summarySaleIncome
+    };
+    // ค่าใช้จ่ายอื่นๆ
+    req.othercost = summaryothercost;
+    // หัก ดอกเบี้ยจ่าย
+    req.interestcost = summaryinterestcost;
+    // 	กำไรขั้นต้น	
+    req.grossprofit = summarySaleIncome - summaryCostsell;
+    // กำไร (ขาดทุน) จากการดำเนินงาน
+    req.grossprofitwithoutotherincome = (summarySaleIncome - summaryCostsell) - summaryothercost;
+    // กำไร (ขาดทุน) สุทธิก่อนหักดอกเบี้ย
+    req.grossprofitwithoutinterest = ((summarySaleIncome - summaryCostsell) - summaryothercost) + summaryotherincome;
+    // กำไร (ขาดทุน) สุทธิ	
+    req.netprofit = (((summarySaleIncome - summaryCostsell) - summaryothercost) + summaryotherincome) - summaryinterestcost;
+    next();
+};
+
+exports.statementincomes = function (req, res) {
+
+    res.jsonp({
+        startdate: req.startdate,
+        enddate: req.enddate,
+        data: {
+            saleincome: req.saleincome,
+            costsell: req.costsell,
+            otherincome: req.otherincome,
+            othercost: req.othercost,
+            interestcost: req.interestcost,
+            grossprofit: req.grossprofit,
+            grossprofitwithoutotherincome: req.grossprofitwithoutotherincome,
+            grossprofitwithoutinterest: req.grossprofitwithoutinterest,
+            netprofit: req.netprofit
+        }
+    });
 };
 
 exports.jrenddate = function (req, res, next, jrenddate) {

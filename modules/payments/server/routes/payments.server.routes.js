@@ -20,7 +20,16 @@ module.exports = function (app) {
     .get(payments.docno);
 
   app.route('/api/ledgers/:startdate/:enddate')
-    .get(payments.ledgers);
+    .get(payments.ledgerCooking, payments.ledgers);
+
+  app.route('/api/expenses/:startdate/:enddate')
+    .get(payments.ledgerCooking, payments.expenses);
+
+  app.route('/api/revenues/:startdate/:enddate')
+    .get(payments.ledgerCooking, payments.revenues);
+
+  app.route('/api/statementincomes/:startdate/:enddate')
+    .get(payments.ledgerCooking, payments.statementincomesCooking, payments.statementincomes);
 
   app.route('/api/journals/:jrstartdate/:jrenddate')
     .get(payments.journals);
