@@ -64,7 +64,7 @@
   <div class="table-responsive m-t">
     <label>รายได้จากการขาย</label>
     <table class="table">
-      <tbody ng-repeat="sample in vm.listsample.accounts | filter:{account : { accountno: '41'}}">
+      <tbody ng-repeat="sample in vm.fourones">
         <tr>
           <td width="5%"></td>
           <td width="10%"></td>
@@ -90,7 +90,7 @@
   <div class="table-responsive m-t">
     <label>ต้นทุน</label>
     <table class="table">
-      <tbody ng-repeat="sample in vm.listsample.accounts | filter:{account : { accountno: '50'}}">
+      <tbody ng-repeat="sample in vm.fivetwoarray">
         <tr>
           <td width="5%"></td>
           <td width="10%">{{sample.account.accountname}}</td>

@@ -16,6 +16,7 @@
     vm.fivezeros = [];
     vm.fiveones = 0;
     vm.fivetwos = 0;
+    vm.fivetwoarray = [];
     $scope.endDay = new Date();
     var lastweek = new Date();
     $scope.startDay = new Date($scope.endDay.getFullYear(), $scope.endDay.getMonth(), '01');
@@ -26,16 +27,19 @@
       vm.fivetwos = 0;
       vm.sumfourone = 0;
       vm.sumfivezero = 0;
+      vm.fourones = [];
+      vm.fivetwoarray = [];
       var sumfivezeros = [];
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
         vm.listsample = response;
         vm.listsample.accounts.forEach(function (sample) {
           if (sample.account.accountno.substr(0, 2).toString() === '41') {
+            vm.fourones.push(sample);
             vm.sumfourone += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '42') {
             vm.fourtwos += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '50') {
-            console.log('52 : ' + JSON.stringify(sample));
+            vm.fivetwoarray.push(sample);
             var datafivezero = {
               bf: 0,
               period: 0,
