@@ -35,6 +35,7 @@
           } else if (sample.account.accountno.substr(0, 2) === '42') {
             vm.fourtwos += sample.sumcredit - sample.sumdebit;
           } else if (sample.account.accountno.substr(0, 2) === '50') {
+            console.log('52 : ' + JSON.stringify(sample));
             var datafivezero = {
               bf: 0,
               period: 0,
