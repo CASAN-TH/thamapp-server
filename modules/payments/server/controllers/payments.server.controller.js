@@ -451,7 +451,7 @@ exports.balanceCooking = function (req, res, next) {
         if (acc.account.accountno.substr(0, 1) === '1' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
             
-            var summaryByCate = function(){
+            var fncSummaryByCate = function(){
                 var result = 0;
                 req.accntcharts.forEach(function(itm){
                     if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
@@ -460,14 +460,15 @@ exports.balanceCooking = function (req, res, next) {
                 });
                 return result;
             };
+            var summaryByCate = fncSummaryByCate();
 
             listasset.push({
                 accountno: acc.account.accountno,
                 accountname: acc.account.accountname,
-                summary: 0
+                summary: summaryByCate
             });
 
-            summaryAsset += 0;
+            summaryAsset += summaryByCate;
         }
 
     });
