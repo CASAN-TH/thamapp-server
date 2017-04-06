@@ -383,10 +383,10 @@ exports.statementincomesCooking = function (req, res, next) {
                 accountname: acc.account.accountname,
                 bfsummary: acc.bfsumdebit - acc.bfsumcredit, //สินค้าคงเหลือต้นงวด
                 summary: acc.sumdebit - acc.sumcredit, //ซื้อในงวด
-                cursummary : 0,//สินค้าคงเหลือปลายงวด
-                afsummary: (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit) - 0 // ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
+                cursummary : (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit),//สินค้าคงเหลือปลายงวด
+                afsummary: acc.sumdebit - acc.sumcredit // ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
             });
-            summaryCostsell += (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit) - 0;// ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
+            summaryCostsell += acc.sumdebit - acc.sumcredit;// ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
         }
 
         if (acc.account.accountno.substr(0, 2) === '51') {
