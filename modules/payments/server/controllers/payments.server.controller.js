@@ -383,7 +383,7 @@ exports.statementincomesCooking = function (req, res, next) {
                 accountname: acc.account.accountname,
                 bfsummary: acc.bfsumdebit - acc.bfsumcredit, //สินค้าคงเหลือต้นงวด
                 summary: acc.sumdebit - acc.sumcredit, //ซื้อในงวด
-                cursummary : (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit),//สินค้าคงเหลือปลายงวด
+                cursummary: (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit),//สินค้าคงเหลือปลายงวด
                 afsummary: acc.sumdebit - acc.sumcredit // ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
             });
             summaryCostsell += acc.sumdebit - acc.sumcredit;// ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
@@ -446,19 +446,19 @@ exports.statementincomes = function (req, res) {
 
 exports.balanceCooking = function (req, res, next) {
     var listasset = [];
-    var listpayable =[];
-    var listinvestment =[];
+    var listpayable = [];
+    var listinvestment = [];
     var summaryAsset = 0;
     var summaryPayable = 0;
     var summaryInvestment = 0;
     req.accntcharts.forEach(function (acc) {
         if (acc.account.accountno.substr(0, 1) === '1' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
-            
-            var fncSummaryByCate1 = function(){
+
+            var fncSummaryByCate1 = function () {
                 var result = 0;
-                req.accntcharts.forEach(function(itm){
-                    if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
+                req.accntcharts.forEach(function (itm) {
+                    if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
                         result += itm.sumdebit - itm.sumcredit;
                     }
                 });
@@ -476,11 +476,11 @@ exports.balanceCooking = function (req, res, next) {
         }
         if (acc.account.accountno.substr(0, 1) === '2' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
-            
-            var fncSummaryByCate2 = function(){
+
+            var fncSummaryByCate2 = function () {
                 var result = 0;
-                req.accntcharts.forEach(function(itm){
-                    if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
+                req.accntcharts.forEach(function (itm) {
+                    if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
                         result += itm.sumcredit - itm.sumdebit;
                     }
                 });
@@ -498,11 +498,11 @@ exports.balanceCooking = function (req, res, next) {
         }
         if (acc.account.accountno.substr(0, 1) === '3' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
-            
-            var fncSummaryByCate3 = function(){
+
+            var fncSummaryByCate3 = function () {
                 var result = 0;
-                req.accntcharts.forEach(function(itm){
-                    if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
+                req.accntcharts.forEach(function (itm) {
+                    if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
                         result += itm.sumcredit - itm.sumdebit;
                     }
                 });
@@ -520,16 +520,16 @@ exports.balanceCooking = function (req, res, next) {
         }
     });
     req.assets = {
-        trns : listasset,
-        summary : summaryAsset
+        trns: listasset,
+        summary: summaryAsset
     };
     req.payable = {
-        trns : listpayable,
-        summary : summaryPayable
+        trns: listpayable,
+        summary: summaryPayable
     };
     req.investment = {
-        trns : listinvestment,
-        summary : summaryInvestment
+        trns: listinvestment,
+        summary: summaryInvestment
     };
     next();
 };
@@ -540,9 +540,9 @@ exports.balance = function (req, res) {
         startdate: req.startdate,
         enddate: req.enddate,
         data: {
-            assets : req.assets,
-            payable : req.payable,
-            investment : req.investment
+            assets: req.assets,
+            payable: req.payable,
+            investment: req.investment
         }
     });
 };

@@ -69,19 +69,19 @@
           <td width="5%"></td>
           <td colspan="4"></td>
         </tr>
-        <tr ng-repeat="one in vm.ones">
+        <tr ng-repeat="asset in vm.listbalances.assets.trns">
           <td></td>
           <td></td>
-          <td>{{one.account.accountno}} &nbsp; &nbsp; {{one.account.accountname}}</td>
+          <td>{{asset.accountno}} &nbsp; &nbsp; {{asset.accountname}}</td>
           <td></td>
-          <td class="text-right">{{one.bfsumcredit - one.bfsumdebit | number:2}}</td>
+          <td class="text-right">{{asset.summary | number:2}}</td>
           <td></td>
         </tr>
       </tbody>
       <tr>
         <td colspan="3"></td>
         <td width="20%">รวมสินทรัพย์</td>
-        <td class="bordertable text-right">{{vm.sumone | number:2}}</td>
+        <td class="bordertable text-right">{{vm.listbalances.assets.summary | number:2}}</td>
         <td></td>
       </tr>
     </table>
@@ -94,19 +94,19 @@
           <td width="5%"></td>
           <td colspan="4"></td>
         </tr>
-        <tr ng-repeat="one in vm.twos">
+        <tr ng-repeat="payable in vm.listbalances.payable.trns">
           <td></td>
           <td></td>
-          <td>{{one.account.accountno}} &nbsp; &nbsp; {{one.account.accountname}}</td>
+          <td>{{payable.accountno}} &nbsp; &nbsp; {{payable.accountname}}</td>
           <td></td>
-          <td class="text-right">{{one.bfsumcredit - one.bfsumdebit | number:2}}</td>
+          <td class="text-right">{{payable.summary | number:2}}</td>
           <td></td>
         </tr>
       </tbody>
       <tr>
         <td colspan="3"></td>
         <td width="20%">รวมหนี้สิน</td>
-        <td class="bordertable text-right">{{vm.sumtwo | number:2}}</td>
+        <td class="bordertable text-right">{{vm.listbalances.payable.summary | number:2}}</td>
         <td></td>
       </tr>
     </table>
@@ -117,26 +117,26 @@
         <tr>
           <td colspan="6"><label class="bordertable">ทุน และ ส่วนของผู้ถือหุ้น</label></td>
         </tr>
-        <tr ng-repeat="one in vm.twos">
+        <tr ng-repeat="investment in vm.listbalances.investment.trns">
         <!--<tr ng-repeat="one in vm.threes">-->
           <td width="5%"></td>
           <td width="5%"></td>
-          <td>{{one.account.accountno}} &nbsp; &nbsp; {{one.account.accountname}}</td>
+          <td>{{investment.accountno}} &nbsp; &nbsp; {{investment.accountname}}</td>
           <td></td>
-          <td class="text-right">{{one.bfsumcredit - one.bfsumdebit | number:2}}</td>
+          <td class="text-right">{{investment.summary | number:2}}</td>
           <td></td>
         </tr>
       </tbody>
       <tr>
         <td colspan="3"></td>
         <td width="20%">รวมทุน และ ส่วนของผู้ถือหุ้น</td>
-        <td class="bordertable text-right">{{vm.sumthree | number:2}}</td>
+        <td class="bordertable text-right">{{vm.listbalances.investment.summary | number:2}}</td>
         <td></td>
       </tr>
       <tr>
         <td colspan="3"></td>
         <td width="20%">รวมหนี้สิน ทุน และ ส่วนของผู้ถือหุ้น</td>
-        <td class="bordertable text-right">{{vm.sumtwo + vm.sumthree | number:2}}</td>
+        <td class="bordertable text-right">{{vm.listbalances.payable.summary + vm.listbalances.investment.summary | number:2}}</td>
         <td></td>
       </tr>
     </table>

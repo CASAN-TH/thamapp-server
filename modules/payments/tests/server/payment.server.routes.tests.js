@@ -22,7 +22,8 @@ var app,
     paymenttest2,
     paymenttest3,
     accountchart,
-    // accountchart1,
+    accountchart1,
+    accountchart109,
     accountchart4,
     accountchart41,
     accountchart411,
@@ -69,11 +70,16 @@ describe('Payment CRUD tests', function () {
             accountname: 'Account Name',
             user: user
         });
-        // accountchart1 = new Accountchart({
-        //     accountno: '1000000',
-        //     accountname: 'Balance',
-        //     user: user
-        // });
+        accountchart1 = new Accountchart({
+            accountno: '1000000',
+            accountname: 'Balance',
+            user: user
+        });
+        accountchart109 = new Accountchart({
+            accountno: '1009000',
+            accountname: 'Balance',
+            user: user
+        });
         accountchart4 = new Accountchart({
             accountno: '4000000',
             accountname: 'Income',
@@ -132,7 +138,8 @@ describe('Payment CRUD tests', function () {
 
         // Save a user to the test db and create new Payment
         user.save(function () {
-            // accountchart1.save();
+            accountchart1.save();
+            accountchart109.save();
             accountchart4.save();
             accountchart41.save();
             accountchart411.save();
@@ -555,12 +562,12 @@ describe('Payment CRUD tests', function () {
             docdate: '2017-02-17T04:49:37.653Z',
             gltype: 'AP',
             credits: [{
-                account: accountchart,
+                account: accountchart1,
                 description: 'ทดสอบ',
                 amount: 200
             }],
             debits: [{
-                account: accountchart,
+                account: accountchart1,
                 description: 'ทดสอบ',
                 amount: 200
             }],
@@ -571,12 +578,12 @@ describe('Payment CRUD tests', function () {
             docdate: '2017-01-17T04:49:37.653Z',
             gltype: 'AP',
             credits: [{
-                account: accountchart,
+                account: accountchart1,
                 description: 'ทดสอบ',
                 amount: 200
             }],
             debits: [{
-                account: accountchart,
+                account: accountchart1,
                 description: 'ทดสอบ',
                 amount: 200
             }],
@@ -587,12 +594,12 @@ describe('Payment CRUD tests', function () {
             docdate: '2017-03-17T04:49:37.653Z',
             gltype: 'AP',
             credits: [{
-                account: accountchart,
+                account: accountchart1,
                 description: 'ทดสอบ',
                 amount: 200
             }],
             debits: [{
-                account: accountchart,
+                account: accountchart1,
                 description: 'ทดสอบ',
                 amount: 200
             }],
@@ -613,12 +620,12 @@ describe('Payment CRUD tests', function () {
                     (paymentInfoRes.body.startdate).should.equal('2017-03-01');
                     (paymentInfoRes.body.enddate).should.equal('2017-03-31');
                     // (paymentInfoRes.body.accounts.length).should.equal(1);
-                    (paymentInfoRes.body.accounts[0].account.accountno).should.equal('1234567');
-                    (paymentInfoRes.body.accounts[0].account.accountname).should.equal('Account Name');
+                    (paymentInfoRes.body.accounts[0].account.accountno).should.equal('1000000');
+                    (paymentInfoRes.body.accounts[0].account.accountname).should.equal('Balance');
                     (paymentInfoRes.body.accounts[0].trns.length).should.equal(2);
                     (paymentInfoRes.body.accounts[0].trns[0].trnsno).should.equal('AP201703001');
-                    (paymentInfoRes.body.accounts[0].trns[0].accountno).should.equal('1234567');
-                    (paymentInfoRes.body.accounts[0].trns[0].accountname).should.equal('Account Name');
+                    (paymentInfoRes.body.accounts[0].trns[0].accountno).should.equal('1000000');
+                    (paymentInfoRes.body.accounts[0].trns[0].accountname).should.equal('Balance');
                     (paymentInfoRes.body.accounts[0].sumcredit).should.equal(200);
                     (paymentInfoRes.body.accounts[0].sumdebit).should.equal(200);
                     (paymentInfoRes.body.accounts[0].bfsumdebit).should.equal(400);
@@ -786,28 +793,33 @@ describe('Payment CRUD tests', function () {
             docno: 'AP201703027',
             docdate: '2017-03-17T04:49:37.653Z',
             gltype: 'AP',
-            // credits: [{
-            //     account: accountchart1,
-            //     description: 'ทดสอบ',
-            //     amount: 200
-            // }],
-            // debits: [{
-            //     account: accountchart502,
-            //     description: 'ทดสอบ',
-            //     amount: 200
-            // }, {
-            //         account: accountchart503,
-            //         description: 'ทดสอบ',
-            //         amount: 200
-            //     }, {
-            //         account: accountchart51,
-            //         description: 'ทดสอบ',
-            //         amount: 200
-            //     }, {
-            //         account: accountchart52,
-            //         description: 'ทดสอบ',
-            //         amount: 200
-            //     }],
+            credits: [{
+                account: accountchart1,
+                description: 'ทดสอบ',
+                amount: 200
+            },
+                {
+                    account: accountchart109,
+                    description: 'ทดสอบ',
+                    amount: 200
+                }],
+            debits: [{
+                account: accountchart502,
+                description: 'ทดสอบ',
+                amount: 200
+            }, {
+                    account: accountchart503,
+                    description: 'ทดสอบ',
+                    amount: 200
+                }, {
+                    account: accountchart51,
+                    description: 'ทดสอบ',
+                    amount: 200
+                }, {
+                    account: accountchart52,
+                    description: 'ทดสอบ',
+                    amount: 200
+                }],
             user: user
         });
         paymenttest2.save(function () {
@@ -822,8 +834,6 @@ describe('Payment CRUD tests', function () {
                     // Set assertions
                     (paymentInfoRes.body.startdate).should.equal('2017-03-01');
                     (paymentInfoRes.body.enddate).should.equal('2017-03-31');
-                    // (paymentInfoRes.body.data.saleincome.trns.length).should.equal(2);
-                    // (paymentInfoRes.body.data.saleincome.summary).should.equal(400);
                     // (paymentInfoRes.body.data.costsell.trns.length).should.equal(2);
                     // (paymentInfoRes.body.data.costsell.summary).should.equal(400);
                     // (paymentInfoRes.body.data.otherincome).should.equal(200);
