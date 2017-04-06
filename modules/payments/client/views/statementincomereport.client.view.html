@@ -93,16 +93,16 @@
       <tbody ng-repeat="datas in vm.liststatementincomes.costsell.trns">
         <tr>
           <td width="5%"></td>
+          <td width="10%">{{datas.accountname}}</td>
           <td width="10%"></td>
-          <td width="15%">{{datas.accountname}}</td>
-          <td></td>
-          <td width="10%" class="text-right">{{datas.summary | number:2}}</td>
-          <td width="20%" class="text-right"></td>
+          <td width="10%"></td>
+          <td width="20%"></td>
+          <td width="10%"></td>
         </tr>
-        <!--<tr>
+        <tr>
           <td width="5%"></td>
           <td width="10%"></td>
-          <td width="20%">{{datas.accountname}} ต้นงวด</td>
+          <td width="20%">ต้นงวด</td>
           <td width="10%" class="text-right">{{datas.bfsummary | number:2}}</td>
           <td width="20%"></td>
           <td width="10%"></td>
@@ -111,18 +111,26 @@
           <td width="5%"></td>
           <td width="10%"></td>
           <td width="20%">บวก ซื้อ ระหว่างงวด</td>
-          <td width="10%" class="text-right bordertable">{{datas.bfsummary | number:2}}</td>
+          <td width="10%" class="text-right">{{datas.summary | number:2}}</td>
           <td width="20%"></td>
           <td width="10%"></td>
         </tr>
         <tr>
           <td width="5%"></td>
           <td width="10%"></td>
-          <td width="10%" class="text-right">รวม {{datas.accountname}}</td>
+          <td width="20%">หัก ปลายงวด</td>
+          <td width="10%" class="text-right bordertable">{{datas.cursummary | number:2}}</td>
+          <td width="20%"></td>
+          <td width="10%"></td>
+        </tr>
+        <tr>
+          <td width="5%"></td>
+          <td width="10%"></td>
+          <td width="10%" class="text-right">รวม </td>
           <td></td>
           <td width="10%" class="text-right">{{datas.summary | number:2}}</td>
           <td width="20%"></td>
-        </tr>-->
+        </tr>
       </tbody>
       <table class="table">
         <tbody>
