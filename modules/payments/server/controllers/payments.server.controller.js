@@ -448,17 +448,33 @@ exports.balanceCooking = function (req, res, next) {
     var listasset = [];
     var summaryAsset = 0;
     req.accntcharts.forEach(function (acc) {
-        if (acc.account.accountno.substr(0, 1) === '1') {
+        if (acc.account.accountno.substr(0, 1) === '1' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
-            // listasset.push({
-            //     accountno: acc.account.accountno,
-            //     accountname: acc.account.accountname,
-            //     summary: acc.sumdebit - acc.sumcredit
-            // });
-            // summaryAsset += acc.sumdebit - acc.sumcredit;
+            
+            var summaryByCate = function(){
+                var result = 0;
+                req.accntcharts.forEach(function(itm){
+                    if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
+                        result += itm.sumdebit - itm.sumcredit;
+                    }
+                });
+                return result;
+            };
+
+            listasset.push({
+                accountno: acc.account.accountno,
+                accountname: acc.account.accountname,
+                summary: summaryByCate
+            });
+
+            summaryAsset += summaryByCate;
         }
 
     });
+    req.assets = {
+        trns : listasset,
+        summary : summaryAsset
+    };
     next();
 };
 
@@ -466,7 +482,10 @@ exports.balance = function (req, res) {
 
     res.jsonp({
         startdate: req.startdate,
-        enddate: req.enddate
+        enddate: req.enddate,
+        data: {
+            assets : req.assets
+        }
     });
 };
 
