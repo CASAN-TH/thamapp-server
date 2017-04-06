@@ -459,7 +459,7 @@ exports.balanceCooking = function (req, res, next) {
                 var result = 0;
                 req.accntcharts.forEach(function (itm) {
                     if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
-                        result += itm.sumdebit - itm.sumcredit;
+                        result += (itm.bfsumdebit - itm.bfsumcredit) + (itm.sumdebit - itm.sumcredit);
                     }
                 });
                 return result;
@@ -481,7 +481,7 @@ exports.balanceCooking = function (req, res, next) {
                 var result = 0;
                 req.accntcharts.forEach(function (itm) {
                     if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
-                        result += itm.sumcredit - itm.sumdebit;
+                        result += (itm.bfsumcredit - itm.bfsumdebit) + (itm.sumcredit - itm.sumdebit);
                     }
                 });
                 return result;
@@ -503,7 +503,13 @@ exports.balanceCooking = function (req, res, next) {
                 var result = 0;
                 req.accntcharts.forEach(function (itm) {
                     if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
-                        result += itm.sumcredit - itm.sumdebit;
+                        if(acc.account.accountno.substr(0, 3) === '312'){
+                            result = req.netprofit;
+                        }else
+                        {
+                            result += (itm.bfsumcredit - itm.bfsumdebit) + (itm.sumcredit - itm.sumdebit);
+                        }
+                        
                     }
                 });
                 return result;
