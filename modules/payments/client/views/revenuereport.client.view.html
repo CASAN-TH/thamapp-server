@@ -77,14 +77,14 @@
           <td></td>
           <td><label>{{revenue.account.accountno}} : {{revenue.account.accountname}}</label></td>
           <td colspan="1"></td>
-          <td class="text-right">{{revenue.sumdebit - revenue.sumcredit}}</td>
+          <td class="text-right">{{revenue.sumcredit - revenue.sumdebit | number:2}}</td>
           <td></td>
         </tr>
       </tbody>
       <tr>
         <td colspan="2"></td>
         <td class="bordertable">รวม</td>
-        <td class="bordertable text-right">{{vm.sumrevenue}}</td>
+        <td class="bordertable text-right">{{vm.sumrevenue | number:2}}</td>
         <td class="bordertable"></td>
       </tr>
     </table>

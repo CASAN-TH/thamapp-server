@@ -28,7 +28,7 @@
         // console.log(vm.listrevenue);
         vm.sumrevenue = 0;
         vm.listrevenue.forEach(function (sumall) {
-          vm.sumrevenue += sumall.sumdebit - sumall.sumcredit;
+          vm.sumrevenue += sumall.sumcredit - sumall.sumdebit;
         });
 
       }).error(function (err) {
