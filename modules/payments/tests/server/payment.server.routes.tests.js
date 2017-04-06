@@ -834,9 +834,6 @@ describe('Payment CRUD tests', function () {
                     // Set assertions
                     (paymentInfoRes.body.startdate).should.equal('2017-03-01');
                     (paymentInfoRes.body.enddate).should.equal('2017-03-31');
-                    (paymentInfoRes.body.listassets.length).should.equal(1);
-                    (paymentInfoRes.body.listassets[0].summary).should.equal(-400);                    
-                    (paymentInfoRes.body.summaryasset).should.equal(-400);
                     // (paymentInfoRes.body.data.costsell.trns.length).should.equal(2);
                     // (paymentInfoRes.body.data.costsell.summary).should.equal(400);
                     // (paymentInfoRes.body.data.otherincome).should.equal(200);
