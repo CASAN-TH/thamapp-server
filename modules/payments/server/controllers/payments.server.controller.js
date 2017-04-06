@@ -464,10 +464,10 @@ exports.balanceCooking = function (req, res, next) {
             listasset.push({
                 accountno: acc.account.accountno,
                 accountname: acc.account.accountname,
-                summary: summaryByCate
+                summary: 0
             });
 
-            summaryAsset += summaryByCate;
+            summaryAsset += 0;
         }
 
     });
