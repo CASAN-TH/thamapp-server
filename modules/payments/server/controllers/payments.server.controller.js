@@ -455,7 +455,7 @@ exports.balanceCooking = function (req, res, next) {
         if (acc.account.accountno.substr(0, 1) === '1' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
             
-            var fncSummaryByCate = function(){
+            var fncSummaryByCate1 = function(){
                 var result = 0;
                 req.accntcharts.forEach(function(itm){
                     if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
@@ -464,20 +464,20 @@ exports.balanceCooking = function (req, res, next) {
                 });
                 return result;
             };
-            var summaryByCate = fncSummaryByCate();
+            var summaryByCate1 = fncSummaryByCate1();
 
             listasset.push({
                 accountno: acc.account.accountno,
                 accountname: acc.account.accountname,
-                summary: summaryByCate
+                summary: summaryByCate1
             });
 
-            summaryAsset += summaryByCate;
+            summaryAsset += summaryByCate1;
         }
         if (acc.account.accountno.substr(0, 1) === '2' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
             
-            var fncSummaryByCate = function(){
+            var fncSummaryByCate2 = function(){
                 var result = 0;
                 req.accntcharts.forEach(function(itm){
                     if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
@@ -486,20 +486,20 @@ exports.balanceCooking = function (req, res, next) {
                 });
                 return result;
             };
-            var summaryByCate = fncSummaryByCate();
+            var summaryByCate2 = fncSummaryByCate2();
 
             listpayable.push({
                 accountno: acc.account.accountno,
                 accountname: acc.account.accountname,
-                summary: summaryByCate
+                summary: summaryByCate2
             });
 
-            summaryPayable += summaryByCate;
+            summaryPayable += summaryByCate2;
         }
         if (acc.account.accountno.substr(0, 1) === '3' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
             
-            var fncSummaryByCate = function(){
+            var fncSummaryByCate3 = function(){
                 var result = 0;
                 req.accntcharts.forEach(function(itm){
                     if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
@@ -508,15 +508,15 @@ exports.balanceCooking = function (req, res, next) {
                 });
                 return result;
             };
-            var summaryByCate = fncSummaryByCate();
+            var summaryByCate3 = fncSummaryByCate3();
 
             listinvestment.push({
                 accountno: acc.account.accountno,
                 accountname: acc.account.accountname,
-                summary: summaryByCate
+                summary: summaryByCate3
             });
 
-            summaryInvestment += summaryByCate;
+            summaryInvestment += summaryByCate3;
         }
     });
     req.assets = {
@@ -542,7 +542,7 @@ exports.balance = function (req, res) {
         data: {
             assets : req.assets,
             payable : req.payable,
-            investment : investment
+            investment : req.investment
         }
     });
 };
