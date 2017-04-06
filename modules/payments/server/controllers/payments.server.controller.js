@@ -383,7 +383,7 @@ exports.statementincomesCooking = function (req, res, next) {
                 accountname: acc.account.accountname,
                 bfsummary: acc.bfsumdebit - acc.bfsumcredit, //สินค้าคงเหลือต้นงวด
                 summary: acc.sumdebit - acc.sumcredit, //ซื้อในงวด
-                cursummary : (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit),//สินค้าคงเหลือปลายงวด
+                cursummary: (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit),//สินค้าคงเหลือปลายงวด
                 afsummary: acc.sumdebit - acc.sumcredit // ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
             });
             summaryCostsell += acc.sumdebit - acc.sumcredit;// ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
@@ -446,40 +446,91 @@ exports.statementincomes = function (req, res) {
 
 exports.balanceCooking = function (req, res, next) {
     var listasset = [];
+    var listpayable = [];
+    var listinvestment = [];
     var summaryAsset = 0;
+    var summaryPayable = 0;
+    var summaryInvestment = 0;
     req.accntcharts.forEach(function (acc) {
-        if (acc.account.accountno.substr(0, 1) === '1') {
+        if (acc.account.accountno.substr(0, 1) === '1' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
+
+            var fncSummaryByCate1 = function () {
+                var result = 0;
+                req.accntcharts.forEach(function (itm) {
+                    if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
+                        result += itm.sumdebit - itm.sumcredit;
+                    }
+                });
+                return result;
+            };
+            var summaryByCate1 = fncSummaryByCate1();
+
             listasset.push({
                 accountno: acc.account.accountno,
                 accountname: acc.account.accountname,
-                summary: acc.sumdebit - acc.sumcredit
+                summary: summaryByCate1
             });
-            summaryAsset += acc.sumdebit - acc.sumcredit;
-        }
 
-    });
-    var indexoflistasset = [];
-    var account100 = '';
-    var accountno100 = '';
-    var sumaccount100 = 0;
-    listasset.forEach(function (asset) {
-        if (asset.accountno.substr(0, 3) === '100' && asset.accountno.substr(4, 7) === '000') {
-            account100 = asset.accountname;
-            accountno100 = asset.accountno;
+            summaryAsset += summaryByCate1;
         }
-        if (asset.accountno.substr(0, 3) === '100') {
-            sumaccount100 += asset.summary;
+        if (acc.account.accountno.substr(0, 1) === '2' && acc.account.accountno.substr(4, 3) === '000') {
+            // console.log(acc);
+
+            var fncSummaryByCate2 = function () {
+                var result = 0;
+                req.accntcharts.forEach(function (itm) {
+                    if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
+                        result += itm.sumcredit - itm.sumdebit;
+                    }
+                });
+                return result;
+            };
+            var summaryByCate2 = fncSummaryByCate2();
+
+            listpayable.push({
+                accountno: acc.account.accountno,
+                accountname: acc.account.accountname,
+                summary: summaryByCate2
+            });
+
+            summaryPayable += summaryByCate2;
+        }
+        if (acc.account.accountno.substr(0, 1) === '3' && acc.account.accountno.substr(4, 3) === '000') {
+            // console.log(acc);
+
+            var fncSummaryByCate3 = function () {
+                var result = 0;
+                req.accntcharts.forEach(function (itm) {
+                    if (acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)) {
+                        result += itm.sumcredit - itm.sumdebit;
+                    }
+                });
+                return result;
+            };
+            var summaryByCate3 = fncSummaryByCate3();
+
+            listinvestment.push({
+                accountno: acc.account.accountno,
+                accountname: acc.account.accountname,
+                summary: summaryByCate3
+            });
+
+            summaryInvestment += summaryByCate3;
         }
     });
-    indexoflistasset.push({
-        accountno: accountno100,
-        accountname: account100,
-        summary: sumaccount100
-    });
-    console.log(indexoflistasset);
-    req.listasset = indexoflistasset;
-    req.summaryAsset = summaryAsset;
+    req.assets = {
+        trns: listasset,
+        summary: summaryAsset
+    };
+    req.payable = {
+        trns: listpayable,
+        summary: summaryPayable
+    };
+    req.investment = {
+        trns: listinvestment,
+        summary: summaryInvestment
+    };
     next();
 };
 
@@ -488,8 +539,11 @@ exports.balance = function (req, res) {
     res.jsonp({
         startdate: req.startdate,
         enddate: req.enddate,
-        listassets: req.listasset,
-        summaryasset: req.summaryAsset
+        data: {
+            assets: req.assets,
+            payable: req.payable,
+            investment: req.investment
+        }
     });
 };
 
