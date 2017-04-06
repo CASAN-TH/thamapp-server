@@ -496,7 +496,7 @@ exports.balanceCooking = function (req, res, next) {
 
             summaryPayable += summaryByCate2;
         }
-        if (acc.account.accountno.substr(0, 1) === '3' && acc.account.accountno.substr(4, 3) === '000') {
+        if (acc.account.accountno.substr(0, 2) === '31' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
 
             var fncSummaryByCate3 = function () {
