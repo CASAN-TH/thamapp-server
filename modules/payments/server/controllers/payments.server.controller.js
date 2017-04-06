@@ -381,11 +381,12 @@ exports.statementincomesCooking = function (req, res, next) {
         if (acc.account.accountno.substr(0, 2) === '50' && acc.account.accountno.substr(0, 3) !== '500') {
             listcostsell.push({
                 accountname: acc.account.accountname,
-                bfsummary: acc.bfsumdebit - acc.bfsumcredit,
-                summary: acc.sumdebit - acc.sumcredit,
-                afsummary: (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit)
+                bfsummary: acc.bfsumdebit - acc.bfsumcredit, //สินค้าคงเหลือต้นงวด
+                summary: acc.sumdebit - acc.sumcredit, //ซื้อในงวด
+                cursummary : (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit),//สินค้าคงเหลือปลายงวด
+                afsummary: acc.sumdebit - acc.sumcredit // ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
             });
-            summaryCostsell += (acc.bfsumdebit - acc.bfsumcredit) + (acc.sumdebit - acc.sumcredit);
+            summaryCostsell += acc.sumdebit - acc.sumcredit;// ต้นทุนสินค้าในงวด = สินค้าคงเหลือต้นงวด+ซื้อในงวด-สินค้าคงเหลือปลายงวด
         }
 
         if (acc.account.accountno.substr(0, 2) === '51') {
