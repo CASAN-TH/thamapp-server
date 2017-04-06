@@ -446,7 +446,11 @@ exports.statementincomes = function (req, res) {
 
 exports.balanceCooking = function (req, res, next) {
     var listasset = [];
+    var listpayable =[];
+    var listinvestment =[];
     var summaryAsset = 0;
+    var summaryPayable = 0;
+    var summaryInvestment = 0;
     req.accntcharts.forEach(function (acc) {
         if (acc.account.accountno.substr(0, 1) === '1' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
@@ -470,11 +474,62 @@ exports.balanceCooking = function (req, res, next) {
 
             summaryAsset += summaryByCate;
         }
+        if (acc.account.accountno.substr(0, 1) === '2' && acc.account.accountno.substr(4, 3) === '000') {
+            // console.log(acc);
+            
+            var fncSummaryByCate = function(){
+                var result = 0;
+                req.accntcharts.forEach(function(itm){
+                    if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
+                        result += itm.sumcredit - itm.sumdebit;
+                    }
+                });
+                return result;
+            };
+            var summaryByCate = fncSummaryByCate();
 
+            listpayable.push({
+                accountno: acc.account.accountno,
+                accountname: acc.account.accountname,
+                summary: summaryByCate
+            });
+
+            summaryPayable += summaryByCate;
+        }
+        if (acc.account.accountno.substr(0, 1) === '3' && acc.account.accountno.substr(4, 3) === '000') {
+            // console.log(acc);
+            
+            var fncSummaryByCate = function(){
+                var result = 0;
+                req.accntcharts.forEach(function(itm){
+                    if(acc.account.accountno.substr(0, 3) === itm.account.accountno.substr(0, 3)){
+                        result += itm.sumcredit - itm.sumdebit;
+                    }
+                });
+                return result;
+            };
+            var summaryByCate = fncSummaryByCate();
+
+            listinvestment.push({
+                accountno: acc.account.accountno,
+                accountname: acc.account.accountname,
+                summary: summaryByCate
+            });
+
+            summaryInvestment += summaryByCate;
+        }
     });
     req.assets = {
         trns : listasset,
         summary : summaryAsset
+    };
+    req.payable = {
+        trns : listpayable,
+        summary : summaryPayable
+    };
+    req.investment = {
+        trns : listinvestment,
+        summary : summaryInvestment
     };
     next();
 };
@@ -485,7 +540,9 @@ exports.balance = function (req, res) {
         startdate: req.startdate,
         enddate: req.enddate,
         data: {
-            assets : req.assets
+            assets : req.assets,
+            payable : req.payable,
+            investment : investment
         }
     });
 };
