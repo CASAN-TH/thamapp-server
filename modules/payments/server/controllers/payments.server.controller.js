@@ -279,6 +279,10 @@ exports.frompayments = function(req, res, next){
     });
 };
 
+exports.fromorders = function(req, res, next){
+    next();
+};
+
 exports.ledgerCooking = function (req, res, next) {
     Accountchart.find().sort('accountno').exec(function (err, accountcharts) {
         if (err) {
