@@ -21,32 +21,32 @@ module.exports = function (app) {
 
   app.route('/api/ledgers/:startdate/:enddate')
     .get(payments.fromorders, 
-    payments.frompayments, 
+    //payments.frompayments, 
     payments.ledgerCooking, 
     payments.ledgers);
 
   app.route('/api/expenses/:startdate/:enddate')
     .get(payments.fromorders, 
-    payments.frompayments, 
+    //payments.frompayments, 
     payments.ledgerCooking, 
     payments.expenses);
 
   app.route('/api/revenues/:startdate/:enddate')
     .get(payments.fromorders, 
-    payments.frompayments, 
+    //payments.frompayments, 
     payments.ledgerCooking, 
     payments.revenues);
 
   app.route('/api/statementincomes/:startdate/:enddate')
     .get(payments.fromorders, 
-    payments.frompayments, 
+    //payments.frompayments, 
     payments.ledgerCooking, 
     payments.statementincomesCooking, 
     payments.statementincomes);
 
   app.route('/api/balance/:startdate/:enddate')
     .get(payments.fromorders, 
-    payments.frompayments, 
+    //payments.frompayments, 
     payments.ledgerCooking, 
     payments.statementincomesCooking, 
     payments.balanceCooking, 
