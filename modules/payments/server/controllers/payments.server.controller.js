@@ -6,6 +6,7 @@
 var path = require('path'),
     mongoose = require('mongoose'),
     Payment = mongoose.model('Payment'),
+    Order = mongoose.model('Order'),
     Accountchart = mongoose.model('Accountchart'),
     errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
     _ = require('lodash');
@@ -280,7 +281,143 @@ exports.frompayments = function(req, res, next){
 };
 
 exports.fromorders = function(req, res, next){
-    next();
+    var trns = [];
+    var oldtrns = [];
+    var enddate = req.enddate;
+    Order.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) }, deliverystatus : 'complete' }).populate('items.product').populate('namedeliver').exec(function (err, orders) {
+        if (err) {
+            return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+
+            orders.forEach(function (order) {
+                
+                var totalAmt = 0;
+                var totalCost = 0;
+                order.items.forEach(function (itm) {
+                    var saleAmt = itm.qty * itm.product.retailerprice;
+                    var costAmt = (itm.qty * (itm.product.retailerprice - 10));
+                    totalAmt += saleAmt;
+                    totalCost += costAmt;
+                    // เครดิต รายได้
+                    var trnCredit = {
+                        date: order.docdate,
+                        trnsno: 'ARR' + order.docno,
+                        accountno: '4110000',
+                        accountname: 'รายได้ขายข้าว',
+                        des: itm.product.name,
+                        debit: 0,
+                        credit: saleAmt
+                    };
+                    trns.push(trnCredit);
+                    //เดบิต ต้นทุน
+                    var trnDebit = {
+                        date: order.docdate,
+                        trnsno: 'APR' + order.docno,
+                        accountno: '5020000',
+                        accountname: 'ต้นทุนซื้อข้าวสาร',
+                        des: itm.product.name,
+                        debit: costAmt,
+                        credit: 0
+                    };
+                    trns.push(trnDebit);
+                });
+                // เดบิต ลูกหนี้การค้า
+                var trnAR = {
+                        date: order.docdate,
+                        trnsno: 'ARR' + order.docno,
+                        accountno: '1150000',
+                        accountname: order.namedeliver.displayName,
+                        des: 'รายการสั่งซื้อ เลขที่: ' + order.docno,
+                        debit: totalAmt,
+                        credit: 0
+                    };
+                    trns.push(trnAR);  
+                
+                // เครดิต เจ้าหนี้การค้า
+                var trnAP = {
+                        date: order.docdate,
+                        trnsno: 'APR' + order.docno,
+                        accountno: '2110001',
+                        accountname: 'บ. ธรรมธุรกิจชาวนาธรรมชาติสันป่าตอง',
+                        des: 'รายการสั่งซื้อ เลขที่: ' + order.docno,
+                        debit: 0,
+                        credit: totalCost
+                    };
+                    trns.push(trnAP); 
+            });
+            req.trns = trns;
+            Order.find({ docdate: { $lt: new Date(req.startdate) } , deliverystatus : 'complete' }).populate('items.product').populate('namedeliver').exec(function (err, oldorders) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    oldorders.forEach(function (oldorder) {
+                        var totalAmt = 0;
+                var totalCost = 0;
+                oldorder.items.forEach(function (itm) {
+                    var saleAmt = itm.qty * itm.product.retailerprice;
+                    var costAmt = (itm.qty * (itm.product.retailerprice - 10));
+                    totalAmt += saleAmt;
+                    totalCost += costAmt;
+                    // เครดิต รายได้
+                    var trnCredit = {
+                        date: oldorder.docdate,
+                        trnsno: 'ARR' + oldorder.docno,
+                        accountno: '4110000',
+                        accountname: 'รายได้ขายข้าว',
+                        des: itm.product.name,
+                        debit: 0,
+                        credit: saleAmt
+                    };
+                    oldtrns.push(trnCredit);
+                    //เดบิต ต้นทุน
+                    var trnDebit = {
+                        date: oldorder.docdate,
+                        trnsno: 'APR' + oldorder.docno,
+                        accountno: '5020000',
+                        accountname: 'ต้นทุนซื้อข้าวสาร',
+                        des: itm.product.name,
+                        debit: costAmt,
+                        credit: 0
+                    };
+                    oldtrns.push(trnDebit);
+                });
+                // เดบิต ลูกหนี้การค้า
+                var trnAR = {
+                        date: oldorder.docdate,
+                        trnsno: 'ARR' + oldorder.docno,
+                        accountno: '1150000',
+                        accountname: oldorder.namedeliver.displayName,
+                        des: 'รายการสั่งซื้อ เลขที่: ' + oldorder.docno,
+                        debit: totalAmt,
+                        credit: 0
+                    };
+                    oldtrns.push(trnAR);  
+                
+                // เครดิต เจ้าหนี้การค้า
+                var trnAP = {
+                        date: oldorder.docdate,
+                        trnsno: 'APR' + oldorder.docno,
+                        accountno: '2110001',
+                        accountname: 'บ. ธรรมธุรกิจชาวนาธรรมชาติสันป่าตอง',
+                        des: 'รายการสั่งซื้อ เลขที่: ' + oldorder.docno,
+                        debit: 0,
+                        credit: totalCost
+                    };
+                    oldtrns.push(trnAP); 
+                    });
+                    req.oldtrns = oldtrns;
+                    next();
+                }
+
+            });
+
+        }
+
+    });
 };
 
 exports.ledgerCooking = function (req, res, next) {
