@@ -474,7 +474,7 @@ exports.balanceCooking = function (req, res, next) {
 
             summaryAsset += summaryByCate1;
         }
-        if (acc.account.accountno.substr(0, 1) === '2' && acc.account.accountno.substr(4, 3) === '000') {
+        if (acc.account.accountno.substr(0, 2) === '21' && acc.account.accountno.substr(4, 3) === '000') {
             // console.log(acc);
 
             var fncSummaryByCate2 = function () {
