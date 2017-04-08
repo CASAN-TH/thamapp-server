@@ -195,9 +195,13 @@ exports.docno = function (req, res) {
 exports.enddate = function (req, res, next, enddate) {
     req.enddate = enddate;
     req.startdate = req.startdate;
+    next();
+};
+
+exports.frompayments = function(req, res, next){
     var trns = [];
     var oldtrns = [];
-
+    var enddate = req.enddate;
     Payment.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) } }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
         if (err) {
             return res.status(400).send({
@@ -273,7 +277,6 @@ exports.enddate = function (req, res, next, enddate) {
         }
 
     });
-
 };
 
 exports.ledgerCooking = function (req, res, next) {
