@@ -284,7 +284,7 @@ exports.fromorders = function(req, res, next){
     var trns = [];
     var oldtrns = [];
     var enddate = req.enddate;
-    Order.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) }, deliverystatus : 'complete' }).populate('items.product').populate('namedeliver').exec(function (err, orders) {
+    Order.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) }, deliverystatus : {$in: ["complete","ap"]} }).populate('items.product').populate('namedeliver').exec(function (err, orders) {
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -348,7 +348,7 @@ exports.fromorders = function(req, res, next){
                     trns.push(trnAP); 
             });
             req.trns = trns;
-            Order.find({ docdate: { $lt: new Date(req.startdate) } , deliverystatus : 'complete' }).populate('items.product').populate('namedeliver').exec(function (err, oldorders) {
+            Order.find({ docdate: { $lt: new Date(req.startdate) } , deliverystatus : {$in: ["complete","ap"]} }).populate('items.product').populate('namedeliver').exec(function (err, oldorders) {
                 if (err) {
                     return res.status(400).send({
                         message: errorHandler.getErrorMessage(err)
