@@ -300,12 +300,16 @@ exports.fromorders = function(req, res, next){
                     var costAmt = (itm.qty * (itm.product.retailerprice - 10));
                     totalAmt += saleAmt;
                     totalCost += costAmt;
+                    var accNo = itm.product.category === 'ข้าวสาร' ? '4110000' : '4120000';
+                    var accName = itm.product.category === 'ข้าวสาร' ? 'รายได้ขายข้าว' : 'รายได้ขายสินค้าอื่นๆ';
+                    var accCostNo = itm.product.category === 'ข้าวสาร' ? '5020000' : '5030000';
+                    var accCostName = itm.product.category === 'ข้าวสาร' ? 'ต้นทุนซื้อข้าวสาร' : 'ต้นทุนซื้อสินค้าอื่นๆ';
                     // เครดิต รายได้
                     var trnCredit = {
                         date: order.docdate,
                         trnsno: 'ARR' + order.docno,
-                        accountno: '4110000',
-                        accountname: 'รายได้ขายข้าว',
+                        accountno: accNo,
+                        accountname: accName,
                         des: itm.product.name,
                         debit: 0,
                         credit: saleAmt
@@ -315,8 +319,8 @@ exports.fromorders = function(req, res, next){
                     var trnDebit = {
                         date: order.docdate,
                         trnsno: 'APR' + order.docno,
-                        accountno: '5020000',
-                        accountname: 'ต้นทุนซื้อข้าวสาร',
+                        accountno: accCostNo,
+                        accountname: accCostName,
                         des: itm.product.name,
                         debit: costAmt,
                         credit: 0
@@ -362,12 +366,16 @@ exports.fromorders = function(req, res, next){
                     var costAmt = (itm.qty * (itm.product.retailerprice - 10));
                     totalAmt += saleAmt;
                     totalCost += costAmt;
+                    var accNo = itm.product.category === 'ข้าวสาร' ? '4110000' : '4120000';
+                    var accName = itm.product.category === 'ข้าวสาร' ? 'รายได้ขายข้าว' : 'รายได้ขายสินค้าอื่นๆ';
+                    var accCostNo = itm.product.category === 'ข้าวสาร' ? '5020000' : '5030000';
+                    var accCostName = itm.product.category === 'ข้าวสาร' ? 'ต้นทุนซื้อข้าวสาร' : 'ต้นทุนซื้อสินค้าอื่นๆ';
                     // เครดิต รายได้
                     var trnCredit = {
                         date: oldorder.docdate,
                         trnsno: 'ARR' + oldorder.docno,
-                        accountno: '4110000',
-                        accountname: 'รายได้ขายข้าว',
+                        accountno: accNo,
+                        accountname: accName,
                         des: itm.product.name,
                         debit: 0,
                         credit: saleAmt
@@ -377,8 +385,8 @@ exports.fromorders = function(req, res, next){
                     var trnDebit = {
                         date: oldorder.docdate,
                         trnsno: 'APR' + oldorder.docno,
-                        accountno: '5020000',
-                        accountname: 'ต้นทุนซื้อข้าวสาร',
+                        accountno: accCostNo,
+                        accountname: accCostName,
                         des: itm.product.name,
                         debit: costAmt,
                         credit: 0
