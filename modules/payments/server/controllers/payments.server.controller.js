@@ -297,7 +297,7 @@ exports.fromorders = function(req, res, next){
                 var totalCost = 0;
                 order.items.forEach(function (itm) {
                     var saleAmt = itm.qty * itm.product.retailerprice;
-                    var costAmt = (itm.qty * (itm.product.retailerprice - 10));
+                    var costAmt = itm.product.category === 'ข้าวสาร' ? (itm.qty * (itm.product.retailerprice - 10)) : itm.qty * itm.product.retailerprice;
                     totalAmt += saleAmt;
                     totalCost += costAmt;
                     var accNo = itm.product.category === 'ข้าวสาร' ? '4110000' : '4120000';
@@ -363,7 +363,7 @@ exports.fromorders = function(req, res, next){
                 var totalCost = 0;
                 oldorder.items.forEach(function (itm) {
                     var saleAmt = itm.qty * itm.product.retailerprice;
-                    var costAmt = (itm.qty * (itm.product.retailerprice - 10));
+                    var costAmt = itm.product.category === 'ข้าวสาร' ? (itm.qty * (itm.product.retailerprice - 10)) : itm.qty * itm.product.retailerprice;
                     totalAmt += saleAmt;
                     totalCost += costAmt;
                     var accNo = itm.product.category === 'ข้าวสาร' ? '4110000' : '4120000';
