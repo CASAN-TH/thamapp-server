@@ -34,9 +34,11 @@ describe('Campaign Model Unit Tests:', function() {
                 name: 'Campaign Name',
                 startdate: '2017-04-20',
                 enddate: '2017-04-22',
-                uesrcount: 0,
-                listuesrcampaign: [{
-                    identification: 1180200059502
+                usercount: 0,
+                listusercampaign: [{
+                    identification: 1180200059502,
+                    user: user,
+                    acceptcampaigndate: '2017-04-28'
                 }],
                 user: user
             });
@@ -45,9 +47,11 @@ describe('Campaign Model Unit Tests:', function() {
                 name: 'Campaign Name',
                 startdate: '2017-04-20',
                 enddate: '2017-04-22',
-                uesrcount: 0,
-                listuesrcampaign: [{
-                    identification: 1180200059502
+                usercount: 0,
+                listusercampaign: [{
+                    identification: 1180200059502,
+                    user: user,
+                    acceptcampaigndate: '2017-04-28'
                 }],
                 user: user
             });
@@ -103,8 +107,8 @@ describe('Campaign Model Unit Tests:', function() {
             });
         });
 
-        it('should be able to show an error when try to save without uesrcount', function(done) {
-            campaign.uesrcount = null;
+        it('should be able to show an error when try to save without usercount', function(done) {
+            campaign.usercount = null;
 
             return campaign.save(function(err) {
                 should.exist(err);
@@ -113,7 +117,16 @@ describe('Campaign Model Unit Tests:', function() {
         });
 
         it('should be able to show an error when try to save without identification', function(done) {
-            campaign.listuesrcampaign[0].identification = null;
+            campaign.listusercampaign[0].identification = null;
+
+            return campaign.save(function(err) {
+                should.exist(err);
+                done();
+            });
+        });
+
+         it('should be able to show an error when try to save without acceptcampaigndate', function(done) {
+            campaign.listusercampaign[0].acceptcampaigndate = '';
 
             return campaign.save(function(err) {
                 should.exist(err);

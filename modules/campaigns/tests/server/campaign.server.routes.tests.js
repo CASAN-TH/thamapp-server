@@ -54,9 +54,11 @@ describe('Campaign CRUD tests', function () {
         name: 'Campaign name',
         startdate: '2017-04-20',
         enddate: '2017-04-22',
-        uesrcount: 0,
-        listuesrcampaign: [{
-          identification: 1180200059502
+        usercount: 0,
+        listusercampaign: [{
+          identification: 1180200059502,
+          user:user,
+          acceptcampaigndate: '2017-04-28'
         }],
       };
 
