@@ -14,7 +14,9 @@ var should = require('should'),
 var app,
     agent,
     credentials,
+    credentials2,
     user,
+    user2,
     campaign,
     campaign2;
 
@@ -37,6 +39,10 @@ describe('Campaign CRUD tests', function() {
             username: 'username',
             password: 'M3@n.jsI$Aw3$0m3'
         };
+        credentials2 = {
+            username: 'username2',
+            password: 'M3@n.jsI$Aw3$0m35'
+        };
 
         // Create a new user
         user = new User({
@@ -49,39 +55,30 @@ describe('Campaign CRUD tests', function() {
             provider: 'local'
         });
 
+        user2 = new User({
+            firstName: 'Full',
+            lastName: 'Name',
+            displayName: 'Full Name',
+            email: 'test@test.com',
+            username: credentials2.username,
+            password: credentials2.password,
+            provider: 'local'
+        });
+
         // Save a user to the test db and create new Campaign
         user.save(function() {
             campaign = {
                 name: 'Campaign name',
-                startdate: '2017-04-20',
-                enddate: '2017-04-22',
-                usercount: 0,
-                listusercampaign: [{
-                    identification: 1180200059502,
-                    user: user,
-                    acceptcampaigndate: '2017-04-28'
-                },
-                {
-                    identification: 1180200059503,
-                    user: user,
-                    acceptcampaigndate: '2017-04-28'
-                }],
+                startdate: new Date('2017-04-20'),
+                enddate: new Date('2017-04-22'),
+                usercount: 0
             };
 
             campaign2 = {
                 name: 'Campaign name',
-                startdate: '2017-04-20',
-                enddate: '2017-04-22',
-                usercount: 0,
-                listusercampaign: [{
-                    identification: 1180200059502,
-                    user: user,
-                    acceptcampaigndate: '2017-04-28'
-                }, {
-                    identification: 1180200059503,
-                    user: user,
-                    acceptcampaigndate: '2017-04-28'
-                }],
+                startdate: new Date('2017-04-20'),
+                enddate: new Date('2017-04-22'),
+                usercount: 0
             };
 
             done();
@@ -125,6 +122,9 @@ describe('Campaign CRUD tests', function() {
                                 // Set assertions
                                 (campaigns[0].user._id).should.equal(userId);
                                 (campaigns[0].name).should.match('Campaign name');
+                                (campaigns[0].startdate).should.match(new Date('2017-04-20'));
+                                (campaigns[0].enddate).should.match(new Date('2017-04-22'));
+                                (campaigns[0].usercount).should.equal(0);
 
                                 // Call the assertion callback
                                 done();
@@ -634,10 +634,15 @@ describe('Campaign CRUD tests', function() {
                 if (signinErr) {
                     return done(signinErr);
                 }
-
+                var data = {
+                    identification: 1234,
+                    user: user,
+                    status: 'accept'
+                };
                 // Get the userId
                 var userId = user.id;
-
+                campaign.listusercampaign = [];
+                campaign.listusercampaign.push(data);
                 // Save a new Campaign
                 agent.post('/api/campaigns')
                     .send(campaign)
@@ -649,8 +654,8 @@ describe('Campaign CRUD tests', function() {
                         }
 
                         // Update Campaign name\
-                        campaign.listusercampaign[0].identification = 123789;                        
-                        campaign.listusercampaign[1].identification = 123789;
+                        campaign.listusercampaign[0].identification = 123789;
+                        // campaign.listusercampaign[1].identification = 123789;
 
                         // Update an existing Campaign
                         agent.put('/api/campaigns/' + campaignSaveRes.body._id)
@@ -665,13 +670,104 @@ describe('Campaign CRUD tests', function() {
                                 // Set assertions
                                 (campaignUpdateRes.body._id).should.equal(campaignSaveRes.body._id);
                                 (campaignUpdateRes.body.listusercampaign[0].identification).should.match(123789);
-                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match(123789);
-                                
+                                (campaignUpdateRes.body.listusercampaign[0].status).should.match('accept');
+                                // (campaignUpdateRes.body.listusercampaign[1].identification).should.match(123789);
+
 
 
                                 // Call the assertion callback
                                 done();
                             });
+                    });
+            });
+    });
+
+    it('should be able to update an data two user', function(done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function(signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: 1234,
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign.listusercampaign = [];
+                // campaign.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function(campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        // (campaignSaveRes.body._id).should.equal('');
+                        var campid = campaignSaveRes.body._id;
+                        // Update Campaign name\
+                        campaign.listusercampaign.push(data);
+                        // campaign.listusercampaign[1].identification = 123789;
+
+                        var _creds = {
+                            username: 'orphan',
+                            password: 'M3@n.jsI$Aw3$0m3'
+                        };
+
+                        // Create orphan user
+                        var _orphan = new User({
+                            firstName: 'Full',
+                            lastName: 'Name',
+                            displayName: 'Full Name',
+                            email: 'orphan@test.com',
+                            username: _creds.username,
+                            password: _creds.password,
+                            provider: 'local'
+                        });
+
+                        _orphan.save(function(err, orphan) {
+                            // Handle save error
+                            if (err) {
+                                return done(err);
+                            }
+                            agent.put('/api/campaigns/' + campid)
+                                .send(campaign)
+                                .expect(200)
+                                .end(function(campaignUpdateErr, campaignUpdateRes) {
+                                    // Handle Campaign update error
+                                    if (campaignUpdateErr) {
+                                        return done(campaignUpdateErr);
+                                    }
+
+                                    // Set assertions
+                                    // (campaignUpdateRes.body).should.equal('');
+                                    // (campaignUpdateRes.body.listusercampaign[0].identification).should.match(123789);
+                                    // (campaignUpdateRes.body.listusercampaign[0].status).should.match('accept');
+                                    // (campaignUpdateRes.body.listusercampaign[1].identification).should.match(123789);
+                                    // Call the assertion callback
+                                    done();
+                                });
+                            // agent.post('/api/auth/signin')
+                                // .send(_creds)
+                                // .expect(200)
+                                // .end(function(signinErr, signinRes) {
+                                //     // Handle signin error
+                                //     if (signinErr) {
+                                //         return done(signinErr);
+                                //     }
+                                //     (campaignSaveRes.body._id).should.equal('a');
+                                //     // Get the userId
+                                //     var orphanId = orphan._id;
+                                //     // Update an existing Campaign
+
+                                // });
+                        });
                     });
             });
     });

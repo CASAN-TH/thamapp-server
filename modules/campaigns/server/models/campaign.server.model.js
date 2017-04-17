@@ -17,11 +17,11 @@ var CampaignSchema = new Schema({
         unique: true
     },
     startdate: {
-        type: String,
+        type: Date,
         required: 'Please fill Campaign startdate',
     },
     enddate: {
-        type: String,
+        type: Date,
         required: 'Please fill Campaign enddate',
     },
     usercount: {
@@ -33,7 +33,7 @@ var CampaignSchema = new Schema({
             type: Number,
         },
         acceptcampaigndate: {
-            type: String,
+            type: Date,
         },
         user: {
             type: Schema.ObjectId,
@@ -41,7 +41,10 @@ var CampaignSchema = new Schema({
         },
         facebook: String,
         lineid: String,
-        status: String
+        status: {
+            type: String,
+            default: 'accept'
+        }
     }],
     description: String,
     pointcount: String,
