@@ -146,6 +146,89 @@ describe('Marketplan CRUD tests', function () {
       });
   });
 
+//year
+  it('should not be able to save an Marketplan if no year is provided', function (done) {
+    // Invalidate year field
+    marketplan.year = null;
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan year');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+  //marketname
+  it('should not be able to save an Marketplan if no marketname is provided', function (done) {
+    // Invalidate marketname field
+    marketplan.marketname = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan marketname');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+
+  //marketplance
+  it('should not be able to save an Marketplan if no marketplance is provided', function (done) {
+    // Invalidate marketplance field
+    marketplan.marketplance = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan marketplance');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+
   it('should be able to update an Marketplan if signed in', function (done) {
     agent.post('/api/auth/signin')
       .send(credentials)
