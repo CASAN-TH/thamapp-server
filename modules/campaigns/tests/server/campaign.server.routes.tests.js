@@ -411,6 +411,156 @@ describe('Campaign CRUD tests', function () {
     });
   });
 
+  it('should not be able to save an Campaign if no startdate is provided', function (done) {
+    // Invalidate name field
+    campaign.startdate = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Campaign
+        agent.post('/api/campaigns')
+          .send(campaign)
+          .expect(400)
+          .end(function (campaignSaveErr, campaignSaveRes) {
+            // Set message assertion
+            (campaignSaveRes.body.message).should.match('Please fill Campaign startdate');
+
+            // Handle Campaign save error
+            done(campaignSaveErr);
+          });
+      });
+  });
+
+  it('should not be able to save an Campaign if no enddate is provided', function (done) {
+    // Invalidate name field
+    campaign.enddate = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Campaign
+        agent.post('/api/campaigns')
+          .send(campaign)
+          .expect(400)
+          .end(function (campaignSaveErr, campaignSaveRes) {
+            // Set message assertion
+            (campaignSaveRes.body.message).should.match('Please fill Campaign enddate');
+
+            // Handle Campaign save error
+            done(campaignSaveErr);
+          });
+      });
+  });
+
+  it('should not be able to save an Campaign if no usercount is provided', function (done) {
+    // Invalidate name field
+    campaign.usercount = null;
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Campaign
+        agent.post('/api/campaigns')
+          .send(campaign)
+          .expect(400)
+          .end(function (campaignSaveErr, campaignSaveRes) {
+            // Set message assertion
+            (campaignSaveRes.body.message).should.match('Please fill Campaign usercount');
+
+            // Handle Campaign save error
+            done(campaignSaveErr);
+          });
+      });
+  });
+
+  it('should not be able to save an Campaign if no usercount is identification', function (done) {
+    // Invalidate name field
+    campaign.listusercampaign[0].identification = null;
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Campaign
+        agent.post('/api/campaigns')
+          .send(campaign)
+          .expect(400)
+          .end(function (campaignSaveErr, campaignSaveRes) {
+            // Set message assertion
+            (campaignSaveRes.body.message).should.match('Please fill Campaign identification');
+
+            // Handle Campaign save error
+            done(campaignSaveErr);
+          });
+      });
+  });
+
+  it('should not be able to save an Campaign if no usercount is acceptcampaigndate', function (done) {
+    // Invalidate name field
+    campaign.listusercampaign[0].acceptcampaigndate = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Campaign
+        agent.post('/api/campaigns')
+          .send(campaign)
+          .expect(400)
+          .end(function (campaignSaveErr, campaignSaveRes) {
+            // Set message assertion
+            (campaignSaveRes.body.message).should.match('Please fill Campaign acceptcampaigndate');
+
+            // Handle Campaign save error
+            done(campaignSaveErr);
+          });
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Campaign.remove().exec(done);

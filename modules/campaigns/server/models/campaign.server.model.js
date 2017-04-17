@@ -37,6 +37,10 @@ var CampaignSchema = new Schema({
             type: String,
             required: 'Please fill Campaign acceptcampaigndate',
         },
+        user: {
+            type: Schema.ObjectId,
+            ref: 'User'
+        },
         facebook: String,
         lineid: String,
         status: String
