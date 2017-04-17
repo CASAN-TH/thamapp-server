@@ -15,7 +15,8 @@ var app,
   agent,
   credentials,
   user,
-  campaign;
+  campaign,
+  campaign2;
 
 /**
  * Campaign routes tests
@@ -51,6 +52,18 @@ describe('Campaign CRUD tests', function () {
     // Save a user to the test db and create new Campaign
     user.save(function () {
       campaign = {
+        name: 'Campaign name',
+        startdate: '2017-04-20',
+        enddate: '2017-04-22',
+        usercount: 0,
+        listusercampaign: [{
+          identification: 1180200059502,
+          user:user,
+          acceptcampaigndate: '2017-04-28'
+        }],
+      };
+
+      campaign2 = {
         name: 'Campaign name',
         startdate: '2017-04-20',
         enddate: '2017-04-22',
@@ -558,6 +571,47 @@ describe('Campaign CRUD tests', function () {
             // Handle Campaign save error
             done(campaignSaveErr);
           });
+      });
+  });
+
+  it('should not be able to save an campaign if name is duplicated', function (done) {
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new campaign
+        agent.post('/api/campaigns')
+          .send(campaign)
+          .expect(200)
+          .end(function (campaignSaveErr, campaignSaveRes) {
+            // Handle campaign save error
+            if (campaignSaveErr) {
+              return done(campaignSaveErr);
+            }
+            // Save a new campaign
+            agent.post('/api/campaigns')
+              .send(campaign)
+              .expect(400)
+              .end(function (campaignSaveErr, campaignSaveRes) {
+                // Set message assertion
+                //(campaignSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.campaigns index: docno already exists');
+                (campaignSaveRes.body.message.toLowerCase()).should.containEql('name already exists');
+
+                // Handle campaign save error
+                done(campaignSaveErr);
+              });
+
+          });
+
       });
   });
 
