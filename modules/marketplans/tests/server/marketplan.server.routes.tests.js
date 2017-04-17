@@ -52,7 +52,9 @@ describe('Marketplan CRUD tests', function () {
     user.save(function () {
       marketplan = {
         name: 'Marketplan name',
-        year: 2560
+        year: 2560,
+        marketname : '9-12 may',
+        marketplance : '55/7'
       };
 
       done();

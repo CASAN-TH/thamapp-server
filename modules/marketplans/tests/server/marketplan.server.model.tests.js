@@ -32,6 +32,8 @@ describe('Marketplan Model Unit Tests:', function() {
       marketplan = new Marketplan({
         name: 'Marketplan Name',
         year: 2560,
+        marketname : '9-12 may',
+        marketplance :'55/7',
         user: user
       });
 
@@ -56,9 +58,29 @@ describe('Marketplan Model Unit Tests:', function() {
         done();
       });
     });
-
+//year
     it('should be able to show an error when try to save without year', function(done) {
       marketplan.year = null;
+
+      return marketplan.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    //marketname
+    it('should be able to show an error when try to save without marketname', function(done) {
+      marketplan.marketname = '';
+
+      return marketplan.save(function(err) {
+        should.exist(err);
+        done();
+      });
+    });
+
+    //marketname
+    it('should be able to show an error when try to save without marketplance', function(done) {
+      marketplan.marketplance = '';
 
       return marketplan.save(function(err) {
         should.exist(err);
