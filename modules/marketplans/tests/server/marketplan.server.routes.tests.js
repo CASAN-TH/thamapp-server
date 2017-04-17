@@ -257,6 +257,38 @@ describe('Marketplan CRUD tests', function () {
           });
       });
   });
+
+  //Compare Date
+  it('should not be able to save an Marketplan if  startdate is less than startdate', function (done) {
+    var today = new Date();
+     var tomorrow = new Date();
+    tomorrow.setDate(today.getDate()+1);
+    marketplan.startdate = tomorrow;
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            // (marketplanSaveRes.body.message).should.match('test test');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+
+
   
 
   it('should be able to update an Marketplan if signed in', function (done) {

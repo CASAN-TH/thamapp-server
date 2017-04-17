@@ -12,11 +12,20 @@ var path = require('path'),
 /**
  * Create a Marketplan
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var marketplan = new Marketplan(req.body);
   marketplan.user = req.user;
 
-  marketplan.save(function(err) {
+  //checkreq
+  if (marketplan.startdate && marketplan.enddate && marketplan.startdate > marketplan.enddate) {
+    return res.status(400).send({
+      message: "test test"
+    });
+  }
+
+
+
+  marketplan.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +39,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Marketplan
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var marketplan = req.marketplan ? req.marketplan.toJSON() : {};
 
@@ -44,12 +53,12 @@ exports.read = function(req, res) {
 /**
  * Update a Marketplan
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var marketplan = req.marketplan;
 
   marketplan = _.extend(marketplan, req.body);
 
-  marketplan.save(function(err) {
+  marketplan.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +72,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Marketplan
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var marketplan = req.marketplan;
 
-  marketplan.remove(function(err) {
+  marketplan.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +89,8 @@ exports.delete = function(req, res) {
 /**
  * List of Marketplans
  */
-exports.list = function(req, res) {
-  Marketplan.find().sort('-created').populate('user', 'displayName').exec(function(err, marketplans) {
+exports.list = function (req, res) {
+  Marketplan.find().sort('-created').populate('user', 'displayName').exec(function (err, marketplans) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +104,7 @@ exports.list = function(req, res) {
 /**
  * Marketplan middleware
  */
-exports.marketplanByID = function(req, res, next, id) {
+exports.marketplanByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
