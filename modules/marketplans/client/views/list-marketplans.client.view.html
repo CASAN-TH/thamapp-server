@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>Marketplans</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="marketplan in vm.marketplans"
+       ui-sref="marketplans.view({ marketplanId: marketplan._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="marketplan.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="marketplan.user" ng-bind="marketplan.user.displayName"></span>
+        <span ng-if="!marketplan.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="marketplan.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.marketplans.$resolved && !vm.marketplans.length">
+    No Marketplans yet, why don't you <a ui-sref="marketplans.create">create one</a>?
+  </div>
+</section>
