@@ -53,8 +53,7 @@ describe('Marketplan CRUD tests', function () {
       marketplan = {
         name: 'Marketplan name',
         year: 2560,
-        marketname : '9-12 may',
-        marketplance : '55/7'
+        place : '55/7'
       };
 
       done();
@@ -173,38 +172,12 @@ describe('Marketplan CRUD tests', function () {
           });
       });
   });
-  //marketname
-  it('should not be able to save an Marketplan if no marketname is provided', function (done) {
-    // Invalidate marketname field
-    marketplan.marketname = '';
-
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
-        // Get the userId
-        var userId = user.id;
-        // Save a new Marketplan
-        agent.post('/api/marketplans')
-          .send(marketplan)
-          .expect(400)
-          .end(function (marketplanSaveErr, marketplanSaveRes) {
-            // Set message assertion
-            (marketplanSaveRes.body.message).should.match('Please fill Marketplan marketname');
-            // Handle Marketplan save error
-            done(marketplanSaveErr);
-          });
-      });
-  });
+  
 
   //marketplance
-  it('should not be able to save an Marketplan if no marketplance is provided', function (done) {
+  it('should not be able to save an Marketplan if no place is provided', function (done) {
     // Invalidate marketplance field
-    marketplan.marketplance = '';
+    marketplan.place = '';
 
     agent.post('/api/auth/signin')
       .send(credentials)
@@ -222,7 +195,7 @@ describe('Marketplan CRUD tests', function () {
           .expect(400)
           .end(function (marketplanSaveErr, marketplanSaveRes) {
             // Set message assertion
-            (marketplanSaveRes.body.message).should.match('Please fill Marketplan marketplance');
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan place');
             // Handle Marketplan save error
             done(marketplanSaveErr);
           });

@@ -20,13 +20,10 @@ var MarketplanSchema = new Schema({
     type: Number,
     required: 'Please fill Marketplan year'
   },
-marketname: {
+  
+  place: {
     type: String,
-    required: 'Please fill Marketplan marketname'
-  },
-  marketplance : {
-    type: String,
-    required: 'Please fill Marketplan marketplance'
+    required: 'Please fill Marketplan place'
   },
   created: {
     type: Date,
