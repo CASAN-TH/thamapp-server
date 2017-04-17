@@ -25,6 +25,14 @@ var MarketplanSchema = new Schema({
     type: String,
     required: 'Please fill Marketplan place'
   },
+  startdate: {
+    type: Date,
+    required: 'Please fill Marketplan startdate'
+  },
+  enddate: {
+    type: Date,
+    required: 'Please fill Marketplan enddate'
+  },
   created: {
     type: Date,
     default: Date.now

@@ -53,7 +53,9 @@ describe('Marketplan CRUD tests', function () {
       marketplan = {
         name: 'Marketplan name',
         year: 2560,
-        place : '55/7'
+        place: '55/7',
+        startdate: Date.now(),
+        enddate: Date.now()
       };
 
       done();
@@ -145,7 +147,7 @@ describe('Marketplan CRUD tests', function () {
       });
   });
 
-//year
+  //year
   it('should not be able to save an Marketplan if no year is provided', function (done) {
     // Invalidate year field
     marketplan.year = null;
@@ -172,7 +174,7 @@ describe('Marketplan CRUD tests', function () {
           });
       });
   });
-  
+
 
   //marketplance
   it('should not be able to save an Marketplan if no place is provided', function (done) {
@@ -201,6 +203,61 @@ describe('Marketplan CRUD tests', function () {
           });
       });
   });
+  //startdate
+  it('should not be able to save an Marketplan if no startdate is provided', function (done) {
+    // Invalidate startdate field
+    marketplan.startdate = null;
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan startdate');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+//enddate
+  it('should not be able to save an Marketplan if no enddate is provided', function (done) {
+    // Invalidate enddate field
+    marketplan.enddate = null;
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan enddate');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+  
 
   it('should be able to update an Marketplan if signed in', function (done) {
     agent.post('/api/auth/signin')
