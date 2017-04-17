@@ -35,11 +35,8 @@ describe('Campaign Model Unit Tests:', function() {
                 startdate: '2017-04-20',
                 enddate: '2017-04-22',
                 usercount: 0,
-                listusercampaign: [{
-                    identification: 1180200059502,
-                    user: user,
-                    acceptcampaigndate: '2017-04-28'
-                }],
+                pointcount: 0,
+                description: 'description',
                 user: user
             });
 
@@ -48,11 +45,8 @@ describe('Campaign Model Unit Tests:', function() {
                 startdate: '2017-04-20',
                 enddate: '2017-04-22',
                 usercount: 0,
-                listusercampaign: [{
-                    identification: 1180200059502,
-                    user: user,
-                    acceptcampaigndate: '2017-04-28'
-                }],
+                pointcount: 0,
+                description: 'description',
                 user: user
             });
             done();
@@ -116,25 +110,49 @@ describe('Campaign Model Unit Tests:', function() {
             });
         });
 
-        it('should be able to show an error when try to save without identification', function(done) {
-            campaign.listusercampaign[0].identification = null;
+        // it('should be able to show an error when try to save without identification', function(done) {
+        //     campaign.listusercampaign[0].identification = null;
 
+        //     return campaign.save(function(err) {
+        //         should.exist(err);
+        //         done();
+        //     });
+        // });
+
+        //  it('should be able to show an error when try to save without acceptcampaigndate', function(done) {
+        //     campaign.listusercampaign[0].acceptcampaigndate = '';
+
+        //     return campaign.save(function(err) {
+        //         should.exist(err);
+        //         done();
+        //     });
+        // });
+
+        it('should be able to update data', function(done) {
+            this.timeout(0);
+            var data = {
+                identification: 1234,
+                user: user,
+                status: 'accept'
+            };
+            var data2 = {
+                identification: 1234,
+                user: user,
+                status: 'accept'
+            };
             return campaign.save(function(err) {
-                should.exist(err);
-                done();
+                should.not.exist(err);
+                campaign.listusercampaign.push(data);
+                campaign.save(function(err) {
+                    should.not.exist(err);
+                    campaign.listusercampaign.push(data2);
+                    campaign.save(function(err) {
+                        should.not.exist(err);
+                        done();
+                    });
+                });
             });
         });
-
-         it('should be able to show an error when try to save without acceptcampaigndate', function(done) {
-            campaign.listusercampaign[0].acceptcampaigndate = '';
-
-            return campaign.save(function(err) {
-                should.exist(err);
-                done();
-            });
-        });
-        
-
     });
 
     afterEach(function(done) {

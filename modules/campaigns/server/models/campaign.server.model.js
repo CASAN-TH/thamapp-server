@@ -31,11 +31,9 @@ var CampaignSchema = new Schema({
     listusercampaign: [{
         identification: {
             type: Number,
-            required: 'Please fill Campaign identification',
         },
         acceptcampaigndate: {
             type: String,
-            required: 'Please fill Campaign acceptcampaigndate',
         },
         user: {
             type: Schema.ObjectId,
