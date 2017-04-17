@@ -16,6 +16,10 @@ var MarketplanSchema = new Schema({
     required: 'Please fill Marketplan name',
     trim: true
   },
+  year: {
+    type: Number,
+    required: 'Please fill Marketplan year'
+  },
   created: {
     type: Date,
     default: Date.now

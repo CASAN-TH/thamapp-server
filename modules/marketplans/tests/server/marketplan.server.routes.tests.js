@@ -51,7 +51,8 @@ describe('Marketplan CRUD tests', function () {
     // Save a user to the test db and create new Marketplan
     user.save(function () {
       marketplan = {
-        name: 'Marketplan name'
+        name: 'Marketplan name',
+        year: 2560
       };
 
       done();
