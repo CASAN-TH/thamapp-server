@@ -121,9 +121,7 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('campaigns.view', {
-          campaignId: mockCampaign._id
-        });
+        expect($state.go).toHaveBeenCalledWith('campaigns.list');
       }));
 
       it('should set $scope.vm.error if error', inject(function (CampaignsService) {

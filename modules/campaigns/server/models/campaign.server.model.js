@@ -47,8 +47,14 @@ var CampaignSchema = new Schema({
         }
     }],
     description: String,
-    pointcount: String,
-    usertotal: String,
+    pointcount:{
+      type:Number,
+      default:0
+      },
+    usertotal:{
+      type:Number,
+      default:0
+    },
     statuscampaign: {
         type: String,
         default: 'open'
