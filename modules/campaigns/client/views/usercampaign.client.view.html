@@ -1,0 +1,96 @@
+<section class="header-height">
+  <div class="page-header">
+    <h1>รายการสิทธิ์</h1>
+  </div>
+
+  <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+    <div class="col-xs-8">
+      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+    </div>
+    <!--<div class="col-md-4">
+      <div class="pull-right">
+        <a class="btn buttonCreate" ui-sref="accountcharts.create">
+          <span>New</span>
+        </a>
+      </div>
+    </div>-->
+  </div>
+
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-6">
+      
+    </div>
+    <div class="col-md-6">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+      </div>
+    </div>
+    <!--<div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+      <div class="pull-right">
+        <a class="btn buttonCreate" ui-sref="accountcharts.create">
+          <i class="fa fa-file-o" aria-hidden="true"></i>
+          <span>New</span>
+        </a>
+      </div>
+    </div>-->
+  </div>
+
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-info">
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>ชื่อแคมเปญ</strong>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <strong>รายละเอียด</strong>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <strong>วันที่เริ่ม - วันที่สิ้นสุด</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>จำนวน Point </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="account in vm.accountcharts | filter:topsearch">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <p class="list-group-item-heading" ng-bind="account.accountno"></p>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <p class="list-group-item-heading" ng-bind="account.accountname"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="account.status"></p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1" align="center">
+          <button type="button" class="btn btn-primary" ng-click="vm.update(account)"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row show-xs hidden-sm hidden-md hidden-lg">
+    <div class="col-xs-12">
+      <div class="list-group" ng-repeat="account in vm.accountcharts | filter:topsearch">
+        <a href="#" class="list-group-item list-group-item-action">
+          <div>
+            <span class="list-group-item-heading" ng-bind="'รหัสบัญชี'+ ' : ' + account.accountno"></span>
+          </div>
+          <div>
+            <span class="list-group-item-heading" ng-bind="'ชื่อบัญชี'+ ' : ' + account.accountname"></span>
+          </div>
+          <div>
+            <span class="list-group-item-heading" ng-bind="'สถานะ'+ ' : ' + account.status"></span>
+          </div>
+          <div class="list-group-item-heading textRight">
+            <button type="button" class="btn btn-primary" ng-click="vm.update(account)"><span class="glyphicon glyphicon-edit"></span></button>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

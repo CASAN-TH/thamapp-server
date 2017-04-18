@@ -33,6 +33,9 @@
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
         <span class="nav-label menu-headline">ขายสินค้า</span>
       </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/usercampaign" class="dropdown">
+        <a href="/#/usercampaign"><i class="fa fa-shopping-cart"></i> <span class="nav-label">กดรับสิทธิ์</span></a>
+      </li>
       <li ng-class="{active: $uiRoute}" ui-route="/products" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
