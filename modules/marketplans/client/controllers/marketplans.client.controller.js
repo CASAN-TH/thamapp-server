@@ -8,7 +8,7 @@
 
   MarketplansController.$inject = ['$scope', '$state', '$window', 'Authentication', 'marketplanResolve'];
 
-  function MarketplansController ($scope, $state, $window, Authentication, marketplan) {
+  function MarketplansController($scope, $state, $window, Authentication, marketplan) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -20,11 +20,11 @@
 
 
 
- if (vm.marketplan.startdate) {
-       vm.marketplan.startdate = new Date( vm.marketplan.startdate);
+    if (vm.marketplan.startdate) {
+      vm.marketplan.startdate = new Date(vm.marketplan.startdate);
     }
     if (vm.marketplan.enddate) {
-       vm.marketplan.enddate = new Date( vm.marketplan.enddate);
+      vm.marketplan.enddate = new Date(vm.marketplan.enddate);
     }
     // Remove existing Marketplan
     function remove() {
@@ -58,4 +58,4 @@
       }
     }
   }
-}());
+} ());
