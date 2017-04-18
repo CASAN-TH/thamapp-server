@@ -8,7 +8,7 @@
 
   CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve'];
 
-  function CampaignsController ($scope, $state, $window, Authentication, campaign) {
+  function CampaignsController($scope, $state, $window, Authentication, campaign) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,6 +17,39 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.acceptcampaign = acceptcampaign;
+    vm.addHis = addHis;
+
+    
+
+    // vm.acceptcampaign.listusercampaign = [];
+    function addHis(campaign) {
+      campaign.listusercampaign.push({
+        status: campaign.arstatus,
+        datestatus: new Date()
+      });
+    }
+
+    function acceptcampaign() {
+      // console.log(vm.identification);
+      // campaign.identification = vm.identification;
+      // vm.addHis(campaign);
+      vm.campaign.listusercampaign.push({
+        identification: vm.identification,
+        status: 'accept',
+        acceptcampaigndate: vm.acceptcampaigndate,
+        facebook: vm.facebook,
+        lineid: vm.lineid
+      });
+      vm.campaign.$update(successCallback, errorCallback);
+      function successCallback(res) {
+
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
 
     if (vm.campaign.startdate) {
       vm.campaign.startdate = new Date(vm.campaign.startdate);
@@ -54,4 +87,4 @@
       }
     }
   }
-}());
+} ());
