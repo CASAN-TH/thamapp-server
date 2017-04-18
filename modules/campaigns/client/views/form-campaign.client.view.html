@@ -64,11 +64,11 @@
 
 
       <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
-        <label class="control-label" for="pointcount">จำนวน point ที่สามารถใช้สิทธิ</label>
-        <input name="pointcount" type="number" ng-model="vm.campaign.pointcount" id="pointcount" class="form-control" placeholder="จำนวน point ที่สามารถใช้สิทธิ">
+        <label class="control-label" for="pointcount">จำนวน point ที่สามารถใช้สิทธิ์</label>
+        <input name="pointcount" type="number" ng-model="vm.campaign.pointcount" id="pointcount" class="form-control" placeholder="จำนวน point ที่สามารถใช้สิทธิ์">
       </div>
       <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'user'">
-        <label class="control-label">จำนวน point ที่สามารถใช้สิทธิ</label>
+        <label class="control-label">จำนวน point ที่สามารถใช้สิทธิ์</label>
         <label ng-bind="vm.campaign.pointcount" id="pointcount" class="form-control"></label>
       </div>
 
@@ -160,7 +160,7 @@
                     <p class="list-group-item-heading" ng-bind="accept.facrbook"></p>
                   </div>
                   <div class="col-xs-3 col-sm-3 col-md-3">
-                    <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate | date:'dd-MM-yyyy'"></p>
+                    <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
                   </div>
                   <div class="col-xs-1 col-sm-1 col-md-1">
                     <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
