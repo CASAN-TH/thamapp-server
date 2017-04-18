@@ -4,8 +4,8 @@ var multer = require('multer');
 module.exports = {
   app: {
     title: 'ธรรมธุรกิจ',
-    description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
-    keywords: 'mongodb, express, angularjs, node.js, mongoose, passport',
+    description: 'โครงการยักษ์จับมือโจน ส่งถึงบ้าน แหล่งรวมสินค้า อาหาร ธรรมชาติ',
+    keywords: 'ธรรมธุรกิจ, โครงการยักษ์จับมือโจน, แหล่งรวมสินค้า อาหาร ธรรมชาติ',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || process.env.MONGODB_URI || 3000,
