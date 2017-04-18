@@ -5,17 +5,12 @@
     .module('campaigns')
     .controller('UsercampaignController', UsercampaignController);
 
-  UsercampaignController.$inject = ['$scope'];
+  UsercampaignController.$inject = ['$scope', '$state', '$window', 'Authentication', 'CampaignsService'];
 
-  function UsercampaignController($scope) {
+  function UsercampaignController($scope, $state, $window, Authentication, CampaignsService) {
     var vm = this;
-
-    // Usercampaign controller logic
-    // ...
-
-    init();
-
-    function init() {
-    }
+    vm.authentication = Authentication;
+    vm.campaigns = CampaignsService.query();
+   
   }
 })();
