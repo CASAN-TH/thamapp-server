@@ -281,7 +281,7 @@ describe('Marketplan CRUD tests', function () {
           .expect(400)
           .end(function (marketplanSaveErr, marketplanSaveRes) {
             // Set message assertion
-            // (marketplanSaveRes.body.message).should.match('test test');
+            (marketplanSaveRes.body.message).should.match('Start date > End date');
             // Handle Marketplan save error
             done(marketplanSaveErr);
           });

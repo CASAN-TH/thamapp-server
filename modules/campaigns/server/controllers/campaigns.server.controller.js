@@ -16,6 +16,13 @@ exports.create = function(req, res) {
   var campaign = new Campaign(req.body);
   campaign.user = req.user;
 
+  //checkdate
+  // if (campaign.startdate && campaign.enddate && campaign.startdate > campaign.enddate) {
+  //   return res.status(400).send({
+  //     message: "test pass"
+  //   });
+  // }
+
   campaign.save(function(err) {
     if (err) {
       return res.status(400).send({

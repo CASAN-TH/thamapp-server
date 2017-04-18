@@ -9,6 +9,12 @@
 
   function routeConfig($stateProvider) {
     $stateProvider
+      .state('usercampaign', {
+        url: '/usercampaign',
+        templateUrl: 'modules/campaigns/client/views/usercampaign.client.view.html',
+        controller: 'UsercampaignController',
+        controllerAs: 'vm'
+      })
       .state('campaigns', {
         abstract: true,
         url: '/campaigns',

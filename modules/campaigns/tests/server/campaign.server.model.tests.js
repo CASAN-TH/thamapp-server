@@ -32,8 +32,8 @@ describe('Campaign Model Unit Tests:', function() {
         user.save(function() {
             campaign = new Campaign({
                 name: 'Campaign Name',
-                startdate: '2017-04-20',
-                enddate: '2017-04-22',
+                startdate: new Date('2017-04-20'),
+                enddate: new Date('2017-04-22'),
                 usercount: 0,
                 pointcount: 0,
                 description: 'description',
@@ -42,8 +42,8 @@ describe('Campaign Model Unit Tests:', function() {
 
             campaign2 = new Campaign({
                 name: 'Campaign Name',
-                startdate: '2017-04-20',
-                enddate: '2017-04-22',
+                startdate: new Date('2017-04-20'),
+                enddate: new Date('2017-04-22'),
                 usercount: 0,
                 pointcount: 0,
                 description: 'description',
