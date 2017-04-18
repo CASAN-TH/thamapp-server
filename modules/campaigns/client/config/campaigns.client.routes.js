@@ -82,4 +82,4 @@
   function newCampaign(CampaignsService) {
     return new CampaignsService();
   }
-}());
+} ());
