@@ -11,5 +11,7 @@
     var vm = this;
 
     vm.marketplans = MarketplansService.query();
+
+    
   }
 }());
