@@ -20,18 +20,18 @@
     $scope.textStart = function (startdate, enddate) {
       var date = new Date(enddate),
         start = new Date(startdate),
-        locale = "th",
-        monthend = date.toLocaleString(locale, { month: "long" }),
+        locale = 'th',
+        monthend = date.toLocaleString(locale, { month: 'long' }),
         datestart = start.getDate(),
         dateend = date.getDate();
       if (datestart < 10) {
-        datestart = "0" + datestart;
+        datestart = '0' + datestart;
       }
        if (dateend < 10) {
-        datestart = "0" + dateend;
+        datestart = '0' + dateend;
       }
-      return datestart + " - " + dateend + " " + monthend;
+      return datestart + ' - ' + dateend + ' ' + monthend;
 
-    }
+    };
   }
 }());
