@@ -18,6 +18,12 @@
     vm.remove = remove;
     vm.save = save;
 
+    if (vm.campaign.startdate) {
+      vm.campaign.startdate = new Date(vm.campaign.startdate);
+    }
+    if (vm.campaign.enddate) {
+      vm.campaign.enddate = new Date(vm.campaign.enddate);
+    }
     // Remove existing Campaign
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -40,9 +46,7 @@
       }
 
       function successCallback(res) {
-        $state.go('campaigns.view', {
-          campaignId: res._id
-        });
+        $state.go('campaigns.list');
       }
 
       function errorCallback(res) {

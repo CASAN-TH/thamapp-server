@@ -52,15 +52,6 @@
             <p class="help-block error-text" ng-message="required">campaign Name is required.</p>
           </div>
         </div>
-
-
-        <div class="form-group" show-errors ng-show="vm.campaign._id">
-          <label class="control-label" for="name">สถานะ</label>
-          <label>
-            <input type="radio" ng-model="vm.campaign.status" value="active">Active</input>
-            <input type="radio" ng-model="vm.campaign.status" value="inactive">Inactive</input>
-          </label>
-        </div>
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
         </div>
