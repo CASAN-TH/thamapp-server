@@ -95,7 +95,7 @@
           <!--<p class="list-group-item-heading" ng-bind="marketplan.enddate | date : 'dd' "></p>-->
         </div>
         <div class="col-xs-1 col-sm-1 col-md-1" align="center">
-          <button type="button" class="btn btn-primary" ng-click="vm.update(marketplan)"><span class="glyphicon glyphicon-edit"></span></button>
+          <button type="button" class="btn btn-primary" ui-sref="marketplans.edit({ marketplanId: marketplan._id })"><span class="glyphicon glyphicon-edit"></span></button>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@
   function menuConfig(menuService) {
     // Set top bar menu items
     menuService.addMenuItem('topbar', {
-      title: 'Marketplans',
+      title: 'ตลาดนัดธรรมชาติ',
       state: 'marketplans',
       type: 'dropdown',
       roles: ['*']
