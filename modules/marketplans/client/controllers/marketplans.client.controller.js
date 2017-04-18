@@ -40,7 +40,7 @@
       }
 
       function successCallback(res) {
-        $state.go('marketplans.view', {
+        $state.go('marketplans.list', {
           marketplanId: res._id
         });
       }
