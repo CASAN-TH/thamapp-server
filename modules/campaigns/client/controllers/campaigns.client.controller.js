@@ -18,9 +18,20 @@
     vm.remove = remove;
     vm.save = save;
     vm.acceptcampaign = acceptcampaign;
+    vm.receiptscampaign = receiptscampaign;
     vm.addHis = addHis;
 
-    
+    vm.removeitem = function (index) {
+      vm.campaign.listusercampaign.splice(index, 1);
+      vm.campaign.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        // $state.go('campaigns.list');
+        vm.campaign = campaign.query();
+      }
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    };
 
     // vm.acceptcampaign.listusercampaign = [];
     function addHis(campaign) {
@@ -30,10 +41,18 @@
       });
     }
 
+    function receiptscampaign(itm) {
+      itm.status = 'receipts';
+      vm.campaign.listusercampaign.status = itm.status;
+      vm.campaign.$update(successCallback, errorCallback);
+      function successCallback(res) {
+      }
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
+
     function acceptcampaign() {
-      // console.log(vm.identification);
-      // campaign.identification = vm.identification;
-      // vm.addHis(campaign);
       vm.campaign.listusercampaign.push({
         identification: vm.identification,
         status: 'accept',
@@ -43,12 +62,15 @@
       });
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {
-
+        vm.identification = '';
+        vm.acceptcampaigndate = '';
+        vm.facebook = '';
+        vm.lineid = '';
       }
-
       function errorCallback(res) {
         vm.error = res.data.message;
       }
+
     }
 
     if (vm.campaign.startdate) {
@@ -87,4 +109,4 @@
       }
     }
   }
-} ());
+}());

@@ -89,8 +89,7 @@
         <h3>รายการกดรับสิทธิ์</h3>
         <div class="form-group">
           <label class="control-label" for="identification">เลขที่บัตรประชาชน</label>
-          <input name="identification" type="text" ng-model="vm.identification" id="identification" class="form-control" placeholder="เลขที่บัตรประชาชน"
-            required>
+          <input name="identification" type="text" ng-model="vm.identification" id="identification" class="form-control" placeholder="เลขที่บัตรประชาชน">
           <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
           </div>
         </div>
@@ -108,7 +107,7 @@
         <div class="form-group">
           <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
           <input name="acceptcampaigndate" type="date" ng-model="vm.acceptcampaigndate" id="acceptcampaigndate" class="form-control"
-            placeholder="กำหนดวันที่รับสิทธิ์" required>
+            placeholder="กำหนดวันที่รับสิทธิ์">
           <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
           </div>
         </div>
@@ -148,7 +147,7 @@
               </div>
             </div>
             <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="accept in vm.campaign.listusercampaign">
-      
+
               <div class="col-md-12">
                 <div class="row form-group">
                   <div class="col-xs-3 col-sm-3 col-md-3">
@@ -164,15 +163,13 @@
                     <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate | date:'dd-MM-yyyy'"></p>
                   </div>
                   <div class="col-xs-1 col-sm-1 col-md-1">
-                    <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>        
+                    <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
                   </div>
                   <div class="col-xs-1 col-sm-1 col-md-1">
-                    <button type="button" class="btn buttonRedForm" ng-click="vm.removeitem(accept)"><span class="glyphicon glyphicon-trash"></span></button>                  
+                    <button type="button" class="btn buttonRedForm" ng-click="vm.removeitem($index)"><span class="glyphicon glyphicon-trash"></span></button>
                   </div>
 
-                  
-                       
-                        
+
                 </div>
               </div>
             </div>
