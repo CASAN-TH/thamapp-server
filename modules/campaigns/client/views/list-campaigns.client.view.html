@@ -1,22 +1,83 @@
 <section>
   <div class="page-header">
     <h1>Campaigns</h1>
+    <div class="textRight">
+      <a class="btn buttonCreate" ui-sref="campaigns.create">
+        <i class="fa fa-file-o" aria-hidden="true"></i>
+        <span>สร้างใหม่</span>
+      </a>
+    </div>
   </div>
-  <div class="list-group">
-    <a ng-repeat="campaign in vm.campaigns"
-       ui-sref="campaigns.view({ campaignId: campaign._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="campaign.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="campaign.user" ng-bind="campaign.user.displayName"></span>
-        <span ng-if="!campaign.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="campaign.name"></h4>
-    </a>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-10 hidden-xs hidden-sm show-md show-lg">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+      </div>
+    </div>
+    <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+      <div class="pull-right">
+        <a class="btn buttonCreate" ui-sref="campaigns.create">
+          <i class="fa fa-file-o" aria-hidden="true"></i>
+          <span>New</span>
+        </a>
+      </div>
+    </div>
   </div>
-  <div class="alert alert-warning text-center" ng-if="vm.campaigns.$resolved && !vm.campaigns.length">
-    No Campaigns yet, why don't you <a ui-sref="campaigns.create">create one</a>?
+
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-12">
+      <div class="row form-group alert alert-info">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <strong>รหัสบัญชี</strong>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <strong>ชื่อบัญชี</strong>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <strong>สถานะ</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1" align="center">
+          <strong>แก้ไข</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="campaign in vm.campaigns | filter:topsearch">
+    <div class="col-md-12">
+      <div class="row form-group">
+        <div class="col-xs-4 col-sm-4 col-md-4">
+          <p class="list-group-item-heading" ng-bind="campaign.campaignno"></p>
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5">
+          <p class="list-group-item-heading" ng-bind="campaign.campaignname"></p>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="campaign.status"></p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1" align="center">
+          <button type="button" class="btn btn-primary" ng-click="vm.update(campaign)"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row show-xs hidden-sm hidden-md hidden-lg">
+    <div class="col-xs-12">
+      <div class="list-group" ng-repeat="campaign in vm.campaigns | filter:topsearch">
+        <a href="#" class="list-group-item list-group-item-action">          
+          <div>
+            <span class="list-group-item-heading" ng-bind="'ชื่อแคมเปญ'+ ' : ' + campaign.name"></span>
+          </div>
+          <div>
+            <span class="list-group-item-heading" ng-bind="'สถานะ'+ ' : ' + campaign.status"></span>
+          </div>
+          <div class="list-group-item-heading textRight">
+            <button type="button" class="btn btn-primary" ng-click="vm.update(campaign)"><span class="glyphicon glyphicon-edit"></span></button>
+          </div>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
