@@ -25,12 +25,12 @@
         monthend = date.toLocaleString(locale, { month: 'long' }),
         datestart = start.getDate(),
         dateend = date.getDate();
-      if (datestart < 10) {
-        datestart = '0' + datestart;
-      }
-       if (dateend < 10) {
-        datestart = '0' + dateend;
-      }
+        if (datestart < 10) {
+          datestart = '0' + datestart;
+        }
+         if (dateend < 10) {
+          dateend = '0' + dateend;
+        }
       return datestart + ' - ' + dateend + ' ' + monthend;
 
     };
