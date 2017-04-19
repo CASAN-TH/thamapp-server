@@ -88,7 +88,7 @@ exports.delete = function(req, res) {
  * List of Campaigns
  */
 exports.list = function(req, res) {
-  Campaign.find().sort('-created').populate('user', 'displayName').exec(function(err, campaigns) {
+  Campaign.find().sort('-created').populate('user', 'displayName').populate('listusercampaign.user', 'displayName').exec(function(err, campaigns) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -110,7 +110,7 @@ exports.campaignByID = function(req, res, next, id) {
     });
   }
 
-  Campaign.findById(id).populate('user', 'displayName').exec(function (err, campaign) {
+  Campaign.findById(id).populate('user', 'displayName').populate('listusercampaign.user', 'displayName').exec(function (err, campaign) {
     if (err) {
       return next(err);
     } else if (!campaign) {
