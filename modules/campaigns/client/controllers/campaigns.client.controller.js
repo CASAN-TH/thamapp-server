@@ -68,13 +68,15 @@
     };
 
     vm.removeitem = function (item) {
-      console.log(item);
       var index = vm.campaign.listusercampaign.indexOf(item);
       vm.campaign.listusercampaign.splice(index, 1);
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {
+        if ($window.confirm('ลบรายการรับสิทธิ์เรียบร้อยแล้ว!')) {
+          $state.reload();
+        }
         // $state.go('campaigns.list');
-        vm.campaign = campaign.query();
+        // vm.campaign = campaign.query();
       }
       function errorCallback(res) {
         vm.error = res.data.message;
@@ -102,12 +104,11 @@
         vm.error = res.data.message;
       }
     }
-    console.log();
     function acceptcampaign() {
       var enddate = new Date(vm.campaign.enddate);
       var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
-      if (new Date() <= acceptdate) {
-        if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
+      if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
+        if (new Date() <= acceptdate) {
           vm.campaign.listusercampaign.push({
             identification: vm.identification,
             status: 'accept',
@@ -118,23 +119,25 @@
 
           });
           vm.campaign.$update(successCallback, errorCallback);
+          function successCallback(res) {
+            vm.identification = '';
+            vm.acceptcampaigndate = {};
+            vm.facebook = '';
+            vm.lineid = '';
+            if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+              $state.reload();
+            }
+          }
+          function errorCallback(res) {
+            if ($window.confirm('Something wrong!! : ' + res.data.message)) {
+              $state.reload();
+            }
+          }
         } else {
-          alert('จำนวนสิทธิ์เต็มแล้ว');
+          alert('หมดเขตการรับสิทธื์');
         }
       } else {
-        alert('หมดเขตการรับสิทธื์');
-      }
-
-      function successCallback(res) {
-        vm.identification = '';
-        vm.acceptcampaigndate = '';
-        vm.facebook = '';
-        vm.lineid = '';
-      }
-      function errorCallback(res) {
-        if ($window.confirm('Something wrong!! : ' + res.data.message)) {
-          $state.reload();
-        }
+        alert('จำนวนสิทธิ์เต็มแล้ว');
       }
     }
 
@@ -174,4 +177,4 @@
       }
     }
   }
-}());
+} ());

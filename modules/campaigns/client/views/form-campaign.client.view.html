@@ -90,7 +90,7 @@
             <label class="control-label">จำนวนผู้รับสิทธิ์ตามแผนกิจกรรม</label>
             <label ng-bind="vm.campaign.usercount" id="usercount" class="form-control"></label>
           </div>
-          <div class="form-group" ng-show="vm.campaign._id">
+          <div class="form-group" ng-show="vm.campaign._id" ng-if="vm.authentication.user.roles[0] === 'admin'">
             <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
           </div>
 
@@ -234,7 +234,7 @@
           <!---->
         </div>
       </div>
-      <div class="form-group" ng-show="!vm.campaign._id">
+      <div class="form-group" ng-show="!vm.campaign._id" ng-if="vm.authentication.user.roles[0] === 'admin'">
         <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
       </div>
       <div ng-show="vm.error" class="text-danger">
