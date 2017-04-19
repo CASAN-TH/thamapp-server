@@ -20,6 +20,7 @@
     vm.acceptcampaign = acceptcampaign;
     vm.receiptscampaign = receiptscampaign;
     vm.readMarketplans = readMarketplans;
+    vm.cancelcampaign = cancelcampaign;
     vm.listCampaign = [];
 
     function readMarketplans() {
@@ -45,25 +46,26 @@
     $scope.readCampaign = function () {
       vm.listCampaign = [];
       vm.listCampaign = vm.campaign.listusercampaign;
-      vm.listCampaign.forEach(function (accept) {
-        var enddate = new Date(accept.acceptcampaigndate.enddate),
-          start = new Date(accept.acceptcampaigndate.startdate),
-          locale = 'th',
-          monthend = enddate.toLocaleString(locale, { month: 'short' }),
-          datestart = start.getDate(),
-          dateend = enddate.getDate();
-        if (datestart < 10) {
-          datestart = '0' + datestart;
-        }
-        if (dateend < 10) {
-          dateend = '0' + dateend;
-        }
-        accept.acceptcampaigndate.startdate = datestart;
-        accept.acceptcampaigndate.enddate = dateend + ' ' + monthend;
-      });
+      if (vm.listCampaign) {
+        vm.listCampaign.forEach(function (accept) {
+          var enddate = new Date(accept.acceptcampaigndate.enddate),
+            start = new Date(accept.acceptcampaigndate.startdate),
+            locale = 'th',
+            monthend = enddate.toLocaleString(locale, { month: 'short' }),
+            datestart = start.getDate(),
+            dateend = enddate.getDate();
+          if (datestart < 10) {
+            datestart = '0' + datestart;
+          }
+          if (dateend < 10) {
+            dateend = '0' + dateend;
+          }
+          accept.acceptcampaigndate.startdate = datestart;
+          accept.acceptcampaigndate.enddate = dateend + ' ' + monthend;
+        });
+      }
+
     };
-
-
 
     vm.removeitem = function (item) {
       console.log(item);
@@ -79,6 +81,16 @@
       }
     };
 
+    function cancelcampaign() {
+      vm.campaign.statuscampaign = 'closed';
+      vm.campaign.$update(successCallback, errorCallback);
+      function successCallback(res) {
+        $state.go('campaigns.list');
+      }
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+    }
 
     function receiptscampaign(itm) {
       itm.status = 'receipts';
@@ -90,17 +102,29 @@
         vm.error = res.data.message;
       }
     }
-
+    console.log();
     function acceptcampaign() {
-      vm.campaign.listusercampaign.push({
-        identification: vm.identification,
-        status: 'accept',
-        user: vm.authentication.user,
-        acceptcampaigndate: vm.acceptcampaigndate,
-        facebook: vm.facebook,
-        lineid: vm.lineid
-      });
-      vm.campaign.$update(successCallback, errorCallback);
+      var enddate = new Date(vm.campaign.enddate);
+      var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
+      if (new Date() <= acceptdate) {
+        if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
+          vm.campaign.listusercampaign.push({
+            identification: vm.identification,
+            status: 'accept',
+            user: vm.authentication.user,
+            acceptcampaigndate: vm.acceptcampaigndate,
+            facebook: vm.facebook,
+            lineid: vm.lineid
+
+          });
+          vm.campaign.$update(successCallback, errorCallback);
+        } else {
+          alert('จำนวนสิทธิ์เต็มแล้ว');
+        }
+      } else {
+        alert('หมดเขตการรับสิทธื์');
+      }
+
       function successCallback(res) {
         vm.identification = '';
         vm.acceptcampaigndate = '';
@@ -150,4 +174,4 @@
       }
     }
   }
-} ());
+}());
