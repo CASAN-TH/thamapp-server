@@ -18,7 +18,8 @@ var app,
     user,
     user2,
     campaign,
-    campaign2;
+    campaign2,
+    campaign3;
 
 /**
  * Campaign routes tests
@@ -71,14 +72,24 @@ describe('Campaign CRUD tests', function () {
                 name: 'Campaign name',
                 startdate: new Date('2017-04-20'),
                 enddate: new Date('2017-04-22'),
-                usercount: 0
+                usercount: 0,
+                statuscampaign: 'open'
             };
 
             campaign2 = {
-                name: 'Campaign name',
+                name: 'Campaign name1',
                 startdate: new Date('2017-04-20'),
                 enddate: new Date('2017-04-22'),
-                usercount: 0
+                usercount: 0,
+                statuscampaign: 'close'
+            };
+
+            campaign3 = {
+                name: 'Campaign name2',
+                startdate: new Date('2017-04-16'),
+                enddate: new Date('2017-04-18'),
+                usercount: 0,
+                statuscampaign: 'open'
             };
 
             done();
@@ -121,9 +132,11 @@ describe('Campaign CRUD tests', function () {
 
                                 // Set assertions
                                 (campaigns[0].user._id).should.equal(userId);
+                                (campaigns.length).should.match(1);
                                 (campaigns[0].name).should.match('Campaign name');
                                 (campaigns[0].startdate).should.match(new Date('2017-04-20'));
                                 (campaigns[0].enddate).should.match(new Date('2017-04-22'));
+                                (campaigns[0].statuscampaign).should.match('open');
                                 (campaigns[0].usercount).should.equal(0);
 
                                 // Call the assertion callback
@@ -805,6 +818,145 @@ describe('Campaign CRUD tests', function () {
                     });
             });
     });
+
+    it('should be able to update an data user not same identification', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: 1234,
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign.listusercampaign = [];
+                campaign.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: 1235,
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign.listusercampaign.push(data2);
+                        // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign)
+                            .expect(200)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match(1234);
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match(1235);
+
+                                // Handle Campaign save error
+                                done();
+                            });
+                    });
+            });
+    });
+
+    it('should be able to update an data user same identification', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: 1234,
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign.listusercampaign = [];
+                campaign.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: 1234,
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign.listusercampaign.push(data2);
+                        // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign)
+                            .expect(400)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion
+                                (campaignUpdateRes.body.message).should.match('Identification is already!');
+                                // (campaignUpdateRes.body.listusercampaign.length).should.match(1);
+
+                                // Handle Campaign save error
+                                done(campaignUpdateErr);
+                            });
+                    });
+            });
+    });
+
+    it('should be able to get a list of Campaigns open status 1 close status 1 outofdate 1', function (done) {
+        // Create new Campaign model instance
+        var campaignObj1 = new Campaign(campaign);
+        var campaignObj2 = new Campaign(campaign2);
+        var campaignObj3 = new Campaign(campaign3);
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                campaignObj1.save();
+                campaignObj2.save();
+                campaignObj3.save(function () {
+                    // Request Campaigns
+                    agent.get('/api/campaigns')
+                        .end(function (campaignsGetErr, campaignsGetRes) {
+                            // Handle Campaigns save error
+                            if (campaignsGetErr) {
+                                return done(campaignsGetErr);
+                            }
+
+                            // Get Campaigns list
+                            var campaigns = campaignsGetRes.body;
+
+                            // Set assertions
+                            (campaigns.length).should.match(1);
+
+                            // Call the assertion callback
+                            done();
+                        });
+
+                });
+            });
+        // Save the campaign
+
+    });
+
 
     afterEach(function (done) {
         User.remove().exec(function () {
