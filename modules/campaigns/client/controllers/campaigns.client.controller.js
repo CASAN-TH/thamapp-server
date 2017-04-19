@@ -56,6 +56,7 @@
       vm.campaign.listusercampaign.push({
         identification: vm.identification,
         status: 'accept',
+        user: vm.authentication.user,
         acceptcampaigndate: vm.acceptcampaigndate,
         facebook: vm.facebook,
         lineid: vm.lineid
