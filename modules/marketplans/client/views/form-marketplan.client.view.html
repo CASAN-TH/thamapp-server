@@ -1,24 +1,58 @@
-<section>
+<section style="min-height:1600px">
   <div class="page-header">
-    <h1>{{vm.marketplan._id ? 'Edit Marketplan' : 'New Marketplan'}}</h1>
+    <h1>{{vm.marketplan._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}</h1>
   </div>
-  <div class="col-md-12">
-    <form name="vm.form.marketplanForm" class="form-horizontal" ng-submit="vm.save(vm.form.marketplanForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">Name</label>
-          <input name="name" type="text" ng-model="vm.marketplan.name" id="name" class="form-control" placeholder="Name" required>
-          <div ng-messages="vm.form.marketplanForm.name.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Marketplan name is required.</p>
+  <div class="row form-group">
+    <div class="col-md-12">
+      <form name="vm.form.marketplanForm" class="form-horizontal" ng-submit="vm.save(vm.form.marketplanForm.$valid)" novalidate>
+        <fieldset>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="startdate">วันเริ่มต้นกิจกรรม</label>
+                <input name="startdate" type="date" ng-model="vm.marketplan.startdate" id="startdate" class="form-control" required>
+
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="enddate">วันสิ้นสุดกิจกรรม</label>
+                <input name="enddate" type="date" ng-model="vm.marketplan.enddate" id="enddate" class="form-control" required>
+
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-default">{{vm.marketplan._id ? 'Update' : 'Create'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
-        </div>
-      </fieldset>
-    </form>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="name">ปี</label>
+                <input name="name" type="text" ng-model="vm.marketplan.year" id="name" class="form-control" placeholder="พ.ศ." required>
+               
+              </div>
+              <div class="form-group" show-errors>
+                <label class="control-label" for="name">ชื่อกิจกรรม</label>
+                <input name="name" type="text" ng-model="vm.marketplan.name" id="name" class="form-control" placeholder="กิจกรรม" required>
+                
+              </div>
+              <div class="form-group" show-errors>
+                <label class="control-label" for="name">สถานที่</label>
+                <input name="name" type="text" ng-model="vm.marketplan.place" id="name" class="form-control" placeholder="สถานที่จัดงาน"
+                  required>
+              </div>
+
+              
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">{{vm.marketplan._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+
+        </fieldset>
+      </form>
+    </div>
   </div>
 </section>

@@ -8,7 +8,7 @@
 
   MarketplansController.$inject = ['$scope', '$state', '$window', 'Authentication', 'marketplanResolve'];
 
-  function MarketplansController ($scope, $state, $window, Authentication, marketplan) {
+  function MarketplansController($scope, $state, $window, Authentication, marketplan) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -18,6 +18,14 @@
     vm.remove = remove;
     vm.save = save;
 
+
+
+    if (vm.marketplan.startdate) {
+      vm.marketplan.startdate = new Date(vm.marketplan.startdate);
+    }
+    if (vm.marketplan.enddate) {
+      vm.marketplan.enddate = new Date(vm.marketplan.enddate);
+    }
     // Remove existing Marketplan
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
@@ -40,7 +48,7 @@
       }
 
       function successCallback(res) {
-        $state.go('marketplans.view', {
+        $state.go('marketplans.list', {
           marketplanId: res._id
         });
       }
@@ -50,4 +58,4 @@
       }
     }
   }
-}());
+} ());

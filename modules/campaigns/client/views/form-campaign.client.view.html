@@ -2,63 +2,192 @@
   <div class="page-header">
     <h1>{{vm.campaign._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}</h1>
   </div>
-  <div class="col-md-12">
-    <form name="vm.form.campaignForm" class="form-horizontal" ng-submit="vm.save(vm.form.campaignForm.$valid)" novalidate>
-      <fieldset>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group" show-errors>
-              <label class="control-label" for="startdate">วันเริ่มต้นกิจกรรม</label>
-              <input name="startdate" type="date" ng-model="vm.campaign.startdate" id="startdate" class="form-control" required>
-              <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Campaign No is required.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group" show-errors>
-              <label class="control-label" for="enddate">วันสิ้นสุดกิจกรรม</label>
-              <input name="enddate" type="date" ng-model="vm.campaign.enddate" id="enddate" class="form-control" required>
-              <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Campaign No is required.</p>
-              </div>
+
+  <form name="vm.form.campaignForm" class="form-horizontal" ng-submit="vm.save(vm.form.campaignForm.$valid)" novalidate>
+    <fieldset>
+      <div class="row">
+        <div class="col-md-6" ng-show="vm.authentication.user.roles[0] === 'admin'">
+          <div class="form-group" show-errors>
+            <label class="control-label" for="startdate">วันเริ่มต้นกิจกรรม</label>
+            <input name="startdate" type="date" ng-model="vm.campaign.startdate" id="startdate" class="form-control" required>
+            <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Campaign No is required.</p>
             </div>
           </div>
         </div>
-
-        <div class="form-group" show-errors>
-          <label class="control-label" for="name">ชื่อแคมเปญ</label>
-          <input name="name" type="text" ng-model="vm.campaign.name" id="name" class="form-control" placeholder="ชื่อแคมเปญ" required>
-          <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Campaign No is required.</p>
+        <div class="col-md-6" ng-show="vm.authentication.user.roles[0] === 'user'">
+          <div class="form-group">
+            <label class="control-label">วันเริ่มต้นกิจกรรม</label>
+            <label ng-bind="vm.campaign.startdate | date:'dd/MM/yyyy' " id="startdate" class="form-control"></label>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="control-label" for="description">รายละเอียด</label>
-          <input name="description" type="text" ng-model="vm.campaign.description" id="description" class="form-control" placeholder="รายละเอียด">
-        </div>
 
-        <div class="form-group">
-          <label class="control-label" for="pointcount">จำนวน point ที่สามารถใช้สิทธิ</label>
-          <input name="pointcount" type="number" ng-model="vm.campaign.pointcount" id="pointcount" class="form-control" placeholder="จำนวน point ที่สามารถใช้สิทธิ">
-        </div>
-
-        <div class="form-group" show-errors>
-          <label class="control-label" for="usercount">จำนวนผู้รับสิทธิ์ตามแผนกิจกรรม</label>
-          <input name="usercount" type="number" ng-model="vm.campaign.usercount" id="usercount" class="form-control" placeholder="จำนวนผู้รับสิทธิ์ตามแผนกิจกรรม"
-            required>
-          <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">campaign Name is required.</p>
+        <div class="col-md-6" ng-show="vm.authentication.user.roles[0] === 'admin'">
+          <div class="form-group" show-errors>
+            <label class="control-label" for="enddate">วันสิ้นสุดกิจกรรม</label>
+            <input name="enddate" type="date" ng-model="vm.campaign.enddate" id="enddate" class="form-control" required>
+            <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Campaign No is required.</p>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+        <div class="col-md-6" ng-show="vm.authentication.user.roles[0] === 'user'">
+          <div class="form-group">
+            <label class="control-label">วันสิ้นสุดกิจกรรม</label>
+            <label ng-bind="vm.campaign.enddate | date:'dd/MM/yyyy' " id="enddate" class="form-control"></label>
+          </div>
         </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="form-group" show-errors ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <label class="control-label" for="name">ชื่อแคมเปญ</label>
+            <input name="name" type="text" ng-model="vm.campaign.name" id="name" class="form-control" placeholder="ชื่อแคมเปญ" required>
+            <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Campaign No is required.</p>
+            </div>
+          </div>
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'user'">
+            <label class="control-label">ชื่อแคมเปญ</label>
+            <label ng-bind="vm.campaign.name" id="name" class="form-control"></label>
+          </div>
+
+
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <label class="control-label" for="description">รายละเอียด</label>
+            <input name="description" type="text" ng-model="vm.campaign.description" id="description" class="form-control" placeholder="รายละเอียด">
+          </div>
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'user'">
+            <label class="control-label">รายละเอียด</label>
+            <label ng-bind="vm.campaign.description" id="description" class="form-control"></label>
+          </div>
+
+
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <label class="control-label" for="pointcount">จำนวน point ที่สามารถใช้สิทธิ์</label>
+            <input name="pointcount" type="number" ng-model="vm.campaign.pointcount" id="pointcount" class="form-control" placeholder="จำนวน point ที่สามารถใช้สิทธิ์">
+          </div>
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'user'">
+            <label class="control-label">จำนวน point ที่สามารถใช้สิทธิ์</label>
+            <label ng-bind="vm.campaign.pointcount" id="pointcount" class="form-control"></label>
+          </div>
+
+          <div class="form-group" show-errors ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <label class="control-label" for="usercount">จำนวนผู้รับสิทธิ์ตามแผนกิจกรรม</label>
+            <input name="usercount" type="number" ng-model="vm.campaign.usercount" id="usercount" class="form-control" placeholder="จำนวนผู้รับสิทธิ์ตามแผนกิจกรรม"
+              required>
+            <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">campaign Name is required.</p>
+            </div>
+          </div>
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'user'">
+            <label class="control-label">จำนวนผู้รับสิทธิ์ตามแผนกิจกรรม</label>
+            <label ng-bind="vm.campaign.usercount" id="usercount" class="form-control"></label>
+          </div>
+
+          <div ng-show="vm.campaign._id">
+            <h3>รายการกดรับสิทธิ์</h3>
+            <div class="form-group">
+              <label class="control-label" for="identification">เลขที่บัตรประชาชน</label>
+              <input name="identification" type="text" ng-model="vm.identification" id="identification" class="form-control" placeholder="เลขที่บัตรประชาชน">
+              <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="lineid">Line ID</label>
+              <input name="lineid" type="text" ng-model="vm.lineid" id="lineid" class="form-control" placeholder="Line ID">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="facebook">Facebook</label>
+              <input name="facebook" type="text" ng-model="vm.facebook" id="facebook" class="form-control" placeholder="Facebook">
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
+              <input name="acceptcampaigndate" type="date" ng-model="vm.acceptcampaigndate" id="acceptcampaigndate" class="form-control"
+                placeholder="กำหนดวันที่รับสิทธิ์">
+              <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label" for="status"></label>
+              <button ng-disabled="!vm.identification || !vm.acceptcampaigndate" ng-click="vm.acceptcampaign()" type="button" class="btn btn-warning">{{vm.campaign._id ? 'ยืนยันการรับสิทธิ์' : 'ยืนยันการรับสิทธิ์'}}</button>
+            </div>
+          </div>
+
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <h3>รายการผู้รับสิทธิ์</h3>
+            <div class="form-group">
+              <div>
+                <div class="row hidden-xs show-sm show-md show-lg">
+                  <div class="col-md-12">
+                    <div class="row form-group alert alert-info">
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <strong>เลขที่บัตรประชาชน</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>Facebook</strong>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>Line ID</strong>
+                      </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <strong>กำหนดวันที่รับสิทธิ์</strong>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-md-1">
+                        <strong>ได้รับ</strong>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-md-1">
+                        <strong>ยกเลิก</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="accept in vm.campaign.listusercampaign">
+
+                  <div class="col-md-12">
+                    <div class="row form-group">
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <p class="list-group-item-heading" ng-bind="accept.identification"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="accept.lineid"></p>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2">
+                        <p class="list-group-item-heading" ng-bind="accept.facrbook"></p>
+                      </div>
+                      <div class="col-xs-3 col-sm-3 col-md-3">
+                        <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-md-1">
+                        <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
+                      </div>
+                      <div class="col-xs-1 col-sm-1 col-md-1">
+                        <button type="button" class="btn buttonRedForm" ng-click="vm.removeitem($index)"><span class="glyphicon glyphicon-trash"></span></button>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </fieldset>
-    </form>
-  </div>
+      </div>
+      <div class="form-group" ng-show="!vm.campaign._id">
+        <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+      </div>
+      <div ng-show="vm.error" class="text-danger">
+        <strong ng-bind="vm.error"></strong>
+      </div>
+
+    </fieldset>
+  </form>
+
 </section>
