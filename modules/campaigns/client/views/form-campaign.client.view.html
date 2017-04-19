@@ -1,4 +1,4 @@
-<section class="header-height">
+<section class="header-height" ng-init="vm.readMarketplans();readCampaign()">
   <div class="page-header">
     <h1>{{vm.campaign._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}</h1>
   </div>
@@ -108,7 +108,7 @@
 
             <div class="form-group">
               <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
-              <select ng-options="data as data.name for data in vm.date"
+              <select ng-options="data as data.startdate + ' - ' + data.enddate + ' ' + data.place for data in vm.marketplans"
                 ng-model="vm.acceptcampaigndate" class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
@@ -169,7 +169,7 @@
                                 <p class="list-group-item-heading" ng-bind="accept.user.displayName"></p>
                               </div>
                               <div class="col-xs-3 col-sm-3 col-md-3">
-                                <p class="list-group-item-heading dotpy" ng-bind="accept.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
+                                <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate.startdate + ' - ' + accept.acceptcampaigndate.enddate + ' ' + accept.acceptcampaigndate.place"></p>
                               </div>
                               <div class="col-xs-1 col-sm-1 col-md-1">
                                 <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
@@ -209,7 +209,7 @@
                                 <p class="list-group-item-heading" ng-bind="receipt.user.displayName"></p>
                               </div>
                               <div class="col-xs-4 col-sm-4 col-md-4">
-                                <p class="list-group-item-heading dotpy" ng-bind="receipt.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
+                                <p class="list-group-item-heading" ng-bind="receipt.acceptcampaigndate.startdate + ' - ' + receipt.acceptcampaigndate.enddate + ' ' + receipt.acceptcampaigndate.place"></p>
                               </div>
                             </div>
                           </div>

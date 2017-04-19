@@ -19,26 +19,48 @@
     vm.save = save;
     vm.acceptcampaign = acceptcampaign;
     vm.receiptscampaign = receiptscampaign;
-    vm.addHis = addHis;
+    vm.readMarketplans = readMarketplans;
 
-    vm.date = MarketplansService.query();
+    function readMarketplans() {
+      vm.marketplans = MarketplansService.query(function () {
+        vm.marketplans.forEach(function (market) {
+          var enddate = new Date(market.enddate),
+            start = new Date(market.startdate),
+            locale = 'th',
+            monthend = enddate.toLocaleString(locale, { month: 'short' }),
+            datestart = start.getDate(),
+            dateend = enddate.getDate();
+          if (datestart < 10) {
+            datestart = '0' + datestart;
+          }
+          if (dateend < 10) {
+            dateend = '0' + dateend;
+          }
+          market.startdate = datestart;
+          market.enddate = dateend + ' ' + monthend;
+        });
+      });
+    }
+    $scope.readCampaign = function () {
+      vm.campaign.listusercampaign.forEach(function (accept) {
+        var enddate = new Date(accept.acceptcampaigndate.enddate),
+          start = new Date(accept.acceptcampaigndate.startdate),
+          locale = 'th',
+          monthend = enddate.toLocaleString(locale, { month: 'short' }),
+          datestart = start.getDate(),
+          dateend = enddate.getDate();
+        if (datestart < 10) {
+          datestart = '0' + datestart;
+        }
+        if (dateend < 10) {
+          dateend = '0' + dateend;
+        }
+        accept.acceptcampaigndate.startdate = datestart;
+        accept.acceptcampaigndate.enddate = dateend + ' ' + monthend;
+      });
+    };
 
-    // $scope.textStart = function (startdate, enddate) {
-    //   var date = new Date(enddate),
-    //     start = new Date(startdate),
-    //     locale = 'th',
-    //     monthend = date.toLocaleString(locale, { month: 'long' }),
-    //     datestart = start.getDate(),
-    //     dateend = date.getDate();
-    //   if (datestart < 10) {
-    //     datestart = '0' + datestart;
-    //   }
-    //   if (dateend < 10) {
-    //     datestart = '0' + dateend;
-    //   }
-    //   return datestart + ' - ' + dateend + ' ' + monthend;
 
-    // };
 
     vm.removeitem = function (item) {
       console.log(item);
@@ -54,13 +76,6 @@
       }
     };
 
-    // vm.acceptcampaign.listusercampaign = [];
-    function addHis(campaign) {
-      campaign.listusercampaign.push({
-        status: campaign.arstatus,
-        datestatus: new Date()
-      });
-    }
 
     function receiptscampaign(itm) {
       itm.status = 'receipts';
@@ -88,9 +103,13 @@
         vm.acceptcampaigndate = '';
         vm.facebook = '';
         vm.lineid = '';
+        $state.reload();
+        
       }
       function errorCallback(res) {
-        vm.error = res.data.message;
+        if ($window.confirm('Something wrong!! : ' + res.data.message)) {
+          $state.reload();
+        }
       }
 
     }
