@@ -119,25 +119,27 @@
 
           });
           vm.campaign.$update(successCallback, errorCallback);
-          function successCallback(res) {
-            vm.identification = '';
-            vm.acceptcampaigndate = {};
-            vm.facebook = '';
-            vm.lineid = '';
-            if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
-              $state.reload();
-            }
-          }
-          function errorCallback(res) {
-            if ($window.confirm('Something wrong!! : ' + res.data.message)) {
-              $state.reload();
-            }
-          }
+
         } else {
           alert('หมดเขตการรับสิทธื์');
         }
       } else {
         alert('จำนวนสิทธิ์เต็มแล้ว');
+      }
+
+      function successCallback(res) {
+        vm.identification = '';
+        vm.acceptcampaigndate = {};
+        vm.facebook = '';
+        vm.lineid = '';
+        if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+          $state.reload();
+        }
+      }
+      function errorCallback(res) {
+        if ($window.confirm('Something wrong!! : ' + res.data.message)) {
+          $state.reload();
+        }
       }
     }
 
