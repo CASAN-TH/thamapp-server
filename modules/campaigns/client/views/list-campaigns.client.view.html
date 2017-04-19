@@ -67,7 +67,8 @@
           <p class="list-group-item-heading" ng-bind="campaign.description"></p>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3">
-          <span class="list-group-item-heading" ng-bind="campaign.startdate | date:'dd/MM/yyyy' "></span> - <span class="list-group-item-heading" ng-bind="campaign.enddate | date:'dd/MM/yyyy'"></span>
+          <p class="list-group-item-heading">{{campaign.startdate | date:'dd/MM/yyyy'}} - {{campaign.enddate | date:'dd/MM/yyyy'}}</p>
+          <!--<span class="list-group-item-heading" ng-bind="campaign.startdate | date:'dd/MM/yyyy' "></span> - <span class="list-group-item-heading" ng-bind="campaign.enddate | date:'dd/MM/yyyy'"></span>-->
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="campaign.pointcount"></p>
