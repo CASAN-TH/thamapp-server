@@ -5,11 +5,12 @@
     .module('marketplans')
     .controller('MarketplansListController', MarketplansListController);
 
-  MarketplansListController.$inject = ['MarketplansService', '$scope'];
+  MarketplansListController.$inject = ['MarketplansService', '$scope','Authentication'];
 
-  function MarketplansListController(MarketplansService, $scope) {
+  function MarketplansListController(MarketplansService, $scope,Authentication) {
     var vm = this;
-
+    vm.authentication = Authentication;
+// console.log(Authentication);
     vm.marketplans = MarketplansService.query(function () {
       vm.marketplans.forEach(function (res) {
 
