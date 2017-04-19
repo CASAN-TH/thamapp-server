@@ -6,9 +6,9 @@
     .module('campaigns')
     .controller('CampaignsController', CampaignsController);
 
-  CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve'];
+  CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve', 'MarketplansService'];
 
-  function CampaignsController($scope, $state, $window, Authentication, campaign) {
+  function CampaignsController($scope, $state, $window, Authentication, campaign, MarketplansService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -21,7 +21,28 @@
     vm.receiptscampaign = receiptscampaign;
     vm.addHis = addHis;
 
-    vm.removeitem = function (index) {
+    vm.date = MarketplansService.query();
+
+    // $scope.textStart = function (startdate, enddate) {
+    //   var date = new Date(enddate),
+    //     start = new Date(startdate),
+    //     locale = 'th',
+    //     monthend = date.toLocaleString(locale, { month: 'long' }),
+    //     datestart = start.getDate(),
+    //     dateend = date.getDate();
+    //   if (datestart < 10) {
+    //     datestart = '0' + datestart;
+    //   }
+    //   if (dateend < 10) {
+    //     datestart = '0' + dateend;
+    //   }
+    //   return datestart + ' - ' + dateend + ' ' + monthend;
+
+    // };
+
+    vm.removeitem = function (item) {
+      console.log(item);
+      var index = vm.campaign.listusercampaign.indexOf(item);
       vm.campaign.listusercampaign.splice(index, 1);
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {

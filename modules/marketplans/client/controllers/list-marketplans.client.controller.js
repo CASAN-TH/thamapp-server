@@ -5,11 +5,12 @@
     .module('marketplans')
     .controller('MarketplansListController', MarketplansListController);
 
-  MarketplansListController.$inject = ['MarketplansService', '$scope'];
+  MarketplansListController.$inject = ['MarketplansService', '$scope','Authentication'];
 
-  function MarketplansListController(MarketplansService, $scope) {
+  function MarketplansListController(MarketplansService, $scope,Authentication) {
     var vm = this;
-
+    vm.authentication = Authentication;
+// console.log(Authentication);
     vm.marketplans = MarketplansService.query(function () {
       vm.marketplans.forEach(function (res) {
 
@@ -21,15 +22,15 @@
       var date = new Date(enddate),
         start = new Date(startdate),
         locale = 'th',
-        monthend = date.toLocaleString(locale, { month: 'long' }),
+        monthend = date.toLocaleString(locale, { month: 'short' }),
         datestart = start.getDate(),
         dateend = date.getDate();
-      if (datestart < 10) {
-        datestart = '0' + datestart;
-      }
-       if (dateend < 10) {
-        datestart = '0' + dateend;
-      }
+        if (datestart < 10) {
+          datestart = '0' + datestart;
+        }
+         if (dateend < 10) {
+          dateend = '0' + dateend;
+        }
       return datestart + ' - ' + dateend + ' ' + monthend;
 
     };
