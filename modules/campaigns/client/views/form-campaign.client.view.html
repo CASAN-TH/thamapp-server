@@ -108,8 +108,8 @@
 
             <div class="form-group">
               <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
-              <input name="acceptcampaigndate" type="date" ng-model="vm.acceptcampaigndate" id="acceptcampaigndate" class="form-control"
-                placeholder="กำหนดวันที่รับสิทธิ์">
+              <select ng-options="data as data.name for data in vm.date"
+                ng-model="vm.acceptcampaigndate" class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
             </div>
@@ -120,7 +120,7 @@
             </div>
           </div>
 
-          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
+          <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.campaign._id">
             <h3>รายการผู้รับสิทธิ์</h3>
             <div class="tab-pane active" id="allActive">
               <div class="tabbable tabs-left">
