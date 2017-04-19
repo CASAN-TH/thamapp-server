@@ -122,62 +122,108 @@
 
           <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
             <h3>รายการผู้รับสิทธิ์</h3>
-            <div class="form-group">
-              <div>
-                <div class="row hidden-xs show-sm show-md show-lg">
-                  <div class="col-md-12">
-                    <div class="row form-group alert alert-info">
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <strong>เลขที่บัตรประชาชน</strong>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>Facebook</strong>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>Line ID</strong>
-                      </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <strong>กำหนดวันที่รับสิทธิ์</strong>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <strong>ได้รับ</strong>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <strong>ยกเลิก</strong>
-                      </div>
+            <div class="tab-pane active" id="allActive">
+              <div class="tabbable tabs-left">
+                <div class="row">
+                  <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
+                    <div class="nav">
+                      <a href="#accept" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>ค้างรับ</span><h3>{{accept.length || 0}}</h3></button></a>
+                      <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รับแล้ว</span><h3>{{receipts.length || 0}}</h3></button></a>
                     </div>
                   </div>
-                </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="accept in vm.campaign.listusercampaign">
+                  <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
+                    <!--tap-->
+                    <div class="tab-content">
+                      <div class="tab-pane active" id="accept">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="col-md-12">
+                              <div class="row form-group alert alert-info">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                  <strong>เลขที่บัตรประชาชน</strong>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                  <strong>ชื่อผู้รับสิทธิ์</strong>
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                  <strong>กำหนดวันที่รับสิทธิ์</strong>
+                                </div>
+                                <div class="col-xs-1 col-sm-1 col-md-1">
+                                  <strong>ได้รับ</strong>
+                                </div>
+                                <div class="col-xs-1 col-sm-1 col-md-1">
+                                  <strong>ยกเลิก</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="accept in vm.campaign.listusercampaign | filter:{status:'accept'} as accept">
+                          <div class="col-md-12">
 
-                  <div class="col-md-12">
-                    <div class="row form-group">
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <p class="list-group-item-heading" ng-bind="accept.identification"></p>
+                            <div class="row form-group">
+                              <div class="col-xs-4 col-sm-4 col-md-4">
+                                <p class="list-group-item-heading" ng-bind="accept.identification"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <p class="list-group-item-heading" ng-bind="accept.user.displayName"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <p class="list-group-item-heading dotpy" ng-bind="accept.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 marleft">
+                                <button type="button" class="btn btn-danger" ng-click="vm.removeitem(accept)"><span class="glyphicon glyphicon-trash"></span></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <p class="list-group-item-heading" ng-bind="accept.lineid"></p>
+                      <div class="tab-pane" id="receipt">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="col-md-12">
+                              <div class="row form-group alert alert-info">
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                  <strong>เลขที่บัตรประชาชน</strong>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                  <strong>ชื่อผู้รับสิทธิ์</strong>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                  <strong>กำหนดวันที่รับสิทธิ์</strong>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="receipt in vm.campaign.listusercampaign | filter:{status:'receipts'} as receipts">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-4 col-sm-4 col-md-4">
+                                <p class="list-group-item-heading" ng-bind="receipt.identification"></p>
+                              </div>
+                              <div class="col-xs-4 col-sm-4 col-md-4">
+                                <p class="list-group-item-heading" ng-bind="receipt.user.displayName"></p>
+                              </div>
+                              <div class="col-xs-4 col-sm-4 col-md-4">
+                                <p class="list-group-item-heading dotpy" ng-bind="receipt.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <p class="list-group-item-heading" ng-bind="accept.facrbook"></p>
-                      </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate | date:'dd/MM/yyyy'"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonRedForm" ng-click="vm.removeitem($index)"><span class="glyphicon glyphicon-trash"></span></button>
-                      </div>
-
-
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+
+          <!---->
         </div>
       </div>
       <div class="form-group" ng-show="!vm.campaign._id">

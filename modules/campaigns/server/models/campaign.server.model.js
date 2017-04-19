@@ -33,7 +33,8 @@ var CampaignSchema = new Schema({
             type: Number,
         },
         acceptcampaigndate: {
-            type: Date,
+            type: Schema.ObjectId,
+            ref: 'Marketplan'
         },
         user: {
             type: Schema.ObjectId,
@@ -47,13 +48,13 @@ var CampaignSchema = new Schema({
         }
     }],
     description: String,
-    pointcount:{
-      type:Number,
-      default:0
-      },
-    usertotal:{
-      type:Number,
-      default:0
+    pointcount: {
+        type: Number,
+        default: 0
+    },
+    usertotal: {
+        type: Number,
+        default: 0
     },
     statuscampaign: {
         type: String,

@@ -21,7 +21,9 @@
     vm.receiptscampaign = receiptscampaign;
     vm.addHis = addHis;
 
-    vm.removeitem = function (index) {
+    vm.removeitem = function (item) {
+      console.log(item);
+      var index = vm.campaign.listusercampaign.indexOf(item);
       vm.campaign.listusercampaign.splice(index, 1);
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {
@@ -56,6 +58,7 @@
       vm.campaign.listusercampaign.push({
         identification: vm.identification,
         status: 'accept',
+        user: vm.authentication.user,
         acceptcampaigndate: vm.acceptcampaigndate,
         facebook: vm.facebook,
         lineid: vm.lineid
