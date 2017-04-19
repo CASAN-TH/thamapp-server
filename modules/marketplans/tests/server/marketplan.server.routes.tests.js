@@ -54,6 +54,7 @@ describe('Marketplan CRUD tests', function () {
         name: 'Marketplan name',
         year: 2560,
         place: '55/7',
+        text : '01-26 ม.ค. ตลาดนัดธรรมชาติ',
         startdate: Date.now(),
         enddate: Date.now()
       };
