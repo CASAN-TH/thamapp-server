@@ -20,6 +20,7 @@
     vm.acceptcampaign = acceptcampaign;
     vm.receiptscampaign = receiptscampaign;
     vm.readMarketplans = readMarketplans;
+    vm.listCampaign = [];
 
     function readMarketplans() {
       vm.marketplans = MarketplansService.query(function () {
@@ -42,7 +43,9 @@
       });
     }
     $scope.readCampaign = function () {
-      vm.campaign.listusercampaign.forEach(function (accept) {
+      vm.listCampaign = [];
+      vm.listCampaign = vm.campaign.listusercampaign;
+      vm.listCampaign.forEach(function (accept) {
         var enddate = new Date(accept.acceptcampaigndate.enddate),
           start = new Date(accept.acceptcampaigndate.startdate),
           locale = 'th',
@@ -103,15 +106,12 @@
         vm.acceptcampaigndate = '';
         vm.facebook = '';
         vm.lineid = '';
-        $state.reload();
-        
       }
       function errorCallback(res) {
         if ($window.confirm('Something wrong!! : ' + res.data.message)) {
           $state.reload();
         }
       }
-
     }
 
     if (vm.campaign.startdate) {
@@ -150,4 +150,4 @@
       }
     }
   }
-}());
+} ());

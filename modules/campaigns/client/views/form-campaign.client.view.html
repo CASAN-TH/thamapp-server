@@ -108,8 +108,8 @@
 
             <div class="form-group">
               <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
-              <select ng-options="data as data.startdate + ' - ' + data.enddate + ' ' + data.place for data in vm.marketplans"
-                ng-model="vm.acceptcampaigndate" class="form-control"></select>
+              <select ng-options="data as data.startdate + ' - ' + data.enddate + ' ' + data.place for data in vm.marketplans" ng-model="vm.acceptcampaigndate"
+                class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
             </div>
@@ -158,7 +158,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="accept in vm.campaign.listusercampaign | filter:{status:'accept'} as accept">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="accept in vm.listCampaign | filter:{status:'accept'} as accept">
                           <div class="col-md-12">
 
                             <div class="row form-group">
@@ -199,7 +199,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="receipt in vm.campaign.listusercampaign | filter:{status:'receipts'} as receipts">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="receipt in vm.listCampaign | filter:{status:'receipts'} as receipts">
                           <div class="col-md-12">
                             <div class="row form-group">
                               <div class="col-xs-4 col-sm-4 col-md-4">
