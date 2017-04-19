@@ -22,7 +22,7 @@
       var date = new Date(enddate),
         start = new Date(startdate),
         locale = 'th',
-        monthend = date.toLocaleString(locale, { month: 'long' }),
+        monthend = date.toLocaleString(locale, { month: 'short' }),
         datestart = start.getDate(),
         dateend = date.getDate();
         if (datestart < 10) {
