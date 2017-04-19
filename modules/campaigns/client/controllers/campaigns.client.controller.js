@@ -21,8 +21,11 @@
     vm.receiptscampaign = receiptscampaign;
     vm.addHis = addHis;
 
-    vm.removeitem = function (index) {
+    vm.removeitem = function (item) {
+      console.log(item);
+      var index = vm.campaign.listusercampaign.indexOf(item);
       vm.campaign.listusercampaign.splice(index, 1);
+      vm.campaign.listusercampaign.splice(acc.indexOf(acc), 1);
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {
         // $state.go('campaigns.list');
