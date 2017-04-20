@@ -177,7 +177,7 @@ describe('Marketplan CRUD tests', function () {
   });
 
 
-  //marketplance
+  //plance
   it('should not be able to save an Marketplan if no place is provided', function (done) {
     // Invalidate marketplance field
     marketplan.place = '';
@@ -199,6 +199,34 @@ describe('Marketplan CRUD tests', function () {
           .end(function (marketplanSaveErr, marketplanSaveRes) {
             // Set message assertion
             (marketplanSaveRes.body.message).should.match('Please fill Marketplan place');
+            // Handle Marketplan save error
+            done(marketplanSaveErr);
+          });
+      });
+  });
+
+   //text
+  it('should not be able to save an Marketplan if no text is provided', function (done) {
+    // Invalidate marketplance field
+    marketplan.text = '';
+
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+        // Get the userId
+        var userId = user.id;
+        // Save a new Marketplan
+        agent.post('/api/marketplans')
+          .send(marketplan)
+          .expect(400)
+          .end(function (marketplanSaveErr, marketplanSaveRes) {
+            // Set message assertion
+            (marketplanSaveRes.body.message).should.match('Please fill Marketplan text');
             // Handle Marketplan save error
             done(marketplanSaveErr);
           });
