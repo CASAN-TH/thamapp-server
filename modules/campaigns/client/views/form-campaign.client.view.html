@@ -99,7 +99,7 @@
           <div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin' || vm.mode === 'edit'">
             <div class="form-group">
               <h3>รายการกดรับสิทธิ์</h3>
-              <label class="control-label" for="identification">เลขที่บัตรประชาชน</label>
+              <label class="control-label" for="identification">เลขที่บัตรประชาชน</label><label class="front_price1"> * กรุณากรอกเลขที่บัตรประชาชนให้ถูกต้อง</label>
               <input name="identification" type="text" ng-model="vm.datauser.identification" id="identification" class="form-control" pattern="^\d{13}$"
                 placeholder="เลขที่บัตรประชาชน" maxlength="13">
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
@@ -117,7 +117,7 @@
             </div>
 
             <div class="form-group">
-              <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
+              <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label><label class="front_price1"> * กรุณาเลือกวันที่รับสิทธิ์</label>
               <select ng-options="data as data.text for data in vm.marketplans track by data._id" ng-model="vm.datauser.acceptcampaigndate" class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
