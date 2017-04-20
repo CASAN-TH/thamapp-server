@@ -58,43 +58,43 @@
   <div class="row hidden-xs show-sm show-md show-lg">
     <div class="col-md-12">
       <div class="row form-group alert alert-info">
-        <div class="col-xs-4 col-sm-4 col-md-2">
+        <div class="col-xs-3 col-sm-3 col-md-3">
           <strong>ปี พ.ศ.</strong>
         </div>
-        <div class="col-xs-5 col-sm-5 col-md-3">
+        <div class="col-xs-4 col-sm-4 col-md-4">
           <strong>กิจกรรม</strong>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-3">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <strong>สถานที่</strong>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-2" align="">
+        <div class="col-xs-2 col-sm-2 col-md-2" align="">
           <strong>วันที่เริ่ม - สิ้นสุด</strong>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-2" align="">
-       
+        <div class="col-xs-1 col-sm-1 col-md-1" align="">
+          <strong>แก้ไข</strong>
         </div>
       </div>
     </div>
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="marketplan in vm.marketplans | filter:topsearch">
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="marketplan in vm.marketplans | filter:topsearch" ui-sref="marketplans.edit({ marketplanId: marketplan._id })">
     <div class="col-md-12">
       <div class="row form-group">
-        <div class="col-xs-4 col-sm-4 col-md-2">
+        <div class="col-xs-3 col-sm-3 col-md-3">
           <p class="list-group-item-heading" ng-bind="marketplan.year"></p>
         </div>
-        <div class="col-xs-5 col-sm-5 col-md-3">
+        <div class="col-xs-4 col-sm-4 col-md-4">
           <p class="list-group-item-heading" ng-bind="marketplan.name"></p>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-3">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading" ng-bind="marketplan.place"></p>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-3">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <p class="list-group-item-heading">{{textStart(marketplan.startdate,marketplan.enddate)}} </p>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-1">
-          <!--<p class="list-group-item-heading" ng-bind="marketplan.enddate | date : 'dd' "></p>-->
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1" align="center">
+        <!--<div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading" ng-bind="marketplan.enddate | date : 'dd' "></p>
+        </div>-->
+        <div class="col-xs-1 col-sm-1 col-md-1" align="center" ng-show="vm.authentication.user.roles[0] === 'admin'">
           <button type="button" class="btn btn-primary" ui-sref="marketplans.edit({ marketplanId: marketplan._id })"><span class="glyphicon glyphicon-edit"></span></button>
         </div>
       </div>

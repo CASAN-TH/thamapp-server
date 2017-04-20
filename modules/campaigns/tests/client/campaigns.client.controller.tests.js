@@ -88,9 +88,7 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Campaign was created
-        expect($state.go).toHaveBeenCalledWith('campaigns.view', {
-          campaignId: mockCampaign._id
-        });
+        expect($state.go).toHaveBeenCalledWith('campaigns.list');
       }));
 
       it('should set $scope.vm.error if error', function () {

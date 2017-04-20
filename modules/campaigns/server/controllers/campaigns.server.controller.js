@@ -12,18 +12,18 @@ var path = require('path'),
 /**
  * Create a Campaign
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var campaign = new Campaign(req.body);
   campaign.user = req.user;
 
   //checkdate
-  // if (campaign.startdate && campaign.enddate && campaign.startdate > campaign.enddate) {
-  //   return res.status(400).send({
-  //     message: "test pass"
-  //   });
-  // }
+  if (campaign.startdate && campaign.enddate && campaign.startdate > campaign.enddate) {
+    return res.status(400).send({
+      message: 'Invalid! please check date!'
+    });
+  }
 
-  campaign.save(function(err) {
+  campaign.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -37,7 +37,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Campaign
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var campaign = req.campaign ? req.campaign.toJSON() : {};
 
@@ -51,12 +51,28 @@ exports.read = function(req, res) {
 /**
  * Update a Campaign
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var campaign = req.campaign;
-
   campaign = _.extend(campaign, req.body);
+  var error = '';
+  if (campaign.listusercampaign.length > 0) {
+    var chkIden = [];
+    campaign.listusercampaign.forEach(function (iden) {
+      if (chkIden.indexOf(iden.identification) === -1) {
+        chkIden.push(iden.identification);
+      } else {
+        error = 'Identification is already!';
+      }
+    });
+  }
 
-  campaign.save(function(err) {
+  if (error !== '' && error === 'Identification is already!') {
+    return res.status(400).send({
+      message: error
+    });
+  }
+
+  campaign.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -70,10 +86,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Campaign
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var campaign = req.campaign;
 
-  campaign.remove(function(err) {
+  campaign.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -87,8 +103,8 @@ exports.delete = function(req, res) {
 /**
  * List of Campaigns
  */
-exports.list = function(req, res) {
-  Campaign.find().sort('-created').populate('user', 'displayName').exec(function(err, campaigns) {
+exports.list = function (req, res) {
+  Campaign.find({ statuscampaign: 'open', enddate: { $gte: new Date() } }).sort('-created').populate('user', 'displayName').populate('listusercampaign.user', 'displayName').populate('listusercampaign.acceptcampaigndate').exec(function (err, campaigns) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -102,7 +118,7 @@ exports.list = function(req, res) {
 /**
  * Campaign middleware
  */
-exports.campaignByID = function(req, res, next, id) {
+exports.campaignByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -110,7 +126,7 @@ exports.campaignByID = function(req, res, next, id) {
     });
   }
 
-  Campaign.findById(id).populate('user', 'displayName').exec(function (err, campaign) {
+  Campaign.findById(id).populate('user', 'displayName').populate('listusercampaign.user', 'displayName').populate('listusercampaign.acceptcampaigndate').exec(function (err, campaign) {
     if (err) {
       return next(err);
     } else if (!campaign) {

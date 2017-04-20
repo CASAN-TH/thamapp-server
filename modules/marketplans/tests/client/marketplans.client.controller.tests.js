@@ -88,7 +88,7 @@
         $httpBackend.flush();
 
         // Test URL redirection after the Marketplan was created
-        expect($state.go).toHaveBeenCalledWith('marketplans.view', {
+        expect($state.go).toHaveBeenCalledWith('marketplans.list', {
           marketplanId: mockMarketplan._id
         });
       }));
@@ -121,7 +121,7 @@
         $httpBackend.flush();
 
         // Test URL location to new object
-        expect($state.go).toHaveBeenCalledWith('marketplans.view', {
+        expect($state.go).toHaveBeenCalledWith('marketplans.list', {
           marketplanId: mockMarketplan._id
         });
       }));

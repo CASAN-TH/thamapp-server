@@ -131,12 +131,12 @@ describe('Campaign Model Unit Tests:', function() {
         it('should be able to update data', function(done) {
             this.timeout(0);
             var data = {
-                identification: 1234,
+                identification: '1234',
                 user: user,
                 status: 'accept'
             };
             var data2 = {
-                identification: 1234,
+                identification: '1234',
                 user: user,
                 status: 'accept'
             };

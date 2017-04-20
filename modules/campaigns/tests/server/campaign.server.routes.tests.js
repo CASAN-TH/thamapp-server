@@ -18,14 +18,15 @@ var app,
     user,
     user2,
     campaign,
-    campaign2;
+    campaign2,
+    campaign3;
 
 /**
  * Campaign routes tests
  */
-describe('Campaign CRUD tests', function() {
+describe('Campaign CRUD tests', function () {
 
-    before(function(done) {
+    before(function (done) {
         // Get application
         app = express.init(mongoose);
         agent = request.agent(app);
@@ -33,7 +34,7 @@ describe('Campaign CRUD tests', function() {
         done();
     });
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         // Create user credentials
         credentials = {
             username: 'username',
@@ -66,30 +67,40 @@ describe('Campaign CRUD tests', function() {
         });
 
         // Save a user to the test db and create new Campaign
-        user.save(function() {
+        user.save(function () {
             campaign = {
                 name: 'Campaign name',
                 startdate: new Date('2017-04-20'),
                 enddate: new Date('2017-04-22'),
-                usercount: 0
+                usercount: 0,
+                statuscampaign: 'open'
             };
 
             campaign2 = {
-                name: 'Campaign name',
+                name: 'Campaign name1',
                 startdate: new Date('2017-04-20'),
                 enddate: new Date('2017-04-22'),
-                usercount: 0
+                usercount: 0,
+                statuscampaign: 'close'
+            };
+
+            campaign3 = {
+                name: 'Campaign name2',
+                startdate: new Date('2017-04-16'),
+                enddate: new Date('2017-04-18'),
+                usercount: 0,
+                statuscampaign: 'open'
             };
 
             done();
         });
     });
 
-    it('should be able to save a Campaign if logged in', function(done) {
+    it('should be able to save a Campaign if logged in', function (done) {
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -102,7 +113,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(200)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Handle Campaign save error
                         if (campaignSaveErr) {
                             return done(campaignSaveErr);
@@ -110,7 +121,7 @@ describe('Campaign CRUD tests', function() {
 
                         // Get a list of Campaigns
                         agent.get('/api/campaigns')
-                            .end(function(campaignsGetErr, campaignsGetRes) {
+                            .end(function (campaignsGetErr, campaignsGetRes) {
                                 // Handle Campaigns save error
                                 if (campaignsGetErr) {
                                     return done(campaignsGetErr);
@@ -121,9 +132,11 @@ describe('Campaign CRUD tests', function() {
 
                                 // Set assertions
                                 (campaigns[0].user._id).should.equal(userId);
+                                (campaigns.length).should.match(1);
                                 (campaigns[0].name).should.match('Campaign name');
                                 (campaigns[0].startdate).should.match(new Date('2017-04-20'));
                                 (campaigns[0].enddate).should.match(new Date('2017-04-22'));
+                                (campaigns[0].statuscampaign).should.match('open');
                                 (campaigns[0].usercount).should.equal(0);
 
                                 // Call the assertion callback
@@ -133,24 +146,24 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should not be able to save an Campaign if not logged in', function(done) {
+    it('should not be able to save an Campaign if not logged in', function (done) {
         agent.post('/api/campaigns')
             .send(campaign)
             .expect(403)
-            .end(function(campaignSaveErr, campaignSaveRes) {
+            .end(function (campaignSaveErr, campaignSaveRes) {
                 // Call the assertion callback
                 done(campaignSaveErr);
             });
     });
 
-    it('should not be able to save an Campaign if no name is provided', function(done) {
+    it('should not be able to save an Campaign if no name is provided', function (done) {
         // Invalidate name field
         campaign.name = '';
 
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -163,7 +176,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(400)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Set message assertion
                         (campaignSaveRes.body.message).should.match('Please fill Campaign name');
 
@@ -173,11 +186,11 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should be able to update an Campaign if signed in', function(done) {
+    it('should be able to update an Campaign if signed in', function (done) {
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -190,7 +203,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(200)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Handle Campaign save error
                         if (campaignSaveErr) {
                             return done(campaignSaveErr);
@@ -203,7 +216,7 @@ describe('Campaign CRUD tests', function() {
                         agent.put('/api/campaigns/' + campaignSaveRes.body._id)
                             .send(campaign)
                             .expect(200)
-                            .end(function(campaignUpdateErr, campaignUpdateRes) {
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
                                 // Handle Campaign update error
                                 if (campaignUpdateErr) {
                                     return done(campaignUpdateErr);
@@ -221,15 +234,15 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should be able to get a list of Campaigns if not signed in', function(done) {
+    it('should be able to get a list of Campaigns if not signed in', function (done) {
         // Create new Campaign model instance
         var campaignObj = new Campaign(campaign);
 
         // Save the campaign
-        campaignObj.save(function() {
+        campaignObj.save(function () {
             // Request Campaigns
             request(app).get('/api/campaigns')
-                .end(function(req, res) {
+                .end(function (req, res) {
                     // Set assertion
                     res.body.should.be.instanceof(Array).and.have.lengthOf(1);
 
@@ -240,14 +253,14 @@ describe('Campaign CRUD tests', function() {
         });
     });
 
-    it('should be able to get a single Campaign if not signed in', function(done) {
+    it('should be able to get a single Campaign if not signed in', function (done) {
         // Create new Campaign model instance
         var campaignObj = new Campaign(campaign);
 
         // Save the Campaign
-        campaignObj.save(function() {
+        campaignObj.save(function () {
             request(app).get('/api/campaigns/' + campaignObj._id)
-                .end(function(req, res) {
+                .end(function (req, res) {
                     // Set assertion
                     res.body.should.be.instanceof(Object).and.have.property('name', campaign.name);
 
@@ -257,10 +270,10 @@ describe('Campaign CRUD tests', function() {
         });
     });
 
-    it('should return proper error for single Campaign with an invalid Id, if not signed in', function(done) {
+    it('should return proper error for single Campaign with an invalid Id, if not signed in', function (done) {
         // test is not a valid mongoose Id
         request(app).get('/api/campaigns/test')
-            .end(function(req, res) {
+            .end(function (req, res) {
                 // Set assertion
                 res.body.should.be.instanceof(Object).and.have.property('message', 'Campaign is invalid');
 
@@ -269,10 +282,10 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should return proper error for single Campaign which doesnt exist, if not signed in', function(done) {
+    it('should return proper error for single Campaign which doesnt exist, if not signed in', function (done) {
         // This is a valid mongoose Id but a non-existent Campaign
         request(app).get('/api/campaigns/559e9cd815f80b4c256a8f41')
-            .end(function(req, res) {
+            .end(function (req, res) {
                 // Set assertion
                 res.body.should.be.instanceof(Object).and.have.property('message', 'No Campaign with that identifier has been found');
 
@@ -281,11 +294,11 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should be able to delete an Campaign if signed in', function(done) {
+    it('should be able to delete an Campaign if signed in', function (done) {
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -298,7 +311,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(200)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Handle Campaign save error
                         if (campaignSaveErr) {
                             return done(campaignSaveErr);
@@ -308,7 +321,7 @@ describe('Campaign CRUD tests', function() {
                         agent.delete('/api/campaigns/' + campaignSaveRes.body._id)
                             .send(campaign)
                             .expect(200)
-                            .end(function(campaignDeleteErr, campaignDeleteRes) {
+                            .end(function (campaignDeleteErr, campaignDeleteRes) {
                                 // Handle campaign error error
                                 if (campaignDeleteErr) {
                                     return done(campaignDeleteErr);
@@ -324,7 +337,7 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should not be able to delete an Campaign if not signed in', function(done) {
+    it('should not be able to delete an Campaign if not signed in', function (done) {
         // Set Campaign user
         campaign.user = user;
 
@@ -332,11 +345,11 @@ describe('Campaign CRUD tests', function() {
         var campaignObj = new Campaign(campaign);
 
         // Save the Campaign
-        campaignObj.save(function() {
+        campaignObj.save(function () {
             // Try deleting Campaign
             request(app).delete('/api/campaigns/' + campaignObj._id)
                 .expect(403)
-                .end(function(campaignDeleteErr, campaignDeleteRes) {
+                .end(function (campaignDeleteErr, campaignDeleteRes) {
                     // Set message assertion
                     (campaignDeleteRes.body.message).should.match('User is not authorized');
 
@@ -347,7 +360,7 @@ describe('Campaign CRUD tests', function() {
         });
     });
 
-    it('should be able to get a single Campaign that has an orphaned user reference', function(done) {
+    it('should be able to get a single Campaign that has an orphaned user reference', function (done) {
         // Create orphan user creds
         var _creds = {
             username: 'orphan',
@@ -365,7 +378,7 @@ describe('Campaign CRUD tests', function() {
             provider: 'local'
         });
 
-        _orphan.save(function(err, orphan) {
+        _orphan.save(function (err, orphan) {
             // Handle save error
             if (err) {
                 return done(err);
@@ -374,7 +387,7 @@ describe('Campaign CRUD tests', function() {
             agent.post('/api/auth/signin')
                 .send(_creds)
                 .expect(200)
-                .end(function(signinErr, signinRes) {
+                .end(function (signinErr, signinRes) {
                     // Handle signin error
                     if (signinErr) {
                         return done(signinErr);
@@ -387,7 +400,7 @@ describe('Campaign CRUD tests', function() {
                     agent.post('/api/campaigns')
                         .send(campaign)
                         .expect(200)
-                        .end(function(campaignSaveErr, campaignSaveRes) {
+                        .end(function (campaignSaveErr, campaignSaveRes) {
                             // Handle Campaign save error
                             if (campaignSaveErr) {
                                 return done(campaignSaveErr);
@@ -399,12 +412,12 @@ describe('Campaign CRUD tests', function() {
                             should.equal(campaignSaveRes.body.user._id, orphanId);
 
                             // force the Campaign to have an orphaned user reference
-                            orphan.remove(function() {
+                            orphan.remove(function () {
                                 // now signin with valid user
                                 agent.post('/api/auth/signin')
                                     .send(credentials)
                                     .expect(200)
-                                    .end(function(err, res) {
+                                    .end(function (err, res) {
                                         // Handle signin error
                                         if (err) {
                                             return done(err);
@@ -413,7 +426,7 @@ describe('Campaign CRUD tests', function() {
                                         // Get the Campaign
                                         agent.get('/api/campaigns/' + campaignSaveRes.body._id)
                                             .expect(200)
-                                            .end(function(campaignInfoErr, campaignInfoRes) {
+                                            .end(function (campaignInfoErr, campaignInfoRes) {
                                                 // Handle Campaign error
                                                 if (campaignInfoErr) {
                                                     return done(campaignInfoErr);
@@ -434,14 +447,14 @@ describe('Campaign CRUD tests', function() {
         });
     });
 
-    it('should not be able to save an Campaign if no startdate is provided', function(done) {
+    it('should not be able to save an Campaign if no startdate is provided', function (done) {
         // Invalidate name field
         campaign.startdate = '';
 
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -454,7 +467,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(400)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Set message assertion
                         (campaignSaveRes.body.message).should.match('Please fill Campaign startdate');
 
@@ -464,14 +477,14 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should not be able to save an Campaign if no enddate is provided', function(done) {
+    it('should not be able to save an Campaign if no enddate is provided', function (done) {
         // Invalidate name field
         campaign.enddate = '';
 
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -484,7 +497,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(400)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Set message assertion
                         (campaignSaveRes.body.message).should.match('Please fill Campaign enddate');
 
@@ -494,14 +507,14 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should not be able to save an Campaign if no usercount is provided', function(done) {
+    it('should not be able to save an Campaign if no usercount is provided', function (done) {
         // Invalidate name field
         campaign.usercount = null;
 
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -514,7 +527,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(400)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Set message assertion
                         (campaignSaveRes.body.message).should.match('Please fill Campaign usercount');
 
@@ -584,12 +597,12 @@ describe('Campaign CRUD tests', function() {
     //     });
     // });
 
-    it('should not be able to save an campaign if name is duplicated', function(done) {
+    it('should not be able to save an campaign if name is duplicated', function (done) {
 
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
@@ -602,7 +615,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(200)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Handle campaign save error
                         if (campaignSaveErr) {
                             return done(campaignSaveErr);
@@ -611,7 +624,7 @@ describe('Campaign CRUD tests', function() {
                         agent.post('/api/campaigns')
                             .send(campaign)
                             .expect(400)
-                            .end(function(campaignSaveErr, campaignSaveRes) {
+                            .end(function (campaignSaveErr, campaignSaveRes) {
                                 // Set message assertion
                                 //(campaignSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.campaigns index: docno already exists');
                                 (campaignSaveRes.body.message.toLowerCase()).should.containEql('name already exists');
@@ -625,17 +638,17 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should be able to update an data', function(done) {
+    it('should be able to update an data', function (done) {
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '1234',
                     user: user,
                     status: 'accept'
                 };
@@ -647,21 +660,21 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(200)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Handle Campaign save error
                         if (campaignSaveErr) {
                             return done(campaignSaveErr);
                         }
 
                         // Update Campaign name\
-                        campaign.listusercampaign[0].identification = 123789;
+                        campaign.listusercampaign[0].identification = '123789';
                         // campaign.listusercampaign[1].identification = 123789;
 
                         // Update an existing Campaign
                         agent.put('/api/campaigns/' + campaignSaveRes.body._id)
                             .send(campaign)
                             .expect(200)
-                            .end(function(campaignUpdateErr, campaignUpdateRes) {
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
                                 // Handle Campaign update error
                                 if (campaignUpdateErr) {
                                     return done(campaignUpdateErr);
@@ -669,7 +682,7 @@ describe('Campaign CRUD tests', function() {
 
                                 // Set assertions
                                 (campaignUpdateRes.body._id).should.equal(campaignSaveRes.body._id);
-                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match(123789);
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('123789');
                                 (campaignUpdateRes.body.listusercampaign[0].status).should.match('accept');
                                 // (campaignUpdateRes.body.listusercampaign[1].identification).should.match(123789);
 
@@ -682,17 +695,17 @@ describe('Campaign CRUD tests', function() {
             });
     });
 
-    it('should be able to update an data two user', function(done) {
+    it('should be able to update an data two user', function (done) {
         agent.post('/api/auth/signin')
             .send(credentials)
             .expect(200)
-            .end(function(signinErr, signinRes) {
+            .end(function (signinErr, signinRes) {
                 // Handle signin error
                 if (signinErr) {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '1234',
                     user: user,
                     status: 'accept'
                 };
@@ -704,7 +717,7 @@ describe('Campaign CRUD tests', function() {
                 agent.post('/api/campaigns')
                     .send(campaign)
                     .expect(200)
-                    .end(function(campaignSaveErr, campaignSaveRes) {
+                    .end(function (campaignSaveErr, campaignSaveRes) {
                         // Handle Campaign save error
                         if (campaignSaveErr) {
                             return done(campaignSaveErr);
@@ -731,7 +744,7 @@ describe('Campaign CRUD tests', function() {
                             provider: 'local'
                         });
 
-                        _orphan.save(function(err, orphan) {
+                        _orphan.save(function (err, orphan) {
                             // Handle save error
                             if (err) {
                                 return done(err);
@@ -739,7 +752,7 @@ describe('Campaign CRUD tests', function() {
                             agent.put('/api/campaigns/' + campid)
                                 .send(campaign)
                                 .expect(200)
-                                .end(function(campaignUpdateErr, campaignUpdateRes) {
+                                .end(function (campaignUpdateErr, campaignUpdateRes) {
                                     // Handle Campaign update error
                                     if (campaignUpdateErr) {
                                         return done(campaignUpdateErr);
@@ -754,26 +767,199 @@ describe('Campaign CRUD tests', function() {
                                     done();
                                 });
                             // agent.post('/api/auth/signin')
-                                // .send(_creds)
-                                // .expect(200)
-                                // .end(function(signinErr, signinRes) {
-                                //     // Handle signin error
-                                //     if (signinErr) {
-                                //         return done(signinErr);
-                                //     }
-                                //     (campaignSaveRes.body._id).should.equal('a');
-                                //     // Get the userId
-                                //     var orphanId = orphan._id;
-                                //     // Update an existing Campaign
+                            // .send(_creds)
+                            // .expect(200)
+                            // .end(function(signinErr, signinRes) {
+                            //     // Handle signin error
+                            //     if (signinErr) {
+                            //         return done(signinErr);
+                            //     }
+                            //     (campaignSaveRes.body._id).should.equal('a');
+                            //     // Get the userId
+                            //     var orphanId = orphan._id;
+                            //     // Update an existing Campaign
 
-                                // });
+                            // });
                         });
                     });
             });
     });
 
-    afterEach(function(done) {
-        User.remove().exec(function() {
+    it('should be able to save a Campaign check date', function (done) {
+
+        var mockCampaign = new Campaign({
+            name: 'Campaign name',
+            startdate: new Date('2017-04-23'),
+            enddate: new Date('2017-04-22'),
+            usercount: 0
+        });
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+
+                // Get the userId
+                var userId = user.id;
+
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(mockCampaign)
+                    .expect(400)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Set message assertion
+                        (campaignSaveRes.body.message).should.match('Invalid! please check date!');
+
+                        // Handle Campaign save error
+                        done(campaignSaveErr);
+                    });
+            });
+    });
+
+    it('should be able to update an data user not same identification', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: 1234,
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign.listusercampaign = [];
+                campaign.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: '1235',
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign.listusercampaign.push(data2);
+                        // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign)
+                            .expect(200)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1234');
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1235');
+
+                                // Handle Campaign save error
+                                done();
+                            });
+                    });
+            });
+    });
+
+    it('should be able to update an data user same identification', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: '1234',
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign.listusercampaign = [];
+                campaign.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: '1234',
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign.listusercampaign.push(data2);
+                        // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign)
+                            .expect(400)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion
+                                (campaignUpdateRes.body.message).should.match('Identification is already!');
+                                // (campaignUpdateRes.body.listusercampaign.length).should.match(1);
+
+                                // Handle Campaign save error
+                                done(campaignUpdateErr);
+                            });
+                    });
+            });
+    });
+
+    it('should be able to get a list of Campaigns open status 1 close status 1 outofdate 1', function (done) {
+        // Create new Campaign model instance
+        var campaignObj1 = new Campaign(campaign);
+        var campaignObj2 = new Campaign(campaign2);
+        var campaignObj3 = new Campaign(campaign3);
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                campaignObj1.save();
+                campaignObj2.save();
+                campaignObj3.save(function () {
+                    // Request Campaigns
+                    agent.get('/api/campaigns')
+                        .end(function (campaignsGetErr, campaignsGetRes) {
+                            // Handle Campaigns save error
+                            if (campaignsGetErr) {
+                                return done(campaignsGetErr);
+                            }
+
+                            // Get Campaigns list
+                            var campaigns = campaignsGetRes.body;
+
+                            // Set assertions
+                            (campaigns.length).should.match(1);
+
+                            // Call the assertion callback
+                            done();
+                        });
+
+                });
+            });
+        // Save the campaign
+
+    });
+
+
+    afterEach(function (done) {
+        User.remove().exec(function () {
             Campaign.remove().exec(done);
         });
     });
