@@ -85,6 +85,7 @@
     vm.editcampaignuser = function (acc) {
       vm.mode = 'edit';
       vm.datauser = acc;
+      console.log(acc.acceptcampaigndate.text);
     };
 
     vm.removeitem = function (item) {
