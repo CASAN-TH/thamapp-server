@@ -50,7 +50,7 @@
             </div>
           </div>
           <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">{{vm.marketplan._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+            <button type="button" class="btn btn-primary btn-block" ng-click="savetext(vm.marketplan)">{{vm.marketplan._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
           </div>
           <div ng-show="vm.error" class="text-danger">
             <strong ng-bind="vm.error"></strong>
