@@ -648,7 +648,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '1234',
                     user: user,
                     status: 'accept'
                 };
@@ -667,7 +667,7 @@ describe('Campaign CRUD tests', function () {
                         }
 
                         // Update Campaign name\
-                        campaign.listusercampaign[0].identification = 123789;
+                        campaign.listusercampaign[0].identification = '123789';
                         // campaign.listusercampaign[1].identification = 123789;
 
                         // Update an existing Campaign
@@ -682,7 +682,7 @@ describe('Campaign CRUD tests', function () {
 
                                 // Set assertions
                                 (campaignUpdateRes.body._id).should.equal(campaignSaveRes.body._id);
-                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match(123789);
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('123789');
                                 (campaignUpdateRes.body.listusercampaign[0].status).should.match('accept');
                                 // (campaignUpdateRes.body.listusercampaign[1].identification).should.match(123789);
 
@@ -705,7 +705,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '1234',
                     user: user,
                     status: 'accept'
                 };
@@ -847,7 +847,7 @@ describe('Campaign CRUD tests', function () {
                             return done(campaignSaveErr);
                         }
                         var data2 = {
-                            identification: 1235,
+                            identification: '1235',
                             user: user,
                             status: 'accept'
                         };
@@ -858,8 +858,8 @@ describe('Campaign CRUD tests', function () {
                             .expect(200)
                             .end(function (campaignUpdateErr, campaignUpdateRes) {
                                 // Set message assertion
-                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match(1234);
-                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match(1235);
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1234');
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1235');
 
                                 // Handle Campaign save error
                                 done();
@@ -878,7 +878,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '1234',
                     user: user,
                     status: 'accept'
                 };
@@ -896,7 +896,7 @@ describe('Campaign CRUD tests', function () {
                             return done(campaignSaveErr);
                         }
                         var data2 = {
-                            identification: 1234,
+                            identification: '1234',
                             user: user,
                             status: 'accept'
                         };
