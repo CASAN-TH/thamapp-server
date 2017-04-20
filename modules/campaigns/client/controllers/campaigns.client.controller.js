@@ -149,7 +149,7 @@
            vm.campaign.$update(successCallback, errorCallback);
         }
       } else {
-        alert('จำนวนสิทธิ์เต็มแล้ว');
+        alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
       }
 
       function successCallback(res) {

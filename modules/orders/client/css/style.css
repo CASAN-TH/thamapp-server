@@ -834,6 +834,17 @@ text-align: left;
     border-style: none none solid none;
     border-width: 3px;
 }
+
+.borderline {
+    border-style: none none dashed none;
+    border-width: 2px;
+    margin: 0px 0px 10px 0px;
+
+    border-color: #dddddd;
+    /*border-style: solid;*/
+    /*border-width: 0px 0px 1px 0px;*/
+}
+
 .bordertableno{
     border : none;
 }
