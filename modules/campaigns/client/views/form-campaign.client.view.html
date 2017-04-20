@@ -1,9 +1,11 @@
 <section class="header-height" ng-init="vm.readMarketplans();readCampaign()">
   <div class="page-header">
-    <h1>{{vm.campaign._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}
+    <h1 ng-show="vm.authentication.user.roles[0] === 'admin'">{{vm.campaign._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}
       <div class="pull-right" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.campaign._id">
         <button type="button" class="btn btn-danger" ng-click="vm.cancelcampaign()">ยกเลิกแคมเปญ</button>
       </div>
+    </h1>
+    <h1 ng-show="vm.authentication.user.roles[0] !== 'admin'">{{vm.campaign._id ? 'รายละเอียดแคมเปญ' : 'รายละเอียดแคมเปญ'}}
     </h1>
   </div>
 
@@ -94,7 +96,7 @@
             <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
           </div>
 
-          <div ng-show="vm.campaign._id">
+          <div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin'">
             <div class="form-group">
               <h3>รายการกดรับสิทธิ์</h3>
               <label class="control-label" for="identification">เลขที่บัตรประชาชน</label>
@@ -116,7 +118,7 @@
 
             <div class="form-group">
               <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
-              <select ng-options="data as data.startdate + ' - ' + data.enddate + ' ' + data.place for data in vm.marketplans" ng-model="vm.acceptcampaigndate"
+              <select ng-options="data as data.text for data in vm.marketplans" ng-model="vm.acceptcampaigndate"
                 class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
@@ -124,7 +126,8 @@
 
             <div class="form-group">
               <label class="control-label" for="status"></label>
-              <button ng-disabled="!vm.identification || !vm.acceptcampaigndate" ng-click="vm.acceptcampaign()" type="button" class="btn btn-warning">{{vm.campaign._id ? 'ยืนยันการรับสิทธิ์' : 'ยืนยันการรับสิทธิ์'}}</button>
+              <button ng-disabled="!vm.identification || !vm.acceptcampaigndate || !vm.checkID()" ng-click="vm.acceptcampaign()" type="button"
+                class="btn btn-warning">{{vm.campaign._id ? 'ยืนยันการรับสิทธิ์' : 'ยืนยันการรับสิทธิ์'}}</button>
             </div>
           </div>
 
@@ -177,7 +180,7 @@
                                 <p class="list-group-item-heading" ng-bind="accept.user.displayName"></p>
                               </div>
                               <div class="col-xs-3 col-sm-3 col-md-3">
-                                <p class="list-group-item-heading" ng-bind="accept.acceptcampaigndate.startdate + ' - ' + accept.acceptcampaigndate.enddate + ' ' + accept.acceptcampaigndate.place"></p>
+                                <p class="list-group-item-heading" ng-bind="accept.text"></p>
                               </div>
                               <div class="col-xs-1 col-sm-1 col-md-1">
                                 <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
@@ -217,7 +220,7 @@
                                 <p class="list-group-item-heading" ng-bind="receipt.user.displayName"></p>
                               </div>
                               <div class="col-xs-4 col-sm-4 col-md-4">
-                                <p class="list-group-item-heading" ng-bind="receipt.acceptcampaigndate.startdate + ' - ' + receipt.acceptcampaigndate.enddate + ' ' + receipt.acceptcampaigndate.place"></p>
+                                <p class="list-group-item-heading" ng-bind="receipt.text"></p>
                               </div>
                             </div>
                           </div>

@@ -22,6 +22,20 @@
     vm.readMarketplans = readMarketplans;
     vm.cancelcampaign = cancelcampaign;
     vm.listCampaign = [];
+    vm.checkID = checkID;
+    vm.isTrueId = false;
+
+    function checkID() {
+      var id = vm.identification;
+      if (id.length !== 13) return false;
+      for (var i = 0, sum = 0; i < 12; i++)
+        sum += parseFloat(id.charAt(i)) * (13 - i);
+      if ((11 - sum % 11) % 10 !== parseFloat(id.charAt(12)))
+        return false;
+
+      vm.isTrueId = true;
+      return true;
+    }
 
     function readMarketplans() {
       vm.marketplans = MarketplansService.query(function () {
