@@ -128,8 +128,9 @@
     function acceptcampaign() {
       // var enddate = new Date(vm.campaign.enddate);
       // var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
-      if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
-        if (vm.mode === 'new') {
+
+      if (vm.mode === 'new') {
+        if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
           // vm.campaign.listusercampaign.push({
           //   identification: vm.identification,
           //   status: 'accept',
@@ -144,12 +145,13 @@
           vm.campaign.listusercampaign.push(vm.datauser);
 
           vm.campaign.$update(successCallback, errorCallback);
-
         } else {
-          vm.campaign.$update(successCallback, errorCallback);
+          alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
+          $state.reload();
+          $state.go('usercampaign');
         }
       } else {
-        alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
+        vm.campaign.$update(successCallback, errorCallback);
       }
 
       function successCallback(res) {
