@@ -39,42 +39,53 @@
         <div class="col-xs-2 col-sm-2 col-md-2">
           <strong>ชื่อแคมเปญ</strong>
         </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
+        <div class="col-xs-2 col-sm-2 col-md-2">
           <strong>รายละเอียด</strong>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3">
           <strong>วันที่เริ่ม - สิ้นสุด</strong>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>จำนวน Point </strong>
+          <strong>แคมเปญ Point</strong>
         </div>
-        <div class="col-xs-2 col-sm-2 col-md-2">
-          <strong>จำนวนสิทธิ์ </strong>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>สิทธิ์</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>คงเหลือ</strong>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <strong>รับสิทธิ์</strong>
         </div>
       </div>
     </div>
   </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="campaign in vm.campaigns | filter:topsearch" ui-sref="campaigns.edit({ campaignId: campaign._id })">
+  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="campaign in vm.campaigns | filter:topsearch">
     <div class="col-md-12">
       <div class="row form-group">
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="campaign.name"></p>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <p class="list-group-item-heading" ng-bind="campaign.description"></p>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3">
-          <span class="list-group-item-heading" ng-bind="campaign.startdate | date:'dd/MM/yyyy' "></span> - <span class="list-group-item-heading" ng-bind="campaign.enddate | date:'dd/MM/yyyy'"></span>
+          <p class="list-group-item-heading dotpyForm" ng-bind="campaign.name"></p>
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
-          <p class="list-group-item-heading" ng-bind="campaign.pointcount"></p>
+          <p class="list-group-item-heading dotpyForm" ng-bind="campaign.description"></p>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3">
+          <p class="list-group-item-heading">{{campaign.startdate | date:'dd/MM/yyyy'}} - {{campaign.enddate | date:'dd/MM/yyyy'}}</p>
+          <!--<span class="list-group-item-heading" ng-bind="campaign.startdate | date:'dd/MM/yyyy' "></span> - <span class="list-group-item-heading" ng-bind="campaign.enddate | date:'dd/MM/yyyy'"></span>-->
         </div>
         <div class="col-xs-2 col-sm-2 col-md-2">
+          <p class="list-group-item-heading marright" ng-bind="campaign.pointcount"></p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
           <p class="list-group-item-heading" ng-bind="campaign.usercount"></p>
         </div>
-        <!--<div class="col-xs-2 col-sm-2 col-md-2" align="center">
-          <button type="button" class="btn btn-primary" ng-click="vm.update(campaign)"><span class="glyphicon glyphicon-edit"></span></button>
-        </div>-->
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <!--<p class="list-group-item-heading" ng-bind="campaign.usercount"></p>-->
+          <p>{{campaign.usercount - campaign.listusercampaign.length}}</p>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <button type="button" class="btn btn-primary" ui-sref="campaigns.edit({ campaignId: campaign._id })"><span class="glyphicon glyphicon-check"></span></button>
+        </div>
       </div>
     </div>
   </div>

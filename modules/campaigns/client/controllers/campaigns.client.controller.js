@@ -85,7 +85,7 @@
     vm.editcampaignuser = function (acc) {
       vm.mode = 'edit';
       vm.datauser = acc;
-      console.log(acc.acceptcampaigndate.text);
+      // console.log(acc.acceptcampaigndate.text);
     };
 
     vm.removeitem = function (item) {
@@ -128,8 +128,9 @@
     function acceptcampaign() {
       // var enddate = new Date(vm.campaign.enddate);
       // var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
-      if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
-        if (vm.mode === 'new') {
+
+      if (vm.mode === 'new') {
+        if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
           // vm.campaign.listusercampaign.push({
           //   identification: vm.identification,
           //   status: 'accept',
@@ -144,22 +145,31 @@
           vm.campaign.listusercampaign.push(vm.datauser);
 
           vm.campaign.$update(successCallback, errorCallback);
-
         } else {
-           vm.campaign.$update(successCallback, errorCallback);
+          alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
+          $state.reload();
+          $state.go('usercampaign');
         }
       } else {
-        alert('จำนวนสิทธิ์เต็มแล้ว');
+        vm.campaign.$update(successCallback, errorCallback);
       }
 
       function successCallback(res) {
-        vm.identification = '';
-        vm.acceptcampaigndate = {};
-        vm.facebook = '';
-        vm.lineid = '';
-        if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
-          $state.reload();
+        if (vm.authentication.user.roles[0] === 'admin') {
+          vm.identification = '';
+          vm.acceptcampaigndate = {};
+          vm.facebook = '';
+          vm.lineid = '';
+          if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+            $state.reload();
+          }
+        } else {
+          if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+            $state.reload();
+            $state.go('usercampaign');
+          }
         }
+
       }
       function errorCallback(res) {
         if ($window.confirm('Something wrong!! : ' + res.data.message)) {

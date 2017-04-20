@@ -18,11 +18,11 @@
     // var getendMonth = $scope.endDay.getMonth()+1;
     // var getendYear = $scope.endDay.getFullYear();
     $scope.startDay = new Date($scope.endDay.getFullYear(), $scope.endDay.getMonth(), '01');
-    console.log($scope.startDay);
+    // console.log($scope.startDay);
     vm.getDay = function (startDay, endDay) {
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
         vm.listpayment = response;
-        console.log(vm.listpayment);
+        // console.log(vm.listpayment);
         // if (response.orders.length === 0) {
         //   alert('ไม่พบข้อมูล');
         // }

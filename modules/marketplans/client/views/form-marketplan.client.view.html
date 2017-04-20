@@ -7,18 +7,25 @@
       <form name="vm.form.marketplanForm" class="form-horizontal" ng-submit="vm.save(vm.form.marketplanForm.$valid)" novalidate>
         <fieldset>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group" show-errors>
                 <label class="control-label" for="startdate">วันเริ่มต้นกิจกรรม</label>
                 <input name="startdate" type="date" ng-model="vm.marketplan.startdate" id="startdate" class="form-control" required>
-
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-2">
               <div class="form-group" show-errors>
                 <label class="control-label" for="enddate">วันสิ้นสุดกิจกรรม</label>
                 <input name="enddate" type="date" ng-model="vm.marketplan.enddate" id="enddate" class="form-control" required>
+              </div>
+            </div>
+          </div>
 
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group" show-errors>
+                <label class="control-label" for="name">ปี พ.ศ.</label>
+                <input name="name" type="text" ng-model="vm.marketplan.year" id="name" class="form-control" placeholder="พ.ศ." required>
               </div>
             </div>
           </div>
@@ -26,31 +33,24 @@
           <div class="row">
             <div class="col-md-12">
               <div class="form-group" show-errors>
-                <label class="control-label" for="name">ปี</label>
-                <input name="name" type="text" ng-model="vm.marketplan.year" id="name" class="form-control" placeholder=" พ.ศ." required>
-               
-              </div>
-              <div class="form-group" show-errors>
                 <label class="control-label" for="name">ชื่อกิจกรรม</label>
-                <input name="name" type="text" ng-model="vm.marketplan.name" id="name" class="form-control" placeholder="01 - 31 ม.ค. ตลาดนัดธรรมชาติ" required>
-                
+                <input name="name" type="text" ng-model="vm.marketplan.name" id="name" class="form-control" placeholder="ตัวอย่าง 01 - 31 ม.ค. ตลาดนัดธรรมชาติ"
+                  required>
               </div>
+            </div>
+            <div class="col-md-12">
               <div class="form-group" show-errors>
                 <label class="control-label" for="name">สถานที่</label>
                 <input name="name" type="text" ng-model="vm.marketplan.place" id="name" class="form-control" placeholder="สถานที่จัดกิจกรรม"
                   required>
               </div>
-               <!--<div class="form-group" show-errors>
-                <label class="control-label" for="name">รายละเอียด</label>
-                <input name="name" type="text" ng-model="vm.marketplan.text" id="name" class="form-control" placeholder="รายละเอียด"
-                  required>
-              </div>-->
-
-              
             </div>
           </div>
-          <div class="form-group">
-            <button type="button" class="btn btn-primary btn-block" ng-click="savetext(vm.marketplan)">{{vm.marketplan._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+
+          <div class="row">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-primary btn-block" ng-click="savetext(vm.marketplan)">{{vm.marketplan._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+            </div>
           </div>
           <div ng-show="vm.error" class="text-danger">
             <strong ng-bind="vm.error"></strong>

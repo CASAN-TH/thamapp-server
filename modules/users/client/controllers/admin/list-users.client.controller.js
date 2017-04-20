@@ -5,7 +5,7 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     $scope.listuser = [];
     $scope.listtran = [];
     $scope.listdeli = [];
-    console.log($scope.listuser);
+    // console.log($scope.listuser);
     Admin.query(function (data) {
      data.forEach(function (data) {
         if (data.roles[0] === 'user') {

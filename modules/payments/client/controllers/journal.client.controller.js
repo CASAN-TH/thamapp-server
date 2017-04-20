@@ -17,7 +17,7 @@
     // var getendMonth = $scope.endDay.getMonth()+1;
     // var getendYear = $scope.endDay.getFullYear();
     $scope.startDay = new Date($scope.endDay.getFullYear(), $scope.endDay.getMonth(), '01');
-    console.log($scope.startDay);
+    // console.log($scope.startDay);
     vm.getDay = function (startDay, endDay) {
       $http.get('api/journals/' + startDay + '/' + endDay).success(function (response) {
         vm.listjournal = response;
