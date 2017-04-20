@@ -96,11 +96,11 @@
             <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
           </div>
 
-          <div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin'">
+          <!--<div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin'">-->
             <div class="form-group">
               <h3>รายการกดรับสิทธิ์</h3>
               <label class="control-label" for="identification">เลขที่บัตรประชาชน</label>
-              <input name="identification" type="text" ng-model="vm.identification" id="identification" class="form-control" pattern="^\d{13}$"
+              <input name="identification" type="text" ng-model="vm.datauser.identification" id="identification" class="form-control" pattern="^\d{13}$"
                 placeholder="เลขที่บัตรประชาชน" maxlength="13">
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
@@ -108,28 +108,28 @@
 
             <div class="form-group">
               <label class="control-label" for="lineid">Line ID</label>
-              <input name="lineid" type="text" ng-model="vm.lineid" id="lineid" class="form-control" placeholder="Line ID">
+              <input name="lineid" type="text" ng-model="vm.datauser.lineid" id="lineid" class="form-control" placeholder="Line ID">
             </div>
 
             <div class="form-group">
               <label class="control-label" for="facebook">Facebook</label>
-              <input name="facebook" type="text" ng-model="vm.facebook" id="facebook" class="form-control" placeholder="Facebook">
+              <input name="facebook" type="text" ng-model="vm.datauser.facebook" id="facebook" class="form-control" placeholder="Facebook">
             </div>
 
             <div class="form-group">
               <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
-              <select ng-options="data as data.text for data in vm.marketplans" ng-model="vm.acceptcampaigndate"
-                class="form-control"></select>
+              <select ng-options="data as data.text for data in vm.marketplans" ng-model="vm.datauser.acceptcampaigndate" class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
             </div>
 
             <div class="form-group">
               <label class="control-label" for="status"></label>
-              <button ng-disabled="!vm.identification || !vm.acceptcampaigndate || !vm.checkID()" ng-click="vm.acceptcampaign()" type="button"
+              <button ng-disabled="!vm.datauser.identification || !vm.datauser.acceptcampaigndate || !vm.checkID()" ng-click="vm.acceptcampaign()" type="button"
                 class="btn btn-warning">{{vm.campaign._id ? 'ยืนยันการรับสิทธิ์' : 'ยืนยันการรับสิทธิ์'}}</button>
             </div>
-          </div>
+          <!--</div>-->
+
 
           <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.campaign._id">
             <h3>รายการผู้รับสิทธิ์</h3>
@@ -150,7 +150,7 @@
                           <div class="col-md-12">
                             <div class="col-md-12">
                               <div class="row form-group alert alert-info">
-                                <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="col-xs-3 col-sm-3 col-md-3">
                                   <strong>เลขที่บัตรประชาชน</strong>
                                 </div>
                                 <div class="col-xs-3 col-sm-3 col-md-3">
@@ -163,6 +163,9 @@
                                   <strong>ได้รับ</strong>
                                 </div>
                                 <div class="col-xs-1 col-sm-1 col-md-1">
+                                  <strong>แก้ไข</strong>
+                                </div>
+                                <div class="col-xs-1 col-sm-1 col-md-1">
                                   <strong>ยกเลิก</strong>
                                 </div>
                               </div>
@@ -173,7 +176,7 @@
                           <div class="col-md-12">
 
                             <div class="row form-group">
-                              <div class="col-xs-4 col-sm-4 col-md-4">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
                                 <p class="list-group-item-heading" ng-bind="accept.identification"></p>
                               </div>
                               <div class="col-xs-3 col-sm-3 col-md-3">
@@ -184,6 +187,9 @@
                               </div>
                               <div class="col-xs-1 col-sm-1 col-md-1">
                                 <button type="button" class="btn buttonGreenForm" ng-click="vm.receiptscampaign(accept)"><span class="glyphicon glyphicon-check"></span></button>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <button type="button" class="btn btn-primary" ng-click="vm.editcampaignuser(accept)"><span class="glyphicon glyphicon-edit"></span></button>
                               </div>
                               <div class="col-xs-1 col-sm-1 col-md-1 marleft">
                                 <button type="button" class="btn btn-danger" ng-click="vm.removeitem(accept)"><span class="glyphicon glyphicon-trash"></span></button>
