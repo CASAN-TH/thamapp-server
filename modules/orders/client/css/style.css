@@ -663,6 +663,10 @@ body1 {
 .marleft {
     margin-left: -15px
 }
+
+.marright {
+    margin-left: 25px
+}
 #pdf {
 text-align: left;
 }

@@ -146,20 +146,28 @@
           vm.campaign.$update(successCallback, errorCallback);
 
         } else {
-           vm.campaign.$update(successCallback, errorCallback);
+          vm.campaign.$update(successCallback, errorCallback);
         }
       } else {
         alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
       }
 
       function successCallback(res) {
-        vm.identification = '';
-        vm.acceptcampaigndate = {};
-        vm.facebook = '';
-        vm.lineid = '';
-        if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
-          $state.reload();
+        if (vm.authentication.user.roles[0] === 'admin') {
+          vm.identification = '';
+          vm.acceptcampaigndate = {};
+          vm.facebook = '';
+          vm.lineid = '';
+          if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+            $state.reload();
+          }
+        } else {
+          if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+            $state.reload();
+            $state.go('usercampaign');
+          }
         }
+
       }
       function errorCallback(res) {
         if ($window.confirm('Something wrong!! : ' + res.data.message)) {
