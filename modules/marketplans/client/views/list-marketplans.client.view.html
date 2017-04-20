@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
-      <div class="pull-right">
+      <div class="pull-right" ng-show="vm.authentication.user.roles[0] === 'admin'">
         <a class="btn buttonCreate" ui-sref="marketplans.create">
           <i class="fa fa-file-o" aria-hidden="true"></i>
           <span>สร้างใหม่</span>
