@@ -20,6 +20,7 @@
 
 
 
+
     if (vm.marketplan.startdate) {
       vm.marketplan.startdate = new Date(vm.marketplan.startdate);
     }
@@ -32,9 +33,24 @@
         vm.marketplan.$remove($state.go('marketplans.list'));
       }
     }
+      
 
     // Save Marketplan
     function save(isValid) {
+      var date = new Date(vm.marketplan.enddate),
+        start = new Date(vm.marketplan.startdate),
+        locale = 'th',
+        monthend = date.toLocaleString(locale, { month: 'short' }),
+        datestart = start.getDate(),
+        dateend = date.getDate();
+        if (datestart < 10) {
+          datestart = '0' + datestart;
+        }
+         if (dateend < 10) {
+          dateend = '0' + dateend;
+        }
+      vm.marketplan.text = datestart + ' - ' + dateend + ' ' + monthend +' '+ vm.marketplan.place;
+      console.log( vm.marketplan.text);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.marketplanForm');
         return false;
