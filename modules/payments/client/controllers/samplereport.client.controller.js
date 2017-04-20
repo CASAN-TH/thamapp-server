@@ -16,7 +16,7 @@
     $scope.endDay = new Date();
     var lastweek = new Date();
     $scope.startDay = new Date($scope.endDay.getFullYear(), $scope.endDay.getMonth(), '01');
-    console.log($scope.startDay);
+    // console.log($scope.startDay);
     vm.getDay = function (startDay, endDay) {
       $http.get('api/ledgers/' + startDay + '/' + endDay).success(function (response) {
         vm.listsample = response;
@@ -47,7 +47,7 @@
 
           $scope.resultOfallbfsumcredit += samp.bfsumcredit;
           $scope.resultOfallbfsumdebit += samp.bfsumdebit;
-          console.log($scope.resultOfallbfsumdebit);
+          // console.log($scope.resultOfallbfsumdebit);
 
         }
       });

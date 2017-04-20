@@ -15,7 +15,7 @@
     $scope.endDay = new Date();
     var lastweek = new Date();
     $scope.startDay = new Date($scope.endDay.getFullYear(), $scope.endDay.getMonth(), '01');
-    console.log($scope.startDay);
+    // console.log($scope.startDay);
     vm.getDay = function (startDay, endDay) {
       vm.listrevenue = [];
       $http.get('api/revenues/' + startDay + '/' + endDay).success(function (response) {
