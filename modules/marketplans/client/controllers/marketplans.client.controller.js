@@ -19,6 +19,39 @@
     vm.save = save;
 
 
+$scope.savetext = function(marketplan){
+  console.log('save');
+   console.log(marketplan);
+  //  vm.marketplan = marketplan;
+    var date = new Date(vm.marketplan.enddate),
+        start = new Date(vm.marketplan.startdate),
+        locale = 'th',
+        monthend = date.toLocaleString(locale, { month: 'short' }),
+        datestart = start.getDate(),
+        dateend = date.getDate();
+        if (datestart < 10) {
+          datestart = '0' + datestart;
+        }
+         if (dateend < 10) {
+          dateend = '0' + dateend;
+        }
+      vm.marketplan.text = datestart + ' - ' + dateend + ' ' + monthend +' '+ vm.marketplan.place;
+    if (marketplan._id) {
+        vm.marketplan.$update(successCallback, errorCallback);
+      } else {
+        vm.marketplan.$save(successCallback, errorCallback);
+      }
+
+      function successCallback(res) {
+        $state.go('marketplans.list', {
+          marketplanId: res._id
+        });
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+      }
+};
 
 
     if (vm.marketplan.startdate) {
@@ -37,20 +70,20 @@
 
     // Save Marketplan
     function save(isValid) {
-      var date = new Date(vm.marketplan.enddate),
-        start = new Date(vm.marketplan.startdate),
-        locale = 'th',
-        monthend = date.toLocaleString(locale, { month: 'short' }),
-        datestart = start.getDate(),
-        dateend = date.getDate();
-        if (datestart < 10) {
-          datestart = '0' + datestart;
-        }
-         if (dateend < 10) {
-          dateend = '0' + dateend;
-        }
-      vm.marketplan.text = datestart + ' - ' + dateend + ' ' + monthend +' '+ vm.marketplan.place;
-      console.log( vm.marketplan.text);
+      // var date = new Date(vm.marketplan.enddate),
+      //   start = new Date(vm.marketplan.startdate),
+      //   locale = 'th',
+      //   monthend = date.toLocaleString(locale, { month: 'short' }),
+      //   datestart = start.getDate(),
+      //   dateend = date.getDate();
+      //   if (datestart < 10) {
+      //     datestart = '0' + datestart;
+      //   }
+      //    if (dateend < 10) {
+      //     dateend = '0' + dateend;
+      //   }
+      // vm.marketplan.text = datestart + ' - ' + dateend + ' ' + monthend +' '+ vm.marketplan.place;
+      // console.log( vm.marketplan.text);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.marketplanForm');
         return false;
