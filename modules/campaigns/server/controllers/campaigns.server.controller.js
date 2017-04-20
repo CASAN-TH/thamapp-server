@@ -72,6 +72,12 @@ exports.update = function (req, res) {
     });
   }
 
+  if (campaign.usercount - campaign.listusercampaign.length < 0) {
+    return res.status(400).send({
+      message: 'List is limited'
+    });
+  }
+
   campaign.save(function (err) {
     if (err) {
       return res.status(400).send({

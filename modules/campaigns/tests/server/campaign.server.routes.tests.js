@@ -72,7 +72,7 @@ describe('Campaign CRUD tests', function () {
                 name: 'Campaign name',
                 startdate: new Date('2017-04-20'),
                 enddate: new Date('2017-04-22'),
-                usercount: 0,
+                usercount: 2,
                 statuscampaign: 'open'
             };
 
@@ -137,7 +137,7 @@ describe('Campaign CRUD tests', function () {
                                 (campaigns[0].startdate).should.match(new Date('2017-04-20'));
                                 (campaigns[0].enddate).should.match(new Date('2017-04-22'));
                                 (campaigns[0].statuscampaign).should.match('open');
-                                (campaigns[0].usercount).should.equal(0);
+                                (campaigns[0].usercount).should.equal(2);
 
                                 // Call the assertion callback
                                 done();
@@ -955,6 +955,68 @@ describe('Campaign CRUD tests', function () {
             });
         // Save the campaign
 
+    });
+
+    it('should be able to update an data user not same identification but limit', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: 1234,
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign.listusercampaign = [];
+                campaign.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: '1235',
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign.listusercampaign.push(data2);
+                        // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign)
+                            .expect(200)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1234');
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1235');
+                                var data3 = {
+                                    identification: '1236',
+                                    user: user,
+                                    status: 'accept'
+                                };
+                                campaign.listusercampaign.push(data3);
+                                // // Update an existing Campaign
+                                agent.put('/api/campaigns/' + campaignUpdateRes.body._id)
+                                    .send(campaign)
+                                    .expect(400)
+                                    .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                        // Set message assertion                                       
+                                        (campaignUpdateRes.body.message).should.match('List is limited');
+
+                                        // Handle Campaign save error
+                                        done(campaignUpdateErr);
+                                    });
+                            });
+                    });
+            });
     });
 
 
