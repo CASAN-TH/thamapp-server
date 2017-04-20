@@ -30,7 +30,7 @@ var CampaignSchema = new Schema({
     },
     listusercampaign: [{
         identification: {
-            type: Number,
+            type: String,
         },
         acceptcampaigndate: {
             type: Schema.ObjectId,
