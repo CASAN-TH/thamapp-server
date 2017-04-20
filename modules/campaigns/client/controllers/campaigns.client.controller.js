@@ -22,6 +22,21 @@
     vm.readMarketplans = readMarketplans;
     vm.cancelcampaign = cancelcampaign;
     vm.listCampaign = [];
+    vm.checkID = checkID;
+    vm.isTrueId = false;
+    vm.datauser = {};
+    vm.mode = 'new';
+    function checkID() {
+      var id = vm.datauser.identification;
+      if (id.length !== 13) return false;
+      for (var i = 0, sum = 0; i < 12; i++)
+        sum += parseFloat(id.charAt(i)) * (13 - i);
+      if ((11 - sum % 11) % 10 !== parseFloat(id.charAt(12)))
+        return false;
+
+      vm.isTrueId = true;
+      return true;
+    }
 
     function readMarketplans() {
       vm.marketplans = MarketplansService.query(function () {
@@ -67,6 +82,12 @@
 
     };
 
+    vm.editcampaignuser = function (acc) {
+      vm.mode = 'edit';
+      vm.datauser = acc;
+      console.log(acc.acceptcampaigndate.text);
+    };
+
     vm.removeitem = function (item) {
       var index = vm.campaign.listusercampaign.indexOf(item);
       vm.campaign.listusercampaign.splice(index, 1);
@@ -105,26 +126,30 @@
       }
     }
     function acceptcampaign() {
-      var enddate = new Date(vm.campaign.enddate);
-      var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
+      // var enddate = new Date(vm.campaign.enddate);
+      // var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
       if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
-        if (new Date() <= acceptdate) {
-          vm.campaign.listusercampaign.push({
-            identification: vm.identification,
-            status: 'accept',
-            user: vm.authentication.user,
-            acceptcampaigndate: vm.acceptcampaigndate,
-            facebook: vm.facebook,
-            lineid: vm.lineid
+        if (vm.mode === 'new') {
+          // vm.campaign.listusercampaign.push({
+          //   identification: vm.identification,
+          //   status: 'accept',
+          //   user: vm.authentication.user,
+          //   acceptcampaigndate: vm.acceptcampaigndate,
+          //   facebook: vm.facebook,
+          //   lineid: vm.lineid
 
-          });
+          // });
+          vm.datauser.status = 'accept';
+          vm.datauser.user = vm.authentication.user;
+          vm.campaign.listusercampaign.push(vm.datauser);
+
           vm.campaign.$update(successCallback, errorCallback);
 
         } else {
-          alert('หมดเขตการรับสิทธื์');
+           vm.campaign.$update(successCallback, errorCallback);
         }
       } else {
-        alert('จำนวนสิทธิ์เต็มแล้ว');
+        alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
       }
 
       function successCallback(res) {
@@ -179,4 +204,4 @@
       }
     }
   }
-} ());
+}());

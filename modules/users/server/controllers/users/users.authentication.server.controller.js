@@ -110,9 +110,9 @@ exports.oauthCallback = function (strategy) {
     delete req.session.redirect_to;
 
     passport.authenticate(strategy, function (err, user, redirectURL) {
-      // if (err) {
-      //   return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
-      // }
+      if (err) {
+        return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
+      }
       if (!user) {
         return res.redirect('/authentication/signin');
       }
@@ -121,7 +121,7 @@ exports.oauthCallback = function (strategy) {
           return res.redirect('/authentication/signin');
         }
 
-        return res.redirect(redirectURL || sessionRedirectURL || '/');
+        return res.redirect(typeof redirectURL === 'string' ? redirectURL : sessionRedirectURL || '/');
       });
     })(req, res, next);
   };
