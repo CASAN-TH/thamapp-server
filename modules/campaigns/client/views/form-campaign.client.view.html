@@ -96,7 +96,7 @@
             <button type="submit" class="btn btn-primary btn-block">{{vm.campaign._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
           </div>
 
-          <!--<div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin'">-->
+          <div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin' || vm.mode === 'edit'">
             <div class="form-group">
               <h3>รายการกดรับสิทธิ์</h3>
               <label class="control-label" for="identification">เลขที่บัตรประชาชน</label>
@@ -118,7 +118,7 @@
 
             <div class="form-group">
               <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label>
-              <select ng-options="data as data.text for data in vm.marketplans" ng-model="vm.datauser.acceptcampaigndate" class="form-control"></select>
+              <select ng-options="data as data.text for data in vm.marketplans track by data._id" ng-model="vm.datauser.acceptcampaigndate" class="form-control"></select>
               <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
             </div>
@@ -128,7 +128,7 @@
               <button ng-disabled="!vm.datauser.identification || !vm.datauser.acceptcampaigndate || !vm.checkID()" ng-click="vm.acceptcampaign()" type="button"
                 class="btn btn-warning">{{vm.campaign._id ? 'ยืนยันการรับสิทธิ์' : 'ยืนยันการรับสิทธิ์'}}</button>
             </div>
-          <!--</div>-->
+          </div>
 
 
           <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin' && vm.campaign._id">
