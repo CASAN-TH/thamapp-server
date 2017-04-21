@@ -117,7 +117,11 @@
 
     function receiptscampaign(itm) {
       itm.status = 'receipts';
-      vm.campaign.listusercampaign.status = itm.status;
+      vm.campaign.listusercampaign.forEach(function(listusercam){
+        if(listusercam._id === itm._id){
+          listusercam.status = itm.status;
+        }
+      });
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {
         $state.reload();
