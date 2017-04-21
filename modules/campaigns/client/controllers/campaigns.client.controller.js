@@ -101,6 +101,11 @@
       }
       function errorCallback(res) {
         vm.error = res.data.message;
+        if (res.data.message === ''){
+          if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
+            $state.reload();
+          }
+        }
       }
     };
 
