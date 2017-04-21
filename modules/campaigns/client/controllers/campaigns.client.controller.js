@@ -120,6 +120,7 @@
       vm.campaign.listusercampaign.status = itm.status;
       vm.campaign.$update(successCallback, errorCallback);
       function successCallback(res) {
+        $state.reload();
       }
       function errorCallback(res) {
         vm.error = res.data.message;
@@ -175,7 +176,7 @@
           }
         }
 
-        if (res.data.message === 'List is limited') {
+        if (res.data.message === 'Privilege is full') {
           if ($window.confirm(res.data.message)) {
             $state.reload();
             $state.go('usercampaign');
