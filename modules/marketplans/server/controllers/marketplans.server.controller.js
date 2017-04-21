@@ -90,7 +90,7 @@ exports.delete = function (req, res) {
  * List of Marketplans
  */
 exports.list = function (req, res) {
-  Marketplan.find().sort('-created').populate('user', 'displayName').exec(function (err, marketplans) {
+  Marketplan.find({ enddate: { $gte: new Date() } }).sort('-created').populate('user', 'displayName').exec(function (err, marketplans) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

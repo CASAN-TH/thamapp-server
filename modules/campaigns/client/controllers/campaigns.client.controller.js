@@ -172,9 +172,10 @@
           vm.acceptcampaigndate = {};
           vm.facebook = '';
           vm.lineid = '';
-          if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
-            $state.reload();
-          }
+          vm.mode = 'new';
+          // if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
+          //   $state.reload();
+          // }
         } else {
           if ($window.confirm('บันทึกสำเร็จแล้ว!')) {
             $state.reload();
