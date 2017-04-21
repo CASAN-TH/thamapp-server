@@ -1010,7 +1010,7 @@ describe('Campaign CRUD tests', function () {
                                     .expect(400)
                                     .end(function (campaignUpdateErr, campaignUpdateRes) {
                                         // Set message assertion                                       
-                                        (campaignUpdateRes.body.message).should.match('List is limited');
+                                        (campaignUpdateRes.body.message).should.match('Privilege is full');
 
                                         // Handle Campaign save error
                                         done(campaignUpdateErr);
@@ -1059,7 +1059,7 @@ describe('Campaign CRUD tests', function () {
                             .expect(400)
                             .end(function (campaignUpdateErr, campaignUpdateRes) {
                                 // Set message assertion                                       
-                                (campaignUpdateRes.body.message).should.match('8 is not Identification!');
+                                (campaignUpdateRes.body.message).should.match('Wrong Identification!');
 
                                 // Handle Campaign save error
                                 done(campaignUpdateErr);
