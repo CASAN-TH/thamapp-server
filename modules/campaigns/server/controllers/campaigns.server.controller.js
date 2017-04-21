@@ -83,7 +83,7 @@ exports.update = function (req, res) {
   }
   if (IdenChkLength) {
     return res.status(400).send({
-      message: IdenLength + ' is not Identification!'
+      message: 'Wrong Identification!'
     });
   }
   if (!IsNotIden) {
@@ -99,7 +99,7 @@ exports.update = function (req, res) {
 
   if (campaign.usercount - campaign.listusercampaign.length < 0) {
     return res.status(400).send({
-      message: 'List is limited'
+      message: 'Privilege is full'
     });
   }
 
