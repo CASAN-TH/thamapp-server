@@ -135,7 +135,7 @@ exports.delete = function (req, res) {
  * List of Campaigns
  */
 exports.list = function (req, res) {
-  Campaign.find({ statuscampaign: 'open', enddate: { $gte: new Date() } }).sort('-created').populate('user', 'displayName').populate('listusercampaign.user', 'displayName').populate('listusercampaign.acceptcampaigndate').exec(function (err, campaigns) {
+  Campaign.find({ statuscampaign: 'open', enddate: { $gte: new Date(new Date().getFullYear(), new Date().getMonth(),new Date().getDate() + 2) } }).sort('-created').populate('user', 'displayName').populate('listusercampaign.user', 'displayName').populate('listusercampaign.acceptcampaigndate').exec(function (err, campaigns) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

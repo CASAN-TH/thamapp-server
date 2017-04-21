@@ -130,26 +130,23 @@
       // var acceptdate = new Date(enddate.getFullYear(), enddate.getMonth(), enddate.getDate() - 2);
 
       if (vm.mode === 'new') {
-        if (vm.campaign.usercount - vm.campaign.listusercampaign.length > 0) {
-          // vm.campaign.listusercampaign.push({
-          //   identification: vm.identification,
-          //   status: 'accept',
-          //   user: vm.authentication.user,
-          //   acceptcampaigndate: vm.acceptcampaigndate,
-          //   facebook: vm.facebook,
-          //   lineid: vm.lineid
 
-          // });
-          vm.datauser.status = 'accept';
-          vm.datauser.user = vm.authentication.user;
-          vm.campaign.listusercampaign.push(vm.datauser);
+        // vm.campaign.listusercampaign.push({
+        //   identification: vm.identification,
+        //   status: 'accept',
+        //   user: vm.authentication.user,
+        //   acceptcampaigndate: vm.acceptcampaigndate,
+        //   facebook: vm.facebook,
+        //   lineid: vm.lineid
 
-          vm.campaign.$update(successCallback, errorCallback);
-        } else {
-          alert('ไม่สามารถกดรับสิทธิ์ได้ จำนวนสิทธิ์คงเหลือเต็มแล้ว');
-          $state.reload();
-          $state.go('usercampaign');
-        }
+        // });
+        vm.datauser.status = 'accept';
+        vm.datauser.user = vm.authentication.user;
+        vm.campaign.listusercampaign.push(vm.datauser);
+
+        vm.campaign.$update(successCallback, errorCallback);
+
+
       } else {
         vm.campaign.$update(successCallback, errorCallback);
       }
@@ -172,9 +169,24 @@
 
       }
       function errorCallback(res) {
-        if ($window.confirm('Something wrong!! : ' + res.data.message)) {
-          $state.reload();
+        if (res.data.message === 'Identification is already!' || res.data.message === 'Your identification is Invalid!') {
+          if ($window.confirm(res.data.message)) {
+            $state.reload();
+          }
         }
+
+        if (res.data.message === 'List is limited') {
+          if ($window.confirm(res.data.message)) {
+            $state.reload();
+            $state.go('usercampaign');
+          }
+        }
+
+        // if (res.data.message === 'Your identification is Invalid!') {
+        //   if ($window.confirm(res.data.message)) {
+        //     $state.reload();
+        //   }
+        // }
       }
     }
 
