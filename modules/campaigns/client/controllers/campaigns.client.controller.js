@@ -117,8 +117,8 @@
 
     function receiptscampaign(itm) {
       itm.status = 'receipts';
-      vm.campaign.listusercampaign.forEach(function(listusercam){
-        if(listusercam._id === itm._id){
+      vm.campaign.listusercampaign.forEach(function (listusercam) {
+        if (listusercam._id === itm._id) {
           listusercam.status = itm.status;
         }
       });
@@ -128,6 +128,11 @@
       }
       function errorCallback(res) {
         vm.error = res.data.message;
+        if (res.data.message === ''){
+          if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
+            $state.reload();
+          }
+        }
       }
     }
     function acceptcampaign() {
@@ -184,6 +189,11 @@
           if ($window.confirm(res.data.message)) {
             $state.reload();
             $state.go('usercampaign');
+          }
+        }
+        if (res.data.message === ''){
+          if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
+            $state.reload();
           }
         }
 
