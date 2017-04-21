@@ -193,6 +193,7 @@
         }
         if (res.data.message === ''){
           if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
+            vm.campaign.listusercampaign.splice(vm.campaign.listusercampaign.lenth - 1, 1);
             $state.reload();
           }
         }
