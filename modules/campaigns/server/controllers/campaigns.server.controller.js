@@ -55,9 +55,25 @@ exports.update = function (req, res) {
   var campaign = req.campaign;
   campaign = _.extend(campaign, req.body);
   var error = '';
+  var IdenLength = 0;
+  var IdenChkLength = false;
+  var IsNotIden = true;
   if (campaign.listusercampaign.length > 0) {
     var chkIden = [];
     campaign.listusercampaign.forEach(function (iden) {
+      var id = iden.identification;
+      if (id.length !== 13) {
+        IdenLength = id.length;
+        IdenChkLength = true;
+      }
+
+      if (id.length === 13) {
+        for (var i = 0, sum = 0; i < 12; i++)
+          sum += parseFloat(id.charAt(i)) * (13 - i);
+        if ((11 - sum % 11) % 10 !== parseFloat(id.charAt(12)))
+          IsNotIden = false;
+      }
+
       if (chkIden.indexOf(iden.identification) === -1) {
         chkIden.push(iden.identification);
       } else {
@@ -65,7 +81,16 @@ exports.update = function (req, res) {
       }
     });
   }
-
+  if (IdenChkLength) {
+    return res.status(400).send({
+      message: IdenLength + ' is not Identification!'
+    });
+  }
+  if (!IsNotIden) {
+    return res.status(400).send({
+      message: 'Your identification is Invalid!'
+    });
+  }
   if (error !== '' && error === 'Identification is already!') {
     return res.status(400).send({
       message: error

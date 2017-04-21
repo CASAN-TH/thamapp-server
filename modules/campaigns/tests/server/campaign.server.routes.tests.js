@@ -80,7 +80,7 @@ describe('Campaign CRUD tests', function () {
                 name: 'Campaign name1',
                 startdate: new Date('2017-04-20'),
                 enddate: new Date('2017-04-22'),
-                usercount: 0,
+                usercount: 2,
                 statuscampaign: 'close'
             };
 
@@ -648,7 +648,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: '1234',
+                    identification: '1719900283009',
                     user: user,
                     status: 'accept'
                 };
@@ -667,7 +667,7 @@ describe('Campaign CRUD tests', function () {
                         }
 
                         // Update Campaign name\
-                        campaign.listusercampaign[0].identification = '123789';
+                        campaign.listusercampaign[0].status = 'receipts';
                         // campaign.listusercampaign[1].identification = 123789;
 
                         // Update an existing Campaign
@@ -682,8 +682,8 @@ describe('Campaign CRUD tests', function () {
 
                                 // Set assertions
                                 (campaignUpdateRes.body._id).should.equal(campaignSaveRes.body._id);
-                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('123789');
-                                (campaignUpdateRes.body.listusercampaign[0].status).should.match('accept');
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1719900283009');
+                                (campaignUpdateRes.body.listusercampaign[0].status).should.match('receipts');
                                 // (campaignUpdateRes.body.listusercampaign[1].identification).should.match(123789);
 
 
@@ -705,7 +705,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: '1234',
+                    identification: '7184567257665',
                     user: user,
                     status: 'accept'
                 };
@@ -829,7 +829,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '7184567257665',
                     user: user,
                     status: 'accept'
                 };
@@ -847,7 +847,7 @@ describe('Campaign CRUD tests', function () {
                             return done(campaignSaveErr);
                         }
                         var data2 = {
-                            identification: '1235',
+                            identification: '1473242537569',
                             user: user,
                             status: 'accept'
                         };
@@ -858,8 +858,8 @@ describe('Campaign CRUD tests', function () {
                             .expect(200)
                             .end(function (campaignUpdateErr, campaignUpdateRes) {
                                 // Set message assertion
-                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1234');
-                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1235');
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('7184567257665');
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1473242537569');
 
                                 // Handle Campaign save error
                                 done();
@@ -878,7 +878,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: '1234',
+                    identification: '7184567257665',
                     user: user,
                     status: 'accept'
                 };
@@ -896,7 +896,7 @@ describe('Campaign CRUD tests', function () {
                             return done(campaignSaveErr);
                         }
                         var data2 = {
-                            identification: '1234',
+                            identification: '7184567257665',
                             user: user,
                             status: 'accept'
                         };
@@ -967,7 +967,7 @@ describe('Campaign CRUD tests', function () {
                     return done(signinErr);
                 }
                 var data = {
-                    identification: 1234,
+                    identification: '7184567257665',
                     user: user,
                     status: 'accept'
                 };
@@ -985,7 +985,7 @@ describe('Campaign CRUD tests', function () {
                             return done(campaignSaveErr);
                         }
                         var data2 = {
-                            identification: '1235',
+                            identification: '1473242537569',
                             user: user,
                             status: 'accept'
                         };
@@ -995,10 +995,10 @@ describe('Campaign CRUD tests', function () {
                             .send(campaign)
                             .expect(200)
                             .end(function (campaignUpdateErr, campaignUpdateRes) {
-                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1234');
-                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1235');
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('7184567257665');
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('1473242537569');
                                 var data3 = {
-                                    identification: '1236',
+                                    identification: '3088271258405',
                                     user: user,
                                     status: 'accept'
                                 };
@@ -1014,6 +1014,151 @@ describe('Campaign CRUD tests', function () {
                                         // Handle Campaign save error
                                         done(campaignUpdateErr);
                                     });
+                            });
+                    });
+            });
+    });
+
+    it('should be able to update an data validate identification 8 length', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: '1719900283009',
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign2.listusercampaign = [];
+                campaign2.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign2)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: '71845672',
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign2.listusercampaign.push(data2);
+                        // // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign2)
+                            .expect(400)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion                                       
+                                (campaignUpdateRes.body.message).should.match('8 is not Identification!');
+
+                                // Handle Campaign save error
+                                done(campaignUpdateErr);
+                            });
+                    });
+            });
+    });
+
+    it('should be able to update an data validate identification', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: '1719900283009',
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign2.listusercampaign = [];
+                campaign2.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign2)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: '7184567257665',
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign2.listusercampaign.push(data2);
+                        // // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign2)
+                            .expect(200)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion                                       
+                                (campaignUpdateRes.body.listusercampaign[0].identification).should.match('1719900283009');
+                                (campaignUpdateRes.body.listusercampaign[1].identification).should.match('7184567257665');
+
+                                // Handle Campaign save error
+                                done();
+                            });
+                    });
+            });
+    });
+    
+    it('should be able to update an data validate is not identification', function (done) {
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                var data = {
+                    identification: '1719900283009',
+                    user: user,
+                    status: 'accept'
+                };
+                // Get the userId
+                var userId = user.id;
+                campaign2.listusercampaign = [];
+                campaign2.listusercampaign.push(data);
+                // Save a new Campaign
+                agent.post('/api/campaigns')
+                    .send(campaign2)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        var data2 = {
+                            identification: '7184567257660',
+                            user: user,
+                            status: 'accept'
+                        };
+                        campaign2.listusercampaign.push(data2);
+                        // // Update an existing Campaign
+                        agent.put('/api/campaigns/' + campaignSaveRes.body._id)
+                            .send(campaign2)
+                            .expect(400)
+                            .end(function (campaignUpdateErr, campaignUpdateRes) {
+                                // Set message assertion                                       
+                                (campaignUpdateRes.body.message).should.match('Your identification is Invalid!');
+
+                                // Handle Campaign save error
+                                done(campaignUpdateErr);
                             });
                     });
             });
