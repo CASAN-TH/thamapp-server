@@ -101,7 +101,7 @@ describe('Marketplan CRUD tests', function () {
                 // Set assertions
                 // (marketplans[0].user._id).should.equal(userId);
                 // (marketplans[0].name).should.match('Marketplan name');
-                (marketplans.length).should.match(0);
+                (marketplans.length).should.match(1);
 
                 // Call the assertion callback
                 done();
@@ -379,7 +379,7 @@ describe('Marketplan CRUD tests', function () {
       request(app).get('/api/marketplans')
         .end(function (req, res) {
           // Set assertion
-          res.body.should.be.instanceof(Array).and.have.lengthOf(0);
+          res.body.should.be.instanceof(Array).and.have.lengthOf(1);
 
           // Call the assertion callback
           done();
