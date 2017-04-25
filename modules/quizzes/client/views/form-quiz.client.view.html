@@ -1,0 +1,97 @@
+<section class="header-height">
+  <div class="page-header">
+    <h1>{{vm.quiz._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}</h1>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.quizForm" class="form-horizontal" ng-submit="vm.save(vm.form.quizForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <h3>หัวข้อ</h3>
+          <input name="topic" type="text" ng-model="vm.quiz.topic" id="topic" class="form-control" placeholder="หัวข้อคำถาม" required>
+        </div>
+        <div class="form-group" ng-repeat="quiz in vm.quiz.quizs">
+          <label class="control-label">คำถาม ?</label>
+          <p><label>{{$index+1}}. </label> {{quiz.question}}</p>
+          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice'">
+            <div class="col-md-6">
+              <input class="form-control" type="text" ng-model="choice.choice">
+            </div>
+          </div>
+          <div class="row form-group" ng-repeat="choice in quiz.choices">
+            <div class="col-md-6" ng-if="quiz.questiontype === 'choice'">
+              <input class="form-control" type="text" ng-model="choice.choice">
+            </div>
+            <div class="col-md-6" ng-if="quiz.questiontype === 'choice'">
+              <button type="button" class="btn btn-danger" ng-click="vm.deletechoice(quiz,choice)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </div>
+          <div class="row form-group" ng-if="quiz.questiontype === 'choice'">
+            <div class="col-md-2">
+              <button class="btn btn-default btn-block" type="button" ng-click="vm.addchoice(quiz)">เพิ่มตัวเลือก</button>
+            </div>
+            <div class="col-md-10">
+
+            </div>
+          </div>
+          <div class="row form-group">
+            <div class="col-md-2">
+              <button class="btn btn-danger btn-block" type="button" ng-click="vm.deleteQuiz(quiz)">ลบคำถาม</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row form-group">
+            <div class="col-md-12">
+              <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myQuestion">เพิ่มคำถาม</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block">{{vm.quiz._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+        </div>
+        <div ng-show="vm.error" class="text-danger">
+          <strong ng-bind="vm.error"></strong>
+        </div>
+      </fieldset>
+      <!--add Question-->
+      <div class="container">
+        <div class="modal fade" id="myQuestion" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <div class="row"></div>
+                <div class="col-md-6">
+                  <h4 class="modal-title">ตั้งคำถาม</h4>
+                </div>
+                <div class="col-md-6 textRight"><button class="btn btn-danger" type="button" data-dismiss="modal">ปิด</button></div>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group" show-errors>
+                        <div>
+                          <label class="control-label" for="name">คำถาม</label>
+                          <input name="name" type="text" ng-model="vm.question" id="name" class="form-control" placeholder="ชื่อคำถาม">
+                        </div>
+                        <label class="control-label" for="name">เลือกแบบคำถาม</label>&nbsp;&nbsp;
+                        <input type="radio" ng-model="vm.questiontype" value="choice">&nbsp;Choice</input>&nbsp;
+                        <input type="radio" ng-model="vm.questiontype" value="none-choice">&nbsp;None-choice</input>
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-block" ng-click="vm.addtopic()" data-dismiss="modal">เพิ่มคำถาม</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
