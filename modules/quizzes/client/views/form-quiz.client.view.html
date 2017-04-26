@@ -23,7 +23,7 @@
               <div class="col-md-10 marleft32">
                 <input class="form-control" type="text" ng-model="quiz.question">
               </div>
-              
+
             </div>
             <div class="col-md-4 textRight">
               <button class="btn btn-danger" type="button" ng-click="vm.deleteQuiz(quiz)">ลบคำถาม</button>
@@ -36,10 +36,9 @@
               <!--<input class="form-control" type="text" ng-model="quiz.choices.choice">-->
             </div>
           </div>
-
+          <!--<div ng-show="quiz.questiontype === 'choice'"><label class="front_price1">&nbsp; *ตัวเลือก</label></div>-->
           <div class="row form-group" ng-repeat="choice in quiz.choices" ng-show="vm.quiz._id">
             <div class="col-md-1" ng-if="quiz.questiontype === 'choice'">
-              
             </div>
             <div class="col-md-6 marleft55" ng-if="quiz.questiontype === 'choice'">
               <input class="form-control" type="text" ng-model="choice.choice">
@@ -50,10 +49,10 @@
           </div>
           <!---->
           <div class="row form-group" ng-repeat="choice in quiz.choices" ng-show="!vm.quiz._id">
-            <div class="col-md-6" ng-if="quiz.questiontype === 'choice'">
+            <div class="col-md-6 marleft20" ng-if="quiz.questiontype === 'choice'">
               <input class="form-control" type="text" ng-model="choice.choice">
             </div>
-            <div class="col-md-6" ng-if="quiz.questiontype === 'choice'">
+            <div class="col-md-6 marleft55" ng-if="quiz.questiontype === 'choice'">
               <button type="button" class="btn btn-danger" ng-click="vm.deletechoice(quiz,choice)"><span class="glyphicon glyphicon-trash"></span></button>
             </div>
           </div>

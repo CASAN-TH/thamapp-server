@@ -1,29 +1,20 @@
 <section class="header-height">
   <div class="page-header">
-    <h1>แบบสอบถาม</h1>
-  </div>
-  <div class="row hidden-xs show-sm show-md show-lg" ng-show="vm.authentication.user.roles[0] ==='admin'">
-    <div class="col-md-10 hidden-xs hidden-sm show-md show-lg">
-      <!--<div class="input-group input-group-sm">
-        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
-      </div>-->
-    </div>
-    <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
-      <div class="pull-right">
+    <h1>แบบสอบถาม
+      <div class="pull-right" ng-show="vm.authentication.user.roles[0] ==='admin'">
         <a class="btn buttonCreate" ui-sref="quizzes.create">
           <i class="fa fa-file-o" aria-hidden="true"></i>
-          <span>New</span>
+          <span>สร้างแบบสอบถาม</span>
         </a>
       </div>
-    </div>
+    </h1>
   </div>
   <div class="list-group">
     <div class="row borderline2" ng-repeat="itm in vm.quizzes">
       <div class="col-md-10">
-        <h1>Topic : {{itm.topic}}</h1>
+        <h1>หัวข้อ : {{itm.topic}}</h1>
 
-        <h2>คำถาม ?</h2>
+        <!--<h2>คำถาม ?</h2>-->
         <div class="row" ng-repeat="quiz in itm.quizs">
           <div class="col-md-12">
             <h3>{{$index+1}}. {{quiz.question}}</h3>
@@ -45,7 +36,7 @@
         </div>
       </div>
       <div class="col-md-2 textRight" ng-show="vm.authentication.user.roles[0] ==='admin'">
-        <a class="btn btn-primary " ui-sref="quizzes.edit({ quizId: itm._id })"><i class="glyphicon glyphicon-edit"></i></a>
+        <a class="btn btn-primary" ui-sref="quizzes.edit({ quizId: itm._id })"><i class="glyphicon glyphicon-edit"></i></a>
         <a class="btn btn-danger" ng-click="vm.remove(itm)"><i class="glyphicon glyphicon-trash"></i></a>
       </div>
     </div>
