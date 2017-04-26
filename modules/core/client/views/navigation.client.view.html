@@ -40,6 +40,9 @@
       <li ng-class="{active: $uiRoute}" ui-route="/marketplans" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/marketplans"><i class="fa fa-list-alt"></i> <span class="nav-label">ตลาดนัดธรรมชาติ</span></a>
       </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/quizzes" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/quizzes"><i class="fa fa-file-text-o"></i> <span class="nav-label">แบบสอบถาม</span></a>
+      </li>
       
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
         <span class="nav-label menu-headline">ขายสินค้า</span>
@@ -48,7 +51,7 @@
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
-        ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'" ng-hide="item.title === 'Payments' || item.title === 'Admin' ||  item.title === 'รายการผังบัญชี' || item.title === 'Promotions' || item.title === 'รายการใบแจ้งหนี้' || item.title === 'Products' || item.title === 'รายการขนส่งข้าว' || item.title === 'รายการใบแจ้งคืน' || item.title === 'Marketplans' || item.title === 'Campaigns' || item.title === 'Marketplans'">
+        ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'" ng-hide="item.title === 'Payments' || item.title === 'Admin' ||  item.title === 'รายการผังบัญชี' || item.title === 'Promotions' || item.title === 'รายการใบแจ้งหนี้' || item.title === 'Products' || item.title === 'รายการขนส่งข้าว' || item.title === 'รายการใบแจ้งคืน' || item.title === 'Marketplans' || item.title === 'Campaigns' || item.title === 'Marketplans' || item.title === 'แบบสอบถาม'">
         <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า':item.title === 'Admin' ? 'ผู้ดูแลระบบ':item.title === 'Managebanks' ? 'การจัดการธนาคาร':item.title === 'me' ? 'ประวัติการสั่งซื้อ':item.title === 'Orders' ? 'รายการสั่งซื้อ':item.title === 'Promotions' ? 'โปรโมชั่น': item.title}}&nbsp;</span></a>
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/accuralreceipts" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
@@ -172,6 +175,9 @@
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/marketplans" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
         <a href="/#/marketplans"><i class="fa fa-list-alt"></i> <span class="nav-label">ตลาดนัดธรรมชาติ</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/quizzes" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+        <a href="/#/quizzes"><i class="fa fa-file-text-o"></i> <span class="nav-label">แบบสอบถาม</span></a>
       </li>
 
 

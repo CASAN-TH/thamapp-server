@@ -13,7 +13,10 @@
 
     vm.authentication = Authentication;
     vm.quiz = quiz;
-    vm.quiz.quizs = [];
+    if (!vm.quiz._id) {
+      vm.quiz.quizs = [];
+    }
+
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
@@ -83,9 +86,7 @@
       }
 
       function successCallback(res) {
-        $state.go('quizzes.view', {
-          quizId: res._id
-        });
+        $state.go('quizzes.list');
       }
 
       function errorCallback(res) {

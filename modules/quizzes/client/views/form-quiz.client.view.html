@@ -1,6 +1,6 @@
 <section class="header-height">
   <div class="page-header">
-    <h1>{{vm.quiz._id ? 'แก้ไขรายการ' : 'เพิ่มรายการใหม่'}}</h1>
+    <h1>{{vm.quiz._id ? 'แก้ไขแบบสอบถาม' : 'เพิ่มแบบสอบถาม'}}</h1>
   </div>
   <div class="col-md-12">
     <form name="vm.form.quizForm" class="form-horizontal" ng-submit="vm.save(vm.form.quizForm.$valid)" novalidate>
@@ -11,13 +11,45 @@
         </div>
         <div class="form-group" ng-repeat="quiz in vm.quiz.quizs">
           <label class="control-label">คำถาม ?</label>
-          <p><label>{{$index+1}}. </label> {{quiz.question}}</p>
-          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice'">
-            <div class="col-md-6">
-              <input class="form-control" type="text" ng-model="choice.choice">
+          <div class="row form-group">
+            <div class="col-md-8" ng-show="!vm.quiz._id">
+              <p><label>{{$index+1}}. </label> {{quiz.question}}</p>
+
+            </div>
+            <div class="col-md-8" ng-show="vm.quiz._id">
+              <div class="col-md-1 textleft">
+                <h3>{{$index+1}}.</h3>
+              </div>
+              <div class="col-md-10 marleft32">
+                <input class="form-control" type="text" ng-model="quiz.question">
+              </div>
+              
+            </div>
+            <div class="col-md-4 textRight">
+              <button class="btn btn-danger" type="button" ng-click="vm.deleteQuiz(quiz)">ลบคำถาม</button>
             </div>
           </div>
-          <div class="row form-group" ng-repeat="choice in quiz.choices">
+
+
+          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice'">
+            <div class="col-md-6">
+              <!--<input class="form-control" type="text" ng-model="quiz.choices.choice">-->
+            </div>
+          </div>
+
+          <div class="row form-group" ng-repeat="choice in quiz.choices" ng-show="vm.quiz._id">
+            <div class="col-md-1" ng-if="quiz.questiontype === 'choice'">
+              
+            </div>
+            <div class="col-md-6 marleft55" ng-if="quiz.questiontype === 'choice'">
+              <input class="form-control" type="text" ng-model="choice.choice">
+            </div>
+            <div class="col-md-5 marleft55" ng-if="quiz.questiontype === 'choice'">
+              <button type="button" class="btn btn-danger" ng-click="vm.deletechoice(quiz,choice)"><span class="glyphicon glyphicon-trash"></span></button>
+            </div>
+          </div>
+          <!---->
+          <div class="row form-group" ng-repeat="choice in quiz.choices" ng-show="!vm.quiz._id">
             <div class="col-md-6" ng-if="quiz.questiontype === 'choice'">
               <input class="form-control" type="text" ng-model="choice.choice">
             </div>
@@ -25,6 +57,7 @@
               <button type="button" class="btn btn-danger" ng-click="vm.deletechoice(quiz,choice)"><span class="glyphicon glyphicon-trash"></span></button>
             </div>
           </div>
+          <!---->
           <div class="row form-group" ng-if="quiz.questiontype === 'choice'">
             <div class="col-md-2">
               <button class="btn btn-default btn-block" type="button" ng-click="vm.addchoice(quiz)">เพิ่มตัวเลือก</button>
@@ -33,12 +66,13 @@
 
             </div>
           </div>
-          <div class="row form-group">
+          <!--<div class="row form-group">
             <div class="col-md-2">
               <button class="btn btn-danger btn-block" type="button" ng-click="vm.deleteQuiz(quiz)">ลบคำถาม</button>
             </div>
-          </div>
+          </div>-->
         </div>
+        <!--id-->
 
         <div class="form-group">
           <div class="row form-group">

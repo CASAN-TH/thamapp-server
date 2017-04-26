@@ -663,7 +663,15 @@ body1 {
 .marleft {
     margin-left: -15px
 }
-
+.marleft32 {
+    margin-left: -32px
+}
+.marleft55 {
+    margin-left: -55px
+}
+.marleft20 {
+    margin-left: 20px
+}
 .marright {
     margin-left: 25px
 }
@@ -843,6 +851,16 @@ text-align: left;
     border-style: none none dashed none;
     border-width: 2px;
     margin: 0px 0px 10px 0px;
+
+    border-color: #dddddd;
+    /*border-style: solid;*/
+    /*border-width: 0px 0px 1px 0px;*/
+}
+
+.borderline2 {
+    border-style: dashed dashed dashed dashed;
+    border-width: 2px;
+    margin: 5px 5px 5px 5px;
 
     border-color: #dddddd;
     /*border-style: solid;*/
