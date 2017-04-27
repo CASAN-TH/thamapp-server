@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Chatroom
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var chatroom = new Chatroom(req.body);
   chatroom.user = req.user;
 
-  chatroom.save(function(err) {
+  chatroom.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Chatroom
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var chatroom = req.chatroom ? req.chatroom.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Chatroom
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var chatroom = req.chatroom;
 
   chatroom = _.extend(chatroom, req.body);
 
-  chatroom.save(function(err) {
+  chatroom.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Chatroom
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var chatroom = req.chatroom;
 
-  chatroom.remove(function(err) {
+  chatroom.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,22 +80,35 @@ exports.delete = function(req, res) {
 /**
  * List of Chatrooms
  */
-exports.list = function(req, res) {
-  Chatroom.find().sort('-created').populate('user', 'displayName').populate('users').exec(function(err, chatrooms) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.jsonp(chatrooms);
-    }
-  });
+exports.list = function (req, res) {
+  if (req.user) {
+    Chatroom.find({ users: req.user._id }).sort('-created').populate('user', 'displayName').populate('users').exec(function (err, chatrooms) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(chatrooms);
+      }
+    });
+  }else{
+    Chatroom.find().sort('-created').populate('user', 'displayName').populate('users').exec(function (err, chatrooms) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(chatrooms);
+      }
+    });
+  }
+
 };
 
 /**
  * Chatroom middleware
  */
-exports.chatroomByID = function(req, res, next, id) {
+exports.chatroomByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

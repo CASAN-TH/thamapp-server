@@ -30,13 +30,11 @@ var ChatroomSchema = new Schema({
     ],
     required: 'Please fill Chatroom users'
   },
-  messages:[{
-    message : {
-      created : Date,
-      profileImageURL : String,
-      username : String,
-      text : String
-    }
+  messages: [{
+    created: Date,
+    profileImageURL: String,
+    username: String,
+    text: String
   }],
   created: {
     type: Date,

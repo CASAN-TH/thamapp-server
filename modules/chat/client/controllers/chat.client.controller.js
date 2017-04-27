@@ -1,8 +1,8 @@
 'use strict';
 
 // Create the 'chat' controller
-angular.module('chat').controller('ChatController', ['$scope', '$location', 'Authentication', 'Socket', 'Admin', 'ChatroomsService',
-  function ($scope, $location, Authentication, Socket, Admin, ChatroomsService) {
+angular.module('chat').controller('ChatController', ['$scope', '$state', '$location', 'Authentication', 'Socket', 'Admin', 'ChatroomsService',
+  function ($scope, $state, $location, Authentication, Socket, Admin, ChatroomsService) {
     // Create a messages array
     $scope.authenID = Authentication.user._id;
     $scope.username = Authentication.user.username;
@@ -51,6 +51,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
 
     // Add an event listener to the 'chatMessage' event
     Socket.on('chatMessage', function (data) {
+      //$scope.chatlist = ChatroomsService.query();
       $scope.room = data;
     });
 
@@ -88,7 +89,15 @@ angular.module('chat').controller('ChatController', ['$scope', '$location', 'Aut
       this.messageText = '';
     };
     $scope.roomsername = function (data) {
-      $scope.room = data;
+      Socket.emit('join', data);
+      //$scope.room = data;
+      if($scope.room){
+        if(data.name !== $scope.room.name){
+          $scope.room = data;
+        }
+      }else{
+        $scope.room = data;
+      }
     };
 
     // Remove the event listener when the controller instance is destroyed

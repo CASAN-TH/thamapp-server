@@ -84,7 +84,7 @@
                     <div ng-if="chat.type === 'P'" ng-repeat="user in chat.users | filter:{ _id : '!'+authenID }">
                       <img class="chat-avatar" ng-src="{{user.profileImageURL}}">
                       <div class="chat-user-name">
-                        <a href="#" ng-click="roomsername(chat)">{{user.displayName}}</a>
+                        <a ng-click="roomsername(chat)">{{user.displayName}}</a>
                       </div>
                     </div>
 

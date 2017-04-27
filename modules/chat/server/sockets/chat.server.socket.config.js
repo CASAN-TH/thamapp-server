@@ -57,24 +57,30 @@ module.exports = function (io, socket) {
     // console.log('chatMessage : ' + JSON.stringify(message));
     socket.join(data.name);
 
-    io.sockets.in(data.name).emit('chatMessage', data);
+    //io.sockets.in(data.name).emit('chatMessage', data);
 
-    // Chatroom.findById(data._id).populate('user', 'displayName').exec(function (err, chatroom) {
-    //   if (err) {
-    //     console.log(err);
-    //   } else if (!chatroom) {
-    //     console.log('Chatroom is invalid');
-    //   }
-    //   chatroom = _.extend(chatroom, data);
-    //   chatroom.save(function (err) {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       // Emit the 'chatMessage' event
-    //       io.sockets.in(data.name).emit('chatMessage', data);
-    //     }
-    //   });
-    // });
+    Chatroom.findById(data._id).populate('user', 'displayName').exec(function (err, chatroom) {
+      if (err) {
+        console.log(err);
+      } else if (!chatroom) {
+        console.log('Chatroom is invalid');
+      }
+      
+      //chatroom = _.extend(chatroom, data);
+      
+      chatroom.messages = data.messages;
+      
+      chatroom.save(function (err) {
+        if (err) {
+          console.log(err);
+        } else {
+          // Emit the 'chatMessage' event
+          
+        }
+      });
+
+      io.sockets.in(data.name).emit('chatMessage', data);
+    });
 
 
 
