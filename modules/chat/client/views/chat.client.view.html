@@ -6,9 +6,11 @@
     <div class="col-lg-12">
       <div class="ibox chat-view">
         <div class="ibox-title">
+          <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#myAdduser"><span class="fa fa-user-plus fa-2x"></span></button>
+
           <h3 ng-if="!room.users">&nbsp;&nbsp;&nbsp;</h3>
           <h3 ng-repeat="user in room.users | filter:{ _id : '!'+authenID }">Room : {{user.displayName}}</h3>
-          <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#myAdduser"><span class="fa fa-user-plus fa-2x"></span></button>
+
         </div>
         <div class="ibox-content">
           <div class="row">
@@ -16,12 +18,13 @@
               <div class="chat-discussion" schroll-bottom="room.messages">
                 <div class="chat-message" ng-repeat="message in room.messages | orderBy :'-'">
                   <small class="{{message.username === username ? 'pull-left' : 'pull-right'}} text-muted" ng-bind="message.created | date:'mediumTime'"></small>
-                  <div>
-                    <img class="{{message.username === username ? 'pull-right' : 'pull-left'}} img-circle chat-profile-image" ng-src="{{message.profileImageURL}}"
-                      alt="{{message.username}}" />
-                    <strong class="{{message.username === username ? 'pull-right' : 'pull-left'}}" ng-bind="message.username"></strong></br>
-                    <div>
-                      <span class="{{message.username === username ? 'pull-right' : 'pull-left'}} message-content" ng-bind="message.text"></span>
+                  <img class="{{message.username === username ? 'pull-right' : 'pull-left'}} img-circle chat-profile-image" ng-src="{{message.profileImageURL}}"
+                    alt="{{message.username}}" />
+                  <strong class="{{message.username === username ? 'pull-right' : 'pull-left'}}" ng-bind="message.username"></strong></br>
+                  </br>
+                  <div class="row">
+                    <div class="col">
+                      <span class="{{message.username === username ? 'bubble me' : 'bubble you'}} message-content" ng-bind="message.text"></span>
                     </div>
                   </div>
                 </div>
