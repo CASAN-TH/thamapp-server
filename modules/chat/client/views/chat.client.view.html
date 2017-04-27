@@ -7,8 +7,8 @@
       <div class="ibox chat-view">
         <div class="ibox-title">
           <h3 ng-if="!room.users">&nbsp;&nbsp;&nbsp;</h3>
-          <h3 ng-repeat="user in room.users | filter:{ _id : '!'+authenID }">Room : {{user.displayName}} <button class="pull-right" data-toggle="modal" data-target="#myAdduser">+</button></h3>
-
+          <h3 ng-repeat="user in room.users | filter:{ _id : '!'+authenID }">Room : {{user.displayName}}</h3>
+          <button class="pull-right" data-toggle="modal" data-target="#myAdduser">+</button>
         </div>
         <div class="ibox-content">
 
