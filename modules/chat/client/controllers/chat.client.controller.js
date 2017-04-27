@@ -32,12 +32,13 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
         user: Authentication.user
       };
       Socket.emit('createroom', data);
-      $scope.chatlist = ChatroomsService.query();
+      
     };
 
     // Add an event listener to the 'invite' event
     Socket.on('invite', function (data) {
-      console.log('invite : ' + data);
+      $scope.chatlist = ChatroomsService.query();
+      //console.log('invite : ' + data);
       Socket.emit('join', data);
     });
 
