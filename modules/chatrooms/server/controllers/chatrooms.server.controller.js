@@ -116,7 +116,7 @@ exports.chatroomByID = function (req, res, next, id) {
     });
   }
 
-  Chatroom.findById(id).populate('user', 'displayName').exec(function (err, chatroom) {
+  Chatroom.findById(id).populate('user', 'displayName').populate('users').exec(function (err, chatroom) {
     if (err) {
       return next(err);
     } else if (!chatroom) {
