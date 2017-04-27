@@ -34,7 +34,8 @@ module.exports = function (io, socket) {
         // });
         // console.log('error : ' + JSON.stringify(err));
       } else {
-        // console.log('success' + JSON.stringify(chatroom));
+        //console.log('success' + JSON.stringify(chatroom));
+        data._id = chatroom._id;
         data.users.forEach(function (user) {
           // console.log('success' + JSON.stringify(chatroom));
           // console.log(JSON.stringify(user));
@@ -64,22 +65,20 @@ module.exports = function (io, socket) {
         console.log(err);
       } else if (!chatroom) {
         console.log('Chatroom is invalid');
-      }
-      
-      //chatroom = _.extend(chatroom, data);
-      
-      chatroom.messages = data.messages;
-      
-      chatroom.save(function (err) {
-        if (err) {
-          console.log(err);
-        } else {
-          // Emit the 'chatMessage' event
-          
-        }
-      });
+      } else if (chatroom) {
+        chatroom.messages = data.messages;
 
-      io.sockets.in(data.name).emit('chatMessage', data);
+        chatroom.save(function (err) {
+          if (err) {
+            console.log(err);
+          } else {
+            // Emit the 'chatMessage' event
+
+          }
+        });
+
+        io.sockets.in(data.name).emit('chatMessage', data);
+      }
     });
 
 
