@@ -138,6 +138,38 @@ exports.requestorderByID = function (req, res, next, id) {
   });
 };
 
+exports.enddate = function (req, res, next, enddate) {
+  req.enddate = enddate;
+  next();
+};
+
+exports.reportrequestorderCooking = function (req, res, next) {
+  Requestorder.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(req.enddate) } })
+    .sort('-created')
+    .populate('user', 'displayName')
+    .populate('items.product')
+    .populate('namedeliver')
+    .populate('transport')
+    .exec(function (err, requestorders) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.data = requestorders;
+        next();
+      }
+    });
+
+};
+
+exports.reportrequestorder = function (req, res) {
+  res.jsonp({
+    startdate: req.startdate,
+    enddate: req.enddate,
+    data: req.data
+  });
+};
 function sendReqAllAdmin() {
   Requestorder.find().sort('-created').where('deliverystatus').equals('request').exec(function (err, reqOrders) {
     if (err) {
@@ -372,7 +404,7 @@ function sendRecAllAdmin(reqorder) {
           profile: pushNotiAuthenADM.profile,
           notification: {
             message: 'รายการ ' + reqorder.docno + ' ส่งเรียบร้อยแล้ว',
-           // ios: { badge: 1, sound: 'default' },
+            // ios: { badge: 1, sound: 'default' },
             // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
@@ -415,7 +447,7 @@ function sendRecSingleTransporter(reqorder) {
           notification: {
             message: 'รายการ ' + reqorder.docno + ' สำเร็จแล้ว',
             // ios: { badge: 1, sound: 'default' },
-           // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
+            // android: { data: { badge: 1 } }//{ badge: orders.length, sound: 'default' }
           }
         }
       }, function (error, response, body) {
@@ -430,3 +462,4 @@ function sendRecSingleTransporter(reqorder) {
 
 
 }
+

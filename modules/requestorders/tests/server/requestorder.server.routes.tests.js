@@ -569,6 +569,144 @@ describe('Requestorder CRUD tests', function () {
     });
   });
 
+  it('report requestorder in less than', function (done) {
+    var startdate = '2017-01-18';
+    var enddate = '2017-01-31';
+    var requestorder = new Requestorder({
+      docno: '20170210',
+      docdate: '2017-01-17T04:49:37.653Z',
+      items: [{
+        qty: 1,
+        price: 100,
+        amount: 100
+      }],
+      shipping: {
+        postcode: 10220,
+        subdistrict: 'คลองถนน',
+        province: 'กรุงเทพฯ',
+        district: 'สายไหม',
+        tel: '0900077580',
+        email: 'destinationpainbm@gmail.com'
+      },
+      accounting: 'bank',
+      imgslip: 'picture',
+      postcost: 10,
+      discount: 10,
+      comment: 'comment',
+      trackingnumber: 'tracking Number',
+      deliverystatus: 'confirmed'
+    });
+    requestorder.save(function () {
+      agent.get('/api/reportrequestorder/' + startdate + '/' + enddate)
+        .expect(200)
+        .end(function (requestInfoErr, requestInfoRes) {
+          // Handle Request error
+          if (requestInfoErr) {
+            return done(requestInfoErr);
+          }
+
+          (requestInfoRes.body.startdate).should.equal(startdate);
+          (requestInfoRes.body.enddate).should.equal(enddate);
+          (requestInfoRes.body.data.length).should.equal(0);
+
+          // Call the assertion callback
+          done();
+        });
+    });
+  });
+
+  it('report requestorder in normal case', function (done) {
+    var startdate = '2017-01-01';
+    var enddate = '2017-01-31';
+    var requestorder = new Requestorder({
+      docno: '20170210',
+      docdate: '2017-01-17T04:49:37.653Z',
+      items: [{
+        qty: 1,
+        price: 100,
+        amount: 100
+      }],
+      shipping: {
+        postcode: 10220,
+        subdistrict: 'คลองถนน',
+        province: 'กรุงเทพฯ',
+        district: 'สายไหม',
+        tel: '0900077580',
+        email: 'destinationpainbm@gmail.com'
+      },
+      accounting: 'bank',
+      imgslip: 'picture',
+      postcost: 10,
+      discount: 10,
+      comment: 'comment',
+      trackingnumber: 'tracking Number',
+      deliverystatus: 'confirmed'
+    });
+    requestorder.save(function () {
+      agent.get('/api/reportrequestorder/' + startdate + '/' + enddate)
+        .expect(200)
+        .end(function (requestInfoErr, requestInfoRes) {
+          // Handle Request error
+          if (requestInfoErr) {
+            return done(requestInfoErr);
+          }
+
+          (requestInfoRes.body.startdate).should.equal(startdate);
+          (requestInfoRes.body.enddate).should.equal(enddate);
+          (requestInfoRes.body.data.length).should.equal(1);
+
+          // Call the assertion callback
+          done();
+        });
+    });
+  });
+
+  it('report requestorder in more than', function (done) {
+    var startdate = '2017-01-01';
+    var enddate = '2017-01-16';
+    var requestorder = new Requestorder({
+      docno: '20170210',
+      docdate: '2017-01-17T04:49:37.653Z',
+      items: [{
+        qty: 1,
+        price: 100,
+        amount: 100
+      }],
+      shipping: {
+        postcode: 10220,
+        subdistrict: 'คลองถนน',
+        province: 'กรุงเทพฯ',
+        district: 'สายไหม',
+        tel: '0900077580',
+        email: 'destinationpainbm@gmail.com'
+      },
+      accounting: 'bank',
+      imgslip: 'picture',
+      postcost: 10,
+      discount: 10,
+      comment: 'comment',
+      trackingnumber: 'tracking Number',
+      deliverystatus: 'confirmed'
+    });
+    requestorder.save(function () {
+      agent.get('/api/reportrequestorder/' + startdate + '/' + enddate)
+        .expect(200)
+        .end(function (requestInfoErr, requestInfoRes) {
+          // Handle Request error
+          if (requestInfoErr) {
+            return done(requestInfoErr);
+          }
+
+          (requestInfoRes.body.startdate).should.equal(startdate);
+          (requestInfoRes.body.enddate).should.equal(enddate);
+          (requestInfoRes.body.data.length).should.equal(0);
+
+          // Call the assertion callback
+          done();
+        });
+    });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Requestorder.remove().exec(done);
