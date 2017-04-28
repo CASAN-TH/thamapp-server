@@ -51,7 +51,7 @@
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
       <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
-        ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'" ng-hide="item.title === 'Payments' || item.title === 'Admin' ||  item.title === 'รายการผังบัญชี' || item.title === 'Promotions' || item.title === 'รายการใบแจ้งหนี้' || item.title === 'Products' || item.title === 'รายการขนส่งข้าว' || item.title === 'รายการใบแจ้งคืน' || item.title === 'Marketplans' || item.title === 'Campaigns' || item.title === 'Marketplans' || item.title === 'แบบสอบถาม'">
+        ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'" ng-hide="item.title === 'Payments' || item.title === 'Admin' ||  item.title === 'รายการผังบัญชี' || item.title === 'Promotions' || item.title === 'รายการใบแจ้งหนี้' || item.title === 'Products' || item.title === 'รายการขนส่งข้าว' || item.title === 'รายการใบแจ้งคืน' || item.title === 'Marketplans' || item.title === 'Campaigns' || item.title === 'Marketplans' || item.title === 'แบบสอบถาม' || item.title === 'Chat' || item.title === 'Chatrooms'">
         <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า':item.title === 'Admin' ? 'ผู้ดูแลระบบ':item.title === 'Managebanks' ? 'การจัดการธนาคาร':item.title === 'me' ? 'ประวัติการสั่งซื้อ':item.title === 'Orders' ? 'รายการสั่งซื้อ':item.title === 'Promotions' ? 'โปรโมชั่น': item.title}}&nbsp;</span></a>
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/accuralreceipts" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
@@ -107,6 +107,16 @@
       <li ng-class="{active: $uiRoute}" ui-route="/balancereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
         <a href="/#/balancereport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานงบดุล</span></a>
       </li>
+      <!--ติดต่อ-->
+      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
+        <span class="nav-label menu-headline">ติดต่อ</span>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chat" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/chat"><i class="fa fa-user"></i> <span class="nav-label">พูดคุย</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chatrooms" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+        <a href="/#/chatrooms"><i class="fa fa-user"></i> <span class="nav-label">ห้องพูดคุย</span></a>
+      </li>
 
       <!--ตั้งค่าระบบ-->
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
@@ -141,6 +151,16 @@
       <li ng-class="{active: $uiRoute}" ui-route="/deliverstock" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
         <a href="/#/deliverstock"><i class="fa fa-laptop"></i> <span class="nav-label">คลังสินค้า</span></a>
       </li>
+      <!--ติดต่อ-->
+      <!--<li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'deliver'">
+        <span class="nav-label menu-headline">ติดต่อ</span>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chat" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+        <a href="/#/chat"><i class="fa fa-user"></i> <span class="nav-label">พูดคุย</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chatrooms" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+        <a href="/#/chatrooms"><i class="fa fa-user"></i> <span class="nav-label">ห้องพูดคุย</span></a>
+      </li>-->
 
       <!--transport-->
       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'transporter'">
@@ -155,6 +175,16 @@
       <li ng-class="{active: $uiRoute}" ui-route="/returnresponse" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
         <a href="/#/returnresponse"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งคืน</span></a>
       </li>
+      <!--ติดต่อ-->
+      <!--<li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'transporter'">
+        <span class="nav-label menu-headline">ติดต่อ</span>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chat" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+        <a href="/#/chat"><i class="fa fa-user"></i> <span class="nav-label">พูดคุย</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chatrooms" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+        <a href="/#/chatrooms"><i class="fa fa-user"></i> <span class="nav-label">ห้องพูดคุย</span></a>
+      </li>-->
 
 
       <!--user authen-->
@@ -178,6 +208,16 @@
       </li>
       <li ng-class="{active: $uiRoute}" ui-route="/quizzes" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
         <a href="/#/quizzes"><i class="fa fa-file-text-o"></i> <span class="nav-label">แบบสอบถาม</span></a>
+      </li>
+      <!--ติดต่อ-->
+      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'user'">
+        <span class="nav-label menu-headline">ติดต่อ</span>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chat" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+        <a href="/#/chat"><i class="fa fa-user"></i> <span class="nav-label">พูดคุย</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/chatrooms" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+        <a href="/#/chatrooms"><i class="fa fa-user"></i> <span class="nav-label">ห้องพูดคุย</span></a>
       </li>
 
 
