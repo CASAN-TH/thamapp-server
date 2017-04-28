@@ -113,14 +113,14 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-10">
-              <p><img width="7%">{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'ทั้งหมด'}}</p>
+              <p><img width="7%">{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'บริษัทขนส่ง : ทั้งหมด'}}</p>
             </div>
           </div>
           <div ng-if="!tranFilter">
-            <div class="col-md-5">
+            <div class="col-md-4">
             </div>
             <div class="col-md-6">
-              <p>{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'ทั้งหมด'}}</p>
+              <p>{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'บริษัทขนส่ง : ทั้งหมด'}}</p>
             </div>
           </div>
         </div>
@@ -137,7 +137,7 @@
           <th width="15%">บริษัทขนส่งข้าว</th>
           <th>ชื่อคนส่งข้าว</th>
           <th></th>
-          <th></th>
+          <th class="textRight">สถานะ</th>
         </tr>
         <tr>
           <th width="10%"></th>
@@ -157,16 +157,14 @@
           <td><label>{{returnorder.transport.displayName}}</label></td>
           <td><label>{{returnorder.namedeliver.displayName}}</label></td>
           <td></td>
-          <td></td>
+          <td class="textRight">สถานะ : {{returnorder.deliverystatus}}</td>
         </tr>
         <tr ng-repeat="itm in returnorder.items">
           <td></td>
-          <td>{{itm.product.name}}</td>
-          <td colspan="2"></td>
+          <td colspan="3">{{itm.product.name}}</td>
           <td class="textRight">{{itm.qty | number:2}}</td>
         </tr>
       </tbody>
     </table>
-
   </div>
 </section>
