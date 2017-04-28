@@ -69,7 +69,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
           type : 'message',
           created : Date.now(),
           profileImageURL : Authentication.user.profileImageURL,
-          username : Authentication.user.username,
+          username : Authentication.user.displayName,
           text : this.messageText
         });
       }else{
@@ -77,7 +77,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
           type : 'message',
           created : Date.now(),
           profileImageURL : Authentication.user.profileImageURL,
-          username : Authentication.user.username,
+          username : Authentication.user.displayName,
           text : this.messageText
         });
       }

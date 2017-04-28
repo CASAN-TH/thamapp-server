@@ -57,11 +57,14 @@
 
           <div class="row form-group">
             <form ng-submit="sendMessage();">
+              <!--<div class="form-group">
+                <textarea class="form-control" id="messageText" name="messageText"rows="5" ng-model="messageText" placeholder="Enter new message"></textarea>
+              </div>-->
               <div class="col-md-9">
                 <div class="chat-message-form">
-                <div class="form-group">
-                <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
-                </div>
+                  <div class="form-group">
+                    <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
+                  </div>
                 </div>
               </div>
               <div class="col-md-3">
