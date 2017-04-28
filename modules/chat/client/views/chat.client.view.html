@@ -1,9 +1,9 @@
 <!-- The chat view -->
-<section class="container header-height" ng-controller="ChatController">
+<section class="header-height" ng-controller="ChatController">
 
   <!--mos-->
   <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12">
       <div class="ibox chat-view">
         <div class="ibox-title">
           <button class="pull-right btn btn-primary" data-toggle="modal" data-target="#myAdduser"><span class="fa fa-user-plus fa-2x"></span></button>
@@ -16,8 +16,8 @@
           <div class="row">
             <div class="col-md-9">
               <div class="chat-discussion" schroll-bottom="room.messages">
-                <div class="chat-message" ng-repeat="message in room.messages | orderBy :'-'">
-                  <small class="{{message.username === username ? 'pull-left' : 'pull-right'}} text-muted" ng-bind="message.created | date:'mediumTime'"></small>
+                <div ng-repeat="message in room.messages | orderBy :'-'">
+                  <!--<small class="{{message.username === username ? 'pull-left' : 'pull-right'}} text-muted" ng-bind="message.created | date:'mediumTime'"></small>-->
                   <img class="{{message.username === username ? 'pull-right' : 'pull-left'}} img-circle chat-profile-image" ng-src="{{message.profileImageURL}}"
                     alt="{{message.username}}" />
                   <strong class="{{message.username === username ? 'pull-right' : 'pull-left'}}" ng-bind="message.username"></strong></br>
@@ -25,6 +25,13 @@
                   <div class="row">
                     <div class="col">
                       <span class="{{message.username === username ? 'bubble me' : 'bubble you'}} message-content" ng-bind="message.text"></span>
+                    </div>
+                    <div class="col">
+                      <small class="{{message.username === username ? 'pull-right bottom-align-text-right' : 'pull-left bottom-align-text-left'}} text-muted">
+                        <p ng-if="message.username === username">อ่านแล้ว</p>
+                        <p ng-bind="message.created | date:'shortTime'"></p>
+                        
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -35,10 +42,10 @@
                 <div class="users-list">
                   <div class="chat-user" ng-repeat="chat in chatlist">
                     <span class="pull-right label label-primary">Online</span>
-                    <div ng-if="chat.type === 'P'" ng-repeat="user in chat.users | filter:{ _id : '!'+authenID }">
-                      <img class="chat-avatar" ng-src="{{user.profileImageURL}}">
+                    <div ng-if="chat.type === 'P'" ng-click="roomsername(chat)" ng-repeat="user in chat.users | filter:{ _id : '!'+authenID }">
+                      <img class="img-circle chat-avatar" ng-src="{{user.profileImageURL}}">
                       <div class="chat-user-name">
-                        <a ng-click="roomsername(chat)">{{user.displayName}}</a>
+                        <a>{{user.displayName}}</a>
                       </div>
                     </div>
 
@@ -47,6 +54,7 @@
               </div>
             </div>
           </div>
+          
           <div class="row form-group">
             <form ng-submit="sendMessage();">
               <div class="col-md-10">
@@ -66,6 +74,8 @@
       </div>
     </div>
   </div>
+
+
   <div class="container">
     <div class="modal fade" id="myAdduser" role="dialog">
       <div class="modal-dialog">

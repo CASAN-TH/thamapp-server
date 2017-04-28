@@ -61,7 +61,7 @@
 .bubble.you {
   float: left;
   color: black;
-  background-color: #00b0ff;
+  background-color: #cccccc;
   -ms-flex-item-align: start;
       align-self: flex-start;
   -webkit-animation-name: slideFromLeft;
@@ -69,12 +69,12 @@
 }
 .bubble.you:before {
   left: -3px;
-  background-color: #00b0ff;
+  background-color: #cccccc;
 }
 .bubble.me {
   float: right;
   color: black;
-  background-color:	#cccccc;
+  background-color:	#bef18c;
   -ms-flex-item-align: end;
       align-self: flex-end;
   -webkit-animation-name: slideFromRight;
@@ -82,5 +82,5 @@
 }
 .bubble.me:before {
   right: -3px;
-  background-color: #cccccc;
+  background-color: #bef18c;
 }

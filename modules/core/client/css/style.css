@@ -5211,6 +5211,8 @@ dd.project-people {
 }
 .message-content {
   display: block;
+  width: 40%; 
+  word-wrap: break-word;
 }
 .chat-discussion {
   background: #eee;
@@ -8610,3 +8612,18 @@ figure.snip1174.hover a {
 overflow: hidden;
 text-overflow: ellipsis;
 }
+
+.row {
+      position: relative;
+  }
+
+.bottom-align-text-right {
+    position: absolute;
+    bottom: 0;
+    right: 41%;
+  }
+  .bottom-align-text-left {
+    position: absolute;
+    bottom: 0;
+    left: 41%;
+  }
