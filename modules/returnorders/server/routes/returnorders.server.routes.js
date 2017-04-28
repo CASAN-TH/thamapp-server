@@ -19,6 +19,10 @@ module.exports = function (app) {
     .put(users.requiresLoginToken, returnordersPolicy.isAllowed, returnorders.update)
     .delete(users.requiresLoginToken, returnordersPolicy.isAllowed, returnorders.delete);
 
+  app.route('/api/reportreturnorder/:startdate/:enddate')
+    .get(returnorders.reportreturnorderCooking,
+    returnorders.reportreturnorder);
+
   // Finish by binding the Returnorder middleware
   app.param('returnorderId', returnorders.returnorderByID);
 };

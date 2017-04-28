@@ -136,6 +136,38 @@ exports.returnorderByID = function (req, res, next, id) {
   });
 };
 
+exports.enddate = function (req, res, next, enddate) {
+  req.enddate = enddate;
+  next();
+};
+exports.reportreturnorderCooking = function (req, res, next) {
+
+  Returnorder.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(req.enddate) } })
+    .sort('-created')
+    .populate('user')
+    .populate('items.product')
+    .populate('namedeliver')
+    .populate('transport')
+    .exec(function (err, returnorders) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.data = returnorders;
+        next();
+      }
+    });
+
+};
+exports.reportreturnorder = function (req, res) {
+  res.jsonp({
+    startdate: req.startdate,
+    enddate: req.enddate,
+    data: req.data
+  });
+};
+
 // status return
 function deliverCreateAllAdminStatusReturn() {
   Returnorder.find().sort('-created').where('deliverystatus').equals('return').exec(function (err, reqReturs) {
