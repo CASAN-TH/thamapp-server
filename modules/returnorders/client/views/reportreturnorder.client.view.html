@@ -1,3 +1,33 @@
+<script type="text/javascript">
+  function exportPdf() {
+    html2canvas(document.getElementById('pdf'), {
+      onrendered: function (canvas) {
+        //jigkoh
+        //alert('html2canvas success..');
+        var imgData = canvas.toDataURL("image/jpeg");
+        //alert(imgData);
+        var imgWidth = 210;
+        var pageHeight = 295;
+        var imgHeight = canvas.height * imgWidth / canvas.width;
+        var heightLeft = imgHeight;
+        var doc = new jsPDF('p', 'mm');
+        var position = 0;
+        doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+        //alert('before save');
+        heightLeft -= pageHeight;
+        while (heightLeft >= 0) {
+          position = heightLeft - imgHeight;
+          doc.addPage();
+          doc.addImage(imgData, 'JPEG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+        doc.save('รายงานรับคืนข้าว.pdf');
+        //end jigkoh
+      }
+    });
+  }
+
+</script>
 <section>
   <div id="pagedisable">
     <div class="row hidden-xs hidden-sm show-md show-lg">
@@ -10,13 +40,11 @@
       <div class="col-xs-2 col-sm-2 col-md-2">
         &nbsp;<button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
       </div>
-      <!--<div class="col-xs-3 col-sm-3 col-md-3 text-right">
-            <div class="pull-right">
-                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
-            </div>
-        </div>-->
-
+      <div class="pull-right">
+        <a href="javascript:exportPdf()"><button type="button" class="btn btn-success btn-outline btn-block"><span>Export To PDF</span></button></a>
+      </div>
     </div>
+
     <div class="row show-xs show-sm hidden-md hidden-lg">
       <div class="row">
         <div class="col-xs-3 col-sm-3 col-md-3">
@@ -39,84 +67,103 @@
           <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
         </div>
       </div>
-
-
-      <!--<div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
-          <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
-        </div>
-      </div>-->
     </div>
   </div>
+
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 marginT25">
-      <!--<select ng-options="item as item.displayName for item in users}" ng-model="vm." class="form-control"></select>-->
-      <!--<div class="input-group input-group-sm">
-        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
-      </div>-->
+      บริษัทขนส่งข้าว
+      <select ng-options="item as item.displayName for item in listtran track by item._id " ng-model="tranFilter" class="form-control"></select>
     </div>
-
     <div class="col-xs-6 col-sm-6 col-md-6">
 
     </div>
   </div>
 </section>
 
-<section class="header-height">
-  <div class="row text-center">
-    <div>
+<section class="header-height" id="pdf">
+  <div class="row">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-5">
       <address>
-        <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
-        <strong>รายงานรับคืนข้าว</strong>
-        <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+        <div class="row">
+          <div class="col-md-3">
+          </div>
+          <div class="col-md-9">
+            <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-8">
+            <strong>รายงานรับคืนข้าว</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-10">
+            <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div ng-if="tranFilter">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10">
+              <p><img width="7%">{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'ทั้งหมด'}}</p>
+            </div>
+          </div>
+          <div ng-if="!tranFilter">
+            <div class="col-md-5">
+            </div>
+            <div class="col-md-6">
+              <p>{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'ทั้งหมด'}}</p>
+            </div>
+          </div>
+        </div>
       </address>
     </div>
+    <div class="col-sm-4">
+    </div>
   </div>
-
   <div class="table-responsive m-t">
     <table class="table">
       <thead>
         <tr>
           <th width="10%">วันที่</th>
-          <th width="10%">ชื่อคนส่งข้าว</th>
+          <th width="15%">บริษัทขนส่งข้าว</th>
+          <th>ชื่อคนส่งข้าว</th>
           <th></th>
-          <th class="text-center">สินค้า</th>
           <th></th>
-          <th class="text-right">จำนวน</th>
-          <th class="text-right">เครดิต</th>
+        </tr>
+        <tr>
+          <th width="10%"></th>
+          <th>สินค้า</th>
+          <th></th>
+          <th></th>
+          <th class="textRight">จำนวน</th>
         </tr>
       </thead>
-      <tbody ng-repeat="ledger in vm.listpayment.accounts | filter:{account : { accountno:topsearch}}">
+      <tbody ng-repeat="returnorder in vm.listreturn.data  | filter:{transport : {_id : tranFilter._id}}">
         <tr>
-          <td><label>{{ledger.account.accountno}}</label></td>
-          <td colspan="6"><label>{{ledger.account.accountname}}</label> </td>
+          <td><label>{{returnorder.docdate | date: 'dd/MM/yyyy'}}</label></td>
+          <td colspan="4"></td>
         </tr>
         <tr>
+          <td></td>
+          <td><label>{{returnorder.transport.displayName}}</label></td>
+          <td><label>{{returnorder.namedeliver.displayName}}</label></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr ng-repeat="itm in returnorder.items">
+          <td></td>
+          <td>{{itm.product.name}}</td>
           <td colspan="2"></td>
-          <td colspan="3"><label>ยกมา</label></td>
-          <td class="text-right"><label ng-if="(ledger.bfsumdebit - ledger.bfsumcredit) > 0">{{ledger.bfsumdebit - ledger.bfsumcredit | number:2 }}</label></td>
-          <td class="text-right"><label ng-if="(ledger.bfsumcredit - ledger.bfsumdebit) > 0">{{ledger.bfsumcredit - ledger.bfsumdebit | number:2}}</label></td>
-        </tr>
-
-        <tr ng-repeat="trans in  ledger.trns | orderBy:'trans.date'">
-          <td>{{trans.date | date: 'dd/MM/yyyy'}}</td>
-          <td>{{trans.trnsno}}</td>
-          <td colspan="3">{{trans.des}}</td>
-          <td class="text-right">{{trans.debit | number:2}}</td>
-          <td class="text-right">{{trans.credit | number:2}}</td>
-        </tr>
-        <tr>
-          <td colspan="4"></td>
-          <td class="text-right"><label>ในงวด</label></td>
-          <td class="text-right"><label ng-if="ledger.sumdebit > 0">{{ledger.sumdebit | number:2}}</label></td>
-          <td class="text-right"><label ng-if="ledger.sumcredit > 0">{{ledger.sumcredit | number:2}}</label></td>
-        </tr>
-        <tr>
-          <td colspan="4"></td>
-          <td class="text-right bordertable"><label>ยกไป</label></td>
-          <td class="text-right bordertable"><label ng-if="((ledger.bfsumdebit + ledger.sumdebit) - (ledger.bfsumcredit + ledger.sumcredit)) > 0">{{((ledger.bfsumdebit + ledger.sumdebit) - (ledger.bfsumcredit + ledger.sumcredit)) | number:2}}</label></td>
-          <td class="text-right bordertable"><label ng-if="((ledger.bfsumcredit + ledger.sumcredit) - (ledger.bfsumdebit + ledger.sumdebit)) > 0">{{((ledger.bfsumcredit + ledger.sumcredit) - (ledger.bfsumdebit + ledger.sumdebit)) | number:2}}</label></td>
+          <td class="textRight">{{itm.qty | number:2}}</td>
         </tr>
       </tbody>
     </table>

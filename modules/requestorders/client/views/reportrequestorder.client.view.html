@@ -43,11 +43,6 @@
       <div class="pull-right">
         <a href="javascript:exportPdf()"><button type="button" class="btn btn-success btn-outline btn-block"><span>Export To PDF</span></button></a>
       </div>
-      <!--<div class="col-xs-3 col-sm-3 col-md-3 text-right">
-            <div class="pull-right">
-                <button class="btn btn-success fa fa-download" data-toggle="modal" data-target="#myReport" ng-click="sendNull()"></button>
-            </div>
-        </div>-->
 
     </div>
     <div class="row show-xs show-sm hidden-md hidden-lg">
@@ -72,13 +67,6 @@
           <button type="button" class="btn btn-primary btn-block" ng-click="vm.getDay(startDay,endDay)">ค้นหา</button>
         </div>
       </div>
-
-
-      <!--<div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-right">
-          <button class="btn btn-success  btn-block" data-toggle="modal" data-target="#myReport" ng-click="sendNull()">ดูข้อมูลรายงาน</button>
-        </div>
-      </div>-->
     </div>
   </div>
   <div class="row">
@@ -94,16 +82,6 @@
 </section>
 
 <section class="header-height" id="pdf">
-  <!--<div class="row text-center">
-    <div>
-      <address>
-        <h5>บริษัท ธรรมธุรกิจ เทรดดิ้ง จำกัด</h5>
-        <strong>รายงานขนส่งข้าว</strong>
-        <p>ระหว่างวันที่ {{startDay | date:'dd/MM/yyyy'}} ถึงวันที่ {{endDay | date:'dd/MM/yyyy'}}</p>
-        <p>{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'ทั้งหมด'}}</p>
-      </address>
-    </div>
-  </div>-->
   <div class="row">
     <div class="col-sm-4">
     </div>
@@ -145,7 +123,6 @@
               <p>{{tranFilter ? 'บริษัทขนส่ง : ' + tranFilter.displayName : 'ทั้งหมด'}}</p>
             </div>
           </div>
-
         </div>
       </address>
     </div>
@@ -170,8 +147,6 @@
           <th class="textRight">จำนวน</th>
         </tr>
       </thead>
-      <!--<tbody ng-repeat="ledger in vm.listrequest.data | filter:{account : { accountno:topsearch}}">-->
-      <!--<tr ng-repeat="trans in  ledger.trns | orderBy:'trans.date'">-->
       <tbody ng-repeat="requestorder in vm.listrequest.data  | filter:{transport : {_id : tranFilter._id}}">
         <tr>
           <td><label>{{requestorder.docdate | date: 'dd/MM/yyyy'}}</label></td>
@@ -192,6 +167,5 @@
         </tr>
       </tbody>
     </table>
-
   </div>
 </section>
