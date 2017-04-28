@@ -19,6 +19,12 @@ module.exports = function (app) {
     .put(users.requiresLoginToken, requestordersPolicy.isAllowed, requestorders.update)
     .delete(users.requiresLoginToken, requestordersPolicy.isAllowed, requestorders.delete);
 
+
+  app.route('/api/reportrequestorder/:startdate/:enddate')
+    .get(requestorders.reportrequestorderCooking,
+    requestorders.reportrequestorder);
+
   // Finish by binding the Requestorder middleware
   app.param('requestorderId', requestorders.requestorderByID);
+  app.param('enddate', requestorders.enddate);
 };
