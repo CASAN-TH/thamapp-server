@@ -5,7 +5,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
   function ($scope, $state, $location, Authentication, Socket, Admin, ChatroomsService) {
     // Create a messages array
     $scope.authenID = Authentication.user._id;
-    $scope.username = Authentication.user.username;
+    $scope.username = Authentication.user.displayName;
     $scope.messages = [];
     Admin.query(function (data) {
       $scope.users = data;
