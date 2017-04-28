@@ -54,19 +54,19 @@
               </div>
             </div>
           </div>
-          
+
           <div class="row form-group">
             <form ng-submit="sendMessage();">
-              <div class="col-md-10">
-                <div class="chat-message-form">
-                  <div class="form-group">
-                    <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
-                  </div>
+              <div class="col-md-9">
+                <!--<div class="chat-message-form">-->
+                <!--<div class="form-group">-->
+                <input type="text" id="messageText" name="messageText" class="form-control" ng-model="messageText" placeholder="Enter new message">
+                <!--</div>-->
 
-                </div>
+                <!--</div>-->
               </div>
-              <div class="col-md-2">
-                <button type="submit" class="btn btn-primary btn-block " ng-disabled="!messageText.length">Enter</button>
+              <div class="col-md-3">
+                <button type="submit" class="btn btn-primary btn-block" ng-disabled="!messageText.length">Enter</button>
               </div>
             </form>
           </div>
