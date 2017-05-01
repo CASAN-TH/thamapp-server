@@ -133,7 +133,7 @@ angular.module('core')
   .directive('schrollBottom', function () {
     return {
       scope: {
-        schrollBottom: "="
+        schrollBottom: '='
       },
       link: function (scope, element) {
         scope.$watchCollection('schrollBottom', function (newValue) {
