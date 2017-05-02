@@ -107,7 +107,7 @@
           <button type="button" class="btn btn-primary btnborder btn-block" data-toggle="modal" data-target="#myProduct">เพิ่มสินค้า</button>
         </div>
       </div>
-      <div class="row borderline" >
+      <div class="row borderline">
         <div class="col-md-4">
           <div class="form-group">
             <div ng-show="vm.authentication.user.roles[0] === 'admin'">
@@ -122,8 +122,9 @@
             <div ng-show="vm.campaign.benefit.benefittype === 'DC'">
               <div ng-show="vm.authentication.user.roles[0] === 'admin'">
                 <label class="control-label" for="name">ประเภทส่วนลด</label>&nbsp;&nbsp;
-                <input type="radio" ng-model="vm.campaign.benefit.disctype" value="F">&nbsp;ลดเป็นเงินสด</input>&nbsp;
-                <input type="radio" ng-model="vm.campaign.benefit.disctype" value="P">&nbsp;ลดเป็น %</input>
+                <input type="radio" ng-model="vm.campaign.benefit.disctype" value="P">&nbsp;ลดเป็น %</input>&nbsp;
+                <input type="radio" ng-model="vm.campaign.benefit.disctype" value="F">&nbsp;ลดเป็นเงินสด</input>
+
               </div>
               <div ng-show="vm.authentication.user.roles[0] === 'user'">
                 <label class="control-label" for="name">ประเภทส่วนลด :</label>&nbsp;&nbsp;
@@ -131,11 +132,12 @@
               </div>
               <div ng-show="vm.authentication.user.roles[0] === 'admin'">
                 <label class="control-label" for="name">มูลค่าส่วนลด</label>
+                <span>({{vm.campaign.benefit.disctype === 'F' ? 'บาท' : vm.campaign.benefit.disctype === 'P' ? '%' : ''}})</span>
                 <input name="name" type="number" ng-model="vm.campaign.benefit.discvalue" id="name" class="form-control" placeholder="0">
               </div>
               <div ng-show="vm.authentication.user.roles[0] === 'user'">
                 <label class="control-label" for="name">มูลค่าส่วนลด :</label>&nbsp;&nbsp;
-                <label class="control-label" for="name"> {{vm.campaign.benefit.discvalue}}</label>
+                <label class="control-label" for="name"> {{vm.campaign.benefit.discvalue}}</label> <label>{{vm.campaign.benefit.disctype === 'F' ? 'บาท' : vm.campaign.benefit.disctype === 'P' ? '%' : ''}}</label>
               </div>
 
             </div>

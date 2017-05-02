@@ -31,13 +31,13 @@
     vm.mode = 'new';
     vm.campaign.benefit = vm.campaign.benefit ? vm.campaign.benefit : {};
     vm.campaign.benefit.benefittype = vm.campaign.benefit.benefittype ? vm.campaign.benefit.benefittype : 'DC';
-    vm.campaign.benefit.disctype = vm.campaign.benefit.disctype ? vm.campaign.benefit.disctype : 'F';
+    vm.campaign.benefit.disctype = vm.campaign.benefit.disctype ? vm.campaign.benefit.disctype : 'P';
     $scope.chkB = function (value) {
       if (value === 'AP') {
         vm.campaign.benefit.disctype = '';
         vm.campaign.benefit.discvalue = 0;
       } else {
-        vm.campaign.benefit.disctype = 'F';
+        vm.campaign.benefit.disctype = 'P';
       }
     };
 
