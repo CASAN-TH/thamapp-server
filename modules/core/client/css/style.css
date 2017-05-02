@@ -8613,7 +8613,7 @@ overflow: hidden;
 text-overflow: ellipsis;
 }
 
-.row {
+.chat-text {
       position: relative;
   }
 
