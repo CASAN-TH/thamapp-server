@@ -6,9 +6,9 @@
     .module('campaigns')
     .controller('CampaignsController', CampaignsController);
 
-  CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve', 'MarketplansService'];
+  CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve', 'MarketplansService', 'ProductsService'];
 
-  function CampaignsController($scope, $state, $window, Authentication, campaign, MarketplansService) {
+  function CampaignsController($scope, $state, $window, Authentication, campaign, MarketplansService, ProductsService) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -17,15 +17,36 @@
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.products = ProductsService.query();
     vm.acceptcampaign = acceptcampaign;
     vm.receiptscampaign = receiptscampaign;
     vm.readMarketplans = readMarketplans;
     vm.cancelcampaign = cancelcampaign;
+    vm.selectProduct = selectProduct;
+    vm.removeProducts = removeProducts;
     vm.listCampaign = [];
     vm.checkID = checkID;
     vm.isTrueId = false;
     vm.datauser = {};
     vm.mode = 'new';
+    vm.campaign.benefit = vm.campaign.benefit ? vm.campaign.benefit : {};
+    vm.campaign.benefit.benefittype = vm.campaign.benefit.benefittype ? vm.campaign.benefit.benefittype : 'DC';
+    vm.campaign.benefit.disctype = vm.campaign.benefit.disctype ? vm.campaign.benefit.disctype : 'F';
+    $scope.chkB = function (value) {
+      if (value === 'AP') {
+        vm.campaign.benefit.disctype = '';
+        vm.campaign.benefit.discvalue = 0;
+      } else {
+        vm.campaign.benefit.disctype = 'F';
+      }
+    };
+
+
+    if (vm.campaign.products) {
+      vm.campaign.products = vm.campaign.products;
+    } else {
+      vm.campaign.products = [];
+    }
     function checkID() {
       var id = vm.datauser.identification;
       if (id.length !== 13) return false;
@@ -36,6 +57,18 @@
 
       vm.isTrueId = true;
       return true;
+    }
+
+    function selectProduct(item) {
+      vm.campaign.products.push({
+        product: item
+      });
+      console.log(vm.campaign.products);
+    }
+
+    function removeProducts(item) {
+      //vm.returnorder.items.splice(item);
+      vm.campaign.products.splice(item, 1);
     }
 
     function readMarketplans() {
@@ -101,7 +134,7 @@
       }
       function errorCallback(res) {
         vm.error = res.data.message;
-        if (res.data.message === ''){
+        if (res.data.message === '') {
           if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
             $state.reload();
           }
@@ -133,7 +166,7 @@
       }
       function errorCallback(res) {
         vm.error = res.data.message;
-        if (res.data.message === ''){
+        if (res.data.message === '') {
           if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
             $state.reload();
           }
@@ -197,7 +230,7 @@
             $state.go('usercampaign');
           }
         }
-        if (res.data.message === ''){
+        if (res.data.message === '') {
           if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
             vm.campaign.listusercampaign.splice(vm.campaign.listusercampaign.lenth - 1, 1);
             $state.reload();
@@ -219,6 +252,8 @@
       vm.campaign.enddate = new Date(vm.campaign.enddate);
     }
     // Remove existing Campaign
+
+
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.campaign.$remove($state.go('campaigns.list'));

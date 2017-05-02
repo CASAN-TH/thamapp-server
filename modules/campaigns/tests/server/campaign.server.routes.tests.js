@@ -6,6 +6,7 @@ var should = require('should'),
     mongoose = require('mongoose'),
     User = mongoose.model('User'),
     Campaign = mongoose.model('Campaign'),
+    Product = mongoose.model('Product'),
     express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -19,7 +20,9 @@ var app,
     user2,
     campaign,
     campaign2,
-    campaign3;
+    campaign3,
+    product,
+    product2;
 
 /**
  * Campaign routes tests
@@ -66,33 +69,124 @@ describe('Campaign CRUD tests', function () {
             provider: 'local'
         });
 
+        product = new Product({
+            _id: '5885e9bcea48c81000919ff8',
+            user: '58631cf0043a1110007dcfd0',
+            images: 'http://res.cloudinary.com/hrpqiager/image/upload/v1485171075/d7mt2yhjrwttxdllvnzr.jpg',
+            category: 'ข้าวสาร',
+            description: 'ข้าวธรรมชาติ ไร้สารเคมี ตั้งแต่กระบวนการเพาะปลูก ที่หมักดองดินด้วยสมุนไพรรสจืดก่อนจะปลูกข้าวพันธุ์สันป่าตอง ใส่ปุ๋ยธรรมชาติสูตรบำรุงดิน แห้งชามน้ำชาม (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืด) เพื่อล้างพิษสารเคมีที่สะสมอยู่ในดินในน้ำ และใส่ปุ๋ยธรรมชาติสูตรเร่งดอกผล (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืดผสมกับผลไม้สุกสีเหลือง) เพื่อบำรุงต้นข้าวให้ออกดอกข้าวเป็นเมล็ดข้าว',
+            price: 50,
+            __v: 1,
+            deliveryratetype: 2,
+            grossweight: 1,
+            maxstock: 20,
+            minstock: 5,
+            valuetype1: 0,
+            created: '2017-01-23T11:32:12.051Z',
+            rangtype2: [
+                {
+                    min: 1,
+                    max: 5,
+                    value: 50,
+                    _id: '58897fc811ac041000adaaa2'
+                },
+                {
+                    min: 6,
+                    max: 10,
+                    value: 100,
+                    _id: '58897fc811ac041000adaaa1'
+                },
+                {
+                    min: 11,
+                    max: 999999999,
+                    value: 150,
+                    _id: '58897fc811ac041000adaaa0'
+                }
+            ],
+            retailerprice: 40,
+            name: 'ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 1 กิโลกรัม'
+        });
+
+        product2 = new Product({
+            _id: '586e06f5be44cc100062981b',
+            user: '58631cf0043a1110007dcfd0',
+            images: 'http://res.cloudinary.com/hrpqiager/image/upload/v1483959393/hvoopiqtn4shyk4itp6g.jpg',
+            category: 'ข้าวสาร',
+            description: 'ข้าวธรรมชาติ ไร้สารเคมี ตั้งแต่กระบวนการเพาะปลูก ที่หมักดองดินด้วยสมุนไพรรสจืดก่อนจะปลูกข้าวพันธุ์สันป่าตอง ใส่ปุ๋ยธรรมชาติสูตรบำรุงดิน แห้งชามน้ำชาม (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืด) เพื่อล้างพิษสารเคมีที่สะสมอยู่ในดินในน้ำ และใส่ปุ๋ยธรรมชาติสูตรเร่งดอกผล (ปุ๋ยแห้งปุ๋ยน้ำจากการหมักสมุนไพรรสจืดผสมกับผลไม้สุกสีเหลือง) เพื่อบำรุงต้นข้าวให้ออกดอกข้าวเป็นเมล็ดข้าวที่สมบูรณ์',
+            price: 200,
+            __v: 1,
+            deliveryratetype: 1,
+            grossweight: 5,
+            maxstock: 20,
+            minstock: 5,
+            valuetype1: 50,
+            created: '2017-01-05T08:42:29.760Z',
+            rangtype2: [
+                {
+                    min: null,
+                    max: null,
+                    value: null,
+                    _id: '5889f81759953210003f195f'
+                }
+            ],
+            retailerprice: 180,
+            name: 'ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม'
+        });
+
         // Save a user to the test db and create new Campaign
         user.save(function () {
-            campaign = {
-                name: 'Campaign name',
-                startdate: new Date('2017-04-20'),
-                enddate: new Date('2017-04-22'),
-                usercount: 2,
-                statuscampaign: 'open'
-            };
+            product.save(function () {
+                product2.save(function () {
+                    campaign = {
+                        name: 'Campaign name',
+                        startdate: new Date('2017-04-20'),
+                        enddate: new Date('2017-04-22'),
+                        usercount: 2,
+                        statuscampaign: 'open',
+                        products: [{
+                            product: product,
+                        }],
+                        benefit: {
+                            benefittype: 'DC',
+                            disctype: 'F',
+                            discvalue: 50
+                        }
+                    };
 
-            campaign2 = {
-                name: 'Campaign name1',
-                startdate: new Date('2017-04-20'),
-                enddate: new Date('2017-04-22'),
-                usercount: 2,
-                statuscampaign: 'close'
-            };
+                    campaign2 = {
+                        name: 'Campaign name1',
+                        startdate: new Date('2017-04-20'),
+                        enddate: new Date('2017-04-22'),
+                        usercount: 2,
+                        statuscampaign: 'close',
+                        products: [{
+                            product: product2,
+                        }],
+                        benefit: {
+                            benefittype: 'AP',
+                            disctype: 'P',
+                            discvalue: 100
+                        }
+                    };
 
-            campaign3 = {
-                name: 'Campaign name2',
-                startdate: new Date('2017-04-16'),
-                enddate: new Date('2017-04-18'),
-                usercount: 0,
-                statuscampaign: 'open'
-            };
-
-            done();
+                    campaign3 = {
+                        name: 'Campaign name2',
+                        startdate: new Date('2017-04-16'),
+                        enddate: new Date('2017-04-18'),
+                        usercount: 0,
+                        statuscampaign: 'open',
+                        products: [{
+                            product: product2,
+                        }],
+                        benefit: {
+                            benefittype: 'AP',
+                            disctype: 'P',
+                            discvalue: 50
+                        }
+                    };
+                    done();
+                });
+            });
         });
     });
 
@@ -1116,7 +1210,7 @@ describe('Campaign CRUD tests', function () {
                     });
             });
     });
-    
+
     it('should be able to update an data validate is not identification', function (done) {
         agent.post('/api/auth/signin')
             .send(credentials)
@@ -1163,6 +1257,44 @@ describe('Campaign CRUD tests', function () {
                             });
                     });
             });
+    });
+
+    it('benefit', function (done) {
+        // var campaignObj = new Campaign(campaign);
+        // campaignObj.save(function () {
+        //     request(app).get('/api/campaigns')
+        //         .end(function (req, res) {
+        //             (res.body).should.match('');
+        //             done();
+        //         });
+        // });
+
+        agent.post('/api/auth/signin')
+            .send(credentials)
+            .expect(200)
+            .end(function (signinErr, signinRes) {
+                // Handle signin error
+                if (signinErr) {
+                    return done(signinErr);
+                }
+                agent.post('/api/campaigns')
+                    .send(campaign)
+                    .expect(200)
+                    .end(function (campaignSaveErr, campaignSaveRes) {
+                        // Handle Campaign save error
+                        if (campaignSaveErr) {
+                            return done(campaignSaveErr);
+                        }
+                        // Set message assertion                                       
+                        (campaignSaveRes.body.name).should.match('Campaign name');
+                        (campaignSaveRes.body.products.length).should.match(1);
+                        (campaignSaveRes.body.benefit.benefittype).should.match('DC');
+
+                        // Handle Campaign save error
+                        done();
+                    });
+            });
+
     });
 
 
