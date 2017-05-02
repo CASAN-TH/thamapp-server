@@ -22,7 +22,8 @@
                     alt="{{message.username}}" />
                   <strong class="{{message.username === username ? 'pull-right' : 'pull-left'}}" ng-bind="message.username"></strong></br>
                   </br>
-                  <div class="row">
+                  <!--<div class="row"> row this issue css style-->
+                  <div class="row chat-text">
                     <div class="col">
                       <span class="{{message.username === username ? 'bubble me' : 'bubble you'}} message-content" ng-bind="message.text"></span>
                     </div>
