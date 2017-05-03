@@ -18,8 +18,8 @@ var user,
 /**
  * Unit tests
  */
-describe('Campaign Model Unit Tests:', function() {
-    beforeEach(function(done) {
+describe('Campaign Model Unit Tests:', function () {
+    beforeEach(function (done) {
         user = new User({
             firstName: 'Full',
             lastName: 'Name',
@@ -29,7 +29,7 @@ describe('Campaign Model Unit Tests:', function() {
             password: 'password'
         });
 
-        user.save(function() {
+        user.save(function () {
             campaign = new Campaign({
                 name: 'Campaign Name',
                 startdate: new Date('2017-04-20'),
@@ -37,6 +37,15 @@ describe('Campaign Model Unit Tests:', function() {
                 usercount: 0,
                 pointcount: 0,
                 description: 'description',
+
+                products: [{
+
+                }],
+                benefit: {
+                    benefittype: 'DC',
+                    disctype: 'F',
+                    discvalue: 50
+                },
                 user: user
             });
 
@@ -47,35 +56,43 @@ describe('Campaign Model Unit Tests:', function() {
                 usercount: 0,
                 pointcount: 0,
                 description: 'description',
+                products: [{
+
+                }],
+                benefit: {
+                    benefittype: 'DC',
+                    disctype: 'F',
+                    discvalue: 50
+                },
                 user: user
             });
             done();
         });
     });
 
-    describe('Method Save', function() {
-        it('should be able to save without problems', function(done) {
+    describe('Method Save', function () {
+        it('should be able to save without problems', function (done) {
             this.timeout(0);
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
                 should.not.exist(err);
                 done();
             });
         });
 
-        it('should be able to show an error when try to save without name', function(done) {
+        it('should be able to show an error when try to save without name', function (done) {
             campaign.name = '';
 
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
                 should.exist(err);
                 done();
             });
         });
 
-        it('should be able to show an error when try to save duplicate campaign', function(done) {
+        it('should be able to show an error when try to save duplicate campaign', function (done) {
 
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
                 should.not.exist(err);
-                campaign2.save(function(err) {
+                campaign2.save(function (err) {
                     should.exist(err);
                     done();
                 });
@@ -83,28 +100,46 @@ describe('Campaign Model Unit Tests:', function() {
             });
         });
 
-        it('should be able to show an error when try to save without startdate', function(done) {
+        it('should be able to show an error when try to save without startdate', function (done) {
             campaign.startdate = '';
 
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
                 should.exist(err);
                 done();
             });
         });
 
-        it('should be able to show an error when try to save without enddate', function(done) {
+        it('should be able to show an error when try to save without enddate', function (done) {
             campaign.enddate = '';
 
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
                 should.exist(err);
                 done();
             });
         });
 
-        it('should be able to show an error when try to save without usercount', function(done) {
+        it('should be able to show an error when try to save without usercount', function (done) {
             campaign.usercount = null;
 
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
+                should.exist(err);
+                done();
+            });
+        });
+
+        it('should be able to show an error when try to save without products', function (done) {
+            campaign.products = null;
+
+            return campaign.save(function (err) {
+                should.exist(err);
+                done();
+            });
+        });
+
+        it('should be able to show an error when try to save valid enum value for benefit ', function (done) {
+            campaign.benefit = null;
+
+            return campaign.save(function (err) {
                 should.exist(err);
                 done();
             });
@@ -128,7 +163,7 @@ describe('Campaign Model Unit Tests:', function() {
         //     });
         // });
 
-        it('should be able to update data', function(done) {
+        it('should be able to update data', function (done) {
             this.timeout(0);
             var data = {
                 identification: '1234',
@@ -140,13 +175,13 @@ describe('Campaign Model Unit Tests:', function() {
                 user: user,
                 status: 'accept'
             };
-            return campaign.save(function(err) {
+            return campaign.save(function (err) {
                 should.not.exist(err);
                 campaign.listusercampaign.push(data);
-                campaign.save(function(err) {
+                campaign.save(function (err) {
                     should.not.exist(err);
                     campaign.listusercampaign.push(data2);
-                    campaign.save(function(err) {
+                    campaign.save(function (err) {
                         should.not.exist(err);
                         done();
                     });
@@ -155,9 +190,9 @@ describe('Campaign Model Unit Tests:', function() {
         });
     });
 
-    afterEach(function(done) {
-        Campaign.remove().exec(function() {
-            User.remove().exec(function() {
+    afterEach(function (done) {
+        Campaign.remove().exec(function () {
+            User.remove().exec(function () {
                 done();
             });
         });

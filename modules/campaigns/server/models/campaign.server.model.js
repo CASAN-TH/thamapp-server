@@ -60,6 +60,32 @@ var CampaignSchema = new Schema({
         type: String,
         default: 'open'
     },
+    products: {
+        required: 'Please fill Campaign products',
+        type: [{
+            product: {
+                type: Schema.ObjectId,
+                ref: 'Product'
+            }
+        }]
+    },
+
+    benefit: {
+        required: 'Please fill Campaign benefit',
+        type: {
+            benefittype: {
+                type: String,
+                enum: ['DC', 'AP']
+            },
+            disctype: {
+                type: String,
+                enum: ['F', 'P']
+            },
+            discvalue: {
+                type: Number
+            }
+        }
+    },
     created: {
         type: Date,
         default: Date.now

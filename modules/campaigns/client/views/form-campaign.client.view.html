@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row borderline">
         <div class="col-md-12">
           <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
             <label class="control-label" for="description">รายละเอียด</label>
@@ -70,6 +70,121 @@
           <div class="form-group" ng-show="vm.authentication.user.roles[0] === 'user'">
             <label class="control-label">รายละเอียด</label>
             <label ng-bind="vm.campaign.description" id="description" class="form-control"></label>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="row form-group" ng-repeat="product in vm.campaign.products">
+        <div class="row">
+          <div class="list-group">
+            <div class="row">
+              <div class="col-md-1">
+                <strong class="form-control noneBorder">{{$index + 1}} .</strong>
+              </div>
+              <div class="col-md-4">
+                <strong class="form-control noneBorder word-break" title="{{product.product.name}}" ng-bind="product.product.name"></strong>
+              </div>
+              <div class="col-md-1 textCenter">
+                <button type="button" class="btn btn-link" ng-click="vm.removeProducts($index)"><span class="glyphicon glyphicon-trash text-danger"></span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+      <label ng-if="vm.campaign.products.length > 0" class="control-label">รายการสินค้าที่เข้าร่วมแคมเปญ</label>
+      <table>
+        <tr ng-repeat="product in vm.campaign.products">
+          <td><span class="form-control noneBorder">{{$index + 1}}.</span></td>
+          <td><span class="form-control noneBorder word-break" title="{{product.product.name}}" ng-bind="product.product.name"></span></td>
+          <td ng-show="vm.authentication.user.roles[0] === 'admin'">
+            <button type="button" class="btn btn-link" ng-click="vm.removeProducts($index)"><span class="glyphicon glyphicon-trash text-danger"></span></button>
+          </td>
+        </tr>
+      </table>
+
+      <div class="row form-group" ng-show="vm.authentication.user.roles[0] === 'admin'">
+        <div class="col-md-4">
+          <button type="button" class="btn btn-primary btnborder btn-block" data-toggle="modal" data-target="#myProduct">เพิ่มสินค้า</button>
+        </div>
+      </div>
+      <div class="row borderline">
+        <div class="col-md-4">
+          <div class="form-group">
+            <div ng-show="vm.authentication.user.roles[0] === 'admin'">
+              <label class="control-label" for="name">สิทธิพิเศษ</label>&nbsp;&nbsp;
+              <input type="radio" ng-model="vm.campaign.benefit.benefittype" ng-change="chkB(vm.campaign.benefit.benefittype)" value="DC">&nbsp;ส่วนลด</input>&nbsp;
+              <input type="radio" ng-model="vm.campaign.benefit.benefittype" ng-change="chkB(vm.campaign.benefit.benefittype)" value="AP">&nbsp;แถมสินค้า</input>
+            </div>
+            <div ng-show="vm.authentication.user.roles[0] === 'user'">
+              <label class="control-label" for="name">สิทธิพิเศษ :</label>&nbsp;&nbsp;
+              <label class="control-label" for="name"> {{vm.campaign.benefit.benefittype === 'AP' ? 'แถมสินค้า' : vm.campaign.benefit.benefittype === 'DC' ? 'ส่วนลด' : ''}}</label>
+            </div>
+            <div ng-show="vm.campaign.benefit.benefittype === 'DC'">
+              <div ng-show="vm.authentication.user.roles[0] === 'admin'">
+                <label class="control-label" for="name">ประเภทส่วนลด</label>&nbsp;&nbsp;
+                <input type="radio" ng-model="vm.campaign.benefit.disctype" value="P">&nbsp;ลดเป็น %</input>&nbsp;
+                <input type="radio" ng-model="vm.campaign.benefit.disctype" value="F">&nbsp;ลดเป็นเงินสด</input>
+
+              </div>
+              <div ng-show="vm.authentication.user.roles[0] === 'user'">
+                <label class="control-label" for="name">ประเภทส่วนลด :</label>&nbsp;&nbsp;
+                <label class="control-label" for="name"> {{vm.campaign.benefit.disctype === 'F' ? 'ลดเป็นเงินสด' : vm.campaign.benefit.disctype === 'P' ? 'ลดเป็น %' : ''}}</label>
+              </div>
+              <div ng-show="vm.authentication.user.roles[0] === 'admin'">
+                <label class="control-label" for="name">มูลค่าส่วนลด</label>
+                <span>({{vm.campaign.benefit.disctype === 'F' ? 'บาท' : vm.campaign.benefit.disctype === 'P' ? '%' : ''}})</span>
+                <input name="name" type="number" ng-model="vm.campaign.benefit.discvalue" id="name" class="form-control" placeholder="0">
+              </div>
+              <div ng-show="vm.authentication.user.roles[0] === 'user'">
+                <label class="control-label" for="name">มูลค่าส่วนลด :</label>&nbsp;&nbsp;
+                <label class="control-label" for="name"> {{vm.campaign.benefit.discvalue}}</label> <label>{{vm.campaign.benefit.disctype === 'F' ? 'บาท' : vm.campaign.benefit.disctype === 'P' ? '%' : ''}}</label>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="modal fade" id="myProduct" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">เลือกสินค้า</h4>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group">
+                  <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" placeholder="ค้นหาสินค้า..." ng-model="topsearch" aria-describedby="sizing-addon3">
+                      </div>
+                    </div>
+                  </div>
+                </ul>
+                <ul class="list-group">
+                  <div ng-repeat="prod in vm.products | filter:topsearch">
+                    <li class="row list-group-item">
+                      <div class="col-xs-3">
+                        <img src="{{prod.images}}" class="img-circle" width="50px">
+                      </div>
+                      <div class="col-xs-7">
+                        <img width="5%"> <label>{{prod.name}}</label>
+                      </div>
+                      <div class="col-xs-2 marginT">
+                        <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectProduct(prod)">เลือก</button>
+                      </div>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">ปิด</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -114,64 +229,64 @@
       <div class="borderline" ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin' || vm.mode === 'edit'"></div>
       <!---->
       <div ng-show="vm.campaign._id && vm.authentication.user.roles[0] !== 'admin' || vm.mode === 'edit'">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-12">
-                <h3>{{vm.mode === 'new' ? 'รายการกดรับสิทธิ์' : 'รายการแก้ไขสิทธิ์'}}</h3>
-              </div>
-            </div>
-          </div>
-
+        <div class="form-group">
           <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label" for="identification">เลขที่บัตรประชาชน </label><label class="front_price1">&nbsp; *กรุณากรอกเลขที่บัตรประชาชน</label>
-                <input name="identification" type="text" ng-model="vm.datauser.identification" id="identification" class="form-control" pattern="^\d{13}$"
-                  placeholder="เลขที่บัตรประชาชน" maxlength="13">
-                <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
-                </div>
-              </div>
+            <div class="col-md-12">
+              <h3>{{vm.mode === 'new' ? 'รายการกดรับสิทธิ์' : 'รายการแก้ไขสิทธิ์'}}</h3>
             </div>
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label" for="lineid">Line ID</label><label class="front_price1">&nbsp; *กรุณากรอก Line ID (ถ้ามี)</label>
-                <input name="lineid" type="text" ng-model="vm.datauser.lineid" id="lineid" class="form-control" placeholder="Line ID">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="identification">เลขที่บัตรประชาชน </label><label class="front_price1">&nbsp; *กรุณากรอกเลขที่บัตรประชาชน</label>
+              <input name="identification" type="text" ng-model="vm.datauser.identification" id="identification" class="form-control" pattern="^\d{13}$"
+                placeholder="เลขที่บัตรประชาชน" maxlength="13">
+              <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label" for="facebook">Facebook</label><label class="front_price1">&nbsp; *กรุณากรอก Facebook (ถ้ามี)</label>
-                <input name="facebook" type="text" ng-model="vm.datauser.facebook" id="facebook" class="form-control" placeholder="Facebook">
-              </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="lineid">Line ID</label><label class="front_price1">&nbsp; *กรุณากรอก Line ID (ถ้ามี)</label>
+              <input name="lineid" type="text" ng-model="vm.datauser.lineid" id="lineid" class="form-control" placeholder="Line ID">
             </div>
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label><label class="front_price1">&nbsp; *กรุณาเลือกวันที่รับสิทธิ์</label>
-                <select ng-options="data as data.text for data in vm.marketplans track by data._id" ng-model="vm.datauser.acceptcampaigndate"
-                  class="form-control"></select>
-                <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
-                </div>
-              </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="facebook">Facebook</label><label class="front_price1">&nbsp; *กรุณากรอก Facebook (ถ้ามี)</label>
+              <input name="facebook" type="text" ng-model="vm.datauser.facebook" id="facebook" class="form-control" placeholder="Facebook">
             </div>
           </div>
+        </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <button ng-disabled="!vm.datauser.identification || !vm.datauser.acceptcampaigndate || !vm.checkID()" ng-click="vm.acceptcampaign()"
-                  type="button" class="btn btn-warning btn-block">{{vm.campaign._id && vm.mode === 'new' ? 'ยืนยันการรับสิทธิ์' : 'แก้ไขการรับสิทธิ์'}}</button>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label class="control-label" for="acceptcampaigndate">กำหนดวันที่รับสิทธิ์</label><label class="front_price1">&nbsp; *กรุณาเลือกวันที่รับสิทธิ์</label>
+              <select ng-options="data as data.text for data in vm.marketplans track by data._id" ng-model="vm.datauser.acceptcampaigndate"
+                class="form-control"></select>
+              <div ng-messages="vm.form.campaignForm.campaign.$error" role="alert">
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <button ng-disabled="!vm.datauser.identification || !vm.datauser.acceptcampaigndate || !vm.checkID()" ng-click="vm.acceptcampaign()"
+                type="button" class="btn btn-warning btn-block">{{vm.campaign._id && vm.mode === 'new' ? 'ยืนยันการรับสิทธิ์' : 'แก้ไขการรับสิทธิ์'}}</button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!--line-->
