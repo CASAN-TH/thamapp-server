@@ -9,28 +9,44 @@
       </div>
     </h1>
   </div>
+  <div class="row hidden-xs show-sm show-md show-lg">
+    <div class="col-md-10 hidden-xs hidden-sm show-md show-lg">
+      <div class="input-group input-group-sm">
+        <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+      </div>
+    </div>
+    <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+
+    </div>
+
+  </div>
+
   <div class="list-group">
-    <div class="row borderline2" ng-repeat="itm in vm.quizzes">
+    <div class="row borderline2" ng-repeat="itm in vm.quizzes | filter:topsearch">
       <div class="col-md-10">
-        <h1>หัวข้อ : {{itm.topic}}</h1>
-
-        <!--<h2>คำถาม ?</h2>-->
-        <div class="row" ng-repeat="quiz in itm.quizs">
-          <div class="col-md-12">
-            <h3>{{$index+1}}. {{quiz.question}}</h3>
+        <div class="row" ng-repeat="quiz in itm.quizs" data-toggle="collapse" data-target="#{{quiz._id}}" ng-click="checked = !checked">
+          <div class="row">
+            <div class="col-md-12">
+              <h2>
+                <span title="Close" class="glyphicon glyphicon-chevron-up fontSize15" ng-show="!checked"></span>
+                <span title="Open" class="glyphicon glyphicon-chevron-down fontSize15" ng-show="checked"></span> หัวข้อ :
+                {{itm.topic}}
+              </h2>
+            </div>
           </div>
-          <!--<div class="row form-group" ng-show="quiz.questiontype === 'none-choice' && vm.authentication.user.roles[0] ==='user'">
-            <div class="col-md-6 marleft20">
-              <input class="form-control" type="text" ng-model="quiz.choices.choice">
+          <div class="collapse" id="{{quiz._id}}">
+            <div class="col-md-12">
+              <h3>{{$index+1}}. {{quiz.question}}</h3>
             </div>
-          </div>-->
-          <div class="row" ng-repeat="choi in quiz.choices">
-            <div class="col-md-12 marleft20" ng-show="vm.authentication.user.roles[0] ==='admin'">
-              <p>{{$parent.$index+1}}.{{$index+1}}. {{choi.choice}}</p>
+            <div class="row" ng-repeat="choi in quiz.choices">
+              <div class="col-md-12 marleft20" ng-show="vm.authentication.user.roles[0] ==='admin'">
+                <p>{{$parent.$index+1}}.{{$index+1}}. {{choi.choice}}</p>
 
-            </div>
-            <div class="col-md-12 marleft20" ng-show="vm.authentication.user.roles[0] ==='user' ">
-              <p>{{$parent.$index+1}}.{{$index+1}}. {{choi.choice}}</p>
+              </div>
+              <div class="col-md-12 marleft20" ng-show="vm.authentication.user.roles[0] ==='user' ">
+                <p>{{$parent.$index+1}}.{{$index+1}}. {{choi.choice}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -43,20 +59,8 @@
         <a class="btn btn-success" ui-sref="quizzes.answer({ quizId: itm._id })">ตอบคำถาม</a>
       </div>
     </div>
-    <!--<div class="form-group" ng-show="vm.authentication.user.roles[0] ==='user' ">
-      <button type="button" class="btn btn-primary btn-block">{{vm.quiz._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
-    </div>-->
   </div>
 
-
-  <!--<div class="list-group">
-    <a ng-repeat="quiz in vm.quizzes" ui-sref="quizzes.view({ quizId: quiz._id })" class="list-group-item">
-
-      <h4 class="list-group-item-heading" ng-bind="quiz.name"></h4>
-      <label ng-bind="quiz.topic"></label>
-
-    </a>
-  </div>-->
   <div class="alert alert-warning text-center" ng-if="vm.quizzes.$resolved && !vm.quizzes.length">
     No Quizzes yet, why don't you <a ui-sref="quizzes.create">create one</a>?
   </div>

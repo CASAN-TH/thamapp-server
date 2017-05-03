@@ -870,3 +870,17 @@ text-align: left;
 .bordertableno{
     border : none;
 }
+
+.fontSize15{
+   font-size: 15px; 
+}
+
+.font-circle-o {
+	 font-size: 28px;
+     color:#ed5565;
+}
+
+.font-plus-circle {
+	 font-size: 20px;
+     color:#1ab394;
+}

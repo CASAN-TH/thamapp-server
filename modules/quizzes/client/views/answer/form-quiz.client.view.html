@@ -5,10 +5,9 @@
   <div class="col-md-12">
     <form name="vm.form.quizForm" class="form-horizontal" ng-submit="vm.answer(vm.form.quizForm.$valid)" novalidate>
       <fieldset>
-        <div class="form-group" show-errors>
+        <div class="form-group">
           <h2>หัวข้อ : <span ng-bind="vm.quiz.topic"></span></h2>
         </div>
-
         <div class="form-group">
           <label class="control-label">คำถาม ?</label>
         </div>
@@ -18,19 +17,18 @@
               <label class="control-label">{{$index+1}}. </label> <label class="control-label">{{quiz.question}}</label>
             </div>
           </div>
-
           <div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:vm.authentication.user._id}"
             ng-if="answer.user || answer.user === vm.authentication.user._id">
             <div class="col-md-6 marleft20">
               <textarea row="7" cols="40" class="form-control" type="text" ng-model="answer.answer"></textarea>
             </div>
           </div>
-          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}" ng-if="answer.user !== vm.authentication.user._id">
+          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}"
+            ng-if="answer.user !== vm.authentication.user._id">
             <div class="col-md-6 marleft20">
               <textarea row="7" cols="40" class="form-control" type="text" ng-model="answer.answer"></textarea>
             </div>
           </div>
-
           <div ng-repeat="answer in quiz.answers | filter:{user:vm.authentication.user._id}" ng-if="answer.user || answer.user === vm.authentication.user._id">
             <div class="row form-group" ng-repeat="choice in quiz.choices " ng-show="vm.quiz._id">
               <div class="col-md-12 marleft20">
@@ -38,8 +36,6 @@
               </div>
             </div>
           </div>
-
-
           <div ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}" ng-if="answer.user !== vm.authentication.user._id">
             <div class="row form-group" ng-repeat="choice in quiz.choices " ng-show="vm.quiz._id">
               <div class="col-md-12 marleft20">
@@ -47,13 +43,14 @@
               </div>
             </div>
           </div>
-
         </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary btn-block">{{vm.quiz._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
-        </div>
-        <div ng-show="vm.error" class="text-danger">
-          <strong ng-bind="vm.error"></strong>
+        <div class="row form-group">
+          <div class="col-md-6">
+            <button type="button" class="btn btn-danger btn-block" ui-sref="quizzes.list">ยกเลิกรายการ</button>
+          </div>
+          <div class="col-md-6">
+            <button type="submit" class="btn btn-primary btn-block">{{vm.quiz._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>
+          </div>
         </div>
       </fieldset>
     </form>
