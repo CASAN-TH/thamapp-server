@@ -12,7 +12,7 @@ module.exports = function(app) {
     .get(quizzes.list)
     .post(quizzes.create);
 
-  app.route('/api/quizzes/:quizId').all(quizzesPolicy.isAllowed)
+  app.route('/api/quizzes/:quizId')//.all(quizzesPolicy.isAllowed)
     .get(quizzes.read)
     .put(quizzes.update)
     .delete(quizzes.delete);

@@ -39,6 +39,9 @@
         <a class="btn btn-primary" ui-sref="quizzes.edit({ quizId: itm._id })"><i class="glyphicon glyphicon-edit"></i></a>
         <a class="btn btn-danger" ng-click="vm.remove(itm)"><i class="glyphicon glyphicon-trash"></i></a>
       </div>
+      <div class="col-md-2 textRight" ng-show="vm.authentication.user.roles[0] ==='user'">
+        <a class="btn btn-success" ui-sref="quizzes.answer({ quizId: itm._id })">ตอบคำถาม</a>
+      </div>
     </div>
     <!--<div class="form-group" ng-show="vm.authentication.user.roles[0] ==='user' ">
       <button type="button" class="btn btn-primary btn-block">{{vm.quiz._id ? 'บันทึกรายการ' : 'บันทึกรายการ'}}</button>

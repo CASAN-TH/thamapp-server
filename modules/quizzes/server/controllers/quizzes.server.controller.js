@@ -103,7 +103,7 @@ exports.quizByID = function (req, res, next, id) {
     });
   }
 
-  Quiz.findById(id).populate('user', 'displayName').exec(function (err, quiz) {
+  Quiz.findById(id).populate('user', 'displayName').populate('users').exec(function (err, quiz) {
     if (err) {
       return next(err);
     } else if (!quiz) {

@@ -9,10 +9,36 @@
   QuizzesController.$inject = ['$scope', '$state', '$window', 'Authentication', 'quizResolve'];
 
   function QuizzesController($scope, $state, $window, Authentication, quiz) {
+    function arrayObjectIndexOf(myArray, searchTerm, property) {
+      for (var i = 0, len = myArray.length; i < len; i++) {
+        if (myArray[i][property] === searchTerm) return i;
+      }
+      return -1;
+    }
+
     var vm = this;
 
     vm.authentication = Authentication;
+    // $scope.authenID = Authentication.user._id;
     vm.quiz = quiz;
+    vm.quizrepeat = function (quiz) {
+      // alert(arrayObjectIndexOf(vm.quiz.users, vm.authentication.user._id, "_id"));
+      if (arrayObjectIndexOf(vm.quiz.users, vm.authentication.user._id, '_id') === -1) {
+        if (quiz.answers) {
+          quiz.answers.push({
+            user: vm.authentication.user,
+            answer: ''
+          });
+        } else {
+          quiz.answers = [];
+          quiz.answers.push({
+            user: vm.authentication.user,
+            answer: ''
+          });
+        }
+      }
+    };
+
     if (!vm.quiz._id) {
       vm.quiz.quizs = [];
     }
@@ -20,7 +46,18 @@
     vm.error = null;
     vm.form = {};
     vm.remove = remove;
+
     vm.save = save;
+
+    vm.answer = function (isValid) {
+      if (vm.quiz.users) {
+        vm.quiz.users.push(vm.authentication.user);
+      } else {
+        vm.quiz.users = [];
+        vm.quiz.users.push(vm.authentication.user);
+      }
+      vm.save(isValid);
+    };
     vm.addtopic = addtopic;
     vm.addchoice = addchoice;
     vm.deletechoice = deletechoice;
