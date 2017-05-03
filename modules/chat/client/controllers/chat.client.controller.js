@@ -32,7 +32,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
         user: Authentication.user
       };
       Socket.emit('createroom', data);
-      
+
     };
 
     // Add an event listener to the 'invite' event
@@ -63,25 +63,25 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
       //   text: this.messageText
       // };
       //$scope.room.text = this.messageText;
-      if(!$scope.room.messages){
+      if ($scope.room && $scope.room.messages.length === 0) {
         $scope.room.messages = [];
         $scope.room.messages.unshift({
-          type : 'message',
-          created : Date.now(),
-          profileImageURL : Authentication.user.profileImageURL,
-          username : Authentication.user.displayName,
-          text : this.messageText
+          type: 'message',
+          created: Date.now(),
+          profileImageURL: Authentication.user.profileImageURL,
+          username: Authentication.user.displayName,
+          text: this.messageText
         });
-      }else{
+      } else {
         $scope.room.messages.unshift({
-          type : 'message',
-          created : Date.now(),
-          profileImageURL : Authentication.user.profileImageURL,
-          username : Authentication.user.displayName,
-          text : this.messageText
+          type: 'message',
+          created: Date.now(),
+          profileImageURL: Authentication.user.profileImageURL,
+          username: Authentication.user.displayName,
+          text: this.messageText
         });
       }
-      
+
 
       // Emit a 'chatMessage' message event
       Socket.emit('chatMessage', $scope.room);
@@ -92,11 +92,11 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
     $scope.roomsername = function (data) {
       Socket.emit('join', data);
       //$scope.room = data;
-      if($scope.room){
-        if(data.name !== $scope.room.name){
+      if ($scope.room) {
+        if (data.name !== $scope.room.name) {
           $scope.room = data;
         }
-      }else{
+      } else {
         $scope.room = data;
       }
     };
