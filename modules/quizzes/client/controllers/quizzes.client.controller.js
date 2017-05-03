@@ -56,7 +56,24 @@
         vm.quiz.users = [];
         vm.quiz.users.push(vm.authentication.user);
       }
-      vm.save(isValid);
+      // vm.save(isValid);
+      if (vm.quiz._id) {
+        vm.quiz.$update(successCallback, errorCallback);
+      }
+
+      function successCallback(res) {
+        $state.go('quizzes.list');
+      }
+
+      function errorCallback(res) {
+        vm.error = res.data.message;
+        if (res.data.message === '') {
+          if ($window.confirm('เกิดข้อผิดพลาด กรุณาลองอีกครั้ง')) {
+            $state.reload();
+          }
+        }
+      }
+
     };
     vm.addtopic = addtopic;
     vm.addchoice = addchoice;
@@ -109,7 +126,6 @@
 
     // Save Quiz
     function save(isValid) {
-      console.log(vm.quiz.quizs);
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.quizForm');
         return false;
