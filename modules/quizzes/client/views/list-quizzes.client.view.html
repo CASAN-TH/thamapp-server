@@ -21,19 +21,18 @@
   </div>
 
   <div class="list-group">
-    <div class="row borderline2" ng-repeat="itm in vm.quizzes | filter:topsearch">
+    <div class="row borderline2" ng-repeat="itm in vm.quizzes | filter:topsearch"  data-toggle="collapse" data-target="#{{itm._id}}" ng-click="checked = !checked">
       <div class="col-md-10">
-        <div class="row" ng-repeat="quiz in itm.quizs" data-toggle="collapse" data-target="#{{quiz._id}}" ng-click="checked = !checked">
-          <div class="row">
-            <div class="col-md-12">
-              <h2>
-                <span title="Close" class="glyphicon glyphicon-chevron-up fontSize15" ng-show="!checked"></span>
-                <span title="Open" class="glyphicon glyphicon-chevron-down fontSize15" ng-show="checked"></span> หัวข้อ :
-                {{itm.topic}}
-              </h2>
-            </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h2>
+              <span title="Close" class="glyphicon glyphicon-chevron-up fontSize15" ng-show="!checked"></span>
+              <span title="Open" class="glyphicon glyphicon-chevron-down fontSize15" ng-show="checked"></span> หัวข้อ : {{itm.topic}}
+            </h2>
           </div>
-          <div class="collapse" id="{{quiz._id}}">
+        </div>
+        <div class="row" ng-repeat="quiz in itm.quizs">
+          <div class="collapse" id="{{itm._id}}">
             <div class="col-md-12">
               <h3>{{$index+1}}. {{quiz.question}}</h3>
             </div>
