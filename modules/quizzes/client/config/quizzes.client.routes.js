@@ -49,6 +49,19 @@
           pageTitle: 'Edit Quiz {{ quizResolve.name }}'
         }
       })
+      .state('quizzes.answer', {
+        url: '/:quizId/answer',
+        templateUrl: 'modules/quizzes/client/views/answer/form-quiz.client.view.html',
+        controller: 'QuizzesController',
+        controllerAs: 'vm',
+        resolve: {
+          quizResolve: getQuiz
+        },
+        data: {
+          roles: ['user'],
+          pageTitle: 'Answer Quiz {{ quizResolve.name }}'
+        }
+      })
       .state('quizzes.view', {
         url: '/:quizId',
         templateUrl: 'modules/quizzes/client/views/view-quiz.client.view.html',

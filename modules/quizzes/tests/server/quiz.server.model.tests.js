@@ -121,11 +121,35 @@ describe('Quiz Model Unit Tests:', function () {
     });
 
     it('should be able to show an error when try to save valid enum value for questiontype', function (done) {
-      quiz.quizs = null;      
+      quiz.quizs = null;
       quiz.questiontype = 'choice';
 
       return quiz.save(function (err) {
         should.exist(err);
+        done();
+      });
+    });
+
+    it('should be able to show an error when try to save answer', function (done) {
+
+      if (quiz.users) {
+        quiz.users.push(user);
+        quiz.quizs[0].answers.push({
+          user: user,
+          answer: 'answer'
+        });
+      } else {
+        quiz.users = [];
+        quiz.users.push(user);
+
+        quiz.quizs[0].answers=[];
+        quiz.quizs[0].answers.push({
+          user: user,
+          answer: 'answer'
+        });
+      }
+      return quiz.save(function (err) {
+        should.not.exist(err);
         done();
       });
     });

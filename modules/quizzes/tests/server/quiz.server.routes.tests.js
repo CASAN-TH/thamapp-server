@@ -558,6 +558,72 @@ describe('Quiz CRUD tests', function () {
     });
   });
 
+  it('should be able to update answers an Quiz if signed in', function (done) {
+    agent.post('/api/auth/signin')
+      .send(credentials)
+      .expect(200)
+      .end(function (signinErr, signinRes) {
+        // Handle signin error
+        if (signinErr) {
+          return done(signinErr);
+        }
+
+        // Get the userId
+        var userId = user.id;
+
+        // Save a new Quiz
+        agent.post('/api/quizzes')
+          .send(quiz)
+          .expect(200)
+          .end(function (quizSaveErr, quizSaveRes) {
+            // Handle Quiz save error
+            if (quizSaveErr) {
+              return done(quizSaveErr);
+            }
+
+            // Update Quiz answers
+            if (quiz.users) {
+              quiz.users.push(user);
+              quiz.quizs[0].answers.push({
+                user: user,
+                answer: 'answer'
+              });
+            } else {
+              quiz.users = [];
+              quiz.users.push(user);
+
+              quiz.quizs[0].answers = [];
+              quiz.quizs[0].answers.push({
+                user: user,
+                answer: 'answer'
+              });
+            }
+
+            // Update an existing Quiz
+            agent.put('/api/quizzes/' + quizSaveRes.body._id)
+              .send(quiz)
+              .expect(200)
+              .end(function (quizUpdateErr, quizUpdateRes) {
+                // Handle Quiz update error
+                if (quizUpdateErr) {
+                  return done(quizUpdateErr);
+                }
+
+                // Set assertions
+                (quizUpdateRes.body._id).should.equal(quizSaveRes.body._id);
+                // (quizUpdateRes.body.topic).should.match('WHY YOU GOTTA BE SO MEAN?');
+                (quizUpdateRes.body.users.length).should.equal(1);
+                (quizUpdateRes.body.quizs[0].answers.length).should.equal(1);
+                (quizUpdateRes.body.quizs[0].answers[0].answer).should.match('answer');
+                
+
+                // Call the assertion callback
+                done();
+              });
+          });
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Quiz.remove().exec(done);

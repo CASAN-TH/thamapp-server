@@ -30,10 +30,25 @@ var QuizSchema = new Schema({
       },
       choices: [{
         choice: String
+      }],
+      answers: [{
+        user: {
+          type: Schema.ObjectId,
+          ref: 'User'
+        },
+        answer: String,
+        date: {
+          type: Date,
+          default: Date.now
+        }
       }]
     }],
     required: 'Please fill Quizs name',
   },
+  users: [{
+    type: Schema.ObjectId,
+    ref: 'User'
+  }],
   created: {
     type: Date,
     default: Date.now
