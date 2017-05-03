@@ -17,57 +17,33 @@
           </a>
         </div>
 
-        <!--<div class="row form-group pull-left">
-          <div class="col-md-12">
-            <a class="btn btn-success" data-toggle="modal" data-target="#myQuestion">
-              <i class="fa fa-file-o" aria-hidden="true"></i>
-              <span>เพิ่มคำถาม</span>
-            </a>
-          </div>
-        </div>-->
-
-        <!--<div class="form-group">
-          <div class="row form-group">
-            <div class="col-md-12">
-              <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myQuestion">เพิ่มคำถาม</button>
-            </div>
-          </div>
-        </div>-->
-        <!---->
-
         <div class="form-group">
-          <label class="control-label">คำถาม ?</label>
+          <h3>คำถาม ?</h3>
         </div>
 
         <div class="form-group" ng-repeat="quiz in vm.quiz.quizs">
           <div class="row form-group">
-            <!---->
-            <!--<div class="col-md-12" ng-show="vm.quiz._id">
+            <div class="col-md-12" ng-show="vm.quiz._id">
               <div class="col-md-1 textleft">
                 <h3>{{$index+1}}.</h3>
               </div>
               <div class="col-md-10 marleft32">
                 <input class="form-control" type="text" ng-model="quiz.question">
               </div>
-              <div class="col-md-1">
+              <div class="col-md-1 marleft32">
                 <button class="btn btn-danger" type="button" ng-click="vm.deleteQuiz(quiz)"><span class="glyphicon glyphicon-trash"></button>
               </div>
-            </div>-->
-            <!---->
-            <div class="col-md-8" ng-show="!vm.quiz._id">
-              <p><label>{{$index+1}}. </label> {{quiz.question}}</p>
             </div>
-            <div class="col-md-8" ng-show="vm.quiz._id">
+            <div class="col-md-12" ng-show="!vm.quiz._id">
               <div class="col-md-1 textleft">
                 <h3>{{$index+1}}.</h3>
               </div>
-              <div class="col-md-10 marleft32">
-                <input class="form-control" type="text" ng-model="quiz.question">
+              <div class="col-md-10 marleft55">
+                <h4>{{quiz.question}}</h4>
               </div>
-
-            </div>
-            <div class="col-md-4 textRight">
-              <button class="btn btn-danger" type="button" ng-click="vm.deleteQuiz(quiz)"><span class="glyphicon glyphicon-trash"></button>
+              <div class="col-md-1 marleft32">
+                <button class="btn btn-danger" type="button" ng-click="vm.deleteQuiz(quiz)"><span class="glyphicon glyphicon-trash"></button>
+              </div>
             </div>
           </div>
 
@@ -75,43 +51,48 @@
             <div class="col-md-6">
             </div>
           </div>
+
           <div class="row form-group" ng-repeat="choice in quiz.choices" ng-show="vm.quiz._id">
-            <div class="col-md-1" ng-if="quiz.questiontype === 'choice'">
-            </div>
-            <div class="col-md-6 marleft55" ng-if="quiz.questiontype === 'choice'">
-              <input class="form-control" type="text" ng-model="choice.choice">
-            </div>
-            <div class="col-md-5 marleft32" ng-if="quiz.questiontype === 'choice'">
-              <!--<button type="button" class="btn btn-danger" ng-click="vm.deletechoice(quiz,choice)"><span class="glyphicon glyphicon-remove-circle"></span></button>-->
-              <span aria-hidden="true" ng-click="vm.deletechoice(quiz,choice)"><i class="fa fa-times-circle-o font-circle-o"></i></span>
+            <div class="col-md-12" ng-if="quiz.questiontype === 'choice'">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-1">
+                {{$index+1}}.
+              </div>
+              <div class="col-md-8 marleft55">
+                <input class="form-control" type="text" ng-model="choice.choice">
+              </div>
+              <div class="col-md-1 marleft32">
+                <span aria-hidden="true" ng-click="vm.deletechoice(quiz,choice)"><i class="fa fa-times-circle-o font-circle-o"></i></span>
+              </div>
             </div>
           </div>
+
           <div class="row form-group" ng-repeat="choice in quiz.choices" ng-show="!vm.quiz._id">
-            <div class="col-md-6 marleft20" ng-if="quiz.questiontype === 'choice'">
-              <input class="form-control" type="text" ng-model="choice.choice">
-            </div>
-            <div class="col-md-6 marleft32" ng-if="quiz.questiontype === 'choice'">
-              <!--<button type="button" class="btn btn-danger" ng-click="vm.deletechoice(quiz,choice)"><span class="glyphicon glyphicon-remove-circle"></span></button>-->
-              <span aria-hidden="true" ng-click="vm.deletechoice(quiz,choice)"><i class="fa fa-times-circle-o font-circle-o"></i></span>
+            <div class="col-md-12" ng-if="quiz.questiontype === 'choice'">
+              <div class="col-md-1">
+              </div>
+              <div class="col-md-1 marleft55">
+                {{$index+1}}.
+              </div>
+              <div class="col-md-8 marleft55">
+                <input class="form-control" type="text" ng-model="choice.choice">
+              </div>
+              <div class="col-md-1 marleft32">
+                <span aria-hidden="true" ng-click="vm.deletechoice(quiz,choice)"><i class="fa fa-times-circle-o font-circle-o"></i></span>
+              </div>
             </div>
           </div>
+
           <div class="row form-group" ng-if="quiz.questiontype === 'choice'">
             <div class="col-md-2 text-left">
               <span aria-hidden="true" ng-click="vm.addchoice(quiz)"><i class="fa fa-plus-circle font-plus-circle"></i> <label>เพิ่มตัวเลือก</label></span>
-              <!--<button class="btn btn-default btn-block" type="button" ng-click="vm.addchoice(quiz)">เพิ่มตัวเลือก</button>-->
             </div>
             <div class="col-md-10">
             </div>
           </div>
         </div>
 
-        <!--<div class="form-group">
-          <div class="row form-group">
-            <div class="col-md-12">
-              <button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#myQuestion">เพิ่มคำถาม</button>
-            </div>
-          </div>
-        </div>-->
         <div class="row form-group">
           <div class="col-md-6">
             <button type="button" class="btn btn-danger btn-block" ui-sref="quizzes.list">ยกเลิกรายการ</button>
