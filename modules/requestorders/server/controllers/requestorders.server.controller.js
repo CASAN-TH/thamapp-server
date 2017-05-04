@@ -103,7 +103,14 @@ exports.delete = function (req, res) {
  * List of Requestorders
  */
 exports.list = function (req, res) {
-  Requestorder.find().sort('-created').populate('user', 'displayName').populate('items.product').populate('namedeliver').populate('transport').exec(function (err, requestorders) {
+  var filter = null;
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+
+    filter = {
+      'namedeliver': req.user._id
+    };
+  }
+  Requestorder.find(filter).sort('-created').populate('user', 'displayName').populate('items.product').populate('namedeliver').populate('transport').exec(function (err, requestorders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

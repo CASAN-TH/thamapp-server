@@ -117,7 +117,7 @@ exports.update = function (req, res) {
                   var nameDeli = req.accuralreceipt.namedeliver.displayName;
                   allAdminStatusConfirmed(accuralreceipt, nameDeli);
                 } else if (accuralreceipt.arstatus === 'receipt') {
-                  var nameDeliver = req.accuralreceipt.namedeliver.displayName;                  
+                  var nameDeliver = req.accuralreceipt.namedeliver.displayName;
                   allAdminStatusReceipt(accuralreceipt, nameDeliver);
                   deliverStatusReceipt(accuralreceipt);
                 }
@@ -180,7 +180,14 @@ exports.delete = function (req, res) {
  * List of Accuralreceipts
  */
 exports.list = function (req, res) {
-  Accuralreceipt.find().sort('-created').populate('user').populate('items').populate('namedeliver').exec(function (err, accuralreceipts) {
+  var filter = null;
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+
+    filter = {
+      'namedeliver': req.user._id
+    };
+  }
+  Accuralreceipt.find(filter).sort('-created').populate('user').populate('items').populate('namedeliver').exec(function (err, accuralreceipts) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
