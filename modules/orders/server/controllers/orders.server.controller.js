@@ -116,7 +116,14 @@ exports.delete = function (req, res) {
  * List of Orders
  */
 exports.list = function (req, res) {
-  Order.find().sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+  var filter = null;
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+
+    filter = {
+      'namedeliver': req.user._id
+    };
+  }
+  Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -184,8 +191,8 @@ Date.prototype.yyyymmdd = function () {
   var dd = this.getDate();
 
   return [this.getFullYear(),
-    (mm > 9 ? '' : '0') + mm,
-    (dd > 9 ? '' : '0') + dd
+  (mm > 9 ? '' : '0') + mm,
+  (dd > 9 ? '' : '0') + dd
   ].join('');
 };
 function saleProduct(orders) {
