@@ -27,7 +27,6 @@
               <textarea row="7" cols="40" class="form-control" type="text" ng-model="answer.answer"></textarea>
             </div>
           </div>-->
-          {{quiz.answers}}
           <div ng-repeat="answer in quiz.answers | filter:{user:{_id:vm.authentication.user._id}}" >
             <div class="row form-group" ng-repeat="choice in quiz.choices " ng-show="vm.quiz._id">
               <div class="col-md-12 marleft20">
