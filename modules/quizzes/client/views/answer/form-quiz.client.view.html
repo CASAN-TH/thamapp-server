@@ -17,32 +17,31 @@
               <label class="control-label">{{$index+1}}. </label> <label class="control-label">{{quiz.question}}</label>
             </div>
           </div>
-          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:vm.authentication.user._id}"
-            ng-if="answer.user || answer.user === vm.authentication.user._id">
+          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:{_id:vm.authentication.user._id}}">
             <div class="col-md-6 marleft20">
               <textarea row="7" cols="40" class="form-control" type="text" ng-model="answer.answer"></textarea>
             </div>
           </div>
-          <div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}"
-            ng-if="answer.user !== vm.authentication.user._id">
+          <!--<div class="row form-group" ng-if="quiz.questiontype === 'none-choice' " ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}">
             <div class="col-md-6 marleft20">
               <textarea row="7" cols="40" class="form-control" type="text" ng-model="answer.answer"></textarea>
             </div>
-          </div>
-          <div ng-repeat="answer in quiz.answers | filter:{user:vm.authentication.user._id}" ng-if="answer.user || answer.user === vm.authentication.user._id">
+          </div>-->
+          {{quiz.answers}}
+          <div ng-repeat="answer in quiz.answers | filter:{user:{_id:vm.authentication.user._id}}" >
             <div class="row form-group" ng-repeat="choice in quiz.choices " ng-show="vm.quiz._id">
               <div class="col-md-12 marleft20">
                 <input type="radio" ng-model="answer.answer" value="{{choice}}"> {{choice.choice}}</input>
               </div>
             </div>
           </div>
-          <div ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}" ng-if="answer.user !== vm.authentication.user._id">
+          <!--<div ng-repeat="answer in quiz.answers | filter:{user:'!'+answer.user}" ng-if="answer.user !== vm.authentication.user._id">
             <div class="row form-group" ng-repeat="choice in quiz.choices " ng-show="vm.quiz._id">
               <div class="col-md-12 marleft20">
                 <input type="radio" ng-model="answer.answer" value="{{choice}}"> {{choice.choice}}</input>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
         <div class="row form-group">
           <div class="col-md-6">

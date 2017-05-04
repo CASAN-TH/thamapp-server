@@ -81,7 +81,7 @@ exports.delete = function (req, res) {
  * List of Quizzes
  */
 exports.list = function (req, res) {
-  Quiz.find().sort('-created').populate('user', 'displayName').exec(function (err, quizzes) {
+  Quiz.find().sort('-created').populate('user', 'displayName').populate('answers.user').populate('users').exec(function (err, quizzes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -103,7 +103,7 @@ exports.quizByID = function (req, res, next, id) {
     });
   }
 
-  Quiz.findById(id).populate('user', 'displayName').populate('users').exec(function (err, quiz) {
+  Quiz.findById(id).populate('user', 'displayName').populate('users').populate('answers.user').exec(function (err, quiz) {
     if (err) {
       return next(err);
     } else if (!quiz) {
