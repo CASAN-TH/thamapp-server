@@ -98,7 +98,15 @@ exports.list = function (req, res) {
 
   //   }
   // });
-  Order.find().sort('-created')
+  // console.log(req.user);
+  var filter = null;
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+
+    filter = {
+      'namedeliver': req.user._id
+    };
+  }
+  Order.find(filter).sort('-created')
     .where('deliverystatus').equals('accept')
     .populate('items.product')
     .populate('namedeliver')
@@ -108,7 +116,7 @@ exports.list = function (req, res) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        Order.find().sort('-created')
+        Order.find(filter).sort('-created')
           .where('deliverystatus').equals('complete')
           .populate('items.product')
           .populate('namedeliver')
@@ -118,7 +126,7 @@ exports.list = function (req, res) {
                 message: errorHandler.getErrorMessage(err)
               });
             } else {
-              Requestorder.find().sort('-created')
+              Requestorder.find(filter).sort('-created')
                 .where('deliverystatus').equals('received')
                 .populate('items.product')
                 .populate('namedeliver')
@@ -128,7 +136,7 @@ exports.list = function (req, res) {
                       message: errorHandler.getErrorMessage(err)
                     });
                   } else {
-                    Returnorder.find().sort('-created')
+                    Returnorder.find(filter).sort('-created')
                       .where('deliverystatus').equals('received')
                       .populate('items.product')
                       .populate('namedeliver')
@@ -138,7 +146,7 @@ exports.list = function (req, res) {
                             message: errorHandler.getErrorMessage(err)
                           });
                         } else {
-                          Order.find().sort('-created')
+                          Order.find(filter).sort('-created')
                             .where('deliverystatus').equals('ap')
                             .populate('items.product')
                             .populate('namedeliver')
