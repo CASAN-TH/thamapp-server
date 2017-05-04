@@ -21,7 +21,8 @@
   </div>
 
   <div class="list-group">
-    <div class="row borderline2" ng-repeat="itm in vm.quizzes | filter:topsearch"  data-toggle="collapse" data-target="#{{itm._id}}" ng-click="checked = !checked">
+    <div class="row borderline2" ng-repeat="itm in vm.quizzes | filter:topsearch" data-toggle="collapse" data-target="#{{itm._id}}"
+      ng-click="checked = !checked">
       <div class="col-md-10">
         <div class="row">
           <div class="col-md-12">
@@ -31,19 +32,16 @@
             </h2>
           </div>
         </div>
-        <div class="row" ng-repeat="quiz in itm.quizs">
-          <div class="collapse" id="{{itm._id}}">
+        <div class="collapse" id="{{itm._id}}">
+          <div class="row" ng-repeat="quiz in itm.quizs">
             <div class="col-md-12">
               <h3>{{$index+1}}. {{quiz.question}}</h3>
             </div>
             <div class="row" ng-repeat="choi in quiz.choices">
               <div class="col-md-12 marleft20" ng-show="vm.authentication.user.roles[0] ==='admin'">
-                <!--<p>{{$parent.$index+1}}.{{$index+1}}. {{choi.choice}}</p>-->
                 <p>{{$index+1}}. {{choi.choice}}</p>
-
               </div>
               <div class="col-md-12 marleft20" ng-show="vm.authentication.user.roles[0] ==='user' ">
-                <!--<p>{{$parent.$index+1}}.{{$index+1}}. {{choi.choice}}</p>-->
                 <p>{{$index+1}}. {{choi.choice}}</p>
               </div>
             </div>
