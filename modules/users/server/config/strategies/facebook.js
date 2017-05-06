@@ -27,7 +27,7 @@ module.exports = function (config) {
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
       displayName: profile.displayName,
-      email: profile.emails ? profile.emails[0].value : undefined,
+      email: profile.emails ? profile.emails[0].value : profile.name.givenName + '@thamturakit.com',
       username: profile.username || generateUsername(profile),
       profileImageURL: (profile.id) ? '//graph.facebook.com/' + profile.id + '/picture?type=large' : undefined,
       provider: 'facebook',
