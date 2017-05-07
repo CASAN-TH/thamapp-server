@@ -231,9 +231,10 @@
     // $scope.postcode = [{ name: 'test' }];
     // OAuth provider request
     $scope.callOauthProvider = function (url) {
-      if ($state.previous && $state.previous.href) {
-        url += '?redirect_to=' + encodeURIComponent($state.previous.href);
-      }
+      // if ($state.previous && $state.previous.href) {
+      //   url += '?redirect_to=' + encodeURIComponent($state.previous.href);
+      // }
+      url += '?redirect_to=/checkout-login';
 
       // Effectively call OAuth authentication route:
       $window.location.href = url;
