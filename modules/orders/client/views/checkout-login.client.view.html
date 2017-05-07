@@ -243,7 +243,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="name" type="text" id="name" ng-model="authentication.firstName" class="form-control" placeholder="First Name"
+                  <input name="name" type="text" id="name" ng-model="authentication.user.firstName" class="form-control" placeholder="First Name"
                     required>
                   <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">First Name is required.</p>
@@ -259,7 +259,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="lastname" type="text" id="lastname" ng-model="authentication.lastName" class="form-control" placeholder="Last Name"
+                  <input name="lastname" type="text" id="lastname" ng-model="authentication.user.lastName" class="form-control" placeholder="Last Name"
                     required>
                   <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Last Name is required.</p>
@@ -279,7 +279,7 @@
                 <div class="form-group" show-errors>
                   <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
                   <!--<input name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">-->
-                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode"
+                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.user.address.postcode"
                     class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
                     required>
                   <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
@@ -296,7 +296,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="province" type="text" id="province" ng-model="authentication.address.province" class="form-control" placeholder="Province"
+                  <input name="province" type="text" id="province" ng-model="authentication.user.address.province" class="form-control" placeholder="Province"
                     required>
                   <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Province is required.</p>
@@ -312,7 +312,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="district" type="text" id="district" ng-model="authentication.address.district" class="form-control" placeholder="District"
+                  <input name="district" type="text" id="district" ng-model="authentication.user.address.district" class="form-control" placeholder="District"
                     required>
                   <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">District is required.</p>
@@ -328,7 +328,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control"
+                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.user.address.subdistrict" class="form-control"
                     placeholder="Subdistrict" required>
                   <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
@@ -344,7 +344,7 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group" show-errors>
-                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address"
+                  <input name="address" type="text" id="address" ng-model="authentication.user.address.address" class="form-control" placeholder="Address"
                     required>
                   <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
                     <p class="help-block error-text" ng-message="required">Address is required.</p>
