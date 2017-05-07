@@ -231,9 +231,9 @@
             var user = new Users($scope.authentication.user);
 
             user.$update(function (response) {
-              console.log('update user profile success');
+              alert('update user profile success');
             }, function (response) {
-              console.log(response.data.message);
+              alert(response.data.message);
             });
           }
           vm.cart.clear();
