@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'Users'];
+  CheckoutLoginController.$inject = ['$scope','$state', '$http', '$location', '$window', 'Authentication', 'ShopCartService', 'OrdersService', 'orderResolve', 'PostcodesService', 'Users'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, Users) {
+  function CheckoutLoginController($scope,$state, $http, $location, $window, Authentication, ShopCartService, OrdersService, orderResolve, PostcodesService, Users) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -229,7 +229,15 @@
       });
     };
     // $scope.postcode = [{ name: 'test' }];
+    // OAuth provider request
+    $scope.callOauthProvider = function (url) {
+      if ($state.previous && $state.previous.href) {
+        url += '?redirect_to=' + encodeURIComponent($state.previous.href);
+      }
 
+      // Effectively call OAuth authentication route:
+      $window.location.href = url;
+    };
 
     $scope.init = function () {
       $scope.postcodeQuery = PostcodesService.query();
