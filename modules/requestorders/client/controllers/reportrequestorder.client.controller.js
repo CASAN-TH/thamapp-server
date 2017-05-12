@@ -12,9 +12,13 @@
     vm.authentication = Authentication;
     Admin.query(function (data) {
       $scope.listtran = [];
+      $scope.listtranbyid = [];
       data.forEach(function (data) {
         if (data.roles[0] === 'transporter') {
           $scope.listtran.push(data);
+          if (data._id === vm.authentication.user._id) {
+            $scope.listtranbyid.push(data);
+          }
         }
       });
     });

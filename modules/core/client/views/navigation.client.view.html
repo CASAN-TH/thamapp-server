@@ -181,6 +181,16 @@
       <li ng-class="{active: $uiRoute}" ui-route="/returnresponse" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
         <a href="/#/returnresponse"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งคืน</span></a>
       </li>
+
+      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'transporter'">
+        <span class="nav-label menu-headline">รายงาน</span>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/reportrequestorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+        <a href="/#/reportrequestorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานขนส่ง</span></a>
+      </li>
+      <li ng-class="{active: $uiRoute}" ui-route="/reportreturnorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+        <a href="/#/reportreturnorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานรับคืนข้าว</span></a>
+      </li>
       <!--ติดต่อ-->
       <!--<li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'transporter'">
         <span class="nav-label menu-headline">ติดต่อ</span>
