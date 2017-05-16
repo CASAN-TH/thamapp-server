@@ -70,10 +70,20 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row" ng-show="vm.authentication.user.roles[0] === 'admin'">
     <div class="col-xs-6 col-sm-6 col-md-6 marginT25">
       บริษัทขนส่งข้าว
       <select ng-options="item as item.displayName for item in listtran track by item._id " ng-model="tranFilter" class="form-control"></select>
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6">
+
+    </div>
+  </div>
+  <!---->
+  <div class="row" ng-show="vm.authentication.user.roles[0] === 'transporter'">
+    <div class="col-xs-6 col-sm-6 col-md-6 marginT25">
+      บริษัทขนส่งข้าว
+      <select ng-options="item as item.displayName for item in listtranbyid track by item._id " ng-model="tranFilter" class="form-control"></select>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
 

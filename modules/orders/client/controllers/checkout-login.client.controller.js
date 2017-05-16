@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', 'Authentication', 'ShopCartService', '$http', 'OrdersService', 'orderResolve', '$state', 'PostcodesService', 'Users'];
+  CheckoutLoginController.$inject = ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'ShopCartService', 'OrdersService', 'orderResolve', 'PostcodesService', 'Users'];
 
-  function CheckoutLoginController($scope, Authentication, ShopCartService, $http, OrdersService, orderResolve, $state, PostcodesService, Users) {
+  function CheckoutLoginController($scope, $state, $http, $location, $window, Authentication, ShopCartService, OrdersService, orderResolve, PostcodesService, Users) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -129,6 +129,16 @@
           $scope.authentication.address.province = '';
           $scope.authentication.address.subdistrict = '';
         }
+
+        if ($scope.authentication.user.address.postcode) {
+          $scope.authentication.user.address.district = postcode.district;
+          $scope.authentication.user.address.subdistrict = postcode.subdistrict;
+          $scope.authentication.user.address.province = postcode.province;
+        } else {
+          $scope.authentication.user.address.district = '';
+          $scope.authentication.user.address.province = '';
+          $scope.authentication.user.address.subdistrict = '';
+        }
       }
     };
 
@@ -139,6 +149,7 @@
       $scope.user.address.subdistrict = data.subdistrict;
       $scope.user.address.province = data.province;
       $scope.user.address.postcode = data.postcode;
+      $scope.user.address.tel = data.tel;
       var user = new Users($scope.user);
 
       user.$update(function (response) {
@@ -171,7 +182,7 @@
         vm.order.items.push(item);
       });
       // address contact
-      vm.order.shipping.tel = vm.order.shipping.tel ? vm.order.shipping.tel : $scope.authentication.user.address.tel;
+      vm.order.shipping.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
       vm.order.shipping.email = $scope.authentication.user.email;
 
       //////status/////
@@ -188,7 +199,7 @@
         vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
         vm.order.shipping.province = $scope.authentication.user.address.province;
         vm.order.shipping.district = $scope.authentication.user.address.district;
-        vm.order.shipping.tel = $scope.authentication.user.address.tel;
+        vm.order.shipping.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
       }
       vm.order.amount = vm.cart.getTotalPrice();
       vm.order.deliveryamount = vm.cart.getTotalDeliveryCost();
@@ -215,6 +226,16 @@
           }
         }
         function successCallback(res) {
+          if (!$scope.authentication.user.address.tel) {
+            $scope.authentication.user.address.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
+            var user = new Users($scope.authentication.user);
+
+            user.$update(function (response) {
+              console.log('update user profile success');
+            }, function (response) {
+              console.log(response.data.message);
+            });
+          }
           vm.cart.clear();
           $state.go('complete', {
             orderId: res._id
@@ -229,7 +250,16 @@
       });
     };
     // $scope.postcode = [{ name: 'test' }];
+    // OAuth provider request
+    $scope.callOauthProvider = function (url) {
+      // if ($state.previous && $state.previous.href) {
+      //   url += '?redirect_to=' + encodeURIComponent($state.previous.href);
+      // }
+      url += '?redirect_to=/checkout-login';
 
+      // Effectively call OAuth authentication route:
+      $window.location.href = url;
+    };
 
     $scope.init = function () {
       $scope.postcodeQuery = PostcodesService.query();

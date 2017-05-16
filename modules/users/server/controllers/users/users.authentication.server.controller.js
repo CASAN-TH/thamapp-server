@@ -127,6 +127,36 @@ exports.oauthCallback = function (strategy) {
   };
 };
 
+exports.oauthMobileCallback = function (strategy) {
+  return function (req, res, next) {
+    // Pop redirect URL from session
+    // var sessionRedirectURL = req.session.redirect_to;
+    // delete req.session.redirect_to;
+    req.query.code = req.body.code;
+    passport.authenticate(strategy, { callbackURL: 'http://localhost:8100/' }, function (err, user, redirectURL) {
+      if (err) {
+        console.log(err);
+        res.json(err);
+        //return res.redirect('/authentication/signin?err=' + encodeURIComponent(errorHandler.getErrorMessage(err)));
+      }
+      if (!user) {
+        res.json('no user');
+        //return res.redirect('/authentication/signin');
+      }
+      req.login(user, function (err) {
+        if (err) {
+          res.json(err);
+          //return res.redirect('/authentication/signin');
+        }
+
+        //return res.redirect(redirectURL || sessionRedirectURL || '/');
+        //return res.redirect(typeof redirectURL === 'string' ? redirectURL : sessionRedirectURL || '/');
+        res.json(user);
+      });
+    })(req, res, next);
+  };
+};
+
 /**
  * Helper function to save or update a OAuth user profile
  */
@@ -164,7 +194,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
               username: availableUsername,
               displayName: providerUserProfile.displayName,
               email: providerUserProfile.email,
-              profileImageURL: providerUserProfile.profileImageURL,
+              profileImageURL: 'http:' + providerUserProfile.profileImageURL,
               provider: providerUserProfile.provider,
               providerData: providerUserProfile.providerData
             });
