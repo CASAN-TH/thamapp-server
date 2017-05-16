@@ -130,8 +130,8 @@ exports.oauthCallback = function (strategy) {
 exports.oauthMobileCallback = function (strategy) {
   return function (req, res, next) {
     // Pop redirect URL from session
-    // var sessionRedirectURL = req.session.redirect_to;
-    // delete req.session.redirect_to;
+    var sessionRedirectURL = req.session.redirect_to;
+    delete req.session.redirect_to;
     req.query.code = req.body.code;
     passport.authenticate(strategy, { callbackURL: 'http://localhost:8100/' }, function (err, user, redirectURL) {
       if (err) {
@@ -186,7 +186,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       } else {
         if (!user) {
           var possibleUsername = providerUserProfile.username || ((providerUserProfile.email) ? providerUserProfile.email.split('@')[0] : '');
-
+          // console.dir('is not user ---------------------------------------------------------' + providerUserProfile);
           User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
             user = new User({
               firstName: providerUserProfile.firstName,
@@ -231,6 +231,7 @@ exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
       });
     } else {
       return done(new Error('User is already connected using this provider'), user);
+      // return done(null, user);
     }
   }
 };
