@@ -8,7 +8,31 @@
     <h1 ng-show="vm.authentication.user.roles[0] !== 'admin'">{{vm.campaign._id ? 'รายละเอียดแคมเปญ' : 'รายละเอียดแคมเปญ'}}
     </h1>
   </div>
-
+  <!--<div class="row">
+    <div class="col-md-2">
+      <div class="form-group text-center">
+        <img ng-src="{{vm.campaign.imageURL}}" alt="{{vm.campaign.name}}" class="img-rounded img-campaign-detail">
+      </div>
+      <div class="text-center form-group" ng-hide="uploader.queue.length">
+        <span class="btn btn-success btn-file">
+              Select Image <input type="file" nv-file-select uploader="uploader">
+          </span>
+      </div>
+      <div class="text-center form-group" ng-show="uploader.queue.length">
+        <button class="btn btn-primary" ng-click="uploadProfilePicture();">Upload</button>
+        <button class="btn btn-default" ng-click="cancelUpload();">Cancel</button>
+      </div>
+      <div class="text-center form-group" ng-hide="error">
+        <label class="front_price1">&nbsp; * ขนาดไฟล์ไม่ควรเกิน 1 MB.</label>
+      </div>
+      <div ng-show="success" class="text-center text-success">
+        <strong>Picture Changed Successfully</strong>
+      </div>
+      <div ng-show="error" class="text-center text-danger">
+        <strong ng-bind="error"></strong>
+      </div>
+    </div>
+  </div>-->
   <form name="vm.form.campaignForm" class="form-horizontal" ng-submit="vm.save(vm.form.campaignForm.$valid)" novalidate>
     <fieldset>
       <div class="row">

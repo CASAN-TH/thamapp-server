@@ -8464,6 +8464,12 @@ body.md-skin {
   min-width: 100% !important;
   min-height: 500px;
 }
+.img-campaign-detail {
+  max-width: 150px !important;
+  max-height: 150px;
+  min-width: 150px !important;
+  min-height: 150px;
+}
 
 .color-gray-profile{
   font-size: 20px;

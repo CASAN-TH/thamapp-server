@@ -76,7 +76,7 @@ describe('Campaign Model Unit Tests:', function () {
             return campaign.save(function (err) {
                 should.not.exist(err);
                 done();
-            });
+            });     
         });
 
         it('should be able to show an error when try to save without name', function (done) {
