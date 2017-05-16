@@ -39,6 +39,15 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/chatrooms/:chatroomId',
       permissions: ['get']
     }]
+  }, {
+    roles: ['deliver'],
+    allows: [{
+      resources: '/api/chatrooms',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/chatrooms/:chatroomId',
+      permissions: ['get']
+    }]
   }]);
 };
 
