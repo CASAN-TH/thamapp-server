@@ -86,6 +86,9 @@ var CampaignSchema = new Schema({
             }
         }
     },
+    imageURL: {
+        type: String
+    },
     created: {
         type: Date,
         default: Date.now

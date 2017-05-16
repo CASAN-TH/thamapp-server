@@ -6,9 +6,9 @@
     .module('campaigns')
     .controller('CampaignsController', CampaignsController);
 
-  CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve', 'MarketplansService', 'ProductsService'];
+  CampaignsController.$inject = ['$scope', '$state', '$window', 'Authentication', 'campaignResolve', 'MarketplansService', 'ProductsService', 'FileUploader', '$timeout'];
 
-  function CampaignsController($scope, $state, $window, Authentication, campaign, MarketplansService, ProductsService) {
+  function CampaignsController($scope, $state, $window, Authentication, campaign, MarketplansService, ProductsService, FileUploader, $timeout) {
     var vm = this;
 
     vm.authentication = Authentication;
@@ -259,6 +259,76 @@
         vm.campaign.$remove($state.go('campaigns.list'));
       }
     }
+    // Create file uploader instance
+    $scope.uploader = new FileUploader({
+      url: 'api/products_picture',
+      alias: 'newProfilePicture'
+    });
+
+    // Set file uploader image filter
+    $scope.uploader.filters.push({
+      name: 'imageFilter',
+      fn: function (item, options) {
+        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+        return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+      }
+    });
+
+    // Called after the user selected a new picture file
+    $scope.uploader.onAfterAddingFile = function (fileItem) {
+      if ($window.FileReader) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(fileItem._file);
+
+        fileReader.onload = function (fileReaderEvent) {
+          $timeout(function () {
+            vm.campaign.imageURL = fileReaderEvent.target.result;
+          }, 0);
+        };
+      }
+    };
+
+    // Called after the user has successfully uploaded a new picture
+    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+      // Show success message
+      $scope.success = true;
+
+      // Populate user object
+      vm.campaign.imageURL = response.imageURL;
+      // console.log(response);
+
+      // Clear upload buttons
+      $scope.cancelUpload();
+    };
+
+    // Called after the user has failed to uploaded a new picture
+    $scope.uploader.onErrorItem = function (fileItem, response, status, headers) {
+      // Clear upload buttons
+      $scope.cancelUpload();
+
+      // Show error message
+      if(response.message==='Error occurred while uploading profile picture'){
+         $scope.error = 'ขนาดไฟล์ไม่ควรเกิน 1 MB.';
+      }else{
+         $scope.error = response.message;
+      }
+     
+    };
+
+    // Change user profile picture
+    $scope.uploadProfilePicture = function () {
+      // Clear messages
+      $scope.success = $scope.error = null;
+
+      // Start upload
+      $scope.uploader.uploadAll();
+    };
+
+    // Cancel the upload process
+    $scope.cancelUpload = function () {
+      $scope.uploader.clearQueue();
+      // $scope.imageURL = $scope.user.profileImageURL;
+    };
 
     // Save Campaign
     function save(isValid) {
