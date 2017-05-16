@@ -130,8 +130,8 @@ exports.oauthCallback = function (strategy) {
 exports.oauthMobileCallback = function (strategy) {
   return function (req, res, next) {
     // Pop redirect URL from session
-    var sessionRedirectURL = req.session.redirect_to;
-    delete req.session.redirect_to;
+    // var sessionRedirectURL = req.session.redirect_to;
+    // delete req.session.redirect_to;
     req.query.code = req.body.code;
     passport.authenticate(strategy, { callbackURL: 'http://localhost:8100/' }, function (err, user, redirectURL) {
       if (err) {
@@ -161,6 +161,7 @@ exports.oauthMobileCallback = function (strategy) {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = function (req, providerUserProfile, done) {
+  delete req.user;
   if (!req.user) {
     // Define a search query fields
     var searchMainProviderIdentifierField = 'providerData.' + providerUserProfile.providerIdentifierField;
