@@ -23,7 +23,6 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
     }
     $scope.createGroup = function (user) {
       $scope.userSelect = user;
-      console.log(user);
 
       var data = {
         name: Authentication.user.username + '' + user.username,
@@ -90,7 +89,7 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
       this.messageText = '';
     };
     $scope.roomsername = function (data) {
-      Socket.emit('join', data);
+      Socket.emit('createroom', data);
       //$scope.room = data;
       if ($scope.room) {
         if (data.name !== $scope.room.name) {

@@ -27,21 +27,32 @@ module.exports = function (io, socket) {
     var chatroom = new Chatroom(data);
     chatroom.user = socket.request.user;
 
-    chatroom.save(function (err) {
-      if (err) {
-        // return res.status(400).send({
-        //   message: errorHandler.getErrorMessage(err)
-        // });
-        // console.log('error : ' + JSON.stringify(err));
-      } else {
-        //console.log('success' + JSON.stringify(chatroom));
-        data._id = chatroom._id;
-        data.users.forEach(function (user) {
+    Chatroom.find({ name: data.name }).populate('user', 'displayName').populate('users').exec(function (err, chat) {
+      if (chat[0]._id) {
+        data._id = chat[0]._id;
+        chat[0].users.forEach(function (user) {
           // console.log('success' + JSON.stringify(chatroom));
           // console.log(JSON.stringify(user));
-          io.sockets.in(user.username).emit('invite', data);
+          io.sockets.in(user.username).emit('invite', chat[0]);
         });
-        // res.jsonp(chatroom);
+      } else {
+        chatroom.save(function (err) {
+          if (err) {
+            // return res.status(400).send({
+            //   message: errorHandler.getErrorMessage(err)
+            // });
+            // console.log('error : ' + JSON.stringify(err));
+          } else {
+            //console.log('success' + JSON.stringify(chatroom));
+            data._id = chatroom._id;
+            data.users.forEach(function (user) {
+              // console.log('success' + JSON.stringify(chatroom));
+              // console.log(JSON.stringify(user));
+              io.sockets.in(user.username).emit('invite', data);
+            });
+            // res.jsonp(chatroom);
+          }
+        });
       }
     });
   });
