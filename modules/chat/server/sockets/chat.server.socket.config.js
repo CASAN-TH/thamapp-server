@@ -34,6 +34,8 @@ module.exports = function (io, socket) {
         chat[0].users.forEach(function (user) {
           // console.log('success' + JSON.stringify(chatroom));
           // console.log(JSON.stringify(user));
+          console.log('------invite have data :' + JSON.stringify(user));
+
           io.sockets.in(user.username).emit('invite', chat[0]);
         });
       } else {
@@ -51,7 +53,7 @@ module.exports = function (io, socket) {
             data._id = chatroom._id;
             data.users.forEach(function (user) {
               // console.log('success' + JSON.stringify(chatroom));
-              // console.log(JSON.stringify(user));
+              console.log('------invite :' + JSON.stringify(user));
               io.sockets.in(user.username).emit('invite', data);
             });
             // res.jsonp(chatroom);
