@@ -62,8 +62,8 @@ angular.module('chat').controller('ChatController', ['$scope', '$state', '$locat
       //   text: this.messageText
       // };
       //$scope.room.text = this.messageText;
-      if ($scope.room && $scope.room.messages.length === 0) {
-        $scope.room.messages = [];
+      if ($scope.room) {
+        $scope.room.messages = $scope.room.messages ? $scope.room.messages : [];
         $scope.room.messages.unshift({
           type: 'message',
           created: Date.now(),

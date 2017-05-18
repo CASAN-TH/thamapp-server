@@ -28,7 +28,7 @@ module.exports = function (io, socket) {
     chatroom.user = socket.request.user;
 
     Chatroom.find({ name: data.name }).populate('user', 'displayName').populate('users').exec(function (err, chat) {
-      if (chat[0]._id) {
+      if (chat[0]) {
         data._id = chat[0]._id;
         chat[0].users.forEach(function (user) {
           // console.log('success' + JSON.stringify(chatroom));
