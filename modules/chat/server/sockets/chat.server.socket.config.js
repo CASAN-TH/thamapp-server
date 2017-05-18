@@ -23,37 +23,37 @@ module.exports = function (io, socket) {
 
   // create room
   socket.on('createroom', function (data) {
-    console.log('-------------------------------------- createroom Data : ' + JSON.stringify(data));
+    // console.log('-------------------------------------- createroom Data : ' + JSON.stringify(data));
     var chatroom = new Chatroom(data);
     chatroom.user = socket.request.user;
 
     Chatroom.find({ name: data.name }).populate('user', 'displayName').populate('users').exec(function (err, chat) {
       if (chat[0]) {
-        console.log('---------------------------------------------- invite success have data');
+        // console.log('---------------------------------------------- invite success have data');
         data._id = chat[0]._id;
         chat[0].users.forEach(function (user) {
           // console.log('success' + JSON.stringify(chatroom));
           // console.log(JSON.stringify(user));
-          console.log('------invite have data :' + JSON.stringify(user));
+          // console.log('------invite have data :' + JSON.stringify(user));
 
           io.sockets.in(user.username).emit('invite', chat[0]);
         });
       } else {
         chatroom.save(function (err) {
           if (err) {
-            console.log('---------------------------------------------- save error not data');
+            // console.log('---------------------------------------------- save error not data');
             // return res.status(400).send({
             //   message: errorHandler.getErrorMessage(err)
             // });
             // console.log('error : ' + JSON.stringify(err));
           } else {
-            console.log('---------------------------------------------- invite success not data');
+            // console.log('---------------------------------------------- invite success not data');
 
             //console.log('success' + JSON.stringify(chatroom));
             data._id = chatroom._id;
             data.users.forEach(function (user) {
               // console.log('success' + JSON.stringify(chatroom));
-              console.log('------invite :' + JSON.stringify(user));
+              // console.log('------invite :' + JSON.stringify(user));
               io.sockets.in(user.username).emit('invite', data);
             });
             // res.jsonp(chatroom);
