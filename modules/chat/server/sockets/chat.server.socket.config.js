@@ -23,7 +23,7 @@ module.exports = function (io, socket) {
 
   // create room
   socket.on('createroom', function (data) {
-    console.log('-------------------------------------- createroom Data : ' + data);
+    console.log('-------------------------------------- createroom Data : ' + JSON.stringify(data));
     var chatroom = new Chatroom(data);
     chatroom.user = socket.request.user;
 
