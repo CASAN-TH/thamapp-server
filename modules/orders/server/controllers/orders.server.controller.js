@@ -23,9 +23,9 @@ var path = require('path'),
  */
 exports.create = function (req, res) {
   var order = new Order(req.body);
-  // if (req.user) {
-  //   order.user = req.user;
-  // }
+  if (req.user) {
+    order.user = req.user;
+  }
 
   order.save(function (err) {
     if (err) {
