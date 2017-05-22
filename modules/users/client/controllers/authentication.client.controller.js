@@ -670,7 +670,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
               invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
             }
             invester.profileImageURL = 'invester';
-            invester.remark = 'ส่งข้าวให้คนลงขัน ไม่ต้องเก็บเงิน ***บริษัทจ่ายค่าส่งให้คนส่งข้าว***';
+            
             $http.post('/api/auth/signup', invester).success(function (response) {
               console.log("signup success");
               var item = {
@@ -684,7 +684,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
               };
               var _order = {};
               _order.user = response;
-              _order.deliveryid ="0";
+              _order.remark = 'ส่งข้าวให้คนลงขัน ไม่ต้องเก็บเงิน ***บริษัทจ่ายค่าส่งให้คนส่งข้าว***';
+              _order.delivery = { deliveryid: '0' };
               _order.items = [];
               _order.src = 'batch';
               _order.docno = (+ new Date());
