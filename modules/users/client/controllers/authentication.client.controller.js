@@ -1,12 +1,16 @@
 'use strict';
 
-angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'PostcodesService',
-  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, PostcodesService) {
+angular.module('users').controller('AuthenticationController', ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'PostcodesService', 'ProductsService',
+  function ($scope, $state, $http, $location, $window, Authentication, PasswordValidator, PostcodesService, ProductsService) {
     $scope.authentication = Authentication;
     $scope.popoverMsg = PasswordValidator.getPopoverMsg();
     $scope.postcodeQuery = PostcodesService.query();
     $scope.postcode = $scope.postcodeQuery;
     $scope.role = 'user';
+
+    $scope.prod = ProductsService.get({
+      productId: '5885e9bcea48c81000919ff8'
+    });
 
     // Get an eventual error defined in the URL query string:
     $scope.error = $location.search().err;
@@ -647,63 +651,77 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         { firstName: 'วิรุฬรัตน์', lastName: 'โชคชัยธนากุล', address: { postcode: '10250', district: '', subdistrict: 'เขต/แขวง สะพานสูง', province: 'กทม.', address: '52/190 ม.กฤษณา', tel: '088-501-7474' }, email: 'vircho@gmail.com', username: '088-501-7474', password: 'Usr#Pass1234' },
         { firstName: 'ปวีณา', lastName: 'พึ่งแพง', address: { postcode: '10270', district: 'อ.เมือง', subdistrict: 'ต.สำโรงเหนือ', province: 'จ.สมุทรปราการ', address: '577/861 ปาร์คแลนด์ศรีนครินทร์ อาคาร ดี', tel: '085-1695388 ' }, email: 'paweena@bangchak.co.th', username: '085-1695388', password: 'Usr#Pass1234' },
       ];
-      var ii = 0;
-      investers.forEach(function (invester) {
-        ii++;
-        //console.log(JSON.stringify(invester));
-        if (invester.username !== '0') {
-          if (invester.email === '' || (invester.email.indexOf('@') === -1)) {
-            invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
-          }
-          if ((invester.email.indexOf(',') !== -1)) {
-            invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
-          }
-          if (invester.email.split('@')[0].indexOf('.') !== -1) {
-            invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
-          }
-          $http.post('/api/auth/signup', invester).success(function (response) {
-            console.log("signup success");
-            var item = {
-              product: null,
-              price: 0,
-              qty: 1,
-              retailerprice: 0,
-              amount: 0,
-              deliverycost: 0,
-              discountamount: 0
-            };
-            var _order = {};
-            _order.totalamount = 0;
-            _order.items = [];
-            _order.src = 'batch';
-            _order.docno = (+ new Date());
-            _order.docdate = new Date();
-            _order.items.push(item); // item is product
-            _order.shipping = {};
-            _order.shipping.tel = response.address.tel;
-            _order.shipping.email = response.email;
-            _order.historystatus = [{
-              status: 'confirmed',
-              datestatus: new Date()
-            }];
-            _order.amount = 0;
-            _order.deliveryamount = 0;
-            _order.discountpromotion = 0;
-            _order.totalamount = 0;
 
 
 
-            $http.post('/api/orders', _order).success(function (order) {
-              console.log("order success");
-            }).error(function (error) {
+      if ($scope.prod._id) {
+        var ii = 0;
+        investers.forEach(function (invester) {
+          ii++;
+          //console.log(JSON.stringify(invester));
+          if (invester.username !== '0') {
+            if (invester.email === '' || (invester.email.indexOf('@') === -1)) {
+              invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
+            }
+            if ((invester.email.indexOf(',') !== -1)) {
+              invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
+            }
+            if (invester.email.split('@')[0].indexOf('.') !== -1) {
+              invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
+            }
+            invester.profileImageURL = 'invester';
+            invester.remark = 'ส่งข้าวให้คนลงขัน ไม่ต้องเก็บเงิน ***บริษัทจ่ายค่าส่งให้คนส่งข้าว***';
+            $http.post('/api/auth/signup', invester).success(function (response) {
+              console.log("signup success");
+              var item = {
+                product: $scope.prod,
+                price: $scope.prod.price,
+                qty: 1,
+                retailerprice: $scope.prod.retailerprice,
+                amount: $scope.prod.price,
+                deliverycost: 50,
+                discountamount: 100
+              };
+              var _order = {};
+              _order.items = [];
+              _order.src = 'batch';
+              _order.docno = (+ new Date());
+              _order.docdate = new Date();
+              _order.items.push(item); // item is product
+              _order.shipping = {};
+              _order.shipping.firstname = response.firstName;
+              _order.shipping.lastname = response.lastName;
+              _order.shipping.address = response.address.address;
+              _order.shipping.postcode = response.address.postcode;
+              _order.shipping.subdistrict = response.address.subdistrict;
+              _order.shipping.district = response.address.district;
+              _order.shipping.province = response.address.province;
+              _order.shipping.tel = response.address.tel;
+              _order.shipping.email = response.email;
+              _order.historystatus = [{
+                status: 'confirmed',
+                datestatus: new Date()
+              }];
+              _order.amount = 50;
+              _order.deliveryamount = 50;
+              _order.discountpromotion = 100;
+              _order.totalamount = 0;
+
+
+
+              $http.post('/api/orders', _order).success(function (order) {
+                console.log("order success");
+              }).error(function (error) {
+                console.log(JSON.stringify(invester));
+              });
+            }).error(function (response) {
               console.log(JSON.stringify(invester));
             });
-          }).error(function (response) {
-            console.log(JSON.stringify(invester));
-          });
-        }
+          }
 
-      });
+        });
+      }
+
     };
 
     $scope.signin = function (isValid) {
