@@ -683,6 +683,8 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
                 discountamount: 100
               };
               var _order = {};
+              _order.user = response;
+              _order.deliveryid ="0";
               _order.items = [];
               _order.src = 'batch';
               _order.docno = (+ new Date());
