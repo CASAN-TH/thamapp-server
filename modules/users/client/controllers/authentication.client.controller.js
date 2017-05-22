@@ -652,17 +652,52 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
         ii++;
         //console.log(JSON.stringify(invester));
         if (invester.username !== '0') {
-          if(invester.email === '' || (invester.email.indexOf('@') === -1) ){
-            invester.email = invester.username.trim().replace(' ','') + '@thamturakit.com';
+          if (invester.email === '' || (invester.email.indexOf('@') === -1)) {
+            invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
           }
-          if((invester.email.indexOf(',') !== -1)){
-            invester.email = invester.username.trim().replace(' ','') + '@thamturakit.com';
+          if ((invester.email.indexOf(',') !== -1)) {
+            invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
           }
-          if(invester.email.split('@')[0].indexOf('.') !== -1){
-            invester.email = invester.username.trim().replace(' ','') + '@thamturakit.com';
+          if (invester.email.split('@')[0].indexOf('.') !== -1) {
+            invester.email = invester.username.trim().replace(' ', '') + '@thamturakit.com';
           }
           $http.post('/api/auth/signup', invester).success(function (response) {
-            console.log("success");
+            console.log("signup success");
+            var item = {
+              product: null,
+              price: 0,
+              qty: 1,
+              retailerprice: 0,
+              amount: 0,
+              deliverycost: 0,
+              discountamount: 0
+            };
+            var _order = {};
+            _order.totalamount = 0;
+            _order.items = [];
+            _order.src = 'batch';
+            _order.docno = (+ new Date());
+            _order.docdate = new Date();
+            _order.items.push(item); // item is product
+            _order.shipping = {};
+            _order.shipping.tel = response.address.tel;
+            _order.shipping.email = response.email;
+            _order.historystatus = [{
+              status: 'confirmed',
+              datestatus: new Date()
+            }];
+            _order.amount = 0;
+            _order.deliveryamount = 0;
+            _order.discountpromotion = 0;
+            _order.totalamount = 0;
+
+
+
+            $http.post('/api/orders', _order).success(function (order) {
+              console.log("order success");
+            }).error(function (error) {
+              console.log(JSON.stringify(invester));
+            });
           }).error(function (response) {
             console.log(JSON.stringify(invester));
           });
