@@ -1,0 +1,40 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.dowload._id ? 'Edit Dowload' : 'New Dowload'}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form name="vm.form.dowloadForm" class="form-horizontal" ng-submit="vm.save(vm.form.dowloadForm.$valid)" novalidate>
+        <fieldset>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="name">Name</label>
+            <input name="name" type="text" ng-model="vm.dowload.name" id="name" class="form-control" placeholder="Name" required>
+            <div ng-messages="vm.form.dowloadForm.name.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Dowload name is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="android">Android (.apk)</label>
+            <input name="android" type="text" ng-model="vm.dowload.android" id="android" class="form-control" placeholder="URL" required>
+            <div ng-messages="vm.form.dowloadForm.android.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Dowload android is required.</p>
+            </div>
+          </div>
+          <div class="form-group" show-errors>
+            <label class="control-label" for="ios">IOS (.ipa)</label>
+            <input name="ios" type="text" ng-model="vm.dowload.ios" id="ios" class="form-control" placeholder="URL" required>
+            <div ng-messages="vm.form.dowloadForm.ios.$error" role="alert">
+              <p class="help-block error-text" ng-message="required">Dowload ios is required.</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-default">{{vm.dowload._id ? 'Update' : 'Create'}}</button>
+          </div>
+          <div ng-show="vm.error" class="text-danger">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
