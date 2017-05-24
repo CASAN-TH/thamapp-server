@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>assets</key>
+			<array>
+				<dict>
+					<key>kind</key>
+					<string>software-package</string>
+					<key>url</key>
+					<string>https://doc-0g-9s-docs.googleusercontent.com/docs/securesc/rudglkanfonktfro1p62br7trq55814a/k4ssefto26ersuls3j93caau8j59fna3/1495612800000/00129543003798555193/00129543003798555193/0B-Djt116H5jMV3ZCb2l1TU10Zmc?e=download</string>
+				</dict>
+			</array>
+			<key>metadata</key>
+			<dict>
+				<key>bundle-identifier</key>
+				<string>com.thamturakit.admin</string>
+				<key>bundle-version</key>
+				<string>0.0.5</string>
+				<key>kind</key>
+				<string>software</string>
+				<key>title</key>
+				<string>ผู้ดูแลระบบ</string>
+			</dict>
+		</dict>
+	</array>
+</dict>
+</plist>
