@@ -5,11 +5,11 @@
     .module('dowloads')
     .controller('DowloadsListController', DowloadsListController);
 
-  DowloadsListController.$inject = ['DowloadsService'];
+  DowloadsListController.$inject = ['DowloadsService', 'Authentication'];
 
-  function DowloadsListController(DowloadsService) {
+  function DowloadsListController(DowloadsService, Authentication) {
     var vm = this;
-
+    vm.authentication = Authentication;
     vm.dowloads = DowloadsService.query();
   }
 }());

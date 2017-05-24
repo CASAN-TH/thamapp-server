@@ -2,20 +2,33 @@
   <div class="page-header">
     <h1>Dowloads</h1>
   </div>
-  <div class="list-group">
-    <a ng-repeat="dowload in vm.dowloads"
-       ui-sref="dowloads.view({ dowloadId: dowload._id })"
-       class="list-group-item">
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="dowload.created | date:'mediumDate'"></span>
-        by
-        <span ng-if="dowload.user" ng-bind="dowload.user.displayName"></span>
-        <span ng-if="!dowload.user">Deleted User</span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="dowload.name"></h4>
-    </a>
-  </div>
+    <div class="row" ng-show="vm.authentication.user.roles[0] === 'admin'">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <a class="btn btn-primary" ui-sref="dowloads.create">
+            <i class="glyphicon glyphicon-plus"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="list-group">
+          <a ng-repeat="dowload in vm.dowloads"
+            ui-sref="dowloads.view({ dowloadId: dowload._id })"
+            class="list-group-item">
+            <small class="list-group-item-text">
+              Posted on
+              <span ng-bind="dowload.created | date:'mediumDate'"></span>
+              by
+              <span ng-if="dowload.user" ng-bind="dowload.user.displayName"></span>
+              <span ng-if="!dowload.user">Deleted User</span>
+            </small>
+            <h4 class="list-group-item-heading" ng-bind="dowload.name"></h4>
+          </a>
+        </div>
+      </div>
+    </div>
   <div class="alert alert-warning text-center" ng-if="vm.dowloads.$resolved && !vm.dowloads.length">
     No Dowloads yet, why don't you <a ui-sref="dowloads.create">create one</a>?
   </div>
