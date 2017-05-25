@@ -672,7 +672,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
             invester.profileImageURL = 'invester';
             
             $http.post('/api/auth/signup', invester).success(function (response) {
-              console.log("signup success");
+              console.log('signup success');
               var item = {
                 product: $scope.prod,
                 price: $scope.prod.price,
@@ -713,7 +713,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$stat
 
 
               $http.post('/api/orders', _order).success(function (order) {
-                console.log("order success");
+                console.log('order success');
               }).error(function (error) {
                 console.log(JSON.stringify(invester));
               });
