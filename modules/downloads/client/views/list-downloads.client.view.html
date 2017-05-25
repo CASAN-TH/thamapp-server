@@ -1,0 +1,35 @@
+<section>
+  <div class="page-header">
+    <h1>ลิงค์ดาวน์โหลด</h1>
+  </div>
+    <div class="row" ng-show="vm.authentication.user.roles[0] === 'admin'">
+      <div class="col-md-12">
+        <div class="pull-right">
+          <a class="btn btn-primary" ui-sref="downloads.create">
+            <i class="glyphicon glyphicon-plus"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="list-group">
+          <a ng-repeat="download in vm.downloads"
+            ui-sref="downloads.view({ downloadId: download._id })"
+            class="list-group-item">
+            <small class="list-group-item-text">
+              Posted on
+              <span ng-bind="download.created | date:'mediumDate'"></span>
+              by
+              <span ng-if="download.user" ng-bind="download.user.displayName"></span>
+              <span ng-if="!download.user">Deleted User</span>
+            </small>
+            <h4 class="list-group-item-heading" ng-bind="download.name"></h4>
+          </a>
+        </div>
+      </div>
+    </div>
+  <div class="alert alert-warning text-center" ng-if="vm.downloads.$resolved && !vm.downloads.length">
+    No downloads yet, why don't you <a ui-sref="downloads.create">create one</a>?
+  </div>
+</section>

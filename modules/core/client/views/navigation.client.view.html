@@ -1,6 +1,6 @@
-<nav class="navbar-default navbar-static-side" role="navigation" data-ng-controller="HeaderController">
+<nav class="navbar-default navbar-static-side" data-ng-controller="HeaderController" role="navigation">
   <div class="sidebar-collapse">
-    <ul side-navigation class="nav metismenu" id="side-menu">
+    <ul class="nav metismenu" id="side-menu" side-navigation>
       <li class="nav-header">
         <!--<div class="profile-element">-->
         <!-- Picture of user -->
@@ -27,97 +27,96 @@
         </ul>
         <a ng-switch-default ui-sref="{{item.state}}" ng-bind="item.title"></a>
       </li>-->
-      <li ng-class="{active: $uiRoute}" ui-route="/" class="dropdown">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ui-route="/">
         <a href="/#/"><i class="fa fa-home"></i> <span class="nav-label">หน้าหลัก</span></a>
       </li>
 
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" style="margin-left: 10px">
         <span class="nav-label menu-headline">แคมเปญ</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/campaigns" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/campaigns">
         <a href="/#/campaigns"><i class="fa fa-laptop"></i> <span class="nav-label">แคมเปญ</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/marketplans" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/marketplans">
         <a href="/#/marketplans"><i class="fa fa-list-alt"></i> <span class="nav-label">ตลาดนัดธรรมชาติ</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/quizzes" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/quizzes">
         <a href="/#/quizzes"><i class="fa fa-file-text-o"></i> <span class="nav-label">แบบสอบถาม</span></a>
       </li>
       
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ขายสินค้า</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/products" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/products">
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
-      <li ng-repeat="item in menu.items | orderBy: 'position'" ng-class="{ active: $state.includes(item.state)}" class="{{item.class}}"
-        ng-if="item.shouldRender(authentication.user);" ng-show="authentication.user.roles[0] !== 'deliver'" ng-hide="item.title === 'Payments' || item.title === 'Admin' ||  item.title === 'รายการผังบัญชี' || item.title === 'Promotions' || item.title === 'รายการใบแจ้งหนี้' || item.title === 'Products' || item.title === 'รายการขนส่งข้าว' || item.title === 'รายการใบแจ้งคืน' || item.title === 'Marketplans' || item.title === 'Campaigns' || item.title === 'Marketplans' || item.title === 'แบบสอบถาม' || item.title === 'Chat' || item.title === 'Chatrooms'">
+      <li class="{{item.class}}" ng-class="{ active: $state.includes(item.state)}" ng-hide="item.title === 'Payments' || item.title === 'Admin' ||  item.title === 'รายการผังบัญชี' || item.title === 'Promotions' || item.title === 'รายการใบแจ้งหนี้' || item.title === 'Products' || item.title === 'รายการขนส่งข้าว' || item.title === 'รายการใบแจ้งคืน' || item.title === 'Marketplans' || item.title === 'Campaigns' || item.title === 'Marketplans' || item.title === 'แบบสอบถาม' || item.title === 'Chat' || item.title === 'Chatrooms' || item.title === 'Downloads'" ng-if="item.shouldRender(authentication.user);" ng-repeat="item in menu.items | orderBy: 'position'" ng-show="authentication.user.roles[0] !== 'deliver'">
         <a href="/#/{{item.state}}"><i class="{{item.title === 'Products' ? 'fa fa-shopping-cart' :  item.title === 'Orders' ? 'fa fa-list-alt': 'fa fa-laptop'}}"></i> <span class="nav-label">{{item.title === 'Products' ? 'เลือกซื้อสินค้า':item.title === 'Admin' ? 'ผู้ดูแลระบบ':item.title === 'Managebanks' ? 'การจัดการธนาคาร':item.title === 'me' ? 'ประวัติการสั่งซื้อ':item.title === 'Orders' ? 'รายการสั่งซื้อ':item.title === 'Promotions' ? 'โปรโมชั่น': item.title}}&nbsp;</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/accuralreceipts" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/accuralreceipts">
         <a href="/#/accuralreceipts"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งหนี้</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/requestorders" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/requestorders">
         <a href="/#/requestorders"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการขนส่งข้าว</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/returnorders" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/returnorders">
         <a href="/#/returnorders"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งคืน</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/salereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/salereport">
         <a href="/#/salereport"><i class="fa fa-bar-chart"></i> <span class="nav-label">รายงานขาย</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/reportrequestorder" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/reportrequestorder">
         <a href="/#/reportrequestorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานขนส่ง</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/reportreturnorder" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/reportreturnorder">
         <a href="/#/reportreturnorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานรับคืนข้าว</span></a>
       </li>
 
       <!--ระบบบัญชี-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" style="margin-left: 10px">
         <span class="nav-label menu-headline">บัญชีการเงิน</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/aps/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/aps/create">
         <a href="/#/aps/create"><i class="fa fa-book"></i> <span class="nav-label">ตั้งเจ้าหนี้</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/pvs/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/pvs/create">
         <a href="/#/pvs/create"><i class="fa fa-book"></i> <span class="nav-label">จ่ายเงิน</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/ars/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/ars/create">
         <a href="/#/ars/create"><i class="fa fa-book"></i> <span class="nav-label">ตั้งลูกหนี้</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/rvs/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/rvs/create">
         <a href="/#/rvs/create"><i class="fa fa-book"></i> <span class="nav-label">รับเงิน</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/jvs/create" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/jvs/create">
         <a href="/#/jvs/create"><i class="fa fa-book"></i> <span class="nav-label">ปรับปรุง</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/ledgerreport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/ledgerreport">
         <a href="/#/ledgerreport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานบัญชีแยกประเภท</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/journal" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/journal">
         <a href="/#/journal"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานสมุดรายวันทั่วไป</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/samplereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/samplereport">
         <a href="/#/samplereport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานงบทดลอง</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/expensereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/expensereport">
         <a href="/#/expensereport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานค่าใช้จ่าย</span></a>
       </li>
-       <li ng-class="{active: $uiRoute}" ui-route="/revenuereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+       <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/revenuereport">
         <a href="/#/revenuereport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานรายได้</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/statementincomereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/statementincomereport">
         <a href="/#/statementincomereport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานงบกำไรขาดทุน</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/balancereport" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/balancereport">
         <a href="/#/balancereport"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานงบดุล</span></a>
       </li>
       <!--ติดต่อ-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ติดต่อ</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/chat" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/chat">
         <a href="/#/chat"><i class="fa fa-user"></i> <span class="nav-label">พูดคุย</span></a>
       </li>
       <!--<li ng-class="{active: $uiRoute}" ui-route="/chatrooms" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
@@ -125,36 +124,38 @@
       </li>-->
 
       <!--ตั้งค่าระบบ-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'admin'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ตั้งค่าระบบ</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/admin" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/admin">
         <a href="/#/admin"><i class="fa fa-user"></i> <span class="nav-label">ผู้ดูแลระบบ</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/accountcharts" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/accountcharts">
         <a href="/#/accountcharts"><i class="fa fa-list-alt"></i> <span class="nav-label">รายการผังบัญชี</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/promotions" class="dropdown" ng-if="authentication.user.roles[0] === 'admin'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/promotions">
         <a href="/#/promotions"><i class="fa fa-laptop"></i> <span class="nav-label">โปรโมชั่น</span></a>
       </li>
-
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'admin'" ui-route="/downloads">
+        <a href="/#/downloads"><i class="fa fa-laptop"></i> <span class="nav-label">ดาวน์โหลดแอปพลิเคชั่น</span></a>
+      </li>
       <!--deliver-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'deliver'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ขายสินค้า</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/assignlist" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'deliver'" ui-route="/assignlist">
         <a href="/#/assignlist"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการส่งข้าว</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/receivedorder" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'deliver'" ui-route="/receivedorder">
         <a href="/#/receivedorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการรับข้าว</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/returndeliver" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'deliver'" ui-route="/returndeliver">
         <a href="/#/returndeliver"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งคืน</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/ar" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'deliver'" ui-route="/ar">
         <a href="/#/ar"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งหนี้</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/deliverstock" class="dropdown" ng-if="authentication.user.roles[0] === 'deliver'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'deliver'" ui-route="/deliverstock">
         <a href="/#/deliverstock"><i class="fa fa-laptop"></i> <span class="nav-label">คลังสินค้า</span></a>
       </li>
       <!--ติดต่อ-->
@@ -169,26 +170,26 @@
       </li>-->
 
       <!--transport-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ขายสินค้า</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/products" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/products">
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/responseorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/responseorder">
         <a href="/#/responseorder"><i class="fa fa-truck"></i> <span class="nav-label">บริษัทขนส่งข้าว</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/returnresponse" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/returnresponse">
         <a href="/#/returnresponse"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายการใบแจ้งคืน</span></a>
       </li>
 
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" style="margin-left: 10px">
         <span class="nav-label menu-headline">รายงาน</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/reportrequestorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/reportrequestorder">
         <a href="/#/reportrequestorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานขนส่ง</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/reportreturnorder" class="dropdown" ng-if="authentication.user.roles[0] === 'transporter'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/reportreturnorder">
         <a href="/#/reportreturnorder"><i class="fa fa-file-text-o"></i> <span class="nav-label">รายงานรับคืนข้าว</span></a>
       </li>
       <!--ติดต่อ-->
@@ -204,32 +205,32 @@
 
 
       <!--user authen-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'user'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" style="margin-left: 10px">
         <span class="nav-label menu-headline">สินค้า</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/products" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" ui-route="/products">
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/me" class="dropdown" ng-if="authentication.user && authentication.user.roles[0] === 'user'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user && authentication.user.roles[0] === 'user'" ui-route="/me">
         <a href="/#/me"><i class="fa fa-file-o"></i> <span class="nav-label">ประวัติการสั่งซื้อ</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'user'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" style="margin-left: 10px">
         <span class="nav-label menu-headline">แคมเปญ</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/usercampaign" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" ui-route="/usercampaign">
         <a href="/#/usercampaign"><i class="fa fa-shopping-cart"></i> <span class="nav-label">กดรับสิทธิ์</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/marketplans" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" ui-route="/marketplans">
         <a href="/#/marketplans"><i class="fa fa-list-alt"></i> <span class="nav-label">ตลาดนัดธรรมชาติ</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/quizzes" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" ui-route="/quizzes">
         <a href="/#/quizzes"><i class="fa fa-file-text-o"></i> <span class="nav-label">แบบสอบถาม</span></a>
       </li>
       <!--ติดต่อ-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="authentication.user.roles[0] === 'user'">
+      <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ติดต่อ</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/chat" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'user'" ui-route="/chat">
         <a href="/#/chat"><i class="fa fa-user"></i> <span class="nav-label">พูดคุย</span></a>
       </li>
       <!--<li ng-class="{active: $uiRoute}" ui-route="/chatrooms" class="dropdown" ng-if="authentication.user.roles[0] === 'user'">
@@ -238,22 +239,22 @@
 
 
       <!--user not authen-->
-      <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="!authentication.user">
+      <li ng-class="{active: $uiRoute}" ng-if="!authentication.user" style="margin-left: 10px">
         <span class="nav-label menu-headline">สินค้า</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/products" class="dropdown" ng-if="!authentication.user">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="!authentication.user" ui-route="/products">
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/signinuser" class="dropdown" ng-if="!authentication.user">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="!authentication.user" ui-route="/signinuser">
         <a href="/#/signinuser"><i class="fa fa-file-o"></i> <span class="nav-label">ตรวจสอบประวัติการสั่งซื้อ</span></a>
       </li>
-       <li ng-class="{active: $uiRoute}" style="margin-left: 10px" ng-if="!authentication.user">
+       <li ng-class="{active: $uiRoute}" ng-if="!authentication.user" style="margin-left: 10px">
         <span class="nav-label menu-headline">แคมเปญ</span>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/usercampaign" class="dropdown" ng-if="!authentication.user">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="!authentication.user" ui-route="/usercampaign">
         <a href="/#/usercampaign"><i class="fa fa-shopping-cart"></i> <span class="nav-label">กดรับสิทธิ์</span></a>
       </li>
-      <li ng-class="{active: $uiRoute}" ui-route="/marketplans" class="dropdown" ng-if="!authentication.user">
+      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="!authentication.user" ui-route="/marketplans">
         <a href="/#/marketplans"><i class="fa fa-list-alt"></i> <span class="nav-label">ตลาดนัดธรรมชาติ</span></a>
       </li>
 

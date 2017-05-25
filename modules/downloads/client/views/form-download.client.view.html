@@ -1,0 +1,40 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.download._id ? 'แก้ไขลิงค์ดาวน์โหลด' : 'เพิ่มลิงค์ดาวน์โหลด'}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form-horizontal" name="vm.form.downloadForm" ng-submit="vm.save(vm.form.downloadForm.$valid)" novalidate>
+        <fieldset>
+                    <div class="form-group" show-errors>
+              <label class="control-label" for="name">Name</label>
+              <input class="form-control" id="name" name="name" ng-model="vm.download.name" type="text" placeholder="Name" required>
+              <div ng-messages="vm.form.downloadForm.name.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">download name is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label class="control-label" for="android">Android (.apk)</label>
+              <input class="form-control" id="android" name="android" ng-model="vm.download.android" type="text" placeholder="URL" required>
+              <div ng-messages="vm.form.downloadForm.android.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">download android is required.</p>
+              </div>
+            </div>
+            <div class="form-group" show-errors>
+              <label class="control-label" for="ios">IOS (.ipa)</label>
+              <input class="form-control" id="ios" name="ios" ng-model="vm.download.ios" type="text" placeholder="URL" required>
+              <div ng-messages="vm.form.downloadForm.ios.$error" role="alert">
+                <p class="help-block error-text" ng-message="required">download ios is required.</p>
+              </div>
+            </div>
+          <div class="form-group">
+            <button class="btn btn-default" type="submit">{{vm.download._id ? 'Update' : 'Create'}}</button>
+          </div>
+          <div class="text-danger" ng-show="vm.error">
+            <strong ng-bind="vm.error"></strong>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>
