@@ -347,7 +347,7 @@ function sendNewOrder() {
     if (err) {
 
     } else {
-      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').equals('deliver').exec(function (err, admins) {
         if (err) {
 
         } else {
