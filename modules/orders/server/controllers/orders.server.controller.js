@@ -11,12 +11,18 @@ var path = require('path'),
   _ = require('lodash'),
   request = require('request'),
   pushNotiUrl = process.env.PUSH_NOTI_URL || 'https://api.ionic.io/push/notifications',
-  pushNotiAuthenADM = { profile: process.env.PUSH_NOTI_PROFILE || 'dev', 
-                        auth: process.env.PUSH_NOTI_ADM_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZWM3YWNjZi1hYTNjLTQ2ZjUtYmMyNS1kODQ1MmQ2NDRlZmMifQ.Q3-2r2TL0Mq6Aq1JJSmUoTnh0LaoyMA-ZVuOylkJ7nI' },
-  pushNotiAuthenUSR = { profile: process.env.PUSH_NOTI_PROFILE || 'dev', 
-                        auth: process.env.PUSH_NOTI_USR_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MmRiMGFjNC1iNWU0LTRkZDUtOTdhMy1hZDEyNzc1ZGI3MzgifQ.zXo565twaedV97JzIZXAiLkGiXtoUIvkyMOUFS-tcms' },
-  pushNotiAuthenDEL = { profile: process.env.PUSH_NOTI_PROFILE || 'dev', 
-                        auth: process.env.PUSH_NOTI_DEL_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs' };
+  pushNotiAuthenADM = {
+    profile: process.env.PUSH_NOTI_PROFILE || 'dev',
+    auth: process.env.PUSH_NOTI_ADM_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxZWM3YWNjZi1hYTNjLTQ2ZjUtYmMyNS1kODQ1MmQ2NDRlZmMifQ.Q3-2r2TL0Mq6Aq1JJSmUoTnh0LaoyMA-ZVuOylkJ7nI'
+  },
+  pushNotiAuthenUSR = {
+    profile: process.env.PUSH_NOTI_PROFILE || 'dev',
+    auth: process.env.PUSH_NOTI_USR_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI4MmRiMGFjNC1iNWU0LTRkZDUtOTdhMy1hZDEyNzc1ZGI3MzgifQ.zXo565twaedV97JzIZXAiLkGiXtoUIvkyMOUFS-tcms'
+  },
+  pushNotiAuthenDEL = {
+    profile: process.env.PUSH_NOTI_PROFILE || 'dev',
+    auth: process.env.PUSH_NOTI_DEL_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs'
+  };
 
 /**
  * Create a Order
@@ -137,6 +143,18 @@ exports.list = function (req, res) {
   });
 };
 
+exports.listorder = function (req, res) {
+  Order.find().sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(orders);
+    }
+  });
+};
+
 /**
  * Order middleware
  */
@@ -194,8 +212,8 @@ Date.prototype.yyyymmdd = function () {
   var dd = this.getDate();
 
   return [this.getFullYear(),
-  (mm > 9 ? '' : '0') + mm,
-  (dd > 9 ? '' : '0') + dd
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd
   ].join('');
 };
 function saleProduct(orders) {
