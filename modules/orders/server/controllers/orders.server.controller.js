@@ -47,6 +47,7 @@ exports.create = function (req, res) {
           });
         } else {
           sendNewOrder();
+          sendNewdeliverOrder();
           res.jsonp(orders);
         }
       });
@@ -347,7 +348,7 @@ function sendNewOrder() {
     if (err) {
 
     } else {
-      Pushnotiuser.find().sort('-created').where('role').equals('admin').equals('deliver').exec(function (err, admins) {
+      Pushnotiuser.find().sort('-created').where('role').equals('admin').exec(function (err, admins) {
         if (err) {
 
         } else {
@@ -365,6 +366,50 @@ function sendNewOrder() {
             json: {
               tokens: admtokens,
               profile: pushNotiAuthenADM.profile,
+              notification: {
+                message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ' + orders.length + ' รายการ',
+                ios: { badge: orders.length, sound: 'default' },
+                android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+              }
+            }
+          }, function (error, response, body) {
+            if (error) {
+              console.log('Error sending messages: ', error);
+            } else if (response.body.error) {
+              console.log('Error: ', response.body.error);
+            }
+          });
+        }
+      });
+    }
+  });
+
+
+}
+
+function sendNewdeliverOrder() {
+  Order.find().sort('-created').where('deliverystatus').equals('confirmed').exec(function (err, orders) {
+    if (err) {
+
+    } else {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          var delivertokens = [];
+          delivers.forEach(function (deliver) {
+            delivertokens.push(deliver.device_token);
+          });
+
+          request({
+            url: pushNotiUrl,
+            auth: {
+              'bearer': pushNotiAuthenDEL.auth
+            },
+            method: 'POST',
+            json: {
+              tokens: delivertokens,
+              profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ' + orders.length + ' รายการ',
                 ios: { badge: orders.length, sound: 'default' },
