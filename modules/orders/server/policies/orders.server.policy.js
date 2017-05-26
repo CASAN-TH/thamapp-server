@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/orders/:orderId',
         permissions: '*'
+      }, {
+        resources: '/api/listorder',
+        permissions: '*'
       }]
   }, {
       roles: ['deliver'],
@@ -28,6 +31,9 @@ exports.invokeRolesPolicies = function () {
         permissions: '*'
       }, {
           resources: '/api/orders/:orderId',
+          permissions: '*'
+        }, {
+          resources: '/api/listorder',
           permissions: '*'
         }]
     }, {
@@ -38,6 +44,9 @@ exports.invokeRolesPolicies = function () {
       }, {
           resources: '/api/orders/:orderId',
           permissions: ['get']
+        }, {
+          resources: '/api/listorder',
+          permissions: ['get']
         }]
     }, {
       roles: ['guest'],
@@ -46,6 +55,9 @@ exports.invokeRolesPolicies = function () {
         permissions: ['get']
       }, {
           resources: '/api/orders/:orderId',
+          permissions: ['get']
+        }, {
+          resources: '/api/listorder',
           permissions: ['get']
         }]
     }]);
