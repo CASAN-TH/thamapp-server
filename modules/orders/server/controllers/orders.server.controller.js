@@ -412,8 +412,8 @@ function sendNewdeliverOrder() {
               profile: pushNotiAuthenDEL.profile,
               notification: {
                 message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ' + orders.length + ' รายการ',
-                ios: { badge: orders.length, sound: 'default' },
-                android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+                // ios: { sound: 'default' },
+                // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
               }
             }
           }, function (error, response, body) {
