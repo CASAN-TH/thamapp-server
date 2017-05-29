@@ -127,6 +127,10 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
   var filter = null;
+  filter = { deliverystatus: { $ne: 'ap' } }
+  //example or { $or:[ {'_id':objId}, {'name':param}, {'nickname':param} ]}
+
+
   // jigkoh comment for get all order
   // if (req.user && req.user.roles.indexOf('deliver') !== -1) {
 
@@ -134,6 +138,8 @@ exports.list = function (req, res) {
   //     'namedeliver': req.user._id
   //   };
   // }
+
+
   Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
     if (err) {
       return res.status(400).send({
