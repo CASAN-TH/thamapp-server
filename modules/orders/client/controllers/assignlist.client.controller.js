@@ -22,6 +22,8 @@
           return true;
         }
 
+      }else{ //jigkoh3 update for meet all order is not have  namedeliver
+        return true;
       }
     };
 
@@ -31,8 +33,6 @@
           return true;
         }
 
-      }else{ //jigkoh3 update for meet all order is not have  namedeliver
-        return true;
       }
     };
 
