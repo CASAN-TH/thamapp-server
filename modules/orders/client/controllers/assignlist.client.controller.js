@@ -23,7 +23,9 @@
         }
 
       }else{ //jigkoh3 update for meet all order is not have  namedeliver
-        return true;
+        if (order.deliverystatus === 'confirmed' || order.deliverystatus === 'reject') {
+          return true;
+        }
       }
     };
 
