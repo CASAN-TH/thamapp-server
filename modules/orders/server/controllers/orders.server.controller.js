@@ -127,12 +127,13 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
   var filter = null;
-  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+  // jigkoh comment for get all order
+  // if (req.user && req.user.roles.indexOf('deliver') !== -1) {
 
-    filter = {
-      'namedeliver': req.user._id
-    };
-  }
+  //   filter = {
+  //     'namedeliver': req.user._id
+  //   };
+  // }
   Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
     if (err) {
       return res.status(400).send({
