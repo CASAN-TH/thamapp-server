@@ -15,12 +15,14 @@ var should = require('should'),
 var app,
   agent,
   credentials,
+  delivercredentials,
   user,
   order,
   order2,
   order3,
   product,
-  product2;
+  product2,
+  deliver;
 
 var tomorrow = new Date();
 
@@ -44,7 +46,10 @@ describe('Order CRUD tests', function () {
       username: 'username',
       password: 'M3@n.jsI$Aw3$0m3'
     };
-
+    delivercredentials = {
+      username: 'deliver',
+      password: 'M3@n.jsI$Aw3$0m3deliver'
+    };
     // Create a new user
     user = new User({
       firstName: 'Full',
@@ -55,6 +60,19 @@ describe('Order CRUD tests', function () {
       password: credentials.password,
       provider: 'local',
       loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
+    });
+
+    deliver = new User({
+      firstName: 'deliver',
+      lastName: 'deliver',
+      displayName: 'deliver deliver',
+      email: 'deliver@deliver.com',
+      username: delivercredentials.username,
+      password: delivercredentials.password,
+      provider: 'local',
+      roles: ['deliver'],
+      loginToken: 'eyJ0sseXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
       loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
     });
 
@@ -122,106 +140,109 @@ describe('Order CRUD tests', function () {
       name: 'ข้าวกล้องมหัศจรรย์ ขันทอง ขนาด 5 กิโลกรัม'
     });
     // Save a user to the test db and create new Order
-    user.save(function () {
-      product.save(function () {
-        product2.save(function () {
-          order = {
-            docno: '1234',
-            docdate: new Date(),
-            items: [{
-              product: product2,
-              qty: 1,
-              retailerprice: 180,
-              price: 100,
-              amount: 200
-            }],
-            shipping: {
-              postcode: 10220,
-              subdistrict: 'คลองถนน',
-              province: 'กรุงเทพฯ',
-              district: 'สายไหม',
-              tel: '0900077580',
-              email: 'destinationpainbm@gmail.com'
-            },
-            accounting: 'bank',
-            imgslip: 'picture',
-            postcost: 10,
-            amount: 200,
-            discount: 10,
-            comment: 'comment',
-            trackingnumber: 'tracking Number',
-            deliverystatus: 'confirmed',
-            created: '2017-03-17T04:49:37.653Z'
-          };
+    deliver.save(function () {
+      user.save(function () {
+        product.save(function () {
+          product2.save(function () {
+            order = {
+              docno: '1234',
+              docdate: new Date(),
+              items: [{
+                product: product2,
+                qty: 1,
+                retailerprice: 180,
+                price: 100,
+                amount: 200
+              }],
+              shipping: {
+                postcode: 10220,
+                subdistrict: 'คลองถนน',
+                province: 'กรุงเทพฯ',
+                district: 'สายไหม',
+                tel: '0900077580',
+                email: 'destinationpainbm@gmail.com'
+              },
+              accounting: 'bank',
+              imgslip: 'picture',
+              postcost: 10,
+              amount: 200,
+              discount: 10,
+              comment: 'comment',
+              trackingnumber: 'tracking Number',
+              deliverystatus: 'confirmed',
+              created: '2017-03-17T04:49:37.653Z'
+            };
 
-          order2 = {
-            docno: '1235',
-            docdate: new Date(),
-            items: [{
-              product: product,
-              qty: 1,
-              retailerprice: 40,
-              price: 100,
-              amount: 100
-            }, {
+            order2 = {
+              docno: '1235',
+              docdate: new Date(),
+              items: [{
                 product: product,
                 qty: 1,
                 retailerprice: 40,
                 price: 100,
                 amount: 100
+              }, {
+                  product: product,
+                  qty: 1,
+                  retailerprice: 40,
+                  price: 100,
+                  amount: 100
+                }],
+              shipping: {
+                postcode: 10220,
+                subdistrict: 'คลองถนน',
+                province: 'กรุงเทพฯ',
+                district: 'สายไหม',
+                tel: '0900077580',
+                email: 'destinationpainbm@gmail.com'
+              },
+              accounting: 'bank',
+              imgslip: 'picture',
+              postcost: 10,
+              amount: 100,
+              discount: 10,
+              comment: 'comment',
+              trackingnumber: 'tracking Number',
+              deliverystatus: 'confirmed',
+              created: '2016-12-21T10:51:33.512Z'
+            };
+
+            order3 = {
+              docno: '1236',
+              docdate: new Date(),
+              items: [{
+                product: product2,
+                qty: 1,
+                retailerprice: 0,
+                price: 100,
+                amount: 100
               }],
-            shipping: {
-              postcode: 10220,
-              subdistrict: 'คลองถนน',
-              province: 'กรุงเทพฯ',
-              district: 'สายไหม',
-              tel: '0900077580',
-              email: 'destinationpainbm@gmail.com'
-            },
-            accounting: 'bank',
-            imgslip: 'picture',
-            postcost: 10,
-            amount: 100,
-            discount: 10,
-            comment: 'comment',
-            trackingnumber: 'tracking Number',
-            deliverystatus: 'confirmed',
-            created: '2016-12-21T10:51:33.512Z'
-          };
+              shipping: {
+                postcode: 10220,
+                subdistrict: 'คลองถนน',
+                province: 'กรุงเทพฯ',
+                district: 'สายไหม',
+                tel: '0900077580',
+                email: 'destinationpainbm@gmail.com'
+              },
+              accounting: 'bank',
+              imgslip: 'picture',
+              postcost: 10,
+              amount: 100,
+              discount: 10,
+              comment: 'comment',
+              trackingnumber: 'tracking Number',
+              deliverystatus: 'confirmed',
+              created: '2017-03-17T04:49:37.653Z'
+            };
 
-          order3 = {
-            docno: '1236',
-            docdate: new Date(),
-            items: [{
-              product: product2,
-              qty: 1,
-              retailerprice: 0,
-              price: 100,
-              amount: 100
-            }],
-            shipping: {
-              postcode: 10220,
-              subdistrict: 'คลองถนน',
-              province: 'กรุงเทพฯ',
-              district: 'สายไหม',
-              tel: '0900077580',
-              email: 'destinationpainbm@gmail.com'
-            },
-            accounting: 'bank',
-            imgslip: 'picture',
-            postcost: 10,
-            amount: 100,
-            discount: 10,
-            comment: 'comment',
-            trackingnumber: 'tracking Number',
-            deliverystatus: 'confirmed',
-            created: '2017-03-17T04:49:37.653Z'
-          };
-
-          done();
+            done();
+          });
         });
       });
     });
+
   });
 
   it('should be able to save a Order if logged in', function (done) {
@@ -783,8 +804,69 @@ describe('Order CRUD tests', function () {
     });
   });
 
+  it('get order split status for admin', function (done) {
+    var orderObj = new Order(order); //confirmed
+    var orderObj2 = new Order(order); //wait
+    var orderObj3 = new Order(order); //accept
+    var orderObj4 = new Order(order); //reject
+    var orderObj5 = new Order(order); //complete
+    var orderObj6 = new Order(order); //cancel
+
+    // Save the order
+    orderObj2.docno = '1235';
+    orderObj2.deliverystatus = 'wait deliver';
+
+    orderObj3.docno = '1236';
+    orderObj3.deliverystatus = 'accept';
+
+    orderObj4.docno = '1237';
+    orderObj4.deliverystatus = 'reject';
+
+    orderObj5.docno = '1238';
+    orderObj5.deliverystatus = 'complete';
+
+    orderObj6.docno = '1239';
+    orderObj6.deliverystatus = 'cancel';
+
+    orderObj2.save();
+    orderObj3.save();
+    orderObj4.save();
+    orderObj5.save();
+    orderObj6.save();
+    orderObj.save(function () {
+      // Request Orders
+      request(app).get('/api/listorder')
+        .end(function (req, res) {
+          // Set assertion
+          // (res.body.confirmed.deliverystatus).should.match('confirmed');
+
+          res.body.confirmed.should.be.instanceof(Array).and.have.lengthOf(1);
+          (res.body.confirmed[0].deliverystatus).should.match('confirmed');
+
+          res.body.wait.should.be.instanceof(Array).and.have.lengthOf(1);
+          (res.body.wait[0].deliverystatus).should.match('wait deliver');
+
+          res.body.accept.should.be.instanceof(Array).and.have.lengthOf(1);
+          (res.body.accept[0].deliverystatus).should.match('accept');
+
+          res.body.reject.should.be.instanceof(Array).and.have.lengthOf(1);
+          (res.body.reject[0].deliverystatus).should.match('reject');
+
+          res.body.complete.should.be.instanceof(Array).and.have.lengthOf(1);
+          (res.body.complete[0].deliverystatus).should.match('complete');
+
+          res.body.cancel.should.be.instanceof(Array).and.have.lengthOf(1);
+          (res.body.cancel[0].deliverystatus).should.match('cancel');
 
 
+
+          // Call the assertion callback
+          done();
+        });
+
+    });
+  });
+  
   afterEach(function (done) {
     User.remove().exec(function () {
       Product.remove().exec(function () {

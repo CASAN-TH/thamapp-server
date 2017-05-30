@@ -15,7 +15,7 @@ module.exports = function (app) {
     .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.create);
 
   app.route('/api/listorder')//.all(ordersPolicy.isAllowed)
-    .get(ordersPolicy.isAllowed, orders.listorder);
+    .get(ordersPolicy.isAllowed, orders.confirmed, orders.wait, orders.accept, orders.reject, orders.complete, orders.cancel, orders.listorder);
 
   app.route('/api/orders/:orderId')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.read)

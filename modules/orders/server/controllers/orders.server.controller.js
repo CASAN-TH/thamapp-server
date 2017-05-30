@@ -127,7 +127,7 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
   var filter = null;
-  filter = { deliverystatus: { $ne: 'ap' } }
+  filter = { deliverystatus: { $ne: 'ap' } };
   //example or { $or:[ {'_id':objId}, {'name':param}, {'nickname':param} ]}
 
 
@@ -151,15 +151,138 @@ exports.list = function (req, res) {
   });
 };
 
-exports.listorder = function (req, res) {
-  Order.find().sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+exports.confirmed = function (req, res, next) {
+  Order.find({ deliverystatus: 'confirmed' }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, confirmed) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.jsonp(orders);
+      // console.log(orders);
+      req.confirmed = confirmed;
+      next();
     }
+  });
+};
+
+exports.wait = function (req, res, next) {
+  var filter = {};
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    filter = {
+      'namedeliver': req.user,
+      'deliverystatus': 'wait deliver'
+    };
+  } else {
+    filter = {
+      'deliverystatus': 'wait deliver'
+    };
+  }
+  Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, waits) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // console.log(orders);
+
+      req.wait = waits;
+      next();
+    }
+  });
+};
+
+exports.accept = function (req, res, next) {
+  var filter = {};
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    filter = {
+      'namedeliver': req.user,
+      'deliverystatus': 'accept'
+    };
+  } else {
+    filter = {
+      'deliverystatus': 'accept'
+    };
+  }
+  Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, accepts) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // console.log(orders);
+      req.accept = accepts;
+      next();
+    }
+  });
+};
+
+exports.reject = function (req, res, next) {
+  Order.find({ deliverystatus: 'reject' }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, rejects) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // console.log(orders);
+      req.reject = rejects;
+      next();
+    }
+  });
+};
+
+exports.complete = function (req, res, next) {
+  var filter = {};
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    filter = {
+      'namedeliver': req.user,
+      'deliverystatus': 'complete'
+    };
+  } else {
+    filter = {
+      'deliverystatus': 'complete'
+    };
+  }
+  Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, completes) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // console.log(orders);
+      req.complete = completes;
+      next();
+    }
+  });
+};
+
+exports.cancel = function (req, res, next) {
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    req.cancel = [];
+    next();
+  } else {
+    Order.find({ deliverystatus: 'cancel' }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, cancels) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        // console.log(orders);
+        req.cancel = cancels;
+        next();
+      }
+    });
+  }
+};
+
+
+exports.listorder = function (req, res) {
+  res.jsonp({
+    confirmed: req.confirmed,
+    wait: req.wait,
+    accept: req.accept,
+    reject: req.reject,
+    complete: req.complete,
+    cancel: req.cancel
   });
 };
 
