@@ -22,7 +22,7 @@
           return true;
         }
 
-      }else{ //jigkoh3 update for meet all order is not have  namedeliver
+      } else { //jigkoh3 update for meet all order is not have  namedeliver
         if (order.deliverystatus === 'confirmed' || order.deliverystatus === 'reject') {
           return true;
         }
@@ -30,8 +30,10 @@
     };
 
     vm.acceptlist = function (order) {
+
       if (order.namedeliver) {
         if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'accept') {
+
           return true;
         }
 
@@ -49,7 +51,13 @@
 
 
     function accept(item) {
-      item.deliverystatus = 'accept';
+      if (item.namedeliver) {
+        item.deliverystatus = 'accept';
+      } else {
+        item.namedeliver = vm.authentication.user;
+        item.deliverystatus = 'accept';
+      }
+
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
