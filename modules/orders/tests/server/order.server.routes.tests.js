@@ -835,7 +835,7 @@ describe('Order CRUD tests', function () {
     orderObj6.save();
     orderObj.save(function () {
       // Request Orders
-      request(app).get('/api/listorder')
+      request(app).get('/api/listorder/v2')
         .end(function (req, res) {
           // Set assertion
           // (res.body.confirmed.deliverystatus).should.match('confirmed');

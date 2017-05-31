@@ -32,7 +32,7 @@ exports.create = function (req, res) {
   if (req.user) {
     order.user = req.user;
   }
-
+ 
   order.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -275,7 +275,7 @@ exports.cancel = function (req, res, next) {
 };
 
 
-exports.listorder = function (req, res) {
+exports.listorderv2 = function (req, res) {
   res.jsonp({
     confirmed: req.confirmed,
     wait: req.wait,
@@ -283,6 +283,18 @@ exports.listorder = function (req, res) {
     reject: req.reject,
     complete: req.complete,
     cancel: req.cancel
+  });
+};
+
+exports.listorder = function (req, res) {
+  Order.find().sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.jsonp(orders);
+    }
   });
 };
 

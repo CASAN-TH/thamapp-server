@@ -23,6 +23,9 @@ exports.invokeRolesPolicies = function () {
       }, {
         resources: '/api/listorder',
         permissions: '*'
+      }, {
+        resources: '/api/listorder/v2',
+        permissions: ['*']
       }]
   }, {
       roles: ['deliver'],
@@ -35,6 +38,9 @@ exports.invokeRolesPolicies = function () {
         }, {
           resources: '/api/listorder',
           permissions: '*'
+        }, {
+          resources: '/api/listorder/v2',
+          permissions: ['*']
         }]
     }, {
       roles: ['user'],
@@ -47,6 +53,9 @@ exports.invokeRolesPolicies = function () {
         }, {
           resources: '/api/listorder',
           permissions: ['get']
+        }, {
+          resources: '/api/listorder/v2',
+          permissions: ['get']
         }]
     }, {
       roles: ['guest'],
@@ -58,6 +67,9 @@ exports.invokeRolesPolicies = function () {
           permissions: ['get']
         }, {
           resources: '/api/listorder',
+          permissions: ['get']
+        }, {
+          resources: '/api/listorder/v2',
           permissions: ['get']
         }]
     }]);

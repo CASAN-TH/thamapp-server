@@ -112,7 +112,7 @@
       function errorCallback(res) {
         vm.error = res.data.message;
       }
-       $state.go('orders.list');
+      $state.go('orders.list');
     }
 
     function addHis() {
@@ -232,11 +232,17 @@
     }
 
     function acceptOrder(isValid) {
-      vm.order.deliverystatus = 'accept';
+
+      if (vm.order.namedeliver) {
+        vm.order.deliverystatus = 'accept';
+      } else {
+        vm.order.namedeliver = vm.authentication.user;
+        vm.order.deliverystatus = 'accept';
+      }
+
       vm.addHis();
       vm.order.$update(successCallback, errorCallback);
       function successCallback(res) {
-
       }
 
       function errorCallback(res) {
