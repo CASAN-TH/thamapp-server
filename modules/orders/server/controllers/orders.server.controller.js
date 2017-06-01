@@ -73,7 +73,7 @@ exports.read = function (req, res) {
 /**
  * Update a Order
  */
-function updateOrder(order, callback) {
+function updateOrder(order, deliver, callback) {
   // var _order = order;
   order.save(function (err) {
     if (err) {
@@ -88,7 +88,7 @@ function updateOrder(order, callback) {
         sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
-        sendAcceptedDeliverOrder(order, order.namedeliver);
+        sendAcceptedDeliverOrder(order, deliver);
         sendNewDeliver(order.namedeliver);
         sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
@@ -120,7 +120,7 @@ exports.update = function (req, res) {
             message: 'order is already accept'
           });
         } else {
-          updateOrder(order, function (err, data) {
+          updateOrder(order, req.body.namedeliver, function (err, data) {
             if (err) {
               return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -132,7 +132,7 @@ exports.update = function (req, res) {
       }
     });
   } else {
-    updateOrder(order, function (err, data) {
+    updateOrder(order, req.body.namedeliver, function (err, data) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
@@ -608,7 +608,7 @@ function sendNewdeliverOrder() {
 
 function sendAcceptedDeliverOrder(order, deliver) {
   console.log(JSON.stringify(deliver));
-  Pushnotiuser.find({ user_id: { $ne: deliver._id } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
+  Pushnotiuser.find({ user_id: { $ne: order.namedeliver } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
     if (err) {
 
     } else {
