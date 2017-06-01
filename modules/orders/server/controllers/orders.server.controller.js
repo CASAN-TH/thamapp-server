@@ -74,6 +74,7 @@ exports.read = function (req, res) {
  * Update a Order
  */
 function updateOrder(order, callback) {
+  var _order = order;
   order.save(function (err) {
     if (err) {
       callback(err, null);
@@ -87,7 +88,7 @@ function updateOrder(order, callback) {
         sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
-        sendAcceptedDeliverOrder(order);
+        sendAcceptedDeliverOrder(_order);
         sendNewDeliver(order.namedeliver);
         sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
