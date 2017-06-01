@@ -593,8 +593,9 @@ function nearByDeliver(_from, _to, callback) {
     } else if (response.body.error) {
       callback(response.body.error, null);
     } else {
-      if (response.rows[0].elements[0].distance.value) {
-        callback(null, response.rows[0].elements[0].distance.value);
+      console.log(response);
+      if (response.body.rows[0].elements[0].distance.value) {
+        callback(null, response.body.rows[0].elements[0].distance.value);
       }
     }
   });
