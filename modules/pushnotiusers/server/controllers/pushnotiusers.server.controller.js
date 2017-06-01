@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Pushnotiuser
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var pushnotiuser = new Pushnotiuser(req.body);
   pushnotiuser.user = req.user;
 
-  pushnotiuser.save(function(err) {
+  pushnotiuser.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Pushnotiuser
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var pushnotiuser = req.pushnotiuser ? req.pushnotiuser.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Pushnotiuser
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var pushnotiuser = req.pushnotiuser;
 
   pushnotiuser = _.extend(pushnotiuser, req.body);
 
-  pushnotiuser.save(function(err) {
+  pushnotiuser.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Pushnotiuser
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var pushnotiuser = req.pushnotiuser;
 
-  pushnotiuser.remove(function(err) {
+  pushnotiuser.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Pushnotiusers
  */
-exports.list = function(req, res) {
-  Pushnotiuser.find().sort('-created').populate('user', 'displayName').exec(function(err, pushnotiusers) {
+exports.list = function (req, res) {
+  Pushnotiuser.find().sort('-created').populate('user', 'displayName', 'address').exec(function (err, pushnotiusers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 /**
  * Pushnotiuser middleware
  */
-exports.pushnotiuserByID = function(req, res, next, id) {
+exports.pushnotiuserByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({

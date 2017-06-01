@@ -47,7 +47,7 @@ exports.create = function (req, res) {
           });
         } else {
           sendNewOrder();
-          sendNewdeliverOrder();
+          sendNewdeliverOrder(req.body.shipping.sharelocation);
           res.jsonp(orders);
         }
       });
@@ -201,6 +201,19 @@ exports.confirmed = function (req, res, next) {
       next();
     }
   });
+};
+
+exports.confirmedNearBy = function (req, res, next) {
+  var confirmedNearBies = [];
+  req.confirmed.forEach(function (order) {
+    nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
+      if (data && data <= 5) {
+        confirmedNearBies.push(order);
+      }
+    });
+  });
+  req.confirmed = confirmedNearBies;
+  next();
 };
 
 exports.wait = function (req, res, next) {
@@ -568,14 +581,37 @@ function sendNewOrder() {
 
 }
 
-function sendNewdeliverOrder() {
+function nearByDeliver(_from, _to, callback) {
+  request({
+    url: 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + _from.latitude + ',' + _from.longitude + '&destinations=' + _to.latitude + ',' + _to.longitude + '&key=AIzaSyBY4B67oPlLL9AdfXNTQl6JP_meTTzq8xY',
+    method: 'GET',
+  }, function (error, response, body) {
+    if (error) {
+      callback(error, null);
+    } else if (response.body.error) {
+      callback(response.body.error, null);
+    } else {
+      if (response.rows[0].elements[0].distance.value) {
+        callback(null, response.rows[0].elements[0].distance.value);
+      }
+    }
+  });
+}
+
+function sendNewdeliverOrder(order_location) {
   Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
     if (err) {
 
     } else {
       var delivertokens = [];
       delivers.forEach(function (deliver) {
-        delivertokens.push(deliver.device_token);
+        if (order_location && deliver.address.sharelocation) {
+          nearByDeliver(deliver.address.sharelocation, order_location, function (error, data) {
+            if (data && data <= 5) {
+              delivertokens.push(deliver.device_token);
+            }
+          });
+        }
       });
 
       request({
@@ -588,7 +624,7 @@ function sendNewdeliverOrder() {
           tokens: delivertokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: 'คุณมีรายการสั่งซื้อข้าวใหม่',
+            message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี 5 กม.',
             // ios: { sound: 'default' },
             // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
           }
