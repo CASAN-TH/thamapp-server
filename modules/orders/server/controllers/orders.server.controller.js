@@ -629,13 +629,14 @@ function sendNewdeliverOrder(order_location) {
     } else {
       var delivertokens = [];
       delivers.forEach(function (deliver) {
-        if (order_location && deliver.address.sharelocation) {
-          nearByDeliver(deliver.address.sharelocation, order_location, function (error, data) {
-            if (data && data <= 5) {
-              delivertokens.push(deliver.device_token);
-            }
-          });
-        }
+        // if (order_location && deliver.address.sharelocation) {
+        //   nearByDeliver(deliver.address.sharelocation, order_location, function (error, data) {
+        //     if (data && data <= 5) {
+        //       delivertokens.push(deliver.device_token);
+        //     }
+        //   });
+        // }
+        delivertokens.push(deliver.device_token);
       });
 
       request({
