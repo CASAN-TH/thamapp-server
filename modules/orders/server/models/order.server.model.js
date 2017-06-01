@@ -90,7 +90,7 @@ var OrderSchema = new Schema({
     type: String,
     default: 'confirmed'
   },
-  refdoc : String,
+  refdoc: String,
   drilldate: Date,
   deliverylog: [{
     logdate: Date,
@@ -99,7 +99,8 @@ var OrderSchema = new Schema({
   historystatus: {
     type: [{
       status: String,
-      datestatus: Date
+      datestatus: Date,
+      remark: String
     }]
   },
   src: {
