@@ -205,16 +205,18 @@ exports.confirmed = function (req, res, next) {
 
 exports.confirmedNearBy = function (req, res, next) {
   var confirmedNearBies = [];
-  req.confirmed.forEach(function (order) {
-    if (req.user.address.sharelocation && order.shipping.sharelocation) {
-      nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
-        if (data && data <= 5) {
-          confirmedNearBies.push(order);
-        }
-      });
-    }
-  });
-  req.confirmed = confirmedNearBies;
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    req.confirmed.forEach(function (order) {
+      if (req.user.address.sharelocation && order.shipping.sharelocation) {
+        nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
+          if (data && data <= 5) {
+            confirmedNearBies.push(order);
+          }
+        });
+      }
+    });
+    req.confirmed = confirmedNearBies;
+  }
   next();
 };
 
@@ -593,11 +595,9 @@ function nearByDeliver(_from, _to, callback) {
     } else if (response.body.error) {
       callback(response.body.error, null);
     } else {
-      console.log(response.body);
-      // if (response.body.rows[0].elements[0].distance.value) {
-      //   callback(null, response.body.rows[0].elements[0].distance.value);
-      // }
-      callback(null, 4);
+      if (response.body.rows[0].elements[0].distance.value) {
+        callback(null, response.body.rows[0].elements[0].distance.value / 1000);
+      }
     }
   });
 }
