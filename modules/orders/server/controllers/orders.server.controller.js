@@ -206,11 +206,13 @@ exports.confirmed = function (req, res, next) {
 exports.confirmedNearBy = function (req, res, next) {
   var confirmedNearBies = [];
   req.confirmed.forEach(function (order) {
-    nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
-      if (data && data <= 5) {
-        confirmedNearBies.push(order);
-      }
-    });
+    if (req.user.address.sharelocation && order.shipping.sharelocation) {
+      nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
+        if (data && data <= 5) {
+          confirmedNearBies.push(order);
+        }
+      });
+    }
   });
   req.confirmed = confirmedNearBies;
   next();
