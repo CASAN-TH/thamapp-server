@@ -613,6 +613,8 @@ function nearByDeliver(_from, _to, callback) {
       callback(response.body.error, null);
     } else {
       var resp = JSON.parse(response.body);
+      console.log('---------------------------------');
+      console.log(response.body);
       if (resp && resp.rows && resp.rows[0].elements && resp.rows[0].elements[0].distance && resp.rows[0].elements[0].distance.value) {
         callback(null, resp.rows[0].elements[0].distance.value / 1000);
       }
