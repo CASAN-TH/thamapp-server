@@ -607,7 +607,6 @@ function sendNewdeliverOrder() {
 }
 
 function sendAcceptedDeliverOrder(order, deliver) {
-  console.log(JSON.stringify(deliver));
   Pushnotiuser.find({ user_id: { $ne: order.namedeliver } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
     if (err) {
 
@@ -649,7 +648,7 @@ function sendNewDeliver(deliver) {
     me = deliver;
   }
   Order.find().sort('-created')
-    .where('deliverystatus').equals('wait deliver')
+    .where('deliverystatus').equals('accept')
     .where('namedeliver').equals(deliver)
     .exec(function (err, orders) {
       if (err) {
@@ -677,7 +676,7 @@ function sendNewDeliver(deliver) {
                   tokens: admtokens,
                   profile: pushNotiAuthenDEL.profile,
                   notification: {
-                    message: 'คุณมีรายการส่งข้าวใหม่ ' + orders.length + ' รายการ',
+                    message: 'คุณมีรายการค้างส่งข้าว ' + orders.length + ' รายการ',
                     ios: { badge: orders.length, sound: 'default' },
                     android: { data: { badge: orders.length } }
                     // android: { badge: orders.length, sound: 'default' }
