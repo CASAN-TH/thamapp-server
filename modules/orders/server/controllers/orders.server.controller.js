@@ -595,8 +595,8 @@ function nearByDeliver(_from, _to, callback) {
     } else if (response.body.error) {
       callback(response.body.error, null);
     } else {
-      console.log(response.body);
       if (response.body && response.body.rows && response.body.rows.length > 0 && response.body.rows[0].elements[0].distance.value) {
+        console.log(response.body);
         callback(null, response.body.rows[0].elements[0].distance.value / 1000);
       }
     }
