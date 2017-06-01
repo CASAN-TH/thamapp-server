@@ -87,7 +87,7 @@ function updateOrder(order, callback) {
         sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
-        sendAcceptedDeliverOrder(order);
+        // sendAcceptedDeliverOrder(order);
         sendNewDeliver(order.namedeliver);
         sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
