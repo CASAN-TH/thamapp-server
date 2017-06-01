@@ -598,7 +598,7 @@ function nearByDeliver(_from, _to, callback) {
       console.log('------------------------------------------------------');
       console.log(response.body);
       var resp = JSON.parse(response.body);
-      if (resp && resp.rows[0].elements[0].distance.value) {
+      if (resp && resp.rows[0].elements[0].distance && resp.rows[0].elements[0].distance.value) {
         console.log(resp.rows[0]);
         callback(null, resp.rows[0].elements[0].distance.value / 1000);
       }
