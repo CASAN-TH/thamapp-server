@@ -100,7 +100,8 @@ var OrderSchema = new Schema({
     type: [{
       status: String,
       datestatus: Date,
-      remark: String
+      remark: String,
+      delivername: String
     }]
   },
   src: {
