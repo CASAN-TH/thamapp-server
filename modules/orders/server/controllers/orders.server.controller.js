@@ -74,7 +74,7 @@ exports.read = function (req, res) {
  * Update a Order
  */
 function updateOrder(order, callback) {
-  var _order = order;
+  // var _order = order;
   order.save(function (err) {
     if (err) {
       callback(err, null);
@@ -88,7 +88,7 @@ function updateOrder(order, callback) {
         sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
-        sendAcceptedDeliverOrder(_order);
+        sendAcceptedDeliverOrder(order, order.namedeliver);
         sendNewDeliver(order.namedeliver);
         sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
@@ -606,9 +606,9 @@ function sendNewdeliverOrder() {
 
 }
 
-function sendAcceptedDeliverOrder(order) {
-  console.log(JSON.stringify(order));
-  Pushnotiuser.find({ user_id: { $ne: order.namedeliver._id } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
+function sendAcceptedDeliverOrder(order, deliver) {
+  console.log(JSON.stringify(deliver));
+  Pushnotiuser.find({ user_id: { $ne: deliver._id } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
     if (err) {
 
     } else {
@@ -627,7 +627,7 @@ function sendAcceptedDeliverOrder(order) {
           tokens: delivertokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: order.namedeliver.displayName + ' รับงานเลขที่ ' + order.docno
+            message: deliver.displayName + ' รับงานเลขที่ ' + order.docno
           }
         }
       }, function (error, response, body) {
