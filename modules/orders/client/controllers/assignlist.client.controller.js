@@ -65,6 +65,7 @@
 
       function errorCallback(res) {
         vm.error = res.data.message;
+        alert(vm.error);
       }
     }
 

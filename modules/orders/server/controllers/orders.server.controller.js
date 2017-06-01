@@ -32,7 +32,7 @@ exports.create = function (req, res) {
   if (req.user) {
     order.user = req.user;
   }
- 
+
   order.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -73,16 +73,13 @@ exports.read = function (req, res) {
 /**
  * Update a Order
  */
-exports.update = function (req, res) {
-  var order = req.order;
-
-  order = _.extend(order, req.body);
-
+function updateOrder(order, callback) {
   order.save(function (err) {
     if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
+      callback(err, null);
+      // return res.status(400).send({
+      //   message: errorHandler.getErrorMessage(err)
+      // });
     } else {
       if (order.deliverystatus === 'wait deliver') {
         sendNewOrder();
@@ -90,6 +87,7 @@ exports.update = function (req, res) {
         sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
+        sendAcceptedDeliverOrder(order);
         sendNewDeliver(order.namedeliver);
         sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
@@ -99,10 +97,49 @@ exports.update = function (req, res) {
         sendCompleteDeliver(order.namedeliver);
         sendCompleteUser(order);
       }
-
-      res.jsonp(order);
+      callback(null, order);
+      //res.jsonp(order);
     }
   });
+}
+
+exports.update = function (req, res) {
+  var order = req.order;
+
+  order = _.extend(order, req.body);
+  if (order.deliverystatus === 'accept') {
+    Order.find({ _id: order._id }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        if (orders.length > 0 && orders[0].deliverystatus === 'accept') {
+          return res.status(400).send({
+            message: 'order is already accept'
+          });
+        } else {
+          updateOrder(order, function (err, data) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            }
+            res.jsonp(data);
+          });
+        }
+      }
+    });
+  } else {
+    updateOrder(order, function (err, data) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      }
+      res.jsonp(data);
+    });
+  }
 };
 
 /**
@@ -496,6 +533,7 @@ function sendNewOrder() {
         } else {
           var admtokens = [];
           admins.forEach(function (admin) {
+
             admtokens.push(admin.device_token);
           });
 
@@ -530,47 +568,75 @@ function sendNewOrder() {
 }
 
 function sendNewdeliverOrder() {
-  Order.find().sort('-created').where('deliverystatus').equals('confirmed').exec(function (err, orders) {
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
     if (err) {
 
     } else {
-      Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
-        if (err) {
+      var delivertokens = [];
+      delivers.forEach(function (deliver) {
+        delivertokens.push(deliver.device_token);
+      });
 
-        } else {
-          var delivertokens = [];
-          delivers.forEach(function (deliver) {
-            delivertokens.push(deliver.device_token);
-          });
-
-          request({
-            url: pushNotiUrl,
-            auth: {
-              'bearer': pushNotiAuthenDEL.auth
-            },
-            method: 'POST',
-            json: {
-              tokens: delivertokens,
-              profile: pushNotiAuthenDEL.profile,
-              notification: {
-                message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ' + orders.length + ' รายการ',
-                // ios: { sound: 'default' },
-                // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
-              }
-            }
-          }, function (error, response, body) {
-            if (error) {
-              console.log('Error sending messages: ', error);
-            } else if (response.body.error) {
-              console.log('Error: ', response.body.error);
-            }
-          });
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenDEL.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: delivertokens,
+          profile: pushNotiAuthenDEL.profile,
+          notification: {
+            message: 'คุณมีรายการสั่งซื้อข้าวใหม่',
+            // ios: { sound: 'default' },
+            // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
         }
       });
     }
   });
 
 
+}
+
+function sendAcceptedDeliverOrder(order) {
+  Pushnotiuser.find({ user_id: { $ne: order.namedeliver._id } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
+    if (err) {
+
+    } else {
+      var delivertokens = [];
+      delivers.forEach(function (deliver) {
+        delivertokens.push(deliver.device_token);
+      });
+
+      request({
+        url: pushNotiUrl,
+        auth: {
+          'bearer': pushNotiAuthenDEL.auth
+        },
+        method: 'POST',
+        json: {
+          tokens: delivertokens,
+          profile: pushNotiAuthenDEL.profile,
+          notification: {
+            message: order.namedeliver.displayName + ' รับงานเลขที่ ' + order.docno
+          }
+        }
+      }, function (error, response, body) {
+        if (error) {
+          console.log('Error sending messages: ', error);
+        } else if (response.body.error) {
+          console.log('Error: ', response.body.error);
+        }
+      });
+    }
+  });
 }
 
 function sendNewDeliver(deliver) {
