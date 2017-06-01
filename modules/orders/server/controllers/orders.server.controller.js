@@ -87,7 +87,7 @@ function updateOrder(order, callback) {
         sendWaitDeliUser(order);
       } else if (order.deliverystatus === 'accept') {
         sendNewOrder();
-        // sendAcceptedDeliverOrder(order);
+        sendAcceptedDeliverOrder(order);
         sendNewDeliver(order.namedeliver);
         sendAcceptUser(order);
       } else if (order.deliverystatus === 'reject') {
@@ -606,6 +606,7 @@ function sendNewdeliverOrder() {
 }
 
 function sendAcceptedDeliverOrder(order) {
+  console.log(JSON.stringify(order));
   Pushnotiuser.find({ user_id: { $ne: order.namedeliver._id } }).sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
     if (err) {
 
