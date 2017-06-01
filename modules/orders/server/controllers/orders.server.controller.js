@@ -285,6 +285,23 @@ exports.reject = function (req, res, next) {
   });
 };
 
+exports.rejectNearBy = function (req, res, next) {
+  var rejectNearBies = [];
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    req.reject.forEach(function (order) {
+      if (req.user.address.sharelocation && order.shipping.sharelocation) {
+        nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
+          if (data && data <= 5) {
+            confirmedNearBies.push(order);
+          }
+        });
+      }
+    });
+    req.reject = rejectNearBies;
+  }
+  next();
+};
+
 exports.complete = function (req, res, next) {
   var filter = {};
   if (req.user && req.user.roles.indexOf('deliver') !== -1) {
@@ -595,11 +612,8 @@ function nearByDeliver(_from, _to, callback) {
     } else if (response.body.error) {
       callback(response.body.error, null);
     } else {
-      console.log('------------------------------------------------------');
-      console.log(response.body);
       var resp = JSON.parse(response.body);
       if (resp && resp.rows[0].elements[0].distance && resp.rows[0].elements[0].distance.value) {
-        console.log(resp.rows[0]);
         callback(null, resp.rows[0].elements[0].distance.value / 1000);
       }
     }
