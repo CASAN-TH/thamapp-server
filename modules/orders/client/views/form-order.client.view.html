@@ -1004,6 +1004,7 @@
                             <p ng-show="status.status === 'complete'">{{vm.order.namedeliver.displayName}}</p>
                             <p ng-show="status.status === 'cancel'">{{vm.authentication.user.displayName}}</p>
                             <p>{{status.datestatus | date: 'dd/MM/yyyy:HH:mm'}}</p>
+                            <p ng-if="status.remark">หมายเหตุ : {{status.remark}}</p>
                         </div>
                     </div>
                 </div>
