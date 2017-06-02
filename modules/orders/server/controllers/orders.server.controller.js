@@ -597,7 +597,7 @@ function deg2rad(deg) {
 }
 
 function sendNewdeliverOrder(order_location) {
-  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
     if (err) {
 
     } else {
