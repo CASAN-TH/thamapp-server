@@ -607,7 +607,7 @@ function sendNewdeliverOrder(order_location) {
         //console.log(deliver.user.address);
         if (order_location && deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
           var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
-          console.log('------------- ' + dist + ' km. -------------')
+          //console.log('------------- ' + dist + ' km. -------------')
           if (dist <= minDistance) {
             delivertokens.push(deliver.device_token);
           }
@@ -702,7 +702,7 @@ function sendNewDeliver(deliver) {
               delivers.forEach(function (deliver) {
                 admtokens.push(deliver.device_token);
               });
-              console.log(admtokens);
+              //console.log(admtokens);
               request({
                 url: pushNotiUrl,
                 auth: {
@@ -759,7 +759,7 @@ function sendCompleteDeliver(deliver) {
               delivers.forEach(function (deliver) {
                 admtokens.push(deliver.device_token);
               });
-              console.log(admtokens);
+              //console.log(admtokens);
               request({
                 url: pushNotiUrl,
                 auth: {
