@@ -604,10 +604,10 @@ function sendNewdeliverOrder(order_location) {
       var delivertokens = [];
       delivers.forEach(function (deliver) {
        
-        //console.log(deliver.user.address);
+        console.log(deliver.user.address);
         if (order_location && deliver.user.address && deliver.user.address.sharelocation) {
           var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
-          //console.log('------------- ' + dist + ' km. -------------')
+          console.log('------------- ' + dist + ' km. -------------')
           if (dist <= minDistance) {
             delivertokens.push(deliver.device_token);
           }
