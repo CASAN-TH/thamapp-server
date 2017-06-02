@@ -614,10 +614,10 @@ function sendNewdeliverOrder(order_location) {
           var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
           console.log('------------- ' + dist + ' km. -------------')
           if (dist <= minDistance) {
-            //delivertokens.push(deliver.device_token);
+            delivertokens.push(deliver.device_token);
           }
         }
-        delivertokens.push(deliver.device_token);
+        //delivertokens.push(deliver.device_token);
       });
 
       request({
