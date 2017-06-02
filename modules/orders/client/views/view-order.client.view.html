@@ -144,11 +144,11 @@
             <div class="col-xs-2" ng-show="vm.order.deliverystatus === 'wait deliver'">
               <button class="form-control btn btn-block buttonRedForm" ng-click="vm.rejectOrder()" ui-sref="assignlist">ปฏิเสธ</button>
             </div>-->
-            <div class="col-xs-2">
+            <div class="col-xs-4" ng-if="vm.order.deliverystatus !== 'accept' && vm.order.deliverystatus !== 'complete'">
               <button class="form-control btn btn-block buttonGreenForm" ng-click="vm.acceptOrder()" ui-sref="assignlist">ยอมรับ</button>
 
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-2"  ng-if="vm.order.deliverystatus === 'accept'">
               <button class="form-control btn btn-block buttonRedForm" ng-click="vm.rejectOrder()" ui-sref="assignlist">ปฏิเสธ</button>
             </div>
             <div class="col-xs-2" ng-show="vm.order.deliverystatus === 'accept'">

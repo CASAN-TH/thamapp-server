@@ -61,6 +61,8 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
+        vm.orders = OrdersService.query();
+        
       }
 
       function errorCallback(res) {
@@ -80,6 +82,7 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
+        vm.orders = OrdersService.query();
       }
 
       function errorCallback(res) {
@@ -93,6 +96,7 @@
       vm.addHis(item);
       item.$update(successCallback, errorCallback);
       function successCallback(res) {
+        vm.orders = OrdersService.query();
       }
 
       function errorCallback(res) {
