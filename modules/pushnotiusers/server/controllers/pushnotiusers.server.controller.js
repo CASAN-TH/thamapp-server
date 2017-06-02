@@ -81,7 +81,7 @@ exports.delete = function (req, res) {
  * List of Pushnotiusers
  */
 exports.list = function (req, res) {
-  Pushnotiuser.find().sort('-created').populate('user').exec(function (err, pushnotiusers) {
+  Pushnotiuser.find().sort('-created').populate('user', 'displayName').exec(function (err, pushnotiusers) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)

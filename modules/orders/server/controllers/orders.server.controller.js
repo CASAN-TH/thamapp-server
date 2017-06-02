@@ -597,27 +597,22 @@ function deg2rad(deg) {
 }
 
 function sendNewdeliverOrder(order_location) {
-  Pushnotiuser.find().sort('-created').where('role').equals('deliver').exec(function (err, delivers) {
+  Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
     if (err) {
 
     } else {
       var delivertokens = [];
       delivers.forEach(function (deliver) {
-        // if (order_location && deliver.address.sharelocation) {
-        //   nearByDeliver(deliver.address.sharelocation, order_location, function (error, data) {
-        //     if (data && data <= 5) {
-        //       delivertokens.push(deliver.device_token);
-        //     }
-        //   });
-        // }
-        if (order_location && deliver.address.sharelocation) {
-          var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.address.sharelocation.latitude, deliver.address.sharelocation.longitude);
-          console.log('------------- ' + dist + ' km. -------------')
+       
+        //console.log(deliver.user.address);
+        if (order_location && deliver.user.address && deliver.user.address.sharelocation) {
+          var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
+          //console.log('------------- ' + dist + ' km. -------------')
           if (dist <= minDistance) {
-            //delivertokens.push(deliver.device_token);
+            delivertokens.push(deliver.device_token);
           }
         }
-        delivertokens.push(deliver.device_token);
+        //delivertokens.push(deliver.device_token);
       });
 
       request({
