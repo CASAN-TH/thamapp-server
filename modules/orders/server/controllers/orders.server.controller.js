@@ -22,7 +22,18 @@ var path = require('path'),
   pushNotiAuthenDEL = {
     profile: process.env.PUSH_NOTI_PROFILE || 'dev',
     auth: process.env.PUSH_NOTI_DEL_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs'
-  };
+  },
+  minDistance = process.env.MIN_DISTANCE || 10;
+
+Date.prototype.yyyymmdd = function () {
+  var mm = this.getMonth() + 1; // getMonth() is zero-based
+  var dd = this.getDate();
+
+  return [this.getFullYear(),
+  (mm > 9 ? '' : '0') + mm,
+  (dd > 9 ? '' : '0') + dd
+  ].join('');
+};
 
 /**
  * Create a Order
@@ -73,37 +84,6 @@ exports.read = function (req, res) {
 /**
  * Update a Order
  */
-function updateOrder(order, deliver, callback) {
-  // var _order = order;
-  order.save(function (err) {
-    if (err) {
-      callback(err, null);
-      // return res.status(400).send({
-      //   message: errorHandler.getErrorMessage(err)
-      // });
-    } else {
-      if (order.deliverystatus === 'wait deliver') {
-        sendNewOrder();
-        sendNewDeliver(order.namedeliver);
-        sendWaitDeliUser(order);
-      } else if (order.deliverystatus === 'accept') {
-        sendNewOrder();
-        sendAcceptedDeliverOrder(order, deliver);
-        sendNewDeliver(order.namedeliver);
-        sendAcceptUser(order);
-      } else if (order.deliverystatus === 'reject') {
-        //sendNewOrder();
-        //sendNewDeliver(order.namedeliver);
-      } else if (order.deliverystatus === 'complete') {
-        sendCompleteDeliver(order.namedeliver);
-        sendCompleteUser(order);
-      }
-      callback(null, order);
-      //res.jsonp(order);
-    }
-  });
-}
-
 exports.update = function (req, res) {
   var order = req.order;
 
@@ -208,11 +188,15 @@ exports.confirmedNearBy = function (req, res, next) {
   if (req.user && req.user.roles.indexOf('deliver') !== -1) {
     req.confirmed.forEach(function (order) {
       if (req.user.address.sharelocation && order.shipping.sharelocation) {
-        nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
-          if (data && data <= 5) {
-            confirmedNearBies.push(order);
-          }
-        });
+        // nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
+        //   if (data && data <= 5) {
+        //     confirmedNearBies.push(order);
+        //   }
+        // });
+        var dist = getDistanceFromLatLonInKm(req.user.address.sharelocation.latitude, req.user.address.sharelocation.longitude, order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude);
+        if (dist <= minDistance) {
+          confirmedNearBies.push(order);
+        }
       }
     });
     req.confirmed = confirmedNearBies;
@@ -290,11 +274,10 @@ exports.rejectNearBy = function (req, res, next) {
   if (req.user && req.user.roles.indexOf('deliver') !== -1) {
     req.reject.forEach(function (order) {
       if (req.user.address.sharelocation && order.shipping.sharelocation) {
-        nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
-          if (data && data <= 5) {
-            rejectNearBies.push(order);
-          }
-        });
+        var dist = getDistanceFromLatLonInKm(req.user.address.sharelocation.latitude, req.user.address.sharelocation.longitude, order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude);
+        if (dist <= minDistance) {
+          rejectNearBies.push(order);
+        }
       }
     });
     req.reject = rejectNearBies;
@@ -422,15 +405,7 @@ exports.salereport = function (req, res, next) {
   res.jsonp({ orders: orderslist, saleday: saleday, saleprod: saleprod, avg: avgMaxMin, percens: percenOfProd });
 
 };
-Date.prototype.yyyymmdd = function () {
-  var mm = this.getMonth() + 1; // getMonth() is zero-based
-  var dd = this.getDate();
 
-  return [this.getFullYear(),
-    (mm > 9 ? '' : '0') + mm,
-    (dd > 9 ? '' : '0') + dd
-  ].join('');
-};
 function saleProduct(orders) {
   var products = [];
   var productId = [];
@@ -602,24 +577,23 @@ function sendNewOrder() {
 
 }
 
-function nearByDeliver(_from, _to, callback) {
-  request({
-    url: 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + _from.latitude + ',' + _from.longitude + '&destinations=' + _to.latitude + ',' + _to.longitude + '&key=AIzaSyBY4B67oPlLL9AdfXNTQl6JP_meTTzq8xY',
-    method: 'GET',
-  }, function (error, response, body) {
-    if (error) {
-      callback(error, null);
-    } else if (response.body.error) {
-      callback(response.body.error, null);
-    } else {
-      var resp = JSON.parse(response.body);
-      console.log('---------------------------------');
-      console.log(response.body);
-      if (resp && resp.status === 'OK' && resp.rows && resp.rows[0].elements && resp.rows[0].elements[0].distance && resp.rows[0].elements[0].distance.value) {
-        callback(null, resp.rows[0].elements[0].distance.value / 1000);
-      }
-    }
-  });
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  var R = 6371; // Radius of the earth in km
+  var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+  var dLon = deg2rad(lon2 - lon1);
+  var a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2)
+    ;
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  var d = R * c; // Distance in km
+  return d;
+}
+
+function deg2rad(deg) {
+  return deg * (Math.PI / 180)
 }
 
 function sendNewdeliverOrder(order_location) {
@@ -636,7 +610,13 @@ function sendNewdeliverOrder(order_location) {
         //     }
         //   });
         // }
-        delivertokens.push(deliver.device_token);
+        if (order_location && deliver.address.sharelocation) {
+          var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.address.sharelocation.latitude, deliver.address.sharelocation.longitude);
+          if (dist <= minDistance) {
+            delivertokens.push(deliver.device_token);
+          }
+        }
+        //delivertokens.push(deliver.device_token);
       });
 
       request({
@@ -649,7 +629,7 @@ function sendNewdeliverOrder(order_location) {
           tokens: delivertokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี 5 กม.',
+            message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.',
             // ios: { sound: 'default' },
             // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
           }
@@ -944,4 +924,35 @@ function sendCompleteUser(order) {
     }
   });
 
+}
+
+function updateOrder(order, deliver, callback) {
+  // var _order = order;
+  order.save(function (err) {
+    if (err) {
+      callback(err, null);
+      // return res.status(400).send({
+      //   message: errorHandler.getErrorMessage(err)
+      // });
+    } else {
+      if (order.deliverystatus === 'wait deliver') {
+        sendNewOrder();
+        sendNewDeliver(order.namedeliver);
+        sendWaitDeliUser(order);
+      } else if (order.deliverystatus === 'accept') {
+        sendNewOrder();
+        sendAcceptedDeliverOrder(order, deliver);
+        sendNewDeliver(order.namedeliver);
+        sendAcceptUser(order);
+      } else if (order.deliverystatus === 'reject') {
+        //sendNewOrder();
+        //sendNewDeliver(order.namedeliver);
+      } else if (order.deliverystatus === 'complete') {
+        sendCompleteDeliver(order.namedeliver);
+        sendCompleteUser(order);
+      }
+      callback(null, order);
+      //res.jsonp(order);
+    }
+  });
 }
