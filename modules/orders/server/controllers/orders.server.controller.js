@@ -610,7 +610,7 @@ function sendNewdeliverOrder(order_location) {
         //     }
         //   });
         // }
-        if (order_location && deliver.user.address.sharelocation) {
+        if (order_location && deliver.user.address && deliver.user.address.sharelocation) {
           var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
           console.log('------------- ' + dist + ' km. -------------')
           if (dist <= minDistance) {
