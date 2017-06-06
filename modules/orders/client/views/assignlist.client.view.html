@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{assignlist.length || 0}}</h3></button></a>
-              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptlist.length || 0}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{completelist.length || 0}}</h3></button></a>
+              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{assignLength}}</h3></button></a>
+              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptLength}}</h3></button></a>
+              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{completeLength}}</h3></button></a>
             </div>
           </div>
           <!---->
@@ -88,7 +88,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | orderBy: '-deliverystatus' | filter:topsearch | filter:vm.assignlist  as assignlist">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in assignlist | orderBy: '-deliverystatus' | filter:topsearch">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
@@ -149,7 +149,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.acceptlist as acceptlist">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordAccept | filter:topsearch">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
@@ -201,7 +201,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.completelist as completelist"
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordComplete | filter:topsearch"
                   ui-sref="orders.view({ orderId: order._id })">
                   <div class="col-md-12">
                     <div class="row form-group">
