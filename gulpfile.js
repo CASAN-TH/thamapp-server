@@ -222,7 +222,7 @@ gulp.task('dropdb', function (done) {
 
   mongoose.connect(function (db) {
     db.connection.db.dropDatabase(function (err) {
-      if(err) {
+      if (err) {
         console.log(err);
       } else {
         console.log('Successfully dropped db: ', db.connection.db.databaseName);
@@ -246,12 +246,12 @@ gulp.task('protractor', ['webdriver_update'], function () {
     .pipe(protractor({
       configFile: 'protractor.conf.js'
     }))
-    .on('end', function() {
+    .on('end', function () {
       console.log('E2E Testing complete');
       // exit with success.
       process.exit(0);
     })
-    .on('error', function(err) {
+    .on('error', function (err) {
       console.log('E2E Tests failed');
       process.exit(1);
     });
@@ -270,6 +270,11 @@ gulp.task('build', function (done) {
 // Run the project tests
 gulp.task('test', function (done) {
   runSequence('env:test', 'lint', 'mocha', 'karma', 'nodemon', 'protractor', done);
+});
+
+// Lint project files and minify them into two production files.
+gulp.task('build:prod', function (done) {
+  runSequence('env:prod', 'lint', ['uglify', 'cssmin'], done);
 });
 
 gulp.task('test:server', function (done) {
