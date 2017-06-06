@@ -20,7 +20,13 @@ module.exports = function (app) {
 
   app.route('/api/listorder/v2')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderv2);
-
+  app.route('/api/listorder/web')//.all(ordersPolicy.isAllowed)
+    .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderweb)
+    .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.create);
+  app.route('/api/listorder/web/:orderId')//.all(ordersPolicy.isAllowed)
+    .get(ordersPolicy.isAllowed, orders.read)
+    .put(users.requiresLoginToken, ordersPolicy.isAllowed, orders.update)
+    .delete(users.requiresLoginToken, ordersPolicy.isAllowed, orders.delete);
   app.route('/api/orders/:orderId')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.read)
     .put(users.requiresLoginToken, ordersPolicy.isAllowed, orders.update)
