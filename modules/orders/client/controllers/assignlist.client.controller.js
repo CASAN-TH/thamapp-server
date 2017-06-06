@@ -10,45 +10,33 @@
   function AssignlistController($scope, Users, OrdersService, Authentication) {
     var vm = this;
     vm.authentication = Authentication;
-    vm.orders = OrdersService.query();
+    $scope.ordConfirmed = [];
+    $scope.ordWait = [];
+    $scope.ordReject = [];
+    $scope.assignLength = 0;
+    $scope.acceptLength = 0;
+    $scope.completeLength = 0;
+
+    $scope.loadOrder = function () {
+      vm.orders = OrdersService.query(function (ord) {
+        $scope.ordConfirmed = ord[0].confirmed;
+        $scope.ordWait = ord[0].wait;
+        $scope.ordReject = ord[0].reject;
+        $scope.ordAccept = ord[0].accept;
+        $scope.ordComplete = ord[0].complete;
+
+        $scope.assignlist = $scope.ordConfirmed.concat($scope.ordWait, $scope.ordReject);
+        $scope.assignLength = $scope.assignlist.length;
+        $scope.acceptLength = $scope.ordAccept.length;
+        $scope.completeLength = $scope.ordComplete.length;
+      });
+    };
+    $scope.loadOrder();
+
     vm.accept = accept;
     vm.complete = complete;
     vm.reject = reject;
     vm.addHis = addHis;
-
-    vm.assignlist = function (order) {
-      if (order.namedeliver) {
-        if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'wait deliver') {
-          return true;
-        }
-
-      } else { //jigkoh3 update for meet all order is not have  namedeliver
-        if (order.deliverystatus === 'confirmed' || order.deliverystatus === 'reject') {
-          return true;
-        }
-      }
-    };
-
-    vm.acceptlist = function (order) {
-
-      if (order.namedeliver) {
-        if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'accept') {
-
-          return true;
-        }
-
-      }
-    };
-
-    vm.completelist = function (order) {
-      if (order.namedeliver) {
-        if (order.namedeliver._id === vm.authentication.user._id && order.deliverystatus === 'complete') {
-          return true;
-        }
-
-      }
-    };
-
 
     function accept(item) {
       if (item.namedeliver) {
@@ -59,10 +47,10 @@
       }
 
       vm.addHis(item);
-      item.$update(successCallback, errorCallback);
+      var acceptOrder = new OrdersService(item);
+      acceptOrder.$update(successCallback, errorCallback);
       function successCallback(res) {
-        vm.orders = OrdersService.query();
-        
+        $scope.loadOrder();
       }
 
       function errorCallback(res) {
@@ -80,9 +68,11 @@
       vm.addHis(item);
       item.deliverystatus = 'complete';
       vm.addHis(item);
-      item.$update(successCallback, errorCallback);
+      var completeOrder = new OrdersService(item);
+
+      completeOrder.$update(successCallback, errorCallback);
       function successCallback(res) {
-        vm.orders = OrdersService.query();
+        $scope.loadOrder();
       }
 
       function errorCallback(res) {
@@ -94,7 +84,8 @@
       item.deliverystatus = 'reject';
       item.namedeliver = null;
       vm.addHis(item);
-      item.$update(successCallback, errorCallback);
+      var rejectOrder = new OrdersService(item);
+      rejectOrder.$update(successCallback, errorCallback);
       function successCallback(res) {
         vm.orders = OrdersService.query();
       }

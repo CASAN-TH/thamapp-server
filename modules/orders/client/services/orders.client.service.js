@@ -9,7 +9,7 @@
   OrdersService.$inject = ['$resource'];
 
   function OrdersService($resource) {
-    return $resource('api/orders/:orderId', {
+    return $resource('api/listorder/web/:orderId', {
       orderId: '@_id'
     }, {
       update: {

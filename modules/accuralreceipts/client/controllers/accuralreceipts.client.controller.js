@@ -102,21 +102,19 @@
     function readOrder(deliver) {
       if (vm.accuralreceipt._id) {
         vm.listorders = [];
-        vm.listorder = OrdersService.query(function () {
-          vm.listorder.forEach(function (order) {
+        vm.listorder = OrdersService.query(function (res) {
+          res[0].complete.forEach(function (order) {
             if (order.namedeliver) {
               if (vm.accuralreceipt.namedeliver._id === order.namedeliver._id) {
-                if (order.deliverystatus === 'complete') {
-                  vm.listorders.push(order);
-                }
+                vm.listorders.push(order);
               }
             }
           });
         });
       } else if (deliver) {
         vm.listorders = [];
-        vm.listorder = OrdersService.query(function () {
-          vm.listorder.forEach(function (order) {
+        vm.listorder = OrdersService.query(function (res) {
+          res[0].complete.forEach(function (order) {
             if (order.namedeliver) {
               if (deliver._id === order.namedeliver._id) {
                 if (order.deliverystatus === 'complete') {
@@ -217,7 +215,7 @@
       }
     }
 
-    function updateWaitforConfirmed (){
+    function updateWaitforConfirmed() {
       vm.accuralreceipt.$update(successCallback, errorCallback);
       function successCallback(res) {
         $state.go('ar');

@@ -340,6 +340,16 @@ exports.listorderv2 = function (req, res) {
     cancel: req.cancel
   });
 };
+exports.listorderweb = function (req, res) {
+res.jsonp([{
+    confirmed: req.confirmed,
+    wait: req.wait,
+    accept: req.accept,
+    reject: req.reject,
+    complete: req.complete,
+    cancel: req.cancel
+  }]);
+};
 
 exports.listorder = function (req, res) {
   Order.find().sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
@@ -603,7 +613,7 @@ function sendNewdeliverOrder(order_location) {
     } else {
       var delivertokens = [];
       delivers.forEach(function (deliver) {
-       
+
         //console.log(deliver.user.address);
         if (order_location && deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
           var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);

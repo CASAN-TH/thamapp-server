@@ -18,61 +18,79 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/orders',
       permissions: '*'
     }, {
-        resources: '/api/orders/:orderId',
-        permissions: '*'
-      }, {
-        resources: '/api/listorder',
-        permissions: '*'
-      }, {
-        resources: '/api/listorder/v2',
-        permissions: ['*']
-      }]
+      resources: '/api/orders/:orderId',
+      permissions: '*'
+    }, {
+      resources: '/api/listorder',
+      permissions: '*'
+    }, {
+      resources: '/api/listorder/v2',
+      permissions: ['*']
+    }, {
+      resources: '/api/listorder/web',
+      permissions: ['*']
+    }, {
+      resources: '/api/listorder/web/:orderId',
+      permissions: ['*']
+    }]
   }, {
-      roles: ['deliver'],
-      allows: [{
-        resources: '/api/orders',
-        permissions: '*'
-      }, {
-          resources: '/api/orders/:orderId',
-          permissions: '*'
-        }, {
-          resources: '/api/listorder',
-          permissions: '*'
-        }, {
-          resources: '/api/listorder/v2',
-          permissions: ['*']
-        }]
+    roles: ['deliver'],
+    allows: [{
+      resources: '/api/orders',
+      permissions: '*'
     }, {
-      roles: ['user'],
-      allows: [{
-        resources: '/api/orders',
-        permissions: ['get', 'post']
-      }, {
-          resources: '/api/orders/:orderId',
-          permissions: ['get']
-        }, {
-          resources: '/api/listorder',
-          permissions: ['get']
-        }, {
-          resources: '/api/listorder/v2',
-          permissions: ['get']
-        }]
+      resources: '/api/orders/:orderId',
+      permissions: '*'
     }, {
-      roles: ['guest'],
-      allows: [{
-        resources: '/api/orders',
-        permissions: ['get']
-      }, {
-          resources: '/api/orders/:orderId',
-          permissions: ['get']
-        }, {
-          resources: '/api/listorder',
-          permissions: ['get']
-        }, {
-          resources: '/api/listorder/v2',
-          permissions: ['get']
-        }]
-    }]);
+      resources: '/api/listorder',
+      permissions: '*'
+    }, {
+      resources: '/api/listorder/v2',
+      permissions: ['*']
+    }, {
+      resources: '/api/listorder/web',
+      permissions: ['*']
+    }, {
+      resources: '/api/listorder/web/:orderId',
+      permissions: ['*']
+    }]
+  }, {
+    roles: ['user'],
+    allows: [{
+      resources: '/api/orders',
+      permissions: ['get', 'post']
+    }, {
+      resources: '/api/orders/:orderId',
+      permissions: ['get']
+    }, {
+      resources: '/api/listorder',
+      permissions: ['get']
+    }, {
+      resources: '/api/listorder/v2',
+      permissions: ['get']
+    }, {
+      resources: '/api/listorder/web',
+      permissions: ['get']
+    }]
+  }, {
+    roles: ['guest'],
+    allows: [{
+      resources: '/api/orders',
+      permissions: ['get']
+    }, {
+      resources: '/api/orders/:orderId',
+      permissions: ['get']
+    }, {
+      resources: '/api/listorder',
+      permissions: ['get']
+    }, {
+      resources: '/api/listorder/v2',
+      permissions: ['get']
+    }, {
+      resources: '/api/listorder/web',
+      permissions: ['get']
+    }]
+  }]);
 };
 
 /**
