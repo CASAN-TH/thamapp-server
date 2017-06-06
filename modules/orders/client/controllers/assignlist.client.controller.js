@@ -10,6 +10,8 @@
   function AssignlistController($scope, Users, OrdersService, Authentication) {
     var vm = this;
     vm.authentication = Authentication;
+    $scope.assignlist = [];
+    $scope.assignNewList = [];
     $scope.ordConfirmed = [];
     $scope.ordWait = [];
     $scope.ordReject = [];
@@ -25,8 +27,9 @@
         $scope.ordAccept = ord[0].accept;
         $scope.ordComplete = ord[0].complete;
 
-        $scope.assignlist = $scope.ordConfirmed.concat($scope.ordWait, $scope.ordReject);
-        $scope.assignLength = $scope.assignlist.length;
+        $scope.assignNewList = $scope.ordConfirmed.concat($scope.ordWait, $scope.ordReject);
+        // $scope.assignlist = $scope.waitForBind;
+        $scope.assignLength = $scope.assignNewList.length;
         $scope.acceptLength = $scope.ordAccept.length;
         $scope.completeLength = $scope.ordComplete.length;
       });

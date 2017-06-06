@@ -88,7 +88,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordWait | orderBy: '-deliverystatus' | filter:topsearch">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in assignNewList | orderBy: '-deliverystatus' | filter:topsearch">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
