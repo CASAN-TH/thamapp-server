@@ -10,7 +10,6 @@
   function AssignlistController($scope, Users, OrdersService, Authentication) {
     var vm = this;
     vm.authentication = Authentication;
-    // $scope.assignlist = [];
     $scope.ordConfirmed = [];
     $scope.ordWait = [];
     $scope.ordReject = [];
@@ -85,7 +84,8 @@
       item.deliverystatus = 'reject';
       item.namedeliver = null;
       vm.addHis(item);
-      item.$update(successCallback, errorCallback);
+      var rejectOrder = new OrdersService(item);
+      rejectOrder.$update(successCallback, errorCallback);
       function successCallback(res) {
         vm.orders = OrdersService.query();
       }
