@@ -99,7 +99,7 @@
                         <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>
                         <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
                         <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
-                        <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName && (!order.deliverystatus || !order.deliverystatus === 'accept' || order.deliverystatus === 'reject')"></i>
+                        <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName"></i>
                         <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
                         <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
                       </div>
