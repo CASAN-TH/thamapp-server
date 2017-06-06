@@ -12,6 +12,7 @@ module.exports = function (app) {
   // Orders Routes
   app.route('/api/orders')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.list)
+    // .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderv2)
     .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.create);
 
   app.route('/api/listorder')//.all(ordersPolicy.isAllowed)
