@@ -42,6 +42,7 @@
     };
 
     vm.setLimit = function () {
+      $scope.filterText = '';
       vm.limitTo = 8;
       $scope.leftMoreOrders = vm.orders.length - vm.limitTo;
       $scope.leftMoreConfirmed = $scope.confirmedOrd.length - vm.limitTo;
