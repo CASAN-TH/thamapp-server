@@ -75,6 +75,33 @@
       vm.limitTo += 10;
       $scope.leftMoreCancel -= 10;
     };
+    $scope.loadMore = function () {
+      if ($scope.leftMoreOrders >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreOrders -= 10;
+      }
+      if ($scope.leftMoreConfirmed >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreConfirmed -= 10;
+      }
+      if ($scope.leftMoreAccept >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreAccept -= 10;
+      }
+      if ($scope.leftMoreReject >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreReject -= 10;
+      }
+      if ($scope.leftMoreComplete >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreComplete -= 10;
+      }
+      if ($scope.leftMoreCancel >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreCancel -= 10;
+      }
+
+    };
     $scope.filter = function (topsearch) {
       if (topsearch.length > 4) {
         $scope.filterText = topsearch;

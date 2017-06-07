@@ -61,7 +61,20 @@
       $scope.leftMoreaccept = $scope.acceptLength - vm.limitTo;
       $scope.leftMorecomplete = $scope.completeLength - vm.limitTo;
     };
-
+    $scope.loadMore = function () {
+      if ($scope.leftMoreassign >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreassign -= 10;
+      }
+      if ($scope.leftMoreaccept >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMoreaccept -= 10;
+      }
+      if ($scope.leftMorecomplete >= 0) {
+        vm.limitTo += 10;
+        $scope.leftMorecomplete -= 10;
+      }
+    };
     $scope.filter = function (topsearch) {
       if (topsearch.length > 4) {
         $scope.filterText = topsearch;
