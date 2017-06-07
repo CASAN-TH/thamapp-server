@@ -56,6 +56,7 @@
     };
 
     vm.setLimit = function () {
+      $scope.topsearch = '';
       $scope.filterText = '';
       vm.limitTo = 8;
       $scope.leftMoreassign = $scope.assignLength - vm.limitTo;
