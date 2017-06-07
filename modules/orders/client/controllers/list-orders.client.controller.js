@@ -75,5 +75,20 @@
       vm.limitTo += 10;
       $scope.leftMoreCancel -= 10;
     };
+    $scope.filter = function (topsearch) {
+      if (topsearch.length > 4) {
+        $scope.filterText = topsearch;
+        vm.limitTo = null;
+        $scope.leftMoreOrders = null;
+        $scope.leftMoreConfirmed = null;
+        $scope.leftMoreAccept = null;
+        $scope.leftMoreReject = null;
+        $scope.leftMoreComplete = null;
+        $scope.leftMoreCancel = null;
+      } else {
+        $scope.filterText = '';
+        vm.setLimit();
+      }
+    };
   }
 }());
