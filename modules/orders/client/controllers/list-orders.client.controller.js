@@ -77,31 +77,25 @@
       $scope.leftMoreCancel -= 10;
     };
     $scope.loadMore = function () {
+      vm.limitTo += 1;
       if ($scope.leftMoreOrders >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreOrders -= 10;
+        $scope.leftMoreOrders -= 1;
       }
       if ($scope.leftMoreConfirmed >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreConfirmed -= 10;
+        $scope.leftMoreConfirmed -= 1;
       }
       if ($scope.leftMoreAccept >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreAccept -= 10;
+        $scope.leftMoreAccept -= 1;
       }
       if ($scope.leftMoreReject >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreReject -= 10;
+        $scope.leftMoreReject -= 1;
       }
       if ($scope.leftMoreComplete >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreComplete -= 10;
+        $scope.leftMoreComplete -= 1;
       }
       if ($scope.leftMoreCancel >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreCancel -= 10;
+        $scope.leftMoreCancel -= 1;
       }
-
     };
     $scope.filter = function (topsearch) {
       if (topsearch.length > 4) {
@@ -119,4 +113,4 @@
       }
     };
   }
-} ());
+}());
