@@ -82,9 +82,9 @@ text-align : center;
     outline : none;
 }
 .buttonBlackForm {
-    background-color: #3a4354;
-    color: white;
-    outline : none;
+    background-color: #3a4354 !important;
+    color: white !important;
+    outline : none !important;
 }
 .buttonBlackForm:hover {
     background-color: #3a4354;
@@ -92,9 +92,9 @@ text-align : center;
 }
 
 .buttonRedForm {
-    background-color: #ff5151;
-    color: white;
-    outline : none;
+    background-color: #ff5151 !important;
+    color: white !important;
+    outline : none !important;
 }
 .buttonRedForm:hover {
     background-color: #ff5151;
@@ -102,9 +102,9 @@ text-align : center;
 }
 
 .buttonSkyForm {
-    background-color: #6fbaff;
-    color: white;
-    outline : none;
+    background-color: #6fbaff !important;
+    color: white !important;
+    outline : none !important;
 }
 .buttonSkyForm:hover {
     background-color: #6fbaff;
@@ -131,18 +131,18 @@ text-align : center;
     outline : none;
 }
 .buttonGrayForm  {
-    background-color: gray;
-    color: white;
-    outline : none;
+    background-color: gray !important;
+    color: white !important;
+    outline : none !important;
 }
 .buttonGrayForm:hover {
     background-color: gray;
     color: white;
 }
 .buttonGreenForm  {
-    background-color: #bccc2b;
-    color: white;
-    outline : none;
+    background-color: #bccc2b !important;
+    color: white !important;
+    outline : none !important;
 }
 .buttonGreenForm:hover {
     background-color: #bccc2b;

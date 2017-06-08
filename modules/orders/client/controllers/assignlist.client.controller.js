@@ -64,17 +64,16 @@
       $scope.leftMorecomplete = $scope.completeLength - vm.limitTo;
     };
     $scope.loadMore = function () {
+      vm.limitTo += 1;
+
       if ($scope.leftMoreassign >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreassign -= 10;
+        $scope.leftMoreassign -= 1;
       }
       if ($scope.leftMoreaccept >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMoreaccept -= 10;
+        $scope.leftMoreaccept -= 1;
       }
       if ($scope.leftMorecomplete >= 0) {
-        vm.limitTo += 10;
-        $scope.leftMorecomplete -= 10;
+        $scope.leftMorecomplete -= 1;
       }
     };
     $scope.filter = function (topsearch) {

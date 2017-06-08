@@ -70,7 +70,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get']
     }, {
       resources: '/api/listorder/web',
-      permissions: ['get']
+      permissions: ['get', 'post']
     }]
   }, {
     roles: ['guest'],
