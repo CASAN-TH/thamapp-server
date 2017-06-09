@@ -11,6 +11,7 @@
     var vm = this;
     vm.authentication = Authentication;
 
+    $scope.setTabGreen = 'buttonGreenForm';
     vm.limitTo = 8;
     $scope.Ordersconfirmed = [];
     $scope.Orderswait = [];

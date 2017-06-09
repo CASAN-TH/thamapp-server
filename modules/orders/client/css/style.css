@@ -72,7 +72,13 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonBlack:hover {
+.buttonBlackSet {
+    background-color: #3a4354;
+    color: white;
+    outline : none;
+}
+
+/*.buttonBlack:hover {
     background-color: #3a4354;
     color: white;
 }
@@ -80,7 +86,7 @@ text-align : center;
     background-color: #3a4354;
     color: white;
     outline : none;
-}
+}*/
 .buttonBlackForm {
     background-color: #3a4354 !important;
     color: white !important;
@@ -251,7 +257,12 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonDarkblue:hover {
+.buttonDarkblueSet {
+    background-color: #3a4354;
+    color: white;
+    outline : none;
+}
+/*.buttonDarkblue:hover {
     background-color: #3a4354;
     color: white;
 }
@@ -260,7 +271,7 @@ text-align : center;
     background-color: #3a4354;
     color: white;
     outline : none;
-}
+}*/
 
 .buttonGray {
     background-color: white; 
@@ -270,7 +281,12 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonGray:hover {
+.buttonGraySet {
+    background-color: gray;
+    color: white;
+    outline : none;
+}
+/*.buttonGray:hover {
     background-color: gray;
     color: white;
 }
@@ -279,7 +295,7 @@ text-align : center;
     background-color: gray;
     color: white;
     outline : none;
-}
+}*/
 
 .buttonBlueSky {
     background-color: white; 
@@ -289,7 +305,12 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonBlueSky:hover {
+.buttonBlueSkySet {
+    background-color: #6fbaff;
+    color: white;
+    outline : none;
+}
+/*.buttonBlueSky:hover {
     background-color: #6fbaff;
     color: white;
 }
@@ -298,7 +319,7 @@ text-align : center;
     background-color: #6fbaff;
     color: white;
     outline : none;
-}
+}*/
 
 .buttonRed {
     background-color: white; 
@@ -308,7 +329,13 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonRed:hover {
+.buttonRedSet {
+    background-color: #ff5151;
+    color: white;
+    outline : none;
+}
+
+/*.buttonRed:hover {
     background-color: #ff5151;
     color: white;
 }
@@ -317,7 +344,7 @@ text-align : center;
     background-color: #ff5151;
     color: white;
     outline : none;
-}
+}*/
 
 /* custom inclusion of right, left and below tabs */
 

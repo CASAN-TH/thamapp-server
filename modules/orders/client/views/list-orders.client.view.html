@@ -1,431 +1,429 @@
 <section class="header-height">
   <div infinite-scroll='loadMore()' infinite-scroll-distance='1'>
-    
-  <div class="page-header headerBorder">
-    <h1>รายการสั่งซื้อ</h1>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="tabbable">
-        <div class="row">
-          <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#deliActive" data-target="#deliActive, #showAllDeli" data-toggle="tab" class="active">คนส่งข้าว</a></li>
-            </ul>
-          </div>
-          <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)"
-                aria-describedby="sizing-addon3">
-            </div>
-          </div>
-          <div class="col-md-7 show-xs show-sm hidden-md hidden-lg height5">
-            <div class="input-group input-group-sm">
-              <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
-            </div>
-          </div>
-        </div>
-        <div class="tab-content">
-          <div class="tab-pane active" id="deliActive">
-            <div class="tabbable tabs-left">
-              <div class="row">
-                <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
-                  <div class="nav">
-                    <div ng-click="unactive = true ; statusAll = true">
-                      <a href="#showAllDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.orders.length}}</h3></button></a>
-                    </div>
-                    <div class="text-center"><span>สั่งจอง</span></div>
-                    <div ng-hide="unactive" ng-click="statusAll = false">
-                      <a href="#showConfirmedDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonGreenForm" type="text"><span>รอคนส่ง</span><h3>{{confirmedOrd.length}}</h3></button></a>
-                    </div>
-                    <div ng-show="unactive" ng-click="statusAll = false">
-                      <a href="#showConfirmedDeli" data-toggle="tab"><button  ng-click="vm.setLimit()" class="thumbnail button buttonGreen" type="text"><span>รอคนส่ง</span><h3>{{confirmedOrd.length || 0}}</h3></button></a>
-                    </div>
-                    <div class="text-center"><span>คนส่งข้าว</span></div>
-                    <div ng-click="unactive = true ; statusAll = false">
-                      <a href="#showAcceptDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonBlueSky" type="text"><span>ยอมรับ</span><h3>{{Ordersaccept.length || 0}}</h3></button></a>
-                    </div>
-                    <div ng-click="unactive = true ; statusAll = false">
-                      <a href="#showRejectDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonRed" type="text"><span>ปฏิเสธ</span><h3>{{Ordersreject.length || 0}}</h3></button></a>
-                    </div>
-                    <div class="text-center"><span>จัดส่ง</span></div>
-                    <div ng-click="unactive = true; statusAll = false">
-                      <a href="#showCompleteDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{Orderscomplete.length || 0}}</h3></button></a>
-                    </div>
-                    <div ng-click="unactive = true; statusAll = false">
-                      <a href="#showCancelDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonGray" type="text"><span>ยกเลิกรายการ</span><h3>{{Orderscancel.length || 0}}</h3></button></a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-11">
-                  <div class="col-md-12">
-                    <div class="row hidden-xs hidden-sm show-md show-lg form-group alert alert-info">
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <strong>บิลสั่งซื้อลูกค้า</strong>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <strong>รวม</strong>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                        <strong>รับเงิน</strong>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                      </div>
-                      <div ng-show="statusAll" class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>การจัดส่ง</strong>
-                      </div>
-                      <div ng-hide="statusAll" class="col-xs-3 col-sm-3 col-md-3">
-                        <strong>การจัดส่ง</strong>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <strong>วันที่สั่งซื้อ</strong>
-                      </div>
-                      <div ng-show="statusAll" class="col-xs-1 col-sm-1 col-md-1 text-center">
-                        <strong>สถานะ</strong>
-                      </div>
-                    </div>
-                  </div>
 
-                  <div class="tab-content">
-                    <div class="tab-pane" id="showAllDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:filterText | limitTo: vm.limitTo"
-                        ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
-                              <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 marleft">
-                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='confirmed'">confirmed</p>
-                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='accept'">accept</p>
-                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='reject'">reject</p>
-                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='complete'">complete</p>
-                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='cancel'">cancel</p>
-                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='wait deliver'">wait</p>
-                              
-                              <!--<i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
+    <div class="page-header headerBorder">
+      <h1>รายการสั่งซื้อ</h1>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="tabbable">
+          <div class="row">
+            <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#deliActive" data-target="#deliActive, #showAllDeli" data-toggle="tab" class="active">คนส่งข้าว</a></li>
+              </ul>
+            </div>
+            <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)"
+                  aria-describedby="sizing-addon3">
+              </div>
+            </div>
+            <div class="col-md-7 show-xs show-sm hidden-md hidden-lg height5">
+              <div class="input-group input-group-sm">
+                <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+              </div>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="deliActive">
+              <div class="tabbable tabs-left">
+                <div class="row">
+                  <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
+                    <div class="nav">
+                      <div ng-click="statusAll = true;setTabGreen='';setTabBlueSky='';setTabRed='';setTabDarkblue='';setTabGray=''">
+                        <a href="#showAllDeli" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlack='buttonBlackSet'" class="thumbnail button buttonBlack"  ng-class="setTabBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.orders.length}}</h3></button></a>
+                      </div>
+                      <div class="text-center"><span>สั่งจอง</span></div>
+                      <div ng-click="statusAll = false;setTabBlack='';setTabBlueSky='';setTabRed='';setTabDarkblue='';setTabGray=''">
+                        <a href="#showConfirmedDeli" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenForm'" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>รอคนส่ง</span><h3>{{confirmedOrd.length}}</h3></button></a>
+                      </div>
+                      <div class="text-center"><span>คนส่งข้าว</span></div>
+                      <div ng-click="statusAll = false;setTabGreen='';setTabBlack='';setTabRed='';setTabDarkblue='';setTabGray=''">
+                        <a href="#showAcceptDeli" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet'" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ยอมรับ</span><h3>{{Ordersaccept.length || 0}}</h3></button></a>
+                      </div>
+                      <div ng-click="statusAll = false;setTabGreen='';setTabBlack='';setTabBlueSky='';setTabDarkblue='';setTabGray=''">
+                        <a href="#showRejectDeli" data-toggle="tab"><button ng-click="vm.setLimit();setTabRed='buttonRedSet'" class="thumbnail button buttonRed" ng-class="setTabRed" type="text"><span>ปฏิเสธ</span><h3>{{Ordersreject.length || 0}}</h3></button></a>
+                      </div>
+                      <div class="text-center"><span>จัดส่ง</span></div>
+                      <div ng-click="statusAll = false;setTabGreen='';setTabBlack='';setTabBlueSky='';setTabRed='';setTabGray=''">
+                        <a href="#showCompleteDeli" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet'" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>สำเร็จ</span><h3>{{Orderscomplete.length || 0}}</h3></button></a>
+                      </div>
+                      <div ng-click="statusAll = false;setTabGreen='';setTabBlack='';setTabBlueSky='';setTabRed='';setTabDarkblue=''">
+                        <a href="#showCancelDeli" data-toggle="tab"><button ng-click="vm.setLimit();setTabGray='buttonGraySet'" class="thumbnail button buttonGray" ng-class="setTabGray" type="text"><span>ยกเลิกรายการ</span><h3>{{Orderscancel.length || 0}}</h3></button></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-11">
+                    <div class="col-md-12">
+                      <div class="row hidden-xs hidden-sm show-md show-lg form-group alert alert-info">
+                        <div class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>บิลสั่งซื้อลูกค้า</strong>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <strong>รวม</strong>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                          <strong>รับเงิน</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+                        </div>
+                        <div ng-show="statusAll" class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>การจัดส่ง</strong>
+                        </div>
+                        <div ng-hide="statusAll" class="col-xs-3 col-sm-3 col-md-3">
+                          <strong>การจัดส่ง</strong>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2">
+                          <strong>วันที่สั่งซื้อ</strong>
+                        </div>
+                        <div ng-show="statusAll" class="col-xs-1 col-sm-1 col-md-1 text-center">
+                          <strong>สถานะ</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-content">
+                      <div class="tab-pane" id="showAllDeli">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.orders | filter:filterText | limitTo: vm.limitTo"
+                          ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                                <p class="list-group-item-heading">-</p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
+                                <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 marleft">
+                                <p class="list-group-item-heading" ng-show="order.deliverystatus ==='confirmed'">confirmed</p>
+                                <p class="list-group-item-heading" ng-show="order.deliverystatus ==='accept'">accept</p>
+                                <p class="list-group-item-heading" ng-show="order.deliverystatus ==='reject'">reject</p>
+                                <p class="list-group-item-heading" ng-show="order.deliverystatus ==='complete'">complete</p>
+                                <p class="list-group-item-heading" ng-show="order.deliverystatus ==='cancel'">cancel</p>
+                                <p class="list-group-item-heading" ng-show="order.deliverystatus ==='wait deliver'">wait</p>
+
+                                <!--<i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
                               <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='accept'"></i>
                               <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='reject'"></i>
                               <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='complete'"></i>
                               <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='cancel'"></i>
                               <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>-->
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group" ng-if="leftMoreOrders > 0">
-                        <button type="button" ng-click="vm.loadmoreOrders()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreOrders}}</button>
-                      </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                        <div class="form-group" ng-if="leftMoreOrders > 0">
+                          <button type="button" ng-click="vm.loadmoreOrders()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreOrders}}</button>
+                        </div>
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.acceptDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading">-</p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.rejectDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading">-</p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.completeDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
 
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--cancal-->
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.cancelDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <!--cancal-->
+                        <!--cancal-->
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in vm.cancelDeli | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--cancal-->
 
-                    </div>
-                    <div class="tab-pane active" id="showConfirmedDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in confirmedOrd | filter:filterText | limitTo: vm.limitTo"
-                        ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <!--<span>คนส่งข้าว</span>-->
-                              <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
-                              <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                      </div>
+                      <div class="tab-pane active" id="showConfirmedDeli">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in confirmedOrd | filter:filterText | limitTo: vm.limitTo"
+                          ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                                <p class="list-group-item-heading">-</p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <!--<span>คนส่งข้าว</span>-->
+                                <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
+                                <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <div class="form-group" ng-if="leftMoreConfirmed > 0">
+                          <button type="button" ng-click="vm.loadmoreConfirmed()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreConfirmed}}</button>
+                        </div>
                       </div>
-                      <div class="form-group" ng-if="leftMoreConfirmed > 0">
-                        <button type="button" ng-click="vm.loadmoreConfirmed()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreConfirmed}}</button>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="showAcceptDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Ordersaccept | filter:filterText | limitTo: vm.limitTo"
-                        ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <!--<span>คนส่งข้าว</span>-->
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                      <div class="tab-pane" id="showAcceptDeli">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Ordersaccept | filter:filterText | limitTo: vm.limitTo"
+                          ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                                <p class="list-group-item-heading">-</p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <!--<span>คนส่งข้าว</span>-->
+                                <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <div class="form-group" ng-if="leftMoreAccept > 0">
+                          <button type="button" ng-click="vm.loadmoreAccept()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreAccept}}</button>
+                        </div>
                       </div>
-                      <div class="form-group" ng-if="leftMoreAccept > 0">
-                        <button type="button" ng-click="vm.loadmoreAccept()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreAccept}}</button>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="showRejectDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Ordersreject | filter:filterText | limitTo: vm.limitTo"
-                        ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                              <p class="list-group-item-heading">-</p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <!--<span>คนส่งข้าว</span>-->
-                              <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                      <div class="tab-pane" id="showRejectDeli">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Ordersreject | filter:filterText | limitTo: vm.limitTo"
+                          ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                                <p class="list-group-item-heading">-</p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <!--<span>คนส่งข้าว</span>-->
+                                <i class="fa fa-user text-danger" aria-hidden="true" ng-show="!order.namedeliver"></i>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <div class="form-group" ng-if="leftMoreReject > 0">
+                          <button type="button" ng-click="vm.loadmoreReject()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreReject}}</button>
+                        </div>
                       </div>
-                      <div class="form-group" ng-if="leftMoreReject > 0">
-                        <button type="button" ng-click="vm.loadmoreReject()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreReject}}</button>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="showCompleteDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Orderscomplete | filter:filterText | limitTo: vm.limitTo"
-                        ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                      <div class="tab-pane" id="showCompleteDeli">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Orderscomplete | filter:filterText | limitTo: vm.limitTo"
+                          ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
+                        <div class="form-group" ng-if="leftMoreComplete > 0">
+                          <button type="button" ng-click="vm.loadmoreComplete()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreComplete}}</button>
+                        </div>
                       </div>
-                      <div class="form-group" ng-if="leftMoreComplete > 0">
-                        <button type="button" ng-click="vm.loadmoreComplete()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreComplete}}</button>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="showCancelDeli">
-                      <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Orderscancel | filter:filterText | limitTo: vm.limitTo"
-                        ui-sref="orders.edit({ orderId: order._id })">
-                        <div class="col-md-12">
-                          <div class="row form-group">
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                              <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                              <img width="25%">
-                              <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-1 col-sm-1 col-md-1 text-center">
-                              <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                            </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
-                              <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
-                              <label ng-bind="order.namedeliver.displayName"></label>
-                            </div>
-                            <div class="col-xs-2 col-sm-2 col-md-2">
-                              <time am-time-ago="order.created"></time>
+                      <div class="tab-pane" id="showCancelDeli">
+                        <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in Orderscancel | filter:filterText | limitTo: vm.limitTo"
+                          ui-sref="orders.edit({ orderId: order._id })">
+                          <div class="col-md-12">
+                            <div class="row form-group">
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                                <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                                <img width="25%">
+                                <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-1 col-sm-1 col-md-1 text-center">
+                                <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                              </div>
+                              <div class="col-xs-3 col-sm-3 col-md-3">
+                                <i class="fa fa-user text-info" aria-hidden="true" ng-show="order.namedeliver"></i>
+                                <label ng-bind="order.namedeliver.displayName"></label>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 col-md-2">
+                                <time am-time-ago="order.created"></time>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="form-group" ng-if="leftMoreCancel > 0">
-                        <button type="button" ng-click="vm.loadmoreCancel()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreCancel}}</button>
+                        <div class="form-group" ng-if="leftMoreCancel > 0">
+                          <button type="button" ng-click="vm.loadmoreCancel()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreCancel}}</button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -436,30 +434,29 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.orders | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
-    <div class="col-md-12">
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">
-          <h5 class="list-group-item-heading" ng-bind="order.docno"></h5>
-          <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
-          <label class="list-group-item-text">Amount: </label>
-          <label class="list-group-item-text" ng-bind="order.totalamount | number:2"></label><br>
-          <label class="list-group-item-text">สถานะ: </label>
-          <label class="list-group-item-text" ng-bind="order.deliverystatus"></label><br>
-          </strong>
-        </a>
+    <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="order in vm.orders | filter:filterText" ui-sref="orders.edit({ orderId: order._id })">
+      <div class="col-md-12">
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action">
+            <h5 class="list-group-item-heading" ng-bind="order.docno"></h5>
+            <h4 class="list-group-item-text" ng-bind="order.shipping.firstname + ' '+ order.shipping.lastname"></h4>
+            <label class="list-group-item-text">Amount: </label>
+            <label class="list-group-item-text" ng-bind="order.totalamount | number:2"></label><br>
+            <label class="list-group-item-text">สถานะ: </label>
+            <label class="list-group-item-text" ng-bind="order.deliverystatus"></label><br>
+            </strong>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
-        No Orders yet, why don't you <a ui-sref="orders.create">create one</a>?
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-warning text-center" ng-if="vm.orders.$resolved && !vm.orders.length">
+          No Orders yet, why don't you <a ui-sref="orders.create">create one</a>?
+        </div>
       </div>
     </div>
-  </div>
 
-</div>
+  </div>
 </section>
