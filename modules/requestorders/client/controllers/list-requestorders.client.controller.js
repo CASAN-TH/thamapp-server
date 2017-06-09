@@ -5,9 +5,9 @@
     .module('requestorders')
     .controller('RequestordersListController', RequestordersListController);
 
-  RequestordersListController.$inject = ['$state', 'RequestordersService', 'Authentication', '$window'];
+  RequestordersListController.$inject = ['$scope', '$state', 'RequestordersService', 'Authentication', '$window'];
 
-  function RequestordersListController($state, RequestordersService, Authentication, $window) {
+  function RequestordersListController($scope, $state, RequestordersService, Authentication, $window) {
     var vm = this;
     vm.authentication = Authentication;
     vm.requestProduct = requestProduct;
@@ -15,6 +15,7 @@
     vm.reject = reject;
     vm.addHis = addHis;
     vm.newRequest = newRequest;
+    $scope.setTabGreen = 'buttonGreenSet';
 
     function reject(item) {
       var conf = confirm('ปฏิเสธรายการ');

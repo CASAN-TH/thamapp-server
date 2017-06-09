@@ -18,6 +18,7 @@
     $scope.assignLength = 0;
     $scope.acceptLength = 0;
     $scope.completeLength = 0;
+    $scope.setTabGreen = 'buttonGreenSet';
 
     vm.limitTo = 8;
     $scope.loadOrder = function () {

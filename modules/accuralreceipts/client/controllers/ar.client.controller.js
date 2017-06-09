@@ -5,14 +5,15 @@
     .module('accuralreceipts')
     .controller('ArController', ArController);
 
-  ArController.$inject = ['$state', 'AccuralreceiptsService', 'Authentication', '$window'];
+  ArController.$inject = ['$scope', '$state', 'AccuralreceiptsService', 'Authentication', '$window'];
 
-  function ArController($state, AccuralreceiptsService, Authentication, $window) {
+  function ArController($scope, $state, AccuralreceiptsService, Authentication, $window) {
     var vm = this;
     vm.authentication = Authentication;
     vm.accuralreceipts = AccuralreceiptsService.query();
     vm.statusWaitconfirmed = statusWaitconfirmed;
     vm.addHis = addHis;
+    $scope.setTabBlueSky = 'buttonBlueSkySet';
 
     function addHis(data) {
       data.historystatus.push({

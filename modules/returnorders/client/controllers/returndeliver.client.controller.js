@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -13,6 +13,7 @@
     vm.returnorders = ReturnordersService.query();
     vm.returnProduct = returnProduct;
     vm.addHis = addHis;
+    $scope.setTabGreen = 'buttonGreenSet';
 
 
     vm.returnlist = function (req) {

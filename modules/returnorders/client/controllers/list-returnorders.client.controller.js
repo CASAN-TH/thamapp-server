@@ -5,9 +5,9 @@
     .module('returnorders')
     .controller('ReturnordersListController', ReturnordersListController);
 
-  ReturnordersListController.$inject = ['$state', 'ReturnordersService', 'Authentication', '$window'];
+  ReturnordersListController.$inject = ['$scope', '$state', 'ReturnordersService', 'Authentication', '$window'];
 
-  function ReturnordersListController($state, ReturnordersService, Authentication, $window) {
+  function ReturnordersListController($scope, $state, ReturnordersService, Authentication, $window) {
     var vm = this;
     vm.authentication = Authentication;
     vm.returnProduct = returnProduct;
@@ -16,6 +16,7 @@
     vm.addHis = addHis;
     vm.newReturn = newReturn;
     vm.receive = receive;
+    $scope.setTabGreen = 'buttonGreenSet';
 
     function receive(item) {
       var conf = confirm('ได้รับรายการแจ้งคืน');

@@ -5,14 +5,15 @@
     .module('accuralreceipts')
     .controller('AccuralreceiptsListController', AccuralreceiptsListController);
 
-  AccuralreceiptsListController.$inject = ['$state', 'AccuralreceiptsService', 'Authentication', '$window'];
+  AccuralreceiptsListController.$inject = ['$scope', '$state', 'AccuralreceiptsService', 'Authentication', '$window'];
 
-  function AccuralreceiptsListController($state, AccuralreceiptsService, Authentication, $window) {
+  function AccuralreceiptsListController($scope, $state, AccuralreceiptsService, Authentication, $window) {
     var vm = this;
     vm.authentication = Authentication;
     vm.accuralreceipts = AccuralreceiptsService.query();
     vm.statusWaitreview = statusWaitreview;
     vm.addHis = addHis;
+    $scope.setTabGreen = 'buttonGreenSet';
     vm.remove = function (itm) {
       if ($window.confirm('คุณต้องการลบรายการนี้ ?')) {
         itm.$remove(successCallback, errorCallback);

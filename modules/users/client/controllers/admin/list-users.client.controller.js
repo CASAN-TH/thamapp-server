@@ -5,9 +5,10 @@ angular.module('users.admin').controller('UserListController', ['$scope', '$filt
     $scope.listuser = [];
     $scope.listtran = [];
     $scope.listdeli = [];
+    $scope.setTabGreen = 'buttonGreenSet';
     // console.log($scope.listuser);
     Admin.query(function (data) {
-     data.forEach(function (data) {
+      data.forEach(function (data) {
         if (data.roles[0] === 'user') {
           $scope.listuser.push(data);
         } else if (data.roles[0] === 'deliver') {

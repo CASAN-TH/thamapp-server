@@ -14,6 +14,7 @@
     vm.requestProduct = requestProduct;
     vm.responsed = responsed;
     vm.addHis = addHis;
+    $scope.setTabGreen = 'buttonGreenSet';
 
 
     vm.requestlist = function (req) {

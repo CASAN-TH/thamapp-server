@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllReturn" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>แจ้งคืน</span><h3>{{returnlist.length || 0}}</h3></button></a>
-              <a href="#showAllReponse" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>ตอบกลับ</span><h3>{{responselist.length || 0}}</h3></button></a>
-              <a href="#showAllReceived" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>ได้รับ</span><h3>{{receivedlist.length || 0}}</h3></button></a>
+              <a href="#showAllReturn" data-toggle="tab"><button ng-click="setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>แจ้งคืน</span><h3>{{returnlist.length || 0}}</h3></button></a>
+              <a href="#showAllReponse" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ตอบกลับ</span><h3>{{responselist.length || 0}}</h3></button></a>
+              <a href="#showAllReceived" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabBlueSky='';setTabGreen=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>ได้รับ</span><h3>{{receivedlist.length || 0}}</h3></button></a>
             </div>
           </div>
           <!---->

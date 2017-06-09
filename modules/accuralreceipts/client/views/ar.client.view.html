@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#waitconfirmed" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>รอยืนยัน</span><h3>{{listwaitcomfirmed.length || 0}}</h3></button></a>
-              <a href="#confirmed" data-toggle="tab"><button class="thumbnail button buttonPurple" type="text"><span>ยืนยันแล้ว</span><h3>{{listconfirmed.length || 0}}</h3></button></a>
-              <a href="#receipt" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{listreceipt.length || 0}}</h3></button></a>
+              <a href="#waitconfirmed" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabPurple='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>รอยืนยัน</span><h3>{{listwaitcomfirmed.length || 0}}</h3></button></a>
+              <a href="#confirmed" data-toggle="tab"><button ng-click="setTabPurple='buttonPurpleSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonPurple" ng-class="setTabPurple" type="text"><span>ยืนยันแล้ว</span><h3>{{listconfirmed.length || 0}}</h3></button></a>
+              <a href="#receipt" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabBlueSky='';setTabPurple=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{listreceipt.length || 0}}</h3></button></a>
             </div>
           </div>
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">

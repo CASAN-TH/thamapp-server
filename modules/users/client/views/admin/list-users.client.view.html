@@ -92,9 +92,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllActive" data-toggle="tab"><button class="thumbnail button buttonGreen" type="text"><span>ผู้ใช้</span><h3>{{listuser.length || 0}}</h3></button></a>
-              <a href="#showAllAccept" data-toggle="tab"><button class="thumbnail button buttonBlueSky" type="text"><span>คนส่งข้าว</span><h3>{{listdeli.length || 0}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button class="thumbnail button buttonDarkblue" type="text"><span>บริษัทขนส่ง</span><h3>{{listtran.length || 0}}</h3></button></a>
+              <a href="#showAllActive" data-toggle="tab"><button ng-click="setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>ผู้ใช้</span><h3>{{listuser.length || 0}}</h3></button></a>
+              <a href="#showAllAccept" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSky';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>คนส่งข้าว</span><h3>{{listdeli.length || 0}}</h3></button></a>
+              <a href="#showAllComplete" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblue';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>บริษัทขนส่ง</span><h3>{{listtran.length || 0}}</h3></button></a>
             </div>
           </div>
           <div class="row show-xs show-sm hidden-md hidden-lg marginT">

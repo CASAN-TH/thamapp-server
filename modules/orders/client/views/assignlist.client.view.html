@@ -41,9 +41,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllActive" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonGreen" type="text"><span>งานใหม่</span><h3>{{assignLength}}</h3></button></a>
-              <a href="#showAllAccept" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptLength}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{completeLength}}</h3></button></a>
+              <a href="#showAllActive" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>งานใหม่</span><h3>{{assignLength}}</h3></button></a>
+              <a href="#showAllAccept" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptLength}}</h3></button></a>
+              <a href="#showAllComplete" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>สำเร็จ</span><h3>{{completeLength}}</h3></button></a>
             </div>
           </div>
           <!---->

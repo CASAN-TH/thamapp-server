@@ -14,6 +14,7 @@
     vm.requestProduct = requestProduct;
     vm.receive = receive;
     vm.addHis = addHis;
+    $scope.setTabBlueSky = 'buttonBlueSkySet';
 
 
     vm.requestlist = function (req) {

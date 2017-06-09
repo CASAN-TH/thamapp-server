@@ -126,7 +126,13 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonGreen:hover {
+.buttonGreenSet {
+    background-color: #bccc2b;
+    color: white;
+    outline : none;
+}
+
+/*.buttonGreen:hover {
     background-color: #bccc2b;
     color: white;
 }
@@ -135,7 +141,7 @@ text-align : center;
     background-color: #bccc2b;
     color: white;
     outline : none;
-}
+}*/
 .buttonGrayForm  {
     background-color: gray !important;
     color: white !important;
@@ -229,7 +235,12 @@ text-align : center;
     border-width: 0px 0px 0px 2px;
 }
 
-.buttonPurple:hover {
+.buttonPurpleSet {
+    background-color: #a3618d;
+    color: white;
+    outline : none;
+}
+/*.buttonPurple:hover {
     background-color: #a3618d;
     color: white;
 }
@@ -238,7 +249,7 @@ text-align : center;
     background-color: #a3618d;
     color: white;
     outline : none;
-}
+}*/
 .buttonPurpleForm  {
     background-color: #a3618d;
     color: white;

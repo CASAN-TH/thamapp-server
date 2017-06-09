@@ -14,6 +14,7 @@
     vm.returnProduct = returnProduct;
     vm.responsed = responsed;
     vm.addHis = addHis;
+    $scope.setTabGreen = 'buttonGreenSet';
 
 
     vm.returnlist = function (req) {
