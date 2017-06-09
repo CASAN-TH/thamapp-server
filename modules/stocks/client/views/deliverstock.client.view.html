@@ -8,23 +8,23 @@
       </div>-->
     </h1>
   </div>
-  <!--<div class="row">
+  <div class="row">
     <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
       
     </div>
-    <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
+    <!--<div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
       <div class="input-group input-group-sm">
         <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
         <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
       </div>
-    </div>
+    </div>-->
     <div class="col-md-7 show-xs show-sm hidden-md hidden-lg height5">
       <div class="input-group input-group-sm">
         <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
         <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
       </div>
     </div>
-  </div>-->
+  </div>
   <div class="row hidden-xs show-sm show-md show-lg">
     <div class="col-md-12">
       <div class="row form-group alert alert-success">
@@ -84,7 +84,7 @@
           <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading" ng-bind="prod.outcome"></span>
           </div>
-         <div class="col-xs-1 col-sm-1 col-md-1">
+          <div class="col-xs-1 col-sm-1 col-md-1">
             <span class="list-group-item-heading" ng-bind="prod.wip"></span>
           </div>
           <div class="col-xs-2 col-sm-2 col-md-2">
@@ -95,16 +95,68 @@
     </div>
   </div>
   <!---->
-<div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="stock in  vm.stocks | filter:vm.liststock">
+  <div class="row show-xs hidden-sm hidden-md hidden-lg" ng-repeat="stock in  vm.stocks | filter:vm.liststock">
     <div class="col-md-12">
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action">
+      <div class="row marginT10" ng-repeat="prod in stock.stocks | filter:{product : { name:topsearch}} | orderBy:'product.name'">
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <img src="{{prod.product.images}}" width="50px;">
+            <img width="10px;">
+          </div>
+          <div class="col-xs-9 col-sm-9 col-md-9">
+            <div class="row">
+              <div class="col-12">
+                <label class="list-group-item-heading" ng-bind="prod.product.name"></label>
+              </div>
+              <div class="col-12">
+                <span class="list-group-item-heading">รับเข้า : {{prod.income}}</span>
+              </div>
+              <div class="col-12">
+                <span class="list-group-item-heading">รับคืน : {{prod.returnord}}</span>
+              </div>
+              <div class="col-12">
+               <span class="list-group-item-heading">จ่ายแล้ว : {{prod.ap}}</span>
+              </div>
+              <div class="col-12">
+               <span class="list-group-item-heading">ขายออก : {{prod.outcome}}</span>
+              </div>
+              <div class="col-12">
+                <span class="list-group-item-heading">จอง : {{prod.wip}}</span>
+              </div>
+              <div class="col-12">
+                <span class="list-group-item-heading">คงเหลือ : {{prod.income - (prod.outcome + prod.wip + prod.ap + prod.returnord)}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="borderBTMT"></div>
+
+        <!--<div class="col-xs-1 col-sm-1 col-md-1">
+          <span class="list-group-item-heading" ng-bind="prod.income"></span>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <span class="list-group-item-heading" ng-bind="prod.returnord"></span>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <span class="list-group-item-heading" ng-bind="prod.ap"></span>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <span class="list-group-item-heading" ng-bind="prod.outcome"></span>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <span class="list-group-item-heading" ng-bind="prod.wip"></span>
+        </div>
+        <div class="col-xs-1 col-sm-1 col-md-1">
+          <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip + prod.ap + prod.returnord)}}</span>
+        </div>-->
+      </div>
+
+      <!--<div class="list-group">-->
+      <!--<a href="#" class="list-group-item list-group-item-action">
           <div>
             <img src="{{stock.namedeliver.profileImageURL}}" class="img-circle3" width="35px;">
             <img width="15px;">
             <label class="list-group-item-heading" ng-bind="stock.namedeliver.displayName"></label>
-            <!--<img width="45px;">
-            <span class="list-group-item-heading">({{stock.namedeliver.address.tel}})</span>-->
           </div>
 
           <div class="row marginT10" ng-repeat="prod in stock.stocks | orderBy:'product.name'">
@@ -130,8 +182,8 @@
               <span class="list-group-item-heading">{{prod.income - (prod.outcome + prod.wip + prod.ap + prod.returnord)}}</span>
             </div>
           </div>
-        </a>
-      </div>
+        </a>-->
+      <!--</div>-->
     </div>
   </div>
 </section>

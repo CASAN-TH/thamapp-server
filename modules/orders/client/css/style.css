@@ -73,9 +73,9 @@ text-align : center;
 }
 
 .buttonBlackSet {
-    background-color: #3a4354;
-    color: white;
-    outline : none;
+    background-color: #3a4354 !important;
+    color: white !important;
+    outline : none !important;
 }
 
 /*.buttonBlack:hover {
@@ -127,9 +127,9 @@ text-align : center;
 }
 
 .buttonGreenSet {
-    background-color: #bccc2b;
-    color: white;
-    outline : none;
+    background-color: #bccc2b !important;
+    color: white !important;
+    outline : none !important;
 }
 
 /*.buttonGreen:hover {
@@ -236,9 +236,9 @@ text-align : center;
 }
 
 .buttonPurpleSet {
-    background-color: #a3618d;
-    color: white;
-    outline : none;
+    background-color: #a3618d !important;
+    color: white !important;
+    outline : none !important;
 }
 /*.buttonPurple:hover {
     background-color: #a3618d;
@@ -269,9 +269,9 @@ text-align : center;
 }
 
 .buttonDarkblueSet {
-    background-color: #3a4354;
-    color: white;
-    outline : none;
+    background-color: #3a4354 !important;
+    color: white !important;
+    outline : none !important;
 }
 /*.buttonDarkblue:hover {
     background-color: #3a4354;
@@ -293,9 +293,9 @@ text-align : center;
 }
 
 .buttonGraySet {
-    background-color: gray;
-    color: white;
-    outline : none;
+    background-color: gray !important;
+    color: white !important;
+    outline : none !important;
 }
 /*.buttonGray:hover {
     background-color: gray;
@@ -317,9 +317,9 @@ text-align : center;
 }
 
 .buttonBlueSkySet {
-    background-color: #6fbaff;
-    color: white;
-    outline : none;
+    background-color: #6fbaff !important;
+    color: white !important;
+    outline : none !important;
 }
 /*.buttonBlueSky:hover {
     background-color: #6fbaff;
@@ -341,9 +341,9 @@ text-align : center;
 }
 
 .buttonRedSet {
-    background-color: #ff5151;
-    color: white;
-    outline : none;
+    background-color: #ff5151 !important;
+    color: white !important;
+    outline : none !important;
 }
 
 /*.buttonRed:hover {
