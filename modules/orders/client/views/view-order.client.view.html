@@ -148,7 +148,7 @@
               <button class="form-control btn btn-block buttonGreenForm" ng-click="vm.acceptOrder()" ui-sref="assignlist">ยอมรับ</button>
 
             </div>
-            <div class="col-xs-2"  ng-if="vm.order.deliverystatus === 'accept'">
+            <div class="col-xs-2" ng-if="vm.order.deliverystatus === 'accept'">
               <button class="form-control btn btn-block buttonRedForm" ng-click="vm.rejectOrder()" ui-sref="assignlist">ปฏิเสธ</button>
             </div>
             <div class="col-xs-2" ng-show="vm.order.deliverystatus === 'accept'">
@@ -263,19 +263,21 @@
         <div class="row show-xs hidden-sm hidden-md hidden-lg marginT">
           <div class="col-xs-8">
             <div ng-show="vm.authentication.user.roles[0]=='deliver' ">
-              <button type="button " class="btn buttonBlackForm " ui-sref="assignlist "><i class="fa fa-long-arrow-left" aria-hidden="true "></i></button>
+              <button type="button " class="btn buttonBlackForm " ui-sref="assignlist "><span class="glyphicon glyphicon-chevron-left"></span></button>
             </div>
           </div>
+          <div class="col-xs-2" ng-show="vm.order.deliverystatus==='wait deliver' ">
+          </div>
           <div class="col-xs-2 " ng-show="vm.order.deliverystatus==='wait deliver' ">
-            <button type="button " class="btn buttonGreenForm " ng-click="vm.acceptOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></span></button>
+            <button type="button " class="btn buttonGreenForm " ng-click="vm.acceptOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-ok"></span></button>
           </div>
           <div class="col-xs-2 " ng-show="vm.order.deliverystatus==='accept' ">
-            <button type="button " class="btn buttonRedForm " ng-click="vm.rejectOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-trash "></span></button>
+            <button type="button " class="btn buttonRedForm " ng-click="vm.rejectOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-remove"></span></button>
           </div>
           <div class="col-xs-2" ng-show="vm.order.deliverystatus==='accept' ">
           </div>
           <div class="col-xs-2" ng-show="vm.order.deliverystatus==='accept' ">
-            <button type="button " class="btn buttonSkyForm " ng-click="vm.complete() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></button>
+            <button type="button " class="btn buttonSkyForm " ng-click="vm.complete() " ui-sref="assignlist"><span class="glyphicon glyphicon-ok"></button>
           </div>
         </div>
       </div>

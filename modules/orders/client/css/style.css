@@ -713,6 +713,9 @@ body1 {
 .marright {
     margin-left: 25px
 }
+.marleft99 {
+    margin-left: -10px
+}
 #pdf {
 text-align: left;
 }
