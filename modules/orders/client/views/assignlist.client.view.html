@@ -216,7 +216,7 @@
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-3 col-sm-3 col-md-3">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                        <img class="img-circle3" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
                         <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
                         <img width="25%">
                         <span class="list-group-item-heading" ng-bind="order.docno"></span>
@@ -246,9 +246,9 @@
           <div class="row show-xs show-sm hidden-md hidden-lg">
             <div class="tab-content">
               <div class="tab-pane active" id="showAllActivemb">
-                <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.assignlist  as assignlist">
+                <div class="col-md-12" ng-repeat="order in assignNewList | orderBy: '-deliverystatus' | filter:filterText">
                   <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a class="list-group-item list-group-item-action">
                       <div ui-sref="orders.view({ orderId: order._id })">
                         <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
                       </div>
@@ -267,7 +267,7 @@
                         </div>
                         <div class="list-group-item-heading textRight">
                           <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
-                          <button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>
+                          <!--<button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>-->
                         </div>
                       </div>
                     </a>
@@ -275,7 +275,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllAcceptmb">
-                <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.acceptlist as acceptlist">
+                <div class="col-md-12" ng-repeat="order in ordAccept | filter:filterText">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="orders.view({ orderId: order._id })">
@@ -302,7 +302,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllCompletemb">
-                <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.completelist as completelist">
+                <div class="col-md-12" ng-repeat="order in ordComplete | filter:filterText">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="orders.view({ orderId: order._id })">
