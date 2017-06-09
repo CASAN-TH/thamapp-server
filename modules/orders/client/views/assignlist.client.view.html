@@ -1,330 +1,352 @@
 <section>
-    <div infinite-scroll='loadMore()' infinite-scroll-distance='1'>
-  <div class="page-header">
-    <h1>รายการส่งข้าว</h1>
-  </div>
-
-  <div class="row show-xs show-sm hidden-md hidden-lg marginT">
-    <div class="col-xs-8">
-      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+  <div infinite-scroll='loadMore()' infinite-scroll-distance='1'>
+    <div class="page-header">
+      <h1>รายการส่งข้าว</h1>
     </div>
-    <div class="col-xs-4">
-      <a class="btn buttonCreate" ui-sref="orders.create">
+
+    <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+      <div class="col-xs-8">
+        <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+      </div>
+      <div class="col-xs-4">
+        <a class="btn buttonCreate" ui-sref="orders.create">
         <span>สร้างใหม่</span>
       </a>
+      </div>
     </div>
-  </div>
 
-  <div class="tab-content">
-    <div class="row">
-      <div class="col-md-5">
+    <div class="tab-content">
+      <div class="row">
+        <div class="col-md-5">
 
-      </div>
-      <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
-        <div class="input-group input-group-sm">
-          <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)"
-            aria-describedby="sizing-addon3">
         </div>
-      </div>
-      <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
-        <div class="textCenter">
-          <a class="btn buttonCreate" ui-sref="orders.create">
+        <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
+          <div class="input-group input-group-sm">
+            <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
+            <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)"
+              aria-describedby="sizing-addon3">
+          </div>
+        </div>
+        <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
+          <div class="textCenter">
+            <a class="btn buttonCreate" ui-sref="orders.create">
             <i class="fa fa-file-o" aria-hidden="true"></i>
             <span>สร้างใหม่</span>
           </a>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="tab-pane active" id="allActive">
-      <div class="tabbable tabs-left">
-        <div class="row">
-          <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
-            <div class="nav">
-              <a href="#showAllActive" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>งานใหม่</span><h3>{{assignLength}}</h3></button></a>
-              <a href="#showAllAccept" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptLength}}</h3></button></a>
-              <a href="#showAllComplete" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>สำเร็จ</span><h3>{{completeLength}}</h3></button></a>
+      <div class="tab-pane active" id="allActive">
+        <div class="tabbable tabs-left">
+          <div class="row">
+            <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
+              <div class="nav">
+                <a href="#showAllActive" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>งานใหม่</span><h3>{{assignLength}}</h3></button></a>
+                <a href="#showAllAccept" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ของฉัน</span><h3>{{acceptLength}}</h3></button></a>
+                <a href="#showAllComplete" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>สำเร็จ</span><h3>{{completeLength}}</h3></button></a>
+              </div>
             </div>
-          </div>
-          <!---->
-          <div class="row show-xs show-sm hidden-md hidden-lg marginT">
-            <div class="col-xs-4">
-              <a href="#showAllActivemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">งานใหม่</button></a>
+            <!---->
+            <div class="row show-xs show-sm hidden-md hidden-lg marginT">
+              <div class="col-xs-4">
+                <a href="#showAllActivemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">งานใหม่</button></a>
+              </div>
+              <div class="col-xs-4">
+                <a href="#showAllAcceptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">ของฉัน</button></a>
+              </div>
+              <div class="col-xs-4">
+                <a href="#showAllCompletemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">สำเร็จ</button></a>
+              </div>
             </div>
-            <div class="col-xs-4">
-              <a href="#showAllAcceptmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonBlueSky">ของฉัน</button></a>
-            </div>
-            <div class="col-xs-4">
-              <a href="#showAllCompletemb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonDarkblue">สำเร็จ</button></a>
-            </div>
-          </div>
 
-          <!---->
-          <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
-            <!--tap-->
-            <div class="tab-content">
-              <div class="tab-pane active" id="showAllActive">
-                <div class="row">
-                  <div class="col-md-12">
+            <!---->
+            <div class="col-md-11 hidden-xs hidden-sm show-md show-lg">
+              <!--tap-->
+              <div class="tab-content">
+                <div class="tab-pane active" id="showAllActive">
+                  <div class="row">
                     <div class="col-md-12">
-                      <div class="row form-group alert alert-info">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                          <strong>บิลสั่งซื้อลูกค้า</strong>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รวม</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>รับเงิน</strong>
-                        </div>
-                        <div class="col-xs-5 col-sm-5 col-md-5" align="center">
-                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>ยอมรับ</strong>
-                        </div>
-                        <!--<div class="col-xs-1 col-sm-1 col-md-1">
+                      <div class="col-md-12">
+                        <div class="row form-group alert alert-info">
+                          <div class="col-xs-3 col-sm-3 col-md-3">
+                            <strong>บิลสั่งซื้อลูกค้า</strong>
+                          </div>
+                          <div class="col-xs-2 col-sm-2 col-md-2">
+                            <strong>รวม</strong>
+                          </div>
+                          <div class="col-xs-1 col-sm-1 col-md-1">
+                            <strong>รับเงิน</strong>
+                          </div>
+                          <div class="col-xs-5 col-sm-5 col-md-5" align="center">
+                            <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+                          </div>
+                          <div class="col-xs-1 col-sm-1 col-md-1">
+                            <strong>ยอมรับ</strong>
+                          </div>
+                          <!--<div class="col-xs-1 col-sm-1 col-md-1">
                           <strong>ยกเลิก</strong>
                         </div>-->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in assignNewList | orderBy: '-deliverystatus' | filter:filterText | limitTo: vm.limitTo">
-                  <div class="col-md-12">
-                    <div class="row form-group">
-                      <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                        <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                        <img width="25%">
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                        <!--<i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>-->
-                        <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
-                        <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
-                        <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName"></i>
-                        <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
-                        <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading">-</p>
-                      </div>
-                      <div class="col-xs-5 col-sm-5 col-md-5" ui-sref="orders.view({ orderId: order._id })" align="center">
-                        <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
-                      </div>
-                      <!--<div class="col-xs-1 col-sm-1 col-md-1">
+                  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in assignNewList | orderBy: '-deliverystatus' | filter:filterText | limitTo: vm.limitTo">
+                    <div class="col-md-12">
+                      <div class="row form-group">
+                        <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
+                          <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                          <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                          <img width="25%">
+                          <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                          <!--<i class="fa fa-user text-info" aria-hidden="true" ng-show="order.deliverystatus === 'accept' && order.delivery.deliveryid === '0'"></i>-->
+                          <i class="fa fa-user text-danger" aria-hidden="true" ng-show="order.deliverystatus === 'reject' && !order.namedeliver.displayName && (!order.delivery.deliveryid || order.delivery.deliveryid === '0')"></i>
+                          <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && !order.namedeliver.displayName  && (!order.deliverystatus || !order.deliverystatus === 'reject')"></i>
+                          <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '0' && order.namedeliver.displayName"></i>
+                          <i class="fa fa-envelope text-info" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && order.deliverystatus === 'accept'"></i>
+                          <i class="fa fa-envelope text-warning" aria-hidden="true" ng-show="order.delivery.deliveryid === '1' && (!order.deliverystatus || !order.deliverystatus === 'accept')"></i>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
+                          <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
+                          <p class="list-group-item-heading">-</p>
+                        </div>
+                        <div class="col-xs-5 col-sm-5 col-md-5" ui-sref="orders.view({ orderId: order._id })" align="center">
+                          <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                        <!--<div class="col-xs-1 col-sm-1 col-md-1">
                         <button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>
                       </div>-->
+                      </div>
                     </div>
                   </div>
-                </div>
 
 
-                <div class="form-group" ng-if="leftMoreassign > 0">
-                  <button type="button" ng-click="vm.loadmoreAssign()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreassign}}</button>
+                  <div class="form-group" ng-if="leftMoreassign > 0">
+                    <button type="button" ng-click="vm.loadmoreAssign()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreassign}}</button>
+                  </div>
                 </div>
-              </div>
-              <div class="tab-pane" id="showAllAccept">
-                <div class="row">
-                  <div class="col-md-12">
+                <div class="tab-pane" id="showAllAccept">
+                  <div class="row">
                     <div class="col-md-12">
-                      <div class="row form-group alert alert-info">
+                      <div class="col-md-12">
+                        <div class="row form-group alert alert-info">
+                          <div class="col-xs-3 col-sm-3 col-md-3">
+                            <strong>บิลสั่งซื้อลูกค้า</strong>
+                          </div>
+                          <div class="col-xs-2 col-sm-2 col-md-2">
+                            <strong>รวม</strong>
+                          </div>
+                          <div class="col-xs-1 col-sm-1 col-md-1">
+                            <strong>รับเงิน</strong>
+                          </div>
+                          <div class="col-xs-4 col-sm-4 col-md-4" align="center">
+                            <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+                          </div>
+                          <div class="col-xs-1 col-sm-1 col-md-1">
+                            <strong>จัดส่ง</strong>
+                          </div>
+                          <div class="col-xs-1 col-sm-1 col-md-1">
+                            <strong>สำเร็จ</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordAccept | filter:filterText | limitTo: vm.limitTo">
+                    <div class="col-md-12">
+                      <div class="row form-group">
+                        <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
+                          <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                          <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                          <img width="25%">
+                          <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
+                          <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
+                          <p class="list-group-item-heading">-</p>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="orders.view({ orderId: order._id })" align="center">
+                          <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
+                          <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
+                        </div>
+                        <div class="col-xs-1 col-sm-1 col-md-1">
+                          <button type="button" class="btn btn-info" ng-click="vm.complete(order)"><span class="glyphicon glyphicon-ok"></span></button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group" ng-if="leftMoreaccept > 0">
+                    <button type="button" ng-click="vm.loadmoreAccept()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreaccept}}</button>
+                  </div>
+                </div>
+                <div class="tab-pane" id="showAllComplete">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12">
+                        <div class="row form-group alert alert-info">
+                          <div class="col-xs-3 col-sm-3 col-md-3">
+                            <strong>บิลสั่งซื้อลูกค้า</strong>
+                          </div>
+                          <div class="col-xs-2 col-sm-2 col-md-2">
+                            <strong>รวม</strong>
+                          </div>
+                          <div class="col-xs-1 col-sm-1 col-md-1">
+                            <strong>รับเงิน</strong>
+                          </div>
+                          <div class="col-xs-4 col-sm-4 col-md-4" align="center">
+                            <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+                          </div>
+                          <div class="col-xs-2 col-sm-2 col-md-2" align="center">
+                            <strong>วันที่สั่งซื้อ</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordComplete | filter:filterText | limitTo: vm.limitTo"
+                    ui-sref="orders.view({ orderId: order._id })">
+                    <div class="col-md-12">
+                      <div class="row form-group">
                         <div class="col-xs-3 col-sm-3 col-md-3">
-                          <strong>บิลสั่งซื้อลูกค้า</strong>
+                          <img class="img-circle3" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
+                          <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
+                          <img width="25%">
+                          <span class="list-group-item-heading" ng-bind="order.docno"></span>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รวม</strong>
+                          <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                         </div>
                         <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>รับเงิน</strong>
+                          <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
                         </div>
                         <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>สำเร็จ</strong>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordAccept | filter:filterText | limitTo: vm.limitTo">
-                  <div class="col-md-12">
-                    <div class="row form-group">
-                      <div class="col-xs-3 col-sm-3 col-md-3" ui-sref="orders.view({ orderId: order._id })">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                        <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                        <img width="25%">
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
-                        <p class="list-group-item-heading">-</p>
-                      </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4" ui-sref="orders.view({ orderId: order._id })" align="center">
-                        <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1" ui-sref="orders.view({ orderId: order._id })">
-                        <i class="fa fa-truck fa-2x" aria-hidden="true"></i>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-info" ng-click="vm.complete(order)"><span class="glyphicon glyphicon-check"></span></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group" ng-if="leftMoreaccept > 0">
-                  <button type="button" ng-click="vm.loadmoreAccept()" class="btn btn-primary btn-block">เหลืออีก {{leftMoreaccept}}</button>
-                </div>
-              </div>
-              <div class="tab-pane" id="showAllComplete">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="col-md-12">
-                      <div class="row form-group alert alert-info">
-                        <div class="col-xs-3 col-sm-3 col-md-3">
-                          <strong>บิลสั่งซื้อลูกค้า</strong>
+                          <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
                         </div>
                         <div class="col-xs-2 col-sm-2 col-md-2">
-                          <strong>รวม</strong>
-                        </div>
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                          <strong>รับเงิน</strong>
-                        </div>
-                        <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                          <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
-                        </div>
-                        <div class="col-xs-2 col-sm-2 col-md-2" align="center">
-                          <strong>วันที่สั่งซื้อ</strong>
+                          <time am-time-ago="order.created"></time>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="order in ordComplete | filter:filterText | limitTo: vm.limitTo"
-                  ui-sref="orders.view({ orderId: order._id })">
-                  <div class="col-md-12">
-                    <div class="row form-group">
-                      <div class="col-xs-3 col-sm-3 col-md-3">
-                        <img class="img-circle" src="{{order.user.profileImageURL}}" width="15%"><img width="10%">
-                        <span class="list-group-item-heading" ng-bind="order.user.displayName"></span><br>
-                        <img width="25%">
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                      </div>
-                      <div class="col-xs-1 col-sm-1 col-md-1">
-                        <p class="list-group-item-heading" ng-bind="order.totalamount | number:2"></p>
-                      </div>
-                      <div class="col-xs-4 col-sm-4 col-md-4" align="center">
-                        <p class="list-group-item-heading dotpyForm" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
-                      </div>
-                      <div class="col-xs-2 col-sm-2 col-md-2">
-                        <time am-time-ago="order.created"></time>
-                      </div>
-                    </div>
+                  <div class="form-group" ng-if="leftMorecomplete > 0">
+                    <button type="button" ng-click="vm.loadmoreComplete()" class="btn btn-primary btn-block">เหลืออีก {{leftMorecomplete}}</button>
                   </div>
-                </div>
-                <div class="form-group" ng-if="leftMorecomplete > 0">
-                  <button type="button" ng-click="vm.loadmoreComplete()" class="btn btn-primary btn-block">เหลืออีก {{leftMorecomplete}}</button>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row show-xs show-sm hidden-md hidden-lg">
-            <div class="tab-content">
-              <div class="tab-pane active" id="showAllActivemb">
-                <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.assignlist  as assignlist">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
-                      </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span class="list-group-item-heading">Or: </span>
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                      </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
-                      </div>
-                      <div>
+            <div class="row show-xs show-sm hidden-md hidden-lg">
+              <div class="tab-content">
+                <div class="tab-pane active" id="showAllActivemb">
+                  <div class="col-md-12" ng-repeat="order in assignNewList | orderBy: '-deliverystatus' | filter:filterText">
+                    <div class="list-group">
+                      <a class="list-group-item list-group-item-action">
+                        <div class="row" ui-sref="orders.view({ orderId: order._id })">
+                          <div class="col-xs-6">
+                            <label class="marleft99" ng-bind="order.user.displayName"></label>
+                          </div>
+                          <div class="col-xs-6" align="right">
+                            <time am-time-ago="order.created"></time>
+                          </div>
+                        </div>
+                        <div ui-sref="orders.view({ orderId: order._id })">
+                          <span class="list-group-item-heading">Or: </span>
+                          <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                        </div>
+                        <div ui-sref="orders.view({ orderId: order._id })">
+                          <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+                        </div>
                         <div>
-                          <label class="list-group-item-heading">รวม: </label>
-                          <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
-                          <!--<label ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></label>-->
+                          <div>
+                            <label class="list-group-item-heading">รวม: </label>
+                            <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
+                            <!--<label ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></label>-->
+                          </div>
+                          <div class="list-group-item-heading textRight">
+                            <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-ok"></span></button>
+                            <!--<button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>-->
+                          </div>
                         </div>
-                        <div class="list-group-item-heading textRight">
-                          <button type="button" class="btn buttonGreenForm" ng-click="vm.accept(order)"><span class="glyphicon glyphicon-check"></span></button>
-                          <button type="button" class="btn buttonRedForm" ng-click="vm.reject(order)"><span class="glyphicon glyphicon-trash"></span></button>
-                        </div>
-                      </div>
-                    </a>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="tab-pane" id="showAllAcceptmb">
-                <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.acceptlist as acceptlist">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
-                      </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span class="list-group-item-heading">Or: </span>
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                      </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
-                      </div>
-                      <div>
+                <div class="tab-pane" id="showAllAcceptmb">
+                  <div class="col-md-12" ng-repeat="order in ordAccept | filter:filterText">
+                    <div class="list-group">
+                      <a class="list-group-item list-group-item-action">
+                        <!--<div ui-sref="orders.view({ orderId: order._id })">
+                          <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
+                        </div>-->
+                        <div class="row" ui-sref="orders.view({ orderId: order._id })">
+                          <div class="col-xs-6">
+                            <label class="marleft99" ng-bind="order.user.displayName"></label>
+                          </div>
+                          <div class="col-xs-6" align="right">
+                            <time am-time-ago="order.created"></time>
+                          </div>
+                        </div>
+                        <div ui-sref="orders.view({ orderId: order._id })">
+                          <span class="list-group-item-heading">Or: </span>
+                          <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                        </div>
+                        <div ui-sref="orders.view({ orderId: order._id })">
+                          <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+                        </div>
                         <div>
-                          <label class="list-group-item-heading">รวม: </label>
-                          <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
+                          <div>
+                            <label class="list-group-item-heading">รวม: </label>
+                            <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
+                          </div>
+                          <div class="list-group-item-heading textRight">
+                            <button type="button" class="btn btn-info" ng-click="vm.complete(order)"><span class="glyphicon glyphicon-ok"></span></button>
+                          </div>
                         </div>
-                        <div class="list-group-item-heading textRight">
-                          <button type="button" class="btn btn-info" ng-click="vm.complete(order)"><span class="glyphicon glyphicon-check"></span></button>
-                        </div>
-                      </div>
-                    </a>
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="tab-pane" id="showAllCompletemb">
-                <div class="col-md-12" ng-repeat="order in vm.orders | filter:topsearch | filter:vm.completelist as completelist">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
-                      </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span class="list-group-item-heading">Or: </span>
-                        <span class="list-group-item-heading" ng-bind="order.docno"></span>
-                      </div>
-                      <div ui-sref="orders.view({ orderId: order._id })">
-                        <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
-                      </div>
-                      <div>
+                <div class="tab-pane" id="showAllCompletemb">
+                  <div class="col-md-12" ng-repeat="order in ordComplete | filter:filterText">
+                    <div class="list-group">
+                      <a class="list-group-item list-group-item-action">
+                        <!--<div ui-sref="orders.view({ orderId: order._id })">
+                          <label class="list-group-item-heading" ng-bind="order.user.displayName"></label>
+                        </div>-->
+                        <div class="row" ui-sref="orders.view({ orderId: order._id })">
+                          <div class="col-xs-6">
+                            <label class="marleft99" ng-bind="order.user.displayName"></label>
+                          </div>
+                          <div class="col-xs-6" align="right">
+                            <time am-time-ago="order.created"></time>
+                          </div>
+                        </div>
+                        <div ui-sref="orders.view({ orderId: order._id })">
+                          <span class="list-group-item-heading">Or: </span>
+                          <span class="list-group-item-heading" ng-bind="order.docno"></span>
+                        </div>
+                        <div ui-sref="orders.view({ orderId: order._id })">
+                          <span ui-sref="orders.view({ orderId: order._id })" class="list-group-item-heading" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></span>
+                        </div>
                         <div>
-                          <label class="list-group-item-heading">รับเงิน: </label>
-                          <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
+                          <div>
+                            <label class="list-group-item-heading">รับเงิน: </label>
+                            <label class="list-group-item-heading" ng-bind="order.totalamount | number:2"></label>
+                          </div>
+                          <div class="list-group-item-heading textRight">
+                            <label class="list-group-item-heading" ng-bind="order.created | date:'dd/MM/yyyy'"></label>
+                          </div>
                         </div>
-                        <div class="list-group-item-heading textRight">
-                          <label class="list-group-item-heading" ng-bind="order.created | date:'dd/MM/yyyy'"></label>
-                        </div>
-                      </div>
-                    </a>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -333,9 +355,5 @@
         </div>
       </div>
     </div>
-
-
-
-  </div>
   </div>
 </section>
