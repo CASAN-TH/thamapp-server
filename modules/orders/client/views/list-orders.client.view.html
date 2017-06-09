@@ -33,28 +33,28 @@
               <div class="row">
                 <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
                   <div class="nav">
-                    <div ng-click="unactive = true">
+                    <div ng-click="unactive = true ; statusAll = true">
                       <a href="#showAllDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonBlack" type="text"><span>ทั้งหมด</span><h3>{{vm.orders.length}}</h3></button></a>
                     </div>
                     <div class="text-center"><span>สั่งจอง</span></div>
-                    <div ng-hide="unactive">
+                    <div ng-hide="unactive" ng-click="statusAll = false">
                       <a href="#showConfirmedDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonGreenForm" type="text"><span>รอคนส่ง</span><h3>{{confirmedOrd.length}}</h3></button></a>
                     </div>
-                    <div ng-show="unactive">
+                    <div ng-show="unactive" ng-click="statusAll = false">
                       <a href="#showConfirmedDeli" data-toggle="tab"><button  ng-click="vm.setLimit()" class="thumbnail button buttonGreen" type="text"><span>รอคนส่ง</span><h3>{{confirmedOrd.length || 0}}</h3></button></a>
                     </div>
                     <div class="text-center"><span>คนส่งข้าว</span></div>
-                    <div ng-click="unactive = true">
+                    <div ng-click="unactive = true ; statusAll = false">
                       <a href="#showAcceptDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonBlueSky" type="text"><span>ยอมรับ</span><h3>{{Ordersaccept.length || 0}}</h3></button></a>
                     </div>
-                    <div ng-click="unactive = true">
+                    <div ng-click="unactive = true ; statusAll = false">
                       <a href="#showRejectDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonRed" type="text"><span>ปฏิเสธ</span><h3>{{Ordersreject.length || 0}}</h3></button></a>
                     </div>
                     <div class="text-center"><span>จัดส่ง</span></div>
-                    <div ng-click="unactive = true">
+                    <div ng-click="unactive = true; statusAll = false">
                       <a href="#showCompleteDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonDarkblue" type="text"><span>สำเร็จ</span><h3>{{Orderscomplete.length || 0}}</h3></button></a>
                     </div>
-                    <div ng-click="unactive = true">
+                    <div ng-click="unactive = true; statusAll = false">
                       <a href="#showCancelDeli" data-toggle="tab"><button ng-click="vm.setLimit()" class="thumbnail button buttonGray" type="text"><span>ยกเลิกรายการ</span><h3>{{Orderscancel.length || 0}}</h3></button></a>
                     </div>
                   </div>
@@ -74,11 +74,17 @@
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
                       </div>
-                      <div class="col-xs-3 col-sm-3 col-md-3">
+                      <div ng-show="statusAll" class="col-xs-2 col-sm-2 col-md-2">
+                        <strong>การจัดส่ง</strong>
+                      </div>
+                      <div ng-hide="statusAll" class="col-xs-3 col-sm-3 col-md-3">
                         <strong>การจัดส่ง</strong>
                       </div>
                       <div class="col-xs-2 col-sm-2 col-md-2">
                         <strong>วันที่สั่งซื้อ</strong>
+                      </div>
+                      <div ng-show="statusAll" class="col-xs-1 col-sm-1 col-md-1 text-center">
+                        <strong>สถานะ</strong>
                       </div>
                     </div>
                   </div>
@@ -104,13 +110,28 @@
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <p class="list-group-item-heading dotpy" ng-bind="order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province  + ' ' + order.shipping.postcode"></p>
                             </div>
-                            <div class="col-xs-3 col-sm-3 col-md-3">
+                            <div class="col-xs-2 col-sm-2 col-md-2">
                               <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
                               <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
                               <label ng-bind="order.namedeliver.displayName"></label>
                             </div>
                             <div class="col-xs-2 col-sm-2 col-md-2">
                               <time am-time-ago="order.created"></time>
+                            </div>
+                            <div class="col-xs-1 col-sm-1 col-md-1 marleft">
+                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='confirmed'">confirmed</p>
+                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='accept'">accept</p>
+                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='reject'">reject</p>
+                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='complete'">complete</p>
+                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='cancel'">cancel</p>
+                              <p class="list-group-item-heading" ng-show="order.deliverystatus ==='wait deliver'">wait</p>
+                              
+                              <!--<i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
+                              <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='accept'"></i>
+                              <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='reject'"></i>
+                              <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='complete'"></i>
+                              <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='cancel'"></i>
+                              <i class="fa fa-circle text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>-->
                             </div>
                           </div>
                         </div>

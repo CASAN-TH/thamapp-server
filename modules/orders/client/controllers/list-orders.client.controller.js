@@ -42,6 +42,7 @@
     };
 
     vm.setLimit = function () {
+      $scope.topsearch = '';
       $scope.filterText = '';
       vm.limitTo = 8;
       $scope.leftMoreOrders = vm.orders.length - vm.limitTo;
@@ -109,7 +110,13 @@
         $scope.leftMoreCancel = null;
       } else {
         $scope.filterText = '';
-        vm.setLimit();
+        vm.limitTo = 8;
+        $scope.leftMoreOrders = vm.orders.length - vm.limitTo;
+        $scope.leftMoreConfirmed = $scope.confirmedOrd.length - vm.limitTo;
+        $scope.leftMoreAccept = $scope.Ordersaccept.length - vm.limitTo;
+        $scope.leftMoreReject = $scope.Ordersreject.length - vm.limitTo;
+        $scope.leftMoreComplete = $scope.Orderscomplete.length - vm.limitTo;
+        $scope.leftMoreCancel = $scope.Orderscancel.length - vm.limitTo;
       }
     };
   }

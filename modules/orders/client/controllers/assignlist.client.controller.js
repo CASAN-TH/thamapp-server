@@ -85,7 +85,10 @@
         $scope.leftMorecomplete = null;
       } else {
         $scope.filterText = '';
-        vm.setLimit();
+        vm.limitTo = 8;
+        $scope.leftMoreassign = $scope.assignLength - vm.limitTo;
+        $scope.leftMoreaccept = $scope.acceptLength - vm.limitTo;
+        $scope.leftMorecomplete = $scope.completeLength - vm.limitTo;
       }
     };
 
