@@ -74,7 +74,7 @@
                         <div ng-repeat="deli in vm.delivers | filter:topsearch">
                           <li class="row list-group-item">
                             <div class="col-xs-3">
-                              <img src="{{deli.profileImageURL}}" class="img-circle" width="50px">
+                              <img src="{{deli.profileImageURL}}" class="img-circle3" width="50px">
                             </div>
                             <div class="col-xs-7">
                               <img width="5%"> <label>{{deli.displayName}}</label>
@@ -167,7 +167,7 @@
                         </ul>
                         <ul class="list-group">
                           <div ng-repeat="cust in vm.customers | filter:topsearch">
-                            <li class="list-group-item"><img src="{{cust.profileImageURL}}" class="img-circle" width="50px">
+                            <li class="list-group-item"><img src="{{cust.profileImageURL}}" class="img-circle3" width="50px">
                               <img width="5%"> {{cust.displayName}}
                               <button type="button" class="pull-right btn btn-primary" data-dismiss="modal" ng-click="vm.selectCustomer(cust)">เลือก</button></li>
                           </div>
@@ -258,7 +258,7 @@
               </div>
               <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="itm in order.items">
                 <div class="col-xs-3 col-sm-3 col-md-3">
-                  <img src="{{itm.product.images}}" class="img-circle" width="45px">
+                  <img src="{{itm.product.images}}" class="img-circle3" width="45px">
                 </div>
                 <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
                   <span>{{itm.product.name}}</span>
@@ -334,7 +334,7 @@
                       <div ng-repeat="itm in order.items">
                         <div class="row">
                           <div class="col-xs-3 col-sm-3 col-md-3">
-                            <img src="{{itm.product.images}}" class="img-circle" width="25px">
+                            <img src="{{itm.product.images}}" class="img-circle3" width="25px">
                           </div>
                           <div class="col-xs-3 col-sm-3 col-md-3 marginT5">
                             <span>{{itm.product.name}}</span>
@@ -634,7 +634,7 @@
                               <div ng-repeat="deli in vm.delivers | filter:topsearch">
                                 <li class="row list-group-item">
                                   <div class="col-xs-3">
-                                    <img src="{{deli.profileImageURL}}" class="img-circle" width="50px">
+                                    <img src="{{deli.profileImageURL}}" class="img-circle3" width="50px">
                                   </div>
                                   <div class="col-xs-7">
                                     <img width="5%"> <label>{{deli.displayName}}</label>

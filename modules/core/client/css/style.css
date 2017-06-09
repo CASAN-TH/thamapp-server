@@ -1712,6 +1712,14 @@ div.dt-button-info {
     width: 150%;
     height: 150%;
 }
+
+.img-circle3 {
+  border-radius: 50%;
+    max-width: 35px;
+    max-height: 35px;
+    width: 100px;
+    height: 100px;
+}
 .btn-circle {
   width: 30px;
   height: 30px;
