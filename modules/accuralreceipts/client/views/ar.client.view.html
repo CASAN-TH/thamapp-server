@@ -48,14 +48,18 @@
             <!--<div class="col-xs-3">
               <a href="#waitreviewmb" data-toggle="tab"><button type="text" class="btn btn-block btn-md buttonGreen">รอตรวจสอบ</button></a>
             </div>-->
-            <div class="col-xs-4">
-              <a href="#waitconfirmedmb" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabPurple='';setTabDarkblue=''" class="btn btn-block btn-md buttonBlueSky" ng-class="setTabBlueSky" type="text">รอยืนยัน</button></a>
-            </div>
-            <div class="col-xs-4">
-              <a href="#confirmedmb" data-toggle="tab"><button ng-click="setTabPurple='buttonPurpleSet';setTabBlueSky='';setTabDarkblue=''" class="btn btn-block btn-md buttonPurple" ng-class="setTabPurple" type="text">ยืนยันแล้ว</button></a>
-            </div>
-            <div class="col-xs-4">
-              <a href="#receiptmb" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabBlueSky='';setTabPurple=''" class="btn btn-block btn-md buttonDarkblue" ng-class="setTabDarkblue" type="text">รับเงินแล้ว</button></a>
+            <div class="col-xs-12">
+              <div class="textCenter">
+                <span>
+              <a href="#waitconfirmedmb" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabPurple='';setTabDarkblue=''" class="btn btn-md tabMB buttonBlueSky" ng-class="setTabBlueSky" type="text">รอยืนยัน</button></a>
+              </span>
+                <span>
+              <a href="#confirmedmb" data-toggle="tab"><button ng-click="setTabPurple='buttonPurpleSet';setTabBlueSky='';setTabDarkblue=''" class="btn btn-md tabMB buttonPurple" ng-class="setTabPurple" type="text">ยืนยันแล้ว</button></a>
+              </span>
+                <span>
+              <a href="#receiptmb" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabBlueSky='';setTabPurple=''" class="btn btn-md tabMB buttonDarkblue" ng-class="setTabDarkblue" type="text">รับเงินแล้ว</button></a>
+              </span>
+              </div>
             </div>
           </div>
 
@@ -313,43 +317,78 @@
               <div class="tab-pane " id="waitreviewmb">
                 <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.listwaitreview as listwaitreview"
                   ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div>
-                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
-                      </div>
+                  <!--<div class="list-group">-->
+                  <!--<a href="#" class="list-group-item list-group-item-action">-->
+                  <div class="row">
 
-                      <div>
-                        <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
-                      </div>
-                      <div>
-                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
-                      </div>
-                    </a>
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                      <img src="{{data.namedeliver.profileImageURL}}" width="50px;">
+                      <img width="10px;">
+                    </div>
+
                   </div>
+                  <div>
+                    <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
+                  </div>
+
+                  <div>
+                    <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
+                  </div>
+                  <div>
+                    <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
+                  </div>
+                  <!--</a>-->
+                  <!--</div>-->
                 </div>
               </div>
               <div class="tab-pane active" id="waitconfirmedmb">
                 <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.listwaitcomfirmed as listwaitcomfirmed">
-                  <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
-                        <div>
-                          <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
-                        </div>
-                        <div>
-                          <label class="list-group-item-heading" ng-bind="'ชื่อคนส่งข้าว'+ ' ' + data.namedeliver.displayName"></label>
-                        </div>
-                        <div>
-                          <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
-                        </div>
+                  <!--<div class="list-group">-->
+                  <!--<a href="#" class="list-group-item list-group-item-action">-->
+                  <div class="row marginT" ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
+                    <div class="col-xs-2 col-sm-2 col-md-2 marginT10">
+                      <img src="{{data.namedeliver.profileImageURL}}" class="img-circle3" width="50px;">
+                      <!--<img width="10px;">-->
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                      <!--<div>
+                        <label class="list-group-item-heading" ng-bind="'รหัสใบแจ้งหนี้'+ ' ' + data.docno"></label>
+                      </div>-->
+                      <div>
+                        <label class="list-group-item-heading" ng-bind="data.namedeliver.displayName"></label>
                       </div>
-                      <div class="list-group-item-heading textRight">
-                        <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitconfirmed(data)"><span class="glyphicon glyphicon-check"></span></button>
-                        <button type="button" class="btn btn-warning" ui-sref="accuralreceipts.view({ accuralreceiptId: data._id })"><span class="glyphicon glyphicon-save-file"></span></button>
+                      <div>
+                        <span class="list-group-item-heading" ng-bind="data.namedeliver.address.address +' '+ data.namedeliver.address.district +' '+ data.namedeliver.address.subdistrict +' '+ data.namedeliver.address.province +' '+ data.namedeliver.address.postcode +' '+ '('+data.namedeliver.address.tel+')'"></span>
                       </div>
-                    </a>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4" align="right">
+                      <div>
+                        <span>
+                          <time am-time-ago="data.created"></time>
+                        </span>
+                      </div>
+                      <div>
+                        <label>
+                          {{data.totalamount | number:2 || 0}} ฿
+                        </label>
+                      </div>
+                      <div>
+                        
+                      </div>
+
+                    </div>
                   </div>
+                  
+                  <div class="list-group-item-heading textRight">
+                    <button type="button" class="btn buttonGreenForm" ng-click="vm.statusWaitconfirmed(data)">
+                      <!--<span class="glyphicon glyphicon-check"></span>--> ยืนยัน
+                      </button>
+                    <button type="button" class="btn btn-warning" ui-sref="accuralreceipts.view({ accuralreceiptId: data._id })"><span class="glyphicon glyphicon-save-file"></span></button>
+                  </div>
+
+                  <div class="borderBTMT"></div>
+                  <!--</a>-->
+                  <!--</div>-->
                 </div>
               </div>
               <div class="tab-pane" id="confirmedmb">
