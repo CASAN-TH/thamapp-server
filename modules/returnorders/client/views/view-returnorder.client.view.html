@@ -208,19 +208,19 @@
         <div class="row show-xs hidden-sm hidden-md hidden-lg marginT">
           <div class="col-xs-8">
             <div ng-show="vm.authentication.user.roles[0]=='deliver' ">
-              <button type="button " class="btn buttonBlackForm " ui-sref="assignlist "><i class="fa fa-long-arrow-left" aria-hidden="true "></i></button>
+              <button type="button " class="btn buttonBlackForm " ui-sref="returndeliver "><span class="glyphicon glyphicon-chevron-left"></span></button>
             </div>
           </div>
           <div class="col-xs-2 " ng-show="vm.returnorder.deliverystatus==='wait deliver' ">
-            <button type="button " class="btn buttonGreenForm " ng-click="vm.acceptOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></span></button>
+            <button type="button " class="btn buttonGreenForm " ng-click="vm.acceptOrder() " ui-sref="returndeliver"><span class="glyphicon glyphicon-check "></span></button>
           </div>
           <div class="col-xs-2 " ng-show="vm.returnorder.deliverystatus==='wait deliver' ">
-            <button type="button " class="btn buttonRedForm " ng-click="vm.rejectOrder() " ui-sref="assignlist"><span class="glyphicon glyphicon-trash "></span></button>
+            <button type="button " class="btn buttonRedForm " ng-click="vm.rejectOrder() " ui-sref="returndeliver"><span class="glyphicon glyphicon-trash "></span></button>
           </div>
           <div class="col-xs-2" ng-show="vm.returnorder.deliverystatus==='accept' ">
           </div>
           <div class="col-xs-2" ng-show="vm.returnorder.deliverystatus==='accept' ">
-            <button type="button " class="btn buttonSkyForm " ng-click="vm.complete() " ui-sref="assignlist"><span class="glyphicon glyphicon-check "></button>
+            <button type="button " class="btn buttonSkyForm " ng-click="vm.complete() " ui-sref="returndeliver"><span class="glyphicon glyphicon-check "></button>
           </div>
         </div>
       </div>
