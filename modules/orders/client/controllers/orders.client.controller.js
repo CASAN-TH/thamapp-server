@@ -56,6 +56,20 @@
     vm.removeQty = removeQty;
     vm.cancelOrder = cancelOrder;
     vm.updatedata = updatedata;
+
+    vm.setLimit = function () {
+      $scope.topsearch = '';
+      $scope.filterText = '';
+    };
+
+    $scope.filter = function (topsearch) {
+      if (topsearch.length > 4) {
+        $scope.filterText = topsearch;
+      } else {
+        $scope.filterText = '';
+      }
+    };
+    
     if (vm.order.items) {
       vm.order.items = vm.order.items;
     } else {

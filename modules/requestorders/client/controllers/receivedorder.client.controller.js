@@ -16,6 +16,19 @@
     vm.addHis = addHis;
     $scope.setTabBlueSky = 'buttonBlueSkySet';
 
+    vm.setLimit = function () {
+      $scope.topsearch = '';
+      $scope.filterText = '';
+    };
+
+    $scope.filter = function (topsearch) {
+      if (topsearch.length > 4) {
+        $scope.filterText = topsearch;
+      } else {
+        $scope.filterText = '';
+      }
+    };
+
 
     vm.requestlist = function (req) {
       if (req.namedeliver._id === vm.authentication.user._id && req.deliverystatus === 'request') {

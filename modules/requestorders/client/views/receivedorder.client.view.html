@@ -5,7 +5,7 @@
 
   <div class="row show-xs show-sm hidden-md hidden-lg marginT">
     <div class="col-xs-12">
-      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+      <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)">
     </div>
     <!--<div class="col-xs-4">
       <a class="btn buttonCreate" ui-sref="orders.create">
@@ -22,7 +22,7 @@
       <div class="col-md-7 hidden-xs hidden-sm show-md show-lg">
         <div class="input-group input-group-sm">
           <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+          <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)" aria-describedby="sizing-addon3">
         </div>
       </div>
       <!--<div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllRequest" data-toggle="tab"><button ng-click="setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>ร้องขอ</span><h3>{{requestlist.length || 0}}</h3></button></a>
-              <a href="#showAllReponse" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ตอบกลับ</span><h3>{{responselist.length || 0}}</h3></button></a>
-              <a href="#showAllReceived" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>ได้รับ</span><h3>{{receivedlist.length || 0}}</h3></button></a>
+              <a href="#showAllRequest" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>ร้องขอ</span><h3>{{requestlist.length || 0}}</h3></button></a>
+              <a href="#showAllReponse" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ตอบกลับ</span><h3>{{responselist.length || 0}}</h3></button></a>
+              <a href="#showAllReceived" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>ได้รับ</span><h3>{{receivedlist.length || 0}}</h3></button></a>
             </div>
           </div>
           <!---->
@@ -49,13 +49,13 @@
             <div class="col-xs-12">
               <div class="textCenter">
                 <span>
-                  <a href="#showAllRequestmb" data-toggle="tab"><button ng-click="setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" type="text" class="btn btn-md tabMB buttonGreen" ng-class="setTabGreen">ร้องขอ</button></a>
+                  <a href="#showAllRequestmb" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" type="text" class="btn btn-md tabMB buttonGreen" ng-class="setTabGreen">ร้องขอ</button></a>
                 </span>
                 <span>
-                  <a href="#showAllReponsemb" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" type="text" class="btn btn-md tabMB buttonBlueSky" ng-class="setTabBlueSky">ตอบกลับ</button></a>
+                  <a href="#showAllReponsemb" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" type="text" class="btn btn-md tabMB buttonBlueSky" ng-class="setTabBlueSky">ตอบกลับ</button></a>
                 </span>
                 <span>
-                  <a href="#showAllReceivedmb" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" type="text" class="btn btn-md tabMB buttonDarkblue" ng-class="setTabDarkblue">ได้รับ</button></a>
+                  <a href="#showAllReceivedmb" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" type="text" class="btn btn-md tabMB buttonDarkblue" ng-class="setTabDarkblue">ได้รับ</button></a>
                 </span>
               </div>
             </div>
@@ -92,7 +92,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="request in vm.requestorders | filter:topsearch | filter:vm.requestlist as requestlist">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="request in vm.requestorders | filter:filterText | filter:vm.requestlist as requestlist">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <!--<div class="col-xs-2 col-sm-2 col-md-2">
@@ -147,7 +147,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.requestorders | filter:topsearch | filter:vm.responselist as responselist">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.requestorders | filter:filterText | filter:vm.responselist as responselist">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -202,8 +202,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.requestorders | filter:topsearch | filter:vm.receivedlist as receivedlist"
-                  ui-sref="orders.view({ orderId: order._id })">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.requestorders | filter:filterText | filter:vm.receivedlist as receivedlist">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div class="col-xs-2 col-sm-2 col-md-2">
@@ -234,7 +233,7 @@
           <div class="row show-xs show-sm hidden-md hidden-lg">
             <div class="tab-content">
               <div class="tab-pane" id="showAllRequestmb">
-                <div class="col-md-12" ng-repeat="request in vm.requestorders | filter:topsearch | filter:vm.requestlist as requestlist">
+                <div class="col-md-12" ng-repeat="request in vm.requestorders | filter:filterText | filter:vm.requestlist as requestlist">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <!--<div>
@@ -259,7 +258,7 @@
                 </div>
               </div>
               <div class="tab-pane active" id="showAllReponsemb">
-                <div class="col-md-12" ng-repeat="response in vm.requestorders | filter:topsearch | filter:vm.responselist as responselist">
+                <div class="col-md-12" ng-repeat="response in vm.requestorders | filter:filterText | filter:vm.responselist as responselist">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div>
@@ -285,7 +284,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllReceivedmb">
-                <div class="col-md-12" ng-repeat="received in vm.requestorders | filter:topsearch | filter:vm.receivedlist as receivedlist">
+                <div class="col-md-12" ng-repeat="received in vm.requestorders | filter:filterText | filter:vm.receivedlist as receivedlist">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div>
