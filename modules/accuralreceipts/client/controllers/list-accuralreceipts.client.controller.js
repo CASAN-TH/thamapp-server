@@ -14,6 +14,21 @@
     vm.statusWaitreview = statusWaitreview;
     vm.addHis = addHis;
     $scope.setTabGreen = 'buttonGreenSet';
+
+    vm.setLimit = function () {
+      $scope.topsearch = '';
+      $scope.filterText = '';
+    };
+
+    $scope.filter = function (topsearch) {
+      if (topsearch.length > 4) {
+        $scope.filterText = topsearch;
+      } else {
+        $scope.filterText = '';
+      }
+    };
+
+    
     vm.remove = function (itm) {
       if ($window.confirm('คุณต้องการลบรายการนี้ ?')) {
         itm.$remove(successCallback, errorCallback);

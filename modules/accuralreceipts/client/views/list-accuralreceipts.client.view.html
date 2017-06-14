@@ -5,7 +5,7 @@
 
   <div class="row show-xs show-sm hidden-md hidden-lg marginT">
     <div class="col-xs-8">
-      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+      <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)">
     </div>
     <div class="col-xs-4">
       <a class="btn buttonCreate" ui-sref="accuralreceipts.create">
@@ -22,7 +22,7 @@
       <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
         <div class="input-group input-group-sm">
           <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+          <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)" aria-describedby="sizing-addon3">
         </div>
       </div>
       <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
@@ -39,10 +39,10 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#waitreview" data-toggle="tab"><button ng-click="setTabGreen='buttonGreenSet';setTabBlueSky='';setTabPurple='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>รอตรวจสอบ</span><h3>{{waitreview.length || 0}}</h3></button></a>
-              <a href="#waitconfirmed" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabPurple='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>รอยืนยัน</span><h3>{{waitconfirmed.length || 0}}</h3></button></a>
-              <a href="#confirmed" data-toggle="tab"><button ng-click="setTabPurple='buttonPurpleSet';setTabGreen='';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonPurple" ng-class="setTabPurple" type="text"><span>ยืนยันแล้ว</span><h3>{{confirmed.length || 0}}</h3></button></a>
-              <a href="#receipt" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky='';setTabPurple=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{receipt.length || 0}}</h3></button></a>
+              <a href="#waitreview" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabPurple='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>รอตรวจสอบ</span><h3>{{waitreview.length || 0}}</h3></button></a>
+              <a href="#waitconfirmed" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabPurple='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>รอยืนยัน</span><h3>{{waitconfirmed.length || 0}}</h3></button></a>
+              <a href="#confirmed" data-toggle="tab"><button ng-click="vm.setLimit();setTabPurple='buttonPurpleSet';setTabGreen='';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonPurple" ng-class="setTabPurple" type="text"><span>ยืนยันแล้ว</span><h3>{{confirmed.length || 0}}</h3></button></a>
+              <a href="#receipt" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky='';setTabPurple=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>รับเงินแล้ว</span><h3>{{receipt.length || 0}}</h3></button></a>
             </div>
           </div>
           <!---->
@@ -100,7 +100,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for review'} as waitreview">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:{arstatus:'wait for review'} as waitreview">
                   <div class="col-md-12">
 
                     <div class="row form-group">
@@ -164,7 +164,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for confirmed'} as waitconfirmed">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:{arstatus:'wait for confirmed'} as waitconfirmed">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
@@ -221,7 +221,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.confirmed as confirmed">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:vm.confirmed as confirmed">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
@@ -284,7 +284,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'receipt'} as receipt">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:{arstatus:'receipt'} as receipt">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
@@ -323,7 +323,7 @@
           <div class="row show-xs show-sm hidden-md hidden-lg">
             <div class="tab-content">
               <div class="tab-pane active" id="waitreviewmb">
-                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for review'} as waitreview">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:{arstatus:'wait for review'} as waitreview">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
@@ -350,7 +350,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="waitconfirmedmb">
-                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'wait for confirmed'} as waitconfirmed">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:{arstatus:'wait for confirmed'} as waitconfirmed">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
@@ -375,7 +375,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="confirmedmb">
-                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:vm.confirmed as confirmed">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:vm.confirmed as confirmed">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">
@@ -401,7 +401,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="receiptmb">
-                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:topsearch | filter:{arstatus:'receipt'} as receipt">
+                <div class="col-md-12" ng-repeat="data in vm.accuralreceipts | filter:filterText | filter:{arstatus:'receipt'} as receipt">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="accuralreceipts.edit({ accuralreceiptId: data._id })">

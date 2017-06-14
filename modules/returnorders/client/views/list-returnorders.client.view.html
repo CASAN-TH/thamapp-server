@@ -5,7 +5,7 @@
 
   <div class="row show-xs show-sm hidden-md hidden-lg marginT">
     <div class="col-xs-6">
-      <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch">
+      <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)">
     </div>
     <div class="col-xs-4">
       <a class="btn buttonCreate" ui-sref="returnorders.create">
@@ -22,7 +22,7 @@
       <div class="col-md-5 hidden-xs hidden-sm show-md show-lg">
         <div class="input-group input-group-sm">
           <span class="input-group-addon" id="sizing-addon3"><i class="fa fa-search" aria-hidden="true"></i></span>
-          <input type="text" class="form-control" placeholder="ค้นหารายการ..." ng-model="topsearch" aria-describedby="sizing-addon3">
+          <input type="text" class="form-control" placeholder="ค้นหา... (อย่างน้อย 5 ตัวอักษร)" ng-model="topsearch" ng-change="filter(topsearch)" aria-describedby="sizing-addon3">
         </div>
       </div>
       <div class="col-md-2 hidden-xs hidden-sm show-md show-lg">
@@ -39,9 +39,9 @@
         <div class="row">
           <div class="col-md-1 hidden-xs hidden-sm show-md show-lg">
             <div class="nav">
-              <a href="#showAllReturn" data-toggle="tab"><button ng-click="setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>แจ้งคืน</span><h3>{{return.length || 0}}</h3></button></a>
-              <a href="#showAllReponse" data-toggle="tab"><button ng-click="setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ตอบกลับ</span><h3>{{response.length || 0}}</h3></button></a>
-              <a href="#showAllReceived" data-toggle="tab"><button ng-click="setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>ได้รับ</span><h3>{{received.length || 0}}</h3></button></a>
+              <a href="#showAllReturn" data-toggle="tab"><button ng-click="vm.setLimit();setTabGreen='buttonGreenSet';setTabBlueSky='';setTabDarkblue=''" class="thumbnail button buttonGreen" ng-class="setTabGreen" type="text"><span>แจ้งคืน</span><h3>{{return.length || 0}}</h3></button></a>
+              <a href="#showAllReponse" data-toggle="tab"><button ng-click="vm.setLimit();setTabBlueSky='buttonBlueSkySet';setTabGreen='';setTabDarkblue=''" class="thumbnail button buttonBlueSky" ng-class="setTabBlueSky" type="text"><span>ตอบกลับ</span><h3>{{response.length || 0}}</h3></button></a>
+              <a href="#showAllReceived" data-toggle="tab"><button ng-click="vm.setLimit();setTabDarkblue='buttonDarkblueSet';setTabGreen='';setTabBlueSky=''" class="thumbnail button buttonDarkblue" ng-class="setTabDarkblue" type="text"><span>ได้รับ</span><h3>{{received.length || 0}}</h3></button></a>
             </div>
           </div>
           <!---->
@@ -91,7 +91,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="return in vm.returnorders | filter:topsearch | filter:{deliverystatus:'return'} as return">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="return in vm.returnorders | filter:filterText | filter:{deliverystatus:'return'} as return">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="returnorders.edit({ returnorderId: return._id })">
@@ -151,7 +151,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.returnorders | filter:topsearch | filter:{deliverystatus:'response'} as response">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="response in vm.returnorders | filter:filterText | filter:{deliverystatus:'response'} as response">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="returnorders.edit({ returnorderId: response._id })">
@@ -211,7 +211,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.returnorders | filter:topsearch | filter:{deliverystatus:'received'} as received">
+                <div class="row hidden-xs show-sm show-md show-lg" ng-repeat="received in vm.returnorders | filter:filterText | filter:{deliverystatus:'received'} as received">
                   <div class="col-md-12">
                     <div class="row form-group">
                       <div ui-sref="returnorders.edit({ returnorderId: received._id })">
@@ -247,7 +247,7 @@
           <div class="row show-xs show-sm hidden-md hidden-lg">
             <div class="tab-content">
               <div class="tab-pane active" id="showAllReturnmb">
-                <div class="col-md-12" ng-repeat="return in vm.returnorders | filter:topsearch | filter:{deliverystatus:'return'} as return">
+                <div class="col-md-12" ng-repeat="return in vm.returnorders | filter:filterText | filter:{deliverystatus:'return'} as return">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="returnorders.edit({ returnorderId: return._id })">
@@ -275,7 +275,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllReponsemb">
-                <div class="col-md-12" ng-repeat="response in vm.returnorders | filter:topsearch | filter:{deliverystatus:'response'} as response">
+                <div class="col-md-12" ng-repeat="response in vm.returnorders | filter:filterText | filter:{deliverystatus:'response'} as response">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="returnorders.edit({ returnorderId: response._id })">
@@ -305,7 +305,7 @@
                 </div>
               </div>
               <div class="tab-pane" id="showAllReceivedmb">
-                <div class="col-md-12" ng-repeat="received in vm.returnorders | filter:topsearch | filter:{deliverystatus:'received'} as received">
+                <div class="col-md-12" ng-repeat="received in vm.returnorders | filter:filterText | filter:{deliverystatus:'received'} as received">
                   <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div ui-sref="returnorders.edit({ returnorderId: received._id })">
