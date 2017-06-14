@@ -17,6 +17,19 @@
     vm.newRequest = newRequest;
     $scope.setTabGreen = 'buttonGreenSet';
 
+    vm.setLimit = function () {
+      $scope.topsearch = '';
+      $scope.filterText = '';
+    };
+
+    $scope.filter = function (topsearch) {
+      if (topsearch.length > 4) {
+        $scope.filterText = topsearch;
+      } else {
+        $scope.filterText = '';
+      }
+    };
+
     function reject(item) {
       var conf = confirm('ปฏิเสธรายการ');
       if (conf === true) {

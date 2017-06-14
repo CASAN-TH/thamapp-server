@@ -18,6 +18,19 @@
     vm.receive = receive;
     $scope.setTabGreen = 'buttonGreenSet';
 
+    vm.setLimit = function () {
+      $scope.topsearch = '';
+      $scope.filterText = '';
+    };
+
+    $scope.filter = function (topsearch) {
+      if (topsearch.length > 4) {
+        $scope.filterText = topsearch;
+      } else {
+        $scope.filterText = '';
+      }
+    };
+
     function receive(item) {
       var conf = confirm('ได้รับรายการแจ้งคืน');
       if (conf === true) {
