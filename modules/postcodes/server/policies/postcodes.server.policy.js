@@ -18,28 +18,37 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/postcodes',
       permissions: '*'
     }, {
-      resources: '/api/postcodes/:postcodeId',
-      permissions: '*'
-    }]
+        resources: '/api/postcodes/:postcodeId',
+        permissions: '*'
+      }, {
+        resources: '/api/getpostcodes/:postcode',
+        permissions: ['get']
+      }]
   }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/postcodes',
-      permissions: ['get', 'post']
+      roles: ['user'],
+      allows: [{
+        resources: '/api/postcodes',
+        permissions: ['get', 'post']
+      }, {
+          resources: '/api/postcodes/:postcodeId',
+          permissions: ['get']
+        }, {
+          resources: '/api/getpostcodes/:postcode',
+          permissions: ['get']
+        }]
     }, {
-      resources: '/api/postcodes/:postcodeId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/postcodes',
-      permissions: ['get']
-    }, {
-      resources: '/api/postcodes/:postcodeId',
-      permissions: ['get']
-    }]
-  }]);
+      roles: ['guest'],
+      allows: [{
+        resources: '/api/postcodes',
+        permissions: ['get']
+      }, {
+          resources: '/api/postcodes/:postcodeId',
+          permissions: ['get']
+        }, {
+          resources: '/api/getpostcodes/:postcode',
+          permissions: ['get']
+        }]
+    }]);
 };
 
 /**

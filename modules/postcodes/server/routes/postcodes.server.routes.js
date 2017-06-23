@@ -18,7 +18,9 @@ module.exports = function (app) {
     .get(postcodesPolicy.isAllowed, postcodes.read)
     .put(users.requiresLoginToken, postcodesPolicy.isAllowed, postcodes.update)
     .delete(users.requiresLoginToken, postcodesPolicy.isAllowed, postcodes.delete);
-
+  app.route('/api/getpostcodes/:postcode')//.all(postcodesPolicy.isAllowed)
+    .get(postcodesPolicy.isAllowed, postcodes.getpostcodes)
   // Finish by binding the Postcode middleware
   app.param('postcodeId', postcodes.postcodeByID);
+  app.param('postcode', postcodes.postcodeFilter);
 };

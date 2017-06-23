@@ -12,11 +12,11 @@ var path = require('path'),
 /**
  * Create a Postcode
  */
-exports.create = function(req, res) {
+exports.create = function (req, res) {
   var postcode = new Postcode(req.body);
   postcode.user = req.user;
 
-  postcode.save(function(err) {
+  postcode.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -30,7 +30,7 @@ exports.create = function(req, res) {
 /**
  * Show the current Postcode
  */
-exports.read = function(req, res) {
+exports.read = function (req, res) {
   // convert mongoose document to JSON
   var postcode = req.postcode ? req.postcode.toJSON() : {};
 
@@ -44,12 +44,12 @@ exports.read = function(req, res) {
 /**
  * Update a Postcode
  */
-exports.update = function(req, res) {
+exports.update = function (req, res) {
   var postcode = req.postcode;
 
   postcode = _.extend(postcode, req.body);
 
-  postcode.save(function(err) {
+  postcode.save(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -63,10 +63,10 @@ exports.update = function(req, res) {
 /**
  * Delete an Postcode
  */
-exports.delete = function(req, res) {
+exports.delete = function (req, res) {
   var postcode = req.postcode;
 
-  postcode.remove(function(err) {
+  postcode.remove(function (err) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -80,8 +80,8 @@ exports.delete = function(req, res) {
 /**
  * List of Postcodes
  */
-exports.list = function(req, res) {
-  Postcode.find().sort('-created').populate('user', 'displayName').exec(function(err, postcodes) {
+exports.list = function (req, res) {
+  Postcode.find().sort('-created').populate('user', 'displayName').exec(function (err, postcodes) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -95,7 +95,7 @@ exports.list = function(req, res) {
 /**
  * Postcode middleware
  */
-exports.postcodeByID = function(req, res, next, id) {
+exports.postcodeByID = function (req, res, next, id) {
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).send({
@@ -114,4 +114,22 @@ exports.postcodeByID = function(req, res, next, id) {
     req.postcode = postcode;
     next();
   });
+};
+
+exports.postcodeFilter = function (req, res, next, postcode) {
+  Postcode.find({ postcode: postcode }).populate('user', 'displayName').exec(function (err, postcode) {
+    if (err) {
+      return next(err);
+    } else if (!postcode) {
+      return res.status(404).send({
+        message: 'No Postcode with that identifier has been found'
+      });
+    }
+    req.postcodeFilter = postcode;
+    next();
+  });
+};
+
+exports.getpostcodes = function (req, res) {
+  res.jsonp(req.postcodeFilter);
 };
