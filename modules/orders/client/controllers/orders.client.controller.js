@@ -69,7 +69,7 @@
         $scope.filterText = '';
       }
     };
-    
+
     if (vm.order.items) {
       vm.order.items = vm.order.items;
     } else {
@@ -459,8 +459,11 @@
           deliveryid: '0'
         };
       } else {
+        // console.log( vm.order.namedeliver);
+        if (vm.order.namedeliver) {
+          vm.namedeliID = vm.order.namedeliver._id;
+        }
 
-        vm.namedeliID = vm.order.namedeliver._id;
         vm.order.docdate = new Date(vm.order.docdate);
       }
       readDeliverid();

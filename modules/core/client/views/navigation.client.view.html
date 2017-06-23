@@ -173,9 +173,9 @@
       <li ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" style="margin-left: 10px">
         <span class="nav-label menu-headline">ขายสินค้า</span>
       </li>
-      <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/products">
+      <!--<li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/products">
         <a href="/#/products"><i class="fa fa-shopping-cart"></i> <span class="nav-label">เลือกซื้อสินค้า</span></a>
-      </li>
+      </li>-->
       <li class="dropdown" ng-class="{active: $uiRoute}" ng-if="authentication.user.roles[0] === 'transporter'" ui-route="/responseorder">
         <a href="/#/responseorder"><i class="fa fa-truck"></i> <span class="nav-label">บริษัทขนส่งข้าว</span></a>
       </li>

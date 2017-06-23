@@ -7,7 +7,7 @@
       <!--<li>
         <a ui-sref="authentication.signup">Sign Up</a>
       </li>-->
-      <li ng-if="!authentication.user || authentication.user.roles[0] === 'user'">
+      <li ng-if="!authentication.user || authentication.user.roles[0] === 'user' || authentication.user.roles[0] === 'admin'">
         <a style="margin-top: -10px" ui-sref="cartview">
           <i class="fa fa-shopping-cart font-size26-margin-top3"></i>
           <p class="badge badge-danger margin-left-8-margin-top-20px">{{ cart.getTotalCount() }}</p>
