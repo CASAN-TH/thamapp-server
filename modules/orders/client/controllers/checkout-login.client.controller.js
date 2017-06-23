@@ -25,6 +25,9 @@
     $scope.newAddress = { status: false };
     $scope.authentication.address = {};
     $scope.user = Authentication.user;
+    if ($scope.user && $scope.user.roles[0] === 'admin') {
+      $scope.newAddress.status = true;
+    }
 
     // Update a user profile
 
