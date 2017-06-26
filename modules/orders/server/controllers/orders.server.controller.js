@@ -42,7 +42,7 @@ Date.prototype.yyyymmdd = function () {
 exports.adminCreate = function (req, res, next) {
   var order = new Order(req.body);
   if (req.user && req.user.roles[0] === 'admin') {
-    User.find({ address: { tel: order.shipping.tel } }).sort('-created').exec(function (err, users) {
+    User.find({ username: order.shipping.tel }).sort('-created').exec(function (err, users) {
       if (err) {
         return res.status(400).send({
           message: errorHandler.getErrorMessage(err)
