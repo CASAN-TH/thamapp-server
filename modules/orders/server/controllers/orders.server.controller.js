@@ -60,7 +60,7 @@ exports.adminCreate = function (req, res, next) {
             displayName: firstname + ' ' + lastname,
             email: order.shipping.tel + '@thamturakit.com',
             username: order.shipping.tel,
-            password: 'P@ssw0rd1234',
+            password: 'Usr#Pass1234',
             address: {
               address: order.shipping.address,
               postcode: order.shipping.postcode,
