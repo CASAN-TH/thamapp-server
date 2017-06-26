@@ -41,7 +41,6 @@ Date.prototype.yyyymmdd = function () {
  */
 exports.adminCreate = function (req, res, next) {
   var order = new Order(req.body);
-  // console.log(order);
   if (req.user && req.user.roles[0] === 'admin') {
     User.find({ address: { tel: order.shipping.tel } }).sort('-created').exec(function (err, users) {
       if (err) {
@@ -53,10 +52,12 @@ exports.adminCreate = function (req, res, next) {
           req.usercreate = users[0];
           next();
         } else {
+          var firstname = order.shipping.firstname ? order.shipping.firstname : order.shipping.firstName;
+          var lastname = order.shipping.lastname ? order.shipping.lastname : order.shipping.lastName;
           var newUser = new User({
-            firstName: order.shipping.firstname,
-            lastName: order.shipping.lastname,
-            displayName: order.shipping.firstname + ' ' + order.shipping.lastname,
+            firstName: firstname,
+            lastName: lastname,
+            displayName: firstname + ' ' + lastname,
             email: order.shipping.tel + '@thamturakit.com',
             username: order.shipping.tel,
             password: 'P@ssw0rd1234',
