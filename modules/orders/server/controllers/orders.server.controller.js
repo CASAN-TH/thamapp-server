@@ -6,6 +6,7 @@
 var path = require('path'),
   mongoose = require('mongoose'),
   Order = mongoose.model('Order'),
+  User = mongoose.model('User'),
   Pushnotiuser = mongoose.model('Pushnotiuser'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
   _ = require('lodash'),
@@ -30,19 +31,82 @@ Date.prototype.yyyymmdd = function () {
   var dd = this.getDate();
 
   return [this.getFullYear(),
-  (mm > 9 ? '' : '0') + mm,
-  (dd > 9 ? '' : '0') + dd
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd
   ].join('');
 };
 
 /**
  * Create a Order
  */
+exports.adminCreate = function (req, res, next) {
+  var order = new Order(req.body);
+  // console.log(order);
+  if (req.user && req.user.roles[0] === 'admin') {
+    User.find({ address: { tel: order.shipping.tel } }).sort('-created').exec(function (err, users) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        if (users.length > 0) {
+          req.usercreate = users[0];
+          next();
+        } else {
+          var newUser = new User({
+            firstName: order.shipping.firstname,
+            lastName: order.shipping.lastname,
+            displayName: order.shipping.firstname + ' ' + order.shipping.lastname,
+            email: order.shipping.tel + '@thamturakit.com',
+            username: order.shipping.tel,
+            password: 'P@ssw0rd1234',
+            address: {
+              address: order.shipping.address,
+              postcode: order.shipping.postcode,
+              subdistrict: order.shipping.subdistrict,
+              province: order.shipping.province,
+              district: order.shipping.district,
+              tel: order.shipping.tel,
+              email: order.shipping.tel + '@thamturakit.com',
+              sharelocation: {
+                latitude: order.shipping.address.sharelocation ? order.shipping.address.sharelocation.latitude : '',
+                longitude: order.shipping.address.sharelocation ? order.shipping.address.sharelocation.longitude : ''
+              }
+            },
+            provider: 'local'
+          });
+
+          newUser.save(function (err) {
+            if (err) {
+              return res.status(400).send({
+                message: errorHandler.getErrorMessage(err)
+              });
+            } else {
+              req.usercreate = newUser;
+              next();
+            }
+          });
+        }
+      }
+    });
+  } else {
+    next();
+  }
+
+  // console.log(order);
+};
+
 exports.create = function (req, res) {
   var order = new Order(req.body);
-  if (req.user) {
+  if (req.user && req.user.roles[0] === 'admin') {
+    order.user = req.usercreate;
+  } else {
     order.user = req.user;
   }
+  // console.log(req.usercreate);
+  // if (req.user) {
+  //   order.user = req.usercreate;
+  // }
 
   order.save(function (err) {
     if (err) {
@@ -341,7 +405,7 @@ exports.listorderv2 = function (req, res) {
   });
 };
 exports.listorderweb = function (req, res) {
-res.jsonp([{
+  res.jsonp([{
     confirmed: req.confirmed,
     wait: req.wait,
     accept: req.accept,

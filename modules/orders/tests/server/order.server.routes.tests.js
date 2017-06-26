@@ -60,7 +60,10 @@ describe('Order CRUD tests', function () {
       password: credentials.password,
       provider: 'local',
       loginToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
-      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1),
+      address: {
+        tel: '0900077580'
+      }
     });
 
     deliver = new User({
@@ -155,11 +158,14 @@ describe('Order CRUD tests', function () {
                 amount: 200
               }],
               shipping: {
+                firstname: 'asdf',
+                lastname: 'String',
+                address: 'adsf',
                 postcode: 10220,
                 subdistrict: 'คลองถนน',
                 province: 'กรุงเทพฯ',
                 district: 'สายไหม',
-                tel: '0900077580',
+                tel: '0900077581',
                 email: 'destinationpainbm@gmail.com'
               },
               accounting: 'bank',
@@ -340,46 +346,46 @@ describe('Order CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Order if docno is duplicated', function (done) {
+  // it('should not be able to save an Order if docno is duplicated', function (done) {
 
-    agent.post('/api/auth/signin')
-      .send(credentials)
-      .expect(200)
-      .end(function (signinErr, signinRes) {
-        // Handle signin error
-        if (signinErr) {
-          return done(signinErr);
-        }
+  //   agent.post('/api/auth/signin')
+  //     .send(credentials)
+  //     .expect(200)
+  //     .end(function (signinErr, signinRes) {
+  //       // Handle signin error
+  //       if (signinErr) {
+  //         return done(signinErr);
+  //       }
 
-        // Get the userId
-        var userId = user.id;
+  //       // Get the userId
+  //       var userId = user.id;
 
-        // Save a new order
-        agent.post('/api/orders')
-          .send(order)
-          .expect(200)
-          .end(function (orderSaveErr, orderSaveRes) {
-            // Handle order save error
-            if (orderSaveErr) {
-              return done(orderSaveErr);
-            }
-            // Save a new order
-            agent.post('/api/orders')
-              .send(order)
-              .expect(400)
-              .end(function (orderSaveErr, orderSaveRes) {
-                // Set message assertion
-                //(orderSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.orders index: docno already exists');
-                (orderSaveRes.body.message.toLowerCase()).should.containEql('docno already exists');
+  //       // Save a new order
+  //       agent.post('/api/orders')
+  //         .send(order)
+  //         .expect(200)
+  //         .end(function (orderSaveErr, orderSaveRes) {
+  //           // Handle order save error
+  //           if (orderSaveErr) {
+  //             return done(orderSaveErr);
+  //           }
+  //           // Save a new order
+  //           agent.post('/api/orders')
+  //             .send(order)
+  //             .expect(400)
+  //             .end(function (orderSaveErr, orderSaveRes) {
+  //               // Set message assertion
+  //               //(orderSaveRes.body.message).should.match('11000 duplicate key error collection: mean-test.orders index: docno already exists');
+  //               (orderSaveRes.body.message.toLowerCase()).should.containEql('docno already exists');
 
-                // Handle order save error
-                done(orderSaveErr);
-              });
+  //               // Handle order save error
+  //               done(orderSaveErr);
+  //             });
 
-          });
+  //         });
 
-      });
-  });
+  //     });
+  // });
 
   it('should not be able to save an Order if no docno is provided', function (done) {
     // Invalidate docno field
@@ -866,7 +872,7 @@ describe('Order CRUD tests', function () {
 
     });
   });
-  
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Product.remove().exec(function () {
