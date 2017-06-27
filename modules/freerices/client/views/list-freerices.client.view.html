@@ -1,0 +1,22 @@
+<section>
+  <div class="page-header">
+    <h1>แจกข้าวฟรี</h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="freerice in vm.freerices"
+       ui-sref="freerices.view({ freericeId: freerice._id })"
+       class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="freerice.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="freerice.user" ng-bind="freerice.user.displayName"></span>
+        <span ng-if="!freerice.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="freerice.name"></h4>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" ng-if="vm.freerices.$resolved && !vm.freerices.length">
+    No Freerices yet, why don't you <a ui-sref="freerices.create">create one</a>?
+  </div>
+</section>
