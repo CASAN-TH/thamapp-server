@@ -112,6 +112,7 @@ var OrderSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  inarea: Boolean,
   user: {
     type: Schema.ObjectId,
     ref: 'User'

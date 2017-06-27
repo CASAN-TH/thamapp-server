@@ -5,9 +5,9 @@
     .module('orders')
     .controller('CheckoutLoginController', CheckoutLoginController);
 
-  CheckoutLoginController.$inject = ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'ShopCartService', 'OrdersService', 'orderResolve', 'PostcodesService', 'Users'];
+  CheckoutLoginController.$inject = ['$scope', '$state', '$http', '$location', '$window', 'Authentication', 'ShopCartService', 'OrdersService', 'orderResolve', 'PostcodesService', 'Users', '$timeout'];
 
-  function CheckoutLoginController($scope, $state, $http, $location, $window, Authentication, ShopCartService, OrdersService, orderResolve, PostcodesService, Users) {
+  function CheckoutLoginController($scope, $state, $http, $location, $window, Authentication, ShopCartService, OrdersService, orderResolve, PostcodesService, Users, $timeout) {
     var vm = this;
     $scope.authentication = Authentication;
     vm.cart = ShopCartService.cart;
@@ -30,6 +30,12 @@
     }
 
     // Update a user profile
+    vm.clear = function () {
+      vm.cart.clear();
+      $timeout(function () {
+        $state.go('home');
+      }, 400);
+    };
 
     $scope.checkStep = function (isValid) {
       if (!isValid) {
@@ -48,7 +54,49 @@
 
       } else {
         if ($scope.authentication.user) {
-          $scope.saveOrder();
+          var postcode = '';
+          var province = '';
+          if (!$scope.newAddress.status) {
+            postcode = $scope.user.address.postcode ? $scope.user.address.postcode : '';
+            province = $scope.user.address.province ? $scope.user.address.province : '';
+          } else {
+            postcode = vm.order.shipping.postcode ? vm.order.shipping.postcode : '';
+            province = vm.order.shipping.province ? vm.order.shipping.province : '';
+          }
+
+          if (province === 'กรุงเทพมหานคร') {
+            $scope.saveOrder();
+          } else {
+            alert('postcode' + postcode);
+            $http.get('/api/checkPostcode/' + postcode).success(function (res) {
+              vm.order.inarea = res.area;
+              if (res.area) {
+                $scope.saveOrder();
+              } else {
+                // $scope.saveOrder();
+                alert('อยู่นอกพื้นที่การจัดส่ง');
+                $scope.pricefalse = 0;
+                $scope.amountfalse = 0;
+                $scope.deliverycostfalse = 0;
+                $scope.discountamountfalse = 0;
+
+                vm.cart.items.forEach(function (item) {
+                  console.log(vm.cart.items);
+                  $scope.pricefalse += item.price;
+                  $scope.deliverycostfalse += item.deliverycost + (item.qty * 150);
+                  $scope.discountamountfalse += item.discountamount;
+                  $scope.amountfalse = ($scope.pricefalse + $scope.deliverycostfalse) - $scope.discountamountfalse;
+
+                });
+                $('#false').modal();
+
+              }
+
+            }).error(function (res) {
+
+            });
+          }
+
         }
         else {
           $scope.signup(isValid);
@@ -163,6 +211,12 @@
       }, function (response) {
         $scope.error = response.data.message;
       });
+    };
+
+    // vm.checklocation = function () {
+
+    $scope.chkStatus = function (status) {
+      $scope.newAddress = { status: status };
     };
 
     $scope.saveOrder = function () {

@@ -43,3 +43,9 @@
   min-width: 60px;
   max-width: 60px;
 }
+.picturerate {
+  min-height: 500px;
+  max-height: 500px;
+  min-width: 450px;
+  max-width: 450px;
+}

@@ -433,10 +433,10 @@
           <div class="col-xs-12 col-md-12 ">
             <div class="row">
               <div class="form-group" ng-if="authentication.user.roles[0] !== 'admin'">
-                <input type="radio" name="home" ng-model="newAddress.status" ng-value="false"> <label for="">ที่อยู่จัดส่งเดิม</label>
+                <input type="radio" name="home" ng-model="newAddress.status" ng-value="false" ng-change="chkStatus(newAddress.status)">                <label for="">ที่อยู่จัดส่งเดิม</label>
               </div>
               <div class="form-group">
-                <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true"> <label for="">ที่อยู่จัดส่งใหม่</label>
+                <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true" ng-change="chkStatus(newAddress.status)">                <label for="">ที่อยู่จัดส่งใหม่</label>
               </div>
             </div>
           </div>
@@ -701,4 +701,122 @@
         </div>
       </div>
   </form>
+
+  <div class="page-header hidden-xs show-sm show-md show-lg">
+    <div class="modal fade " id="false" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header ">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times-circle-o font-close-modal"></i></span><span class="sr-only">Close</span></button>
+            <h3><span><i class="modal-title  font-price-modal-head " id="lineModalLabel">คุณอยู่นอกพื้นที่จัดส่ง</i>
+              </span>
+            </h3>
+          </div>
+          <div class="modal-body">
+            <!-- content here -->
+            <div class="row margin-bottom-20">
+              <div class="col-sm-12 col-md-12 text-center">
+                <img ng-src="./modules/products/client/img/rate_150.jpg" class="picturerate">
+              </div>
+              <!--right-->
+              <!--<div class="col-sm-5 col-md-5 border-left">
+                <div class="row ">
+                  <div class="col-md-12 font-price-modal-head">
+                    <h3>ตะกร้าสินค้าของคุณ</h3>
+                    <h3>(<span class="font-name-top-modal">{{vm.cart.getTotalCount()}}</span> ชิ้น)</h3>
+                  </div>
+                </div>
+                <div class="row border-bottom">
+                  <div class="col-md-6">
+                    <p>มูลค่าสินค้า:</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p>{{vm.cart.getTotalPrice()}} บาท</p>
+                  </div>
+                </div>
+                <div class="row ">
+                  <div class="col-md-6">
+                    <h3>ยอดสุทธิ </h3>
+                    <h6>(รวมภาษี)</h6>
+                  </div>
+                  <div class="col-md-6">
+                    <h4>{{vm.cart.getTotalPrice()}} บาท</h4>
+                  </div>
+                </div>
+              </div>-->
+            </div>
+            <div class="row">
+              <div class="col-md-6 textRight">
+                <p>มูลค่าสินค้า :</p>
+              </div>
+              <div class="col-md-6">
+                <p>{{pricefalse}} บาท</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 textRight">
+                <p>ค่าจัดส่ง :</p>
+              </div>
+              <div class="col-md-6">
+                <p>{{deliverycostfalse}} บาท</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 textRight">
+                <p>ส่วนลด :</p>
+              </div>
+              <div class="col-md-6">
+                <p>{{discountamountfalse}} บาท</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 textRight">
+                <p>ยอดสุทธิ :</p>
+              </div>
+              <div class="col-md-6">
+                <p>{{amountfalse}} บาท</p>
+              </div>
+            </div>
+            <div class="row margin-bottom-20">
+              <div class="col-sm-12 text-right ">
+                <button class="btn btn-primary " data-dismiss="modal" ng-click="vm.saveprod();" type="submit">ยืนยันการสั่งซื้อ</button>
+                <button class="btn btn-warning" data-dismiss="modal" ng-click="vm.clear();" type="submit">ยกเลิก</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 text-right">
+                <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
+              </div>
+            </div>
+            <!--footer category-->
+            <!--<div class="row border-top" ng-init="vm.readProduct()">
+              <div class="margin-top-20 margin-bottom-20 ">
+                <h3>สินค้าที่เกี่ยวข้อง</h3>
+              </div>
+              <div class="modal-scroll ">
+                <div ng-repeat="product in vm.products" ng-if="vm.product.category===product.category && vm.product._id != product._id ">
+                  <div class="demo-card margin-left-cart" data-dismiss="modal" ng-click="vm.moreCart(product)">
+                    <div class="card ">
+                      <div class="text-center ">
+                        <img ng-src="{{product.images}}" alt="{{product.name}}" class="img-rounded user-profile-picture ">
+                      </div>
+                      <div class="card-block text-center">
+                        <h4 class="card-title word-break">{{product.name}}</h4>
+                        <p class="card-text word-break">{{product.description}}</p>
+                        <h4 class="card-title text-warning ">{{product.price}} บาท</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>-->
+          </div>
+        </div>
+
+        <!--footer category-->
+        <!-- content here -->
+
+      </div>
+    </div>
+  </div>
 </section>
