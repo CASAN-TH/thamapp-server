@@ -41,12 +41,14 @@ Date.prototype.yyyymmdd = function () {
  */
 exports.postcode = function (req, res, next, postcode) {
   req.postcode = postcode;
-  User.find({ address: { postcode: postcode } }).sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+  User.find().sort('-created').exec(function (err, users) {
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
     } else {
+      var userPostcodes = users.filter(function (obj) { return obj.address.postcode === postcode; });
+      var delivers = userPostcodes.filter(function (obj) { return obj.roles[0] === 'deliver'; });
       if (delivers.length > 0) {
         req.area = true;
         next();

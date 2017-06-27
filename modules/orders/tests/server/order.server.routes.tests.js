@@ -76,7 +76,11 @@ describe('Order CRUD tests', function () {
       provider: 'local',
       roles: ['deliver'],
       loginToken: 'eyJ0sseXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
-      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1)
+      loginExpires: tomorrow.setDate(tomorrow.getDate() + 1),
+      address: {
+        postcode: '12150',
+        tel: '0900077580'
+      }
     });
 
     product = new Product({
@@ -881,7 +885,7 @@ describe('Order CRUD tests', function () {
         // (res.body.freeitemunit).should.match(1);
         // console.log(res.body.orders);
         (res.body.postcode).should.match('12150');
-        (res.body.area).should.match(false);
+        (res.body.area).should.match(true);
         // Call the assertion callback
         done();
       });
