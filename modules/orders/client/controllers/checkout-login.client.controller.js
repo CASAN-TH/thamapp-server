@@ -174,7 +174,7 @@
                 vm.cart.items.forEach(function (item) {
                   console.log(vm.cart.items);
                   $scope.pricefalse += item.price * item.qty;
-                  $scope.deliverycostfalse += item.deliverycost + (item.qty * 150);
+                  $scope.deliverycostfalse += item.qty * 150;
                   $scope.discountamountfalse += item.discountamount;
                   $scope.amountfalse = ($scope.pricefalse + $scope.deliverycostfalse) - $scope.discountamountfalse;
 
