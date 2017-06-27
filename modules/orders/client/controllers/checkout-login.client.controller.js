@@ -37,6 +37,97 @@
       }, 400);
     };
 
+    vm.saveprod = function () {
+      if (vm.order.shipping.sharelocation) {
+        vm.order.shipping.sharelocation = vm.order.shipping.sharelocation;
+      } else {
+        vm.order.shipping.sharelocation = {};
+      }
+      vm.order.totalamount = 0;
+      vm.order.items = [];
+      vm.order.src = 'web';
+      //var getAllOrder = OrdersService.query();
+      //vm.order.docno = new Date().getFullYear() + '' + new Date().getMonth() + '' + (getAllOrder.length + 1);
+      vm.order.docno = (+ new Date());
+      vm.order.docdate = new Date();
+      // vm.order.discountpromotion = vm.result || 0;
+      // products
+      var getItems = vm.cart.items;
+      getItems.forEach(function (item) {
+        item.deliverycost += item.qty * 150;
+        vm.order.items.push(item);
+      });
+      // address contact
+      vm.order.shipping.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
+      vm.order.shipping.email = $scope.authentication.user.email;
+
+      //////status/////
+      vm.order.historystatus = [{
+        status: 'confirmed',
+        datestatus: new Date()
+      }];
+
+      if ($scope.newAddress.status === false) {
+        vm.order.shipping.firstname = $scope.authentication.user.firstName;
+        vm.order.shipping.lastname = $scope.authentication.user.lastName;
+        vm.order.shipping.address = $scope.authentication.user.address.address;
+        vm.order.shipping.postcode = $scope.authentication.user.address.postcode;
+        vm.order.shipping.subdistrict = $scope.authentication.user.address.subdistrict;
+        vm.order.shipping.province = $scope.authentication.user.address.province;
+        vm.order.shipping.district = $scope.authentication.user.address.district;
+        vm.order.shipping.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
+      }
+      vm.order.amount = $scope.pricefalse;
+      vm.order.deliveryamount = $scope.deliverycostfalse;
+      vm.order.discountpromotion = $scope.discountamountfalse;
+      vm.order.totalamount = $scope.amountfalse;
+
+      var fullAddress = vm.order.shipping.address.replace(' ', '+') + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
+
+      $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
+        if (response.status.toUpperCase() === 'OK') {
+          vm.order.shipping.sharelocation.latitude = response.results[0].geometry.location.lat;
+          vm.order.shipping.sharelocation.longitude = response.results[0].geometry.location.lng;
+          if (vm.order._id) {
+            vm.order.$update(successCallback, errorCallback);
+          } else {
+            vm.order.$save(successCallback, errorCallback);
+          }
+        } else {
+          //alert('กรุณากรอกที่อยู่ที่ถูกต้อง!');
+          if (vm.order._id) {
+            vm.order.$update(successCallback, errorCallback);
+          } else {
+            vm.order.$save(successCallback, errorCallback);
+          }
+        }
+        function successCallback(res) {
+          if (!$scope.authentication.user.address.tel) {
+            $scope.authentication.user.address.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
+            var user = new Users($scope.authentication.user);
+
+            user.$update(function (response) {
+              console.log('update user profile success');
+            }, function (response) {
+              console.log(response.data.message);
+            });
+          }
+          vm.cart.clear();
+          $timeout(function () {
+            $state.go('complete', {
+              orderId: res._id
+            });
+          }, 400);
+        }
+
+        function errorCallback(res) {
+          vm.error = res.data.message;
+        }
+      }).error(function (err) {
+        console.log(err);
+      });
+    };
+
     $scope.checkStep = function (isValid) {
       if (!isValid) {
         $scope.$broadcast('show-errors-check-validity', 'vm.form.checkoutForm');
@@ -67,14 +158,14 @@
           if (province === 'กรุงเทพมหานคร') {
             $scope.saveOrder();
           } else {
-            alert('postcode' + postcode);
+            // alert('postcode' + postcode);
             $http.get('/api/checkPostcode/' + postcode).success(function (res) {
               vm.order.inarea = res.area;
               if (res.area) {
                 $scope.saveOrder();
               } else {
                 // $scope.saveOrder();
-                alert('อยู่นอกพื้นที่การจัดส่ง');
+                // alert('อยู่นอกพื้นที่การจัดส่ง');
                 $scope.pricefalse = 0;
                 $scope.amountfalse = 0;
                 $scope.deliverycostfalse = 0;
@@ -82,7 +173,7 @@
 
                 vm.cart.items.forEach(function (item) {
                   console.log(vm.cart.items);
-                  $scope.pricefalse += item.price;
+                  $scope.pricefalse += item.price * item.qty;
                   $scope.deliverycostfalse += item.deliverycost + (item.qty * 150);
                   $scope.discountamountfalse += item.discountamount;
                   $scope.amountfalse = ($scope.pricefalse + $scope.deliverycostfalse) - $scope.discountamountfalse;
