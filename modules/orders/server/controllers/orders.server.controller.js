@@ -68,11 +68,7 @@ exports.adminCreate = function (req, res, next) {
               province: order.shipping.province,
               district: order.shipping.district,
               tel: order.shipping.tel,
-              email: order.shipping.tel + '@thamturakit.com',
-              sharelocation: {
-                latitude: order.shipping.address.sharelocation ? order.shipping.address.sharelocation.latitude : '',
-                longitude: order.shipping.address.sharelocation ? order.shipping.address.sharelocation.longitude : ''
-              }
+              email: order.shipping.tel + '@thamturakit.com'
             },
             provider: 'local'
           });
