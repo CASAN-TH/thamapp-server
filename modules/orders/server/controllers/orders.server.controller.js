@@ -72,7 +72,6 @@ exports.adminCreate = function (req, res, next) {
             },
             provider: 'local'
           });
-
           newUser.save(function (err) {
             if (err) {
               return res.status(400).send({
