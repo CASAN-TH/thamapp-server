@@ -873,6 +873,20 @@ describe('Order CRUD tests', function () {
     });
   });
 
+  it('check postcode from deliver', function (done) {
+
+    request(app).get('/api/checkPostcode/12150')
+      .end(function (req, res) {
+        // Set assertion
+        // (res.body.freeitemunit).should.match(1);
+        // console.log(res.body.orders);
+        (res.body.postcode).should.match('12150');
+        (res.body.area).should.match(false);
+        // Call the assertion callback
+        done();
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Product.remove().exec(function () {

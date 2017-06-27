@@ -39,6 +39,29 @@ Date.prototype.yyyymmdd = function () {
 /**
  * Create a Order
  */
+exports.postcode = function (req, res, next, postcode) {
+  req.postcode = postcode;
+  User.find({ address: { postcode: postcode } }).sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      if (delivers.length > 0) {
+        req.area = true;
+        next();
+      } else {
+        req.area = false;
+        next();
+      }
+    }
+  });
+};
+
+exports.resultpostcode = function (req, res) {
+  res.jsonp({ postcode: req.postcode, area: req.area });
+};
+
 exports.adminCreate = function (req, res, next) {
   var order = new Order(req.body);
   if (req.user && req.user.roles[0] === 'admin') {

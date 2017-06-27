@@ -22,7 +22,7 @@ module.exports = function (app) {
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderv2);
   app.route('/api/listorder/web')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderweb)
-    .post(users.requiresLoginToken, ordersPolicy.isAllowed,orders.adminCreate, orders.create);
+    .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.adminCreate, orders.create);
   app.route('/api/listorder/web/:orderId')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.read)
     .put(users.requiresLoginToken, ordersPolicy.isAllowed, orders.update)
@@ -35,7 +35,11 @@ module.exports = function (app) {
   app.route('/api/salereports/:startdate/:enddate')//.all(ordersPolicy.isAllowed)
     .get(orders.salereport);
 
+  app.route('/api/checkPostcode/:postcode')//.all(ordersPolicy.isAllowed)
+    .get(orders.resultpostcode);
+
   // Finish by binding the Order middleware
+  app.param('postcode', orders.postcode);
   app.param('orderId', orders.orderByID);
   app.param('startdate', function (req, res, next, startdate) {
     req.startdate = startdate;
