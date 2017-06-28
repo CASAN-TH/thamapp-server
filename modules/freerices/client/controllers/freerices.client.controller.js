@@ -70,7 +70,7 @@
             _order.discountpromotion = 100;
             _order.totalamount = 0;
             _order.displayname = user.firstName + ' ' + user.lastName;
-            _order.img = 'http://res.cloudinary.com/hflvlav04/image/upload/v1487834187/g3hwyieb7dl7ugdgj3tb.png';
+            // _order.img = 'http://res.cloudinary.com/hflvlav04/image/upload/v1487834187/g3hwyieb7dl7ugdgj3tb.png';
 
             var fullAddress = _order.shipping.address.replace(' ', '+') + '+' + _order.shipping.subdistrict + '+' + _order.shipping.district + '+' + _order.shipping.province + '+' + _order.shipping.postcode;
 
