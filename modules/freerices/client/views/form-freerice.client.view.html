@@ -2,9 +2,34 @@
   <div class="page-header">
     <h1>{{vm.freerice._id ? 'Edit Freerice' : 'แจกข้าวฟรี'}}</h1>
   </div>
-  <div class="row margin-bottom-20">
-    <div class="col-md-12">
-      <!--<form name="vm.form.freericeForm" class="form-horizontal" ng-submit="vm.save(vm.form.freericeForm.$valid)" novalidate>
+  <div class="container">
+    <form>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="comment">Execute</label>
+            <textarea ng-model="execute" class="form-control" rows="25" cols="80"></textarea>
+            <div>
+              <button class="btn btn-primary" ng-click="vm.execute(execute)">Execute</button>
+            </div>
+          </div>
+          <div class="col-md-6 col-xs-12 col-sm-12">
+            <label for="comment">Data</label>
+            <textarea class="form-control" rows="25" cols="80"></textarea>
+            <div>
+              <button class="btn btn-primary" ng-click="vm.submits()">submit</button>
+              <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</section>
+
+<!--row hidden-xs show-sm show-md show-lg-->
+<!--<form name="vm.form.freericeForm" class="form-horizontal" ng-submit="vm.save(vm.form.freericeForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
           <label class="control-label" for="name">Name</label>
@@ -21,15 +46,3 @@
         </div>
       </fieldset>
     </form>-->
-      <textarea rows="20" cols="100">
-      </textarea>
-
-    </div>
-  </div>
-  <div class="row margin-bottom-20">
-    <div class="col-md-12">
-      <button class="btn btn-primary" ng-click="vm.execute()">Execute</button>
-      <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
-    </div>
-  </div>
-</section>

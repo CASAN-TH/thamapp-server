@@ -824,7 +824,8 @@
                                             </blockquote>
 
                                             <blockquote class="card-blockquote" ng-show="vm.order._id">
-                                                <h5 ng-bind="'ชื่อผู้รับ : ' + vm.order.shipping.firstname + ' ' + vm.order.shipping.lastname"></h5>
+                                                
+                                                <h5>ชื่อผู้รับ : {{vm.order.shipping.firstname ? vm.order.shipping.firstname : vm.order.shipping.firstName}} {{vm.order.shipping.lastname ? vm.order.shipping.lastname : vm.order.shipping.lastName}}</h5>
                                                 <h5 ng-bind="'เบอร์โทร : ' + vm.order.shipping.tel"></h5>
                                                 <h5 ng-bind="'ที่อยู่ : ' + vm.order.shipping.address + ' ' + vm.order.shipping.subdistrict + ' ' + ' ' + vm.order.shipping.district + ' ' + vm.order.shipping.province"></h5>
                                                 <h5 ng-bind="'ไปรษณีย์ : ' + vm.order.shipping.postcode"></h5>
@@ -1032,7 +1033,7 @@
                                         <strong>ที่อยู่จัดส่ง</strong>
                                         <div class="card-block">
                                             <blockquote class="card-blockquote">
-                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.firstname + ' ' + vm.order.shipping.lastname}}"></p>
+                                                <p><input type="text" class="form-control" value="{{vm.order.shipping.firstname ? vm.order.shipping.firstname : vm.order.shipping.firstName}} {{vm.order.shipping.lastname ? vm.order.shipping.lastname : vm.order.shipping.lastName}}"></p>
                                                 <p><input type="text" class="form-control" value="{{vm.order.shipping.tel}}"></p>
                                                 <p><input type="text" class="form-control" value="{{vm.order.shipping.address}}"></p>
                                                 <p><input type="text" class="form-control" value="{{vm.order.shipping.postcode}}"></p>

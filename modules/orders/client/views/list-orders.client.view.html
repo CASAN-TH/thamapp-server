@@ -274,7 +274,7 @@
                               </div>
                               <div class="col-xs-3 col-sm-3 col-md-3">
                                 <!--<span>คนส่งข้าว</span>-->
-                                <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>
+                                <i class="fa fa-user text-warning" aria-hidden="true" ng-show="order.deliverystatus ==='confirmed'"></i>&nbsp;&nbsp;<label>{{order.inarea === true ? 'ในพื้นที่จัดส่ง' : order.inarea === false ? 'นอกพื้นที่จัดส่ง' : ' ' }}</label>
                                 <i class="fa fa-user text-default" aria-hidden="true" ng-show="order.deliverystatus ==='wait deliver'"></i>
                                 <label ng-bind="order.namedeliver.displayName"></label>
                               </div>
