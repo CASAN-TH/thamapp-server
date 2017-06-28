@@ -19,7 +19,7 @@
     vm.save = save;
     vm.orders = [];
     $scope.prod = ProductsService.get({
-      productId: '592d1f638e705ac02fa47db7'
+      productId: '5885e9bcea48c81000919ff8'
     });
     vm.pushError = [];
     var i = 0;
