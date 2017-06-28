@@ -9,17 +9,30 @@
           <div class="col-md-6 col-xs-12 col-sm-12">
             <label for="comment">Execute</label>
             <textarea ng-model="execute" class="form-control" rows="25" cols="80"></textarea>
-            <div>
-              <button class="btn btn-primary" ng-click="vm.execute(execute)">Execute</button>
-            </div>
           </div>
-          <div class="col-md-6 col-xs-12 col-sm-12">
+
             <label for="comment">Data</label>
-            <textarea class="form-control" rows="25" cols="80">{{vm.orders}}</textarea>
-            <div>
-              <button class="btn btn-primary" ng-click="vm.submits()">submit</button>
-              <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
-            </div>
+
+          <div class="col-md-6 col-xs-12 col-sm-12" ng-repeat="order in vm.orders">
+            <img class="img-circle" src="{{order.img}}" width="15%"><img width="10%">
+            <p>{{order.displayname}}</p>
+            <p>{{order.totalamount | number:2}}</p>
+            <p>{{order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province
+              + ' ' + order.shipping.postcode}}
+            </p>
+            <p>{{order.inarea === true ? 'ในพื้นที่จัดส่ง' : order.inarea === false ? 'นอกพื้นที่จัดส่ง' : ' ' }}</p>
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn btn-primary" ng-click="vm.execute(execute)">Execute</button>
+
+          </div>
+          <div class="col-md-6">
+            <button class="btn btn-primary" ng-click="vm.submits(order)">submit</button>
+            <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
           </div>
         </div>
       </div>
