@@ -11,6 +11,7 @@
             <textarea ng-model="execute" class="form-control" rows="25" cols="80"></textarea>
           </div>
 
+            <label for="comment">Data</label>
 
           <div class="col-md-6 col-xs-12 col-sm-12" ng-repeat="order in vm.orders">
             <img class="img-circle" src="{{order.img}}" width="15%"><img width="10%">
@@ -30,7 +31,7 @@
 
           </div>
           <div class="col-md-6">
-            <button class="btn btn-primary" ng-click="vm.submits()">submit</button>
+            <button class="btn btn-primary" ng-click="vm.submits(order)">submit</button>
             <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
           </div>
         </div>
