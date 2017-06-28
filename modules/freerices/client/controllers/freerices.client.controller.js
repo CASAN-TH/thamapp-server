@@ -23,7 +23,7 @@
     });
     vm.pushError = [];
     var i = 0;
-    var Orlength = vm.orders
+    var Orlength = 0;
     // Remove existing Freerice
 
     vm.execute = function (documents) {
@@ -118,7 +118,7 @@
       if (vm.orders && vm.orders.length > 0) {
         vm.orders[i].docno = (+ new Date());
         $http.post('/api/orders', vm.orders[i]).then(function (res) {
-          i++
+          i++;
           if (i === Orlength) {
             return;
           } else {
@@ -127,7 +127,7 @@
           console.log(i);
         }, function (err) {
           vm.pushError.push(vm.orders[i]);
-          i++
+          i++;
           console.log(vm.pushError);
           alert(err.message);
         });
