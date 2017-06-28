@@ -32,7 +32,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--test web-->
     <div class="page-header hidden-xs show-sm show-md show-lg" ng-show="vm.tabname === '1'" ng-repeat="his in vm.history" ng-if="his.user._id === authentication.user._id">
-
       <div class="panel panel-default">
 
         <div class="panel-heading" ng-click="checked = !checked">
@@ -129,12 +128,20 @@
               </p>
               <div class="front_profile-color2 ">
                 <p>{{his.shipping.firstname}} {{his.shipping.lastname}}</p>
-                <p>{{his.shipping.address}} {{his.shipping.subdistrict}} {{his.shipping.district}} {{his.shipping.province}} {{his.shipping.postcode}}
-                  {{his.shipping.tel}}
+                <p>{{his.shipping.address}} {{his.shipping.subdistrict}} {{his.shipping.district}} {{his.shipping.province}}
+                  {{his.shipping.postcode}} {{his.shipping.tel}}
                 </p>
                 <p>
                   หมายเหตุ : {{his.remark}}
                 </p>
+                <div ng-if="his.namedeliver.displayName">
+                  <p>
+                    <label>ผู้จัดส่ง : </label> {{his.namedeliver.displayName}}
+                  </p>
+                  <p>
+                    <label>โทร : </label> {{his.namedeliver.address.tel}}
+                  </p>
+                </div>
               </div>
 
             </div>
@@ -145,206 +152,207 @@
                 <thead>
                   <tr>
                     <th class="text-center" style="width: 25%;">รูปสินค้า</th>
-<th style="width: 20%;">ชื่อสินค้า</th>
-<th class="text-center" style="width: 35%;">รายละเอียดสินค้า</th>
-<th style="width: 10%;">ราคาสินค้า</th>
-<th style="width: 10%;">จำนวน</th>
-</tr>
-</thead>
-<tbody>
-  <tr ng-repeat="item in his.items">
-    <td>
+                    <th style="width: 20%;">ชื่อสินค้า</th>
+                    <th class="text-center" style="width: 35%;">รายละเอียดสินค้า</th>
+                    <th style="width: 10%;">ราคาสินค้า</th>
+                    <th style="width: 10%;">จำนวน</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in his.items">
+                    <td>
 
-      <div class="slide-left-top ">
-        <img class="img-rounded user-profile-picture1 img-responsive " ng-src="{{item.product.images}} ">
-      </div>
-    </td>
-    <td>{{item.product.name}}</td>
-    <td>{{item.product.description}}</td>
-    <td>{{item.product.price}} บาท</td>
-    <td>{{item.qty}}</td>
-  </tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="border-bottom"></div>
-<div class="row">
-  <div class="col-sm-4 col-md-4 ">
-    <div class="slide-left-top">
-    </div>
-  </div>
-  <div class="col-sm-4 col-md-4 ">
-    <div class="slide-left-top ">
-      <p><strong>ราคารวม</strong></p>      
-      <p><strong>ค่าจัดส่ง</strong></p>
-      <p><strong>ส่วนลด</strong></p>
-      <p><strong>ราคาสุทธิ</strong>(รวม VAT) </p>
-    </div>
-  </div>
-  <div class="col-sm-4 col-md-4 text-right">
-    <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>        
-    <p class="slide-left-top1"><strong> {{his.deliveryamount}} บาท</strong></p>    
-    <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
-    <p class="slide-left-top1"><strong> {{his.totalamount}} บาท</strong></p>
-  </div>
-</div>
-</div>
-</div>
-</div>
-<!--tab setting-->
-<div ng-show="vm.tabname === '2'">
-  <div class="row wrapper  white-bg page-heading">
-    <div class="col-lg-10">
-      <h2>ตั้งค่าความเป็นส่วนตัว</h2>
-    </div>
-  </div>
-  <div class="wrapper wrapper-content" ng-controller="SettingsController">
-    <div class="row">
-      <div class="col-sm-4 col-md-4">
-        <div class="ibox">
-          <div class="ibox-content">
-            <a ui-sref-active="active" ui-sref="me.profile" class="btn btn-default btn-block">แก้ไขข้อมูลส่วนตัว</a>
-            <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">เปลี่ยนรูปโปรไฟล์</a>
-            <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">เปลี่ยนรหัสผ่าน</a>
-            <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">จัดการเครือข่ายสังคม</a>
-            <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">ออกจากระบบ</a>
+                      <div class="slide-left-top ">
+                        <img class="img-rounded user-profile-picture1 img-responsive " ng-src="{{item.product.images}} ">
+                      </div>
+                    </td>
+                    <td>{{item.product.name}}</td>
+                    <td>{{item.product.description}}</td>
+                    <td>{{item.product.price}} บาท</td>
+                    <td>{{item.qty}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="col-sm-8 col-md-8">
-        <div class="ibox">
-          <div class="ibox-content">
-            <div ui-view></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--test mobile type-->
-<div class="page-header show-xs hidden-sm hidden-md hidden-lg" ng-show="vm.tabname === '1'" ng-repeat="his in vm.history"
-  ng-if="his.user._id === authentication.user._id">
-  <div class="panel panel-default">
-    <div class="panel-heading" ng-click="checked = !checked">
-      <h4 class="panel-title">
-        <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his._id}}" aria-expanded="true">
-          <div class="col-xs-5">
-            <div role="button" aria-controls="collapseOne">
-              <div class="front_profile-color2">
-                <strong>รายการสั่งซื้อ # </strong>{{his.docno}}
+          <div class="border-bottom"></div>
+          <div class="row">
+            <div class="col-sm-4 col-md-4 ">
+              <div class="slide-left-top">
               </div>
-              <div class="front_profile-color1">
-                <strong> สั่งเมื่อวันที่ </strong> {{his.docdate | date}}
+            </div>
+            <div class="col-sm-4 col-md-4 ">
+              <div class="slide-left-top ">
+                <p><strong>ราคารวม</strong></p>
+                <p><strong>ค่าจัดส่ง</strong></p>
+                <p><strong>ส่วนลด</strong></p>
+                <p><strong>ราคาสุทธิ</strong>(รวม VAT) </p>
+              </div>
+            </div>
+            <div class="col-sm-4 col-md-4 text-right">
+              <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
+              <p class="slide-left-top1"><strong> {{his.deliveryamount}} บาท</strong></p>
+              <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
+              <p class="slide-left-top1"><strong> {{his.totalamount}} บาท</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--tab setting-->
+    <div ng-show="vm.tabname === '2'">
+      <div class="row wrapper  white-bg page-heading">
+        <div class="col-lg-10">
+          <h2>ตั้งค่าความเป็นส่วนตัว</h2>
+        </div>
+      </div>
+      <div class="wrapper wrapper-content" ng-controller="SettingsController">
+        <div class="row">
+          <div class="col-sm-4 col-md-4">
+            <div class="ibox">
+              <div class="ibox-content">
+                <a ui-sref-active="active" ui-sref="me.profile" class="btn btn-default btn-block">แก้ไขข้อมูลส่วนตัว</a>
+                <a ui-sref-active="active" ui-sref="me.picture" class="btn btn-default btn-block">เปลี่ยนรูปโปรไฟล์</a>
+                <a ui-sref-active="active" ui-sref="me.password" ng-show="user.provider === 'local'" class="btn btn-default btn-block">เปลี่ยนรหัสผ่าน</a>
+                <a ui-sref-active="active" ui-sref="me.accounts" class="btn btn-default btn-block">จัดการเครือข่ายสังคม</a>
+                <a href="/api/auth/signout" target="_self" class="btn btn-default btn-block">ออกจากระบบ</a>
               </div>
             </div>
           </div>
-          <div class="col-xs-3 ">
-            <label class="bin-color">{{his.deliverystatus}}</label>
+          <div class="col-sm-8 col-md-8">
+            <div class="ibox">
+              <div class="ibox-content">
+                <div ui-view></div>
+              </div>
+            </div>
           </div>
-          <div class="col-xs-2 text-right">
-            <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
-            <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
-          </div>
-          <div class="col-xs-2 ">
-            <i class="bin-color glyphicon glyphicon-trash" ng-click="vm.remove()"></i>
-          </div>
-        </div>
-      </h4>
-    </div>
-    <!--<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> test </div>-->
-    <div id="{{his._id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-      <div class="row ">
-        <div class="col-xs-12 text-center front_profile-color2 slide-left-top1">
-          <p>คุณจะได้รับสินค้าภายใน7วันนับจากวันที่สั่งซื้อ</p>
         </div>
       </div>
-      <!--status-->
-      <!--<div class="row">
+    </div>
+    <!--test mobile type-->
+    <div class="page-header show-xs hidden-sm hidden-md hidden-lg" ng-show="vm.tabname === '1'" ng-repeat="his in vm.history"
+      ng-if="his.user._id === authentication.user._id">
+      <div class="panel panel-default">
+        <div class="panel-heading" ng-click="checked = !checked">
+          <h4 class="panel-title">
+            <div class="row" data-toggle="collapse" data-parent="#accordion" href="#{{his._id}}" aria-expanded="true">
+              <div class="col-xs-5">
+                <div role="button" aria-controls="collapseOne">
+                  <div class="front_profile-color2">
+                    <strong>รายการสั่งซื้อ # </strong>{{his.docno}}
+                  </div>
+                  <div class="front_profile-color1">
+                    <strong> สั่งเมื่อวันที่ </strong> {{his.docdate | date}}
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-3 ">
+                <label class="bin-color">{{his.deliverystatus}}</label>
+              </div>
+              <div class="col-xs-2 text-right">
+                <span class="glyphicon glyphicon-chevron-up" ng-show="!checked"></span>
+                <span class="glyphicon glyphicon-chevron-down" ng-show="checked"></span>
+              </div>
+              <div class="col-xs-2 ">
+                <i class="bin-color glyphicon glyphicon-trash" ng-click="vm.remove()"></i>
+              </div>
+            </div>
+          </h4>
+        </div>
+        <!--<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne"> test </div>-->
+        <div id="{{his._id}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="row ">
+            <div class="col-xs-12 text-center front_profile-color2 slide-left-top1">
+              <p>คุณจะได้รับสินค้าภายใน7วันนับจากวันที่สั่งซื้อ</p>
+            </div>
+          </div>
+          <!--status-->
+          <!--<div class="row">
             <div class="col-xs-4 text-right front_profile-color9"><span><i class="fa fa-inbox "></i></span></div>
             <div class="col-xs-4  line {{his.deliverystatus === 'accept'?'front_profile-color9':his.deliverystatus === 'complete'?'front_profile-color9':'color-gray-profile'}}"><span><i class="fa fa-truck"></i></span></div>
             <div class="col-xs-4 glypush1 {{his.deliverystatus === 'complete'?'front_profile-color9':'color-gray-profile'}}"><span><i class="fa fa-check-circle"></i></span></div>
           </div>-->
-      <!--status-->
-      <div class="row">
-        <div class="col-xs-12">
+          <!--status-->
           <div class="row">
-            <div class="status-track">
-              <div class="complete size-status"> <i class="fa fa-inbox"></i>
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="status-track">
+                  <div class="complete size-status"> <i class="fa fa-inbox"></i>
+                  </div>
+                  <div class="complete {{his.deliverystatus === 'accept'?'size-status':his.deliverystatus === 'complete'?'size-status':'color-gray-profile'}}"><i class="fa fa-truck"> </i>
+                  </div>
+                  <div class="complete {{his.deliverystatus === 'complete'?'size-status':'color-gray-profile'}}"><i class="fa fa-check-circle"></i>
+                  </div>
+                </div>
               </div>
-              <div class="complete {{his.deliverystatus === 'accept'?'size-status':his.deliverystatus === 'complete'?'size-status':'color-gray-profile'}}"><i class="fa fa-truck"> </i>
+            </div>
+          </div>
+          <div class="text-center">
+            <div class="row" ng-show="his.delivery.deliveryid === '1'">
+              <div class="col-sm-12 col-md-12 ">
+                <strong> การจัดส่ง :</strong> ส่งไปรษณีย์
               </div>
-              <div class="complete {{his.deliverystatus === 'complete'?'size-status':'color-gray-profile'}}"><i class="fa fa-check-circle"></i>
+            </div>
+            <div class="row" ng-show="his.delivery.deliveryid === '0'">
+              <div class="col-sm-12 col-md-12 ">
+                <strong>การจัดส่ง :</strong> คนส่งข้าว
               </div>
+            </div>
+          </div>
+          <div class="border-bottom">
+          </div>
+          <div class="row-xs-12  front_profile-color0 text-center slide-left-top1">
+            <p>เราหวังว่าคุณจะมีความสุขกับสินค้าใหม่ที่คุณได้รับไป ขอบคุณสำหรับการช็อปปิ้งสินค้าออนไลน์กับธรรมธุรกิจ และหวังว่าเราจะได้รับโอกาสบริการคุณอีกครั้ง</p>
+          </div>
+          <div class="row-xs-12 front_profile-color2 ">
+            <div class="col-xs-12  border-bottom slide-left-top1">
+              <p>
+                <h4>ที่อยู่จัดส่ง</h4>
+              </p>
+              <p>{{his.shipping.firstname}} {{his.shipping.lastname}}</p>
+              <p>{{his.shipping.address}} {{his.shipping.subdistrict}} {{his.shipping.district}} {{his.shipping.province}} {{his.shipping.postcode}}
+                {{his.shipping.tel}}
+              </p>
+            </div>
+          </div>
+          <div class="row " ng-repeat="item in his.items">
+            <div class="col-xs-5">
+              <div class="slide-left-top ">
+                <img class="img-rounded logo " ng-src="{{item.product.images}} ">
+              </div>
+            </div>
+            <div class="col-xs-7 front_profile-color2 slide-left-top1">
+              <p>ชื่อสินค้า :{{item.product.name}} </p>
+              <!--<p>รายละเอียดสินค้า :{{item.product.description}}</p>-->
+              <p>ราคาสินค้า :{{item.product.price}} บาท</p>
+              <p>จำนวน :{{item.qty}}</p>
+            </div>
+            <div class="border-bottom">
+            </div>
+          </div>
+          <div class="border-bottom"></div>
+          <div class="row ">
+            <div class="col-xs-6 ">
+              <div class="slide-left-top">
+                <p><strong>ราคารวม</strong></p>
+                <p><strong>ค่าจัดส่ง</strong></p>
+                <p><strong>ส่วนลด</strong></p>
+                <p><strong>ราคาสุทธิ</strong> (รวม VAT) </p>
+              </div>
+            </div>
+            <div class="col-xs-6 text-right">
+              <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>
+              <p class="slide-left-top1"><strong> {{his.deliveryamount}} บาท</strong></p>
+              <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
+              <p class="slide-left-top1"><strong> {{his.totalamount}} บาท</strong></p>
+
             </div>
           </div>
         </div>
       </div>
-      <div class="text-center">
-        <div class="row" ng-show="his.delivery.deliveryid === '1'">
-          <div class="col-sm-12 col-md-12 ">
-            <strong> การจัดส่ง :</strong> ส่งไปรษณีย์
-          </div>
-        </div>
-        <div class="row" ng-show="his.delivery.deliveryid === '0'">
-          <div class="col-sm-12 col-md-12 ">
-            <strong>การจัดส่ง :</strong> คนส่งข้าว
-          </div>
-        </div>
-      </div>
-      <div class="border-bottom">
-      </div>
-      <div class="row-xs-12  front_profile-color0 text-center slide-left-top1">
-        <p>เราหวังว่าคุณจะมีความสุขกับสินค้าใหม่ที่คุณได้รับไป ขอบคุณสำหรับการช็อปปิ้งสินค้าออนไลน์กับธรรมธุรกิจ และหวังว่าเราจะได้รับโอกาสบริการคุณอีกครั้ง</p>
-      </div>
-      <div class="row-xs-12 front_profile-color2 ">
-        <div class="col-xs-12  border-bottom slide-left-top1">
-          <p>
-            <h4>ที่อยู่จัดส่ง</h4>
-          </p>
-          <p>{{his.shipping.firstname}} {{his.shipping.lastname}}</p>
-          <p>{{his.shipping.address}} {{his.shipping.subdistrict}} {{his.shipping.district}} {{his.shipping.province}} {{his.shipping.postcode}} {{his.shipping.tel}}
-          </p>
-        </div>
-      </div>
-      <div class="row " ng-repeat="item in his.items">
-        <div class="col-xs-5">
-          <div class="slide-left-top ">
-            <img class="img-rounded logo " ng-src="{{item.product.images}} ">
-          </div>
-        </div>
-        <div class="col-xs-7 front_profile-color2 slide-left-top1">
-          <p>ชื่อสินค้า :{{item.product.name}} </p>
-          <!--<p>รายละเอียดสินค้า :{{item.product.description}}</p>-->
-          <p>ราคาสินค้า :{{item.product.price}} บาท</p>
-          <p>จำนวน :{{item.qty}}</p>
-        </div>
-        <div class="border-bottom">
-        </div>
-      </div>
-      <div class="border-bottom"></div>
-      <div class="row ">
-        <div class="col-xs-6 ">
-          <div class="slide-left-top">
-            <p><strong>ราคารวม</strong></p>                        
-            <p><strong>ค่าจัดส่ง</strong></p>            
-            <p><strong>ส่วนลด</strong></p>
-            <p><strong>ราคาสุทธิ</strong> (รวม VAT) </p>
-          </div>
-        </div>
-        <div class="col-xs-6 text-right">
-          <p class="slide-left-top1"><strong> {{his.amount}} บาท</strong></p>                    
-          <p class="slide-left-top1"><strong> {{his.deliveryamount}} บาท</strong></p>          
-          <p class="slide-left-top1"><strong> {{his.discountpromotion}} บาท</strong></p>
-          <p class="slide-left-top1"><strong> {{his.totalamount}} บาท</strong></p>
-
-        </div>
-      </div>
     </div>
   </div>
-</div>
-</div>
-<div ng-show="!authentication.user">
-  <h3 class="text-center">Please signin or signup</h3>
-</div>
+  <div ng-show="!authentication.user">
+    <h3 class="text-center">Please signin or signup</h3>
+  </div>
 </section>
