@@ -7,32 +7,62 @@
       <div class="form-group">
         <div class="row">
           <div class="col-md-6 col-xs-12 col-sm-12">
-            <label for="comment">Execute</label>
+            <h2>Execute</h2>
             <textarea ng-model="execute" class="form-control" rows="25" cols="80"></textarea>
-          </div>
-
-            <label for="comment">Data</label>
-
-          <div class="col-md-6 col-xs-12 col-sm-12" ng-repeat="order in vm.orders">
-            <img class="img-circle" src="{{order.img}}" width="15%"><img width="10%">
-            <p>{{order.displayname}}</p>
-            <p>{{order.totalamount | number:2}}</p>
-            <p>{{order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province
-              + ' ' + order.shipping.postcode}}
-            </p>
-            <p>{{order.inarea === true ? 'ในพื้นที่จัดส่ง' : order.inarea === false ? 'นอกพื้นที่จัดส่ง' : ' ' }}</p>
-
-          </div>
-
-        </div>
-        <div class="row">
-          <div class="col-md-6">
             <button class="btn btn-primary" ng-click="vm.execute(execute)">Execute</button>
-
           </div>
-          <div class="col-md-6">
-            <button class="btn btn-primary" ng-click="vm.submits(order)">submit</button>
+
+          <div class="col-md-6 col-xs-12 col-sm-12">
+            <!--<h2>Orders</h2>
+            <div class="fix-scrollfreerice">
+              <div class="col-md-12 col-xs-12 col-sm-12" ng-repeat="order in vm.orders">
+                <ul class="list-group">
+                  <li class="list-group-item"><img class="img-circle" src="{{order.img}}" width="5%"><img width="10%"></li>
+                  <li class="list-group-item">ชื่อ : {{order.displayname}} , รวม : {{order.totalamount | number:2}} บาท</li>
+                  <li class="list-group-item">ที่อยู่ : {{order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district +
+                    ' ' + order.shipping.province + ' ' + order.shipping.postcode}} , {{order.inarea === true ? 'ในพื้นที่จัดส่ง'
+                    : order.inarea === false ? 'นอกพื้นที่จัดส่ง' : ' ' }}</li>
+                </ul>
+              </div>
+            </div>
+            <button class="btn btn-primary" ng-click="vm.submits()">submit</button>
+            <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>-->
+            <div class="row form-group alert alert-info" >
+              <div class="col-xs-5 col-sm-5 col-md-5">
+                <strong>ชื่อลูกค้า</strong>
+              </div>
+              <div class="col-xs-1 col-sm-1 col-md-1">
+                <strong>รวม</strong>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4">
+                <strong>ชื่อ-ที่อยู่จัดส่ง</strong>
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <strong>การจัดส่ง</strong>
+              </div>
+            </div>
+            <div class="fix-scrollfreerice">
+            <div class="row" ng-repeat="order in vm.orders">
+              <div class="col-xs-5 col-sm-5 col-md-5">
+                <!--<img class="img-circle" src="{{order.img}}" width="15%"><img width="10%">-->
+                <label class="list-group-item-heading" ng-bind="order.displayname"></label><br>
+                <img width="25%">
+              </div>
+              <div class="col-xs-1 col-sm-1 col-md-1">
+                <label class="list-group-item-heading">{{order.totalamount | number:2}}</label>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4">
+                <label class="list-group-item-heading dotpy">{{order.shipping.address + ' ' + order.shipping.subdistrict + ' ' + order.shipping.district + ' ' + order.shipping.province
+                  + ' ' + order.shipping.postcode}}</label>
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+                <label class="list-group-item-heading">{{order.inarea === true ? 'ในพื้นที่' : order.inarea === false ? 'นอกพื้นที่' : ' ' }}</label>
+              </div>
+            </div>
+            </div>
+            <button class="btn btn-primary" ng-click="vm.submits()">submit</button>
             <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
+
           </div>
         </div>
       </div>

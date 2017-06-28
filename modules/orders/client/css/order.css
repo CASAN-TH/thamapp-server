@@ -58,3 +58,10 @@
     overflow: scroll;
     overflow-x: hidden;
 }
+
+.fix-scrollfreerice{
+    width: auto;
+    height: 500px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
