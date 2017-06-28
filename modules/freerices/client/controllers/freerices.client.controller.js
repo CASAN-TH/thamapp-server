@@ -21,15 +21,19 @@
     $scope.prod = ProductsService.get({
       productId: '592d1f638e705ac02fa47db7'
     });
-    console.log($scope.prod);
+    vm.pushError = [];
+    var i = 0;
+    var Orlength = vm.orders
     // Remove existing Freerice
 
     vm.execute = function (documents) {
       vm.orders = [];
+      i = 0;
       var remarkSrc = (+ new Date());
       if (documents) {
         var users = JSON.parse(documents);
         if (users && users.length > 0) {
+          Orlength = users.length;
           users.forEach(function (user) {
             var item = {
               product: $scope.prod,
@@ -45,7 +49,6 @@
             _order.delivery = { deliveryid: '0' };
             _order.items = [];
             _order.src = 'batch2 : ' + remarkSrc;
-            _order.docno = (+ new Date());
             _order.docdate = new Date();
             _order.items.push(item); // item is product
             _order.shipping = {};
@@ -112,7 +115,23 @@
     };
 
     vm.submits = function () {
-
+      if (vm.orders && vm.orders.length > 0) {
+        vm.orders[i].docno = (+ new Date());
+        $http.post('/api/orders', vm.orders[i]).then(function (res) {
+          i++
+          if (i === Orlength) {
+            return;
+          } else {
+            vm.submits();
+          }
+          console.log(i);
+        }, function (err) {
+          vm.pushError.push(vm.orders[i]);
+          i++
+          console.log(vm.pushError);
+          alert(err.message);
+        });
+      }
     };
 
 
