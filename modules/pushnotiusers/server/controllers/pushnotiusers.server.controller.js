@@ -16,6 +16,8 @@ exports.create = function (req, res) {
   var pushnotiuser = new Pushnotiuser(req.body);
   pushnotiuser.user = req.user;
 
+  pushnotiuser.client_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
   pushnotiuser.save(function (err) {
     if (err) {
       return res.status(400).send({
@@ -114,4 +116,9 @@ exports.pushnotiuserByID = function (req, res, next, id) {
     req.pushnotiuser = pushnotiuser;
     next();
   });
+};
+
+exports.getclientip = function (req, res, next) {
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  res.jsonp({ clientIP: ip });
 };

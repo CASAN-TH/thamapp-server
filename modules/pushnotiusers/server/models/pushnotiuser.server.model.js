@@ -29,6 +29,9 @@ var PushnotiuserSchema = new Schema({
     required: 'Please fill Pushnotiuser device token',
     trim: true
   },
+  client_ip: {
+    type: String
+  },
   created: {
     type: Date,
     default: Date.now

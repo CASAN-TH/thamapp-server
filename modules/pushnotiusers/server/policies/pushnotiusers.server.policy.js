@@ -18,28 +18,37 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/pushnotiusers',
       permissions: '*'
     }, {
-      resources: '/api/pushnotiusers/:pushnotiuserId',
-      permissions: '*'
-    }]
+        resources: '/api/pushnotiusers/:pushnotiuserId',
+        permissions: '*'
+      }, {
+        resources: '/api/getclientip',
+        permissions: ['get']
+      }]
   }, {
-    roles: ['user'],
-    allows: [{
-      resources: '/api/pushnotiusers',
-      permissions: ['get', 'post']
+      roles: ['user'],
+      allows: [{
+        resources: '/api/pushnotiusers',
+        permissions: ['get', 'post']
+      }, {
+          resources: '/api/pushnotiusers/:pushnotiuserId',
+          permissions: ['get']
+        }, {
+          resources: '/api/getclientip',
+          permissions: ['get']
+        }]
     }, {
-      resources: '/api/pushnotiusers/:pushnotiuserId',
-      permissions: ['get']
-    }]
-  }, {
-    roles: ['guest'],
-    allows: [{
-      resources: '/api/pushnotiusers',
-      permissions: ['get']
-    }, {
-      resources: '/api/pushnotiusers/:pushnotiuserId',
-      permissions: ['get']
-    }]
-  }]);
+      roles: ['guest'],
+      allows: [{
+        resources: '/api/pushnotiusers',
+        permissions: ['get']
+      }, {
+          resources: '/api/pushnotiusers/:pushnotiuserId',
+          permissions: ['get']
+        }, {
+          resources: '/api/getclientip',
+          permissions: ['get']
+        }]
+    }]);
 };
 
 /**
