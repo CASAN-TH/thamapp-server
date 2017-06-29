@@ -20,15 +20,15 @@
     vm.orders = [];
 
     // ข้าว 1 กิโล production
-    $scope.prod = ProductsService.get({
-      productId: '5885e9bcea48c81000919ff8'
-    });
+    // $scope.prod = ProductsService.get({
+    //   productId: '5885e9bcea48c81000919ff8'
+    // });
 
     // สินค้าเครื่องบ๊วย
-    // $scope.prod = ProductsService.get({
-    //   productId: '592d1f638e705ac02fa47db7'
-    // });
-    
+    $scope.prod = ProductsService.get({
+      productId: '592d1f638e705ac02fa47db7'
+    });
+
     vm.pushError = [];
     var i = 0;
     var Orlength = 0;
@@ -97,9 +97,12 @@
               var postcode = _order.shipping.postcode === '' ? '00000' : _order.shipping.postcode;
               if (_order.shipping && _order.shipping.province === 'กรุงเทพมหานคร') {
                 _order.inarea = true;
+                _order.docno = 'CN' + (+ new Date());
               } else {
                 $http.get('/api/checkPostcode/' + postcode).success(function (res) {
                   _order.inarea = res.area;
+                  _order.docno = 'CN' + (+ new Date());
+
                 });
               }
 
@@ -165,7 +168,6 @@
 
       if (vm.orders && vm.orders.length > 0) {
         vm.orders.forEach(function (order) {
-          order.docno = 'CN' + (+ new Date());
           if (order.shipping.tel && order.shipping.tel !== '') {
             $http.post('/api/orders', order).then(function (res) {
               console.log('success');
