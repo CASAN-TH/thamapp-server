@@ -398,7 +398,7 @@ exports.fromorders = function (req, res, next) {
                             date: oldorder.docdate,
                             trnsno: 'ARR' + oldorder.docno,
                             accountno: '1150000',
-                            accountname: oldorder.namedeliver.displayName,
+                            accountname: oldorder.namedeliver ? oldorder.namedeliver.displayName : '',
                             des: 'รายการสั่งซื้อ เลขที่: ' + oldorder.docno,
                             debit: totalAmt,
                             credit: 0

@@ -18,12 +18,22 @@
     vm.remove = remove;
     vm.save = save;
     vm.orders = [];
+
+    // ข้าว 1 กิโล production
     $scope.prod = ProductsService.get({
       productId: '5885e9bcea48c81000919ff8'
     });
+
+    // สินค้าเครื่องบ๊วย
+    // $scope.prod = ProductsService.get({
+    //   productId: '592d1f638e705ac02fa47db7'
+    // });
+    
     vm.pushError = [];
     var i = 0;
     var Orlength = 0;
+    vm.inputUser = 0;
+    vm.createOrder = 0;
     // Remove existing Freerice
 
     vm.execute = function (documents) {
@@ -34,6 +44,8 @@
         var users = JSON.parse(documents);
         if (users && users.length > 0) {
           Orlength = users.length;
+          vm.inputUser = users.length;
+          vm.createOrder = vm.inputUser;
           users.forEach(function (user) {
             var item = {
               product: $scope.prod,
@@ -44,11 +56,12 @@
               deliverycost: 50,
               discountamount: 100
             };
+            var telephone = user.address.tel.trim();
             var _order = {};
             _order.remark = 'ส่งข้าวให้คนลงขัน ไม่ต้องเก็บเงิน ***บริษัทจ่ายค่าส่งให้คนส่งข้าว***';
             _order.delivery = { deliveryid: '0' };
             _order.items = [];
-            _order.src = 'batch2 : ' + remarkSrc;
+            _order.src = remarkSrc;
             _order.docdate = new Date();
             _order.items.push(item); // item is product
             _order.shipping = {};
@@ -59,8 +72,8 @@
             _order.shipping.subdistrict = user.address.subdistrict;
             _order.shipping.district = user.address.district;
             _order.shipping.province = user.address.province;
-            _order.shipping.tel = user.address.tel;
-            _order.shipping.email = user.email;
+            _order.shipping.tel = telephone;
+            _order.shipping.email = user.email ? user.email : telephone + '@thamturakit.com';
             _order.historystatus = [{
               status: 'confirmed',
               datestatus: new Date()
@@ -112,24 +125,65 @@
     vm.clears = function () {
       $scope.execute = null;
       vm.orders = null;
+      vm.inputUser = 0;
+      vm.createOrder = 0;
     };
 
     vm.submits = function () {
+      // if (vm.orders && vm.orders.length > 0) {
+      //   vm.orders[i].docno = 'CN' + (+ new Date());
+      //   $http.post('/api/orders', vm.orders[i]).then(function (res) {
+      //     i++;
+      //     if (i === Orlength) {
+      //       alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+      //       $scope.execute = null;
+      //       vm.orders = null;
+      //       vm.inputUser = 0;
+      //       vm.createOrder = 0;
+      //       return;
+      //     } else {
+      //       vm.submits();
+      //     }
+      //     console.log(i);
+      //   }, function (err) {
+      //     vm.pushError.push(vm.orders[i]);
+      //     i++;
+      //     if (i === Orlength) {
+      //       alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+      //       $scope.execute = null;
+      //       vm.orders = null;
+      //       vm.inputUser = 0;
+      //       vm.createOrder = 0;
+      //       return;
+      //     } else {
+      //       vm.submits();
+      //     }
+      //     console.log(vm.pushError);
+      //     alert(err.message);
+      //   });
+      // }
+
       if (vm.orders && vm.orders.length > 0) {
-        vm.orders[i].docno = (+ new Date());
-        $http.post('/api/orders', vm.orders[i]).then(function (res) {
-          i++;
-          if (i === Orlength) {
-            return;
+        vm.orders.forEach(function (order) {
+          order.docno = 'CN' + (+ new Date());
+          if (order.shipping.tel && order.shipping.tel !== '') {
+            $http.post('/api/orders', order).then(function (res) {
+              console.log('success');
+            }, function (err) {
+              vm.pushError.push({
+                order: order,
+                error: err.data.message
+              });
+              console.log(vm.pushError);
+            });
           } else {
-            vm.submits();
+            vm.pushError.push({
+              order: order,
+              error: 'not have phone number'
+            });
+            console.log(vm.pushError);
           }
-          console.log(i);
-        }, function (err) {
-          vm.pushError.push(vm.orders[i]);
-          i++;
-          console.log(vm.pushError);
-          alert(err.message);
+
         });
       }
     };

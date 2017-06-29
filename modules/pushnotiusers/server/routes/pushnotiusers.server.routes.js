@@ -18,9 +18,7 @@ module.exports = function (app) {
     .get(pushnotiusers.read)
     .put(users.requiresLoginToken, pushnotiusers.update)
     .delete(users.requiresLoginToken, pushnotiusers.delete);
-
-  app.route('/api/getclientip')//.all(pushnotiusersPolicy.isAllowed)
-    .get(pushnotiusers.getclientip);
+    
   // Finish by binding the Pushnotiuser middleware
   app.param('pushnotiuserId', pushnotiusers.pushnotiuserByID);
 };

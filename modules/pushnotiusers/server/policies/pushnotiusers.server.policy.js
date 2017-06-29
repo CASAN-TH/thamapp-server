@@ -20,9 +20,6 @@ exports.invokeRolesPolicies = function () {
     }, {
         resources: '/api/pushnotiusers/:pushnotiuserId',
         permissions: '*'
-      }, {
-        resources: '/api/getclientip',
-        permissions: ['get']
       }]
   }, {
       roles: ['user'],
@@ -32,9 +29,6 @@ exports.invokeRolesPolicies = function () {
       }, {
           resources: '/api/pushnotiusers/:pushnotiuserId',
           permissions: ['get']
-        }, {
-          resources: '/api/getclientip',
-          permissions: ['get']
         }]
     }, {
       roles: ['guest'],
@@ -43,9 +37,6 @@ exports.invokeRolesPolicies = function () {
         permissions: ['get']
       }, {
           resources: '/api/pushnotiusers/:pushnotiuserId',
-          permissions: ['get']
-        }, {
-          resources: '/api/getclientip',
           permissions: ['get']
         }]
     }]);

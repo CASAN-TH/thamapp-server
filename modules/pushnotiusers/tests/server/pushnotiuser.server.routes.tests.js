@@ -510,17 +510,6 @@ describe('Pushnotiuser CRUD tests', function () {
     });
   });
 
-  // it('get client IP-Address', function (done) {
-  //   request(app).get('/api/getclientip')
-  //     .end(function (req, res) {
-  //       // Set assertion
-  //       (res.body.clientIP).should.equal('');
-
-  //       // Call the assertion callback
-  //       done();
-  //     });
-  // });
-
   afterEach(function (done) {
     User.remove().exec(function () {
       Pushnotiuser.remove().exec(done);
