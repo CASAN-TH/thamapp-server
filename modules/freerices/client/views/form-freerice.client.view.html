@@ -62,16 +62,35 @@
             </div>
             <button class="btn btn-primary" ng-click="vm.submits()">Submit</button>
             <button class="btn btn-danger" ng-click="vm.clears()">Clear</button>
-              <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12"></div>
-                <div class="col-md-6 col-sm-12 col-xs-12 textRight">
-                  จำนวนข้อมูลนำเข้า {{vm.inputUser}} / จำนวนการสั่งซื้อ {{vm.createOrder}}
-                </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12 col-xs-12"></div>
+              <div class="col-md-6 col-sm-12 col-xs-12 textRight">
+                จำนวนข้อมูลนำเข้า {{vm.inputUser}} / จำนวนการสั่งซื้อ {{vm.createOrder}}
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xs-12 col-sm-12 alert alert-info text-center">
+            <label>Log Error</label>
+          
+        </div>
+      </div>
+      <div class="row ">
+        <div class="fix-scrollfreericeEr">
+
+          <div class="col-md-12 col-xs-12 col-sm-12">
+            <ul class="list-group" ng-repeat="err in vm.pushError">
+              <li class="list-group-item front_price1">{{$index+1}}. ชื่อ : {{err.order.displayname}} : {{err.error}}</li>
+            </ul>
           </div>
         </div>
       </div>
     </form>
+
+
+
   </div>
 
 </section>

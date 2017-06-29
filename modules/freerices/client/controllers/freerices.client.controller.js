@@ -26,7 +26,7 @@
 
     // สินค้าเครื่องบ๊วย
     $scope.prod = ProductsService.get({
-      productId: '592d1f638e705ac02fa47db7'
+      productId: '592800dfbb523410005efa30'
     });
 
     vm.pushError = [];
@@ -38,6 +38,7 @@
 
     vm.execute = function (documents) {
       vm.orders = [];
+      vm.pushError = [];
       i = 0;
       var remarkSrc = (+ new Date());
       if (documents) {
@@ -130,6 +131,7 @@
       vm.orders = null;
       vm.inputUser = 0;
       vm.createOrder = 0;
+      vm.pushError = [];
     };
 
     vm.submits = function () {
@@ -171,18 +173,45 @@
           if (order.shipping.tel && order.shipping.tel !== '') {
             $http.post('/api/orders', order).then(function (res) {
               console.log('success');
+              i++;
+              if (i === Orlength) {
+                alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+                $scope.execute = null;
+                vm.orders = null;
+                vm.inputUser = 0;
+                vm.createOrder = 0;
+                return;
+              }
             }, function (err) {
               vm.pushError.push({
                 order: order,
                 error: err.data.message
               });
+              i++;
+              if (i === Orlength) {
+                alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+                $scope.execute = null;
+                vm.orders = null;
+                vm.inputUser = 0;
+                vm.createOrder = 0;
+                return;
+              }
               console.log(vm.pushError);
             });
           } else {
             vm.pushError.push({
               order: order,
-              error: 'not have phone number'
+              error: 'No have phone number'
             });
+            i++;
+            if (i === Orlength) {
+              alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+              $scope.execute = null;
+              vm.orders = null;
+              vm.inputUser = 0;
+              vm.createOrder = 0;
+              return;
+            }
             console.log(vm.pushError);
           }
 
@@ -222,4 +251,4 @@
       }
     }
   }
-} ());
+}());
