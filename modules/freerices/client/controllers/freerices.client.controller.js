@@ -26,20 +26,24 @@
 
     // สินค้าเครื่องบ๊วย
     $scope.prod = ProductsService.get({
-      productId: '592800dfbb523410005efa30'
+      productId: '592d1f638e705ac02fa47db7'
     });
 
     vm.pushError = [];
     var i = 0;
+    var checkDocno = 0;
     var Orlength = 0;
     vm.inputUser = 0;
     vm.createOrder = 0;
+    vm.checkDisble = true;
     // Remove existing Freerice
 
     vm.execute = function (documents) {
       vm.orders = [];
       vm.pushError = [];
       i = 0;
+      checkDocno = 0;
+      vm.checkDisble = true;
       var remarkSrc = (+ new Date());
       if (documents) {
         var users = JSON.parse(documents);
@@ -99,16 +103,24 @@
               if (_order.shipping && _order.shipping.province === 'กรุงเทพมหานคร') {
                 _order.inarea = true;
                 _order.docno = 'CN' + (+ new Date());
+                checkDocno++;
+                if (checkDocno === vm.createOrder) {
+                  alert('สร้างข้อมูลทั้งหมด : ' + vm.createOrder + ' รายการ');
+                  vm.checkDisble = false;
+                }
               } else {
                 $http.get('/api/checkPostcode/' + postcode).success(function (res) {
                   _order.inarea = res.area;
                   _order.docno = 'CN' + (+ new Date());
-
+                  checkDocno++;
+                  if (checkDocno === vm.createOrder) {
+                    alert('สร้างข้อมูลทั้งหมด : ' + vm.createOrder + ' รายการ');
+                    vm.checkDisble = false;
+                  }
                 });
               }
 
               vm.orders.push(_order);
-
 
 
 
@@ -132,6 +144,7 @@
       vm.inputUser = 0;
       vm.createOrder = 0;
       vm.pushError = [];
+      vm.checkDisble = true;
     };
 
     vm.submits = function () {
@@ -175,8 +188,10 @@
               console.log('success');
               i++;
               if (i === Orlength) {
-                alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+                var successLength = vm.createOrder - vm.pushError.length;
+                alert('บันทึกข้อมูลเรียบร้อยแล้ว : ' + successLength + ' รายการ ผิดพลาด : ' + vm.pushError.length + ' รายการ');
                 $scope.execute = null;
+                vm.checkDisble = true;
                 vm.orders = null;
                 vm.inputUser = 0;
                 vm.createOrder = 0;
@@ -189,8 +204,10 @@
               });
               i++;
               if (i === Orlength) {
-                alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+                var successLength = vm.createOrder - vm.pushError.length;
+                alert('บันทึกข้อมูลเรียบร้อยแล้ว : ' + successLength + ' รายการ ผิดพลาด : ' + vm.pushError.length + ' รายการ');
                 $scope.execute = null;
+                vm.checkDisble = true;
                 vm.orders = null;
                 vm.inputUser = 0;
                 vm.createOrder = 0;
@@ -205,9 +222,11 @@
             });
             i++;
             if (i === Orlength) {
-              alert('บันทึกข้อมูลเรียบร้อยแล้ว');
+              var successLength = vm.createOrder - vm.pushError.length;
+              alert('บันทึกข้อมูลเรียบร้อยแล้ว : ' + successLength + ' รายการ ผิดพลาด : ' + vm.pushError.length + ' รายการ');
               $scope.execute = null;
               vm.orders = null;
+              vm.checkDisble = true;
               vm.inputUser = 0;
               vm.createOrder = 0;
               return;
@@ -251,4 +270,4 @@
       }
     }
   }
-}());
+} ());
