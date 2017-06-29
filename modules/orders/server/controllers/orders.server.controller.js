@@ -142,8 +142,8 @@ exports.create = function (req, res) {
             message: errorHandler.getErrorMessage(err2)
           });
         } else {
-          // sendNewOrder();
-          // sendNewdeliverOrder(req.body.shipping.sharelocation);
+          sendNewOrder();
+          sendNewdeliverOrder(req.body.shipping.sharelocation);
           res.jsonp(orders);
         }
       });
