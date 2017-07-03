@@ -509,7 +509,7 @@ exports.findinvestor = function (req, res, next) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      var datas = orders.filter(function (obj) { return obj.docno.length > 12; });
+      var datas = orders.filter(function (obj) { return obj.docno.length > 13; });
       req.findinvestororder = datas;
       datas.forEach(function (order) {
         if (order.user && order.user._id) {
@@ -527,7 +527,7 @@ exports.findinvestor = function (req, res, next) {
 exports.updateusertoinvestor = function (req, res, next) {
   // console.log(req.isinvestor);
   // var users = req.findinvestororder.filter(function (obj) { return obj.user; });
-  User.update({ _id: { '$in': req.isinvestor } }, { isinvestor: false }, { multi: true }, function (err, docs) {
+  User.update({ _id: { '$in': req.isinvestor } }, { isinvestor: true }, { multi: true }, function (err, docs) {
     next();
   });
 };
