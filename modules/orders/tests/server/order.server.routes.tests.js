@@ -900,7 +900,7 @@ describe('Order CRUD tests', function () {
     var orderObj3 = new Order(order); //src android
     var orderObj4 = new Order(order); //src คนลงขัน   
 
-    orderObj.docno = '12312321323';
+    orderObj.docno = '123123213231212';
     orderObj.src = 'คนลงขัน';
     orderObj.user = user;
 

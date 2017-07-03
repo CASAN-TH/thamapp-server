@@ -509,8 +509,9 @@ exports.findinvestor = function (req, res, next) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      req.findinvestororder = orders;
-      orders.forEach(function (order) {
+      var datas = orders.filter(function (obj) { return obj.docno.length > 12; });
+      req.findinvestororder = datas;
+      datas.forEach(function (order) {
         if (order.user && order.user._id) {
           var user_id = order.user._id;
           if (users.indexOf(user_id) === -1) {
