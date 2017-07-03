@@ -510,10 +510,9 @@ exports.findinvestor = function (req, res, next) {
       });
     } else {
       req.findinvestororder = orders;
-      console.log(orders[0]);
       orders.forEach(function (order) {
-        if (users.indexOf(order.user._id) === -1) {
-          users.push(order.user._id);
+        if (users.indexOf(order.user.username) === -1) {
+          users.push(order.user.username);
         }
       });
       req.isinvestor = users;
@@ -522,8 +521,9 @@ exports.findinvestor = function (req, res, next) {
   });
 };
 exports.updateusertoinvestor = function (req, res, next) {
+  console.log(req.isinvestor);
   // var users = req.findinvestororder.filter(function (obj) { return obj.user; });
-  User.update({ _id: { '$in': req.isinvestor } }, { isinvestor: true }, { multi: true }, function (err, docs) {
+  User.update({ username: { '$in': req.isinvestor } }, { isinvestor: true }, { multi: true }, function (err, docs) {
     next();
   });
 };
