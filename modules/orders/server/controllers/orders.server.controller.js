@@ -512,9 +512,7 @@ exports.findinvestor = function (req, res, next) {
       req.findinvestororder = orders;
       orders.forEach(function (order) {
         if (order.user && order.user._id) {
-          console.log('===========================');
           var user_id = order.user._id;
-          console.log(user_id);
           if (users.indexOf(user_id) === -1) {
             users.push(user_id);
           }
@@ -528,7 +526,7 @@ exports.findinvestor = function (req, res, next) {
 exports.updateusertoinvestor = function (req, res, next) {
   console.log(req.isinvestor);
   // var users = req.findinvestororder.filter(function (obj) { return obj.user; });
-  User.update({ _id: { '$in': req.isinvestor } }, { isinvestor: true }, { multi: true }, function (err, docs) {
+  User.update({ _id: { '$in': req.isinvestor } }, { isinvestor: false }, { multi: true }, function (err, docs) {
     next();
   });
 };
