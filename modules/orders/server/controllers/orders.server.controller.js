@@ -511,11 +511,13 @@ exports.findinvestor = function (req, res, next) {
     } else {
       req.findinvestororder = orders;
       orders.forEach(function (order) {
-        console.log('====================================================================');
-        console.log(order.user);
-        var user_id = order.user._id;
-        if (users.indexOf(user_id) === -1) {
-          users.push(user_id);
+        if (order.user && order.user._id) {
+          console.log('===========================');
+          var user_id = order.user._id;
+          console.log(user_id);
+          if (users.indexOf(user_id) === -1) {
+            users.push(user_id);
+          }
         }
       });
       req.isinvestor = users;
