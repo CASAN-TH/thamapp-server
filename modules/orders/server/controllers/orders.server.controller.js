@@ -510,6 +510,7 @@ exports.findinvestor = function (req, res, next) {
       });
     } else {
       req.findinvestororder = orders;
+      console.log(orders[0]);
       orders.forEach(function (order) {
         if (users.indexOf(order.user._id) === -1) {
           users.push(order.user._id);

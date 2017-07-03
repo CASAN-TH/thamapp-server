@@ -242,7 +242,7 @@
       $http.get('/api/updateinvestors').then(function (res) {
         alert('Update Investor Success!');
       }, function (err) {
-        alert('Update Investor Failed ' + err.message);
+        alert('Update Investor Failed ' + err.data.message);
       });
     };
 
