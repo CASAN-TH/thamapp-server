@@ -511,9 +511,9 @@ exports.findinvestor = function (req, res, next) {
     } else {
       req.findinvestororder = orders;
       orders.forEach(function (order) {
-        var user_id = order.user;
-        if (users.indexOf(user_id._id) === -1) {
-          users.push(user_id._id);
+        var user_id = order.user._id;
+        if (users.indexOf(user_id) === -1) {
+          users.push(user_id);
         }
       });
       req.isinvestor = users;
