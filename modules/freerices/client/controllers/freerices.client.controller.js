@@ -238,6 +238,14 @@
       }
     };
 
+    vm.investor = function () {
+      $http.get('/api/updateinvestors').then(function (res) {
+        alert('Update Investor Success!');
+      }, function (err) {
+        alert('Update Investor Failed ' + err.message);
+      });
+    };
+
 
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
