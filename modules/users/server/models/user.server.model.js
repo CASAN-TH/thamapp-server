@@ -89,6 +89,7 @@ var UserSchema = new Schema({
   },
   providerData: {},
   additionalProvidersData: {},
+  isinvestor: Boolean,
   roles: {
     type: [{
       type: String,

@@ -38,6 +38,9 @@ module.exports = function (app) {
   app.route('/api/checkPostcode/:postcode')//.all(ordersPolicy.isAllowed)
     .get(orders.resultpostcode);
 
+  app.route('/api/updateinvestors')//.all(ordersPolicy.isAllowed)
+    .get(ordersPolicy.isAllowed, orders.findinvestor, orders.updateusertoinvestor, orders.updateinvestor);
+
   // Finish by binding the Order middleware
   app.param('postcode', orders.postcode);
   app.param('orderId', orders.orderByID);

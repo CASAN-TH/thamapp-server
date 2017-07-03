@@ -32,6 +32,9 @@ exports.invokeRolesPolicies = function () {
       }, {
         resources: '/api/listorder/web/:orderId',
         permissions: ['*']
+      }, {
+        resources: '/api/updateinvestors',
+        permissions: ['get']
       }]
   }, {
       roles: ['deliver'],
@@ -56,6 +59,9 @@ exports.invokeRolesPolicies = function () {
         }, {
           resources: '/api/checkPostcode/:postcode',
           permissions: ['get']
+        }, {
+          resources: '/api/updateinvestors',
+          permissions: ['get']
         }]
     }, {
       roles: ['user'],
@@ -77,6 +83,9 @@ exports.invokeRolesPolicies = function () {
         }, {
           resources: '/api/checkPostcode/:postcode',
           permissions: ['get']
+        }, {
+          resources: '/api/updateinvestors',
+          permissions: ['get']
         }]
     }, {
       roles: ['guest'],
@@ -97,6 +106,9 @@ exports.invokeRolesPolicies = function () {
           permissions: ['get']
         }, {
           resources: '/api/checkPostcode/:postcode',
+          permissions: ['get']
+        }, {
+          resources: '/api/updateinvestors',
           permissions: ['get']
         }]
     }]);

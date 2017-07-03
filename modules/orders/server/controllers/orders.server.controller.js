@@ -501,6 +501,39 @@ exports.salereport = function (req, res, next) {
 
 };
 
+exports.findinvestor = function (req, res, next) {
+  var users = [];
+  Order.find({ $and: [{ src: { $ne: 'ios' } }, { src: { $ne: 'android' } }, { src: { $ne: 'web' } }] }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      req.findinvestororder = orders;
+      orders.forEach(function (order) {
+        if (users.indexOf(order.user._id) === -1) {
+          users.push(order.user._id);
+        }
+      });
+      req.isinvestor = users;
+      next();
+    }
+  });
+};
+exports.updateusertoinvestor = function (req, res, next) {
+  // var users = req.findinvestororder.filter(function (obj) { return obj.user; });
+  User.update({ _id: { '$in': req.isinvestor } }, { isinvestor: true }, { multi: true }, function (err, docs) {
+    next();
+  });
+};
+
+
+
+
+exports.updateinvestor = function (req, res) {
+  res.jsonp({ orders: req.findinvestororder, isinvestor: req.isinvestor });
+};
+
 function saleProduct(orders) {
   var products = [];
   var productId = [];

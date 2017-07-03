@@ -177,6 +177,7 @@ describe('Order CRUD tests', function () {
               postcost: 10,
               amount: 200,
               discount: 10,
+              src: '123123',
               comment: 'comment',
               trackingnumber: 'tracking Number',
               deliverystatus: 'confirmed',
@@ -207,6 +208,7 @@ describe('Order CRUD tests', function () {
                 tel: '0900077580',
                 email: 'destinationpainbm@gmail.com'
               },
+              src: '123123',
               accounting: 'bank',
               imgslip: 'picture',
               postcost: 10,
@@ -239,6 +241,7 @@ describe('Order CRUD tests', function () {
               accounting: 'bank',
               imgslip: 'picture',
               postcost: 10,
+              src: 'ios',
               amount: 100,
               discount: 10,
               comment: 'comment',
@@ -889,6 +892,51 @@ describe('Order CRUD tests', function () {
         // Call the assertion callback
         done();
       });
+  });
+
+  it('find order update investor', function (done) {
+    var orderObj = new Order(order); //src คนลงขัน
+    var orderObj2 = new Order(order); //src ios
+    var orderObj3 = new Order(order); //src android
+    var orderObj4 = new Order(order); //src คนลงขัน   
+
+    orderObj.docno = '12312321323';
+    orderObj.src = 'คนลงขัน';
+    orderObj.user = user;
+
+    orderObj2.docno = '321321321321';
+    orderObj2.src = 'ios';
+    orderObj2.user = user;
+
+    orderObj3.docno = '111111111112';
+    orderObj3.src = 'android';
+    orderObj3.user = user;
+
+    orderObj4.docno = '123123123121111';
+    orderObj4.src = 'คนลงขัน';
+    orderObj4.user = deliver;
+
+    orderObj2.save();
+    orderObj3.save();
+    orderObj4.save();
+
+    orderObj.save(function () {
+      request(app).get('/api/updateinvestors')
+        .end(function (req, res) {
+          (res.body.orders.length).should.match(2);
+          (res.body.isinvestor.length).should.match(2);
+          request(app).get('/api/users/' + res.body.isinvestor[0])
+            .end(function (req, user) {
+              (user.body.isinvestor).should.match(true);
+              request(app).get('/api/users/' + res.body.isinvestor[1])
+                .end(function (req, user) {
+                  (user.body.isinvestor).should.match(true);
+                  done();
+                });
+            });
+        });
+    });
+
   });
 
   afterEach(function (done) {
