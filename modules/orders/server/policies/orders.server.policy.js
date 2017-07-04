@@ -27,6 +27,9 @@ exports.invokeRolesPolicies = function () {
         resources: '/api/listorder/v2',
         permissions: ['*']
       }, {
+        resources: '/api/listorder/v3',
+        permissions: ['*']
+      }, {
         resources: '/api/listorder/web',
         permissions: ['*']
       }, {
@@ -49,6 +52,9 @@ exports.invokeRolesPolicies = function () {
           permissions: '*'
         }, {
           resources: '/api/listorder/v2',
+          permissions: ['*']
+        }, {
+          resources: '/api/listorder/v3',
           permissions: ['*']
         }, {
           resources: '/api/listorder/web',
@@ -77,6 +83,9 @@ exports.invokeRolesPolicies = function () {
         }, {
           resources: '/api/listorder/v2',
           permissions: ['get']
+        },{
+          resources: '/api/listorder/v3',
+          permissions: ['get']
         }, {
           resources: '/api/listorder/web',
           permissions: ['get', 'post']
@@ -100,6 +109,9 @@ exports.invokeRolesPolicies = function () {
           permissions: ['get']
         }, {
           resources: '/api/listorder/v2',
+          permissions: ['get']
+        },{
+          resources: '/api/listorder/v3',
           permissions: ['get']
         }, {
           resources: '/api/listorder/web',

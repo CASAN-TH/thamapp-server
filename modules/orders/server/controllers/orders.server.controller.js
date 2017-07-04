@@ -425,6 +425,15 @@ exports.listorderv2 = function (req, res) {
     cancel: req.cancel
   });
 };
+
+exports.listorderv3 = function (req, res) {
+  res.jsonp({
+    confirmed: req.confirmed,
+    wait: req.wait,
+    accept: req.accept,
+    reject: req.reject
+  });
+};
 exports.listorderweb = function (req, res) {
   res.jsonp([{
     confirmed: req.confirmed,
