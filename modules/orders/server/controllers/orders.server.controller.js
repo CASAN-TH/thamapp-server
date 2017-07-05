@@ -119,7 +119,6 @@ exports.adminCreate = function (req, res, next) {
 
 exports.checkDeliver = function (req, res, next) {
   var order = new Order(req.body);
-  console.log(req.user);
   if (req.usercreate && req.usercreate !== undefined) {
     Order.find({ user: { _id: req.usercreate._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
       if (err) {
@@ -158,7 +157,6 @@ exports.checkDeliver = function (req, res, next) {
           orders.forEach(function (order) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
-                console.log(order.namedeliver);
                 deliver = order.namedeliver;
                 req.deliver = deliver;
                 next();
@@ -194,6 +192,7 @@ exports.create = function (req, res) {
     order.user = req.user;
   }
   if (req.deliver && req.deliver !== undefined) {
+    console.log('===================================' + req.deliver);
     order.namedeliver = req.deliver;
   }
   // console.log(req.usercreate);
