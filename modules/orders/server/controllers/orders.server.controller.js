@@ -31,8 +31,8 @@ Date.prototype.yyyymmdd = function () {
   var dd = this.getDate();
 
   return [this.getFullYear(),
-  (mm > 9 ? '' : '0') + mm,
-  (dd > 9 ? '' : '0') + dd
+    (mm > 9 ? '' : '0') + mm,
+    (dd > 9 ? '' : '0') + dd
   ].join('');
 };
 
@@ -117,12 +117,82 @@ exports.adminCreate = function (req, res, next) {
   // console.log(order);
 };
 
+exports.checkDeliver = function (req, res, next) {
+  var order = new Order(req.body);
+  if (req.usercreate && req.usercreate !== undefined) {
+    Order.find({ user: { _id: req.usercreate._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var deliver2 = {};
+        if (orders.length > 0) {
+          orders.forEach(function (order) {
+            if (order.deliverystatus === 'complete') {
+              if (order.namedeliver && order.namedeliver !== undefined) {
+                deliver2 = order.namedeliver;
+                req.deliver = deliver2;
+                next();
+              }
+            } else {
+              next();
+            }
+          });
+          next();
+        } else {
+          next();
+        }
+      }
+    });
+  } else {
+    Order.find({ user: { _id: req.user._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        var deliver = {};
+        if (orders.length > 0) {
+          orders.forEach(function (order) {
+            if (order.deliverystatus === 'complete') {
+              if (order.namedeliver && order.namedeliver !== undefined) {
+                deliver = order.namedeliver;
+                req.deliver = deliver;
+                next();
+              }
+            } else {
+              next();
+            }
+          });
+        } else {
+          next();
+        }
+
+      }
+    });
+  }
+  // Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     res.jsonp(orders);
+  //   }
+  // });
+  // next();
+};
+
 exports.create = function (req, res) {
   var order = new Order(req.body);
   if (req.user && req.user.roles[0] === 'admin') {
     order.user = req.usercreate;
   } else {
     order.user = req.user;
+  }
+  if (req.deliver) {
+    order.namedeliver = req.deliver;
   }
   // console.log(req.usercreate);
   // if (req.user) {

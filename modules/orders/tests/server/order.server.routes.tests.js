@@ -940,6 +940,48 @@ describe('Order CRUD tests', function () {
 
   });
 
+  it('save Order auto namedeliver', function (done) {
+    var orderObj = new Order(order); //src คนลงขัน
+    var orderObj2 = new Order(order); //src ios
+
+    orderObj.docno = '123123213231212';
+    orderObj.src = 'คนลงขัน';
+    orderObj.namedeliver = deliver;
+    orderObj.deliverystatus = 'complete';
+    orderObj.user = user;
+
+    orderObj2.docno = '321321321321';
+    orderObj2.src = 'ios';
+    orderObj2.user = user;
+
+    orderObj.save();
+    orderObj2.save(function () {
+      agent.get('/api/orders')
+        .end(function (ordersGetErr, ordersGetRes) {
+          // Handle Orders save error
+          if (ordersGetErr) {
+            return done(ordersGetErr);
+          }
+
+          // Get Orders list
+          var orders = ordersGetRes.body;
+
+          // Set assertions
+          (orders.length).should.equal(2);
+          (orders[0].docno).should.match('123123213231212');
+          (orders[0].namedeliver.firstName).should.match('deliver');
+          (orders[0].user.displayName).should.match('Full Name');
+          (orders[1].docno).should.match('321321321321');
+          (orders[1].user.displayName).should.match('Full Name');
+          done();
+        });
+    });
+    // Save a new Order
+
+    // Get a list of Orders
+
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Product.remove().exec(function () {
