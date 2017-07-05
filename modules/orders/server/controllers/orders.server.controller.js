@@ -154,11 +154,13 @@ exports.checkDeliver = function (req, res, next) {
       } else {
         var deliver = {};
         if (orders.length > 0) {
+          console.log('length order ============================' + orders.length);
           orders.forEach(function (order) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
                 deliver = order.namedeliver;
                 req.olddeliver = deliver;
+                console.log(req.olddeliver);
                 next();
               }
             } else {
@@ -192,7 +194,10 @@ exports.create = function (req, res) {
     order.user = req.user;
   }
   console.log('===================' + req.olddeliver);
-  order.namedeliver = req.olddeliver ? req.olddeliver : {};
+  if (req.olddeliver && req.olddeliver !== undefined) {
+    order.namedeliver = req.olddeliver;
+    order.deliverystatus = 'wait deliver';
+  }
   // console.log(req.usercreate);
   // if (req.user) {
   //   order.user = req.usercreate;
