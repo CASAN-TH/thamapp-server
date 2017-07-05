@@ -132,7 +132,7 @@ exports.checkDeliver = function (req, res, next) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
                 deliver2 = order.namedeliver;
-                req.deliver = deliver2;
+                req.olddeliver = deliver2;
                 next();
               }
             } else {
@@ -158,7 +158,7 @@ exports.checkDeliver = function (req, res, next) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
                 deliver = order.namedeliver;
-                req.deliver = deliver;
+                req.olddeliver = deliver;
                 next();
               }
             } else {
@@ -191,10 +191,8 @@ exports.create = function (req, res) {
   } else {
     order.user = req.user;
   }
-  if (req.deliver && req.deliver !== undefined) {
-    console.log('===================================' + req.deliver);
-    order.namedeliver = req.deliver;
-  }
+  console.log('===================' + req.olddeliver);
+  order.namedeliver = req.olddeliver ? req.olddeliver : {};
   // console.log(req.usercreate);
   // if (req.user) {
   //   order.user = req.usercreate;
