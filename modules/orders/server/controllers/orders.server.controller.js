@@ -119,6 +119,7 @@ exports.adminCreate = function (req, res, next) {
 
 exports.checkDeliver = function (req, res, next) {
   var order = new Order(req.body);
+  console.log(req.user);
   if (req.usercreate && req.usercreate !== undefined) {
     Order.find({ user: { _id: req.usercreate._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
       if (err) {
