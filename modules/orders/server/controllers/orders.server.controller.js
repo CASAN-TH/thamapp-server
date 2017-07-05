@@ -31,8 +31,8 @@ Date.prototype.yyyymmdd = function () {
   var dd = this.getDate();
 
   return [this.getFullYear(),
-    (mm > 9 ? '' : '0') + mm,
-    (dd > 9 ? '' : '0') + dd
+  (mm > 9 ? '' : '0') + mm,
+  (dd > 9 ? '' : '0') + dd
   ].join('');
 };
 
@@ -427,11 +427,35 @@ exports.listorderv2 = function (req, res) {
 };
 
 exports.listorderv3 = function (req, res) {
+  var confirmed = [];
+  var wait = [];
+  var accept = [];
+  var reject = [];
+  req.confirmed.forEach(function (dataconf) {
+    if (dataconf.shipping && dataconf.shipping.sharelocation) {
+      confirmed.push(dataconf);
+    }
+  });
+  req.wait.forEach(function (datawait) {
+    if (datawait.shipping && datawait.shipping.sharelocation) {
+      wait.push(datawait);
+    }
+  });
+  req.accept.forEach(function (dataact) {
+    if (dataact.shipping && dataact.shipping.sharelocation) {
+      accept.push(dataact);
+    }
+  });
+  req.reject.forEach(function (datarej) {
+    if (datarej.shipping && datarej.shipping.sharelocation) {
+      reject.push(datarej);
+    }
+  });
   res.jsonp({
-    confirmed: req.confirmed,
-    wait: req.wait,
-    accept: req.accept,
-    reject: req.reject
+    confirmed: confirmed,
+    wait: wait,
+    accept: accept,
+    reject: reject
   });
 };
 exports.listorderweb = function (req, res) {

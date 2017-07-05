@@ -22,7 +22,7 @@ module.exports = function (app) {
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderv2);
   
   app.route('/api/listorder/v3')//.all(ordersPolicy.isAllowed)
-    .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.listorderv3);
+    .get(ordersPolicy.isAllowed, orders.confirmed, orders.wait, orders.accept, orders.reject, orders.listorderv3);
 
   app.route('/api/listorder/web')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderweb)
