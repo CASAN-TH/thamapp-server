@@ -126,20 +126,21 @@ exports.checkDeliver = function (req, res, next) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        var deliver2 = {};
+        var deliver2 = [];
         if (orders.length > 0) {
           orders.forEach(function (order) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
-                deliver2 = order.namedeliver;
-                req.olddeliver = deliver2;
-                next();
+                deliver2.push(order.namedeliver);
               }
-            } else {
-              next();
             }
           });
-          next();
+          if (deliver2.length > 0) {
+            req.olddeliver = deliver2[0];
+            next();
+          } else {
+            next();
+          }
         } else {
           next();
         }
@@ -154,7 +155,6 @@ exports.checkDeliver = function (req, res, next) {
       } else {
         var deliver = [];
         if (orders.length > 0) {
-          console.log('length order ============================' + orders.length);
           orders.forEach(function (order) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
@@ -164,7 +164,6 @@ exports.checkDeliver = function (req, res, next) {
           });
           if (deliver.length > 0) {
             req.olddeliver = deliver[0];
-            console.log(req.olddeliver);
             next();
           } else {
             next();
@@ -176,16 +175,6 @@ exports.checkDeliver = function (req, res, next) {
       }
     });
   }
-  // Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
-  //   if (err) {
-  //     return res.status(400).send({
-  //       message: errorHandler.getErrorMessage(err)
-  //     });
-  //   } else {
-  //     res.jsonp(orders);
-  //   }
-  // });
-  // next();
 };
 
 exports.create = function (req, res) {
@@ -195,7 +184,6 @@ exports.create = function (req, res) {
   } else {
     order.user = req.user;
   }
-  console.log('===================' + req.olddeliver);
   if (req.olddeliver && req.olddeliver !== undefined) {
     order.namedeliver = req.olddeliver;
     order.deliverystatus = 'wait deliver';
