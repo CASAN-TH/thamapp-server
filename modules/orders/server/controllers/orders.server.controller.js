@@ -152,21 +152,23 @@ exports.checkDeliver = function (req, res, next) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        var deliver = {};
+        var deliver = [];
         if (orders.length > 0) {
           console.log('length order ============================' + orders.length);
           orders.forEach(function (order) {
             if (order.deliverystatus === 'complete') {
               if (order.namedeliver && order.namedeliver !== undefined) {
-                deliver = order.namedeliver;
-                req.olddeliver = deliver;
-                console.log(req.olddeliver);
-                next();
+                deliver.push(order.namedeliver);
               }
-            } else {
-              next();
             }
           });
+          if (deliver.length > 0) {
+            req.olddeliver = deliver[0];
+            console.log(req.olddeliver);
+            next();
+          } else {
+            next();
+          }
         } else {
           next();
         }
