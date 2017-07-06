@@ -525,41 +525,66 @@ exports.listorderv2 = function (req, res) {
   });
 };
 
-exports.listorderv3 = function (req, res) {
+exports.lng = function (req, res, next, lng) {
+  var lat = req.lat;
+  req.lng = lng;
+  next();
+};
+
+exports.checkNearBy = function (req, res, next) {
   var confirmed = [];
   var wait = [];
   var accept = [];
   var reject = [];
   req.confirmed.forEach(function (dataconf) {
-    if (dataconf.shipping && dataconf.shipping.sharelocation) {
-      confirmed.push(dataconf);
+    if (req.lat && req.lng && dataconf.shipping.sharelocation) {
+      var dist = getDistanceFromLatLonInKm(req.lat, req.lng, dataconf.shipping.sharelocation.latitude, dataconf.shipping.sharelocation.longitude);
+      if (dist <= minDistance) {
+        confirmed.push(dataconf);
+      }
     }
   });
+  req.nearconfirmed = confirmed;
+
   req.wait.forEach(function (datawait) {
     if (datawait.shipping && datawait.shipping.sharelocation) {
       wait.push(datawait);
     }
   });
+  req.wait = wait;
+
   req.accept.forEach(function (dataact) {
     if (dataact.shipping && dataact.shipping.sharelocation) {
       accept.push(dataact);
     }
   });
+  req.accept = accept;
+
   req.reject.forEach(function (datarej) {
-    if (datarej.shipping && datarej.shipping.sharelocation) {
-      reject.push(datarej);
+    if (req.lat && req.lng && datarej.shipping.sharelocation) {
+      var dist = getDistanceFromLatLonInKm(req.lat, req.lng, datarej.shipping.sharelocation.latitude, datarej.shipping.sharelocation.longitude);
+      if (dist <= minDistance) {
+        reject.push(datarej);
+      }
     }
   });
+  req.nearReject = reject;
+  next();
+};
+
+exports.listorderv3 = function (req, res) {
   res.jsonp({
-    confirmed: confirmed,
-    wait: wait,
-    accept: accept,
-    reject: reject
+    confirmed: req.nearConfirmed,
+    wait: req.wait,
+    accept: req.accept,
+    reject: req.nearReject,
+    lat: req.lat,
+    lng: req.lng
   });
 };
 exports.listorderweb = function (req, res) {
   res.jsonp([{
-    confirmed: req.confirmed,
+    confirmed: req.nearconfirmed,
     wait: req.wait,
     accept: req.accept,
     reject: req.reject,

@@ -21,8 +21,8 @@ module.exports = function (app) {
   app.route('/api/listorder/v2')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderv2);
 
-  app.route('/api/listorder/v3')//.all(ordersPolicy.isAllowed)
-    .get(ordersPolicy.isAllowed, orders.confirmed, orders.wait, orders.accept, orders.reject, orders.listorderv3);
+  app.route('/api/listorder/v3/:lat/:lng')//.all(ordersPolicy.isAllowed)
+    .get(ordersPolicy.isAllowed, orders.confirmed, orders.wait, orders.accept, orders.reject, orders.checkNearBy, orders.listorderv3);
 
   app.route('/api/listorder/web')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderweb)
@@ -54,5 +54,10 @@ module.exports = function (app) {
     req.startdate = startdate;
     next();
   });
+  app.param('lat', function (req, res, next, lat) {
+    req.lat = lat;
+    next();
+  });
   app.param('enddate', orders.startdate);
+  app.param('lng', orders.lng);
 };

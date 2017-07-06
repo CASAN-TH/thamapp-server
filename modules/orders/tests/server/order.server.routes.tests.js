@@ -994,6 +994,20 @@ describe('Order CRUD tests', function () {
 
   });
 
+  it('check postcode from deliver', function (done) {
+
+    request(app).get('/api/listorder/v3/11111/00000')
+      .end(function (req, res) {
+        // Set assertion
+        // (res.body.freeitemunit).should.match(1);
+        // console.log(res.body.orders);
+        (res.body.lat).should.match('11111');
+        (res.body.lng).should.match('00000');
+        // Call the assertion callback
+        done();
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Product.remove().exec(function () {
