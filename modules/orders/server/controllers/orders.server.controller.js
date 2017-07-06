@@ -536,7 +536,7 @@ exports.checkNearBy = function (req, res, next) {
   var wait = [];
   var accept = [];
   var reject = [];
-  req.nearconfirmed = [];
+  req.nearConfirmed = [];
   req.confirmed.forEach(function (dataconf) {
     if (req.lat && req.lng && dataconf.shipping.sharelocation) {
       var dist = getDistanceFromLatLonInKm(req.lat, req.lng, dataconf.shipping.sharelocation.latitude, dataconf.shipping.sharelocation.longitude);
@@ -545,7 +545,7 @@ exports.checkNearBy = function (req, res, next) {
       }
     }
   });
-  req.nearconfirmed = confirmed;
+  req.nearConfirmed = confirmed;
 
   req.wait.forEach(function (datawait) {
     if (datawait.shipping && datawait.shipping.sharelocation) {
