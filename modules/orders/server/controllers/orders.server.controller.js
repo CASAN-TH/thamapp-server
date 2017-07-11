@@ -953,36 +953,43 @@ function sendNewdeliverOrder(order_location, shipping) {
 
 }
 
-function checkNotiUser(array, shipping) {
-  var postcodes = array.filter(function (obj) {
-    console.log(obj.user);
-    var postcode = obj.user.address;
-    return postcode.postcode === shipping.postcode;
+function checkNotiUser(delivers, shipping) {
+  var array = [];
+  delivers.forEach(function (deliver) {
+    if (deliver.user && deliver.user.address) {
+      array.push(deliver);
+    }
   });
-  if (postcodes.length > 0) {
-    return {
-      data: postcodes,
-      notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตรหัสไปรษณีย์ของคุณ'
-    };
-  } else {
-    var district = array.filter(function (obj) {
-      var dis = obj.user.address;
-      return dis.district === shipping.district;
+  if (array.length > 0) {
+    var postcodes = array.filter(function (obj) {
+      var postcode = obj.user.address;
+      return postcode.postcode === shipping.postcode;
     });
-    if (district.length > 0) {
+    if (postcodes.length > 0) {
       return {
-        data: district,
-        notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตอำเภอของคุณ'
+        data: postcodes,
+        notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตรหัสไปรษณีย์ของคุณ'
       };
     } else {
-      var province = array.filter(function (obj) {
-        var pro = obj.user.address;
-        return pro.province === shipping.province;
+      var district = array.filter(function (obj) {
+        var dis = obj.user.address;
+        return dis.district === shipping.district;
       });
-      return {
-        data: province,
-        notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตจังหวัดของคุณ'
-      };
+      if (district.length > 0) {
+        return {
+          data: district,
+          notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตอำเภอของคุณ'
+        };
+      } else {
+        var province = array.filter(function (obj) {
+          var pro = obj.user.address;
+          return pro.province === shipping.province;
+        });
+        return {
+          data: province,
+          notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตจังหวัดของคุณ'
+        };
+      }
     }
   }
 }
