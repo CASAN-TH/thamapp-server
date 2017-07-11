@@ -154,61 +154,65 @@ exports.adminCreate = function (req, res, next) {
 
 exports.checkDeliver = function (req, res, next) {
   var order = new Order(req.body);
-  if (req.usercreate && req.usercreate !== undefined) {
-    Order.find({ user: { _id: req.usercreate._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        var deliver2 = [];
-        if (orders.length > 0) {
-          orders.forEach(function (order) {
-            if (order.deliverystatus === 'complete') {
-              if (order.namedeliver && order.namedeliver !== undefined) {
-                deliver2.push(order.namedeliver);
-              }
-            }
-          });
-          if (deliver2.length > 0) {
-            req.olddeliver = deliver2[0];
-            next();
-          } else {
-            next();
-          }
-        } else {
-          next();
-        }
-      }
-    });
+  if (order.deliverystatus === 'complete') {
+    next();
   } else {
-    Order.find({ user: { _id: req.user._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
-      if (err) {
-        return res.status(400).send({
-          message: errorHandler.getErrorMessage(err)
-        });
-      } else {
-        var deliver = [];
-        if (orders.length > 0) {
-          orders.forEach(function (order) {
-            if (order.deliverystatus === 'complete') {
-              if (order.namedeliver && order.namedeliver !== undefined) {
-                deliver.push(order.namedeliver);
-              }
-            }
+    if (req.usercreate && req.usercreate !== undefined) {
+      Order.find({ user: { _id: req.usercreate._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
           });
-          if (deliver.length > 0) {
-            req.olddeliver = deliver[0];
-            next();
+        } else {
+          var deliver2 = [];
+          if (orders.length > 0) {
+            orders.forEach(function (order) {
+              if (order.deliverystatus === 'complete') {
+                if (order.namedeliver && order.namedeliver !== undefined) {
+                  deliver2.push(order.namedeliver);
+                }
+              }
+            });
+            if (deliver2.length > 0) {
+              req.olddeliver = deliver2[0];
+              next();
+            } else {
+              next();
+            }
           } else {
             next();
           }
-        } else {
-          next();
         }
+      });
+    } else {
+      Order.find({ user: { _id: req.user._id } }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+        if (err) {
+          return res.status(400).send({
+            message: errorHandler.getErrorMessage(err)
+          });
+        } else {
+          var deliver = [];
+          if (orders.length > 0) {
+            orders.forEach(function (order) {
+              if (order.deliverystatus === 'complete') {
+                if (order.namedeliver && order.namedeliver !== undefined) {
+                  deliver.push(order.namedeliver);
+                }
+              }
+            });
+            if (deliver.length > 0) {
+              req.olddeliver = deliver[0];
+              next();
+            } else {
+              next();
+            }
+          } else {
+            next();
+          }
 
-      }
-    });
+        }
+      });
+    }
   }
 };
 
@@ -242,7 +246,7 @@ exports.create = function (req, res) {
           });
         } else {
           sendNewOrder();
-          sendNewdeliverOrder(req.body.shipping.sharelocation);
+          sendNewdeliverOrder(req.body.shipping.sharelocation, req.body.shipping);
           res.jsonp(orders);
         }
       });
@@ -369,6 +373,7 @@ exports.confirmed = function (req, res, next) {
 
 exports.confirmedNearBy = function (req, res, next) {
   var confirmedNearBies = [];
+  // -1 คือไม่มี
   if (req.user && req.user.roles.indexOf('deliver') !== -1) {
     req.confirmed.forEach(function (order) {
       if (req.user.address.sharelocation && order.shipping.sharelocation) {
@@ -383,6 +388,7 @@ exports.confirmedNearBy = function (req, res, next) {
         }
       }
     });
+    // confirmedNearBies = array.filter(function (obj) { return obj.user.address.province === shipping.province; });
     req.confirmed = confirmedNearBies;
   }
   next();
@@ -887,12 +893,14 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
-function sendNewdeliverOrder(order_location) {
+function sendNewdeliverOrder(order_location, shipping) {
   Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
     if (err) {
 
     } else {
       var delivertokens = [];
+      var delivertokens2 = [];
+      var delivertokensOther = [];
       delivers.forEach(function (deliver) {
 
         //console.log(deliver.user.address);
@@ -905,7 +913,16 @@ function sendNewdeliverOrder(order_location) {
         }
         //delivertokens.push(deliver.device_token);
       });
-
+      if (delivertokens.length === 0) {
+        delivertokens2 = checkNotiUser(delivers, shipping);
+        if (delivertokens2.data.length > 0) {
+          delivertokens2.data.forEach(function (deliver) {
+            delivertokensOther.push(deliver.device_token);
+          });
+        }
+      }
+      var tokens = delivertokens.length > 0 ? delivertokens : delivertokensOther;
+      var detailTokens = delivertokens.length > 0 ? 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.' : delivertokens2.notiMessage;
       request({
         url: pushNotiUrl,
         auth: {
@@ -913,10 +930,10 @@ function sendNewdeliverOrder(order_location) {
         },
         method: 'POST',
         json: {
-          tokens: delivertokens,
+          tokens: tokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.',
+            message: detailTokens,
             // ios: { sound: 'default' },
             // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
           }
@@ -932,6 +949,30 @@ function sendNewdeliverOrder(order_location) {
   });
 
 
+}
+
+function checkNotiUser(array, shipping) {
+  var postcodes = array.filter(function (obj) { return obj.user.address.postcode === shipping.postcode; });
+  if (postcodes.length > 0) {
+    return {
+      data: postcodes,
+      notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตรหัสไปรษณีย์ของคุณ'
+    };
+  } else {
+    var district = array.filter(function (obj) { return obj.user.address.district === shipping.district; });
+    if (district.length > 0) {
+      return {
+        data: district,
+        notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตอำเภอของคุณ'
+      };
+    } else {
+      var province = array.filter(function (obj) { return obj.user.address.province === shipping.province; });
+      return {
+        data: province,
+        notiMessage: 'คุณมีรายการสั่งซื้อข้าวใหม่ในเขตจังหวัดของคุณ'
+      };
+    }
+  }
 }
 
 function sendAcceptedDeliverOrder(order, deliver) {

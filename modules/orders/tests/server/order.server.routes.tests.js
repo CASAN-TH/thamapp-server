@@ -8,6 +8,7 @@ var should = require('should'),
   Order = mongoose.model('Order'),
   Product = mongoose.model('Product'),
   Postcode = mongoose.model('Postcode'),
+  Pushnoti = mongoose.model('Pushnotiuser'),
   express = require(path.resolve('./config/lib/express'));
 
 /**
@@ -24,7 +25,8 @@ var app,
   product,
   product2,
   postcode2,
-  deliver;
+  deliver,
+  pushnotiuser;
 
 var tomorrow = new Date();
 
@@ -87,9 +89,24 @@ describe('Order CRUD tests', function () {
       loginToken: 'eyJ0sseXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwibG9naW5FeHBpcmVzIjoxNDg3NTk1NTcyMzcyfQ.vfDKENoQTmzQhoaBV35RJa02f_5GVvviJdhuPhfM1oU',
       loginExpires: tomorrow.setDate(tomorrow.getDate() + 1),
       address: {
+        subdistrict: 'คลองถนน',
+        province: 'กรุงเทพฯ',
+        district: 'สายไหม',
         postcode: '12150',
-        tel: '0900077580'
+        tel: '0900077580',
+        sharelocation: {
+          latitude: '11111',
+          longitude: '22222'
+        }
       }
+    });
+
+    pushnotiuser = new Pushnoti({
+      user_id: '1234',
+      user_name: 'deliver',
+      role: 'deliver',
+      device_token: 'abc',
+      user: deliver
     });
 
     product = new Product({
@@ -157,111 +174,117 @@ describe('Order CRUD tests', function () {
     });
     // Save a user to the test db and create new Order
     deliver.save(function () {
-      user.save(function () {
-        postcode2.save(function () {
+      pushnotiuser.save(function () {
+        user.save(function () {
+          postcode2.save(function () {
 
-          product.save(function () {
-            product2.save(function () {
-              order = {
-                docno: '1234',
-                docdate: new Date(),
-                items: [{
-                  product: product2,
-                  qty: 1,
-                  retailerprice: 180,
-                  price: 100,
-                  amount: 200
-                }],
-                shipping: {
-                  firstname: 'asdf',
-                  lastname: 'String',
-                  address: 'adsf',
-                  postcode: 10220,
-                  subdistrict: 'คลองถนน',
-                  province: 'กรุงเทพฯ',
-                  district: 'สายไหม',
-                  tel: '0900077581',
-                  email: 'destinationpainbm@gmail.com'
-                },
-                accounting: 'bank',
-                imgslip: 'picture',
-                postcost: 10,
-                amount: 200,
-                discount: 10,
-                src: '123123',
-                comment: 'comment',
-                trackingnumber: 'tracking Number',
-                deliverystatus: 'confirmed',
-                created: '2017-03-17T04:49:37.653Z'
-              };
+            product.save(function () {
+              product2.save(function () {
+                order = {
+                  docno: '1234',
+                  docdate: new Date(),
+                  items: [{
+                    product: product2,
+                    qty: 1,
+                    retailerprice: 180,
+                    price: 100,
+                    amount: 200
+                  }],
+                  shipping: {
+                    firstname: 'asdf',
+                    lastname: 'String',
+                    address: 'adsf',
+                    postcode: 10220,
+                    subdistrict: 'คลองถนน',
+                    province: 'กรุงเทพฯ',
+                    district: 'สายไหมss',
+                    tel: '0900077581',
+                    email: 'destinationpainbm@gmail.com',
+                    sharelocation: {
+                      latitude: '11111',
+                      longitude: '22222'
+                    }
+                  },
+                  accounting: 'bank',
+                  imgslip: 'picture',
+                  postcost: 10,
+                  amount: 200,
+                  discount: 10,
+                  src: '123123',
+                  comment: 'comment',
+                  trackingnumber: 'tracking Number',
+                  deliverystatus: 'confirmed',
+                  created: '2017-03-17T04:49:37.653Z'
+                };
 
-              order2 = {
-                docno: '1235',
-                docdate: new Date(),
-                items: [{
-                  product: product,
-                  qty: 1,
-                  retailerprice: 40,
-                  price: 100,
-                  amount: 100
-                }, {
+                order2 = {
+                  docno: '1235',
+                  docdate: new Date(),
+                  items: [{
                     product: product,
                     qty: 1,
                     retailerprice: 40,
                     price: 100,
                     amount: 100
+                  }, {
+                      product: product,
+                      qty: 1,
+                      retailerprice: 40,
+                      price: 100,
+                      amount: 100
+                    }],
+                  shipping: {
+                    postcode: 10220,
+                    subdistrict: 'คลองถนน',
+                    province: 'กรุงเทพฯ',
+                    district: 'สายไหม',
+                    tel: '0900077580',
+                    email: 'destinationpainbm@gmail.com'
+                  },
+                  src: '123123',
+                  accounting: 'bank',
+                  imgslip: 'picture',
+                  postcost: 10,
+                  amount: 100,
+                  discount: 10,
+                  comment: 'comment',
+                  trackingnumber: 'tracking Number',
+                  deliverystatus: 'confirmed',
+                  created: '2016-12-21T10:51:33.512Z'
+                };
+
+                order3 = {
+                  docno: '1236',
+                  docdate: new Date(),
+                  items: [{
+                    product: product2,
+                    qty: 1,
+                    retailerprice: 0,
+                    price: 100,
+                    amount: 100
                   }],
-                shipping: {
-                  postcode: 10220,
-                  subdistrict: 'คลองถนน',
-                  province: 'กรุงเทพฯ',
-                  district: 'สายไหม',
-                  tel: '0900077580',
-                  email: 'destinationpainbm@gmail.com'
-                },
-                src: '123123',
-                accounting: 'bank',
-                imgslip: 'picture',
-                postcost: 10,
-                amount: 100,
-                discount: 10,
-                comment: 'comment',
-                trackingnumber: 'tracking Number',
-                deliverystatus: 'confirmed',
-                created: '2016-12-21T10:51:33.512Z'
-              };
+                  shipping: {
+                    postcode: 10220,
+                    subdistrict: 'คลองถนน',
+                    province: 'กรุงเทพฯ',
+                    district: 'สายไหม',
+                    tel: '0900077580',
+                    email: 'destinationpainbm@gmail.com'
+                  },
+                  accounting: 'bank',
+                  imgslip: 'picture',
+                  postcost: 10,
+                  src: 'ios',
+                  amount: 100,
+                  discount: 10,
+                  comment: 'comment',
+                  trackingnumber: 'tracking Number',
+                  deliverystatus: 'confirmed',
+                  created: '2017-03-17T04:49:37.653Z'
+                };
 
-              order3 = {
-                docno: '1236',
-                docdate: new Date(),
-                items: [{
-                  product: product2,
-                  qty: 1,
-                  retailerprice: 0,
-                  price: 100,
-                  amount: 100
-                }],
-                shipping: {
-                  postcode: 10220,
-                  subdistrict: 'คลองถนน',
-                  province: 'กรุงเทพฯ',
-                  district: 'สายไหม',
-                  tel: '0900077580',
-                  email: 'destinationpainbm@gmail.com'
-                },
-                accounting: 'bank',
-                imgslip: 'picture',
-                postcost: 10,
-                src: 'ios',
-                amount: 100,
-                discount: 10,
-                comment: 'comment',
-                trackingnumber: 'tracking Number',
-                deliverystatus: 'confirmed',
-                created: '2017-03-17T04:49:37.653Z'
-              };
-
-              done();
+                done();
+              });
             });
           });
         });
@@ -1010,9 +1033,11 @@ describe('Order CRUD tests', function () {
 
   afterEach(function (done) {
     User.remove().exec(function () {
-      Product.remove().exec(function () {
-        Postcode.remove().exec(function () {
-          Order.remove().exec(done);
+      Pushnoti.remove().exec(function () {
+        Product.remove().exec(function () {
+          Postcode.remove().exec(function () {
+            Order.remove().exec(done);
+          });
         });
       });
     });
