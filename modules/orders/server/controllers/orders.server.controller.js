@@ -922,9 +922,7 @@ function sendNewdeliverOrder(order_location, shipping) {
         }
       }
       var sendTokens = delivertokens.length > 0 ? delivertokens : delivertokensOther;
-      console.log('tokens : ' + sendTokens);
       var detailTokens = delivertokens.length > 0 ? 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.' : delivertokens2.notiMessage;
-      console.log('detail : ' + detailTokens);
       request({
         url: pushNotiUrl,
         auth: {
