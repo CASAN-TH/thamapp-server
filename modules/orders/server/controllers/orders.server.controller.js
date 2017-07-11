@@ -955,6 +955,7 @@ function sendNewdeliverOrder(order_location, shipping) {
 
 function checkNotiUser(array, shipping) {
   var postcodes = array.filter(function (obj) {
+    console.log(obj.user);
     var postcode = obj.user.address;
     return postcode.postcode === shipping.postcode;
   });
