@@ -899,8 +899,8 @@ function sendNewdeliverOrder(order_location, shipping) {
 
     } else {
       var delivertokens = [];
-      var delivertokens2 = [];
-      var delivertokensOther = [];
+      // var delivertokens2 = [];
+      // var delivertokensOther = [];
       delivers.forEach(function (deliver) {
 
         //console.log(deliver.user.address);
@@ -913,16 +913,17 @@ function sendNewdeliverOrder(order_location, shipping) {
         }
         //delivertokens.push(deliver.device_token);
       });
-      if (delivertokens.length === 0) {
-        delivertokens2 = checkNotiUser(delivers, shipping);
-        if (delivertokens2.data.length > 0) {
-          delivertokens2.data.forEach(function (deliver) {
-            delivertokensOther.push(deliver.device_token);
-          });
-        }
-      }
-      var sendTokens = delivertokens.length > 0 ? delivertokens : delivertokensOther;
-      var detailTokens = delivertokens.length > 0 ? 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.' : delivertokens2.notiMessage;
+      // console.log(delivertokens);
+      // if (delivertokens.length === 0) {
+      //   delivertokens2 = checkNotiUser(delivers, shipping);
+      //   if (delivertokens2.data.length > 0) {
+      //     delivertokens2.data.forEach(function (deliver) {
+      //       delivertokensOther.push(deliver.device_token);
+      //     });
+      //   }
+      // }
+      // var sendTokens = delivertokens.length > 0 ? delivertokens : delivertokensOther;
+      // var detailTokens = delivertokens.length > 0 ? 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.' : delivertokens2.notiMessage;
       request({
         url: pushNotiUrl,
         auth: {
@@ -930,10 +931,10 @@ function sendNewdeliverOrder(order_location, shipping) {
         },
         method: 'POST',
         json: {
-          tokens: sendTokens,
+          tokens: delivertokens,
           profile: pushNotiAuthenDEL.profile,
           notification: {
-            message: detailTokens,
+            message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.',
             // ios: { sound: 'default' },
             // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
           }
