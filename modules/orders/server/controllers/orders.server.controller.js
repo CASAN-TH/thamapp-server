@@ -237,7 +237,7 @@ exports.nearByKm = function (req, res, next) {
               var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
               //console.log('------------- ' + dist + ' km. -------------')
               if (dist <= minDistance) {
-                usernearby.push(deliver._id);
+                usernearby.push(deliver.user_id);
                 delivertokens.push(deliver.device_token);
               }
             }
@@ -274,7 +274,7 @@ exports.nearByPostCode = function (req, res, next) {
               //console.log(deliver.user.address);
               if (deliver.user && deliver.user.address) {
                 if (deliver.user.address.postcode === order.shipping.postcode) {
-                  usernearby.push(deliver._id);
+                  usernearby.push(deliver.user_idd);
                   delivertokens.push(deliver.device_token);
                 }
               }
@@ -312,7 +312,7 @@ exports.nearByDistrict = function (req, res, next) {
               //console.log(deliver.user.address);
               if (deliver.user && deliver.user.address) {
                 if (deliver.user.address.district === order.shipping.district) {
-                  usernearby.push(deliver._id);
+                  usernearby.push(deliver.user_id);
                   delivertokens.push(deliver.device_token);
                 }
               }
@@ -498,7 +498,6 @@ exports.confirmedNearBy = function (req, res, next) {
     req.confirmed.forEach(function (order) {
       if (order.usernearby && order.usernearby.length > 0) {
         if (order.usernearby.indexOf(req.user._id) !== -1) {
-          console.log(order);
           confirmedNearBies.push(order);
         }
       } else {
