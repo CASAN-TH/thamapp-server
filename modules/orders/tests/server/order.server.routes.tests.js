@@ -94,10 +94,10 @@ describe('Order CRUD tests', function () {
         district: 'สายไหม',
         postcode: '12150',
         tel: '0900077580',
-        sharelocation: {
-          latitude: '11111',
-          longitude: '22222'
-        }
+        // sharelocation: {
+        //   latitude: '11111',
+        //   longitude: '22222'
+        // }
       }
     });
 
@@ -197,7 +197,7 @@ describe('Order CRUD tests', function () {
                     postcode: 10220,
                     subdistrict: 'คลองถนน',
                     province: 'กรุงเทพฯ',
-                    district: 'สายไหมss',
+                    district: 'สายไหม',
                     tel: '0900077581',
                     email: 'destinationpainbm@gmail.com',
                     sharelocation: {

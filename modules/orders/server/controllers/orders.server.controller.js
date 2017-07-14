@@ -216,6 +216,121 @@ exports.checkDeliver = function (req, res, next) {
   }
 };
 
+exports.nearByKm = function (req, res, next) {
+  var order = new Order(req.body);
+  req.usernearby = [];
+  req.tokens = [];
+  if (!req.olddeliver) {
+    if (order && order.shipping && order.shipping.sharelocation) {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          var delivertokens = [];
+          var usernearby = [];
+          // var delivertokens2 = [];
+          // var delivertokensOther = [];
+          delivers.forEach(function (deliver) {
+
+            //console.log(deliver.user.address);
+            if (deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
+              var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
+              //console.log('------------- ' + dist + ' km. -------------')
+              if (dist <= minDistance) {
+                usernearby.push(deliver._id);
+                delivertokens.push(deliver.device_token);
+              }
+            }
+            //delivertokens.push(deliver.device_token);
+          });
+          req.tokens = delivertokens;
+          req.usernearby = usernearby;
+          next();
+        }
+      });
+    }
+
+  } else {
+    next();
+  }
+};
+
+exports.nearByPostCode = function (req, res, next) {
+  var order = new Order(req.body);
+  if (req.usernearby.length === 0) {
+    if (order && order.shipping && order.shipping.sharelocation) {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          if (delivers.length > 0) {
+
+            var delivertokens = [];
+            var usernearby = [];
+            // var delivertokens2 = [];
+            // var delivertokensOther = [];
+            delivers.forEach(function (deliver) {
+
+              //console.log(deliver.user.address);
+              if (deliver.user && deliver.user.address) {
+                if (deliver.user.address.postcode === order.shipping.postcode) {
+                  usernearby.push(deliver._id);
+                  delivertokens.push(deliver.device_token);
+                }
+              }
+              //delivertokens.push(deliver.device_token);
+            });
+            req.tokens = delivertokens;
+            req.usernearby = usernearby;
+            next();
+          }
+        }
+      });
+    }
+
+  } else {
+    next();
+  }
+};
+
+exports.nearByDistrict = function (req, res, next) {
+  var order = new Order(req.body);
+  if (req.usernearby.length === 0) {
+    if (order && order.shipping && order.shipping.sharelocation) {
+      Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+        if (err) {
+
+        } else {
+          if (delivers.length > 0) {
+
+            var delivertokens = [];
+            var usernearby = [];
+            // var delivertokens2 = [];
+            // var delivertokensOther = [];
+            delivers.forEach(function (deliver) {
+
+              //console.log(deliver.user.address);
+              if (deliver.user && deliver.user.address) {
+                if (deliver.user.address.district === order.shipping.district) {
+                  usernearby.push(deliver._id);
+                  delivertokens.push(deliver.device_token);
+                }
+              }
+              //delivertokens.push(deliver.device_token);
+            });
+            req.tokens = delivertokens;
+            req.usernearby = usernearby;
+            next();
+          }
+        }
+      });
+    }
+
+  } else {
+    next();
+  }
+};
+
 exports.create = function (req, res) {
   var order = new Order(req.body);
   if (req.user && req.user.roles[0] === 'admin') {
@@ -226,6 +341,9 @@ exports.create = function (req, res) {
   if (req.olddeliver && req.olddeliver !== undefined) {
     order.namedeliver = req.olddeliver;
     order.deliverystatus = 'wait deliver';
+  }
+  if (req.usernearby.length > 0) {
+    order.usernearby = req.usernearby;
   }
   // console.log(req.usercreate);
   // if (req.user) {
@@ -246,7 +364,9 @@ exports.create = function (req, res) {
           });
         } else {
           sendNewOrder();
-          sendNewdeliverOrder(req.body.shipping.sharelocation, req.body.shipping);
+          if (orders && orders.usernearby.length > 0) {
+            sendNewdeliverOrder(req.tokens);
+          }
           res.jsonp(orders);
         }
       });
@@ -376,15 +496,21 @@ exports.confirmedNearBy = function (req, res, next) {
   // -1 คือไม่มี
   if (req.user && req.user.roles.indexOf('deliver') !== -1) {
     req.confirmed.forEach(function (order) {
-      if (req.user.address.sharelocation && order.shipping.sharelocation) {
-        // nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
-        //   if (data && data <= 5) {
-        //     confirmedNearBies.push(order);
-        //   }
-        // });
-        var dist = getDistanceFromLatLonInKm(req.user.address.sharelocation.latitude, req.user.address.sharelocation.longitude, order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude);
-        if (dist <= minDistance) {
+      if (order.usernearby && order.usernearby.length > 0) {
+        if (order.usernearby.indexOf(req.user._id) !== -1) {
           confirmedNearBies.push(order);
+        }
+      } else {
+        if (req.user.address.sharelocation && order.shipping.sharelocation) {
+          // nearByDeliver(req.user.address.sharelocation, order.shipping.sharelocation, function (error, data) {
+          //   if (data && data <= 5) {
+          //     confirmedNearBies.push(order);
+          //   }
+          // });
+          var dist = getDistanceFromLatLonInKm(req.user.address.sharelocation.latitude, req.user.address.sharelocation.longitude, order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude);
+          if (dist <= minDistance) {
+            confirmedNearBies.push(order);
+          }
         }
       }
     });
@@ -463,10 +589,16 @@ exports.rejectNearBy = function (req, res, next) {
   var rejectNearBies = [];
   if (req.user && req.user.roles.indexOf('deliver') !== -1) {
     req.reject.forEach(function (order) {
-      if (req.user.address.sharelocation && order.shipping.sharelocation) {
-        var dist = getDistanceFromLatLonInKm(req.user.address.sharelocation.latitude, req.user.address.sharelocation.longitude, order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude);
-        if (dist <= minDistance) {
+      if (order.usernearby && order.usernearby.length > 0) {
+        if (order.usernearby.indexOf(req.user._id) !== -1) {
           rejectNearBies.push(order);
+        }
+      } else {
+        if (req.user.address.sharelocation && order.shipping.sharelocation) {
+          var dist = getDistanceFromLatLonInKm(req.user.address.sharelocation.latitude, req.user.address.sharelocation.longitude, order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude);
+          if (dist <= minDistance) {
+            rejectNearBies.push(order);
+          }
         }
       }
     });
@@ -893,62 +1025,62 @@ function deg2rad(deg) {
   return deg * (Math.PI / 180);
 }
 
-function sendNewdeliverOrder(order_location, shipping) {
-  Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
-    if (err) {
+function sendNewdeliverOrder(tokens) {
+  // Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+  //   if (err) {
 
-    } else {
-      var delivertokens = [];
-      // var delivertokens2 = [];
-      // var delivertokensOther = [];
-      delivers.forEach(function (deliver) {
+  //   } else {
+  //     var delivertokens = [];
+  //     // var delivertokens2 = [];
+  //     // var delivertokensOther = [];
+  //     delivers.forEach(function (deliver) {
 
-        //console.log(deliver.user.address);
-        if (order_location && deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
-          var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
-          //console.log('------------- ' + dist + ' km. -------------')
-          if (dist <= minDistance) {
-            delivertokens.push(deliver.device_token);
-          }
-        }
-        //delivertokens.push(deliver.device_token);
-      });
-      // console.log(delivertokens);
-      // if (delivertokens.length === 0) {
-      //   delivertokens2 = checkNotiUser(delivers, shipping);
-      //   if (delivertokens2.data.length > 0) {
-      //     delivertokens2.data.forEach(function (deliver) {
-      //       delivertokensOther.push(deliver.device_token);
-      //     });
-      //   }
-      // }
-      // var sendTokens = delivertokens.length > 0 ? delivertokens : delivertokensOther;
-      // var detailTokens = delivertokens.length > 0 ? 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.' : delivertokens2.notiMessage;
-      request({
-        url: pushNotiUrl,
-        auth: {
-          'bearer': pushNotiAuthenDEL.auth
-        },
-        method: 'POST',
-        json: {
-          tokens: delivertokens,
-          profile: pushNotiAuthenDEL.profile,
-          notification: {
-            message: 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.',
-            // ios: { sound: 'default' },
-            // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
-          }
-        }
-      }, function (error, response, body) {
-        if (error) {
-          console.log('Error sending messages: ', error);
-        } else if (response.body.error) {
-          console.log('Error: ', response.body.error);
-        }
-      });
+  //       //console.log(deliver.user.address);
+  //       if (order_location && deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
+  //         var dist = getDistanceFromLatLonInKm(order_location.latitude, order_location.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
+  //         //console.log('------------- ' + dist + ' km. -------------')
+  //         if (dist <= minDistance) {
+  //           delivertokens.push(deliver.device_token);
+  //         }
+  //       }
+  //       //delivertokens.push(deliver.device_token);
+  //     });
+  //     // console.log(delivertokens);
+  //     // if (delivertokens.length === 0) {
+  //     //   delivertokens2 = checkNotiUser(delivers, shipping);
+  //     //   if (delivertokens2.data.length > 0) {
+  //     //     delivertokens2.data.forEach(function (deliver) {
+  //     //       delivertokensOther.push(deliver.device_token);
+  //     //     });
+  //     //   }
+  //     // }
+  //     // var sendTokens = delivertokens.length > 0 ? delivertokens : delivertokensOther;
+  //     // var detailTokens = delivertokens.length > 0 ? 'คุณมีรายการสั่งซื้อข้าวใหม่ ในรัศมี ' + minDistance + ' กม.' : delivertokens2.notiMessage;
+
+  //   }
+  // });
+  request({
+    url: pushNotiUrl,
+    auth: {
+      'bearer': pushNotiAuthenDEL.auth
+    },
+    method: 'POST',
+    json: {
+      tokens: tokens,
+      profile: pushNotiAuthenDEL.profile,
+      notification: {
+        message: 'คุณมีรายการสั่งซื้อข้าวใหม่',
+        // ios: { sound: 'default' },
+        // android: { data: { badge: orders.length } }//{ badge: orders.length, sound: 'default' }
+      }
+    }
+  }, function (error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
     }
   });
-
 
 }
 

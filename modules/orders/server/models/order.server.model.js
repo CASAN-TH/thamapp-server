@@ -113,6 +113,7 @@ var OrderSchema = new Schema({
     default: Date.now
   },
   inarea: Boolean,
+  usernearby: [{ type: String }],
   user: {
     type: Schema.ObjectId,
     ref: 'User'
