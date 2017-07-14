@@ -237,8 +237,12 @@ exports.nearByKm = function (req, res, next) {
               var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
               //console.log('------------- ' + dist + ' km. -------------')
               if (dist <= minDistance) {
-                usernearby.push(deliver.user._id);
-                delivertokens.push(deliver.device_token);
+                if (usernearby.indexOf(deliver.user._id) !== -1) {
+                  usernearby.push(deliver.user._id);
+                }
+                if (delivertokens.indexOf(deliver.device_token) !== -1) {
+                  delivertokens.push(deliver.device_token);
+                }
               }
             }
             //delivertokens.push(deliver.device_token);
@@ -274,8 +278,12 @@ exports.nearByPostCode = function (req, res, next) {
               //console.log(deliver.user.address);
               if (deliver.user && deliver.user.address) {
                 if (deliver.user.address.postcode === order.shipping.postcode) {
-                  usernearby.push(deliver.user._id);
-                  delivertokens.push(deliver.device_token);
+                  if (usernearby.indexOf(deliver.user._id) !== -1) {
+                    usernearby.push(deliver.user._id);
+                  }
+                  if (delivertokens.indexOf(deliver.device_token) !== -1) {
+                    delivertokens.push(deliver.device_token);
+                  }
                 }
               }
               //delivertokens.push(deliver.device_token);
@@ -312,8 +320,12 @@ exports.nearByDistrict = function (req, res, next) {
               //console.log(deliver.user.address);
               if (deliver.user && deliver.user.address) {
                 if (deliver.user.address.district === order.shipping.district) {
-                  usernearby.push(deliver.user._id);
-                  delivertokens.push(deliver.device_token);
+                  if (usernearby.indexOf(deliver.user._id) !== -1) {
+                    usernearby.push(deliver.user._id);
+                  }
+                  if (delivertokens.indexOf(deliver.device_token) !== -1) {
+                    delivertokens.push(deliver.device_token);
+                  }
                 }
               }
               //delivertokens.push(deliver.device_token);
