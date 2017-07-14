@@ -498,6 +498,7 @@ exports.confirmedNearBy = function (req, res, next) {
     req.confirmed.forEach(function (order) {
       if (order.usernearby && order.usernearby.length > 0) {
         if (order.usernearby.indexOf(req.user._id) !== -1) {
+          console.log(order);
           confirmedNearBies.push(order);
         }
       } else {
