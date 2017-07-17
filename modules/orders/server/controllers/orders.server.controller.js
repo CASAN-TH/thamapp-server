@@ -154,6 +154,7 @@ exports.adminCreate = function (req, res, next) {
 
 exports.checkDeliver = function (req, res, next) {
   var order = new Order(req.body);
+  console.log('---------------' + order.deliverystatus);
   if (order.deliverystatus === 'complete') {
     next();
   } else {
@@ -345,6 +346,7 @@ exports.nearByDistrict = function (req, res, next) {
 
 exports.create = function (req, res) {
   var order = new Order(req.body);
+  console.log(order);
   if (req.user && req.user.roles[0] === 'admin') {
     order.user = req.usercreate;
   } else {
