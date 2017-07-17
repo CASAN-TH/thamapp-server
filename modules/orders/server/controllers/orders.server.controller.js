@@ -231,26 +231,31 @@ exports.nearByKm = function (req, res, next) {
           var usernearby = [];
           // var delivertokens2 = [];
           // var delivertokensOther = [];
-          delivers.forEach(function (deliver) {
+          if (delivers.length > 0) {
 
-            //console.log(deliver.user.address);
-            if (deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
-              var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
-              //console.log('------------- ' + dist + ' km. -------------')
-              if (dist <= minDistance) {
-                if (usernearby.indexOf(deliver.user._id) === -1) {
-                  usernearby.push(deliver.user._id);
-                }
-                if (delivertokens.indexOf(deliver.device_token) === -1) {
-                  delivertokens.push(deliver.device_token);
+            delivers.forEach(function (deliver) {
+
+              //console.log(deliver.user.address);
+              if (deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
+                var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
+                //console.log('------------- ' + dist + ' km. -------------')
+                if (dist <= minDistance) {
+                  if (usernearby.indexOf(deliver.user._id) === -1) {
+                    usernearby.push(deliver.user._id);
+                  }
+                  if (delivertokens.indexOf(deliver.device_token) === -1) {
+                    delivertokens.push(deliver.device_token);
+                  }
                 }
               }
-            }
-            //delivertokens.push(deliver.device_token);
-          });
-          req.tokens = delivertokens;
-          req.usernearby = usernearby;
-          next();
+              //delivertokens.push(deliver.device_token);
+            });
+            req.tokens = delivertokens;
+            req.usernearby = usernearby;
+            next();
+          } else {
+            next();
+          }
         }
       });
     }
@@ -291,6 +296,8 @@ exports.nearByPostCode = function (req, res, next) {
             });
             req.tokens = delivertokens;
             req.usernearby = usernearby;
+            next();
+          } else {
             next();
           }
         }
@@ -333,6 +340,8 @@ exports.nearByDistrict = function (req, res, next) {
             });
             req.tokens = delivertokens;
             req.usernearby = usernearby;
+            next();
+          } else {
             next();
           }
         }
