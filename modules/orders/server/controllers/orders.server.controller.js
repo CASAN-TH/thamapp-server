@@ -37,7 +37,6 @@ Date.prototype.yyyymmdd = function () {
     (dd > 9 ? '' : '0') + dd
   ].join('');
 };
-
 /**
  * Create a Order
  */
