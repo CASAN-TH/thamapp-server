@@ -154,7 +154,7 @@ exports.adminCreate = function (req, res, next) {
 
 exports.checkDeliver = function (req, res, next) {
   var order = new Order(req.body);
-  console.log('---------------' + order.deliverystatus);
+  // console.log('---------------' + order.deliverystatus);
   if (order.deliverystatus === 'complete') {
     next();
   } else {
@@ -221,141 +221,153 @@ exports.nearByKm = function (req, res, next) {
   var order = new Order(req.body);
   req.usernearby = [];
   req.tokens = [];
-  if (!req.olddeliver) {
-    if (order && order.shipping && order.shipping.sharelocation) {
-      Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
-        if (err) {
+  if (order.deliverystatus === 'complete') {
+    next();
+  } else {
+    if (!req.olddeliver) {
+      if (order && order.shipping && order.shipping.sharelocation) {
+        Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+          if (err) {
 
-        } else {
-          var delivertokens = [];
-          var usernearby = [];
-          // var delivertokens2 = [];
-          // var delivertokensOther = [];
-          if (delivers.length > 0) {
+          } else {
+            var delivertokens = [];
+            var usernearby = [];
+            // var delivertokens2 = [];
+            // var delivertokensOther = [];
+            if (delivers.length > 0) {
 
-            delivers.forEach(function (deliver) {
+              delivers.forEach(function (deliver) {
 
-              //console.log(deliver.user.address);
-              if (deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
-                var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
-                //console.log('------------- ' + dist + ' km. -------------')
-                if (dist <= minDistance) {
-                  if (usernearby.indexOf(deliver.user._id) === -1) {
-                    usernearby.push(deliver.user._id);
-                  }
-                  if (delivertokens.indexOf(deliver.device_token) === -1) {
-                    delivertokens.push(deliver.device_token);
+                //console.log(deliver.user.address);
+                if (deliver.user && deliver.user.address && deliver.user.address.sharelocation) {
+                  var dist = getDistanceFromLatLonInKm(order.shipping.sharelocation.latitude, order.shipping.sharelocation.longitude, deliver.user.address.sharelocation.latitude, deliver.user.address.sharelocation.longitude);
+                  //console.log('------------- ' + dist + ' km. -------------')
+                  if (dist <= minDistance) {
+                    if (usernearby.indexOf(deliver.user._id) === -1) {
+                      usernearby.push(deliver.user._id);
+                    }
+                    if (delivertokens.indexOf(deliver.device_token) === -1) {
+                      delivertokens.push(deliver.device_token);
+                    }
                   }
                 }
-              }
-              //delivertokens.push(deliver.device_token);
-            });
-            req.tokens = delivertokens;
-            req.usernearby = usernearby;
-            next();
-          } else {
-            next();
+                //delivertokens.push(deliver.device_token);
+              });
+              req.tokens = delivertokens;
+              req.usernearby = usernearby;
+              next();
+            } else {
+              next();
+            }
           }
-        }
-      });
-    }
+        });
+      }
 
-  } else {
-    next();
+    } else {
+      next();
+    }
   }
 };
 
 exports.nearByPostCode = function (req, res, next) {
   var order = new Order(req.body);
-  if (req.usernearby.length === 0) {
-    if (order && order.shipping && order.shipping.sharelocation) {
-      Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
-        if (err) {
+  if (order.deliverystatus === 'complete') {
+    next();
+  } else {
+    if (req.usernearby.length === 0) {
+      if (order && order.shipping && order.shipping.sharelocation) {
+        Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+          if (err) {
 
-        } else {
-          if (delivers.length > 0) {
+          } else {
+            if (delivers.length > 0) {
 
-            var delivertokens = [];
-            var usernearby = [];
-            // var delivertokens2 = [];
-            // var delivertokensOther = [];
-            delivers.forEach(function (deliver) {
+              var delivertokens = [];
+              var usernearby = [];
+              // var delivertokens2 = [];
+              // var delivertokensOther = [];
+              delivers.forEach(function (deliver) {
 
-              //console.log(deliver.user.address);
-              if (deliver.user && deliver.user.address) {
-                if (deliver.user.address.postcode === order.shipping.postcode) {
-                  if (usernearby.indexOf(deliver.user._id) === -1) {
-                    usernearby.push(deliver.user._id);
-                  }
-                  if (delivertokens.indexOf(deliver.device_token) === -1) {
-                    delivertokens.push(deliver.device_token);
+                //console.log(deliver.user.address);
+                if (deliver.user && deliver.user.address) {
+                  if (deliver.user.address.postcode === order.shipping.postcode) {
+                    if (usernearby.indexOf(deliver.user._id) === -1) {
+                      usernearby.push(deliver.user._id);
+                    }
+                    if (delivertokens.indexOf(deliver.device_token) === -1) {
+                      delivertokens.push(deliver.device_token);
+                    }
                   }
                 }
-              }
-              //delivertokens.push(deliver.device_token);
-            });
-            req.tokens = delivertokens;
-            req.usernearby = usernearby;
-            next();
-          } else {
-            next();
+                //delivertokens.push(deliver.device_token);
+              });
+              req.tokens = delivertokens;
+              req.usernearby = usernearby;
+              next();
+            } else {
+              next();
+            }
           }
-        }
-      });
-    }
+        });
+      }
 
-  } else {
-    next();
+    } else {
+      next();
+    }
   }
 };
 
 exports.nearByDistrict = function (req, res, next) {
   var order = new Order(req.body);
-  if (req.usernearby.length === 0) {
-    if (order && order.shipping && order.shipping.sharelocation) {
-      Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
-        if (err) {
+  if (order.deliverystatus === 'complete') {
+    next();
+  } else {
+    if (req.usernearby.length === 0) {
+      if (order && order.shipping && order.shipping.sharelocation) {
+        Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+          if (err) {
 
-        } else {
-          if (delivers.length > 0) {
+          } else {
+            if (delivers.length > 0) {
 
-            var delivertokens = [];
-            var usernearby = [];
-            // var delivertokens2 = [];
-            // var delivertokensOther = [];
-            delivers.forEach(function (deliver) {
+              var delivertokens = [];
+              var usernearby = [];
+              // var delivertokens2 = [];
+              // var delivertokensOther = [];
+              delivers.forEach(function (deliver) {
 
-              //console.log(deliver.user.address);
-              if (deliver.user && deliver.user.address) {
-                if (deliver.user.address.district === order.shipping.district) {
-                  if (usernearby.indexOf(deliver.user._id) === -1) {
-                    usernearby.push(deliver.user._id);
-                  }
-                  if (delivertokens.indexOf(deliver.device_token) === -1) {
-                    delivertokens.push(deliver.device_token);
+                //console.log(deliver.user.address);
+                if (deliver.user && deliver.user.address) {
+                  if (deliver.user.address.district === order.shipping.district) {
+                    if (usernearby.indexOf(deliver.user._id) === -1) {
+                      usernearby.push(deliver.user._id);
+                    }
+                    if (delivertokens.indexOf(deliver.device_token) === -1) {
+                      delivertokens.push(deliver.device_token);
+                    }
                   }
                 }
-              }
-              //delivertokens.push(deliver.device_token);
-            });
-            req.tokens = delivertokens;
-            req.usernearby = usernearby;
-            next();
-          } else {
-            next();
+                //delivertokens.push(deliver.device_token);
+              });
+              req.tokens = delivertokens;
+              req.usernearby = usernearby;
+              next();
+            } else {
+              next();
+            }
           }
-        }
-      });
-    }
+        });
+      }
 
-  } else {
-    next();
+    } else {
+      next();
+    }
   }
 };
 
 exports.create = function (req, res) {
   var order = new Order(req.body);
-  console.log(order);
+  // console.log(order);
   if (req.user && req.user.roles[0] === 'admin') {
     order.user = req.usercreate;
   } else {
