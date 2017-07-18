@@ -222,7 +222,7 @@ exports.findOldDeliver = function (req, res, next) {
   if (order.deliverystatus === 'complete') {
     next();
   } else {
-    if (req.olddeliver) {
+    if (req.olddeliver && req.olddeliver !== undefined) {
       Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
         if (err) {
 
@@ -234,7 +234,7 @@ exports.findOldDeliver = function (req, res, next) {
           if (delivers.length > 0) {
 
             delivers.forEach(function (deliver) {
-              if (deliver.user._id.toString() === req.olddeliver._id.toString()) {
+              if (deliver.user && deliver.user._id.toString() === req.olddeliver._id.toString()) {
 
 
                 //console.log(deliver.user.address);
