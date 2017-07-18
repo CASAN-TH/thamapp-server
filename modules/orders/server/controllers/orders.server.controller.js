@@ -187,6 +187,7 @@ exports.checkDeliver = function (req, res, next) {
                   if (delivers.length > 0) {
 
                     delivers.forEach(function (deliver) {
+                      console.log(deliver.user._id +' === '+ req.olddeliver._id);
                       if (deliver.user._id === req.olddeliver._id) {
 
 
