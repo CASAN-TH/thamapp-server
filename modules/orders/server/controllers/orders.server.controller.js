@@ -176,7 +176,7 @@ exports.checkDeliver = function (req, res, next) {
             });
             if (deliver2.length > 0) {
               req.olddeliver = deliver2[0];
-              Pushnotiuser.find({ user: req.olddeliver }).sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+              Pushnotiuser.find({ user: { _id: req.olddeliver._id } }).sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
                 if (err) {
 
                 } else {
