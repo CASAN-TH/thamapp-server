@@ -231,6 +231,7 @@ exports.findOldDeliver = function (req, res, next) {
 
           delivers.forEach(function (deliver) {
             if (deliver.user._id === req.olddeliver._id) {
+              console.log(deliver.user._id +'======================'=== req.olddeliver._id);
 
 
               //console.log(deliver.user.address);
