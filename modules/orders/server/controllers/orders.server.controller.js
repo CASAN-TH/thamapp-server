@@ -194,9 +194,12 @@ exports.checkDeliver = function (req, res, next) {
 
                         if (usernearby.indexOf(deliver.user._id) === -1) {
                           usernearby.push(deliver.user._id);
+                          console.log(usernearby);
                         }
                         if (delivertokens.indexOf(deliver.device_token) === -1) {
                           delivertokens.push(deliver.device_token);
+                          console.log(delivertokens);
+                          
                         }
                       }
 
@@ -236,7 +239,40 @@ exports.checkDeliver = function (req, res, next) {
             });
             if (deliver.length > 0) {
               req.olddeliver = deliver[0];
-              next();
+              Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+                if (err) {
+
+                } else {
+                  var delivertokens = [];
+                  var usernearby = [];
+                  // var delivertokens2 = [];
+                  // var delivertokensOther = [];
+                  if (delivers.length > 0) {
+
+                    delivers.forEach(function (deliver) {
+                      if (deliver.user._id === req.olddeliver._id) {
+
+
+                        //console.log(deliver.user.address);
+
+                        if (usernearby.indexOf(deliver.user._id) === -1) {
+                          usernearby.push(deliver.user._id);
+                        }
+                        if (delivertokens.indexOf(deliver.device_token) === -1) {
+                          delivertokens.push(deliver.device_token);
+                        }
+                      }
+
+                      //delivertokens.push(deliver.device_token);
+                    });
+                    req.tokens = delivertokens;
+                    req.usernearby = usernearby;
+                    next();
+                  } else {
+                    next();
+                  }
+                }
+              });
             } else {
               next();
             }
