@@ -438,7 +438,7 @@ exports.create = function (req, res) {
     order.namedeliver = req.olddeliver;
     order.deliverystatus = 'wait deliver';
   }
-  if (req.usernearby.length > 0) {
+  if (req.usernearby && req.usernearby.length > 0) {
     order.usernearby = req.usernearby;
   }
   // console.log(req.usercreate);
