@@ -274,46 +274,52 @@ exports.nearByPostCode = function (req, res, next) {
   if (order.deliverystatus === 'complete') {
     next();
   } else {
-    if (req.usernearby.length === 0) {
-      if (order && order.shipping && order.shipping.sharelocation) {
-        Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
-          if (err) {
+    if (!req.olddeliver) {
 
-          } else {
-            if (delivers.length > 0) {
+      if (req.usernearby.length === 0) {
+        if (order && order.shipping && order.shipping.sharelocation) {
+          Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+            if (err) {
 
-              var delivertokens = [];
-              var usernearby = [];
-              // var delivertokens2 = [];
-              // var delivertokensOther = [];
-              delivers.forEach(function (deliver) {
+            } else {
+              if (delivers.length > 0) {
 
-                //console.log(deliver.user.address);
-                if (deliver.user && deliver.user.address) {
-                  if (deliver.user.address.postcode === order.shipping.postcode) {
-                    if (usernearby.indexOf(deliver.user._id) === -1) {
-                      usernearby.push(deliver.user._id);
-                    }
-                    if (delivertokens.indexOf(deliver.device_token) === -1) {
-                      delivertokens.push(deliver.device_token);
+                var delivertokens = [];
+                var usernearby = [];
+                // var delivertokens2 = [];
+                // var delivertokensOther = [];
+                delivers.forEach(function (deliver) {
+
+                  //console.log(deliver.user.address);
+                  if (deliver.user && deliver.user.address) {
+                    if (deliver.user.address.postcode === order.shipping.postcode) {
+                      if (usernearby.indexOf(deliver.user._id) === -1) {
+                        usernearby.push(deliver.user._id);
+                      }
+                      if (delivertokens.indexOf(deliver.device_token) === -1) {
+                        delivertokens.push(deliver.device_token);
+                      }
                     }
                   }
-                }
-                //delivertokens.push(deliver.device_token);
-              });
-              req.tokens = delivertokens;
-              req.usernearby = usernearby;
-              next();
-            } else {
-              next();
+                  //delivertokens.push(deliver.device_token);
+                });
+                req.tokens = delivertokens;
+                req.usernearby = usernearby;
+                next();
+              } else {
+                next();
+              }
             }
-          }
-        });
-      }
+          });
+        }
 
+      } else {
+        next();
+      }
     } else {
       next();
     }
+
   }
 };
 
@@ -322,46 +328,52 @@ exports.nearByDistrict = function (req, res, next) {
   if (order.deliverystatus === 'complete') {
     next();
   } else {
-    if (req.usernearby.length === 0) {
-      if (order && order.shipping && order.shipping.sharelocation) {
-        Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
-          if (err) {
+    if (!req.olddeliver) {
 
-          } else {
-            if (delivers.length > 0) {
+      if (req.usernearby.length === 0) {
+        if (order && order.shipping && order.shipping.sharelocation) {
+          Pushnotiuser.find().sort('-created').where('role').equals('deliver').populate('user').exec(function (err, delivers) {
+            if (err) {
 
-              var delivertokens = [];
-              var usernearby = [];
-              // var delivertokens2 = [];
-              // var delivertokensOther = [];
-              delivers.forEach(function (deliver) {
+            } else {
+              if (delivers.length > 0) {
 
-                //console.log(deliver.user.address);
-                if (deliver.user && deliver.user.address) {
-                  if (deliver.user.address.district === order.shipping.district) {
-                    if (usernearby.indexOf(deliver.user._id) === -1) {
-                      usernearby.push(deliver.user._id);
-                    }
-                    if (delivertokens.indexOf(deliver.device_token) === -1) {
-                      delivertokens.push(deliver.device_token);
+                var delivertokens = [];
+                var usernearby = [];
+                // var delivertokens2 = [];
+                // var delivertokensOther = [];
+                delivers.forEach(function (deliver) {
+
+                  //console.log(deliver.user.address);
+                  if (deliver.user && deliver.user.address) {
+                    if (deliver.user.address.district === order.shipping.district) {
+                      if (usernearby.indexOf(deliver.user._id) === -1) {
+                        usernearby.push(deliver.user._id);
+                      }
+                      if (delivertokens.indexOf(deliver.device_token) === -1) {
+                        delivertokens.push(deliver.device_token);
+                      }
                     }
                   }
-                }
-                //delivertokens.push(deliver.device_token);
-              });
-              req.tokens = delivertokens;
-              req.usernearby = usernearby;
-              next();
-            } else {
-              next();
+                  //delivertokens.push(deliver.device_token);
+                });
+                req.tokens = delivertokens;
+                req.usernearby = usernearby;
+                next();
+              } else {
+                next();
+              }
             }
-          }
-        });
-      }
+          });
+        }
 
+      } else {
+        next();
+      }
     } else {
       next();
     }
+
   }
 };
 
@@ -648,6 +660,31 @@ exports.complete = function (req, res, next) {
     filter = {
       'namedeliver': req.user,
       'deliverystatus': 'complete'
+    };
+  } else {
+    filter = {
+      'deliverystatus': 'complete'
+    };
+  }
+  Order.find(filter).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, completes) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      // console.log(orders);
+      req.complete = completes;
+      next();
+    }
+  });
+};
+exports.complete2 = function (req, res, next) {
+  var filter = {};
+  if (req.user && req.user.roles.indexOf('deliver') !== -1) {
+    filter = {
+      'namedeliver': req.user,
+      'deliverystatus': 'complete',
+      'user': req.user
     };
   } else {
     filter = {
