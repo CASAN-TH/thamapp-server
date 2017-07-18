@@ -26,7 +26,7 @@ module.exports = function (app) {
 
   app.route('/api/listorder/web')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.confirmed, orders.confirmedNearBy, orders.wait, orders.accept, orders.reject, orders.rejectNearBy, orders.complete, orders.cancel, orders.listorderweb)
-    .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.adminCreate, orders.checkDeliver, orders.nearByKm, orders.nearByPostCode, orders.nearByDistrict, orders.create);
+    .post(users.requiresLoginToken, ordersPolicy.isAllowed, orders.adminCreate, orders.checkDeliver, orders.findOldDeliver, orders.nearByKm, orders.nearByPostCode, orders.nearByDistrict, orders.create);
 
   app.route('/api/listorder/web/:orderId')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.read)
