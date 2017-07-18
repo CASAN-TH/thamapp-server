@@ -154,7 +154,6 @@ exports.adminCreate = function (req, res, next) {
 
 exports.checkDeliver = function (req, res, next) {
   var order = new Order(req.body);
-  // console.log('---------------' + order.deliverystatus);
   if (order.deliverystatus === 'complete') {
     next();
   } else {
