@@ -127,7 +127,7 @@ exports.list = function (req, res) {
         }
       });
   } else {
-    Product.find().sort('-created')
+    Product.find().sort('created')
       .populate('user', 'displayName')
       //.where('category').equals('อาหาร') //อ่านเฉพาะรายการข้าว
       .or([{ category: 'ข้าวสาร' }, { category: 'ผลไม้' }, { category: 'ผักใบ' }, { category: 'ผักผล' }])
