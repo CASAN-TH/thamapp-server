@@ -28,7 +28,13 @@
     if ($scope.user && $scope.user.roles[0] === 'admin') {
       $scope.newAddress.status = true;
     }
-
+    $scope.chkLongan = false;
+    vm.cart.items.forEach(function (itm) {
+      if (itm.product._id === '5970c9594ffca31000edb499') {
+        $scope.chkLongan = true;
+      }
+    });
+   
     // Update a user profile
     vm.clear = function () {
       vm.cart.clear();
