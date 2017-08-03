@@ -96,7 +96,7 @@ exports.postcode = function (req, res, next, postcode) {
 };
 
 exports.resultpostcode = function (req, res) {
-  res.jsonp({ postcode: req.postcode, area: req.area });
+  res.jsonp({ postcode: req.postcode, area: true });
 };
 
 exports.adminCreate = function (req, res, next) {
