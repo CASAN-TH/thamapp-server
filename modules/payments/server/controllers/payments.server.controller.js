@@ -200,7 +200,7 @@ exports.enddate = function (req, res, next, enddate) {
 };
 
 exports.frompayments = function (req, res, next) {
-    var trns = req.trns || [];
+    var trns = req.trns || []; 
     var oldtrns = [];
     var enddate = req.enddate;
     Payment.find({ docdate: { $gte: new Date(req.startdate), $lte: new Date(enddate) } }).populate('user', 'displayName').populate('debits.account').populate('credits.account').exec(function (err, payments) {
