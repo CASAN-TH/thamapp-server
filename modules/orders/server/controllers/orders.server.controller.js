@@ -33,8 +33,8 @@ Date.prototype.yyyymmdd = function () {
   var dd = this.getDate();
 
   return [this.getFullYear(),
-    (mm > 9 ? '' : '0') + mm,
-    (dd > 9 ? '' : '0') + dd
+  (mm > 9 ? '' : '0') + mm,
+  (dd > 9 ? '' : '0') + dd
   ].join('');
 };
 /**
