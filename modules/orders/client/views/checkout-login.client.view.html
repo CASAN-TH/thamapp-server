@@ -1,97 +1,94 @@
 <section class="container-fluid" ng-init="init()">
-  <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)" novalidate>
-    <div class="row">
-      <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
-      <div class="col-md-6" ng-if="step === 1">
+    <form name="vm.form.checkoutForm" class="form-horizontal" ng-submit="checkStep(vm.form.checkoutForm.$valid)" novalidate>
         <div class="row">
-          <h3>เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก</h3>
-        </div>
+            <!--เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก-->
+            <div class="col-md-6" ng-if="step === 1">
+                <div class="row">
+                    <h3>เข้าสู่ระบบหรือชำระสินค้าแบบไม่ได้เป็นสมาชิก</h3>
+                </div>
 
-        <div class="row">
-          <div class="col-md-12">
-            <div class="form-group" show-errors ng-if="!vm.isMember">
-              <label class="control-label" for="pass">กรุณาใส่ เบอร์โทรศัพท์ ของท่าน</label>
-              <input name="username" type="text" id="username" class="form-control" ng-model="authentication.username" placeholder="0999999999"
-                required>
-              <div ng-messages="vm.form.checkoutForm.username.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Tel is required.</p>
-              </div>
-            </div>
-            <div class="form-group" show-errors ng-if="vm.isMember">
-              <label class="control-label" for="pass">กรุณาใส่ Username</label>
-              <input name="username" type="text" id="username" class="form-control" ng-model="authentication.username" placeholder="Username"
-                required>
-              <div ng-messages="vm.form.checkoutForm.username.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Username is required.</p>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="radio">
-                <label><input type="radio" name="optradio" ng-model="vm.isMember" ng-value="false">ดำเนินการต่อโดยไม่ต้องใช้รหัสผ่าน</label>
-              </div>
-              <div class="radio">
-                <label><input type="radio" name="optradio" ng-model="vm.isMember" ng-value="true">ฉันมีบัญชีผู้ใช้อยู่แล้ว</label>
-              </div>
-            </div>
-            <div class="form-group" show-errors ng-if="vm.isMember">
-              <label class="control-label" for="pass">กรุณากรอกรหัสผ่าน</label>
-              <input name="pass" type="password" id="pass" ng-model="authentication.password" class="form-control" placeholder="password"
-                required>
-              <div ng-messages="vm.form.checkoutForm.pass.$error" role="alert">
-                <p class="help-block error-text" ng-message="required">Password is required.</p>
-              </div>
-              <div class="text-right">
-                <a href="">ลืมรหัสผ่าน?</a>
-              </div>
-            </div>
-            <div class="form-group">
-              <!--<button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>-->
-              <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
-              <div class="row min-height-20">
-                <div class="col-md-2 col-md-offset-5">Or</div>
-              </div>
-              <a class="btn btn-success btn-block" ng-click="callOauthProvider('/api/auth/facebook')"> <i class="fa fa-facebook" aria-hidden="true"></i> <span>Sign in with Facebook</span> </a>
-              <p class="text-red">{{error}}</p>
-              <p class="text-red">{{vm.error}}</p>
-            </div>
-            <div class="from-group">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group" show-errors ng-if="!vm.isMember">
+                            <label class="control-label" for="pass">กรุณาใส่ เบอร์โทรศัพท์ ของท่าน</label>
+                            <input name="username" type="text" id="username" class="form-control" ng-model="authentication.username" placeholder="0999999999" required>
+                            <div ng-messages="vm.form.checkoutForm.username.$error" role="alert">
+                                <p class="help-block error-text" ng-message="required">Tel is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors ng-if="vm.isMember">
+                            <label class="control-label" for="pass">กรุณาใส่ Username</label>
+                            <input name="username" type="text" id="username" class="form-control" ng-model="authentication.username" placeholder="Username" required>
+                            <div ng-messages="vm.form.checkoutForm.username.$error" role="alert">
+                                <p class="help-block error-text" ng-message="required">Username is required.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="radio">
+                                <label><input type="radio" name="optradio" ng-model="vm.isMember" ng-value="false">ดำเนินการต่อโดยไม่ต้องใช้รหัสผ่าน</label>
+                            </div>
+                            <div class="radio">
+                                <label><input type="radio" name="optradio" ng-model="vm.isMember" ng-value="true">ฉันมีบัญชีผู้ใช้อยู่แล้ว</label>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors ng-if="vm.isMember">
+                            <label class="control-label" for="pass">กรุณากรอกรหัสผ่าน</label>
+                            <input name="pass" type="password" id="pass" ng-model="authentication.password" class="form-control" placeholder="password" required>
+                            <div ng-messages="vm.form.checkoutForm.pass.$error" role="alert">
+                                <p class="help-block error-text" ng-message="required">Password is required.</p>
+                            </div>
+                            <div class="text-right">
+                                <a href="">ลืมรหัสผ่าน?</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!--<button type="submit" ng-click="vm.signup()" class="btn btn-warning btn-block">ดำเนินการต่อ</button>-->
+                            <button type="submit" class="btn btn-warning btn-block">ดำเนินการต่อ</button>
+                            <div class="row min-height-20">
+                                <div class="col-md-2 col-md-offset-5">Or</div>
+                            </div>
+                            <a class="btn btn-success btn-block" ng-click="callOauthProvider('/api/auth/facebook')"> <i class="fa fa-facebook" aria-hidden="true"></i> <span>Sign in with Facebook</span> </a>
+                            <p class="text-red">{{error}}</p>
+                            <p class="text-red">{{vm.error}}</p>
+                        </div>
+                        <div class="from-group">
 
+                        </div>
+                        <div class="form-group">
+                            <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-              <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
-            </div>
-          </div>
-        </div>
-      </div>
 
 
-      <div class="col-md-6" ng-if="step === 2">
-        <!--เลือกวิธีจัดส่ง-->
-        <div class="row rounded container-fluid address-container-bg padding-0" ng-if="authentication.user">
-          <div ng-if="chkLongan === false" class="col-xs-12 col-md-12 text-center {{vm.order.delivery.deliveryid === '0'?'address-container':'address-container-bg'}}">
-            <div class="margin-top-32">
-              <span><i class="fa fa-truck front_profile-color9"></i></span>
-            </div>
-            <div>
-              <label for="">ส่งโดยคนส่งข้าว</label>
-            </div>
-            <div class="form-group">
-              <input type="radio" name="humen" ng-model="vm.order.delivery.deliveryid" ng-value="'0'">
-            </div>
-          </div>
-          <!--  -->
-           <div ng-if="chkLongan === true" class="col-xs-12 col-md-12 text-center {{vm.order.delivery.deliveryid === '0'?'address-container':'address-container-bg'}}">
-            <div class="margin-top-32">
-              <span><i class="fa fa-truck front_profile-color9"></i></span>
-            </div>
-            <div>
-              <label for="">โอนเงิน</label>
-            </div>
-            <div class="form-group">
-              <input type="radio" name="humen" ng-model="vm.order.delivery.deliveryid" ng-value="'0'">
-            </div>
-          </div> 
-          <!-- <div class="col-xs-6 col-md-6 border-left text-center {{vm.order.delivery.deliveryid === '1'?'address-container':'address-container-bg'}}">
+            <div class="col-md-6" ng-if="step === 2">
+                <!--เลือกวิธีจัดส่ง-->
+                <div class="row rounded container-fluid address-container-bg padding-0" ng-if="authentication.user">
+                    <div ng-if="chkLongan === false" class="col-xs-12 col-md-12 text-center {{vm.order.delivery.deliveryid === '0'?'address-container':'address-container-bg'}}">
+                        <div class="margin-top-32">
+                            <span><i class="fa fa-truck front_profile-color9"></i></span>
+                        </div>
+                        <div>
+                            <label for="">ส่งโดยคนส่งข้าว</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="humen" ng-model="vm.order.delivery.deliveryid" ng-value="'0'">
+                        </div>
+                    </div>
+                    <!--  -->
+                    <div ng-if="chkLongan === true" class="col-xs-12 col-md-12 text-center {{vm.order.delivery.deliveryid === '0'?'address-container':'address-container-bg'}}">
+                        <div class="margin-top-32">
+                            <span><i class="fa fa-truck front_profile-color9"></i></span>
+                        </div>
+                        <div>
+                            <label for="">โอนเงิน</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="humen" ng-model="vm.order.delivery.deliveryid" ng-value="'0'">
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-6 col-md-6 border-left text-center {{vm.order.delivery.deliveryid === '1'?'address-container':'address-container-bg'}}">
             <div class="margin-top-32">
               <span><i class="fa fa-envelope front_profile-color9"></i></span>
             </div>
@@ -102,134 +99,127 @@
               <input type="radio" name="post" ng-model="vm.order.delivery.deliveryid" ng-value="'1'">
             </div>
           </div> -->
-        </div>
+                </div>
 
-        <div class="row" ng-if="authentication.user.roles[0] !== 'admin'">
-          <div class="col-xs-12">
-            <h4>ที่อยู่ที่จะจัดส่ง</h4>
-          </div>
-        </div>
-        <!--ที่อยู่ที่จะจัดส่ง กรณียังไม่ login-->
-        <div class="row" ng-if="!authentication.user">
-          <div class="col-xs-12">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">ชื่อ</label>
+                <div class="row" ng-if="authentication.user.roles[0] !== 'admin'">
+                    <div class="col-xs-12">
+                        <h4>ที่อยู่ที่จะจัดส่ง</h4>
+                    </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="name" type="text" id="name" ng-model="authentication.firstName" class="form-control" placeholder="First Name"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">First Name is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">นามสกุล</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="lastname" type="text" id="lastname" ng-model="authentication.lastName" class="form-control" placeholder="Last Name"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Last Name is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">รหัสไปรษณีย์</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
+                <!--ที่อยู่ที่จะจัดส่ง กรณียังไม่ login-->
+                <div class="row" ng-if="!authentication.user">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">ชื่อ</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="name" type="text" id="name" ng-model="authentication.firstName" class="form-control" placeholder="First Name" required>
+                                    <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">First Name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">นามสกุล</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="lastname" type="text" id="lastname" ng-model="authentication.lastName" class="form-control" placeholder="Last Name" required>
+                                    <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Last Name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">รหัสไปรษณีย์</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
                   typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
-                <div class="form-group" show-errors>
-                  <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
-                  <!--<input name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">-->
-                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode"
-                    class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Postcode is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">จังหวัด</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="province" type="text" id="province" ng-model="authentication.address.province" class="form-control" placeholder="Province"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Province is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">เขต/อำเภอ</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="district" type="text" id="district" ng-model="authentication.address.district" class="form-control" placeholder="District"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">District is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">แขวง/ตำบล</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control"
-                    placeholder="Subdistrict" required>
-                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">ที่อยู่</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Address is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--<div class="row">
+                                <div class="form-group" show-errors>
+                                    <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
+                                    <!--<input name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">-->
+                                    <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.address.postcode" class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
+                                        required>
+                                    <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Postcode is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">จังหวัด</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="province" type="text" id="province" ng-model="authentication.address.province" class="form-control" placeholder="Province" required>
+                                    <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Province is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">เขต/อำเภอ</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="district" type="text" id="district" ng-model="authentication.address.district" class="form-control" placeholder="District" required>
+                                    <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">District is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">แขวง/ตำบล</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.address.subdistrict" class="form-control" placeholder="Subdistrict" required>
+                                    <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">ที่อยู่</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="address" type="text" id="address" ng-model="authentication.address.address" class="form-control" placeholder="Address" required>
+                                    <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Address is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                   <label class="control-label" for="email">E-mail</label>
@@ -245,146 +235,139 @@
                 </div>
               </div>
             </div>-->
-          </div>
-        </div>
+                    </div>
+                </div>
 
-        <!--ที่อยู่ที่จะจัดส่ง กรณี login แต่ยังไม่มีที่อยู่-->
+                <!--ที่อยู่ที่จะจัดส่ง กรณี login แต่ยังไม่มีที่อยู่-->
 
-        <div class="row" ng-if="authentication.user && !authentication.user.address.tel">
-          <div class="col-xs-12">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">ชื่อ</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="name" type="text" id="name" ng-model="authentication.user.firstName" class="form-control" placeholder="First Name"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">First Name is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">นามสกุล</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="lastname" type="text" id="lastname" ng-model="authentication.user.lastName" class="form-control" placeholder="Last Name"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Last Name is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">รหัสไปรษณีย์</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
+                <div class="row" ng-if="authentication.user && !authentication.user.address.tel">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">ชื่อ</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="name" type="text" id="name" ng-model="authentication.user.firstName" class="form-control" placeholder="First Name" required>
+                                    <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">First Name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">นามสกุล</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="lastname" type="text" id="lastname" ng-model="authentication.user.lastName" class="form-control" placeholder="Last Name" required>
+                                    <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Last Name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">รหัสไปรษณีย์</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
                   typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
-                <div class="form-group" show-errors>
-                  <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
-                  <!--<input name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">-->
-                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.user.address.postcode"
-                    class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Postcode is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">จังหวัด</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="province" type="text" id="province" ng-model="authentication.user.address.province" class="form-control" placeholder="Province"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Province is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">เขต/อำเภอ</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="district" type="text" id="district" ng-model="authentication.user.address.district" class="form-control" placeholder="District"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">District is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">แขวง/ตำบล</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.user.address.subdistrict" class="form-control"
-                    placeholder="Subdistrict" required>
-                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">ที่อยู่</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="address" type="text" id="address" ng-model="authentication.user.address.address" class="form-control" placeholder="Address"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Address is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="tel">เบอร์โทรศัพท์</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="tel" type="text" ng-model="vm.order.shipping.tel" class="form-control" placeholder="08x-xxxx-xxxx" required>
-                  <div ng-messages="vm.form.checkoutForm.tel.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Tel is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--<div class="row">
+                                <div class="form-group" show-errors>
+                                    <!--<input name="postcode" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode" placeholder="Postcode" required>-->
+                                    <!--<input name="postcode1" id="postcode1" class="form-control" type="text" ng-model="authentication.address.postcode" ng-if="authentication.address.postcode.length < 3 || !authentication.address.postcode">-->
+                                    <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="authentication.user.address.postcode" class="form-control" placeholder="Postcode" typeahead-callback="callback" ng-change="checkAutocomplete(authentication.address.postcode)"
+                                        required>
+                                    <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Postcode is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">จังหวัด</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="province" type="text" id="province" ng-model="authentication.user.address.province" class="form-control" placeholder="Province" required>
+                                    <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Province is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">เขต/อำเภอ</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="district" type="text" id="district" ng-model="authentication.user.address.district" class="form-control" placeholder="District" required>
+                                    <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">District is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">แขวง/ตำบล</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="subdistrict" type="text" id="subdistrict" ng-model="authentication.user.address.subdistrict" class="form-control" placeholder="Subdistrict" required>
+                                    <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">ที่อยู่</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="address" type="text" id="address" ng-model="authentication.user.address.address" class="form-control" placeholder="Address" required>
+                                    <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Address is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="tel">เบอร์โทรศัพท์</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="tel" type="text" ng-model="vm.order.shipping.tel" class="form-control" placeholder="08x-xxxx-xxxx" required>
+                                    <div ng-messages="vm.form.checkoutForm.tel.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Tel is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                   <label class="control-label" for="email">E-mail</label>
@@ -400,338 +383,331 @@
                 </div>
               </div>
             </div>-->
-          </div>
-        </div>
+                    </div>
+                </div>
 
-        <!--ที่อยู่ที่จะจัดส่ง กรณี login และ มีที่อยู่แล้ว-->
-        <div class="row container-fluid rounded address-container" ng-if="authentication.user && authentication.user.address.tel && authentication.user.roles[0] !== 'admin'">
-          <div class="col-xs-12">
-            <div class="row">
-              <label for="">{{authentication.user.displayName}}</label>
-            </div>
-            <div class="row">
-              <!--{{authentication}}-->
-              <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
-              <span>{{authentication.user.address.address}} {{authentication.user.address.subdistrict}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
-            </div>
-          </div>
-        </div>
+                <!--ที่อยู่ที่จะจัดส่ง กรณี login และ มีที่อยู่แล้ว-->
+                <div class="row container-fluid rounded address-container" ng-if="authentication.user && authentication.user.address.tel && authentication.user.roles[0] !== 'admin'">
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <label for="">{{authentication.user.displayName}}</label>
+                        </div>
+                        <div class="row">
+                            <!--{{authentication}}-->
+                            <!--<span>69/239 หมู่บ้านวราบดินทร์ ม.6 ต.บึงคำพร้อย ปทุมธานี/Pathum Thani - ลำลูกกา/Lum Luk ka - 12150 โทรศัพท์: 0894447208</span>-->
+                            <span>{{authentication.user.address.address}} {{authentication.user.address.subdistrict}} {{authentication.user.address.district}} {{authentication.user.address.province}} {{authentication.user.address.postcode}} โทรศัพท์: {{authentication.user.address.tel}}</span>
+                        </div>
+                    </div>
+                </div>
 
 
-        <div class="row min-height-20">
-        </div>
-        <div class="row" ng-if="authentication.user && authentication.user.address.tel">
-          <div class="col-xs-12">
-            <h4>หมายเหตุการจัดส่ง</h4>
-          </div>
-        </div>
-        <!--หมายเหตุการจัดส่ง-->
-        <div class="row" ng-if="authentication.user && authentication.user.address.tel">
-          <div class="col-xs-12">
-            <div class="row">
+                <div class="row min-height-20">
+                </div>
+                <div class="row" ng-if="authentication.user && authentication.user.address.tel">
+                    <div class="col-xs-12">
+                        <h4>หมายเหตุการจัดส่ง</h4>
+                    </div>
+                </div>
+                <!--หมายเหตุการจัดส่ง-->
+                <div class="row" ng-if="authentication.user && authentication.user.address.tel">
+                    <div class="col-xs-12">
+                        <div class="row">
 
-              <div class="col-xs-12 col-md-12">
-                <div class="form-group">
-                  <textarea ng-model="vm.order.remark" class="form-control" placeholder="หมายเหตุการจัดส่ง">
+                            <div class="col-xs-12 col-md-12">
+                                <div class="form-group">
+                                    <textarea ng-model="vm.order.remark" class="form-control" placeholder="หมายเหตุการจัดส่ง">
                   </textarea>
 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--กรณี user ต้องการระบุที่อยู่จัดส่งใหม่-->
-        <div class="row container-fluid" ng-if="authentication.user && authentication.user.address.tel">
-          <div class="col-xs-12 col-md-12 ">
-            <div class="row">
-              <div class="form-group" ng-if="authentication.user.roles[0] !== 'admin'">
-                <input type="radio" name="home" ng-model="newAddress.status" ng-value="false" ng-change="chkStatus(newAddress.status)">                <label for="">ที่อยู่จัดส่งเดิม</label>
-              </div>
-              <div class="form-group">
-                <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true" ng-change="chkStatus(newAddress.status)">                <label for="">ที่อยู่จัดส่งใหม่</label>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-12" ng-if="newAddress.status == true">
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">ชื่อ</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="name" type="text" id="name" ng-model="vm.order.shipping.firstName" class="form-control" placeholder="First Name"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">First Name is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">นามสกุล</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="lastname" type="text" id="lastname" ng-model="vm.order.shipping.lastName" class="form-control" placeholder="Last Name"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Last Name is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">รหัสไปรษณีย์</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
+                <!--กรณี user ต้องการระบุที่อยู่จัดส่งใหม่-->
+                <div class="row container-fluid" ng-if="authentication.user && authentication.user.address.tel">
+                    <div class="col-xs-12 col-md-12 ">
+                        <div class="row">
+                            <div class="form-group" ng-if="authentication.user.roles[0] !== 'admin'">
+                                <input type="radio" name="home" ng-model="newAddress.status" ng-value="false" ng-change="chkStatus(newAddress.status)"> <label for="">ที่อยู่จัดส่งเดิม</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="radio" name="outhome" ng-model="newAddress.status" ng-value="true" ng-change="chkStatus(newAddress.status)"> <label for="">ที่อยู่จัดส่งใหม่</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12" ng-if="newAddress.status == true">
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">ชื่อ</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="name" type="text" id="name" ng-model="vm.order.shipping.firstName" class="form-control" placeholder="First Name" required>
+                                    <div ng-messages="vm.form.checkoutForm.name.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">First Name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">นามสกุล</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="lastname" type="text" id="lastname" ng-model="vm.order.shipping.lastName" class="form-control" placeholder="Last Name" required>
+                                    <div ng-messages="vm.form.checkoutForm.lastname.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Last Name is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">รหัสไปรษณีย์</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <!--<input class="form-control" type="text" autocomplete="false" ng-model="authentication.address.postcode" placeholder="Postcode"
                   typeahead="postcode" typeahead-callback="callback" ng-change="checkAutocomplete()" />-->
-                <div class="form-group" show-errors>
-                  <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="vm.order.shipping.postcode"
-                    class="form-control" placeholder="Postcode" typeahead-callback="callbackOrder" ng-change="checkAutocomplete(vm.order.shipping.postcode,true)"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Postcode is required.</p>
-                  </div>
+                                <div class="form-group" show-errors>
+                                    <input name="postcode" type="text" id="postcode" autocomplete="false" typeahead="postcode" ng-model="vm.order.shipping.postcode" class="form-control" placeholder="Postcode" typeahead-callback="callbackOrder" ng-change="checkAutocomplete(vm.order.shipping.postcode,true)"
+                                        required>
+                                    <div ng-messages="vm.form.checkoutForm.postcode.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Postcode is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">จังหวัด</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="province" type="text" id="province" ng-model="vm.order.shipping.province" class="form-control" placeholder="Province" required>
+                                    <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Province is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">เขต/อำเภอ</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="district" type="text" id="district" ng-model="vm.order.shipping.district" class="form-control" placeholder="District" required>
+                                    <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">District is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">แขวง/ตำบล</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="subdistrict" type="text" id="subdistrict" ng-model="vm.order.shipping.subdistrict" class="form-control" placeholder="Subdistrict" required>
+                                    <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">ที่อยู่</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group" show-errors>
+                                    <input name="address" type="text" id="address" ng-model="vm.order.shipping.address" class="form-control" placeholder="Address" required>
+                                    <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
+                                        <p class="help-block error-text" ng-message="required">Address is required.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="pass">เบอร์โทร</label>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <input name="address" type="text" id="address" ng-model="vm.order.shipping.tel" class="form-control" placeholder="Tel">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row change-address" ng-if="vm.order.shipping.address && vm.order.shipping.province && vm.order.shipping.postcode && vm.order.shipping.province && vm.order.shipping.district && vm.order.shipping.subdistrict && authentication.user.roles[0] !== 'admin'">
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <b>คุณต้องการเปลี่ยนแปลงที่อยู่หรือไม่?</b>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <a type="button" class="btn btn-primary" ng-click="updateUserProfile(vm.order.shipping)">เปลี่ยนแปลง</a>
+                                <div ng-show="success" class="text-center text-success">
+                                    <strong>เปลี่ยนแปลงที่อยู่เรียบร้อยแล้ว</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<button class="btn btn-primary" ng-click="updateUserProfile(vm.order.shipping);">updateUserProfile</button>-->
                 </div>
-              </div>
+
+                <div class="row min-height-20">
+
+                </div>
+                <div class="row min-height-20">
+
+
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <button type="submit" ng-disabled="checkDisable" class="btn btn-warning btn-block" ng-show="vm.cart.getTotalCount()">ดำเนินการต่อ</button>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">จังหวัด</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="province" type="text" id="province" ng-model="vm.order.shipping.province" class="form-control" placeholder="Province"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Province is required.</p>
-                  </div>
-                </div>
-              </div>
+
+            <!--โปรดเลือกที่อยู่ที่จะจัดส่ง กรณี login แล้ว-->
+
+
+            <div class="col-md-1">
+
             </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">เขต/อำเภอ</label>
+            <div class="col-md-5" ng-show="vm.cart.getTotalCount()" ng-init="vm.Promotion(); vm.initPromotion();">
+                <div class="row border-bottom">
+                    <div class="col-md-12">
+                        <h3>สรุปการสั่งซื้อ ({{vm.cart.getTotalCount()}} items)</h3>
+                    </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="district" type="text" id="district" ng-model="vm.order.shipping.district" class="form-control" placeholder="District"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.district.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">District is required.</p>
-                  </div>
+                <div class="row header-style border-bottom">
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
                 </div>
-              </div>
+                <div class="row border-bottom min-height-50" ng-repeat="item in vm.cart.items">
+                    <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-center">{{item.qty}}</div>
+                    <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.qty * item.price}}</div>
+                    <!--<div class="col-xs-12 col-sm-12 col-md-12" ng-repeat="promotion in vm.promotions" ng-if="item.product._id === promotion.product._id">- {{promotion.description}}</div>-->
+                </div>
+
+                <div class="row border-bottom">
+                    <div class="col-md-6">
+                        <p>มูลค่าสินค้า:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{vm.cart.getTotalPrice()}} บาท</p>
+                    </div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-md-6">
+                        <p>ค่าจัดส่ง:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{vm.cart.getTotalDeliveryCost()}} บาท</p>
+                    </div>
+                </div>
+                <div class="row border-bottom">
+                    <div class="col-md-6">
+                        <p>ส่วนลด:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{vm.cart.getTotalDiscount()}} บาท</p>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <h4>ยอดสุทธิ</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>{{vm.cart.getTotalPrice()+vm.cart.getTotalDeliveryCost()-vm.cart.getTotalDiscount()}} บาท</h4>
+                    </div>
+                </div>
             </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">แขวง/ตำบล</label>
+
+            <div class="col-md-5" ng-show="vm.checkout.allQty">
+                <div class="row border-bottom">
+                    <div class="col-md-12">
+                        <h3>สรุปการสั่งซื้อ ({{vm.checkout.allQty}} items)</h3>
+                    </div>
                 </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="subdistrict" type="text" id="subdistrict" ng-model="vm.order.shipping.subdistrict" class="form-control" placeholder="Subdistrict"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.subdistrict.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Subdistrict is required.</p>
-                  </div>
+                <div class="row header-style border-bottom">
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
                 </div>
-              </div>
+                <div class="row border-bottom min-height-50" ng-repeat="item in vm.checkout.items">
+                    <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
+                    <div class="col-xs-3 col-sm-3 col-md-3 text-right">{{item.qty}}</div>
+                    <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.amount}}</div>
+                </div>
+
+                <div class="row border-bottom">
+                    <div class="col-md-6">
+                        <p>มูลค่าสินค้า:</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p>{{vm.checkout.amount}} บาท</p>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-6">
+                        <h4>ยอดสุทธิ</h4>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>{{vm.checkout.amount}} บาท</h4>
+                    </div>
+                </div>
             </div>
+    </form>
 
-
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">ที่อยู่</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group" show-errors>
-                  <input name="address" type="text" id="address" ng-model="vm.order.shipping.address" class="form-control" placeholder="Address"
-                    required>
-                  <div ng-messages="vm.form.checkoutForm.address.$error" role="alert">
-                    <p class="help-block error-text" ng-message="required">Address is required.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <label class="control-label" for="pass">เบอร์โทร</label>
-                </div>
-              </div>
-              <div class="col-xs-12 col-md-6">
-                <div class="form-group">
-                  <input name="address" type="text" id="address" ng-model="vm.order.shipping.tel" class="form-control" placeholder="Tel">
-                </div>
-              </div>
-            </div>
-            <div class="row change-address" ng-if="vm.order.shipping.address && vm.order.shipping.province && vm.order.shipping.postcode && vm.order.shipping.province && vm.order.shipping.district && vm.order.shipping.subdistrict && authentication.user.roles[0] !== 'admin'">
-              <div class="col-xs-12 col-sm-12 col-md-6">
-                <b>คุณต้องการเปลี่ยนแปลงที่อยู่หรือไม่?</b>
-              </div>
-              <div class="col-xs-12 col-sm-12 col-md-6">
-                <a type="button" class="btn btn-primary" ng-click="updateUserProfile(vm.order.shipping)">เปลี่ยนแปลง</a>
-                <div ng-show="success" class="text-center text-success">
-                  <strong>เปลี่ยนแปลงที่อยู่เรียบร้อยแล้ว</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--<button class="btn btn-primary" ng-click="updateUserProfile(vm.order.shipping);">updateUserProfile</button>-->
-        </div>
-
-        <div class="row min-height-20">
-
-        </div>
-        <div class="row min-height-20">
-
-
-
-        </div>
-
-        <div class="row">
-
-          <div class="col-md-6">
-            <button type="submit" class="btn btn-warning btn-block" ng-show="vm.cart.getTotalCount()">ดำเนินการต่อ</button>
-          </div>
-          <div class="col-md-6"></div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12">
-            <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
-          </div>
-        </div>
-      </div>
-
-      <!--โปรดเลือกที่อยู่ที่จะจัดส่ง กรณี login แล้ว-->
-
-
-      <div class="col-md-1">
-
-      </div>
-      <div class="col-md-5" ng-show="vm.cart.getTotalCount()" ng-init="vm.Promotion(); vm.initPromotion();">
-        <div class="row border-bottom">
-          <div class="col-md-12">
-            <h3>สรุปการสั่งซื้อ ({{vm.cart.getTotalCount()}} items)</h3>
-          </div>
-        </div>
-        <div class="row header-style border-bottom">
-          <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
-        </div>
-        <div class="row border-bottom min-height-50" ng-repeat="item in vm.cart.items">
-          <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-center">{{item.qty}}</div>
-          <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.qty * item.price}}</div>
-          <!--<div class="col-xs-12 col-sm-12 col-md-12" ng-repeat="promotion in vm.promotions" ng-if="item.product._id === promotion.product._id">- {{promotion.description}}</div>-->
-        </div>
-
-        <div class="row border-bottom">
-          <div class="col-md-6">
-            <p>มูลค่าสินค้า:</p>
-          </div>
-          <div class="col-md-6">
-            <p>{{vm.cart.getTotalPrice()}} บาท</p>
-          </div>
-        </div>
-        <div class="row border-bottom">
-          <div class="col-md-6">
-            <p>ค่าจัดส่ง:</p>
-          </div>
-          <div class="col-md-6">
-            <p>{{vm.cart.getTotalDeliveryCost()}} บาท</p>
-          </div>
-        </div>
-        <div class="row border-bottom">
-          <div class="col-md-6">
-            <p>ส่วนลด:</p>
-          </div>
-          <div class="col-md-6">
-            <p>{{vm.cart.getTotalDiscount()}} บาท</p>
-          </div>
-        </div>
-        <div class="row ">
-          <div class="col-md-6">
-            <h4>ยอดสุทธิ</h4>
-          </div>
-          <div class="col-md-6">
-            <h4>{{vm.cart.getTotalPrice()+vm.cart.getTotalDeliveryCost()-vm.cart.getTotalDiscount()}} บาท</h4>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-5" ng-show="vm.checkout.allQty">
-        <div class="row border-bottom">
-          <div class="col-md-12">
-            <h3>สรุปการสั่งซื้อ ({{vm.checkout.allQty}} items)</h3>
-          </div>
-        </div>
-        <div class="row header-style border-bottom">
-          <div class="col-xs-6 col-sm-6 col-md-6 text-center">สินค้า</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-center">จำนวน</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-center">มูลค่าสินค้า</div>
-        </div>
-        <div class="row border-bottom min-height-50" ng-repeat="item in vm.checkout.items">
-          <div class="col-xs-6 col-sm-6 col-md-6">{{item.product.name}}</div>
-          <div class="col-xs-3 col-sm-3 col-md-3 text-right">{{item.qty}}</div>
-          <div class="col-xs-3 col-sm-3col-md-3 text-right">{{item.amount}}</div>
-        </div>
-
-        <div class="row border-bottom">
-          <div class="col-md-6">
-            <p>มูลค่าสินค้า:</p>
-          </div>
-          <div class="col-md-6">
-            <p>{{vm.checkout.amount}} บาท</p>
-          </div>
-        </div>
-        <div class="row ">
-          <div class="col-md-6">
-            <h4>ยอดสุทธิ</h4>
-          </div>
-          <div class="col-md-6">
-            <h4>{{vm.checkout.amount}} บาท</h4>
-          </div>
-        </div>
-      </div>
-  </form>
-
-  <div class="page-header hidden-xs show-sm show-md show-lg">
-    <div class="modal fade " id="false" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header ">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times-circle-o font-close-modal"></i></span><span class="sr-only">Close</span></button>
-            <h3><span><i class="modal-title  font-price-modal-head " id="lineModalLabel">คุณอยู่นอกพื้นที่จัดส่ง</i>
+    <div class="page-header hidden-xs show-sm show-md show-lg">
+        <div class="modal fade " id="false" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header ">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times-circle-o font-close-modal"></i></span><span class="sr-only">Close</span></button>
+                        <h3><span><i class="modal-title  font-price-modal-head " id="lineModalLabel">คุณอยู่นอกพื้นที่จัดส่ง</i>
               </span>
-            </h3>
-          </div>
-          <div class="modal-body">
-            <!-- content here -->
-            <div class="row margin-bottom-20">
-              <div class="col-sm-12 col-md-12 text-center">
-                <img ng-src="./modules/products/client/img/rate_150.jpg" class="picturerate">
-              </div>
-              <!--right-->
-              <!--<div class="col-sm-5 col-md-5 border-left">
+                        </h3>
+                    </div>
+                    <div class="modal-body">
+                        <!-- content here -->
+                        <div class="row margin-bottom-20">
+                            <div class="col-sm-12 col-md-12 text-center">
+                                <img ng-src="./modules/products/client/img/rate_150.jpg" class="picturerate">
+                            </div>
+                            <!--right-->
+                            <!--<div class="col-sm-5 col-md-5 border-left">
                 <div class="row ">
                   <div class="col-md-12 font-price-modal-head">
                     <h3>ตะกร้าสินค้าของคุณ</h3>
@@ -756,52 +732,52 @@
                   </div>
                 </div>
               </div>-->
-            </div>
-            <div class="row">
-              <div class="col-md-6 textRight">
-                <p>มูลค่าสินค้า :</p>
-              </div>
-              <div class="col-md-6">
-                <p>{{pricefalse}} บาท</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 textRight">
-                <p>ค่าจัดส่ง :</p>
-              </div>
-              <div class="col-md-6">
-                <p>{{deliverycostfalse}} บาท</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 textRight">
-                <p>ส่วนลด :</p>
-              </div>
-              <div class="col-md-6">
-                <p>{{discountamountfalse}} บาท</p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6 textRight">
-                <p>ยอดสุทธิ :</p>
-              </div>
-              <div class="col-md-6">
-                <p>{{amountfalse}} บาท</p>
-              </div>
-            </div>
-            <div class="row margin-bottom-20">
-              <div class="col-sm-12 text-right ">
-                <button class="btn btn-primary " data-dismiss="modal" ng-click="vm.saveprod();" type="submit">ยืนยันการสั่งซื้อ</button>
-                <button class="btn btn-warning" data-dismiss="modal" ng-click="vm.clear();" type="submit">ยกเลิก</button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-12 text-right">
-                <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
-              </div>
-            </div>
-            <!--footer category-->
-            <!--<div class="row border-top" ng-init="vm.readProduct()">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 textRight">
+                                <p>มูลค่าสินค้า :</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{pricefalse}} บาท</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 textRight">
+                                <p>ค่าจัดส่ง :</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{deliverycostfalse}} บาท</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 textRight">
+                                <p>ส่วนลด :</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{discountamountfalse}} บาท</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 textRight">
+                                <p>ยอดสุทธิ :</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>{{amountfalse}} บาท</p>
+                            </div>
+                        </div>
+                        <div class="row margin-bottom-20">
+                            <div class="col-sm-12 text-right ">
+                                <button class="btn btn-primary " data-dismiss="modal" ng-click="vm.saveprod();" type="submit">ยืนยันการสั่งซื้อ</button>
+                                <button class="btn btn-warning" data-dismiss="modal" ng-click="vm.clear();" type="submit">ยกเลิก</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 text-right">
+                                <label class="front_price1"> * สินค้านี้จัดส่งในพื้นที่เขตกรุงเทพมหานครและปริมณฑล</label>
+                            </div>
+                        </div>
+                        <!--footer category-->
+                        <!--<div class="row border-top" ng-init="vm.readProduct()">
               <div class="margin-top-20 margin-bottom-20 ">
                 <h3>สินค้าที่เกี่ยวข้อง</h3>
               </div>
@@ -822,13 +798,13 @@
                 </div>
               </div>
             </div>-->
-          </div>
+                    </div>
+                </div>
+
+                <!--footer category-->
+                <!-- content here -->
+
+            </div>
         </div>
-
-        <!--footer category-->
-        <!-- content here -->
-
-      </div>
     </div>
-  </div>
 </section>
