@@ -43,56 +43,57 @@ Date.prototype.yyyymmdd = function () {
 // indexOf ถ้า === -1 คือไม่มี
 exports.postcode = function (req, res, next, postcode) {
   req.postcode = postcode;
-  Postcode.find({ postcode: postcode }).sort('-created').exec(function (err, postcode) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      if (postcode.length > 0) {
-        if (ProvinceInarea.indexOf(postcode[0].province) !== -1) {
-          req.area = true;
-          next();
-        } else {
-          User.find().sort('-created').exec(function (err, users) {
-            if (err) {
-              return res.status(400).send({
-                message: errorHandler.getErrorMessage(err)
-              });
-            } else {
-              var userPostcodes = users.filter(function (obj) { return obj.address.postcode === postcode; });
-              var delivers = userPostcodes.filter(function (obj) { return obj.roles[0] === 'deliver'; });
-              if (delivers.length > 0) {
-                req.area = true;
-                next();
-              } else {
-                req.area = false;
-                next();
-              }
-            }
-          });
-        }
-      } else {
-        User.find().sort('-created').exec(function (err, users) {
-          if (err) {
-            return res.status(400).send({
-              message: errorHandler.getErrorMessage(err)
-            });
-          } else {
-            var userPostcodes = users.filter(function (obj) { return obj.address.postcode === postcode; });
-            var delivers = userPostcodes.filter(function (obj) { return obj.roles[0] === 'deliver'; });
-            if (delivers.length > 0) {
-              req.area = true;
-              next();
-            } else {
-              req.area = false;
-              next();
-            }
-          }
-        });
-      }
-    }
-  });
+  next();
+  // Postcode.find({ postcode: postcode }).sort('-created').exec(function (err, postcode) {
+  //   if (err) {
+  //     return res.status(400).send({
+  //       message: errorHandler.getErrorMessage(err)
+  //     });
+  //   } else {
+  //     if (postcode.length > 0) {
+  //       if (ProvinceInarea.indexOf(postcode[0].province) !== -1) {
+  //         req.area = true;
+  //         next();
+  //       } else {
+  //         User.find().sort('-created').exec(function (err, users) {
+  //           if (err) {
+  //             return res.status(400).send({
+  //               message: errorHandler.getErrorMessage(err)
+  //             });
+  //           } else {
+  //             var userPostcodes = users.filter(function (obj) { return obj.address.postcode === postcode; });
+  //             var delivers = userPostcodes.filter(function (obj) { return obj.roles[0] === 'deliver'; });
+  //             if (delivers.length > 0) {
+  //               req.area = true;
+  //               next();
+  //             } else {
+  //               req.area = false;
+  //               next();
+  //             }
+  //           }
+  //         });
+  //       }
+  //     } else {
+  //       User.find().sort('-created').exec(function (err, users) {
+  //         if (err) {
+  //           return res.status(400).send({
+  //             message: errorHandler.getErrorMessage(err)
+  //           });
+  //         } else {
+  //           var userPostcodes = users.filter(function (obj) { return obj.address.postcode === postcode; });
+  //           var delivers = userPostcodes.filter(function (obj) { return obj.roles[0] === 'deliver'; });
+  //           if (delivers.length > 0) {
+  //             req.area = true;
+  //             next();
+  //           } else {
+  //             req.area = false;
+  //             next();
+  //           }
+  //         }
+  //       });
+  //     }
+  //   }
+  // });
 };
 
 exports.resultpostcode = function (req, res) {
