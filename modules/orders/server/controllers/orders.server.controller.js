@@ -1558,10 +1558,10 @@ function updateOrder(order, deliver, callback) {
 
 function subCreateOrder(orderId, user) {
   request({
-    headers: {'content-type' : 'application/x-www-form-urlencoded'},
     url: 'https://thamapptest-sub.herokuapp.com/api/suborders/' + orderId,
     method: 'POST',
-    body: user
+    body: user,
+    json: true
   }, function (error, response, body) {
     if (error) {
       console.log('Error sending messages: ', error);
