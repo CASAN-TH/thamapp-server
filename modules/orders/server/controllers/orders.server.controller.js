@@ -458,10 +458,11 @@ exports.create = function (req, res) {
             message: errorHandler.getErrorMessage(err2)
           });
         } else {
-          sendNewOrder();
-          if (orders && orders.usernearby.length > 0) {
-            sendNewdeliverOrder(req.tokens);
-          }
+          // sendNewOrder();
+          subCreateOrder(orders._id, req.user);
+          // if (orders && orders.usernearby.length > 0) {
+          //   sendNewdeliverOrder(req.tokens);
+          // }
           res.jsonp(orders);
         }
       });
@@ -1551,6 +1552,21 @@ function updateOrder(order, deliver, callback) {
       }
       callback(null, order);
       //res.jsonp(order);
+    }
+  });
+}
+
+function subCreateOrder(orderId, user) {
+  request({
+    headers: {'content-type' : 'application/x-www-form-urlencoded'},
+    url: 'https://thamapptest-sub.herokuapp.com/api/suborders/' + orderId,
+    method: 'POST',
+    body: user
+  }, function (error, response, body) {
+    if (error) {
+      console.log('Error sending messages: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
     }
   });
 }

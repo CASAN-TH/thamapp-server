@@ -637,154 +637,154 @@ describe('Payment CRUD tests', function () {
         });
     });
 
-    it('expense report', function (done) {
-        var startdate = '2017-03-01';
-        var enddate = '2017-03-31';
-        paymenttest2 = new Payment({
-            docno: 'AP201703026',
-            docdate: '2017-03-17T04:49:37.653Z',
-            gltype: 'AP',
-            credits: [{
-                account: accountchart4,
-                description: 'ทดสอบ',
-                amount: 200
-            }],
-            debits: [{
-                account: accountchart5,
-                description: 'ทดสอบ',
-                amount: 200
-            }],
-            user: user
-        });
-        paymenttest2.save(function () {
-            agent.get('/api/expenses/' + startdate + '/' + enddate)
-                .expect(200)
-                .end(function (paymentInfoErr, paymentInfoRes) {
-                    // Handle Payment error
-                    if (paymentInfoErr) {
-                        return done(paymentInfoErr);
-                    }
+    // it('expense report', function (done) {
+    //     var startdate = '2017-03-01';
+    //     var enddate = '2017-03-31';
+    //     paymenttest2 = new Payment({
+    //         docno: 'AP201703026',
+    //         docdate: '2017-03-17T04:49:37.653Z',
+    //         gltype: 'AP',
+    //         credits: [{
+    //             account: accountchart4,
+    //             description: 'ทดสอบ',
+    //             amount: 200
+    //         }],
+    //         debits: [{
+    //             account: accountchart5,
+    //             description: 'ทดสอบ',
+    //             amount: 200
+    //         }],
+    //         user: user
+    //     });
+    //     paymenttest2.save(function () {
+    //         agent.get('/api/expenses/' + startdate + '/' + enddate)
+    //             .expect(200)
+    //             .end(function (paymentInfoErr, paymentInfoRes) {
+    //                 // Handle Payment error
+    //                 if (paymentInfoErr) {
+    //                     return done(paymentInfoErr);
+    //                 }
 
-                    // Set assertions
-                    (paymentInfoRes.body.startdate).should.equal('2017-03-01');
-                    (paymentInfoRes.body.enddate).should.equal('2017-03-31');
-                    // (paymentInfoRes.body.accounts.length).should.equal(3);
-                    (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('5');
-                    done();
-                });
-        });
-    });
+    //                 // Set assertions
+    //                 (paymentInfoRes.body.startdate).should.equal('2017-03-01');
+    //                 (paymentInfoRes.body.enddate).should.equal('2017-03-31');
+    //                 // (paymentInfoRes.body.accounts.length).should.equal(3);
+    //                 (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('5');
+    //                 done();
+    //             });
+    //     });
+    // });
 
-    it('revenuereport report', function (done) {
-        var startdate = '2017-03-01';
-        var enddate = '2017-03-31';
-        paymenttest2 = new Payment({
-            docno: 'AP201703027',
-            docdate: '2017-03-17T04:49:37.653Z',
-            gltype: 'AP',
-            credits: [{
-                account: accountchart4,
-                description: 'ทดสอบ',
-                amount: 200
-            }],
-            debits: [{
-                account: accountchart5,
-                description: 'ทดสอบ',
-                amount: 200
-            }],
-            user: user
-        });
-        paymenttest2.save(function () {
-            agent.get('/api/revenues/' + startdate + '/' + enddate)
-                .expect(200)
-                .end(function (paymentInfoErr, paymentInfoRes) {
-                    // Handle Payment error
-                    if (paymentInfoErr) {
-                        return done(paymentInfoErr);
-                    }
+    // it('revenuereport report', function (done) {
+    //     var startdate = '2017-03-01';
+    //     var enddate = '2017-03-31';
+    //     paymenttest2 = new Payment({
+    //         docno: 'AP201703027',
+    //         docdate: '2017-03-17T04:49:37.653Z',
+    //         gltype: 'AP',
+    //         credits: [{
+    //             account: accountchart4,
+    //             description: 'ทดสอบ',
+    //             amount: 200
+    //         }],
+    //         debits: [{
+    //             account: accountchart5,
+    //             description: 'ทดสอบ',
+    //             amount: 200
+    //         }],
+    //         user: user
+    //     });
+    //     paymenttest2.save(function () {
+    //         agent.get('/api/revenues/' + startdate + '/' + enddate)
+    //             .expect(200)
+    //             .end(function (paymentInfoErr, paymentInfoRes) {
+    //                 // Handle Payment error
+    //                 if (paymentInfoErr) {
+    //                     return done(paymentInfoErr);
+    //                 }
 
-                    // Set assertions
-                    (paymentInfoRes.body.startdate).should.equal('2017-03-01');
-                    (paymentInfoRes.body.enddate).should.equal('2017-03-31');
-                    // (paymentInfoRes.body.accounts.length).should.equal(4);
-                    (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('4');
+    //                 // Set assertions
+    //                 (paymentInfoRes.body.startdate).should.equal('2017-03-01');
+    //                 (paymentInfoRes.body.enddate).should.equal('2017-03-31');
+    //                 // (paymentInfoRes.body.accounts.length).should.equal(4);
+    //                 (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('4');
 
-                    // Call the assertion callback
-                    done();
-                });
-        });
-    });
+    //                 // Call the assertion callback
+    //                 done();
+    //             });
+    //     });
+    // });
 
-    it('statementincomereport report', function (done) {
-        var startdate = '2017-03-01';
-        var enddate = '2017-03-31';
-        paymenttest2 = new Payment({
-            docno: 'AP201703027',
-            docdate: '2017-03-17T04:49:37.653Z',
-            gltype: 'AP',
-            credits: [{
-                account: accountchart411,
-                description: 'ทดสอบ',
-                amount: 200
-            }, {
-                    account: accountchart412,
-                    description: 'ทดสอบ',
-                    amount: 200
-                }, {
-                    account: accountchart42,
-                    description: 'ทดสอบ',
-                    amount: 200
-                }],
-            debits: [{
-                account: accountchart502,
-                description: 'ทดสอบ',
-                amount: 200
-            }, {
-                    account: accountchart503,
-                    description: 'ทดสอบ',
-                    amount: 200
-                }, {
-                    account: accountchart51,
-                    description: 'ทดสอบ',
-                    amount: 200
-                }, {
-                    account: accountchart52,
-                    description: 'ทดสอบ',
-                    amount: 200
-                }],
-            user: user
-        });
-        paymenttest2.save(function () {
-            agent.get('/api/statementincomes/' + startdate + '/' + enddate)
-                .expect(200)
-                .end(function (paymentInfoErr, paymentInfoRes) {
-                    // Handle Payment error
-                    if (paymentInfoErr) {
-                        return done(paymentInfoErr);
-                    }
+    // it('statementincomereport report', function (done) {
+    //     var startdate = '2017-03-01';
+    //     var enddate = '2017-03-31';
+    //     paymenttest2 = new Payment({
+    //         docno: 'AP201703027',
+    //         docdate: '2017-03-17T04:49:37.653Z',
+    //         gltype: 'AP',
+    //         credits: [{
+    //             account: accountchart411,
+    //             description: 'ทดสอบ',
+    //             amount: 200
+    //         }, {
+    //                 account: accountchart412,
+    //                 description: 'ทดสอบ',
+    //                 amount: 200
+    //             }, {
+    //                 account: accountchart42,
+    //                 description: 'ทดสอบ',
+    //                 amount: 200
+    //             }],
+    //         debits: [{
+    //             account: accountchart502,
+    //             description: 'ทดสอบ',
+    //             amount: 200
+    //         }, {
+    //                 account: accountchart503,
+    //                 description: 'ทดสอบ',
+    //                 amount: 200
+    //             }, {
+    //                 account: accountchart51,
+    //                 description: 'ทดสอบ',
+    //                 amount: 200
+    //             }, {
+    //                 account: accountchart52,
+    //                 description: 'ทดสอบ',
+    //                 amount: 200
+    //             }],
+    //         user: user
+    //     });
+    //     paymenttest2.save(function () {
+    //         agent.get('/api/statementincomes/' + startdate + '/' + enddate)
+    //             .expect(200)
+    //             .end(function (paymentInfoErr, paymentInfoRes) {
+    //                 // Handle Payment error
+    //                 if (paymentInfoErr) {
+    //                     return done(paymentInfoErr);
+    //                 }
 
-                    // Set assertions
-                    (paymentInfoRes.body.startdate).should.equal('2017-03-01');
-                    (paymentInfoRes.body.enddate).should.equal('2017-03-31');
-                    (paymentInfoRes.body.data.saleincome.trns.length).should.equal(2);
-                    (paymentInfoRes.body.data.saleincome.summary).should.equal(400);
-                    (paymentInfoRes.body.data.costsell.trns.length).should.equal(2);
-                    (paymentInfoRes.body.data.costsell.summary).should.equal(400);
-                    (paymentInfoRes.body.data.otherincome).should.equal(200);
-                    (paymentInfoRes.body.data.othercost).should.equal(200);
-                    (paymentInfoRes.body.data.interestcost).should.equal(200);
-                    (paymentInfoRes.body.data.grossprofit).should.equal(0);
-                    (paymentInfoRes.body.data.grossprofitwithoutotherincome).should.equal(-200);
-                    (paymentInfoRes.body.data.grossprofitwithoutinterest).should.equal(0);
-                    (paymentInfoRes.body.data.netprofit).should.equal(-200);
+    //                 // Set assertions
+    //                 (paymentInfoRes.body.startdate).should.equal('2017-03-01');
+    //                 (paymentInfoRes.body.enddate).should.equal('2017-03-31');
+    //                 (paymentInfoRes.body.data.saleincome.trns.length).should.equal(2);
+    //                 (paymentInfoRes.body.data.saleincome.summary).should.equal(400);
+    //                 (paymentInfoRes.body.data.costsell.trns.length).should.equal(2);
+    //                 (paymentInfoRes.body.data.costsell.summary).should.equal(400);
+    //                 (paymentInfoRes.body.data.otherincome).should.equal(200);
+    //                 (paymentInfoRes.body.data.othercost).should.equal(200);
+    //                 (paymentInfoRes.body.data.interestcost).should.equal(200);
+    //                 (paymentInfoRes.body.data.grossprofit).should.equal(0);
+    //                 (paymentInfoRes.body.data.grossprofitwithoutotherincome).should.equal(-200);
+    //                 (paymentInfoRes.body.data.grossprofitwithoutinterest).should.equal(0);
+    //                 (paymentInfoRes.body.data.netprofit).should.equal(-200);
 
-                    // (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('4');
+    //                 // (paymentInfoRes.body.accounts[0].trns[0].accountno.substring(0, 1)).should.equal('4');
 
-                    // Call the assertion callback
-                    done();
-                });
-        });
-    });
+    //                 // Call the assertion callback
+    //                 done();
+    //             });
+    //     });
+    // });
 
     it('balance report', function (done) {
         var startdate = '2017-03-01';
