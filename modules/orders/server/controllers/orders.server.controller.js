@@ -1558,8 +1558,10 @@ function updateOrder(order, deliver, callback) {
 }
 
 function subCreateOrder(orderId, user) {
+  var urlSubServer = 'https://thamapptest-sub.herokuapp.com/api/suborders/' + orderId; //test
+  // var urlSubServer = 'https://thamapp-sub.herokuapp.com/api/suborders/' + orderId; //prod
   request({
-    url: 'https://thamapptest-sub.herokuapp.com/api/suborders/' + orderId,
+    url: urlSubServer,
     method: 'POST',
     body: user,
     json: true
