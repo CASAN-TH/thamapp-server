@@ -1073,7 +1073,7 @@ describe('Order CRUD tests', function () {
           delivery: {
             detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
             name: "ส่งแบบส่งด่วน",
-            price: 0
+            price: 50
           },
           amount: 250,
           discount: 0,
@@ -1107,7 +1107,7 @@ describe('Order CRUD tests', function () {
           delivery: {
             detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
             name: "ส่งแบบส่งด่วน",
-            price: 0
+            price: 50
           },
           amount: 250,
           discount: 0,
@@ -1144,15 +1144,17 @@ describe('Order CRUD tests', function () {
         (orderBridge.docno).should.not.match(null);
         (orderBridge.docdate).should.match(new Date());
         (orderBridge.shipping.firstname).should.match('amonrat');
-        (orderBridge.discountpromotion).should.match(0);
-        (orderBridge.totalamount).should.match(250);
-        (orderBridge.amount).should.match(250);
         (orderBridge.items.length).should.match(1);
-        (orderBridge.items[0].price).should.match(bridge.items[0].amount / bridge.items[0].qty);
+        (orderBridge.items[0].price).should.match(bridge.items[0].product.price);
         (orderBridge.items[0].qty).should.match(bridge.items[0].qty);
-        (orderBridge.items[0].amount).should.match(bridge.items[0].totalamount);
-        (orderBridge.items[0].discountamount).should.match(bridge.items[0].discount);
+        (orderBridge.items[0].amount).should.match(100);
+        (orderBridge.items[0].discountamount).should.match(0);
         (orderBridge.accounting).should.match('cash');
+        (orderBridge.discountpromotion).should.match(0);
+        (orderBridge.amount).should.match(100);
+        (orderBridge.deliveryamount).should.match(50);        
+        (orderBridge.totalamount).should.match(150);
+        
 
         // Get a list of Orders
         agent.get('/api/orders')

@@ -961,36 +961,38 @@ exports.updateinvestor = function (req, res) {
 exports.cookingBridge = function (req, res, next) {
   var data = req.body;
   var items = [];
-  console.log(data);
+  // console.log(data);
   data.items.forEach(function (itm) {
     if (itm.product && itm.product.shop && itm.product.shop._id.toString() === processShopId.toString()) {
       items.push({
         product: itm.product._id,
-        price: itm.amount || 0 / itm.qty || 0,
+        price: itm.product.price,
         qty: itm.qty || 0,
-        amount: itm.totalamount || 0,
-        discountamount: itm.discount || 0
+        amount: itm.product.price || 0 * itm.qty || 0,
+        discountamount: 0,
+        delivery: itm.delivery
       });
     }
   });
   if (items.length > 0) {
     var amount = 0;
-    var totalamount = 0;
     var discount = 0;
+    var deliveryamount = 0;
     items.forEach(function (itm) {
       amount += itm.price || 0 * itm.qty || 0;
-      totalamount += itm.amount || 0;
       discount += itm.discountamount || 0;
+      deliveryamount += itm.delivery.price || 0;
     });
     var cookingData = {
       docno: data.docno,
       docdate: data.docdate,
       shipping: data.shipping,
-      discountpromotion: discount,
-      totalamount: totalamount,
-      amount: amount,
       items: items,
       accounting: 'cash',
+      amount: amount,
+      discountpromotion: discount,
+      deliveryamount: deliveryamount,
+      totalamount: (amount + deliveryamount) - discount,
       user: data.user
     };
     req.order = cookingData;
