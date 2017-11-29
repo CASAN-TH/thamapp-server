@@ -983,10 +983,25 @@ exports.cookingBridge = function (req, res, next) {
       discount += itm.discountamount || 0;
       deliveryamount += itm.delivery.price || 0;
     });
+    var shipping = {
+      firstname: data.shipping.firstname,
+      lastname: data.shipping.lastname,
+      address: data.shipping.address,
+      postcode: data.shipping.postcode,
+      subdistrict: data.shipping.subdistrict,
+      province: data.shipping.province,
+      district: data.shipping.district,
+      tel: data.shipping.tel,
+      email: data.shipping.tel + '@thamturakit.com',
+      sharelocation: {
+        latitude: '13.8797056',
+        longitude: '100.4568576'
+      }
+    };
     var cookingData = {
       docno: 'dl' + data.docno,
       docdate: data.docdate,
-      shipping: data.shipping,
+      shipping: shipping,
       items: items,
       accounting: 'cash',
       amount: amount,
