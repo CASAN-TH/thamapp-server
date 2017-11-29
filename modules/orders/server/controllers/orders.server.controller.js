@@ -984,7 +984,7 @@ exports.cookingBridge = function (req, res, next) {
       deliveryamount += itm.delivery.price || 0;
     });
     var cookingData = {
-      docno: data.docno,
+      docno: 'dl' + data.docno,
       docdate: data.docdate,
       shipping: data.shipping,
       items: items,
