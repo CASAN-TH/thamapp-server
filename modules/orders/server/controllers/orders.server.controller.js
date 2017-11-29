@@ -996,7 +996,7 @@ exports.cookingBridge = function (req, res, next) {
     req.orderUser = data.user;
     next();
   } else {
-    res.jsonp('not save');
+    res.jsonp('not save order bridge');
   }
 };
 

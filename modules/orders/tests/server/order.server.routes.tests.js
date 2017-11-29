@@ -1179,6 +1179,121 @@ describe('Order CRUD tests', function () {
       });
   });
 
+  it('save order no orderbridge', function (done) {
+    var bridge = {
+      docno: (+new Date()),
+      docdate: new Date(),
+      shipping: {
+        address: '90',
+        district: 'ลำลูกกา',
+        postcode: '12150',
+        province: 'ปทุมธานี',
+        subdistrict: 'ลำลูกกา',
+        firstname: 'amonrat',
+        lastname: 'chantawon',
+        tel: '0934524524'
+      },
+      items: [
+        {
+          product: {
+            name: 'Product name',
+            detail: 'Product detail',
+            price: 100,
+            promotionprice: 80,
+            percentofdiscount: 20,
+            currency: 'Product currency',
+            images: ['Product images'],
+            cod: false,
+            shop: {
+              _id: '5a1cd9f7f628d813003e7fc5',
+              name: 'Shop Name',
+              detail: 'Shop Detail',
+              email: 'Shop Email',
+              image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+              tel: '097654321',
+              map: {
+                lat: '13.933954',
+                long: '100.7157976'
+              },
+            },
+          },
+          qty: 1,
+          delivery: {
+            detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+            name: "ส่งแบบส่งด่วน",
+            price: 0
+          },
+          amount: 250,
+          discount: 0,
+          deliveryprice: 0,
+          totalamount: 250,
+        },
+        {
+          product: {
+            name: 'Product name',
+            detail: 'Product detail',
+            price: 100,
+            promotionprice: 80,
+            percentofdiscount: 20,
+            currency: 'Product currency',
+            images: ['Product images'],
+            cod: false,
+            shop: {
+              _id: '5a1cd9f7f628d813003e7fc3',
+              name: 'Shop Name',
+              detail: 'Shop Detail',
+              email: 'Shop Email',
+              image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+              tel: '097654321',
+              map: {
+                lat: '13.933954',
+                long: '100.7157976'
+              },
+            },
+          },
+          qty: 1,
+          delivery: {
+            detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+            name: "ส่งแบบส่งด่วน",
+            price: 0
+          },
+          amount: 250,
+          discount: 0,
+          deliveryprice: 0,
+          totalamount: 250,
+        }
+      ],
+      payment: {
+        paymenttype: 'String',
+        creditno: 'String',
+        creditname: 'String',
+        expdate: 'String',
+        creditcvc: 'String',
+        counterservice: 'String'
+      },
+      amount: 500,
+      discount: 0,
+      totalamount: 500,
+      deliveryprice: 0,
+      status: 'confirm',
+      user: user
+    };
+    // Save a new Order
+    // var data = { order: 'test' };
+    agent.post('/api/orderbridge')
+      .send(bridge)
+      .expect(200)
+      .end(function (orderSaveErr, orderSaveRes) {
+        // Handle Order save error
+        if (orderSaveErr) {
+          return done(orderSaveErr);
+        }
+        var orderBridge = orderSaveRes.body;
+        (orderBridge).should.match('not save order bridge');
+        done();
+      });
+  });
+
   afterEach(function (done) {
     User.remove().exec(function () {
       Pushnoti.remove().exec(function () {
