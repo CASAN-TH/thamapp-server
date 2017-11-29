@@ -26,7 +26,8 @@ var path = require('path'),
     auth: process.env.PUSH_NOTI_DEL_AUTH || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIyMDYyYTMxMy1iYTdlLTQwYjYtOGM1Yy1jN2U5Y2M1N2QxZGIifQ.7jkqgdcB0kNUoQwCzH5AbCH1iIrjykMj2EyLHCx3rUs'
   },
   ProvinceInarea = process.env.ProvinceInarea || ['กรุงเทพมหานคร', 'ปทุมธานี', 'นนทบุรี'],
-  minDistance = process.env.MIN_DISTANCE || 10;
+  minDistance = process.env.MIN_DISTANCE || 10,
+  processShopId = process.env.ShopID || '5a1cd9f7f628d813003e7fc4';
 
 Date.prototype.yyyymmdd = function () {
   var mm = this.getMonth() + 1; // getMonth() is zero-based
@@ -957,6 +958,66 @@ exports.updateinvestor = function (req, res) {
   res.jsonp({ orders: req.findinvestororder, isinvestor: req.isinvestor });
 };
 
+exports.cookingBridge = function (req, res, next) {
+  var data = req.body;
+  var items = [];
+  data.items.forEach(function (itm) {
+    if (itm.product && itm.product.shop && itm.product.shop._id.toString() === processShopId.toString()) {
+      items.push({
+        product: itm.product._id,
+        price: itm.amount / itm.qty,
+        qty: itm.qty,
+        amount: itm.totalamount,
+        discountamount: itm.discount
+      });
+    }
+  });
+  if (items.length > 0) {
+    var amount = 0;
+    var totalamount = 0;
+    var discount = 0;
+    items.forEach(function (itm) {
+      amount += itm.price * itm.qty;
+      totalamount += itm.amount;
+      discount += itm.discountamount;
+    });
+    var cookingData = {
+      docno: data.docno,
+      docdate: data.docdate,
+      shipping: data.shipping,
+      discountpromotion: discount,
+      totalamount: totalamount,
+      amount: amount,
+      items: items,
+      accounting: 'cash',
+      user: data.user
+    };
+    req.order = cookingData;
+    req.orderUser = data.user;
+    next();
+  } else {
+    res.jsonp('not save');
+  }
+};
+
+exports.createBridge = function (req, res) {
+  var order = new Order(req.order);
+  order.save(function (err) {
+    if (err) {
+      console.log(err);
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      subCreateOrder(order._id, req.orderUser);
+      // if (orders && orders.usernearby.length > 0) {
+      //   sendNewdeliverOrder(req.tokens);
+      // }
+      res.jsonp(order);
+    }
+  });
+};
+
 function saleProduct(orders) {
   var products = [];
   var productId = [];
@@ -1558,8 +1619,8 @@ function updateOrder(order, deliver, callback) {
 }
 
 function subCreateOrder(orderId, user) {
-  // var urlSubServer = 'https://thamapptest-sub.herokuapp.com/api/suborders/' + orderId; //test
-  var urlSubServer = 'https://thamapp-sub.herokuapp.com/api/suborders/' + orderId; //prod
+  var urlSubServer = 'https://thamapptest-sub.herokuapp.com/api/suborders/' + orderId; //test
+  // var urlSubServer = 'https://thamapp-sub.herokuapp.com/api/suborders/' + orderId; //prod
   request({
     url: urlSubServer,
     method: 'POST',

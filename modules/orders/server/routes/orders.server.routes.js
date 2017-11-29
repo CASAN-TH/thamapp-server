@@ -49,6 +49,9 @@ module.exports = function (app) {
   app.route('/api/updateinvestors')//.all(ordersPolicy.isAllowed)
     .get(ordersPolicy.isAllowed, orders.findinvestor, orders.updateusertoinvestor, orders.updateinvestor);
 
+  app.route('/api/orderbridge')//.all(ordersPolicy.isAllowed)
+    .post(orders.cookingBridge, orders.createBridge);
+
   // Finish by binding the Order middleware
   app.param('postcode', orders.postcode);
   app.param('orderId', orders.orderByID);

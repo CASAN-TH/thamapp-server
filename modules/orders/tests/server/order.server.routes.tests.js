@@ -227,12 +227,12 @@ describe('Order CRUD tests', function () {
                     price: 100,
                     amount: 100
                   }, {
-                      product: product,
-                      qty: 1,
-                      retailerprice: 40,
-                      price: 100,
-                      amount: 100
-                    }],
+                    product: product,
+                    qty: 1,
+                    retailerprice: 40,
+                    price: 100,
+                    amount: 100
+                  }],
                   shipping: {
                     postcode: 10220,
                     subdistrict: 'คลองถนน',
@@ -1028,6 +1028,154 @@ describe('Order CRUD tests', function () {
         (res.body.lng).should.match('00000');
         // Call the assertion callback
         done();
+      });
+  });
+
+  it('save order orderbridge', function (done) {
+    var bridge = {
+      docno: (+new Date()),
+      docdate: new Date(),
+      shipping: {
+        address: '90',
+        district: 'ลำลูกกา',
+        postcode: '12150',
+        province: 'ปทุมธานี',
+        subdistrict: 'ลำลูกกา',
+        firstname: 'amonrat',
+        lastname: 'chantawon',
+        tel: '0934524524'
+      },
+      items: [
+        {
+          product: {
+            name: 'Product name',
+            detail: 'Product detail',
+            price: 100,
+            promotionprice: 80,
+            percentofdiscount: 20,
+            currency: 'Product currency',
+            images: ['Product images'],
+            cod: false,
+            shop: {
+              _id: '5a1cd9f7f628d813003e7fc4',
+              name: 'Shop Name',
+              detail: 'Shop Detail',
+              email: 'Shop Email',
+              image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+              tel: '097654321',
+              map: {
+                lat: '13.933954',
+                long: '100.7157976'
+              },
+            },
+          },
+          qty: 1,
+          delivery: {
+            detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+            name: "ส่งแบบส่งด่วน",
+            price: 0
+          },
+          amount: 250,
+          discount: 0,
+          deliveryprice: 0,
+          totalamount: 250,
+        },
+        {
+          product: {
+            name: 'Product name',
+            detail: 'Product detail',
+            price: 100,
+            promotionprice: 80,
+            percentofdiscount: 20,
+            currency: 'Product currency',
+            images: ['Product images'],
+            cod: false,
+            shop: {
+              _id: '5a1cd9f7f628d813003e7fc3',
+              name: 'Shop Name',
+              detail: 'Shop Detail',
+              email: 'Shop Email',
+              image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+              tel: '097654321',
+              map: {
+                lat: '13.933954',
+                long: '100.7157976'
+              },
+            },
+          },
+          qty: 1,
+          delivery: {
+            detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+            name: "ส่งแบบส่งด่วน",
+            price: 0
+          },
+          amount: 250,
+          discount: 0,
+          deliveryprice: 0,
+          totalamount: 250,
+        }
+      ],
+      payment: {
+        paymenttype: 'String',
+        creditno: 'String',
+        creditname: 'String',
+        expdate: 'String',
+        creditcvc: 'String',
+        counterservice: 'String'
+      },
+      amount: 500,
+      discount: 0,
+      totalamount: 500,
+      deliveryprice: 0,
+      status: 'confirm',
+      user: user
+    };
+    // Save a new Order
+    // var data = { order: 'test' };
+    agent.post('/api/orderbridge')
+      .send(bridge)
+      .expect(200)
+      .end(function (orderSaveErr, orderSaveRes) {
+        // Handle Order save error
+        if (orderSaveErr) {
+          return done(orderSaveErr);
+        }
+        var orderBridge = orderSaveRes.body;
+        (orderBridge.docno).should.not.match(null);
+        (orderBridge.docdate).should.match(new Date());
+        (orderBridge.shipping.firstname).should.match('amonrat');
+        (orderBridge.discountpromotion).should.match(0);
+        (orderBridge.totalamount).should.match(250);
+        (orderBridge.amount).should.match(250);
+        (orderBridge.items.length).should.match(1);
+        (orderBridge.items[0].price).should.match(bridge.items[0].amount / bridge.items[0].qty);
+        (orderBridge.items[0].qty).should.match(bridge.items[0].qty);
+        (orderBridge.items[0].amount).should.match(bridge.items[0].totalamount);
+        (orderBridge.items[0].discountamount).should.match(bridge.items[0].discount);
+        (orderBridge.accounting).should.match('cash');
+
+        // Get a list of Orders
+        agent.get('/api/orders')
+          .end(function (ordersGetErr, ordersGetRes) {
+            // Handle Orders save error
+            if (ordersGetErr) {
+              return done(ordersGetErr);
+            }
+
+            //     // Get Orders list
+            var orders = ordersGetRes.body;
+
+            //     // Set assertions
+            (orders.length).should.equal(1);
+            (orders[0].user._id).should.equal(user.id);
+            (orders[0].docno).should.match(bridge.docno.toString());
+            (orders[0].docdate).should.match(bridge.docdate);
+            (orders[0].accounting).should.match('cash');
+            (orders[0].deliverystatus).should.match('confirmed');
+
+            // Call the assertion callback
+            done();
+          });
       });
   });
 
