@@ -1002,6 +1002,7 @@ exports.cookingBridge = function (req, res, next) {
 
 exports.createBridge = function (req, res) {
   var order = new Order(req.order);
+  console.log(order);
   order.save(function (err) {
     if (err) {
       console.log(err);
