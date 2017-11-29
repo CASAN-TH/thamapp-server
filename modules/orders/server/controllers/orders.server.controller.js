@@ -1012,21 +1012,8 @@ exports.createBridge = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      Order.findOne(order).populate('user', 'displayName').populate('items.product').populate('namedeliver').exec(function (err2, orders) {
-        if (err2) {
-          console.log('err');
-          return res.status(400).send({
-            message: errorHandler.getErrorMessage(err2)
-          });
-        } else {
-          // sendNewOrder();
-          subCreateOrder(orders._id, req.orderUser);
-          // if (orders && orders.usernearby.length > 0) {
-          //   sendNewdeliverOrder(req.tokens);
-          // }
-          res.jsonp(orders);
-        }
-      });
+      subCreateOrder(order._id, req.orderUser);
+      res.jsonp(order);
     }
   });
 };
