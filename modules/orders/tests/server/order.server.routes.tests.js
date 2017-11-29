@@ -1152,9 +1152,9 @@ describe('Order CRUD tests', function () {
         (orderBridge.accounting).should.match('cash');
         (orderBridge.discountpromotion).should.match(0);
         (orderBridge.amount).should.match(100);
-        (orderBridge.deliveryamount).should.match(50);        
+        (orderBridge.deliveryamount).should.match(50);
         (orderBridge.totalamount).should.match(150);
-        
+
 
         // Get a list of Orders
         agent.get('/api/orders')
@@ -1170,7 +1170,7 @@ describe('Order CRUD tests', function () {
             //     // Set assertions
             (orders.length).should.equal(1);
             (orders[0].user._id).should.equal(user.id);
-            (orders[0].docno).should.match(bridge.docno.toString());
+            (orders[0].docno).should.match('dl' + bridge.docno.toString());
             (orders[0].docdate).should.match(bridge.docdate);
             (orders[0].accounting).should.match('cash');
             (orders[0].deliverystatus).should.match('confirmed');
