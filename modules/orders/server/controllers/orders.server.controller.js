@@ -27,6 +27,7 @@ var path = require('path'),
   },
   ProvinceInarea = process.env.ProvinceInarea || ['กรุงเทพมหานคร', 'ปทุมธานี', 'นนทบุรี'],
   minDistance = process.env.MIN_DISTANCE || 10,
+  geocoder = require('simple-geocoder'),
   processShopId = process.env.ShopID || '5a1cd9f7f628d813003e7fc4';
 
 Date.prototype.yyyymmdd = function () {
@@ -958,6 +959,24 @@ exports.updateinvestor = function (req, res) {
   res.jsonp({ orders: req.findinvestororder, isinvestor: req.isinvestor });
 };
 
+exports.getLocation = function (req, res, next) {
+  var data = req.body;
+  var geocode = data.shipping.address + ' ' + data.shipping.subdistrict + ' ' + data.shipping.district + ' ' + data.shipping.province + ' ' + data.shipping.postcode;
+  geocoder.geocode(geocode, function (success, locations) {
+    if (success) {
+     // console.log("Location: ", locations.x, locations.y);
+      req.sharelocation = {
+        latitude: locations.x,
+        longitude: locations.y
+      };
+      next();
+    } else {
+      next();
+    }
+
+  });
+};
+
 exports.cookingBridge = function (req, res, next) {
   var data = req.body;
   var items = [];
@@ -993,10 +1012,7 @@ exports.cookingBridge = function (req, res, next) {
       district: data.shipping.district,
       tel: data.shipping.tel,
       email: data.shipping.tel + '@thamturakit.com',
-      sharelocation: {
-        latitude: '13.8797056',
-        longitude: '100.4568576'
-      }
+      sharelocation: req.sharelocation
     };
     var cookingData = {
       docno: 'dl' + data.docno,

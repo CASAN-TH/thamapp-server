@@ -1154,6 +1154,8 @@ describe('Order CRUD tests', function () {
         (orderBridge.amount).should.match(100);
         (orderBridge.deliveryamount).should.match(50);
         (orderBridge.totalamount).should.match(150);
+        (orderBridge.shipping.sharelocation.latitude).should.match(100.77479055600008);
+        (orderBridge.shipping.sharelocation.longitude).should.match(13.942747060000045);
 
 
         // Get a list of Orders
