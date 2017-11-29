@@ -961,14 +961,15 @@ exports.updateinvestor = function (req, res) {
 exports.cookingBridge = function (req, res, next) {
   var data = req.body;
   var items = [];
+  console.log(data);
   data.items.forEach(function (itm) {
     if (itm.product && itm.product.shop && itm.product.shop._id.toString() === processShopId.toString()) {
       items.push({
         product: itm.product._id,
-        price: itm.amount / itm.qty,
-        qty: itm.qty,
-        amount: itm.totalamount,
-        discountamount: itm.discount
+        price: itm.amount || 0 / itm.qty || 0,
+        qty: itm.qty || 0,
+        amount: itm.totalamount || 0,
+        discountamount: itm.discount || 0
       });
     }
   });
@@ -977,9 +978,9 @@ exports.cookingBridge = function (req, res, next) {
     var totalamount = 0;
     var discount = 0;
     items.forEach(function (itm) {
-      amount += itm.price * itm.qty;
-      totalamount += itm.amount;
-      discount += itm.discountamount;
+      amount += itm.price || 0 * itm.qty || 0;
+      totalamount += itm.amount || 0;
+      discount += itm.discountamount || 0;
     });
     var cookingData = {
       docno: data.docno,
@@ -1002,10 +1003,8 @@ exports.cookingBridge = function (req, res, next) {
 
 exports.createBridge = function (req, res) {
   var order = new Order(req.order);
-  console.log(order);
   order.save(function (err) {
     if (err) {
-      console.log(err);
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
       });
