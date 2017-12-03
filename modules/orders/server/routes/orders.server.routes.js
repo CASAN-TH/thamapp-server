@@ -50,7 +50,7 @@ module.exports = function (app) {
     .get(ordersPolicy.isAllowed, orders.findinvestor, orders.updateusertoinvestor, orders.updateinvestor);
 
   app.route('/api/orderbridge')//.all(ordersPolicy.isAllowed)
-    .post(orders.getLocation, orders.cookingBridge, orders.createBridge);
+    .post(orders.paymentType, orders.getLocation, orders.cookingBridge, orders.createBridge);
 
   // Finish by binding the Order middleware
   app.param('postcode', orders.postcode);

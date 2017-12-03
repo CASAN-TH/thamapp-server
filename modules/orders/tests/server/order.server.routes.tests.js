@@ -1116,7 +1116,7 @@ describe('Order CRUD tests', function () {
         }
       ],
       payment: {
-        paymenttype: 'String',
+        paymenttype: 'Cash On Delivery',
         creditno: 'String',
         creditname: 'String',
         expdate: 'String',
@@ -1182,6 +1182,196 @@ describe('Order CRUD tests', function () {
           });
       });
   });
+
+  // it('save order orderbridge', function (done) {
+  //   var bridge = {
+  //     docno: (+new Date()),
+  //     docdate: new Date(),
+  //     shipping: {
+  //       address: '90',
+  //       district: 'ลำลูกกา',
+  //       postcode: '12150',
+  //       province: 'ปทุมธานี',
+  //       subdistrict: 'ลำลูกกา',
+  //       firstname: 'amonrat',
+  //       lastname: 'chantawon',
+  //       tel: '0934524524'
+  //     },
+  //     items: [
+  //       {
+  //         product: {
+  //           name: 'Product name3',
+  //           detail: 'Product detail',
+  //           price: 250,
+  //           promotionprice: 0,
+  //           percentofdiscount: 0,
+  //           currency: 'Product currency',
+  //           images: ['Product images'],
+  //           cod: false,
+  //           shop: {
+  //             _id: '5a1cd9f7f628d813003e7fc4',
+  //             name: 'Shop Name',
+  //             detail: 'Shop Detail',
+  //             email: 'Shop Email',
+  //             image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+  //             tel: '097654321',
+  //             map: {
+  //               lat: '13.933954',
+  //               long: '100.7157976'
+  //             },
+  //           },
+  //         },
+  //         qty: 1,
+  //         delivery: {
+  //           detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+  //           name: "ส่งแบบส่งด่วน",
+  //           price: 50
+  //         },
+  //         amount: 250,
+  //         discount: 0,
+  //         deliveryprice: 0,
+  //         totalamount: 250,
+  //       },
+  //       {
+  //         product: {
+  //           name: 'Product name2',
+  //           detail: 'Product detail',
+  //           price: 100,
+  //           promotionprice: 0,
+  //           percentofdiscount: 0,
+  //           currency: 'Product currency',
+  //           images: ['Product images'],
+  //           cod: false,
+  //           shop: {
+  //             _id: '5a1cd9f7f628d813003e7fc4',
+  //             name: 'Shop Name',
+  //             detail: 'Shop Detail',
+  //             email: 'Shop Email',
+  //             image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+  //             tel: '097654321',
+  //             map: {
+  //               lat: '13.933954',
+  //               long: '100.7157976'
+  //             },
+  //           },
+  //         },
+  //         qty: 2,
+  //         delivery: {
+  //           detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+  //           name: "ส่งแบบส่งด่วน",
+  //           price: 50
+  //         },
+  //         amount: 300,
+  //         discount: 0,
+  //         deliveryprice: 50,
+  //         totalamount: 350,
+  //       },
+  //       {
+  //         product: {
+  //           name: 'Product name',
+  //           detail: 'Product detail',
+  //           price: 100,
+  //           promotionprice: 80,
+  //           percentofdiscount: 20,
+  //           currency: 'Product currency',
+  //           images: ['Product images'],
+  //           cod: false,
+  //           shop: {
+  //             _id: '5a1cd9f7f628d813003e7fc3',
+  //             name: 'Shop Name',
+  //             detail: 'Shop Detail',
+  //             email: 'Shop Email',
+  //             image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+  //             tel: '097654321',
+  //             map: {
+  //               lat: '13.933954',
+  //               long: '100.7157976'
+  //             },
+  //           },
+  //         },
+  //         qty: 1,
+  //         delivery: {
+  //           detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+  //           name: "ส่งแบบส่งด่วน",
+  //           price: 50
+  //         },
+  //         amount: 250,
+  //         discount: 0,
+  //         deliveryprice: 0,
+  //         totalamount: 250,
+  //       }
+  //     ],
+  //     payment: {
+  //       paymenttype: 'Cash On Delivery',
+  //       creditno: 'String',
+  //       creditname: 'String',
+  //       expdate: 'String',
+  //       creditcvc: 'String',
+  //       counterservice: 'String'
+  //     },
+  //     amount: 500,
+  //     discount: 0,
+  //     totalamount: 500,
+  //     deliveryprice: 0,
+  //     status: 'confirm',
+  //     user: user
+  //   };
+  //   // Save a new Order
+  //   // var data = { order: 'test' };
+  //   agent.post('/api/orderbridge')
+  //     .send(bridge)
+  //     .expect(200)
+  //     .end(function (orderSaveErr, orderSaveRes) {
+  //       // Handle Order save error
+  //       if (orderSaveErr) {
+  //         return done(orderSaveErr);
+  //       }
+  //       var orderBridge = orderSaveRes.body;
+  //       (orderBridge.docno).should.not.match(null);
+  //       (orderBridge.docdate).should.match(new Date());
+  //       (orderBridge.shipping.firstname).should.match('amonrat');
+  //       (orderBridge.items.length).should.match(2);
+  //       (orderBridge.items[0].price).should.match(bridge.items[0].product.price);
+  //       (orderBridge.items[0].qty).should.match(bridge.items[0].qty);
+  //       (orderBridge.items[0].amount).should.match(250);
+  //       (orderBridge.items[0].discountamount).should.match(0);
+  //       (orderBridge.items[1].price).should.match(bridge.items[1].product.price);     
+  //       (orderBridge.items[1].qty).should.match(bridge.items[1].qty);
+  //       (orderBridge.items[1].amount).should.match(200);
+  //       (orderBridge.items[1].discountamount).should.match(0);
+  //       (orderBridge.accounting).should.match('cash');
+  //       (orderBridge.discountpromotion).should.match(0);
+  //       (orderBridge.amount).should.match(450);
+  //       (orderBridge.deliveryamount).should.match(50);
+  //       (orderBridge.totalamount).should.match(500);
+  //       (orderBridge.shipping.sharelocation.latitude).should.match(100.77479055600008);
+  //       (orderBridge.shipping.sharelocation.longitude).should.match(13.942747060000045);
+
+
+  //       // Get a list of Orders
+  //       agent.get('/api/orders')
+  //         .end(function (ordersGetErr, ordersGetRes) {
+  //           // Handle Orders save error
+  //           if (ordersGetErr) {
+  //             return done(ordersGetErr);
+  //           }
+
+  //           //     // Get Orders list
+  //           var orders = ordersGetRes.body;
+
+  //           //     // Set assertions
+  //           (orders.length).should.equal(1);
+  //           (orders[0].user._id).should.equal(user.id);
+  //           (orders[0].docno).should.match('dl' + bridge.docno.toString());
+  //           (orders[0].docdate).should.match(bridge.docdate);
+  //           (orders[0].accounting).should.match('cash');
+  //           (orders[0].deliverystatus).should.match('confirmed');
+
+  //           // Call the assertion callback
+  //           done();
+  //         });
+  //     });
+  // });
 
   it('save order no orderbridge', function (done) {
     var bridge = {
@@ -1297,6 +1487,121 @@ describe('Order CRUD tests', function () {
         done();
       });
   });
+
+  // it('save order no paymenttype orderbridge', function (done) {
+  //   var bridge = {
+  //     docno: (+new Date()),
+  //     docdate: new Date(),
+  //     shipping: {
+  //       address: '90',
+  //       district: 'ลำลูกกา',
+  //       postcode: '12150',
+  //       province: 'ปทุมธานี',
+  //       subdistrict: 'ลำลูกกา',
+  //       firstname: 'amonrat',
+  //       lastname: 'chantawon',
+  //       tel: '0934524524'
+  //     },
+  //     items: [
+  //       {
+  //         product: {
+  //           name: 'Product name',
+  //           detail: 'Product detail',
+  //           price: 100,
+  //           promotionprice: 80,
+  //           percentofdiscount: 20,
+  //           currency: 'Product currency',
+  //           images: ['Product images'],
+  //           cod: false,
+  //           shop: {
+  //             _id: '5a1cd9f7f628d813003e7fc4',
+  //             name: 'Shop Name',
+  //             detail: 'Shop Detail',
+  //             email: 'Shop Email',
+  //             image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+  //             tel: '097654321',
+  //             map: {
+  //               lat: '13.933954',
+  //               long: '100.7157976'
+  //             },
+  //           },
+  //         },
+  //         qty: 1,
+  //         delivery: {
+  //           detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+  //           name: "ส่งแบบส่งด่วน",
+  //           price: 50
+  //         },
+  //         amount: 250,
+  //         discount: 0,
+  //         deliveryprice: 0,
+  //         totalamount: 250,
+  //       },
+  //       {
+  //         product: {
+  //           name: 'Product name',
+  //           detail: 'Product detail',
+  //           price: 100,
+  //           promotionprice: 80,
+  //           percentofdiscount: 20,
+  //           currency: 'Product currency',
+  //           images: ['Product images'],
+  //           cod: false,
+  //           shop: {
+  //             _id: '5a1cd9f7f628d813003e7fc3',
+  //             name: 'Shop Name',
+  //             detail: 'Shop Detail',
+  //             email: 'Shop Email',
+  //             image: 'https://www.onsite.org/assets/images/teaser/online-e-shop.jpg',
+  //             tel: '097654321',
+  //             map: {
+  //               lat: '13.933954',
+  //               long: '100.7157976'
+  //             },
+  //           },
+  //         },
+  //         qty: 1,
+  //         delivery: {
+  //           detail: "วันอังคาร, 1 - วัน อังคาร, 2 ส.ค. 2017 ฟรี",
+  //           name: "ส่งแบบส่งด่วน",
+  //           price: 50
+  //         },
+  //         amount: 250,
+  //         discount: 0,
+  //         deliveryprice: 0,
+  //         totalamount: 250,
+  //       }
+  //     ],
+  //     payment: {
+  //       paymenttype: 'Cash On Delivery2',
+  //       creditno: 'String',
+  //       creditname: 'String',
+  //       expdate: 'String',
+  //       creditcvc: 'String',
+  //       counterservice: 'String'
+  //     },
+  //     amount: 500,
+  //     discount: 0,
+  //     totalamount: 500,
+  //     deliveryprice: 0,
+  //     status: 'confirm',
+  //     user: user
+  //   };
+  //   // Save a new Order
+  //   // var data = { order: 'test' };
+  //   agent.post('/api/orderbridge')
+  //     .send(bridge)
+  //     .expect(200)
+  //     .end(function (orderSaveErr, orderSaveRes) {
+  //       // Handle Order save error
+  //       if (orderSaveErr) {
+  //         return done(orderSaveErr);
+  //       }
+  //       var orderBridge = orderSaveRes.body;
+  //       (orderBridge).should.match('not save order bridge');
+  //       done();
+  //     });
+  // });
 
   afterEach(function (done) {
     User.remove().exec(function () {

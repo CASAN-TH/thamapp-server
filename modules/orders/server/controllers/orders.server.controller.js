@@ -959,12 +959,22 @@ exports.updateinvestor = function (req, res) {
   res.jsonp({ orders: req.findinvestororder, isinvestor: req.isinvestor });
 };
 
+exports.paymentType = function (req, res, next) {
+  // var data = req.body;
+  // if (data.payment && data.payment.paymenttype === 'Cash On Delivery') {
+  //   next();
+  // } else {
+  //   res.jsonp('not save order bridge');
+  // }
+  next();
+};
+
 exports.getLocation = function (req, res, next) {
   var data = req.body;
   var geocode = data.shipping.address + ' ' + data.shipping.subdistrict + ' ' + data.shipping.district + ' ' + data.shipping.province + ' ' + data.shipping.postcode;
   geocoder.geocode(geocode, function (success, locations) {
     if (success) {
-     // console.log("Location: ", locations.x, locations.y);
+      // console.log("Location: ", locations.x, locations.y);
       req.sharelocation = {
         latitude: locations.x,
         longitude: locations.y
@@ -975,6 +985,7 @@ exports.getLocation = function (req, res, next) {
     }
 
   });
+
 };
 
 exports.cookingBridge = function (req, res, next) {
