@@ -998,7 +998,7 @@ exports.cookingBridge = function (req, res, next) {
         product: itm.product._id,
         price: itm.product.price,
         qty: itm.qty || 0,
-        amount: itm.product.price || 0 * itm.qty || 0,
+        amount: (itm.product.price || 0) * (itm.qty || 0),
         discountamount: 0,
         delivery: itm.delivery
       });
@@ -1009,7 +1009,7 @@ exports.cookingBridge = function (req, res, next) {
     var discount = 0;
     var deliveryamount = 0;
     items.forEach(function (itm) {
-      amount += itm.price || 0 * itm.qty || 0;
+      amount += (itm.price || 0) * (itm.qty || 0);
       discount += itm.discountamount || 0;
       deliveryamount += itm.delivery.price || 0;
     });
