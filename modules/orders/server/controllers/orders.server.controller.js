@@ -1047,6 +1047,16 @@ exports.cookingBridge = function (req, res, next) {
 
 exports.createBridge = function (req, res) {
   var order = new Order(req.order);
+  order.delivery = {
+    deliveryid: "0",
+    deliverylog: []
+  };
+  order.historystatus = [
+    {
+      status: "confirmed",
+      datestatus: new Date()
+    }
+  ];
   order.save(function (err) {
     if (err) {
       console.log(err);

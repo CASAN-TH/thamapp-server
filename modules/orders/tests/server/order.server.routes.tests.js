@@ -1154,8 +1154,8 @@ describe('Order CRUD tests', function () {
         (orderBridge.amount).should.match(100);
         (orderBridge.deliveryamount).should.match(50);
         (orderBridge.totalamount).should.match(150);
-        (orderBridge.shipping.sharelocation.latitude).should.match(100.77479055600008);
-        (orderBridge.shipping.sharelocation.longitude).should.match(13.942747060000045);
+        (orderBridge.shipping.sharelocation.latitude).should.match(100.77432173441753);
+        (orderBridge.shipping.sharelocation.longitude).should.match(13.973486682117425);
 
 
         // Get a list of Orders
@@ -1344,8 +1344,11 @@ describe('Order CRUD tests', function () {
         (orderBridge.amount).should.match(450);
         (orderBridge.deliveryamount).should.match(100);
         (orderBridge.totalamount).should.match(550);
-        (orderBridge.shipping.sharelocation.latitude).should.match(100.77479055600008);
-        (orderBridge.shipping.sharelocation.longitude).should.match(13.942747060000045);
+        (orderBridge.shipping.sharelocation.latitude).should.match(100.77432173441753);
+        (orderBridge.shipping.sharelocation.longitude).should.match(13.973486682117425);
+        (orderBridge.delivery.deliveryid).should.match("0");
+        (orderBridge.historystatus.length).should.match(1);
+        (orderBridge.historystatus[0].status).should.match("confirmed");
 
 
         // Get a list of Orders
