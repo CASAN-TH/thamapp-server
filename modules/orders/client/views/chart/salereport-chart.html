@@ -307,7 +307,7 @@
                                                         <td class="text-right">{{order.docno}}</td>
                                                         <td class="text-center">-</td>
                                                         <td class="text-center">{{order.refdoc || '-'}}</td>
-                                                        <td>{{order.user.displayName}}</td>
+                                                        <td>{{order.user.displayName}} : {{order.user.address.tel}}</td>
                                                         <td colspan="2">{{order.namedeliver.displayName}}</td>
                                                         <td class="text-right">{{vm.getsumamount(order) | number:2}}</td>
                                                     </tr>
