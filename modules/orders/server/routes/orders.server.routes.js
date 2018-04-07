@@ -43,6 +43,9 @@ module.exports = function (app) {
   app.route('/api/salereports/:startdate/:enddate')//.all(ordersPolicy.isAllowed)
     .get(orders.salereport);
 
+  app.route('/api/excelreports/:startdate/:enddate')//.all(ordersPolicy.isAllowed)
+    .get(orders.excelreports);
+
   app.route('/api/checkPostcode/:postcode')//.all(ordersPolicy.isAllowed)
     .get(orders.resultpostcode);
 

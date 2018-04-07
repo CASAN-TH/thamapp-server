@@ -921,6 +921,12 @@ exports.salereport = function (req, res, next) {
 
 };
 
+exports.excelreports = function (req, res, next) {
+  var orderslist = req.orders ? req.orders : [];
+  res.jsonp({ orders: orderslist});
+
+};
+
 exports.findinvestor = function (req, res, next) {
   var users = [];
   Order.find({ $and: [{ src: { $ne: 'ios' } }, { src: { $ne: 'android' } }, { src: { $ne: 'web' } }] }).sort('-created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
