@@ -934,10 +934,7 @@ exports.excelreports = function (req, res, next) {
         product : sub.product.name,
         price : sub.price,
         qty : sub.qty,
-        amount : sub.amount,
-        deliverycost : sub.deliverycost,
-        discount : sub.discountamount,
-        netamount : (sub.amount + sub.deliverycost) - sub.discountamount
+        amount : sub.amount
       });
     });
   });
