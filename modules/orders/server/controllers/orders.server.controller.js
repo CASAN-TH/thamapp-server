@@ -925,8 +925,20 @@ exports.excelreports = function (req, res, next) {
   var items = [];
   var orderslist = req.orders ? req.orders : [];
   orderslist.forEach(function(itm){
-    items.push({
-      docno : itm.docno
+    itm.items.forEach(function(sub){
+      items.push({
+        docno : itm.docno,
+        docdate : itm.docdate,
+        customer : itm.shipping.firstname + ' ' + itm.shipping.lastname + ' (' + itm.shipping.tel + ')',
+        deliver : itm.namedeliver.displayName,
+        product : sub.product.name,
+        price : sub.price,
+        qty : sub.qty,
+        amount : sub.amount,
+        deliverycost : sub.deliverycost,
+        discount : sub.discountamount,
+        netamount : (sub.amount + sub.deliverycost) - sub.discountamount
+      });
     });
   });
   res.xls('data.xlsx', items);
