@@ -17,7 +17,8 @@ var config = require('../config'),
   helmet = require('helmet'),
   flash = require('connect-flash'),
   consolidate = require('consolidate'),
-  path = require('path');
+  path = require('path'),
+  json2xls = require('json2xls');
 
 /**
  * Initialize local variables
@@ -91,6 +92,9 @@ module.exports.initMiddleware = function (app) {
   }));
   app.use(bodyParser.json());
   app.use(methodOverride());
+
+  //Add json2xls.middleware
+  app.use(json2xls.middleware);
 
   // Add the cookie parser and flash middleware
   app.use(cookieParser());
