@@ -922,8 +922,14 @@ exports.salereport = function (req, res, next) {
 };
 
 exports.excelreports = function (req, res, next) {
+  var items = [];
   var orderslist = req.orders ? req.orders : [];
-  res.xls('data.xlsx', orderslist);
+  orderslist.forEach(function(itm){
+    items.push({
+      docno : itm.docno
+    });
+  });
+  res.xls('data.xlsx', items);
   //res.jsonp({ orders: orderslist});
 
 };
