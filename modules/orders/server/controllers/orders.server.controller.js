@@ -923,7 +923,8 @@ exports.salereport = function (req, res, next) {
 
 exports.excelreports = function (req, res, next) {
   var orderslist = req.orders ? req.orders : [];
-  res.jsonp({ orders: orderslist});
+  res.xls('data.xlsx', orderslist);
+  //res.jsonp({ orders: orderslist});
 
 };
 
