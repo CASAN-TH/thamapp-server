@@ -659,7 +659,7 @@
                     <button type="text" class="btn buttonGreenForm btn-block">สถานะ : สั่งจอง</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'wait deliver'">
-                    <button type="text" class="btn buttonGrayForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })" >สถานะ : รอคนส่งข้าว</button>
+                    <button type="text" class="btn buttonGrayForm btn-block" ui-sref="orders.view({ orderId: vm.order._id })" >สถานะ : รอคนส่งข้าว</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'sent'">
                     <button type="text" class="btn buttonBlackForm btn-block">สถานะ : จัดส่ง</button>
