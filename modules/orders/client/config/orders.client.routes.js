@@ -113,7 +113,7 @@
           pageTitle: 'Edit Order {{ orderResolve.name }}'
         }
       })
-      .state('print', {
+      .state('orders.print', {
         url: '/:orderId/print',
         templateUrl: 'modules/orders/client/views/print-order.client.view.html',
         controller: 'OrdersController',
