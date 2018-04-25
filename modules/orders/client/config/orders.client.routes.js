@@ -114,7 +114,7 @@
         }
       })
       .state('orders.print', {
-        url: '/:orderId',
+        url: '/:orderId/print',
         templateUrl: 'modules/orders/client/views/print-order.client.view.html',
         controller: 'OrdersController',
         controllerAs: 'vm',
