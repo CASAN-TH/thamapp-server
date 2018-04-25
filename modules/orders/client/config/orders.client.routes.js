@@ -122,7 +122,7 @@
           orderResolve: getOrder
         },
         data: {
-          pageTitle: 'Order {{ orderResolve.name }}'
+          pageTitle: 'Print Order {{ orderResolve.name }}'
         }
       })
       .state('orders.view', {
