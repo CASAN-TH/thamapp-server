@@ -71,13 +71,18 @@
     };
 
     $scope.printDiv = function (divName) {
-      var printContents = document.getElementById(divName).innerHTML;
-      var popupWin = window.open('', '_blank', 'width=300,height=300');
-      popupWin.document.open();
-      popupWin.document.write('<html><head><link rel="stylesheet"  href="https://thamapp.herokuapp.com/lib/bootstrap/dist/css/bootstrap.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-      popupWin.document.close();
+      // var printContents = document.getElementById(divName).innerHTML;
+      // var popupWin = window.open('', '_blank', 'width=300,height=300');
+      // popupWin.document.open();
+      // popupWin.document.write('<html><head><link rel="stylesheet"  href="lib/bootstrap/dist/css/bootstrap.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+      // popupWin.document.close();
 
-      
+      var printContents = document.getElementById(divName).innerHTML;
+      var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
+      popupWin.window.focus();
+      popupWin.document.open();
+      popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title><link rel="stylesheet" type="text/css" href="https://thamapp.herokuapp.com/lib/bootstrap/dist/css/bootstrap.css" /></head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
+      popupWin.document.close();
     };
 
     if (vm.order.items) {
