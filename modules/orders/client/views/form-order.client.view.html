@@ -656,37 +656,37 @@
             <div class="row marginB">
 
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'confirmed'">
-                    <button type="text" class="btn buttonGreenForm btn-block">สถานะ : สั่งจอง</button>
+                    <button type="text" class="btn buttonGreenForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : สั่งจอง</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'wait deliver'">
                     <button type="text" class="btn buttonGrayForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })" >สถานะ : รอคนส่งข้าว</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'sent'">
-                    <button type="text" class="btn buttonBlackForm btn-block">สถานะ : จัดส่ง</button>
+                    <button type="text" class="btn buttonBlackForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : จัดส่ง</button>
                 </div>
 
 
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'accept'">
-                    <button type="text" class="btn buttonSkyForm btn-block">สถานะ : ยอมรับ</button>
+                    <button type="text" class="btn buttonSkyForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : ยอมรับ</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'reject'">
-                    <button type="text" class="btn buttonRedForm btn-block">สถานะ : ยกเลิก</button>
+                    <button type="text" class="btn buttonRedForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : ยกเลิก</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'pending'">
-                    <button type="text" class="btn buttonOrangeForm btn-block">สถานะ : รอตรวจสอบ</button>
+                    <button type="text" class="btn buttonOrangeForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : รอตรวจสอบ</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'paid'">
-                    <button type="text" class="btn buttonPurpleForm btn-block">สถานะ : จ่ายแล้ว</button>
+                    <button type="text" class="btn buttonPurpleForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : จ่ายแล้ว</button>
                 </div>
 
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'complete'">
-                    <button type="text" class="btn buttonBlackForm btn-block">สถานะ : สำเร็จ</button>
+                    <button type="text" class="btn buttonBlackForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : สำเร็จ</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'close'">
-                    <button type="text" class="btn buttonBlackForm btn-block">สถานะ : ปิดออเดอร์</button>
+                    <button type="text" class="btn buttonBlackForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : ปิดออเดอร์</button>
                 </div>
                 <div class="col-md-12" ng-show="vm.order.deliverystatus === 'cancel'">
-                    <button type="text" class="btn buttonGrayForm btn-block">สถานะ : ยกเลิกออเดอร์</button>
+                    <button type="text" class="btn buttonGrayForm btn-block" ui-sref="orders.print({ orderId: vm.order._id })">สถานะ : ยกเลิกออเดอร์</button>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
