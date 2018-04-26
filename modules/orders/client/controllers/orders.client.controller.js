@@ -81,7 +81,7 @@
       var popupWin = window.open('', '_blank', 'width=800,height=800,scrollbars=no,menubar=no,toolbar=no,location=no,status=no,titlebar=no,top=50');
       popupWin.window.focus();
       popupWin.document.open();
-      popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title><link rel="stylesheet" type="text/css" href="https://thamapp.herokuapp.com/lib/bootstrap/dist/css/bootstrap.css" /><link rel="stylesheet" href="https://thamapp.herokuapp.com/dist/application.min.css"/></head><body><div>' + printContents + '</div></html>');
+      popupWin.document.write('<!DOCTYPE html><html><head><title>TITLE OF THE PRINT OUT</title><link rel="stylesheet" type="text/css" href="https://thamapp.herokuapp.com/lib/bootstrap/dist/css/bootstrap.css" /><link rel="stylesheet" href="https://thamapp.herokuapp.com/dist/application.min.css"/></head><body onload="window.print(); window.close();"><div>' + printContents + '</div></html>');
       popupWin.document.close();
     };
 
