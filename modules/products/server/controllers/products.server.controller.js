@@ -131,7 +131,7 @@ exports.list = function (req, res) {
       .populate('user', 'displayName')
       //.where('category').equals('อาหาร') //อ่านเฉพาะรายการข้าว
       //.or([{ category: 'ข้าวสาร' }, { category: 'ผลไม้' }, { category: 'ผักใบ' }, { category: 'ผักผล' }])
-      .or([{ category: 'ข้าวสาร' }, { category: 'ผลไม้' }, { category: 'ผัก' }, { category: ' ผลิตภัณฑ์อุปโภค' }, { category: ' ผลิตภัณฑ์บริโภค' }])
+      .or([{ category: 'ข้าวสาร' }, { category: 'ผลไม้' }, { category: 'ผัก' }, { category: 'ผลิตภัณฑ์อุปโภค' }, { category: 'ผลิตภัณฑ์บริโภค' }])
       .exec(function (err, products) {
         if (err) {
           return res.status(400).send({
