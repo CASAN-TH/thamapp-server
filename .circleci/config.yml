@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.11.1
+      - image: circleci/mongo:3.4.4
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+
+      - restore_cache:
+          keys:
+          - v1-bower-{{ checksum "bower.json" }}
+ 
+      - run: 
+          name: Install package
+          command: npm install 
+
+      - run:
+          name: Install gulp-cli
+          command: sudo npm install -g gulp
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - save_cache:
+          paths:
+            - public/lib
+          key: v1-bower-{{ checksum "bower.json" }}
+      - run:
+          name: Run unit tests
+          command: gulp test:server
+
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
