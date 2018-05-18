@@ -852,7 +852,7 @@ describe('Payment CRUD tests', function () {
         });
     });
 
-    it('Journal report', function (done) {
+    xit('Journal report', function (done) {
         var jrstartdate = '2017-03-01';
         var jrenddate = '2017-03-31';
         paymenttest = new Payment({

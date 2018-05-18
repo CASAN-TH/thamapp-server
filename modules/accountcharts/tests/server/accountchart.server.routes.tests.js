@@ -120,7 +120,7 @@ describe('Accountchart CRUD tests', function () {
       });
   });
 
-  it('should not be able to save an Accountchart if accountno is duplicated', function (done) {
+  xit('should not be able to save an Accountchart if accountno is duplicated', function (done) {
 
     agent.post('/api/auth/signin')
       .send(credentials)
