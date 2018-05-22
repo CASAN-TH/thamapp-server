@@ -928,8 +928,10 @@ exports.excelreports = function (req, res, next) {
     itm.items.forEach(function(sub){
       items.push({
         docno : itm.docno,
-        docdate : itm.docdate,
-        customer : itm.shipping.firstname + ' ' + itm.shipping.lastname + ' (' + itm.shipping.tel + ')',
+        docdate : formatDate(itm.docdate),
+        customer : itm.shipping.firstname + ' ' + itm.shipping.lastname,
+        address : itm.shipping.address + ' ' + itm.shipping.subdistrict + ' ' + itm.shipping.district + ' ' + itm.shipping.province + itm.shipping.postcode,
+        tel : itm.shipping.tel,
         deliver : itm.namedeliver.displayName,
         product : sub.product.name,
         price : sub.price,
@@ -1707,4 +1709,16 @@ function subCreateOrder(orderId, user) {
       console.log('Error: ', response.body.error);
     }
   });
+}
+
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
 }
