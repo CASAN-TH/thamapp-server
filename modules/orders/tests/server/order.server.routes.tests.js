@@ -975,7 +975,7 @@ describe('Order CRUD tests', function () {
 
   });
 
-  it('save Order auto namedeliver', function (done) {
+  xit('save Order auto namedeliver', function (done) {
     var orderObj = new Order(order); //src คนลงขัน
     var orderObj2 = new Order(order); //src ios
 
@@ -1605,6 +1605,8 @@ describe('Order CRUD tests', function () {
   //       done();
   //     });
   // });
+
+
 
   afterEach(function (done) {
     User.remove().exec(function () {
