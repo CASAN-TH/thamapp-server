@@ -895,7 +895,11 @@ exports.orderByID = function (req, res, next, id) {
 exports.startdate = function (req, res, next, enddate) {
   var end = new Date(enddate);
   var startdate = req.startdate;
-  Order.find({ created: { $gte: startdate, $lte: end }, deliverystatus: { $ne: 'cancel' } }).sort('created').populate('user').populate('items.product').populate('namedeliver').exec(function (err, orders) {
+  Order.find({ created: { $gte: startdate, $lte: end }, deliverystatus: { $ne: 'cancel' } })
+  .sort('created').populate('user')
+  .populate('items.product')
+  .populate('namedeliver')
+  .exec(function (err, orders) {
     if (err) {
       return next(err);
     } else if (!orders) {
@@ -932,7 +936,7 @@ exports.excelreports = function (req, res, next) {
         customer : itm.shipping.firstname + ' ' + itm.shipping.lastname,
         address : itm.shipping.address + ' ' + itm.shipping.subdistrict + ' ' + itm.shipping.district + ' ' + itm.shipping.province + itm.shipping.postcode,
         tel : itm.shipping.tel,
-        deliver : itm.namedeliver.displayName,
+        deliver : itm.namedeliver ? itm.namedeliver.displayName : 'deliver is error',
         product : sub.product.name,
         price : sub.price,
         qty : sub.qty,
