@@ -18,7 +18,7 @@ var user,
 /**
  * Unit tests
  */
-describe('Campaign Model Unit Tests:', function () {
+xdescribe('Campaign Model Unit Tests:', function () {
     beforeEach(function (done) {
         user = new User({
             firstName: 'Full',

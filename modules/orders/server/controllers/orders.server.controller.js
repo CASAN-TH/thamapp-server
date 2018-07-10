@@ -462,10 +462,15 @@ exports.create = function (req, res) {
           });
         } else {
           // sendNewOrder();
-          subCreateOrder(orders._id, req.user);
           // if (orders && orders.usernearby.length > 0) {
           //   sendNewdeliverOrder(req.tokens);
           // }
+
+
+          //ส่ง Order ไปหลังร้าน เพื่อหาครส่ง
+          // ปิด Admin bot (10/07/2018)
+          //subCreateOrder(orders._id, req.user);
+
           res.jsonp(orders);
         }
       });
