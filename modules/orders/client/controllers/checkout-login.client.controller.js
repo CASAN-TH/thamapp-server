@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -30,21 +30,21 @@
             $scope.newAddress.status = true;
         }
         $scope.chkLongan = false;
-        vm.cart.items.forEach(function(itm) {
+        vm.cart.items.forEach(function (itm) {
             if (itm.product._id === '5970c9594ffca31000edb499') {
                 $scope.chkLongan = true;
             }
         });
 
         // Update a user profile
-        vm.clear = function() {
+        vm.clear = function () {
             vm.cart.clear();
-            $timeout(function() {
+            $timeout(function () {
                 $state.go('home');
             }, 400);
         };
 
-        vm.saveprod = function() {
+        vm.saveprod = function () {
             if (vm.order.shipping.sharelocation) {
                 vm.order.shipping.sharelocation = vm.order.shipping.sharelocation;
             } else {
@@ -60,7 +60,7 @@
             // vm.order.discountpromotion = vm.result || 0;
             // products
             var getItems = vm.cart.items;
-            getItems.forEach(function(item) {
+            getItems.forEach(function (item) {
                 item.deliverycost += item.qty * 150;
                 vm.order.items.push(item);
             });
@@ -91,7 +91,7 @@
 
             var fullAddress = vm.order.shipping.address.replace(' ', '+') + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
-            $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function(response) {
+            $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
                 if (response.status.toUpperCase() === 'OK') {
                     vm.order.shipping.sharelocation.latitude = response.results[0].geometry.location.lat;
                     vm.order.shipping.sharelocation.longitude = response.results[0].geometry.location.lng;
@@ -114,14 +114,14 @@
                         $scope.authentication.user.address.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
                         var user = new Users($scope.authentication.user);
 
-                        user.$update(function(response) {
+                        user.$update(function (response) {
                             console.log('update user profile success');
-                        }, function(response) {
+                        }, function (response) {
                             console.log(response.data.message);
                         });
                     }
                     vm.cart.clear();
-                    $timeout(function() {
+                    $timeout(function () {
                         $state.go('complete', {
                             orderId: res._id
                         });
@@ -131,12 +131,12 @@
                 function errorCallback(res) {
                     vm.error = res.data.message;
                 }
-            }).error(function(err) {
+            }).error(function (err) {
                 console.log(err);
             });
         };
 
-        $scope.checkStep = function(isValid) {
+        $scope.checkStep = function (isValid) {
             if (!isValid) {
                 $scope.$broadcast('show-errors-check-validity', 'vm.form.checkoutForm');
                 return false;
@@ -157,18 +157,30 @@
                     var postcode = '';
                     var province = '';
                     if (!$scope.newAddress.status) {
-                        postcode = $scope.user.address.postcode ? $scope.user.address.postcode : '';
-                        province = $scope.user.address.province ? $scope.user.address.province : '';
+                        if ($scope.user.address) {
+                            postcode = $scope.user.address.postcode ? $scope.user.address.postcode : '';
+                            province = $scope.user.address.province ? $scope.user.address.province : '';
+                        }else{
+                            postcode = $scope.authentication.user.address.postcode || '';
+                            province = $scope.authentication.user.address.province || '';
+                        }
+
                     } else {
-                        postcode = vm.order.shipping.postcode ? vm.order.shipping.postcode : '';
-                        province = vm.order.shipping.province ? vm.order.shipping.province : '';
+                        if(vm.order.shipping){
+                            postcode = vm.order.shipping.postcode ? vm.order.shipping.postcode : '';
+                            province = vm.order.shipping.province ? vm.order.shipping.province : '';
+                        }else{
+                            postcode = '';
+                            province = '';
+                        }
+                       
                     }
 
                     if (province === 'กรุงเทพมหานคร') {
                         $scope.saveOrder();
                     } else {
                         // alert('postcode' + postcode);
-                        $http.get('/api/checkPostcode/' + postcode).success(function(res) {
+                        $http.get('/api/checkPostcode/' + postcode).success(function (res) {
                             vm.order.inarea = res.area;
                             if (res.area) {
                                 $scope.saveOrder();
@@ -180,7 +192,7 @@
                                 $scope.deliverycostfalse = 0;
                                 $scope.discountamountfalse = 0;
 
-                                vm.cart.items.forEach(function(item) {
+                                vm.cart.items.forEach(function (item) {
                                     console.log(vm.cart.items);
                                     $scope.pricefalse += item.price * item.qty;
                                     $scope.deliverycostfalse += item.qty * 150;
@@ -192,7 +204,7 @@
 
                             }
 
-                        }).error(function(res) {
+                        }).error(function (res) {
 
                         });
                     }
@@ -204,7 +216,7 @@
             }
         };
 
-        $scope.signup = function(isValid) {
+        $scope.signup = function (isValid) {
             $scope.authentication.password = 'Usr#Pass1234';
             $scope.authentication.email = $scope.authentication.username + '@thamapp.com';
             $scope.authentication.address.tel = $scope.authentication.username;
@@ -216,18 +228,18 @@
                 return false;
             }
 
-            $http.post('/api/auth/signup', $scope.authentication).success(function(response) {
+            $http.post('/api/auth/signup', $scope.authentication).success(function (response) {
                 // If successful we assign the response to the global user model
                 $scope.authentication.user = response;
                 // $scope.step += 1;
                 // And redirect to the previous or home page
-            }).error(function(response) {
+            }).error(function (response) {
                 //$scope.error = response.message;
 
             });
         };
 
-        $scope.signin = function(isValid) {
+        $scope.signin = function (isValid) {
             $scope.error = null;
             if (!vm.isMember) {
                 $scope.authentication.password = 'Usr#Pass1234';
@@ -238,11 +250,11 @@
                 return false;
             }
 
-            $http.post('/api/auth/signin', $scope.authentication).success(function(response) {
+            $http.post('/api/auth/signin', $scope.authentication).success(function (response) {
                 // If successful we assign the response to the global user model
                 $scope.authentication.user = response;
                 $scope.step += 1;
-            }).error(function(response) {
+            }).error(function (response) {
                 $scope.error = response.message;
                 if (!vm.isMember) {
                     $scope.step += 1;
@@ -250,15 +262,15 @@
             });
         };
 
-        $scope.callbackOrder = function(postcode) {
+        $scope.callbackOrder = function (postcode) {
             $scope.checkAutocomplete(postcode, true);
         };
 
-        $scope.callback = function(postcode) {
+        $scope.callback = function (postcode) {
             $scope.checkAutocomplete(postcode);
         };
 
-        $scope.checkAutocomplete = function(postcode, order) {
+        $scope.checkAutocomplete = function (postcode, order) {
             if (order) {
                 if (postcode) {
                     vm.order.shipping.district = postcode.district;
@@ -292,7 +304,7 @@
             }
         };
 
-        $scope.updateUserProfile = function(data) {
+        $scope.updateUserProfile = function (data) {
             $scope.user.address = $scope.authentication.user.address ? $scope.authentication.user.address : {};
             $scope.user.address.address = data.address;
             $scope.user.address.district = data.district;
@@ -302,23 +314,23 @@
             $scope.user.address.tel = data.tel;
             var user = new Users($scope.user);
 
-            user.$update(function(response) {
+            user.$update(function (response) {
                 $scope.$broadcast('show-errors-reset', 'userForm');
 
                 $scope.success = true;
                 Authentication.user = response;
-            }, function(response) {
+            }, function (response) {
                 $scope.error = response.data.message;
             });
         };
 
         // vm.checklocation = function () {
 
-        $scope.chkStatus = function(status) {
+        $scope.chkStatus = function (status) {
             $scope.newAddress = { status: status };
         };
 
-        $scope.saveOrder = function() {
+        $scope.saveOrder = function () {
             if (vm.order.shipping.sharelocation) {
                 vm.order.shipping.sharelocation = vm.order.shipping.sharelocation;
             } else {
@@ -334,7 +346,7 @@
             // vm.order.discountpromotion = vm.result || 0;
             // products
             var getItems = vm.cart.items;
-            getItems.forEach(function(item) {
+            getItems.forEach(function (item) {
                 vm.order.items.push(item);
             });
             // address contact
@@ -364,7 +376,7 @@
 
             var fullAddress = vm.order.shipping.address.replace(' ', '+') + '+' + vm.order.shipping.subdistrict + '+' + vm.order.shipping.district + '+' + vm.order.shipping.province + '+' + vm.order.shipping.postcode;
 
-            $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function(response) {
+            $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + fullAddress + '&key=AIzaSyATqyCgkKXX1FmgzQJmBMw1olkYYEN7lzE').success(function (response) {
                 if (response.status.toUpperCase() === 'OK') {
                     vm.order.shipping.sharelocation.latitude = response.results[0].geometry.location.lat;
                     vm.order.shipping.sharelocation.longitude = response.results[0].geometry.location.lng;
@@ -387,9 +399,9 @@
                         $scope.authentication.user.address.tel = vm.order.shipping.tel || $scope.authentication.user.address.tel;
                         var user = new Users($scope.authentication.user);
 
-                        user.$update(function(response) {
+                        user.$update(function (response) {
                             console.log('update user profile success');
-                        }, function(response) {
+                        }, function (response) {
                             console.log(response.data.message);
                         });
                     }
@@ -402,13 +414,13 @@
                 function errorCallback(res) {
                     vm.error = res.data.message;
                 }
-            }).error(function(err) {
+            }).error(function (err) {
                 console.log(err);
             });
         };
         // $scope.postcode = [{ name: 'test' }];
         // OAuth provider request
-        $scope.callOauthProvider = function(url) {
+        $scope.callOauthProvider = function (url) {
             // if ($state.previous && $state.previous.href) {
             //   url += '?redirect_to=' + encodeURIComponent($state.previous.href);
             // }
@@ -418,7 +430,7 @@
             $window.location.href = url;
         };
 
-        $scope.init = function() {
+        $scope.init = function () {
             $scope.postcodeQuery = PostcodesService.query();
             $scope.postcode = $scope.postcodeQuery;
         };
