@@ -285,12 +285,12 @@
 
         vm.returnorder.shipping = {
           firstname: 'บริษัท ธรรมธุรกิจ',
-          lastname: 'เทรดดิ้ง จำกัด',
-          address: '11 ซอย พระราม9 60(ซอย 6 เสรี8)',
-          postcode: '10250',
+          lastname: 'ชาวนาธรรมชาติ จำกัด',
+          address: '8/2 หมู่ 4 ดอนฉิมพลี บางน้ำเปรี้ยว ฉะเชิงเทรา',
+          postcode: '24170',
           subdistrict: '-',
-          province: 'กรุงเทพมหานคร',
-          district: 'สวนหลวง',
+          province: 'ฉะเชิงเทรา',
+          district: 'บางน้ำเปรี้ยว',
           tel: '-',
           email: '-'
         };

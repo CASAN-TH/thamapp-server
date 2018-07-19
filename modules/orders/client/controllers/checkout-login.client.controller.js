@@ -157,6 +157,8 @@
                     var postcode = '';
                     var province = '';
                     if (!$scope.newAddress.status) {
+                        console.log("============================================");
+                        console.log($scope.user);
                         if ($scope.user.address) {
                             postcode = $scope.user.address.postcode ? $scope.user.address.postcode : '';
                             province = $scope.user.address.province ? $scope.user.address.province : '';
