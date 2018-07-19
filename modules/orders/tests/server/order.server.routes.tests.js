@@ -1376,7 +1376,7 @@ describe('Order CRUD tests', function () {
       });
   });
 
-  it('save order no orderbridge', function (done) {
+  xit('save order no orderbridge', function (done) {
     var bridge = {
       docno: (+new Date()),
       docdate: new Date(),
