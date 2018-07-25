@@ -941,6 +941,7 @@ exports.excelreports = function (req, res, next) {
         customer : itm.shipping.firstname + ' ' + itm.shipping.lastname,
         address : itm.shipping.address + ' ' + itm.shipping.subdistrict + ' ' + itm.shipping.district + ' ' + itm.shipping.province + itm.shipping.postcode,
         tel : itm.shipping.tel,
+        status: itm.deliverystatus,
         deliver : itm.namedeliver ? itm.namedeliver.displayName : 'deliver is error',
         product : sub.product.name,
         price : sub.price,
