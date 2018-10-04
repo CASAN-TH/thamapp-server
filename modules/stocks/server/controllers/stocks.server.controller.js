@@ -337,7 +337,7 @@ exports.list = function(req, res) {
 exports.getStocksReceipted = function(req, res, next) {
   Requestorder.find(
     {
-      "deliverystatus": "received",
+      deliverystatus: "received",
       "historystatus.status": "received",
       "historystatus.datestatus": { $lte: new Date(req.enddate) }
     },
@@ -353,28 +353,29 @@ exports.getStocksReceipted = function(req, res, next) {
       }
     }
   )
+    .populate("items.product")
+    .populate("namedeliver")
     .lean()
     .sort({
       created: -1
     });
 };
 
-exports.respone = function (req, res) {
+exports.respone = function(req, res) {
   return res.jsonp({
-      status: 200,
-      data: req.data
+    status: 200,
+    data: req.data
   });
 };
 
 exports.setConditionStock = function(req, res, next, enddate) {
-  if(enddate){
+  if (enddate) {
     req.enddate = enddate;
     next();
-  }else{
+  } else {
     return res.status(400).send({
       status: 400,
-      message: 'date is null!!!'
+      message: "date is null!!!"
     });
   }
-  
 };
