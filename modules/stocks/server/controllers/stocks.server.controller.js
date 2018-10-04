@@ -338,7 +338,8 @@ exports.getStocksReceipted = function(req, res, next) {
   Requestorder.find(
     {
       "deliverystatus": "received",
-      "historystatus.status": "received"
+      "historystatus.status": "received",
+      "historystatus.datestatus": { $lte: req.enddate }
     },
     function(err, data) {
       if (err) {
