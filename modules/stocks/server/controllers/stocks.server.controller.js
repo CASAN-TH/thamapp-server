@@ -339,7 +339,7 @@ exports.getStocksReceipted = function(req, res, next) {
     {
       "deliverystatus": "received",
       "historystatus.status": "received",
-      "historystatus.datestatus": { $lte: req.enddate }
+      "historystatus.datestatus": { $lte: new Date(req.enddate) }
     },
     function(err, data) {
       if (err) {
@@ -367,6 +367,14 @@ exports.respone = function (req, res) {
 };
 
 exports.setConditionStock = function(req, res, next, enddate) {
-  req.enddate = enddate;
-  next();
+  if(enddate){
+    req.enddate = enddate;
+    next();
+  }else{
+    return res.status(400).send({
+      status: 400,
+      message: 'date is null!!!'
+    });
+  }
+  
 };
