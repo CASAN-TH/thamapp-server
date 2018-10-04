@@ -362,7 +362,7 @@ exports.respone = function (req, res) {
   return res.jsonp({
       status: 200,
       data: req.data
-  })
+  });
 };
 
 exports.setConditionStock = function(req, res, next, enddate) {
