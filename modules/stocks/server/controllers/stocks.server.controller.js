@@ -431,37 +431,37 @@ exports.cookingStock = function(req, res, next) {
     });
   });
   
-  // var returnords = req.dataReturned;
-  // returnords.forEach(function(returnord) {
-  //   returnord.items.forEach(function(itm) {
-  //     var stock = {
-  //       docno: returnord.docno,
-  //       docdate: returnord.docdate,
-  //       namedeliver: returnord.namedeliver,
-  //       product: itm.product.name,
-  //       income: 0,
-  //       return: itm.qty,
-  //       ap: 0
-  //     };
-  //     stocks.push(stock);
-  //   });
-  // });
+  var returnords = req.dataReturned;
+  returnords.forEach(function(returnord) {
+    returnord.items.forEach(function(itm) {
+      var stock = {
+        docno: returnord.docno,
+        docdate: returnord.docdate,
+        namedeliver: returnord.namedeliver ? returnord.namedeliver.displayName : "",
+        product: itm.product ?  itm.product.name : "",
+        income: 0,
+        return: itm.qty,
+        ap: 0
+      };
+      stocks.push(stock);
+    });
+  });
 
-  // var aps = req.dataAP;
-  // aps.forEach(function(ap) {
-  //   ap.items.forEach(function(itm) {
-  //     var stock = {
-  //       docno: ap.docno,
-  //       docdate: ap.docdate,
-  //       namedeliver: ap.namedeliver,
-  //       product: itm.product.name,
-  //       income: 0,
-  //       return: 0,
-  //       ap: itm.qty
-  //     };
-  //     stocks.push(stock);
-  //   });
-  // });
+  var aps = req.dataAP;
+  aps.forEach(function(ap) {
+    ap.items.forEach(function(itm) {
+      var stock = {
+        docno: ap.docno,
+        docdate: ap.docdate,
+        namedeliver: ap.namedeliver ? ap.namedeliver.displayName : "",
+        product: itm.product ?  itm.product.name : "",
+        income: 0,
+        return: 0,
+        ap: itm.qty
+      };
+      stocks.push(stock);
+    });
+  });
 
   req.data = stocks;
   next();
