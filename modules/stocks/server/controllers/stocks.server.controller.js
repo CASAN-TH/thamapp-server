@@ -415,21 +415,21 @@ exports.getStockAP = function(req, res, next) {
 
 exports.cookingStock = function(req, res, next) {
   var stocks = [];
-  // var incomes = req.dataReceipted;
-  // incomes.forEach(function(income) {
-  //   income.items.forEach(function(itm) {
-  //     var stock = {
-  //       docno: income.docno,
-  //       docdate: income.docdate,
-  //       namedeliver: income.namedeliver,
-  //       product: itm.product.name,
-  //       income: itm.qty,
-  //       return: 0,
-  //       ap: 0
-  //     };
-  //     stocks.push(stock);
-  //   });
-  // });
+  var incomes = req.dataReceipted;
+  incomes.forEach(function(income) {
+    income.items.forEach(function(itm) {
+      var stock = {
+        docno: income.docno,
+        docdate: income.docdate,
+        namedeliver: income.namedeliver,
+        product: itm.product,
+        income: itm.qty,
+        return: 0,
+        ap: 0
+      };
+      stocks.push(stock);
+    });
+  });
   
   // var returnords = req.dataReturned;
   // returnords.forEach(function(returnord) {
