@@ -448,7 +448,7 @@ exports.cookingStock = function(req, res, next) {
 
   var aps = req.dataAP;
   aps.forEach(function(ap) {
-    returnord.items.forEach(function(itm) {
+    ap.items.forEach(function(itm) {
       var stock = {
         docno: ap.docno,
         docdate: ap.docdate,
