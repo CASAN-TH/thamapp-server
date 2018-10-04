@@ -463,7 +463,7 @@ exports.cookingStock = function(req, res, next) {
   });
 
   req.data = stocks;
-
+  next();
 };
 
 exports.respone = function(req, res) {
