@@ -11,6 +11,9 @@ module.exports = function(app) {
   app.route('/api/stocks').all(stocksPolicy.isAllowed)
     .get(stocks.list);
 
+  app.route('/api/stocks/:enddate')
+    .get(stocks.getStocksReceipted, stocks.respone);
+
   // app.route('/api/stocks/:stockId').all(stocksPolicy.isAllowed)
   //   .get(stocks.read)
   //   .put(stocks.update)
@@ -18,4 +21,5 @@ module.exports = function(app) {
 
   // Finish by binding the Stock middleware
   // app.param('stockId', stocks.stockByID);
+  app.param('enddate', stocks.setConditionStock);
 };
