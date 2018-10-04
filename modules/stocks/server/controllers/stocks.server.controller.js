@@ -421,7 +421,7 @@ exports.cookingStock = function(req, res, next) {
       var stock = {
         docno: income.docno,
         docdate: income.docdate,
-        namedeliver: income.namedeliver,
+        namedeliver: income.namedeliver.displayName,
         product: itm.product,
         income: itm.qty,
         return: 0,
