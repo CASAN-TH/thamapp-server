@@ -12,7 +12,7 @@ module.exports = function(app) {
     .get(stocks.list);
 
   app.route('/api/stocks/:enddate')
-    .get(stocks.getStocksReceipted, stocks.respone);
+    .get(stocks.getStocksReceipted, stocks.getStockReturned, stocks.getStockAP, stocks.respone);
 
   // app.route('/api/stocks/:stockId').all(stocksPolicy.isAllowed)
   //   .get(stocks.read)
