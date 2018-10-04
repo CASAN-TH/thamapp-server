@@ -8,6 +8,7 @@ var path = require("path"),
   Stock = mongoose.model("Stock"),
   User = mongoose.model("User"),
   Order = mongoose.model("Order"),
+  Accuralreceipt = mongoose.model("Accuralreceipt"),
   Requestorder = mongoose.model("Requestorder"),
   Returnorder = mongoose.model("Returnorder"),
   errorHandler = require(path.resolve(
@@ -338,8 +339,7 @@ exports.getStocksReceipted = function(req, res, next) {
   Requestorder.find(
     {
       deliverystatus: "received",
-      "historystatus.status": "received",
-      "historystatus.datestatus": { $lte: new Date(req.enddate) }
+      docdate: { $lte: new Date(req.enddate) }
     },
     function(err, data) {
       if (err) {
@@ -348,7 +348,7 @@ exports.getStocksReceipted = function(req, res, next) {
           message: errorHandler.getErrorMessage(err)
         });
       } else {
-        req.data = data;
+        req.dataReceipted = data;
         next();
       }
     }
@@ -359,6 +359,111 @@ exports.getStocksReceipted = function(req, res, next) {
     .sort({
       created: -1
     });
+};
+
+exports.getStockReturned = function(req, res, next) {
+  Returnorder.find(
+    {
+      deliverystatus: "received",
+      docdate: { $lte: new Date(req.enddate) }
+    },
+    function(err, data) {
+      if (err) {
+        return res.status(400).send({
+          status: 400,
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.dataReturned = data;
+        next();
+      }
+    }
+  )
+    .populate("items.product")
+    .populate("namedeliver")
+    .lean()
+    .sort({
+      created: -1
+    });
+};
+
+exports.getStockAP = function(req, res, next) {
+  Accuralreceipt.find(
+    {
+      arstatus: "confirmed",
+      docdate: { $lte: new Date(req.enddate) }
+    },
+    function(err, data) {
+      if (err) {
+        return res.status(400).send({
+          status: 400,
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        req.dataAP = data;
+        next();
+      }
+    }
+  )
+    .populate("items.product")
+    .populate("namedeliver")
+    .lean()
+    .sort({
+      created: -1
+    });
+};
+
+exports.cookingStock = function(req, res, next) {
+  var stocks = [];
+  var incomes = req.dataReceipted;
+  incomes.forEach(function(income) {
+    income.items.forEach(function(itm) {
+      var stock = {
+        docno: income.docno,
+        docdate: income.docdate,
+        namedeliver: income.namedeliver,
+        product: itm.product.name,
+        income: itm.qty,
+        return: 0,
+        ap: 0
+      };
+      stocks.push(stock);
+    });
+  });
+  var returnords = req.dataReturned;
+  returnords.forEach(function(returnord) {
+    returnord.items.forEach(function(itm) {
+      var stock = {
+        docno: returnord.docno,
+        docdate: returnord.docdate,
+        namedeliver: returnord.namedeliver,
+        product: itm.product.name,
+        income: 0,
+        return: itm.qty,
+        ap: 0
+      };
+      stocks.push(stock);
+    });
+  });
+
+  var aps = req.dataAP;
+  aps.forEach(function(ap) {
+    returnord.items.forEach(function(itm) {
+      var stock = {
+        docno: ap.docno,
+        docdate: ap.docdate,
+        namedeliver: ap.namedeliver,
+        product: itm.product.name,
+        income: 0,
+        return: 0,
+        ap: itm.qty
+      };
+      stocks.push(stock);
+    });
+  });
+
+  req.data = stocks;
+
 };
 
 exports.respone = function(req, res) {
