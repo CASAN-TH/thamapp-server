@@ -390,7 +390,6 @@ exports.getStockReturned = function(req, res, next) {
 exports.getStockAP = function(req, res, next) {
   Accuralreceipt.find(
     {
-      arstatus: "confirmed",
       docdate: { $lte: new Date(req.enddate) }
     },
     function(err, data) {
