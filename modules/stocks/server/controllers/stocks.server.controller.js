@@ -388,8 +388,9 @@ exports.getStockReturned = function(req, res, next) {
 };
 
 exports.getStockAP = function(req, res, next) {
-  Accuralreceipt.find(
+  Order.find(
     {
+      deliverystatus: "ap",
       docdate: { $lte: new Date(req.enddate) }
     },
     function(err, data) {
