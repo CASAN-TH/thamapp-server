@@ -355,6 +355,7 @@ exports.getStocksReceipted = function(req, res, next) {
   )
     .populate("items.product")
     .populate("namedeliver")
+    .populate("transport")
     .lean()
     .sort({
       created: -1
@@ -381,6 +382,7 @@ exports.getStockReturned = function(req, res, next) {
   )
     .populate("items.product")
     .populate("namedeliver")
+    .populate("transport")
     .lean()
     .sort({
       created: -1
@@ -420,8 +422,9 @@ exports.cookingStock = function(req, res, next) {
     income.items.forEach(function(itm) {
       var stock = {
         docno: income.docno,
-        docdate: income.docdate,
+        docdate: formatDate(income.docdate),
         namedeliver: income.namedeliver ? income.namedeliver.displayName : "",
+        transporter: income.transport ? income.transport.displayName : "",
         product: itm.product ? itm.product.name : "",
         income: itm.qty,
         return: 0,
@@ -436,8 +439,9 @@ exports.cookingStock = function(req, res, next) {
     returnord.items.forEach(function(itm) {
       var stock = {
         docno: returnord.docno,
-        docdate: returnord.docdate,
+        docdate: formatDate(returnord.docdate),
         namedeliver: returnord.namedeliver ? returnord.namedeliver.displayName : "",
+        transporter: returnord.transport ? returnord.transport.displayName : "",
         product: itm.product ?  itm.product.name : "",
         income: 0,
         return: itm.qty,
@@ -452,8 +456,9 @@ exports.cookingStock = function(req, res, next) {
     ap.items.forEach(function(itm) {
       var stock = {
         docno: ap.docno,
-        docdate: ap.docdate,
+        docdate: formatDate(ap.docdate),
         namedeliver: ap.namedeliver ? ap.namedeliver.displayName : "",
+        transporter: "",
         product: itm.product ?  itm.product.name : "",
         income: 0,
         return: 0,
@@ -486,3 +491,15 @@ exports.setConditionStock = function(req, res, next, enddate) {
     });
   }
 };
+
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
